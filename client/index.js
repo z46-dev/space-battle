@@ -27,7 +27,7 @@
     const camera = {
         x: 0,
         y: 0,
-        zoom: .5
+        zoom:.5
     };
 
     function uiScale() {
@@ -48,243 +48,206 @@
     window.addEventListener("resize", resize);
     resize();
 
-    class Vector {
-        constructor(x = 0, y = 0) {
-            this.x = x;
-            this.y = y;
-        }
+    const worker = new Worker("./server/index.js", {
+        type: "module"
+    });
 
-        get length() {
-            return Math.sqrt(this.x * this.x + this.y * this.y);
-        }
+    const ships = new Map();
+    const projectiles = new Map();
 
-        get angle() {
-            return Math.atan2(this.y, this.x);
-        }
-    }
+    worker.onmessage = event => {
+        const data = event.data;
 
-    class Hardpoint {
-        constructor(ship, config) {
-            this.ship = ship;
+        const newShips = [];
+        const newProjectiles = [];
 
-            const vector = new Vector(config.y, config.x);
+        const shipsSize = data.shift();
+        const projectilesSize = data.shift();
 
-            this.offset = vector.length;
-            this.direction = vector.angle;
+        for (let i = 0; i < shipsSize; i ++) {
+            const ship = {
+                id: data.shift(),
+                x: data.shift(),
+                y: data.shift(),
+                angle: data.shift(),
+                size: data.shift(),
+                health: data.shift(),
+                shield: data.shift(),
+                hardpoints: []
+            };
 
-            this.reload = config.weapon.reload;
-            this.tick = Math.random() * -this.reload | 0;
-            this.damage = config.weapon.damage;
-            this.speed = config.weapon.speed;
-            this.range = config.weapon.range;
+            const hardpointsSize = data.shift();
 
-            this.target = null;
-        }
-
-        get x() {
-            return this.ship.x + this.ship.size / 2 * this.offset * Math.cos(this.direction);
-        }
-
-        get y() {
-            return this.ship.y + this.ship.size / 2 * this.offset * Math.sin(this.direction);
-        }
-
-        findTarget() {
-            // Find a hardpoint of a ship that is within our range
-            if (this.target !== null) {
-                // Validate range
-                if (this.target.health <= 0 || this.target.distanceTo(this.ship) > this.range) {
-                    this.target = null;
-                }
+            for (let j = 0; j < hardpointsSize; j ++) {
+                ship.hardpoints.push({
+                    offset: data.shift(),
+                    direction: data.shift(),
+                    health: data.shift()
+                });
             }
 
-            if (this.target === null) {
-                for (const ship of Ship.ships.values()) {
-                    if (ship === this.ship) {
-                        continue;
-                    }
-
-                    if (ship.distanceTo(this.ship) <= this.range) {
-                        this.target = ship.hardpoints[Math.random() * ship.hardpoints.length | 0];
-                        break;
-                    }
-                }
-            }
+            newShips.push(ship);
         }
 
-        distanceTo(ship) {
-            const dx = this.ship.x - ship.x;
-            const dy = this.ship.y - ship.y;
-
-            return Math.sqrt(dx * dx + dy * dy);
-        }
-
-        update() {
-            this.findTarget();
-
-            if (this.target !== null) {
-                this.tick ++;
-
-                if (this.tick >= this.reload) {
-                    this.tick = 0;
-
-                    const dx = this.target.ship.x - this.ship.x;
-                    const dy = this.target.ship.y - this.ship.y;
-
-                    const angle = Math.atan2(dy, dx);
-
-                    const projectile = new Projectile(this.ship, this, angle);
-                    projectile.x = this.x;
-                    projectile.y = this.y;
-                    projectile.target = this.target;
-                }
-            }
-        }
-    }
-
-    class Projectile {
-        static projectiles = new Map();
-
-        constructor(ship, hardpoint, angle) {
-            this.ship = ship;
-            this.hardpoint = hardpoint;
-
-            this.x = 0;
-            this.y = 0;
-
-            this.angle = angle;
-            this.speed = hardpoint.speed;
-
-            this.target = null;
-            this.range = hardpoint.range + this.speed * 10;
-
-            Projectile.projectiles.set(this, this);
-        }
-
-        update() {
-            this.x += Math.cos(this.angle) * this.speed;
-            this.y += Math.sin(this.angle) * this.speed;
-
-            this.range -= this.speed;
-
-            if (this.range <= 0) {
-                Projectile.projectiles.delete(this);
-            }
-
-            if (this.target !== null) {
-                const dx = this.target.ship.x - this.ship.x;
-                const dy = this.target.ship.y - this.ship.y;
-
-                const dist = Math.sqrt(dx * dx + dy * dy);
-
-                if (dist <= this.speed) {
-                    this.target.ship.shield -= this.hardpoint.damage;
-
-                    Projectile.projectiles.delete(this);
-                }
-            }
-
-            ctx.save();
-            ctx.translate(this.ship.x, this.ship.y);
-            ctx.rotate(this.angle);
-            ctx.fillStyle = "#00FF00";
-            ctx.fillRect(this.x - 2, this.y - 2, 4, 4);
-            ctx.restore();
-        }
-
-        distanceTo(ship) {
-            const dx = this.ship.x - ship.x;
-            const dy = this.ship.y - ship.y;
-
-            return Math.sqrt(dx * dx + dy * dy);
-        }
-    }
-
-    class Ship {
-        static ships = new Map();
-        static id = 0;
-
-        constructor(name) {
-            this.id = Ship.id++;
-
-            this.x = 0;
-            this.y = 0;
-            this.angle = 0;
-            this.size = config.ships[name].size;
-            this.hardpoints = config.ships[name].hardpoints.map(hardpoint => new Hardpoint(this, hardpoint));
-
-            this.asset = assets.get(name);
-
-            Ship.ships.set(this.id, this);
-        }
-
-        update() {
-            // this.x += Math.cos(this.angle) * 5;
-            // this.y += Math.sin(this.angle) * 5;
-
-            // this.angle += Math.PI / 180 / 10;
-
-            ctx.save();
-            ctx.translate(this.x, this.y);
-            ctx.rotate(this.angle);
-            ctx.drawImage(this.asset, -this.size / 2, -this.size / 2, this.size, this.size);
-
-            ctx.strokeStyle = "#00FF00";
-            ctx.lineWidth = 2;
-
-            this.hardpoints.forEach(hardpoint => {
-                hardpoint.update();
-
-                ctx.save();
-                
-                ctx.translate(hardpoint.x, hardpoint.y);
-
-                ctx.beginPath();
-                ctx.arc(0, 0, 5, 0, Math.PI * 2);
-                ctx.stroke();
-
-                ctx.restore();
+        for (let i = 0; i < projectilesSize; i ++) {
+            newProjectiles.push({
+                id: data.shift(),
+                x: data.shift(),
+                y: data.shift(),
+                size: 4
             });
-
-            ctx.restore();
         }
-        
-        distanceTo(ship) {
-            const dx = this.x - ship.x;
-            const dy = this.y - ship.y;
 
-            return Math.sqrt(dx * dx + dy * dy);
-        }
+        newShips.forEach(newShip => {
+            if (!ships.has(newShip.id)) {
+                ships.set(newShip.id, {
+                    ...newShip,
+                    realX: newShip.x,
+                    realY: newShip.y,
+                    realAngle: newShip.angle,
+                    realHealth: newShip.health,
+                    realShield: newShip.shield
+                });
+            } else {
+                const ship = ships.get(newShip.id);
+
+                ship.realX = newShip.x;
+                ship.realY = newShip.y;
+                ship.realAngle = newShip.angle;
+                ship.realHealth = newShip.health;
+                ship.realShield = newShip.shield;
+                ship.hardpoints = newShip.hardpoints;
+            }
+        });
+
+        newProjectiles.forEach(newProjectile => {
+            if (!projectiles.has(newProjectile.id)) {
+                projectiles.set(newProjectile.id, {
+                    ...newProjectile,
+                    realX: newProjectile.x,
+                    realY: newProjectile.y
+                });
+            } else {
+                const projectile = projectiles.get(newProjectile.id);
+
+                projectile.realX = newProjectile.x;
+                projectile.realY = newProjectile.y;
+            }
+        });
+
+        // Delete non-existent ships
+        ships.forEach(ship => {
+            if (!newShips.some(newShip => newShip.id === ship.id)) {
+                ships.delete(ship.id);
+            }
+        });
+
+        // Delete non-existent projectiles
+        projectiles.forEach(projectile => {
+            if (!newProjectiles.some(newProjectile => newProjectile.id === projectile.id)) {
+                projectiles.delete(projectile.id);
+            }
+        });
+    };
+
+    function lerp(A, B, w) {
+        return (1 - w) * A + w * B;
     }
 
-    const ship = new Ship("ISD");
-    ship.x = -1000;
-    ship.y = -250;
+    function lerpAngle(A, B, w) {
+        let CS = (1 - w) * Math.cos(A) + w * Math.cos(B);
+        let SN = (1 - w) * Math.sin(A) + w * Math.sin(B);
+        return Math.atan2(SN, CS);
+    }
 
-    const ship2 = new Ship("ISD");
-    ship2.x = 750;
-    ship2.y = 750;
+    function drawBar(cx, cy, width, height, pct, color) {
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.fillStyle = "#111111";
+        ctx.fillRect(-width / 2, -height / 2, width, height);
+        ctx.fillStyle = color;
+        ctx.fillRect(-width / 2, -height / 2, width * pct, height);
+        ctx.restore();
+    }
 
-    function drawLoop() {
-        requestAnimationFrame(drawLoop);
+    const mixColors = (function () {
+        const cache = {};
+        return function (primary, secondary, x) {
+            const target = `${primary}${secondary}${x}`;
+            if (cache[target] !== undefined) return cache[target];
+            var [primary, a, o] = primary.match(/\w\w/g).map(e => parseInt(e, 16)), [secondary, n, r] = secondary.match(/\w\w/g).map(e => parseInt(e, 16));
+            return cache[target] = `#${Math.round(primary + (secondary - primary) * x).toString(16).padStart(2, "0")}${Math.round(a + (n - a) * x).toString(16).padStart(2, "0")}${Math.round(o + (r - o) * x).toString(16).padStart(2, "0")}`;
+        }
+    })();
+
+    function draw() {
+        requestAnimationFrame(draw);
+        const scale = uiScale() * camera.zoom;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#222222";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        const scale = uiScale() * camera.zoom;
+        ctx.fillStyle = "#333333";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         ctx.save();
         ctx.translate(canvas.width / 2, canvas.height / 2);
         ctx.scale(scale, scale);
         ctx.translate(-camera.x, -camera.y);
 
-        Ship.ships.forEach(ship => ship.update());
+        // Draw ships
+        ships.forEach(ship => {
+            ship.x = lerp(ship.x, ship.realX, .2);
+            ship.y = lerp(ship.y, ship.realY, .2);
+            ship.angle = lerpAngle(ship.angle, ship.realAngle, .2);
+            ship.health = lerp(ship.health, ship.realHealth, .2);
+            ship.shield = lerp(ship.shield, ship.realShield, .2);
 
-        Projectile.projectiles.forEach(projectile => projectile.update());
+            const asset = assets.get("ISD");
+
+            ctx.save();
+            ctx.translate(ship.x, ship.y);
+            ctx.rotate(ship.angle);
+            ctx.drawImage(asset, -ship.size / 2, -ship.size / 2, ship.size, ship.size);
+
+            // Draw hardpoints
+            ship.hardpoints.forEach(hardpoint => {
+                if (hardpoint.health <= 0) return;
+
+                // Green - Yellow - Red based on hp
+                ctx.fillStyle = hardpoint.health > .667 ? "#00FF00" : hardpoint.health > .333 ? "#FFFF00" : "#FF0000";
+
+                ctx.beginPath();
+                ctx.arc(
+                    ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction),
+                    ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction),
+                    4,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.fill();
+            });
+
+            // Draw shield
+            ctx.rotate(-ship.angle);
+            drawBar(0, -ship.size / 2 - 20, ship.size, 10, ship.health, "#00FFC8");
+            drawBar(0, -ship.size / 2 - 40, ship.size, 10, ship.shield, "#00C8FF");
+
+            ctx.restore();
+        });
+
+        // Draw projectiles
+        projectiles.forEach(projectile => {
+            projectile.x = lerp(projectile.x, projectile.realX, .2);
+            projectile.y = lerp(projectile.y, projectile.realY, .2);
+
+            ctx.beginPath();
+            ctx.fillStyle = "#00FF00";
+            ctx.arc(projectile.x, projectile.y, projectile.size, 0, Math.PI * 2);
+            ctx.fill();
+        });
 
         ctx.restore();
     }
 
-    drawLoop();
+    draw();
 })();
