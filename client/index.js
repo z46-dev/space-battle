@@ -1,3 +1,5 @@
+import { weaponDrawProperties } from "../server/lib/constants.js";
+
 (async function () {
     const assets = new Map();
 
@@ -94,7 +96,9 @@
                 id: data.shift(),
                 x: data.shift(),
                 y: data.shift(),
-                size: 4
+                type: data.shift(),
+                angle: data.shift(),
+                size: 2
             });
         }
 
@@ -132,6 +136,7 @@
 
                 projectile.realX = newProjectile.x;
                 projectile.realY = newProjectile.y;
+                projectile.type = newProjectile.type;
             }
         });
 
@@ -240,10 +245,30 @@
             projectile.x = lerp(projectile.x, projectile.realX, .2);
             projectile.y = lerp(projectile.y, projectile.realY, .2);
 
+            const props = weaponDrawProperties[projectile.type];
+            const spacing = projectile.size * props.strength + 2;
+
+            ctx.save();
+            ctx.translate(projectile.x, projectile.y);
+            ctx.rotate(projectile.angle - Math.PI / 2);
+
+            ctx.strokeStyle = props.color;
+            ctx.lineWidth = projectile.size * props.strength;
+
             ctx.beginPath();
-            ctx.fillStyle = "#00FF00";
-            ctx.arc(projectile.x, projectile.y, projectile.size, 0, Math.PI * 2);
-            ctx.fill();
+
+            for (let i = 0; i < props.count; i ++) {
+                const x = -spacing * props.count / 2 + spacing * i;
+
+                ctx.moveTo(x, -projectile.size * 5);
+                ctx.lineTo(x, projectile.size * 5);
+            }
+
+            ctx.closePath();
+            
+            ctx.stroke();
+
+            ctx.restore();
         });
 
         ctx.restore();

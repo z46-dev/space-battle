@@ -1,3 +1,4 @@
+import { weaponClassifications, weaponProperties } from "./lib/constants.js";
 import ships from "./lib/ships.js";
 
 function angleDifference(a, b) {
@@ -23,6 +24,8 @@ class Projectile {
         this.speed = hardpoint.speed;
         this.ship = ship;
         this.hardpoint = hardpoint;
+        this.type = 0;
+        this.team = ship.team;
 
         this.target = null;
         this.range = hardpoint.range + this.speed * 10;
@@ -41,12 +44,21 @@ class Projectile {
         }
 
         if (this.target !== null && distance(this.x, this.y, this.target.x, this.target.y) <= this.speed) {
-            if (this.target.ship.shield > 0) {
-                this.target.ship.shield -= this.hardpoint.damage;
-                this.target.ship.lastHit = performance.now();
-            } else {
-                this.target.health -= this.hardpoint.damage;
-                this.target.ship.lastHit = performance.now();
+            switch (weaponProperties[this.type].classification) {
+                case weaponClassifications.IonCannon:
+                    if (this.target.ship.shield > 0) {
+                        this.target.ship.shield -= this.hardpoint.damage;
+                        this.target.ship.lastHit = performance.now();
+                    }
+                    break;
+                default:
+                    if (this.target.ship.shield > 0) {
+                        this.target.ship.shield -= this.hardpoint.damage;
+                        this.target.ship.lastHit = performance.now();
+                    } else {
+                        this.target.health -= this.hardpoint.damage;
+                        this.target.ship.lastHit = performance.now();
+                    }
             }
 
             Projectile.projectiles.delete(this.id);
@@ -71,6 +83,8 @@ class Hardpoint {
 
         this.health = config.weapon.health;
         this.maxHealth = config.weapon.health;
+        this.projectileType = config.weapon.type;
+        this.team = ship.team;
 
         this.target = null;
     }
@@ -94,7 +108,7 @@ class Hardpoint {
 
         if (this.target === null) {
             for (const ship of Ship.ships.values()) {
-                if (ship === this.ship) {
+                if (ship === this.ship || ship.team === this.team) {
                     continue;
                 }
 
@@ -138,6 +152,7 @@ class Hardpoint {
 
             const projectile = new Projectile(this.x, this.y, angle, this.ship, this);
             projectile.target = this.target;
+            projectile.type = this.projectileType;
         }
     }
 }
@@ -145,7 +160,7 @@ class Hardpoint {
 class Ship {
     static id = 0;
     static ships = new Map();
-    constructor(config) {
+    constructor(config, team) {
         this.id = Ship.id ++;
         this.x = 0;
         this.y = 0;
@@ -157,6 +172,7 @@ class Ship {
         this.shieldRegen = config.shieldRegen ?? 0;
         this.lastHit = 0;
         this.speed = config.speed ?? 0;
+        this.team = team;
 
         /**
          * @type {Hardpoint[]}
@@ -194,12 +210,12 @@ class Ship {
 }
 
 const ISD1 = new Ship(ships.ISD);
-ISD1.x = -2150;
-ISD1.y = -1000;
+ISD1.x = -1000;
+ISD1.y = -750;
 
-const ISD2 = new Ship(ships.ISD);
-ISD2.x = 2150;
-ISD2.y = 1000;
+const ISD2 = new Ship(ships.ISD, 1);
+ISD2.x = 1000;
+ISD2.y = 750;
 ISD2.angle = Math.PI;
 
 function gameTick() {
@@ -226,7 +242,7 @@ function talk() {
     });
 
     Projectile.projectiles.forEach(projectile => {
-        message.push(projectile.id, projectile.x, projectile.y);
+        message.push(projectile.id, projectile.x, projectile.y, projectile.type, projectile.angle);
     });
 
     postMessage(message);

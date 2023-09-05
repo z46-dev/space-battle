@@ -1,3 +1,5 @@
+import { weaponTypes } from "./constants.js";
+
 class Vector {
     constructor(x = 0, y = 0) {
         this.x = x;
@@ -13,14 +15,6 @@ class Vector {
     }
 }
 
-const hardpointTypes = {
-    "LaserCannon": 0,
-    "IonCannon": 1,
-    "Turbolaser": 2,
-    "ProtonTorpedo": 3,
-    "ConcussionMissile": 4
-};
-
 const ships = {};
 
 const ISD_Turbo = {
@@ -28,7 +22,7 @@ const ISD_Turbo = {
     damage: 60,
     speed: 25,
     range: 4000,
-    type: hardpointTypes.Turbolaser,
+    type: weaponTypes.GreenQuadTurbolaser,
     health: 100
 };
 
@@ -37,7 +31,7 @@ const ISD_Ion = {
     damage: 55,
     speed: 35,
     range: 4000,
-    type: hardpointTypes.IonCannon,
+    type: weaponTypes.DoubleIonCannon,
     health: 100
 };
 
@@ -46,7 +40,7 @@ const ISD_Laser = {
     damage: 7,
     speed: 45,
     range: 3000,
-    type: hardpointTypes.LaserCannon,
+    type: weaponTypes.GreenLaserCannon,
     health: 100
 };
 
@@ -55,7 +49,7 @@ ships.ISD = {
     asset: "ISD.png",
     size: 400,
     cost: 3200,
-    speed: 1,
+    speed: 1.5,
     shield: 5500,
     shieldRegen: 2,
     hardpoints: (function() {
@@ -98,7 +92,7 @@ export default ships;
 
 /*
  * TODO:
- * Add MC80
  * Make Ion Cannons work
  * Work on the client rendering of ammo (color, dual, triple, etc.)
+ * Add MC80
  */
