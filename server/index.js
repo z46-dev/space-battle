@@ -194,12 +194,12 @@ class Ship {
 }
 
 const ISD1 = new Ship(ships.ISD);
-ISD1.x = -1250;
-ISD1.y = -550;
+ISD1.x = -2150;
+ISD1.y = -1000;
 
 const ISD2 = new Ship(ships.ISD);
-ISD2.x = 1250;
-ISD2.y = 550;
+ISD2.x = 2150;
+ISD2.y = 1000;
 ISD2.angle = Math.PI;
 
 function gameTick() {
