@@ -1,0 +1,100 @@
+{
+    "hardpointTypes": {
+        "Laser Cannon": 0,
+        "Ion Cannon": 1,
+        "Turbolaser": 2,
+        "Proton Torpedo": 3
+    },
+    "ships": {
+        "ISD": {
+            "name": "Imperator Star Destroyer",
+            "asset": "ISD.png",
+            "size": 400,
+            "cost": 3200,
+            "speed": 1,
+            "turn": 0.01,
+            "shields": 5000,
+            "hardpoints": [{
+                "x": 0.3,
+                "y": -0.4,
+                "type": "Turbolaser",
+                "weapon": {
+                    "reload": 25,
+                    "damage": 55,
+                    "speed": 7,
+                    "range": 5000
+                }
+            }, {
+                "x": 0.3,
+                "y": -0.475,
+                "type": "Turbolaser",
+                "weapon": {
+                    "reload": 25,
+                    "damage": 55,
+                    "speed": 7,
+                    "range": 5000
+                }
+            }, {
+                "x": 0.3,
+                "y": -0.55,
+                "type": "Turbolaser",
+                "weapon": {
+                    "reload": 25,
+                    "damage": 55,
+                    "speed": 7,
+                    "range": 5000
+                }
+            }, {
+                "x": 0.3,
+                "y": -0.625,
+                "type": "Turbolaser",
+                "weapon": {
+                    "reload": 25,
+                    "damage": 55,
+                    "speed": 7,
+                    "range": 5000
+                }
+            }, {
+                "x": -0.3,
+                "y": -0.4,
+                "type": "Turbolaser",
+                "weapon": {
+                    "reload": 25,
+                    "damage": 55,
+                    "speed": 7,
+                    "range": 5000
+                }
+            }, {
+                "x": -0.3,
+                "y": -0.475,
+                "type": "Turbolaser",
+                "weapon": {
+                    "reload": 25,
+                    "damage": 55,
+                    "speed": 7,
+                    "range": 5000
+                }
+            }, {
+                "x": -0.3,
+                "y": -0.55,
+                "type": "Turbolaser",
+                "weapon": {
+                    "reload": 25,
+                    "damage": 55,
+                    "speed": 7,
+                    "range": 5000
+                }
+            }, {
+                "x": -0.3,
+                "y": -0.625,
+                "type": "Turbolaser",
+                "weapon": {
+                    "reload": 25,
+                    "damage": 55,
+                    "speed": 7,
+                    "range": 5000
+                }
+            }]
+        }
+    }
+}
