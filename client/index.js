@@ -1,4 +1,5 @@
 import { weaponDrawProperties } from "../server/lib/constants.js";
+import { default as shipConfig } from "../server/lib/ships.js";
 
 (async function () {
     const assets = new Map();
@@ -16,21 +17,37 @@ import { weaponDrawProperties } from "../server/lib/constants.js";
         assets.set(name, image);
     }
 
-    const config = await (await fetch("./assets/config.json")).json();
-
-    for (const key in config.ships) {
-        const ship = config.ships[key];
-        loadAsset(`./assets/ships/${ship.asset}`, key);
+    for (const key in shipConfig) {
+        loadAsset(`./assets/ships/${shipConfig[key].asset}`, shipConfig[key].asset);
     }
 
     const canvas = document.querySelector("canvas");
     const ctx = canvas.getContext("2d");
 
     const camera = {
+        realX: 0,
+        realY: 0,
+        realZoom: 3,
+        //
         x: 0,
         y: 0,
-        zoom: .4
+        zoom: 1
     };
+
+    // CAMERA CONTROLS
+    window.addEventListener("wheel", event => {
+        camera.realZoom += event.deltaY / 1000;
+        camera.realZoom = Math.max(camera.realZoom, .1);
+        camera.realZoom = Math.min(camera.realZoom, 3);
+    });
+
+    let mouseX = 0,
+        mouseY = 0;
+
+    window.addEventListener("mousemove", event => {
+        mouseX = event.clientX * window.devicePixelRatio;
+        mouseY = event.clientY * window.devicePixelRatio;
+    });
 
     function uiScale() {
         if (canvas.height > canvas.width) {
@@ -73,6 +90,7 @@ import { weaponDrawProperties } from "../server/lib/constants.js";
                 y: data.shift(),
                 angle: data.shift(),
                 size: data.shift(),
+                asset: data.shift(),
                 health: data.shift(),
                 shield: data.shift(),
                 hardpoints: []
@@ -187,6 +205,27 @@ import { weaponDrawProperties } from "../server/lib/constants.js";
 
     function draw() {
         requestAnimationFrame(draw);
+
+        if (mouseX < 25) {
+            camera.realX -= 10 / camera.zoom;
+        }
+
+        if (mouseX > canvas.width - 25) {
+            camera.realX += 10 / camera.zoom;
+        }
+
+        if (mouseY < 25) {
+            camera.realY -= 10 / camera.zoom;
+        }
+
+        if (mouseY > canvas.height - 25) {
+            camera.realY += 10 / camera.zoom;
+        }
+        
+        camera.x = lerp(camera.x, camera.realX, .2);
+        camera.y = lerp(camera.y, camera.realY, .2);
+        camera.zoom = lerp(camera.zoom, camera.realZoom, .2);
+
         const scale = uiScale() * camera.zoom;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -207,7 +246,7 @@ import { weaponDrawProperties } from "../server/lib/constants.js";
             ship.health = lerp(ship.health, ship.realHealth, .2);
             ship.shield = lerp(ship.shield, ship.realShield, .2);
 
-            const asset = assets.get("ISD");
+            const asset = assets.get(ship.asset);
 
             ctx.save();
             ctx.translate(ship.x, ship.y);

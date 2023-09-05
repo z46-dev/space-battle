@@ -101,8 +101,14 @@ export const weaponProperties = (function() {
     for (const key in weaponTypes) {
         const classification = key.match(/Laser|Ion|Turbolaser/)[0];
 
+        const map = {
+            "Laser": "LaserCannon",
+            "Ion": "IonCannon",
+            "Turbolaser": "Turbolaser"
+        };
+
         output[weaponTypes[key]] = {
-            classification: weaponClassifications[classification],
+            classification: weaponClassifications[map[classification]],
             key: key
         };
     }

@@ -1,4 +1,4 @@
-import { weaponClassifications, weaponProperties } from "./lib/constants.js";
+import { weaponClassifications, weaponProperties, weaponTypes } from "./lib/constants.js";
 import ships from "./lib/ships.js";
 
 function angleDifference(a, b) {
@@ -97,7 +97,7 @@ class Hardpoint {
         return this.ship.y + this.ship.size / 2 * this.offset * Math.sin(this.direction + this.ship.angle);
     }
 
-    findTarget() {
+    findTargetOLD() {
         // Find a hardpoint of a ship that is within our range
         if (this.target !== null) {
             // Validate range
@@ -107,8 +107,8 @@ class Hardpoint {
         }
 
         if (this.target === null) {
-            for (const ship of Ship.ships.values()) {
-                if (ship === this.ship || ship.team === this.team) {
+            for (const ship of Array.from(Ship.ships.values()).sort(() => .5 - Math.random())) {
+                if (ship === this.ship || ship.team === this.team || ship.health <= 0) {
                     continue;
                 }
 
@@ -123,6 +123,50 @@ class Hardpoint {
                     }
                     break;
                 }
+            }
+        }
+    }
+
+    findTarget() {
+        if (this.target !== null) {
+            if (this.target.health <= 0 || distance(this.x, this.y, this.target.x, this.target.y) > this.range) {
+                this.target = null;
+            }
+        }
+
+        if (this.target === null) {
+            let validShips = [];
+
+            Ship.ships.forEach(ship => {
+                if (ship.team !== this.ship.team && ship.health > 0) {
+                    if (weaponProperties[this.projectileType].classification === weaponClassifications.IonCannon && ship.shield <= 0) {
+                        return;
+                    }
+
+                    validShips.push(ship);
+                }
+            });
+
+            validShips = validShips.sort(() => .5 - Math.random());
+            validShips = validShips.sort((a, b) => distance(this.x, this.y, a.x, a.y) - distance(this.x, this.y, b.x, b.y));
+
+            const ship = validShips[0] ?? null;
+
+            if (ship !== null) {
+                let validHardpoints = [];
+
+                for (let i = 0; i < ship.hardpoints.length; i ++) {
+                    const hardpoint = ship.hardpoints[i];
+
+                    if (hardpoint.health > 0 && distance(this.x, this.y, hardpoint.x, hardpoint.y) <= this.range) {
+                        validHardpoints.push(hardpoint);
+                    }
+                }
+
+                validHardpoints = validHardpoints.sort(() => .5 - Math.random());
+                validHardpoints = validHardpoints.sort((a, b) => distance(this.x, this.y, a.x, a.y) - distance(this.x, this.y, b.x, b.y));
+
+                this.target = validHardpoints[0] ?? null;
             }
         }
     }
@@ -157,6 +201,50 @@ class Hardpoint {
     }
 }
 
+class ShipAI {
+    constructor(ship) {
+        this.ship = ship;
+
+        /**
+         * @type {Ship}
+         */
+        this.target = null;
+    }
+
+    findTarget() {
+        if (this.target !== null) {
+            if (this.target.health <= 0) {
+                this.target = null;
+            }
+        }
+
+        if (this.target === null) {
+            let validShips = [];
+
+            Ship.ships.forEach(ship => {
+                if (ship.team !== this.ship.team && ship.health > 0) {
+                    validShips.push(ship);
+                }
+            });
+
+            validShips = validShips.sort(() => .5 - Math.random());
+            validShips = validShips.sort((a, b) => distance(this.ship.x, this.ship.y, a.x, a.y) - distance(this.ship.x, this.ship.y, b.x, b.y));
+
+            this.target = validShips[0] ?? null;
+        }
+    }
+
+    update() {
+        this.findTarget();
+
+        if (this.target === null) {
+            return;
+        }
+
+        this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI;
+    }
+}
+
 class Ship {
     static id = 0;
     static ships = new Map();
@@ -166,6 +254,8 @@ class Ship {
         this.y = 0;
         this.size = config.size;
         this.angle = 0;
+        this.angleGoal = 0;
+        this.turnSpeed = config.turnSpeed ?? 0;
 
         this.shield = config.shield ?? 0;
         this.maxShield = config.shield ?? 0;
@@ -173,6 +263,9 @@ class Ship {
         this.lastHit = 0;
         this.speed = config.speed ?? 0;
         this.team = team;
+        this.asset = config.asset;
+
+        this.ai = new ShipAI(this);
 
         /**
          * @type {Hardpoint[]}
@@ -199,6 +292,15 @@ class Ship {
 
         this.x += this.speed * Math.cos(this.angle);
         this.y += this.speed * Math.sin(this.angle);
+        
+        // Move to the angle
+        this.angle = angleDifference(this.angle, this.angleGoal) > 0 ? this.angle + this.turnSpeed : this.angle - this.turnSpeed;
+
+        this.ai.update();
+
+        if (this.health <= 0) {
+            Ship.ships.delete(this.id);
+        }
     }
 
     get health() {
@@ -209,14 +311,20 @@ class Ship {
     }
 }
 
-const ISD1 = new Ship(ships.ISD);
-ISD1.x = -1000;
-ISD1.y = -750;
+const SSD = new Ship(ships.SSD, 1);
+SSD.x = 0;
+SSD.y = 0;
+SSD.angle = Math.PI;
 
-const ISD2 = new Ship(ships.ISD, 1);
-ISD2.x = 1000;
-ISD2.y = 750;
-ISD2.angle = Math.PI;
+for (let i = 0; i < 10; i ++) {
+    const ISD = new Ship(ships.ISD, 0);
+    
+    const angle = Math.PI / 5 * i;
+    const distance = 4000;
+
+    ISD.x = Math.cos(angle) * distance;
+    ISD.y = Math.sin(angle) * distance;
+}
 
 function gameTick() {
     Ship.ships.forEach(ship => {
@@ -234,7 +342,7 @@ function talk() {
     const message = [Ship.ships.size, Projectile.projectiles.size];
 
     Ship.ships.forEach(ship => {
-        message.push(ship.id, ship.x, ship.y, ship.angle, ship.size, ship.health, ship.shield / ship.maxShield, ship.hardpoints.length);
+        message.push(ship.id, ship.x, ship.y, ship.angle, ship.size, ship.asset, ship.health, ship.shield / ship.maxShield, ship.hardpoints.length);
 
         ship.hardpoints.forEach(hardpoint => {
             message.push(hardpoint.offset, hardpoint.direction, hardpoint.health / hardpoint.maxHealth);
