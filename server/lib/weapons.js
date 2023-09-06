@@ -11,6 +11,15 @@ export const ION_CANNON = {
     health: 100
 };
 
+export const FIGHTER_ION_CANNON = {
+    reload: 120,
+    damage: 8,
+    speed: 55,
+    range: 600,
+    type: weaponTypes.IonCannon,
+    health: 5
+};
+
 export const DOUBLE_ION_CANNON = {
     reload: 40,
     damage: 30,
@@ -148,8 +157,17 @@ export const ION_CANNON_ULTRA = {
 
 // GREEN WEAPON DEFS
 
+export const GREEN_FIGHTER_LASER_CANNON = {
+    reload: 12,
+    damage: 1,
+    speed: 75,
+    range: 1200,
+    type: weaponTypes.GreenLaserCannon,
+    health: 5
+};
+
 export const GREEN_RAPID_LASER_CANNON = {
-    reload: 10,
+    reload: 9,
     damage: 3,
     speed: 75,
     range: 3000,
@@ -321,6 +339,11 @@ export const GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY = {
 
 // RED WEAPON DEFS
 
+export const RED_FIGHTER_LASER_CANNON = {
+    ...GREEN_FIGHTER_LASER_CANNON,
+    type: weaponTypes.RedLaserCannon
+};
+
 export const RED_RAPID_LASER_CANNON = {
     ...GREEN_RAPID_LASER_CANNON,
     type: weaponTypes.RedLaserCannon
@@ -414,4 +437,14 @@ export const RED_QUAD_TURBOLASER_CANNON_HEAVY = {
 export const RED_OCTUPLE_TURBOLASER_CANNON_HEAVY = {
     ...GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY,
     type: weaponTypes.RedOctupleTurbolaser
+};
+
+// PROJECTILE DEFS
+export const FIGHTER_PROTON_TORPEDO = {
+    reload: 1750,
+    damage: 300,
+    speed: 20,
+    range: 750,
+    type: weaponTypes.ProtonTorpedo,
+    health: 10
 };

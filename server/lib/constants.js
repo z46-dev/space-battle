@@ -59,11 +59,11 @@ export const weaponTypes = {
     "QuadIonTurbolaser": 48,
     "OctupleIonTurbolaser": 49,
 
-    // // PROJECTILE WEAPONS (All factions)
-    // "ProtonBomb": 50,
-    // "ProtonRocket": 51,
-    // "ConcussionRocket": 52,
-    // "ProtonRocket": 53
+    // PROJECTILE WEAPONS (All factions)
+    "ProtonBomb": 50,
+    "ProtonTorpedo": 51,
+    "ConcussionMissile": 52,
+    "ProtonRocket": 53
 };
 
 export const colors = {
@@ -71,13 +71,21 @@ export const colors = {
     "Red": "#FF0000",
     "Blue": "#0000FF",
     "Purple": "#C800FF",
-    "Ion": "#EEEEFF"
+    "Ion": "#EEEEFF",
+    "Bomb": "#FFFFFF",
+    "Torpedo": "#FF1F53",
+    "Missile": "#CFC64C",
+    "Rocket": "#7FCAD4"
 };
 
 export const weaponDrawProperties = (function() {
     const output = [];
 
     for (const key in weaponTypes) {
+        if (["Bomb", "Torpedo", "Missile", "Proton"].some(x => key.includes(x))) {
+            continue;
+        }
+
         const color = key.match(/Red|Green|Blue|Purple|Ion/)[0];
         const type = weaponTypes[key];
         const shots = key.match(/Double|Triple|Quad|Octuple/) ? key.match(/Double|Triple|Quad|Octuple/)[0] : "Single";
@@ -88,9 +96,51 @@ export const weaponDrawProperties = (function() {
             shots: shots,
             count: [1, 2, 3, 4, 8][["Single", "Double", "Triple", "Quad", "Octuple"].indexOf(shots)],
             strength: 1 + ["Cannon", "Turbolaser"].indexOf(strength) * .5,
-            key: key
+            key: key,
+            isCircle: false,
+            shadows: false
         };
     }
+
+    output[weaponTypes.ProtonBomb] = {
+        color: colors.Bomb,
+        shots: "Single",
+        count: 1,
+        strength: 1.5,
+        key: "ProtonBomb",
+        isCircle: true,
+        shadows: true
+    };
+
+    output[weaponTypes.ProtonTorpedo] = {
+        color: colors.Torpedo,
+        shots: "Single",
+        count: 1,
+        strength: 1.2,
+        key: "ProtonTorpedo",
+        isCircle: true,
+        shadows: true
+    };
+
+    output[weaponTypes.ConcussionMissile] = {
+        color: colors.Missile,
+        shots: "Single",
+        count: 1,
+        strength: 1,
+        key: "ConcussionMissile",
+        isCircle: true,
+        shadows: true
+    };
+
+    output[weaponTypes.ProtonRocket] = {
+        color: colors.Rocket,
+        shots: "Single",
+        count: 1,
+        strength: 1,
+        key: "ProtonRocket",
+        isCircle: true,
+        shadows: true
+    };
 
     return output;
 })();
@@ -98,19 +148,25 @@ export const weaponDrawProperties = (function() {
 export const weaponClassifications = {
     "LaserCannon": 0,
     "IonCannon": 1,
-    "Turbolaser": 2
+    "Turbolaser": 2,
+    "Guided": 3,
+    "AreaOfEffect": 4
 };
 
 export const weaponProperties = (function() {
     const output = [];
 
     for (const key in weaponTypes) {
-        const classification = key.match(/Laser|Ion|Turbolaser/)[0];
+        const classification = key.match(/Laser|Ion|Turbolaser|Bomb|Rocket|Missile|Torpedo/)[0];
 
         const map = {
             "Laser": "LaserCannon",
             "Ion": "IonCannon",
-            "Turbolaser": "Turbolaser"
+            "Turbolaser": "Turbolaser",
+            "Bomb": "Turbolaser",
+            "Rocket": "Guided",
+            "Missile": "AreaOfEffect",
+            "Torpedo": "Guided"
         };
 
         output[weaponTypes[key]] = {

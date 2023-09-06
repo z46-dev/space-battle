@@ -26,6 +26,8 @@ class Projectile {
         this.hardpoint = hardpoint;
         this.type = 0;
         this.team = ship.team;
+        
+        this.isGuided = false;
 
         this.target = null;
         this.range = hardpoint.range + this.speed * 10;
@@ -41,6 +43,10 @@ class Projectile {
 
         if (this.range <= 0) {
             Projectile.projectiles.delete(this.id);
+        }
+
+        if (this.isGuided && this.target !== null) {
+            this.angle = Math.atan2(this.target.y - this.y, this.target.x - this.x);
         }
 
         if (this.target !== null && distance(this.x, this.y, this.target.x, this.target.y) <= this.speed * .75) {
@@ -74,17 +80,22 @@ class Hardpoint {
         this.ship = ship;
         this.offset = config.offset;
         this.direction = config.direction;
+        this.projectileType = config.weapon.type;
 
         this.reload = config.weapon.reload;
-        this.tick = Math.random() * -this.reload | 0;
+        this.tick = config.weapon.reload;
         this.damage = config.weapon.damage;
         this.speed = config.weapon.speed;
         this.range = config.weapon.range;
 
         this.health = config.weapon.health;
         this.maxHealth = config.weapon.health;
-        this.projectileType = config.weapon.type;
         this.team = ship.team;
+
+        const classification = weaponProperties[this.projectileType].classification;
+        if (classification !== weaponClassifications.AreaOfEffect && classification !== weaponClassifications.Guided) {
+            this.tick -= Math.random() * this.reload * .5 | 0;
+        }
 
         this.target = null;
     }
@@ -173,6 +184,7 @@ class Hardpoint {
             const projectile = new Projectile(this.x, this.y, angle, this.ship, this);
             projectile.target = this.target;
             projectile.type = this.projectileType;
+            projectile.isGuided = weaponProperties[this.projectileType].classification === weaponClassifications.Guided;
         }
     }
 }
@@ -189,7 +201,7 @@ class Squadron {
          */
         this.hangar = hangar;
 
-        this.target = undefined;
+        this.target = null;
 
         this.ships = [];
 
@@ -248,10 +260,20 @@ class Squadron {
             return;
         }
 
-        this.ships.forEach(ship => {
-            ship.speed = ship.maxSpeed;
-            ship.angleGoal = Math.atan2(this.target.y - ship.y, this.target.x - ship.x) + Math.PI;
-        });
+        const angle = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
+        const tx = this.target.x + Math.cos(angle) * 100;
+        const ty = this.target.y + Math.sin(angle) * 100;
+
+        for (let i = 0; i < this.ships.length; i ++) {
+            const angle = Math.PI * 2 / this.ships.length * i;
+            const distance = this.ships[i].size * 2.25;
+
+            const $tx = tx + Math.cos(angle) * distance;
+            const $ty = ty + Math.sin(angle) * distance;
+
+            this.ships[i].angleGoal = Math.atan2($ty - this.ships[i].y, $tx - this.ships[i].x) + Math.PI;
+            this.ships[i].speed = this.ships[i].maxSpeed;
+        }
     }
 }
 
@@ -278,6 +300,10 @@ class Hangar {
             this.reserveSize--;
             this.spawn();
         }
+
+        this.squadrons.forEach(squadron => {
+            squadron.update();
+        });
     }
 
     spawn() {
@@ -482,9 +508,9 @@ class Ship {
 const empireFleet = {
     "SSD": 0,
     "ISD": 0,
-    "ARQUITENS": 0,
+    "ARQUITENS": 1,
     "RAIDER": 0,
-    "QUASAR": 1
+    "QUASAR": 0
 };
 
 const rebelFleet = {

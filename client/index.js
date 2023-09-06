@@ -261,22 +261,24 @@ import { default as shipConfig } from "../server/lib/ships.js";
             ctx.drawImage(asset, -ship.size / 2, -ship.size / 2, ship.size, ship.size);
 
             // Draw hardpoints
-            ship.hardpoints.forEach(hardpoint => {
-                if (hardpoint.health <= 0) return;
-
-                // Green - Yellow - Red based on hp
-                ctx.fillStyle = hardpoint.health > .667 ? "#00FF00" : hardpoint.health > .333 ? "#FFFF00" : "#FF0000";
-
-                ctx.beginPath();
-                ctx.arc(
-                    ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction),
-                    ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction),
-                    4,
-                    0,
-                    Math.PI * 2
-                );
-                ctx.fill();
-            });
+            if (ship.size >= 150) {
+                ship.hardpoints.forEach(hardpoint => {
+                    if (hardpoint.health <= 0) return;
+    
+                    // Green - Yellow - Red based on hp
+                    ctx.fillStyle = hardpoint.health > .667 ? "#00FF00" : hardpoint.health > .333 ? "#FFFF00" : "#FF0000";
+    
+                    ctx.beginPath();
+                    ctx.arc(
+                        ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction),
+                        ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction),
+                        4,
+                        0,
+                        Math.PI * 2
+                    );
+                    ctx.fill();
+                });
+            }
 
             // Draw shield
             ctx.rotate(-ship.angle);
@@ -298,21 +300,38 @@ import { default as shipConfig } from "../server/lib/ships.js";
             ctx.translate(projectile.x, projectile.y);
             ctx.rotate(projectile.angle - Math.PI / 2);
 
-            ctx.strokeStyle = props.color;
-            ctx.lineWidth = projectile.size * props.strength;
+            if (props.isCircle) {
+                ctx.fillStyle = props.color;
+            } else {
+                ctx.strokeStyle = props.color;
+                ctx.lineWidth = projectile.size * props.strength;
+            }
+
+            if (props.shadows) {
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = mixColors(props.color, "#000000", .3);
+            }
 
             ctx.beginPath();
 
-            for (let i = 0; i < props.count; i ++) {
-                const x = -spacing * props.count / 2 + spacing * i;
-
-                ctx.moveTo(x, -projectile.size * 5);
-                ctx.lineTo(x, projectile.size * 5);
+            if (props.isCircle) {
+                ctx.arc(0, 0, projectile.size * props.strength, 0, Math.PI * 2);
+            } else {
+                for (let i = 0; i < props.count; i ++) {
+                    const x = -spacing * props.count / 2 + spacing * i;
+    
+                    ctx.moveTo(x, -projectile.size * 5);
+                    ctx.lineTo(x, projectile.size * 5);
+                }
             }
 
             ctx.closePath();
             
-            ctx.stroke();
+            if (props.isCircle) {
+                ctx.fill();
+            } else {
+                ctx.stroke();
+            }
 
             ctx.restore();
         });
