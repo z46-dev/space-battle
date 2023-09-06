@@ -42,11 +42,29 @@ import { default as shipConfig } from "../server/lib/ships.js";
     });
 
     let mouseX = 0,
-        mouseY = 0;
+        mouseY = 0,
+        mouseDirectionX = 0,
+        mouseDirectionY = 0,
+        rmb = false;
 
     window.addEventListener("mousemove", event => {
         mouseX = event.clientX * window.devicePixelRatio;
         mouseY = event.clientY * window.devicePixelRatio;
+
+        mouseDirectionX = event.movementX;
+        mouseDirectionY = event.movementY;
+    });
+
+    window.addEventListener("mousedown", event => {
+        if (event.button === 2) {
+            rmb = true;
+        }
+    });
+
+    window.addEventListener("mouseup", event => {
+        if (event.button === 2) {
+            rmb = false;
+        }
     });
 
     function uiScale() {
@@ -206,20 +224,9 @@ import { default as shipConfig } from "../server/lib/ships.js";
     function draw() {
         requestAnimationFrame(draw);
 
-        if (mouseX < 25) {
-            camera.realX -= 10 / camera.zoom;
-        }
-
-        if (mouseX > canvas.width - 25) {
-            camera.realX += 10 / camera.zoom;
-        }
-
-        if (mouseY < 25) {
-            camera.realY -= 10 / camera.zoom;
-        }
-
-        if (mouseY > canvas.height - 25) {
-            camera.realY += 10 / camera.zoom;
+        if (rmb) {
+            camera.realX -= mouseDirectionX / camera.zoom;
+            camera.realY -= mouseDirectionY / camera.zoom;
         }
         
         camera.x = lerp(camera.x, camera.realX, .2);

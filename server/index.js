@@ -17,7 +17,7 @@ class Projectile {
     static projectiles = new Map();
 
     constructor(x, y, angle, ship, hardpoint) {
-        this.id = Projectile.id ++;
+        this.id = Projectile.id++;
         this.x = x;
         this.y = y;
         this.angle = angle;
@@ -43,7 +43,7 @@ class Projectile {
             Projectile.projectiles.delete(this.id);
         }
 
-        if (this.target !== null && distance(this.x, this.y, this.target.x, this.target.y) <= this.speed) {
+        if (this.target !== null && distance(this.x, this.y, this.target.x, this.target.y) <= this.speed * .75) {
             switch (weaponProperties[this.type].classification) {
                 case weaponClassifications.IonCannon:
                     if (this.target.ship.shield > 0) {
@@ -53,7 +53,7 @@ class Projectile {
                     break;
                 default:
                     if (this.target.ship.shield > 0) {
-                        this.target.ship.shield -= this.hardpoint.damage;
+                        this.target.ship.shield -= this.hardpoint.damage * .334; // Nuh uh
                         this.target.ship.lastHit = performance.now();
                     } else {
                         this.target.health -= this.hardpoint.damage;
@@ -97,39 +97,13 @@ class Hardpoint {
         return this.ship.y + this.ship.size / 2 * this.offset * Math.sin(this.direction + this.ship.angle);
     }
 
-    findTargetOLD() {
-        // Find a hardpoint of a ship that is within our range
-        if (this.target !== null) {
-            // Validate range
-            if (this.target.health <= 0 || distance(this.x, this.y, this.target.x, this.target.y) > this.range) {
-                this.target = null;
-            }
-        }
-
-        if (this.target === null) {
-            for (const ship of Array.from(Ship.ships.values()).sort(() => .5 - Math.random())) {
-                if (ship === this.ship || ship.team === this.team || ship.health <= 0) {
-                    continue;
-                }
-
-                if (distance(this.x, this.y, ship.x, ship.y) <= this.range) {
-                    for (let i = 0; i < ship.hardpoints.length; i ++) {
-                        const hardpoint = ship.hardpoints[i];
-
-                        if (hardpoint.health > 0 && distance(this.x, this.y, hardpoint.x, hardpoint.y) <= this.range) {
-                            this.target = hardpoint;
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-        }
-    }
-
     findTarget() {
         if (this.target !== null) {
-            if (this.target.health <= 0 || distance(this.x, this.y, this.target.x, this.target.y) > this.range) {
+            if (
+                this.target.health <= 0 ||
+                distance(this.x, this.y, this.target.x, this.target.y) > this.range ||
+                (weaponProperties[this.projectileType].classification === weaponClassifications.IonCannon && this.target.ship.shield <= 0)
+            ) {
                 this.target = null;
             }
         }
@@ -155,7 +129,7 @@ class Hardpoint {
             if (ship !== null) {
                 let validHardpoints = [];
 
-                for (let i = 0; i < ship.hardpoints.length; i ++) {
+                for (let i = 0; i < ship.hardpoints.length; i++) {
                     const hardpoint = ship.hardpoints[i];
 
                     if (hardpoint.health > 0 && distance(this.x, this.y, hardpoint.x, hardpoint.y) <= this.range) {
@@ -182,7 +156,7 @@ class Hardpoint {
             return;
         }
 
-        this.tick ++;
+        this.tick++;
 
         if (this.tick >= this.reload) {
             this.tick = 0;
@@ -192,7 +166,9 @@ class Hardpoint {
             const predictedX = this.target.x + Math.cos(this.target.ship.angle) * this.target.ship.speed * nowDist / this.speed;
             const predictedY = this.target.y + Math.sin(this.target.ship.angle) * this.target.ship.speed * nowDist / this.speed;
 
-            const angle = Math.atan2(predictedY - this.y, predictedX - this.x);
+            const inaccuracy = (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (this.target.ship.maxShield / 2));
+
+            const angle = Math.atan2(predictedY - this.y, predictedX - this.x) + inaccuracy;
 
             const projectile = new Projectile(this.x, this.y, angle, this.ship, this);
             projectile.target = this.target;
@@ -203,12 +179,17 @@ class Hardpoint {
 
 class ShipAI {
     constructor(ship) {
+        /**
+         * @type {Ship}
+         */
         this.ship = ship;
 
         /**
          * @type {Ship}
          */
         this.target = null;
+
+        this.orbitAngle = 0;
     }
 
     findTarget() {
@@ -238,10 +219,63 @@ class ShipAI {
         this.findTarget();
 
         if (this.target === null) {
+            this.ship.speed = 0;
             return;
         }
 
-        this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI;
+        this.ship.speed = this.ship.maxSpeed;
+
+        if (this.ship.size <= 100) {
+            this.corvetteThinking();
+        } else if (this.ship.size <= 300) {
+            this.lightFrigateThinking();
+        } else {
+            this.capitalShipThinking();
+        }
+    }
+
+    corvetteThinking() {
+        if (this.ship.shield / this.ship.maxShield < .5 && this.ship.health < .75) { // Kite
+            this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
+        } else if (distance(this.ship.x, this.ship.y, this.target.x, this.target.y) > 600) {
+            this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI;
+            this.orbitAngle = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
+        } else if (distance(this.ship.x, this.ship.y, this.target.x, this.target.y) < 500) {
+            const gx = this.target.x + Math.cos(this.orbitAngle) * 400;
+            const gy = this.target.y + Math.sin(this.orbitAngle) * 400;
+
+            this.ship.angleGoal = Math.atan2(gy - this.ship.y, gx - this.ship.x);
+            this.orbitAngle = this.ship.angleGoal + Math.PI / 16;
+            this.ship.speed = this.ship.maxSpeed;
+        }
+    }
+
+    lightFrigateThinking() {
+        const myDistance = distance(this.ship.x, this.ship.y, this.target.x, this.target.y);
+        const range = Math.min(...this.ship.hardpoints.map(hardpoint => hardpoint.range));
+
+        if ((this.ship.shield / this.ship.maxShield < .25 && this.ship.health < .75) || myDistance < range / 3) { // Kite
+            this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
+        } else if (myDistance > range) { // Approach
+            this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI;
+        } else {
+            this.ship.speed = 0;
+        }
+    }
+
+    capitalShipThinking() {
+        const myDistance = distance(this.ship.x, this.ship.y, this.target.x, this.target.y);
+        const range = Math.min(...this.ship.hardpoints.map(hardpoint => hardpoint.range));
+
+        if (myDistance > range) { // Approach
+            this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI;
+        } else {
+            this.ship.speed = 0;
+
+            if (angleDifference(this.ship.angle, Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI) > Math.PI / 3) {
+                this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI;
+            }
+        }
     }
 }
 
@@ -249,7 +283,7 @@ class Ship {
     static id = 0;
     static ships = new Map();
     constructor(config, team) {
-        this.id = Ship.id ++;
+        this.id = Ship.id++;
         this.x = 0;
         this.y = 0;
         this.size = config.size;
@@ -261,7 +295,8 @@ class Ship {
         this.maxShield = config.shield ?? 0;
         this.shieldRegen = config.shieldRegen ?? 0;
         this.lastHit = 0;
-        this.speed = config.speed ?? 0;
+        this.speed = 0;
+        this.maxSpeed = config.speed ?? 0;
         this.team = team;
         this.asset = config.asset;
 
@@ -292,7 +327,7 @@ class Ship {
 
         this.x += this.speed * Math.cos(this.angle);
         this.y += this.speed * Math.sin(this.angle);
-        
+
         // Move to the angle
         this.angle = angleDifference(this.angle, this.angleGoal) > 0 ? this.angle + this.turnSpeed : this.angle - this.turnSpeed;
 
@@ -311,19 +346,47 @@ class Ship {
     }
 }
 
-const SSD = new Ship(ships.SSD, 1);
-SSD.x = 0;
-SSD.y = 0;
-SSD.angle = Math.PI;
+const empireFleet = {
+    "SSD": 1,
+    "ISD": 6,
+    "ARQUITENS": 12,
+    "RAIDER": 24,
+    "QUASAR": 2
+};
 
-for (let i = 0; i < 10; i ++) {
-    const ISD = new Ship(ships.ISD, 0);
-    
-    const angle = Math.PI / 5 * i;
-    const distance = 4000;
+const rebelFleet = {
+    "HOMEONE": 3,
+    "MC80LIBERTY": 6,
+    "NEBULONB": 12,
+    "CR90": 24,
+    "PELTA": 2
+};
 
-    ISD.x = Math.cos(angle) * distance;
-    ISD.y = Math.sin(angle) * distance;
+function spawn(ship, team) {
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 1000 * Math.random();
+
+    const newShip = new Ship(ships[ship], team);
+
+    if (team === 0) {
+        newShip.x = -4000 + Math.cos(angle) * distance;
+        newShip.y = Math.sin(angle) * distance;
+    } else {
+        newShip.x = 4000 + Math.cos(angle) * distance;
+        newShip.y = Math.sin(angle) * distance;
+    }
+}
+
+for (const ship in empireFleet) {
+    for (let i = 0; i < empireFleet[ship]; i++) {
+        spawn(ship, 0);
+    }
+}
+
+for (const ship in rebelFleet) {
+    for (let i = 0; i < rebelFleet[ship]; i++) {
+        spawn(ship, 1);
+    }
 }
 
 function gameTick() {
