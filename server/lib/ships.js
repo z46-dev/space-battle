@@ -118,19 +118,19 @@ ships.QUASAR = {
     hardpoints: [{
         x: -.05,
         y: .95,
-        weapon: GREEN_QUAD_LASER_CANNON_HEAVY
+        weapon: GREEN_DOUBLE_LASER_CANNON
     }, {
         x: .05,
         y: .95,
-        weapon: GREEN_QUAD_LASER_CANNON_HEAVY
+        weapon: GREEN_DOUBLE_LASER_CANNON
     }, {
         x: -.175,
         y: .6,
-        weapon: DOUBLE_ION_CANNON_MEDIUM
+        weapon: DOUBLE_ION_CANNON
     }, {
         x: .175,
         y: .6,
-        weapon: DOUBLE_ION_CANNON_MEDIUM
+        weapon: DOUBLE_ION_CANNON
     }, {
         x: -.325,
         y: .15,
@@ -142,11 +142,11 @@ ships.QUASAR = {
     }, {
         x: -.55,
         y: -.3,
-        weapon: GREEN_LASER_CANNON
+        weapon: GREEN_QUAD_LASER_CANNON_HEAVY
     }, {
         x: .55,
         y: -.3,
-        weapon: GREEN_LASER_CANNON
+        weapon: GREEN_QUAD_LASER_CANNON_HEAVY
     }]
 };
 
@@ -377,6 +377,14 @@ ships.PELTA = {
         x: .25,
         y: -.6,
         weapon: RED_DOUBLE_TURBOLASER_CANNON
+    }],
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 1,
+        squadronKey: "XWING"
     }]
 };
 
@@ -400,6 +408,22 @@ ships.CR90 = {
     }, {
         x: 0,
         y: -.2,
+        weapon: RED_RAPID_LASER_CANNON
+    }]
+};
+
+ships.XWING = {
+    name: "X-Wing",
+    asset: "XWING.png",
+    size: 17.5,
+    cost: 5,
+    speed: 20,
+    turnSpeed: .1,
+    shield: 50,
+    shieldRegen: 3,
+    hardpoints: [{
+        x: 0,
+        y: 0,
         weapon: RED_RAPID_LASER_CANNON
     }]
 };

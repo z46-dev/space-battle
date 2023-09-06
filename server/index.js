@@ -177,6 +177,114 @@ class Hardpoint {
     }
 }
 
+class Squadron {
+    constructor(ship, hangar, config) {
+        /**
+         * @type {Ship}
+         */
+        this.ship = ship;
+
+        /**
+         * @type {Hangar}
+         */
+        this.hangar = hangar;
+
+        this.target = undefined;
+
+        this.ships = [];
+
+        for (let i = 0; i < config.squadronSize; i++) {
+            const ship = new Ship(ships[config.squadronKey], this.ship.team);
+            ship.x = this.ship.x + Math.random() * 100 - 50;
+            ship.y = this.ship.y + Math.random() * 100 - 50;
+            ship.angle = this.ship.angle;
+
+            ship.onDead = () => {
+                this.ships.splice(this.ships.indexOf(ship), 1);
+
+                if (this.ships.length === 0) {
+                    this.hangar.squadrons.delete(this);
+                }
+            }
+
+            ship.ai = undefined;
+
+            this.ships.push(ship);
+        }
+
+        this.hangar.squadrons.add(this);
+    }
+
+    findTarget() {
+        if (this.target !== null) {
+            if (this.target.health <= 0) {
+                this.target = null;
+            }
+        }
+
+        if (this.target === null) {
+            let validShips = [];
+
+            Ship.ships.forEach(ship => {
+                if (ship.team !== this.ship.team && ship.health > 0) {
+                    validShips.push(ship);
+                }
+            });
+
+            validShips = validShips.sort(() => .5 - Math.random());
+            validShips = validShips.sort((a, b) => distance(this.ship.x, this.ship.y, a.x, a.y) - distance(this.ship.x, this.ship.y, b.x, b.y));
+
+            this.target = validShips[0] ?? null;
+        }
+    }
+
+    update() {
+        this.findTarget();
+
+        if (this.target === null) {
+            this.ships.forEach(ship => {
+                ship.speed = 0;
+            });
+            return;
+        }
+
+        this.ships.forEach(ship => {
+            ship.speed = ship.maxSpeed;
+            ship.angleGoal = Math.atan2(this.target.y - ship.y, this.target.x - ship.x) + Math.PI;
+        });
+    }
+}
+
+class Hangar {
+    constructor(ship, config) {
+        /**
+         * @type {Ship}
+         */
+        this.ship = ship;
+
+        this.squadrons = new Set();
+
+        this.maxSquadrons = config.maxSquadrons;
+        this.reserveSize = config.reserveSize;
+        this.config = config;
+
+        for (let i = 0; i < this.maxSquadrons; i++) {
+            this.spawn();
+        }
+    }
+
+    update() {
+        if (this.reserveSize > 0 && this.squadrons.size < this.maxSquadrons) {
+            this.reserveSize--;
+            this.spawn();
+        }
+    }
+
+    spawn() {
+        new Squadron(this.ship, this, this.config);
+    }
+}
+
 class ShipAI {
     constructor(ship) {
         /**
@@ -218,20 +326,26 @@ class ShipAI {
     update() {
         this.findTarget();
 
-        if (this.target === null) {
+        if (this.target === null || this.ship.hangars.length > 0) {
             this.ship.speed = 0;
             return;
         }
 
         this.ship.speed = this.ship.maxSpeed;
 
-        if (this.ship.size <= 100) {
+        if (this.ship.size <= 45) {
+            this.fighterThinking();
+        } else if (this.ship.size <= 100) {
             this.corvetteThinking();
         } else if (this.ship.size <= 300) {
             this.lightFrigateThinking();
         } else {
             this.capitalShipThinking();
         }
+    }
+
+    fighterThinking() {
+        this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI;
     }
 
     corvetteThinking() {
@@ -307,9 +421,17 @@ class Ship {
          */
         this.hardpoints = [];
 
+        this.hangars = [];
+
         for (const hardpoint of config.hardpoints) {
             this.hardpoints.push(new Hardpoint(this, hardpoint));
         }
+
+        for (const hangar of (config.hangars ?? [])) {
+            this.hangars.push(new Hangar(this, hangar));
+        }
+
+        this.onDead = null;
 
         Ship.ships.set(this.id, this);
     }
@@ -317,6 +439,10 @@ class Ship {
     update() {
         this.hardpoints.forEach(hardpoint => {
             hardpoint.update();
+        });
+
+        this.hangars.forEach(hangar => {
+            hangar.update();
         });
 
         this.shield = Math.max(this.shield, 0);
@@ -331,10 +457,17 @@ class Ship {
         // Move to the angle
         this.angle = angleDifference(this.angle, this.angleGoal) > 0 ? this.angle + this.turnSpeed : this.angle - this.turnSpeed;
 
-        this.ai.update();
+        if (this.ai !== undefined) {
+            this.ai.update();
+        }
 
         if (this.health <= 0) {
             Ship.ships.delete(this.id);
+
+            if (this.onDead !== null) {
+                this.onDead();
+                this.onDead = null;
+            }
         }
     }
 
@@ -347,19 +480,19 @@ class Ship {
 }
 
 const empireFleet = {
-    "SSD": 1,
-    "ISD": 6,
-    "ARQUITENS": 12,
-    "RAIDER": 24,
-    "QUASAR": 2
+    "SSD": 0,
+    "ISD": 0,
+    "ARQUITENS": 0,
+    "RAIDER": 0,
+    "QUASAR": 1
 };
 
 const rebelFleet = {
-    "HOMEONE": 3,
-    "MC80LIBERTY": 6,
-    "NEBULONB": 12,
-    "CR90": 24,
-    "PELTA": 2
+    "HOMEONE": 0,
+    "MC80LIBERTY": 0,
+    "NEBULONB": 0,
+    "CR90": 0,
+    "PELTA": 1
 };
 
 function spawn(ship, team) {
@@ -374,6 +507,7 @@ function spawn(ship, team) {
     } else {
         newShip.x = 4000 + Math.cos(angle) * distance;
         newShip.y = Math.sin(angle) * distance;
+        newShip.angle = Math.PI;
     }
 }
 

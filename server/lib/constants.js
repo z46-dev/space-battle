@@ -57,7 +57,13 @@ export const weaponTypes = {
     "DoubleIonTurbolaser": 46,
     "TripleIonTurbolaser": 47,
     "QuadIonTurbolaser": 48,
-    "OctupleIonTurbolaser": 49
+    "OctupleIonTurbolaser": 49,
+
+    // // PROJECTILE WEAPONS (All factions)
+    // "ProtonBomb": 50,
+    // "ProtonRocket": 51,
+    // "ConcussionRocket": 52,
+    // "ProtonRocket": 53
 };
 
 export const colors = {
