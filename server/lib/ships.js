@@ -1,5 +1,5 @@
 import { weaponTypes } from "./constants.js";
-import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, FIGHTER_ION_CANNON, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_LASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TRIPLE_LASER_CANNON_HEAVY, GREEN_TURBOLASER_CANNON, ION_CANNON, ION_CANNON_HEAVY, ION_CANNON_ULTRA, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, QUAD_ION_CANNON_HEAVY, QUAD_ION_CANNON_MEDIUM, RED_DOUBLE_LASER_CANNON, RED_DOUBLE_LASER_CANNON_HEAVY, RED_DOUBLE_TURBOLASER_CANNON, RED_DOUBLE_TURBOLASER_CANNON_HEAVY, RED_FIGHTER_LASER_CANNON, RED_LASER_CANNON, RED_QUAD_LASER_CANNON, RED_RAPID_LASER_CANNON, RED_TRIPLE_LASER_CANNON, RED_TRIPLE_LASER_CANNON_HEAVY, RED_TRIPLE_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON, TRIPLE_ION_CANNON_HEAVY } from "./weapons.js";
+import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, FIGHTER_ION_CANNON, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_LASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TRIPLE_LASER_CANNON_HEAVY, GREEN_TURBOLASER_CANNON, ION_CANNON, ION_CANNON_HEAVY, ION_CANNON_ULTRA, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, QUAD_ION_CANNON_HEAVY, QUAD_ION_CANNON_MEDIUM, RED_DOUBLE_LASER_CANNON, RED_DOUBLE_LASER_CANNON_HEAVY, RED_DOUBLE_TURBOLASER_CANNON, RED_DOUBLE_TURBOLASER_CANNON_HEAVY, RED_FIGHTER_LASER_CANNON, RED_LASER_CANNON, RED_QUAD_LASER_CANNON, RED_RAPID_LASER_CANNON, RED_TRIPLE_LASER_CANNON, RED_TRIPLE_LASER_CANNON_HEAVY, RED_TRIPLE_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON, TRIPLE_ION_CANNON_HEAVY, FIGHTER_PROTON_BOMB, GREEN_FIGHTER_LASER_CANNON, FIGHTER_PROTON_ROCKET, ASSAULT_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, DUMMY_BLANK } from "./weapons.js";
 
 class Vector {
     constructor(x = 0, y = 0) {
@@ -51,7 +51,22 @@ ships.ISD = {
         }
 
         return output;
-    })()
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 3,
+        squadronKey: "TIEFIGHTER"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 3,
+        squadronKey: "TIEBOMBER"
+    }]
 };
 
 ships.ARQUITENS = {
@@ -79,6 +94,12 @@ ships.ARQUITENS = {
         x: .275,
         y: -.125,
         weapon: GREEN_DOUBLE_LASER_CANNON_HEAVY
+    }, {
+        x: 0,
+        y: .9,
+        weapon: ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 3,
+        shotDelay: 100
     }]
 };
 
@@ -147,6 +168,65 @@ ships.QUASAR = {
         x: .55,
         y: -.3,
         weapon: GREEN_QUAD_LASER_CANNON_HEAVY
+    }],
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 4,
+        reserveSize: 2,
+        squadronKey: "TIEFIGHTER"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 5,
+        reserveSize: 2,
+        squadronKey: "TIEBOMBER"
+    }]
+};
+
+ships.TIEFIGHTER = {
+    name: "Tie Fighter",
+    asset: "TIEFIGHTER.png",
+    size: 15,
+    cost: 4,
+    speed: 18,
+    turnSpeed: .0334,
+    shield: 0,
+    shieldRegen: 0,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: GREEN_FIGHTER_LASER_CANNON
+    }]
+};
+
+ships.TIEBOMBER = {
+    name: "Tie Bomber",
+    asset: "TIEBOMBER.png",
+    size: 19,
+    cost: 9,
+    speed: 13,
+    turnSpeed: .0175,
+    shield: 0,
+    shieldRegen: 0,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: GREEN_FIGHTER_LASER_CANNON
+    }, {
+        x: 0,
+        y: 0,
+        weapon: FIGHTER_PROTON_ROCKET,
+        shotsAtOnce: 6,
+        shotDelay: 80
+    }, {
+        x: .5,
+        y: 0,
+        weapon: FIGHTER_PROTON_BOMB,
+        shotsAtOnce: 4,
+        shotDelay: 75
     }]
 };
 
@@ -209,7 +289,22 @@ ships.SSD = {
         }
 
         return output;
-    })()
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 4,
+        squadronSize: 6,
+        reserveSize: 8,
+        squadronKey: "TIEFIGHTER"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 3,
+        squadronSize: 4,
+        reserveSize: 6,
+        squadronKey: "TIEBOMBER"
+    }]
 };
 
 ships.HOMEONE = {
@@ -253,7 +348,22 @@ ships.HOMEONE = {
         }
 
         return output;
-    })()
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 5,
+        reserveSize: 2,
+        squadronKey: "XWING"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 5,
+        reserveSize: 2,
+        squadronKey: "YWING"
+    }]
 };
 
 ships.MC80LIBERTY = {
@@ -301,7 +411,22 @@ ships.MC80LIBERTY = {
         }
 
         return output;
-    })()
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "XWING"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "YWING"
+    }]
 };
 
 ships.NEBULONB = {
@@ -341,6 +466,21 @@ ships.NEBULONB = {
         x: 0,
         y: -.85,
         weapon: DOUBLE_ION_CANNON
+    }],
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 5,
+        reserveSize: 1,
+        squadronKey: "XWING"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 3,
+        reserveSize: 1,
+        squadronKey: "YWING"
     }]
 };
 
@@ -381,9 +521,9 @@ ships.PELTA = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 5,
-        squadronSize: 12,
-        reserveSize: 3,
+        maxSquadrons: 1,
+        squadronSize: 5,
+        reserveSize: 2,
         squadronKey: "XWING"
     }]
 };
@@ -418,7 +558,7 @@ ships.XWING = {
     size: 17.5,
     cost: 5,
     speed: 20,
-    turnSpeed: .1,
+    turnSpeed: .05,
     shield: 25,
     shieldRegen: 0.1,
     hardpoints: [{
@@ -432,6 +572,121 @@ ships.XWING = {
     }]
 };
 
+ships.YWING = {
+    name: "Y-Wing",
+    asset: "YWING.png",
+    size: 20,
+    cost: 8,
+    speed: 15,
+    turnSpeed: .025,
+    shield: 50,
+    shieldRegen: 0.2,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: RED_FIGHTER_LASER_CANNON
+    }, {
+        x: 0,
+        y: 0,
+        weapon: FIGHTER_ION_CANNON
+    }, {
+        x: .5,
+        y: 0,
+        weapon: FIGHTER_PROTON_BOMB,
+        shotsAtOnce: 3,
+        shotDelay: 75
+    }]
+};
+
+// TEST DUMMIES
+ships.DUMMY_CARRIER = {
+    name: "Dummy Carrier",
+    asset: "QUASAR.png",
+    size: 100,
+    cost: 1,
+    speed: .01,
+    turnSpeed: .025,
+    shield: 1000,
+    shieldRegen: 10,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: DUMMY_BLANK
+    }],
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 3,
+        squadronSize: 10,
+        reserveSize: 9,
+        squadronKey: "TIEBOMBER"
+    }]
+};
+
+ships.DUMMY_TARGET = {
+    name: "Dummy Target",
+    asset: "MC80LIBERTY.png",
+    size: 300,
+    cost: 1,
+    speed: .01,
+    turnSpeed: .025,
+    shield: 1000,
+    shieldRegen: 10,
+    hardpoints: (function() {
+        const weapon = DUMMY_BLANK; // Dummy weapon
+
+        const output = [{
+            x: -.2,
+            y: -.4,
+            weapon: weapon,
+            shotsAtOnce: 10,
+            shotDelay: 40
+        }, {
+            x: -.3,
+            y: -.2,
+            weapon: weapon,
+            shotsAtOnce: 10,
+            shotDelay: 40
+        }, {
+            x: -.2,
+            y: .05,
+            weapon: weapon,
+            shotsAtOnce: 10,
+            shotDelay: 40
+        }, {
+            x: -.075,
+            y: .1,
+            weapon: weapon,
+            shotsAtOnce: 10,
+            shotDelay: 40
+        }, {
+            x: -.05,
+            y: .4,
+            weapon: weapon,
+            shotsAtOnce: 10,
+            shotDelay: 40
+        }, {
+            x: -.025,
+            y: .7,
+            weapon: weapon,
+            shotsAtOnce: 10,
+            shotDelay: 40
+        }];
+
+        for (let i = 0, j = output.length; i < j; i ++) {
+            output.push({
+                x: -output[i].x,
+                y: output[i].y,
+                weapon: output[i].weapon,
+                shotsAtOnce: 10,
+                shotDelay: 40
+            })
+        }
+
+        return output;
+    })()
+};
+
 for (const ship in ships) {
     ships[ship].hardpoints.forEach(hardpoint => {
         const vector = new Vector(hardpoint.y, hardpoint.x);
@@ -442,10 +697,3 @@ for (const ship in ships) {
 }
 
 export default ships;
-
-/*
- * TODO:
- * AI Stuff
- * Focus Fire on Ship/Hardpoint
- * Weapon Types in a separate file, no more ISD_Turbo, just GREEN_QUAD_TURBO_HEAVY
- */

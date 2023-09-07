@@ -441,10 +441,55 @@ export const RED_OCTUPLE_TURBOLASER_CANNON_HEAVY = {
 
 // PROJECTILE DEFS
 export const FIGHTER_PROTON_TORPEDO = {
-    reload: 1750,
-    damage: 300,
-    speed: 20,
-    range: 750,
+    reload: 399,
+    damage: 80,
+    speed: 25,
+    range: 1500,
     type: weaponTypes.ProtonTorpedo,
     health: 10
+};
+
+export const FIGHTER_PROTON_BOMB = {
+    reload: 600,
+    damage: 300,
+    speed: 5,
+    range: 800,
+    type: weaponTypes.ProtonBomb,
+    health: 10
+};
+
+export const FIGHTER_PROTON_ROCKET = {
+    reload: 400,
+    damage: 35,
+    speed: 30,
+    range: 1000,
+    type: weaponTypes.ProtonRocket,
+    health: 10
+};
+
+export const ASSAULT_PROTON_ROCKET = {
+    reload: 200,
+    damage: 150,
+    speed: 35,
+    range: 3000,
+    type: weaponTypes.AssaultProtonRocket,
+    health: 100
+};
+
+export const ASSAULT_CONCUSSION_MISSILE = {
+    reload: 400,
+    damage: 500,
+    speed: 35,
+    range: 4000,
+    type: weaponTypes.ConcussionMissile,
+    health: 100
+};
+
+export const DUMMY_BLANK = {
+    reload: 1e10,
+    damage: 1,
+    speed: 1,
+    range: 1,
+    type: weaponTypes.BlueLaserCannon,
+    health: 100
 };

@@ -26,13 +26,26 @@ class Projectile {
         this.hardpoint = hardpoint;
         this.type = 0;
         this.team = ship.team;
-        
+        this.classification = 0;
+
         this.isGuided = false;
 
         this.target = null;
         this.range = hardpoint.range + this.speed * 10;
 
         Projectile.projectiles.set(this.id, this);
+    }
+
+    get collisionRange() {
+        if (this.classification === weaponClassifications.AreaOfEffect) {
+            return this.speed * 3;
+        }
+
+        if (this.classification === weaponClassifications.Turbolaser) {
+            return this.speed * .5;
+        }
+
+        return this.speed * .75;
     }
 
     update() {
@@ -49,17 +62,41 @@ class Projectile {
             this.angle = Math.atan2(this.target.y - this.y, this.target.x - this.x);
         }
 
-        if (this.target !== null && distance(this.x, this.y, this.target.x, this.target.y) <= this.speed * .75) {
-            switch (weaponProperties[this.type].classification) {
+        if (this.target !== null && distance(this.x, this.y, this.target.x, this.target.y) <= this.collisionRange) {
+            switch (this.classification) {
                 case weaponClassifications.IonCannon:
                     if (this.target.ship.shield > 0) {
                         this.target.ship.shield -= this.hardpoint.damage;
                         this.target.ship.lastHit = performance.now();
                     }
                     break;
+                case weaponClassifications.AreaOfEffect:
+                    if (this.target.ship.shield > 0) {
+                        this.target.ship.shield -= this.hardpoint.damage * .25; // Nuh uh uh
+                        this.target.ship.lastHit = performance.now();
+                    } else {
+                        this.target.ship.lastHit = performance.now();
+
+                        const validHardpoints = [];
+
+                        for (let i = 0; i < this.target.ship.hardpoints.length; i++) {
+                            const hardpoint = this.target.ship.hardpoints[i];
+
+                            if (hardpoint.health > 0 && distance(this.x, this.y, hardpoint.x, hardpoint.y) <= this.collisionRange * 5) {
+                                validHardpoints.push(hardpoint);
+                            }
+                        }
+
+                        for (let i = 0; i < validHardpoints.length; i++) {
+                            const hardpoint = validHardpoints[i];
+
+                            hardpoint.health -= this.hardpoint.damage / validHardpoints.length;
+                        }
+                    }
+                    break;
                 default:
                     if (this.target.ship.shield > 0) {
-                        this.target.ship.shield -= this.hardpoint.damage * .334; // Nuh uh
+                        this.target.ship.shield -= this.hardpoint.damage * (this.classification === weaponClassifications.Guided ? 1 : .334); // Nuh uh
                         this.target.ship.lastHit = performance.now();
                     } else {
                         this.target.health -= this.hardpoint.damage;
@@ -87,13 +124,15 @@ class Hardpoint {
         this.damage = config.weapon.damage;
         this.speed = config.weapon.speed;
         this.range = config.weapon.range;
+        this.shotsAtOnce = config.shotsAtOnce ?? 1;
+        this.shotDelay = config.shotDelay ?? 500;
 
         this.health = config.weapon.health;
         this.maxHealth = config.weapon.health;
         this.team = ship.team;
 
-        const classification = weaponProperties[this.projectileType].classification;
-        if (classification !== weaponClassifications.AreaOfEffect && classification !== weaponClassifications.Guided) {
+        this.classification = weaponProperties[this.projectileType].classification;
+        if (this.classification !== weaponClassifications.AreaOfEffect && this.classification !== weaponClassifications.Guided) {
             this.tick -= Math.random() * this.reload * .5 | 0;
         }
 
@@ -113,7 +152,7 @@ class Hardpoint {
             if (
                 this.target.health <= 0 ||
                 distance(this.x, this.y, this.target.x, this.target.y) > this.range ||
-                (weaponProperties[this.projectileType].classification === weaponClassifications.IonCannon && this.target.ship.shield <= 0)
+                (this.classification === weaponClassifications.IonCannon && this.target.ship.shield <= 0)
             ) {
                 this.target = null;
             }
@@ -124,7 +163,7 @@ class Hardpoint {
 
             Ship.ships.forEach(ship => {
                 if (ship.team !== this.ship.team && ship.health > 0) {
-                    if (weaponProperties[this.projectileType].classification === weaponClassifications.IonCannon && ship.shield <= 0) {
+                    if (this.classification === weaponClassifications.IonCannon && ship.shield <= 0) {
                         return;
                     }
 
@@ -177,20 +216,46 @@ class Hardpoint {
             const predictedX = this.target.x + Math.cos(this.target.ship.angle) * this.target.ship.speed * nowDist / this.speed;
             const predictedY = this.target.y + Math.sin(this.target.ship.angle) * this.target.ship.speed * nowDist / this.speed;
 
-            const inaccuracy = (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (this.target.ship.maxShield / 2));
+            if (this.shotsAtOnce > 1) {
+                for (let i = 0; i < this.shotsAtOnce; i++) {
+                    setTimeout(() => {
+                        if (this.health <= 0) {
+                            return;
+                        }
 
-            const angle = Math.atan2(predictedY - this.y, predictedX - this.x) + inaccuracy;
+                        const inaccuracy = this.classification === weaponClassifications.AreaOfEffect ? 0 : (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (this.target.ship.totalHealth / 2));
 
-            const projectile = new Projectile(this.x, this.y, angle, this.ship, this);
-            projectile.target = this.target;
-            projectile.type = this.projectileType;
-            projectile.isGuided = weaponProperties[this.projectileType].classification === weaponClassifications.Guided;
+                        const angle = Math.atan2(predictedY - this.y, predictedX - this.x) + inaccuracy;
+
+                        const projectile = new Projectile(this.x, this.y, angle, this.ship, this);
+                        projectile.target = this.target;
+                        projectile.type = this.projectileType;
+                        projectile.isGuided = this.classification === weaponClassifications.Guided;
+                        projectile.classification = this.classification;
+                    }, i * this.shotDelay);
+                }
+            } else {
+                const inaccuracy = (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (this.target.ship.totalHealth / 2));
+
+                const angle = Math.atan2(predictedY - this.y, predictedX - this.x) + inaccuracy;
+
+                const projectile = new Projectile(this.x, this.y, angle, this.ship, this);
+                projectile.target = this.target;
+                projectile.type = this.projectileType;
+                projectile.isGuided = this.classification === weaponClassifications.Guided;
+                projectile.classification = this.classification;
+            }
         }
     }
 }
 
 class Squadron {
+    static squadrons = new Set();
+    static id = 0;
+
     constructor(ship, hangar, config) {
+        this.id = Squadron.id++;
+
         /**
          * @type {Ship}
          */
@@ -205,17 +270,21 @@ class Squadron {
 
         this.ships = [];
 
+        this.squadronKey = ships[config.squadronKey].asset;
+
         for (let i = 0; i < config.squadronSize; i++) {
             const ship = new Ship(ships[config.squadronKey], this.ship.team);
             ship.x = this.ship.x + Math.random() * 100 - 50;
             ship.y = this.ship.y + Math.random() * 100 - 50;
             ship.angle = this.ship.angle;
+            ship.squadron = this;
 
             ship.onDead = () => {
                 this.ships.splice(this.ships.indexOf(ship), 1);
 
                 if (this.ships.length === 0) {
                     this.hangar.squadrons.delete(this);
+                    Squadron.squadrons.delete(this);
                 }
             }
 
@@ -225,6 +294,7 @@ class Squadron {
         }
 
         this.hangar.squadrons.add(this);
+        Squadron.squadrons.add(this);
     }
 
     findTarget() {
@@ -264,7 +334,7 @@ class Squadron {
         const tx = this.target.x + Math.cos(angle) * 100;
         const ty = this.target.y + Math.sin(angle) * 100;
 
-        for (let i = 0; i < this.ships.length; i ++) {
+        for (let i = 0; i < this.ships.length; i++) {
             const angle = Math.PI * 2 / this.ships.length * i;
             const distance = this.ships[i].size * 2.25;
 
@@ -274,6 +344,24 @@ class Squadron {
             this.ships[i].angleGoal = Math.atan2($ty - this.ships[i].y, $tx - this.ships[i].x) + Math.PI;
             this.ships[i].speed = this.ships[i].maxSpeed;
         }
+    }
+
+    get packagedData() {
+        let health = 0,
+            x = 0,
+            y = 0;
+
+        this.ships.forEach(ship => {
+            health += ship.health;
+            x += ship.x;
+            y += ship.y;
+        });
+        
+        health /= this.ships.length;
+        x /= this.ships.length;
+        y /= this.ships.length;
+
+        return [this.id, health, x, y, this.ship.team, this.squadronKey];
     }
 }
 
@@ -287,18 +375,22 @@ class Hangar {
         this.squadrons = new Set();
 
         this.maxSquadrons = config.maxSquadrons;
-        this.reserveSize = config.reserveSize;
+        this.hangarSize = config.reserveSize + config.maxSquadrons;
         this.config = config;
 
-        for (let i = 0; i < this.maxSquadrons; i++) {
-            this.spawn();
-        }
+        this.tick = 0;
     }
 
     update() {
-        if (this.reserveSize > 0 && this.squadrons.size < this.maxSquadrons) {
-            this.reserveSize--;
-            this.spawn();
+        this.tick++;
+
+        if (this.tick >= 30) {
+            this.tick = 0;
+
+            if (this.hangarSize > 0 && this.squadrons.size < this.maxSquadrons) {
+                this.hangarSize--;
+                this.spawn();
+            }
         }
 
         this.squadrons.forEach(squadron => {
@@ -352,7 +444,7 @@ class ShipAI {
     update() {
         this.findTarget();
 
-        if (this.target === null || this.ship.hangars.length > 0) {
+        if (this.target === null) {
             this.ship.speed = 0;
             return;
         }
@@ -439,8 +531,10 @@ class Ship {
         this.maxSpeed = config.speed ?? 0;
         this.team = team;
         this.asset = config.asset;
+        this.totalHealth = 0;
 
         this.ai = new ShipAI(this);
+        this.squadron = null;
 
         /**
          * @type {Hardpoint[]}
@@ -451,12 +545,14 @@ class Ship {
 
         for (const hardpoint of config.hardpoints) {
             this.hardpoints.push(new Hardpoint(this, hardpoint));
+
+            this.totalHealth += hardpoint.weapon.health;
         }
 
         for (const hangar of (config.hangars ?? [])) {
             this.hangars.push(new Hangar(this, hangar));
         }
-
+        
         this.onDead = null;
 
         Ship.ships.set(this.id, this);
@@ -507,18 +603,22 @@ class Ship {
 
 const empireFleet = {
     "SSD": 0,
-    "ISD": 0,
-    "ARQUITENS": 1,
+    "ISD": 8,
+    "QUASAR": 0,
+    "ARQUITENS": 0,
     "RAIDER": 0,
-    "QUASAR": 0
+
+    "DUMMY_CARRIER": 0
 };
 
 const rebelFleet = {
     "HOMEONE": 0,
-    "MC80LIBERTY": 0,
+    "MC80LIBERTY": 8,
     "NEBULONB": 0,
+    "PELTA": 0,
     "CR90": 0,
-    "PELTA": 1
+
+    "DUMMY_TARGET": 0
 };
 
 function spawn(ship, team) {
@@ -562,10 +662,10 @@ function gameTick() {
 setInterval(gameTick, 1000 / 22.5);
 
 function talk() {
-    const message = [Ship.ships.size, Projectile.projectiles.size];
+    const message = [Ship.ships.size, Projectile.projectiles.size, Squadron.squadrons.size];
 
     Ship.ships.forEach(ship => {
-        message.push(ship.id, ship.x, ship.y, ship.angle, ship.size, ship.asset, ship.health, ship.shield / ship.maxShield, ship.hardpoints.length);
+        message.push(ship.id, ship.x, ship.y, ship.angle, ship.size, ship.asset, ship.health, ship.maxShield === 0 ? -1 : ship.shield / ship.maxShield, ship.squadron !== null, ship.hardpoints.length);
 
         ship.hardpoints.forEach(hardpoint => {
             message.push(hardpoint.offset, hardpoint.direction, hardpoint.health / hardpoint.maxHealth);
@@ -574,6 +674,10 @@ function talk() {
 
     Projectile.projectiles.forEach(projectile => {
         message.push(projectile.id, projectile.x, projectile.y, projectile.type, projectile.angle);
+    });
+
+    Squadron.squadrons.forEach(squadron => {
+        message.push(...squadron.packagedData);
     });
 
     postMessage(message);

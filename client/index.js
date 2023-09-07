@@ -91,17 +91,20 @@ import { default as shipConfig } from "../server/lib/ships.js";
 
     const ships = new Map();
     const projectiles = new Map();
+    const squadrons = new Map();
 
     worker.onmessage = event => {
         const data = event.data;
 
         const newShips = [];
         const newProjectiles = [];
+        const newSquadrons = [];
 
         const shipsSize = data.shift();
         const projectilesSize = data.shift();
+        const squadronsSize = data.shift();
 
-        for (let i = 0; i < shipsSize; i ++) {
+        for (let i = 0; i < shipsSize; i++) {
             const ship = {
                 id: data.shift(),
                 x: data.shift(),
@@ -111,12 +114,13 @@ import { default as shipConfig } from "../server/lib/ships.js";
                 asset: data.shift(),
                 health: data.shift(),
                 shield: data.shift(),
+                isPartOfSquadron: data.shift(),
                 hardpoints: []
             };
 
             const hardpointsSize = data.shift();
 
-            for (let j = 0; j < hardpointsSize; j ++) {
+            for (let j = 0; j < hardpointsSize; j++) {
                 ship.hardpoints.push({
                     offset: data.shift(),
                     direction: data.shift(),
@@ -127,7 +131,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
             newShips.push(ship);
         }
 
-        for (let i = 0; i < projectilesSize; i ++) {
+        for (let i = 0; i < projectilesSize; i++) {
             newProjectiles.push({
                 id: data.shift(),
                 x: data.shift(),
@@ -135,6 +139,17 @@ import { default as shipConfig } from "../server/lib/ships.js";
                 type: data.shift(),
                 angle: data.shift(),
                 size: 2
+            });
+        }
+
+        for (let i = 0; i < squadronsSize; i++) {
+            newSquadrons.push({
+                id: data.shift(),
+                health: data.shift(),
+                x: data.shift(),
+                y: data.shift(),
+                team: data.shift(),
+                asset: data.shift()
             });
         }
 
@@ -176,6 +191,23 @@ import { default as shipConfig } from "../server/lib/ships.js";
             }
         });
 
+        newSquadrons.forEach(newSquadron => {
+            if (!squadrons.has(newSquadron.id)) {
+                squadrons.set(newSquadron.id, {
+                    ...newSquadron,
+                    realX: newSquadron.x,
+                    realY: newSquadron.y,
+                    realHealth: newSquadron.health
+                });
+            } else {
+                const squadron = squadrons.get(newSquadron.id);
+
+                squadron.realX = newSquadron.x;
+                squadron.realY = newSquadron.y;
+                squadron.realHealth = newSquadron.health;
+            }
+        });
+
         // Delete non-existent ships
         ships.forEach(ship => {
             if (!newShips.some(newShip => newShip.id === ship.id)) {
@@ -187,6 +219,13 @@ import { default as shipConfig } from "../server/lib/ships.js";
         projectiles.forEach(projectile => {
             if (!newProjectiles.some(newProjectile => newProjectile.id === projectile.id)) {
                 projectiles.delete(projectile.id);
+            }
+        });
+
+        // Delete non-existent squadrons
+        squadrons.forEach(squadron => {
+            if (!newSquadrons.some(newSquadron => newSquadron.id === squadron.id)) {
+                squadrons.delete(squadron.id);
             }
         });
     };
@@ -228,7 +267,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
             camera.realX -= mouseDirectionX / camera.zoom;
             camera.realY -= mouseDirectionY / camera.zoom;
         }
-        
+
         camera.x = lerp(camera.x, camera.realX, .2);
         camera.y = lerp(camera.y, camera.realY, .2);
         camera.zoom = lerp(camera.zoom, camera.realZoom, .2);
@@ -253,6 +292,10 @@ import { default as shipConfig } from "../server/lib/ships.js";
             ship.health = lerp(ship.health, ship.realHealth, .2);
             ship.shield = lerp(ship.shield, ship.realShield, .2);
 
+            if (ship.isPartOfSquadron && ship.size * scale < 5) {
+                return;
+            }
+
             const asset = assets.get(ship.asset);
 
             ctx.save();
@@ -264,10 +307,10 @@ import { default as shipConfig } from "../server/lib/ships.js";
             if (ship.size >= 150) {
                 ship.hardpoints.forEach(hardpoint => {
                     if (hardpoint.health <= 0) return;
-    
+
                     // Green - Yellow - Red based on hp
                     ctx.fillStyle = hardpoint.health > .667 ? "#00FF00" : hardpoint.health > .333 ? "#FFFF00" : "#FF0000";
-    
+
                     ctx.beginPath();
                     ctx.arc(
                         ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction),
@@ -280,10 +323,16 @@ import { default as shipConfig } from "../server/lib/ships.js";
                 });
             }
 
-            // Draw shield
-            ctx.rotate(-ship.angle);
-            drawBar(0, -ship.size / 2 - 20, ship.size, 10, ship.health, "#00FFC8");
-            drawBar(0, -ship.size / 2 - 40, ship.size, 10, ship.shield, "#00C8FF");
+            if (!ship.isPartOfSquadron || ship.size * scale >= 20) {
+                ctx.rotate(-ship.angle);
+                const barWidth = Math.max(50, ship.size);
+
+                drawBar(0, -barWidth / 2 - 20, barWidth, 10, ship.health, "#00FFC8");
+
+                if (ship.shield !== -1) {
+                    drawBar(0, -barWidth / 2 - 40, barWidth, 10, ship.shield, "#00C8FF");
+                }
+            }
 
             ctx.restore();
         });
@@ -308,8 +357,9 @@ import { default as shipConfig } from "../server/lib/ships.js";
             }
 
             if (props.shadows) {
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = mixColors(props.color, "#000000", .3);
+                // Flicker unique to this projectile by ID
+                ctx.shadowBlur = props.isCircle ? Math.sin(projectile.id * 2 + performance.now() / 50) * 2.5 + 12.5 : 10;
+                ctx.shadowColor = mixColors(props.color, "#FFFFFF", .5);
             }
 
             ctx.beginPath();
@@ -317,21 +367,55 @@ import { default as shipConfig } from "../server/lib/ships.js";
             if (props.isCircle) {
                 ctx.arc(0, 0, projectile.size * props.strength, 0, Math.PI * 2);
             } else {
-                for (let i = 0; i < props.count; i ++) {
+                for (let i = 0; i < props.count; i++) {
                     const x = -spacing * props.count / 2 + spacing * i;
-    
+
                     ctx.moveTo(x, -projectile.size * 5);
                     ctx.lineTo(x, projectile.size * 5);
                 }
             }
 
             ctx.closePath();
-            
+
             if (props.isCircle) {
                 ctx.fill();
             } else {
                 ctx.stroke();
             }
+
+            ctx.restore();
+        });
+
+        // Draw squadrons
+        squadrons.forEach(squadron => {
+            squadron.x = lerp(squadron.x, squadron.realX, .2);
+            squadron.y = lerp(squadron.y, squadron.realY, .2);
+            squadron.health = lerp(squadron.health, squadron.realHealth, .2);
+
+            if (scale > .6) {
+                return;
+            }
+
+            ctx.save();
+            ctx.translate(squadron.x, squadron.y);
+
+            ctx.fillStyle = squadron.team === 0 ? "#FF0000" : "#0000FF";
+            ctx.strokeStyle = mixColors(ctx.fillStyle, "#000000", .5);
+            ctx.beginPath();
+            ctx.roundRect(-40, -40, 80, 80, 17.5);
+
+            ctx.globalAlpha = .125;
+            ctx.fill();
+
+            ctx.globalAlpha = 1;
+            ctx.lineWidth = 5;
+            ctx.stroke();
+
+            ctx.globalAlpha = .5;
+            ctx.drawImage(assets.get(squadron.asset), -30, -30, 60, 60);
+
+            ctx.globalAlpha = 1;
+            drawBar(0, 55, 80, 10, squadron.health, "#00FFC8");
 
             ctx.restore();
         });

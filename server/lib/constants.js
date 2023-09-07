@@ -63,7 +63,8 @@ export const weaponTypes = {
     "ProtonBomb": 50,
     "ProtonTorpedo": 51,
     "ConcussionMissile": 52,
-    "ProtonRocket": 53
+    "ProtonRocket": 53,
+    "AssaultProtonRocket": 54
 };
 
 export const colors = {
@@ -126,7 +127,7 @@ export const weaponDrawProperties = (function() {
         color: colors.Missile,
         shots: "Single",
         count: 1,
-        strength: 1,
+        strength: 2,
         key: "ConcussionMissile",
         isCircle: true,
         shadows: true
@@ -137,6 +138,16 @@ export const weaponDrawProperties = (function() {
         shots: "Single",
         count: 1,
         strength: 1,
+        key: "ProtonRocket",
+        isCircle: true,
+        shadows: true
+    };
+
+    output[weaponTypes.AssaultProtonRocket] = {
+        color: colors.Rocket,
+        shots: "Single",
+        count: 1,
+        strength: 2,
         key: "ProtonRocket",
         isCircle: true,
         shadows: true
@@ -163,7 +174,7 @@ export const weaponProperties = (function() {
             "Laser": "LaserCannon",
             "Ion": "IonCannon",
             "Turbolaser": "Turbolaser",
-            "Bomb": "Turbolaser",
+            "Bomb": "AreaOfEffect",
             "Rocket": "Guided",
             "Missile": "AreaOfEffect",
             "Torpedo": "Guided"
