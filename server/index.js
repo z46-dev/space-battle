@@ -137,6 +137,17 @@ class Hardpoint {
         }
 
         this.target = null;
+
+        this.firingArc = [-Math.PI / 2, Math.PI / 2];
+        this.idleFacing = 0;
+    }
+
+    isInArc(tx, ty) {
+        const atan2 = Math.atan2(ty - this.y, tx - this.x);
+
+        const diff = angleDifference(atan2, this.ship.angle + this.idleFacing);
+
+        return diff > this.firingArc[0] && diff < this.firingArc[1];
     }
 
     get x() {
