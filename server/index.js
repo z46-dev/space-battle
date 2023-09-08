@@ -655,24 +655,25 @@ class Ship {
 const empireFleet = {
     "SSD": 0,
     "ISD": 0,
+    "IMOBILIZER": 10,
     "QUASAR": 0,
     "ARQUITENS": 0,
     "RAIDER": 0,
 
     "DUMMY_CARRIER": 0,
-    "THRAWN_QUASAR": 1
+    "THRAWN_QUASAR": 0
 };
 
 const rebelFleet = {
-    "STARHAWK": 0,
+    "STARHAWK": 1,
     "HOMEONE": 0,
-    "MC80LIBERTY": 0,
-    "NEBULONB": 0,
-    "PELTA": 0,
-    "CR90": 0,
+    "MC80LIBERTY": 1,
+    "NEBULONB": 3,
+    "PELTA": 2,
+    "CR90": 8,
 
     "DUMMY_TARGET": 0,
-    "REBEL_QUASAR": 2
+    "REBEL_QUASAR": 0
 };
 
 function spawn(ship, team) {
