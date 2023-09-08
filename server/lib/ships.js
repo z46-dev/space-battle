@@ -852,7 +852,7 @@ ships.AWING = {
     classification: shipTypes.Fighter,
     size: 17,
     cost: 6,
-    speed: 22.5,
+    speed: 22,
     turnSpeed: .1,
     shield: 15,
     shieldRegen: 0.15,
