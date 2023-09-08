@@ -101,7 +101,7 @@ class Projectile {
                         for (let i = 0; i < validHardpoints.length; i++) {
                             const hardpoint = validHardpoints[i];
 
-                            hardpoint.health -= this.hardpoint.damage / validHardpoints.length;
+                            hardpoint.health -= this.hardpoint.damage / (validHardpoints.length * 2.5);
                         }
                     }
                     break;
@@ -653,9 +653,9 @@ class Ship {
 }
 
 const empireFleet = {
-    "SSD": 0,
-    "ISD": 0,
-    "IMOBILIZER": 10,
+    "SSD": 1,
+    "ISD": 2,
+    "IMOBILIZER": 0,
     "QUASAR": 0,
     "ARQUITENS": 0,
     "RAIDER": 0,
@@ -665,15 +665,20 @@ const empireFleet = {
 };
 
 const rebelFleet = {
-    "STARHAWK": 1,
+    "STARHAWK": 0,
     "HOMEONE": 0,
-    "MC80LIBERTY": 1,
-    "NEBULONB": 3,
-    "PELTA": 2,
-    "CR90": 8,
+    "MC80LIBERTY": 0,
+    "NEBULONB": 0,
+    "PELTA": 0,
+    "CR90": 0,
 
     "DUMMY_TARGET": 0,
-    "REBEL_QUASAR": 0
+    "REBEL_QUASAR": 0,
+    "LUPUSMISSILEFRIGATE": 0,
+    
+
+    // NEW SHIPS
+    "CHIMERA_DESTROYER": 12
 };
 
 function spawn(ship, team) {

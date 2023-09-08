@@ -483,6 +483,115 @@ export const RED_OCTUPLE_TURBOLASER_CANNON_HEAVY = {
     type: weaponTypes.RedOctupleTurbolaser
 };
 
+// BLUE WEAPON DEFS
+
+export const BLUE_FIGHTER_LASER_CANNON = {
+    ...GREEN_FIGHTER_LASER_CANNON,
+    type: weaponTypes.BlueLaserCannon
+};
+
+export const BLUE_RAPID_FIGHTER_LASER_CANNON = {
+    ...GREEN_RAPID_FIGHTER_LASER_CANNON,
+    type: weaponTypes.BlueLaserCannon
+};
+
+export const BLUE_RAPID_LASER_CANNON = {
+    ...GREEN_RAPID_LASER_CANNON,
+    type: weaponTypes.BlueLaserCannon
+};
+
+export const BLUE_LASER_CANNON = {
+    ...GREEN_LASER_CANNON,
+    type: weaponTypes.BlueLaserCannon
+};
+
+export const BLUE_DOUBLE_LASER_CANNON = {
+    ...GREEN_DOUBLE_LASER_CANNON,
+    type: weaponTypes.BlueDoubleLaserCannon
+};
+
+export const BLUE_TRIPLE_LASER_CANNON = {
+    ...GREEN_TRIPLE_LASER_CANNON,
+    type: weaponTypes.BlueTripleLaserCannon
+};
+
+export const BLUE_QUAD_LASER_CANNON = {
+    ...GREEN_QUAD_LASER_CANNON,
+    type: weaponTypes.BlueQuadLaserCannon
+};
+
+export const BLUE_LASER_CANNON_HEAVY = {
+    ...GREEN_LASER_CANNON_HEAVY,
+    type: weaponTypes.BlueLaserCannon
+};
+
+export const BLUE_DOUBLE_LASER_CANNON_HEAVY = {
+    ...GREEN_DOUBLE_LASER_CANNON_HEAVY,
+    type: weaponTypes.BlueDoubleLaserCannon
+};
+
+export const BLUE_TRIPLE_LASER_CANNON_HEAVY = {
+    ...GREEN_TRIPLE_LASER_CANNON_HEAVY,
+    type: weaponTypes.BlueTripleLaserCannon
+};
+
+export const BLUE_QUAD_LASER_CANNON_HEAVY = {
+    ...GREEN_QUAD_LASER_CANNON_HEAVY,
+    type: weaponTypes.BlueQuadLaserCannon
+};
+
+export const BLUE_TURBOLASER_CANNON = {
+    ...GREEN_TURBOLASER_CANNON,
+    type: weaponTypes.BlueTurbolaser
+};
+
+export const BLUE_DOUBLE_TURBOLASER_CANNON = {
+    ...GREEN_DOUBLE_TURBOLASER_CANNON,
+    type: weaponTypes.BlueDoubleTurbolaser
+};
+
+export const BLUE_TRIPLE_TURBOLASER_CANNON = {
+    ...GREEN_TRIPLE_TURBOLASER_CANNON,
+    type: weaponTypes.BlueTripleTurbolaser
+};
+
+export const BLUE_QUAD_TURBOLASER_CANNON = {
+    ...GREEN_QUAD_TURBOLASER_CANNON,
+    type: weaponTypes.BlueQuadTurbolaser
+};
+
+export const BLUE_OCTUPLE_TURBOLASER_CANNON = {
+    ...GREEN_OCTUPLE_TURBOLASER_CANNON,
+    type: weaponTypes.BlueOctupleTurbolaser
+};
+
+export const BLUE_TURBOLASER_CANNON_HEAVY = {
+    ...GREEN_TURBOLASER_CANNON_HEAVY,
+    type: weaponTypes.BlueTurbolaser
+};
+
+export const BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY = {
+    ...GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+    type: weaponTypes.BlueDoubleTurbolaser
+};
+
+export const BLUE_TRIPLE_TURBOLASER_CANNON_HEAVY = {
+    ...GREEN_TRIPLE_TURBOLASER_CANNON_HEAVY,
+    type: weaponTypes.BlueTripleTurbolaser
+};
+
+export const BLUE_QUAD_TURBOLASER_CANNON_HEAVY = {
+    ...GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
+    type: weaponTypes.BlueQuadTurbolaser
+};
+
+export const BLUE_OCTUPLE_TURBOLASER_CANNON_HEAVY = {
+    ...GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY,
+    type: weaponTypes.BlueOctupleTurbolaser
+};
+
+// PURPLE WEAPON DEFS
+
 // PROJECTILE DEFS
 export const FIGHTER_PROTON_TORPEDO = {
     reload: 399,
@@ -523,7 +632,7 @@ export const FIGHTER_PROTON_ROCKET_AOE = {
 
 export const ASSAULT_PROTON_ROCKET = {
     reload: 200,
-    damage: 150,
+    damage: 95,
     speed: 35,
     range: 3000,
     type: weaponTypes.AssaultProtonRocket,
@@ -532,7 +641,7 @@ export const ASSAULT_PROTON_ROCKET = {
 
 export const ASSAULT_CONCUSSION_MISSILE = {
     reload: 300,
-    damage: 80, // Weak cuz usually many in a volley
+    damage: 60, // Weak cuz usually many in a volley
     speed: 35,
     range: 4000,
     type: weaponTypes.ConcussionMissile,
