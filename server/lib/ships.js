@@ -366,7 +366,7 @@ ships.SSD = {
     cost: 60000,
     speed: .5,
     turnSpeed: .0005,
-    shield: 72000,
+    shield: 86000,
     shieldRegen: 20,
     hardpoints: (function() {
         const output = [];
@@ -388,6 +388,18 @@ ships.SSD = {
                 x: .03 + .02 * i,
                 y: .85 - .1 * i,
                 weapon: QUAD_ION_CANNON_HEAVY
+            }, {
+                x: -.025 - .0225 * i,
+                y: .8 - .1 * i,
+                weapon: ASSAULT_CONCUSSION_MISSILE,
+                shotsAtOnce: 2,
+                shotDelay: 250
+            }, {
+                x: .025 + .02 * i,
+                y: .8 - .1 * i,
+                weapon: ASSAULT_CONCUSSION_MISSILE,
+                shotsAtOnce: 2,
+                shotDelay: 250
             });
         }
 
