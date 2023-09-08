@@ -64,7 +64,8 @@ export const weaponTypes = {
     "ProtonTorpedo": 51,
     "ConcussionMissile": 52,
     "ProtonRocket": 53,
-    "AssaultProtonRocket": 54
+    "AssaultProtonRocket": 54,
+    "ProtonRocketAOE": 55
 };
 
 export const colors = {
@@ -153,6 +154,16 @@ export const weaponDrawProperties = (function() {
         shadows: true
     };
 
+    output[weaponTypes.ProtonRocketAOE] = {
+        color: colors.Rocket,
+        shots: "Single",
+        count: 1,
+        strength: 1.5,
+        key: "ProtonRocketAOE",
+        isCircle: true,
+        shadows: true
+    };
+
     return output;
 })();
 
@@ -161,20 +172,22 @@ export const weaponClassifications = {
     "IonCannon": 1,
     "Turbolaser": 2,
     "Guided": 3,
-    "AreaOfEffect": 4
+    "AreaOfEffect": 4,
+    "GuidedAOE": 5
 };
 
 export const weaponProperties = (function() {
     const output = [];
 
     for (const key in weaponTypes) {
-        const classification = key.match(/Laser|Ion|Turbolaser|Bomb|Rocket|Missile|Torpedo/)[0];
+        const classification = key.match(/Laser|Ion|Turbolaser|Bomb|RocketAOE|Rocket|Missile|Torpedo/)[0];
 
         const map = {
             "Laser": "LaserCannon",
             "Ion": "IonCannon",
             "Turbolaser": "Turbolaser",
             "Bomb": "AreaOfEffect",
+            "RocketAOE": "GuidedAOE",
             "Rocket": "Guided",
             "Missile": "AreaOfEffect",
             "Torpedo": "Guided"
@@ -188,3 +201,13 @@ export const weaponProperties = (function() {
 
     return output;
 })();
+
+export const shipTypes = {
+    "Fighter": 0,
+    "Bomber": 1,
+    "Corvette": 2,
+    "Frigate": 3,
+    "HeavyFrigate": 4,
+    "Capital": 5,
+    "SuperCapital": 6
+};

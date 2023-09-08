@@ -1,4 +1,4 @@
-import { weaponClassifications, weaponProperties, weaponTypes } from "./lib/constants.js";
+import { shipTypes, weaponClassifications, weaponProperties, weaponTypes } from "./lib/constants.js";
 import ships from "./lib/ships.js";
 
 function angleDifference(a, b) {
@@ -10,6 +10,16 @@ function distance(x1, y1, x2, y2) {
     const dy = y1 - y2;
 
     return Math.sqrt(dx * dx + dy * dy);
+}
+
+function lerp(A, B, w) {
+    return (1 - w) * A + w * B;
+}
+
+function lerpAngle(A, B, w) {
+    let CS = (1 - w) * Math.cos(A) + w * Math.cos(B);
+    let SN = (1 - w) * Math.sin(A) + w * Math.sin(B);
+    return Math.atan2(SN, CS);
 }
 
 class Projectile {
@@ -71,6 +81,7 @@ class Projectile {
                     }
                     break;
                 case weaponClassifications.AreaOfEffect:
+                case weaponClassifications.GuidedAOE:
                     if (this.target.ship.shield > 0) {
                         this.target.ship.shield -= this.hardpoint.damage * .25; // Nuh uh uh
                         this.target.ship.lastHit = performance.now();
@@ -126,13 +137,14 @@ class Hardpoint {
         this.range = config.weapon.range;
         this.shotsAtOnce = config.shotsAtOnce ?? 1;
         this.shotDelay = config.shotDelay ?? 500;
+        this.targetTypes = config.weapon.targetOverride ?? null;
 
         this.health = config.weapon.health;
         this.maxHealth = config.weapon.health;
         this.team = ship.team;
 
         this.classification = weaponProperties[this.projectileType].classification;
-        if (this.classification !== weaponClassifications.AreaOfEffect && this.classification !== weaponClassifications.Guided) {
+        if (this.classification !== weaponClassifications.AreaOfEffect && this.classification !== weaponClassifications.Guided && this.classification !== weaponClassifications.GuidedAOE) {
             this.tick -= Math.random() * this.reload * .5 | 0;
         }
 
@@ -164,6 +176,10 @@ class Hardpoint {
             Ship.ships.forEach(ship => {
                 if (ship.team !== this.ship.team && ship.health > 0) {
                     if (this.classification === weaponClassifications.IonCannon && ship.shield <= 0) {
+                        return;
+                    }
+
+                    if (this.targetTypes !== null && this.targetTypes.indexOf(ship.classification) === -1) {
                         return;
                     }
 
@@ -219,7 +235,7 @@ class Hardpoint {
             if (this.shotsAtOnce > 1) {
                 for (let i = 0; i < this.shotsAtOnce; i++) {
                     setTimeout(() => {
-                        if (this.health <= 0) {
+                        if (this.health <= 0 || this.target === null) {
                             return;
                         }
 
@@ -230,7 +246,7 @@ class Hardpoint {
                         const projectile = new Projectile(this.x, this.y, angle, this.ship, this);
                         projectile.target = this.target;
                         projectile.type = this.projectileType;
-                        projectile.isGuided = this.classification === weaponClassifications.Guided;
+                        projectile.isGuided = this.classification === weaponClassifications.Guided || this.classification === weaponClassifications.GuidedAOE;
                         projectile.classification = this.classification;
                     }, i * this.shotDelay);
                 }
@@ -242,7 +258,7 @@ class Hardpoint {
                 const projectile = new Projectile(this.x, this.y, angle, this.ship, this);
                 projectile.target = this.target;
                 projectile.type = this.projectileType;
-                projectile.isGuided = this.classification === weaponClassifications.Guided;
+                projectile.isGuided = this.classification === weaponClassifications.Guided || this.classification === weaponClassifications.GuidedAOE;
                 projectile.classification = this.classification;
             }
         }
@@ -341,7 +357,7 @@ class Squadron {
             const $tx = tx + Math.cos(angle) * distance;
             const $ty = ty + Math.sin(angle) * distance;
 
-            this.ships[i].angleGoal = Math.atan2($ty - this.ships[i].y, $tx - this.ships[i].x) + Math.PI;
+            this.ships[i].angleGoal = Math.atan2($ty - this.ships[i].y, $tx - this.ships[i].x);
             this.ships[i].speed = this.ships[i].maxSpeed;
         }
     }
@@ -356,12 +372,17 @@ class Squadron {
             x += ship.x;
             y += ship.y;
         });
-        
+
         health /= this.ships.length;
         x /= this.ships.length;
         y /= this.ships.length;
 
-        return [this.id, health, x, y, this.ship.team, this.squadronKey];
+        return {
+            id: this.id,
+            x: x,
+            y: y,
+            health: health
+        };
     }
 }
 
@@ -451,26 +472,44 @@ class ShipAI {
 
         this.ship.speed = this.ship.maxSpeed;
 
-        if (this.ship.size <= 45) {
-            this.fighterThinking();
-        } else if (this.ship.size <= 100) {
-            this.corvetteThinking();
-        } else if (this.ship.size <= 300) {
-            this.lightFrigateThinking();
-        } else {
-            this.capitalShipThinking();
+        // if (this.ship.size <= 45) {
+        //     this.fighterThinking();
+        // } else if (this.ship.size <= 100) {
+        //     this.corvetteThinking();
+        // } else if (this.ship.size <= 300) {
+        //     this.lightFrigateThinking();
+        // } else {
+        //     this.capitalShipThinking();
+        // }
+
+        switch (this.ship.classification) {
+            case shipTypes.Fighter:
+            case shipTypes.Bomber:
+                this.fighterThinking();
+                break;
+            case shipTypes.Corvette:
+                this.corvetteThinking();
+                break;
+            case shipTypes.Frigate:
+            case shipTypes.HeavyFrigate:
+                this.lightFrigateThinking();
+                break;
+            case shipTypes.Capital:
+            case shipTypes.SuperCapital:
+                this.capitalShipThinking();
+                break;
         }
     }
 
     fighterThinking() {
-        this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI;
+        this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
     }
 
     corvetteThinking() {
         if (this.ship.shield / this.ship.maxShield < .5 && this.ship.health < .75) { // Kite
             this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
         } else if (distance(this.ship.x, this.ship.y, this.target.x, this.target.y) > 600) {
-            this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI;
+            this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
             this.orbitAngle = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
         } else if (distance(this.ship.x, this.ship.y, this.target.x, this.target.y) < 500) {
             const gx = this.target.x + Math.cos(this.orbitAngle) * 400;
@@ -489,7 +528,7 @@ class ShipAI {
         if ((this.ship.shield / this.ship.maxShield < .25 && this.ship.health < .75) || myDistance < range / 3) { // Kite
             this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
         } else if (myDistance > range) { // Approach
-            this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI;
+            this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
         } else {
             this.ship.speed = 0;
         }
@@ -500,12 +539,12 @@ class ShipAI {
         const range = Math.min(...this.ship.hardpoints.map(hardpoint => hardpoint.range));
 
         if (myDistance > range) { // Approach
-            this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI;
+            this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
         } else {
             this.ship.speed = 0;
 
-            if (angleDifference(this.ship.angle, Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI) > Math.PI / 3) {
-                this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI;
+            if (angleDifference(this.ship.angle, Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x)) > Math.PI / 3) {
+                this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
             }
         }
     }
@@ -532,6 +571,7 @@ class Ship {
         this.team = team;
         this.asset = config.asset;
         this.totalHealth = 0;
+        this.classification = config.classification ?? shipTypes.Capital;
 
         this.ai = new ShipAI(this);
         this.squadron = null;
@@ -552,7 +592,7 @@ class Ship {
         for (const hangar of (config.hangars ?? [])) {
             this.hangars.push(new Hangar(this, hangar));
         }
-        
+
         this.onDead = null;
 
         Ship.ships.set(this.id, this);
@@ -577,7 +617,7 @@ class Ship {
         this.y += this.speed * Math.sin(this.angle);
 
         // Move to the angle
-        this.angle = angleDifference(this.angle, this.angleGoal) > 0 ? this.angle + this.turnSpeed : this.angle - this.turnSpeed;
+        this.angle = lerpAngle(this.angle, this.angleGoal, this.turnSpeed);
 
         if (this.ai !== undefined) {
             this.ai.update();
@@ -603,22 +643,25 @@ class Ship {
 
 const empireFleet = {
     "SSD": 0,
-    "ISD": 8,
+    "ISD": 0,
     "QUASAR": 0,
     "ARQUITENS": 0,
     "RAIDER": 0,
 
-    "DUMMY_CARRIER": 0
+    "DUMMY_CARRIER": 0,
+    "THRAWN_QUASAR": 1
 };
 
 const rebelFleet = {
+    "STARHAWK": 0,
     "HOMEONE": 0,
-    "MC80LIBERTY": 8,
+    "MC80LIBERTY": 0,
     "NEBULONB": 0,
     "PELTA": 0,
     "CR90": 0,
 
-    "DUMMY_TARGET": 0
+    "DUMMY_TARGET": 0,
+    "REBEL_QUASAR": 2
 };
 
 function spawn(ship, team) {
@@ -650,6 +693,7 @@ for (const ship in rebelFleet) {
 }
 
 function gameTick() {
+    const start = performance.now();
     Ship.ships.forEach(ship => {
         ship.update();
     });
@@ -657,30 +701,401 @@ function gameTick() {
     Projectile.projectiles.forEach(projectile => {
         projectile.update();
     });
+
+    const end = performance.now();
 }
 
 setInterval(gameTick, 1000 / 22.5);
 
-function talk() {
-    const message = [Ship.ships.size, Projectile.projectiles.size, Squadron.squadrons.size];
+// Makes it possible to translate this to a server, not just having it in a web worker
+class Camera {
+    static ShipCache = class {
+        id = 0;
+        x = 0;
+        y = 0;
+        angle = 0;
+        size = 0;
+        asset = "";
+        health = 0;
+        shield = 0;
+        isSquadron = false;
+        hardpoints = [];
 
-    Ship.ships.forEach(ship => {
-        message.push(ship.id, ship.x, ship.y, ship.angle, ship.size, ship.asset, ship.health, ship.maxShield === 0 ? -1 : ship.shield / ship.maxShield, ship.squadron !== null, ship.hardpoints.length);
+        updateX = false;
+        updateY = false;
+        updateAngle = false;
+        updateHealth = false;
+        updateShield = false;
 
-        ship.hardpoints.forEach(hardpoint => {
-            message.push(hardpoint.offset, hardpoint.direction, hardpoint.health / hardpoint.maxHealth);
+        isNew = true;
+
+        /**
+         * @param {Ship} newShip 
+         */
+        update(newShip) {
+            if (newShip.x !== this.x) {
+                this.x = newShip.x;
+                this.updateX = true;
+            }
+
+            if (newShip.y !== this.y) {
+                this.y = newShip.y;
+                this.updateY = true;
+            }
+
+            if (newShip.angle !== this.angle) {
+                this.angle = newShip.angle;
+                this.updateAngle = true;
+            }
+
+            if (newShip.health !== this.health) {
+                this.health = newShip.health;
+                this.updateHealth = true;
+            }
+
+            const shield = newShip.maxShield === 0 ? -1 : newShip.shield / newShip.maxShield;
+            if (shield !== this.shield) {
+                this.shield = shield;
+                this.updateShield = true;
+            }
+
+            this.hardpoints = newShip.hardpoints.map(hardpoint => [hardpoint.offset, hardpoint.direction, hardpoint.health / hardpoint.maxHealth]);
+        }
+
+        getOutput() {
+            const output = [this.id, this.isNew ? 1 : 0];
+
+            if (this.isNew) {
+                this.isNew = false;
+
+                // Send everything
+                output.push(this.x, this.y, this.angle, this.size, this.asset, this.health, this.shield, this.isSquadron, this.hardpoints.length, ...this.hardpoints.flat());
+            } else {
+                // Send only what changed
+                if (this.updateX) {
+                    output.push(this.x);
+                    this.updateX = false;
+                    output[1] += 2;
+                }
+
+                if (this.updateY) {
+                    output.push(this.y);
+                    this.updateY = false;
+                    output[1] += 4;
+                }
+
+                if (this.updateAngle) {
+                    output.push(this.angle);
+                    this.updateAngle = false;
+                    output[1] += 8;
+                }
+
+                if (this.updateHealth) {
+                    output.push(this.health);
+                    this.updateHealth = false;
+                    output[1] += 16;
+                }
+
+                if (this.updateShield) {
+                    output.push(this.shield);
+                    this.updateShield = false;
+                    output[1] += 32;
+                }
+
+                if (this.hardpoints.length > 0) {
+                    output[1] += 64;
+                    output.push(this.hardpoints.length, ...this.hardpoints.flat()); // idc about the performance here, not an issue except for like, 20 executors, which should never happen
+                }
+            }
+
+            return output;
+        }
+    }
+
+    static ProjectileCache = class {
+        id = 0;
+        x = 0;
+        y = 0;
+        type = 0;
+        angle = 0;
+
+        updateX = false;
+        updateY = false;
+        updateAngle = false;
+
+        isNew = true;
+
+        /**
+         * @param {Projectile} newProjectile
+         */
+        update(newProjectile) {
+            if (newProjectile.x !== this.x) {
+                this.x = newProjectile.x;
+                this.updateX = true;
+            }
+
+            if (newProjectile.y !== this.y) {
+                this.y = newProjectile.y;
+                this.updateY = true;
+            }
+
+            if (newProjectile.angle !== this.angle) {
+                this.angle = newProjectile.angle;
+                this.updateAngle = true;
+            }
+        }
+
+        getOutput() {
+            const output = [this.id, this.isNew ? 1 : 0];
+
+            if (this.isNew) {
+                this.isNew = false;
+
+                // Send everything
+                output.push(this.x, this.y, this.type, this.angle);
+            } else {
+                // Send only what changed
+                if (this.updateX) {
+                    output.push(this.x);
+                    this.updateX = false;
+                    output[1] += 2;
+                }
+
+                if (this.updateY) {
+                    output.push(this.y);
+                    this.updateY = false;
+                    output[1] += 4;
+                }
+
+                if (this.updateAngle) {
+                    output.push(this.angle);
+                    this.updateAngle = false;
+                    output[1] += 8;
+                }
+            }
+
+            return output;
+        }
+    }
+
+    static SquadronCache = class {
+        id = 0;
+        health = 0;
+        x = 0;
+        y = 0;
+        team = 0;
+        asset = "";
+
+        updateHealth = false;
+        updateX = false;
+        updateY = false;
+
+        isNew = true;
+
+        /**
+         * @param {Squadron} newSquadron
+         */
+        update(newSquadron) {
+            const data = newSquadron.packagedData;
+            if (data.health !== this.health) {
+                this.health = data.health;
+                this.updateHealth = true;
+            }
+
+            if (data.x !== this.x) {
+                this.x = data.x;
+                this.updateX = true;
+            }
+
+            if (data.y !== this.y) {
+                this.y = data.y;
+                this.updateY = true;
+            }
+        }
+
+        getOutput() {
+            const output = [this.id, this.isNew ? 1 : 0];
+
+            if (this.isNew) {
+                this.isNew = false;
+
+                // Send everything
+                output.push(this.health, this.x, this.y, this.team, this.asset);
+            } else {
+                // Send only what changed
+                if (this.updateHealth) {
+                    output.push(this.health);
+                    this.updateHealth = false;
+                    output[1] += 2;
+                }
+
+                if (this.updateX) {
+                    output.push(this.x);
+                    this.updateX = false;
+                    output[1] += 4;
+                }
+
+                if (this.updateY) {
+                    output.push(this.y);
+                    this.updateY = false;
+                    output[1] += 8;
+                }
+            }
+
+            return output;
+        }
+    }
+
+    constructor(connection) {
+        /**
+         * @type {Connection}
+         */
+        this.connection = connection;
+
+        this.x = 0;
+        this.y = 0;
+        this.zoom = 1;
+
+        this.shipsCache = new Map();
+        this.projectilesCache = new Map();
+        this.squadronsCache = new Map();
+    }
+
+    get fov() {
+        return 1920 / this.zoom;
+    }
+
+    isInView(x, y, size) {
+        return distance(x, y, this.x, this.y) < this.fov / 2 + size / 2;
+    }
+
+    update() {
+        const shipsIDs = [];
+        const projectilesIDs = [];
+        const squadronsIDs = [];
+
+        Ship.ships.forEach(ship => {
+            if (this.isInView(ship.x, ship.y, ship.size)) {
+                shipsIDs.push(ship.id);
+
+                if (!this.shipsCache.has(ship.id)) {
+                    const cache = new Camera.ShipCache();
+
+                    cache.id = ship.id;
+                    cache.x = ship.x;
+                    cache.y = ship.y;
+                    cache.angle = ship.angle;
+                    cache.size = ship.size;
+                    cache.asset = ship.asset;
+                    cache.health = ship.health;
+                    cache.shield = ship.maxShield === 0 ? -1 : ship.shield / ship.maxShield;
+                    cache.isSquadron = ship.squadron !== null;
+                    cache.hardpoints = ship.hardpoints.map(hardpoint => [hardpoint.offset, hardpoint.direction, hardpoint.health / hardpoint.maxHealth]);
+
+                    this.shipsCache.set(ship.id, cache);
+                }
+
+                this.shipsCache.get(ship.id).update(ship);
+            }
         });
-    });
 
-    Projectile.projectiles.forEach(projectile => {
-        message.push(projectile.id, projectile.x, projectile.y, projectile.type, projectile.angle);
-    });
+        Projectile.projectiles.forEach(projectile => {
+            if (this.isInView(projectile.x, projectile.y, projectile.collisionRange)) {
+                projectilesIDs.push(projectile.id);
 
-    Squadron.squadrons.forEach(squadron => {
-        message.push(...squadron.packagedData);
-    });
+                if (!this.projectilesCache.has(projectile.id)) {
+                    const cache = new Camera.ProjectileCache();
 
-    postMessage(message);
+                    cache.id = projectile.id;
+                    cache.x = projectile.x;
+                    cache.y = projectile.y;
+                    cache.type = projectile.type;
+                    cache.angle = projectile.angle;
+
+                    this.projectilesCache.set(projectile.id, cache);
+                }
+
+                this.projectilesCache.get(projectile.id).update(projectile);
+            }
+        });
+
+        Squadron.squadrons.forEach(squadron => {
+            const data = squadron.packagedData;
+            if (this.isInView(data.x, data.y, 50)) {
+                squadronsIDs.push(squadron.id);
+
+                if (!this.squadronsCache.has(squadron.id)) {
+                    const cache = new Camera.SquadronCache();
+
+                    cache.id = squadron.id;
+                    cache.health = data.health;
+                    cache.x = data.x;
+                    cache.y = data.y;
+                    cache.team = squadron.ship.team;
+                    cache.asset = squadron.squadronKey;
+
+                    this.squadronsCache.set(squadron.id, cache);
+                }
+
+                this.squadronsCache.get(squadron.id).update(squadron);
+            }
+        });
+
+        const output = [this.x, this.y, this.zoom, shipsIDs.length, projectilesIDs.length, squadronsIDs.length];
+
+        this.shipsCache.forEach(ship => {
+            if (!shipsIDs.includes(ship.id)) {
+                this.shipsCache.delete(ship.id);
+                return;
+            }
+
+            output.push(...ship.getOutput());
+        });
+
+        this.projectilesCache.forEach(projectile => {
+            if (!projectilesIDs.includes(projectile.id)) {
+                this.projectilesCache.delete(projectile.id);
+                return;
+            }
+
+            output.push(...projectile.getOutput());
+        });
+
+        this.squadronsCache.forEach(squadron => {
+            if (!squadronsIDs.includes(squadron.id)) {
+                this.squadronsCache.delete(squadron.id);
+                return;
+            }
+
+            output.push(...squadron.getOutput());
+        });
+
+        postMessage(output);
+    }
 }
 
-setInterval(talk, 1000 / 17.5);
+class Connection {
+    static connections = new Map();
+    static id = 0;
+
+    constructor() {
+        this.id = Connection.id++;
+        
+        this.team = 0;
+        this.ships = new Map();
+
+        this.camera = new Camera(this);
+
+        Connection.connections.set(this.id, this);
+
+        setInterval(() => this.camera.update(), 1000 / 12.5);
+    }
+}
+
+const connection = new Connection();
+
+onmessage = function (e) {
+    connection.camera.x += e.data[0];
+    connection.camera.y += e.data[1];
+    connection.camera.zoom = e.data[2];
+}

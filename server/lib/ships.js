@@ -1,5 +1,5 @@
-import { weaponTypes } from "./constants.js";
-import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, FIGHTER_ION_CANNON, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_LASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TRIPLE_LASER_CANNON_HEAVY, GREEN_TURBOLASER_CANNON, ION_CANNON, ION_CANNON_HEAVY, ION_CANNON_ULTRA, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, QUAD_ION_CANNON_HEAVY, QUAD_ION_CANNON_MEDIUM, RED_DOUBLE_LASER_CANNON, RED_DOUBLE_LASER_CANNON_HEAVY, RED_DOUBLE_TURBOLASER_CANNON, RED_DOUBLE_TURBOLASER_CANNON_HEAVY, RED_FIGHTER_LASER_CANNON, RED_LASER_CANNON, RED_QUAD_LASER_CANNON, RED_RAPID_LASER_CANNON, RED_TRIPLE_LASER_CANNON, RED_TRIPLE_LASER_CANNON_HEAVY, RED_TRIPLE_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON, TRIPLE_ION_CANNON_HEAVY, FIGHTER_PROTON_BOMB, GREEN_FIGHTER_LASER_CANNON, FIGHTER_PROTON_ROCKET, ASSAULT_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, DUMMY_BLANK } from "./weapons.js";
+import { shipTypes, weaponTypes } from "./constants.js";
+import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, FIGHTER_ION_CANNON, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_LASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TRIPLE_LASER_CANNON_HEAVY, GREEN_TURBOLASER_CANNON, ION_CANNON, ION_CANNON_HEAVY, ION_CANNON_ULTRA, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, QUAD_ION_CANNON_HEAVY, QUAD_ION_CANNON_MEDIUM, RED_DOUBLE_LASER_CANNON, RED_DOUBLE_LASER_CANNON_HEAVY, RED_DOUBLE_TURBOLASER_CANNON, RED_DOUBLE_TURBOLASER_CANNON_HEAVY, RED_FIGHTER_LASER_CANNON, RED_LASER_CANNON, RED_QUAD_LASER_CANNON, RED_RAPID_LASER_CANNON, RED_TRIPLE_LASER_CANNON, RED_TRIPLE_LASER_CANNON_HEAVY, RED_TRIPLE_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON, TRIPLE_ION_CANNON_HEAVY, FIGHTER_PROTON_BOMB, GREEN_FIGHTER_LASER_CANNON, FIGHTER_PROTON_ROCKET, ASSAULT_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, DUMMY_BLANK, RED_QUAD_TURBOLASER_CANNON_HEAVY, FIGHTER_PROTON_ROCKET_AOE, GREEN_RAPID_FIGHTER_LASER_CANNON, TIE_DEFENDER_ION_CANNON, RED_QUAD_LASER_CANNON_HEAVY } from "./weapons.js";
 
 class Vector {
     constructor(x = 0, y = 0) {
@@ -21,6 +21,7 @@ const ships = {};
 ships.ISD = {
     name: "Imperial Star Destroyer",
     asset: "ISD.png",
+    classification: shipTypes.Capital,
     size: 400,
     cost: 3200,
     speed: 1.5,
@@ -57,21 +58,29 @@ ships.ISD = {
         y: 0,
         maxSquadrons: 1,
         squadronSize: 8,
-        reserveSize: 3,
+        reserveSize: 4,
         squadronKey: "TIEFIGHTER"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 1,
         squadronSize: 8,
-        reserveSize: 3,
+        reserveSize: 4,
         squadronKey: "TIEBOMBER"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 4,
+        reserveSize: 2,
+        squadronKey: "TIEDEFENDER"
     }]
 };
 
 ships.ARQUITENS = {
     name: "Arquitens",
     asset: "ARQUITENS.png",
+    classification: shipTypes.Frigate,
     size: 85,
     cost: 750,
     speed: 8,
@@ -106,6 +115,7 @@ ships.ARQUITENS = {
 ships.RAIDER = {
     name: "Raider",
     asset: "RAIDER.png",
+    classification: shipTypes.Corvette,
     size: 50,
     cost: 200,
     speed: 10,
@@ -130,6 +140,7 @@ ships.RAIDER = {
 ships.QUASAR = {
     name: "Quasar",
     asset: "QUASAR.png",
+    classification: shipTypes.Frigate,
     size: 100,
     cost: 2000,
     speed: 3,
@@ -173,22 +184,45 @@ ships.QUASAR = {
         x: 0,
         y: 0,
         maxSquadrons: 2,
-        squadronSize: 4,
-        reserveSize: 2,
+        squadronSize: 6,
+        reserveSize: 4,
         squadronKey: "TIEFIGHTER"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "TIEBOMBER"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 1,
         squadronSize: 5,
-        reserveSize: 2,
-        squadronKey: "TIEBOMBER"
+        reserveSize: 3,
+        squadronKey: "TIEDEFENDER"
+    }]
+};
+
+ships.THRAWN_QUASAR = {
+    ...ships.QUASAR,
+    name: "Quasar (Thrawn)",
+    shield: 3000,
+    shieldRegen: 7.5,
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 4,
+        squadronSize: 8,
+        reserveSize: 16,
+        squadronKey: "TIEDEFENDER"
     }]
 };
 
 ships.TIEFIGHTER = {
     name: "Tie Fighter",
     asset: "TIEFIGHTER.png",
+    classification: shipTypes.Fighter,
     size: 15,
     cost: 4,
     speed: 18,
@@ -199,12 +233,17 @@ ships.TIEFIGHTER = {
         x: 0,
         y: 0,
         weapon: GREEN_FIGHTER_LASER_CANNON
+    }, {
+        x: 0,
+        y: 0,
+        weapon: GREEN_FIGHTER_LASER_CANNON
     }]
 };
 
 ships.TIEBOMBER = {
     name: "Tie Bomber",
     asset: "TIEBOMBER.png",
+    classification: shipTypes.Bomber,
     size: 19,
     cost: 9,
     speed: 13,
@@ -212,6 +251,10 @@ ships.TIEBOMBER = {
     shield: 0,
     shieldRegen: 0,
     hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: GREEN_FIGHTER_LASER_CANNON
+    }, {
         x: 0,
         y: 0,
         weapon: GREEN_FIGHTER_LASER_CANNON
@@ -227,12 +270,50 @@ ships.TIEBOMBER = {
         weapon: FIGHTER_PROTON_BOMB,
         shotsAtOnce: 4,
         shotDelay: 75
+    }, {
+        x: .5,
+        y: 0,
+        weapon: FIGHTER_PROTON_TORPEDO,
+        shotsAtOnce: 4,
+        shotDelay: 75
+    }]
+};
+
+ships.TIEDEFENDER = {
+    name: "Tie Defender",
+    asset: "TIEDEFENDER.png",
+    classification: shipTypes.Fighter,
+    size: 18,
+    cost: 25,
+    speed: 22.5,
+    turnSpeed: .08,
+    shield: 1000,
+    shieldRegen: 100,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: GREEN_RAPID_FIGHTER_LASER_CANNON
+    }, {
+        x: 0,
+        y: 0,
+        weapon: GREEN_TURBOLASER_CANNON
+    }, {
+        x: 0,
+        y: 0,
+        weapon: TIE_DEFENDER_ION_CANNON
+    }, {
+        x: 0,
+        y: 0,
+        weapon: FIGHTER_PROTON_ROCKET_AOE,
+        shotsAtOnce: 4,
+        shotDelay: 100
     }]
 };
 
 ships.SSD = {
     name: "Super Star Destroyer",
     asset: "SSD.png",
+    classification: shipTypes.SuperCapital,
     size: 3000,
     cost: 60000,
     speed: .5,
@@ -293,23 +374,31 @@ ships.SSD = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 4,
+        maxSquadrons: 3,
         squadronSize: 6,
         reserveSize: 8,
         squadronKey: "TIEFIGHTER"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 3,
-        squadronSize: 4,
+        maxSquadrons: 2,
+        squadronSize: 6,
         reserveSize: 6,
         squadronKey: "TIEBOMBER"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 4,
+        reserveSize: 4,
+        squadronKey: "TIEDEFENDER"
     }]
 };
 
 ships.HOMEONE = {
     name: "Home One",
     asset: "HOMEONE.png",
+    classification: shipTypes.Capital,
     size: 750,
     cost: 3750,
     speed: 2.5,
@@ -352,16 +441,23 @@ ships.HOMEONE = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 1,
         squadronSize: 5,
-        reserveSize: 2,
+        reserveSize: 3,
         squadronKey: "XWING"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 5,
+        reserveSize: 3,
+        squadronKey: "AWING"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 2,
         squadronSize: 5,
-        reserveSize: 2,
+        reserveSize: 3,
         squadronKey: "YWING"
     }]
 };
@@ -369,6 +465,7 @@ ships.HOMEONE = {
 ships.MC80LIBERTY = {
     name: "MC80 Liberty",
     asset: "MC80LIBERTY.png",
+    classification: shipTypes.Capital,
     size: 600,
     cost: 2400,
     speed: 3,
@@ -417,21 +514,29 @@ ships.MC80LIBERTY = {
         y: 0,
         maxSquadrons: 1,
         squadronSize: 6,
-        reserveSize: 2,
+        reserveSize: 3,
         squadronKey: "XWING"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 1,
         squadronSize: 6,
-        reserveSize: 2,
+        reserveSize: 3,
         squadronKey: "YWING"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "AWING"
     }]
 };
 
 ships.NEBULONB = {
     name: "Nebulon-B",
     asset: "NEBULONB.png",
+    classification: shipTypes.Frigate,
     size: 150,
     cost: 500,
     speed: 4.5,
@@ -472,14 +577,14 @@ ships.NEBULONB = {
         y: 0,
         maxSquadrons: 1,
         squadronSize: 5,
-        reserveSize: 1,
+        reserveSize: 2,
         squadronKey: "XWING"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 3,
-        reserveSize: 1,
+        squadronSize: 5,
+        reserveSize: 2,
         squadronKey: "YWING"
     }]
 };
@@ -487,6 +592,7 @@ ships.NEBULONB = {
 ships.PELTA = {
     name: "Pelta Frigate",
     asset: "PELTA.png",
+    classification: shipTypes.Frigate,
     size: 90,
     cost: 600,
     speed: 3.4,
@@ -522,15 +628,16 @@ ships.PELTA = {
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 5,
+        squadronSize: 7,
         reserveSize: 2,
-        squadronKey: "XWING"
+        squadronKey: "AWING"
     }]
 };
 
 ships.CR90 = {
     name: "CR-90",
     asset: "CR90.png",
+    classification: shipTypes.Corvette,
     size: 60,
     cost: 200,
     speed: 12,
@@ -552,9 +659,147 @@ ships.CR90 = {
     }]
 };
 
+ships.STARHAWK = {
+    name: "Starhawk",
+    asset: "STARHAWK.png",
+    classification: shipTypes.Capital,
+    size: 750,
+    cost: 6540,
+    speed: 2,
+    turnSpeed: .01,
+    shield: 7200,
+    shieldRegen: 15,
+    hardpoints: (function() {
+        const output = [{
+            x: -.075,
+            y: .95,
+            weapon: ASSAULT_CONCUSSION_MISSILE,
+            shotsAtOnce: 3,
+            shotDelay: 75
+        }, {
+            x: .075,
+            y: .95,
+            weapon: ASSAULT_CONCUSSION_MISSILE,
+            shotsAtOnce: 3,
+            shotDelay: 75
+        }, {
+            x: -.3,
+            y: .3,
+            weapon: DOUBLE_ION_CANNON_MEDIUM
+        }, {
+            x: -.225,
+            y: -.55,
+            weapon: RED_DOUBLE_TURBOLASER_CANNON
+        }, {
+            x: .225,
+            y: -.55,
+            weapon: RED_DOUBLE_TURBOLASER_CANNON
+        }, {
+            x: -.15,
+            y: -.7,
+            weapon: RED_DOUBLE_TURBOLASER_CANNON
+        }, {
+            x: .15,
+            y: -.7,
+            weapon: RED_DOUBLE_TURBOLASER_CANNON
+        }];
+
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: -.2,
+                y: .6 - .075 * i,
+                weapon: RED_QUAD_TURBOLASER_CANNON_HEAVY
+            }, {
+                x: .2,
+                y: .6 - .075 * i,
+                weapon: RED_QUAD_TURBOLASER_CANNON_HEAVY
+            }, {
+                x: -.125,
+                y: .2 - .125 * i,
+                weapon: i % 2 ? DOUBLE_ION_CANNON : RED_DOUBLE_LASER_CANNON
+            }, {
+                x: .125,
+                y: .2 - .125 * i,
+                weapon: i % 2 ? DOUBLE_ION_CANNON : RED_DOUBLE_LASER_CANNON
+            });
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "AWING"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 5,
+        reserveSize: 4,
+        squadronKey: "YWING"
+    }]
+};
+
+ships.REBEL_QUASAR = {
+    name: "Quasar (Rebel)",
+    asset: "QUASAR.png",
+    classification: shipTypes.Frigate,
+    size: 100,
+    cost: 2000,
+    speed: 3,
+    turnSpeed: .025,
+    shield: 3500,
+    shieldRegen: 2.5,
+    hardpoints: [{
+        x: -.05,
+        y: .95,
+        weapon: RED_DOUBLE_LASER_CANNON
+    }, {
+        x: .05,
+        y: .95,
+        weapon: RED_DOUBLE_LASER_CANNON
+    }, {
+        x: -.175,
+        y: .6,
+        weapon: DOUBLE_ION_CANNON
+    }, {
+        x: .175,
+        y: .6,
+        weapon: DOUBLE_ION_CANNON
+    }, {
+        x: -.325,
+        y: .15,
+        weapon: RED_DOUBLE_TURBOLASER_CANNON
+    }, {
+        x: .325,
+        y: .15,
+        weapon: RED_DOUBLE_TURBOLASER_CANNON
+    }, {
+        x: -.55,
+        y: -.3,
+        weapon: RED_QUAD_LASER_CANNON_HEAVY
+    }, {
+        x: .55,
+        y: -.3,
+        weapon: RED_QUAD_LASER_CANNON_HEAVY
+    }],
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 4,
+        squadronSize: 8,
+        reserveSize: 16,
+        squadronKey: "AWING"
+    }]
+};
+
 ships.XWING = {
     name: "X-Wing",
     asset: "XWING.png",
+    classification: shipTypes.Fighter,
     size: 17.5,
     cost: 5,
     speed: 20,
@@ -568,13 +813,16 @@ ships.XWING = {
     }, {
         x: 0,
         y: 0,
-        weapon: FIGHTER_PROTON_TORPEDO
+        weapon: FIGHTER_PROTON_TORPEDO,
+        shotsAtOnce: 2,
+        shotDelay: 100
     }]
 };
 
 ships.YWING = {
     name: "Y-Wing",
     asset: "YWING.png",
+    classification: shipTypes.Bomber,
     size: 20,
     cost: 8,
     speed: 15,
@@ -593,8 +841,31 @@ ships.YWING = {
         x: .5,
         y: 0,
         weapon: FIGHTER_PROTON_BOMB,
-        shotsAtOnce: 3,
-        shotDelay: 75
+        shotsAtOnce: 2,
+        shotDelay: 125
+    }]
+};
+
+ships.AWING = {
+    name: "A-Wing",
+    asset: "AWING.png",
+    classification: shipTypes.Fighter,
+    size: 17,
+    cost: 6,
+    speed: 22.5,
+    turnSpeed: .1,
+    shield: 15,
+    shieldRegen: 0.15,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: RED_FIGHTER_LASER_CANNON
+    }, {
+        x: .5,
+        y: 0,
+        weapon: FIGHTER_PROTON_ROCKET,
+        shotsAtOnce: 4,
+        shotDelay: 50
     }]
 };
 
@@ -602,6 +873,7 @@ ships.YWING = {
 ships.DUMMY_CARRIER = {
     name: "Dummy Carrier",
     asset: "QUASAR.png",
+    classification: shipTypes.Frigate,
     size: 100,
     cost: 1,
     speed: .01,
@@ -626,6 +898,7 @@ ships.DUMMY_CARRIER = {
 ships.DUMMY_TARGET = {
     name: "Dummy Target",
     asset: "MC80LIBERTY.png",
+    classification: shipTypes.Capital,
     size: 300,
     cost: 1,
     speed: .01,

@@ -1,0 +1,1 @@
+# All Ships should be Capitalized, and should be the name.ext, with an extention preferably .png
