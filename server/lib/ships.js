@@ -283,11 +283,12 @@ ships.TIEFIGHTER = {
     hardpoints: [{
         x: 0,
         y: 0,
-        weapon: GREEN_FIGHTER_LASER_CANNON
-    }, {
-        x: 0,
-        y: 0,
-        weapon: GREEN_FIGHTER_LASER_CANNON
+        weapon: {
+            ...GREEN_FIGHTER_LASER_CANNON,
+            health: 100
+        },
+        shotsAtOnce: 2,
+        shotDelay: 75
     }]
 };
 
@@ -913,6 +914,36 @@ ships.AWING = {
         weapon: FIGHTER_PROTON_ROCKET,
         shotsAtOnce: 4,
         shotDelay: 50
+    }]
+};
+
+// CIS
+ships.LUPUSMISSILEFRIGATE = {
+    name: "Lupus Missile Frigate",
+    asset: "LUPUSMISSILEFRIGATE.png",
+    classification: shipTypes.Corvette,
+    size: 85,
+    cost: 400,
+    speed: 9,
+    turnSpeed: .045,
+    shield: 1000,
+    shieldRegen: 1,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: RED_RAPID_LASER_CANNON
+    }, {
+        x: 0,
+        y: 0,
+        weapon: ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 6,
+        shotDelay: 120
+    }, {
+        x: 0,
+        y: 0,
+        weapon: ASSAULT_PROTON_TORPEDO,
+        shotsAtOnce: 2,
+        shotDelay: 200
     }]
 };
 
