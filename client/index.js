@@ -99,396 +99,270 @@ import { default as shipConfig } from "../server/lib/ships.js";
     worker.onmessage = event => {
         let data = event.data;
 
-        camera.realX = data[0];
-        camera.realY = data[1];
-        camera.realZoom = data[2];
+        switch (data.shift()) {
+            case 0: {
+                camera.realX = data[0];
+                camera.realY = data[1];
+                camera.realZoom = data[2];
 
-        const newShips = [];
-        const newProjectiles = [];
-        const newSquadrons = [];
+                const newShips = [];
+                const newProjectiles = [];
+                const newSquadrons = [];
 
-        const shipsSize = data[3];
-        const projectilesSize = data[4];
-        const squadronsSize = data[5];
+                const shipsSize = data[3];
+                const projectilesSize = data[4];
+                const squadronsSize = data[5];
 
-        data = data.slice(6);
+                data = data.slice(6);
 
-        for (let i = 0; i < shipsSize; i++) {
-            const ship = {};
-            ship.id = data.shift();
+                for (let i = 0; i < shipsSize; i++) {
+                    const ship = {};
+                    ship.id = data.shift();
 
-            const flags = data.shift();
+                    const flags = data.shift();
 
-            if (flags & 1) {
-                ship.x = data.shift();
-                ship.y = data.shift();
-                ship.angle = data.shift();
-                ship.size = data.shift();
-                ship.asset = data.shift();
-                ship.health = data.shift();
-                ship.shield = data.shift();
-                ship.isPartOfSquadron = data.shift();
+                    if (flags & 1) {
+                        ship.x = data.shift();
+                        ship.y = data.shift();
+                        ship.angle = data.shift();
+                        ship.size = data.shift();
+                        ship.asset = data.shift();
+                        ship.health = data.shift();
+                        ship.shield = data.shift();
+                        ship.isPartOfSquadron = data.shift();
 
-                const hardpointsSize = data.shift();
-                ship.hardpoints = [];
+                        const hardpointsSize = data.shift();
+                        ship.hardpoints = [];
 
-                for (let j = 0; j < hardpointsSize; j++) {
-                    ship.hardpoints.push({
-                        offset: data.shift(),
-                        direction: data.shift(),
-                        health: data.shift()
-                    });
+                        for (let j = 0; j < hardpointsSize; j++) {
+                            ship.hardpoints.push({
+                                offset: data.shift(),
+                                direction: data.shift(),
+                                health: data.shift()
+                            });
+                        }
+                    }
+
+                    if (flags & 2) {
+                        ship.x = data.shift();
+                    }
+
+                    if (flags & 4) {
+                        ship.y = data.shift();
+                    }
+
+                    if (flags & 8) {
+                        ship.angle = data.shift();
+                    }
+
+                    if (flags & 16) {
+                        ship.health = data.shift();
+                    }
+
+                    if (flags & 32) {
+                        ship.shield = data.shift();
+                    }
+
+                    if (flags & 64) {
+                        const hardpointsSize = data.shift();
+
+                        ship.hardpoints = [];
+
+                        for (let j = 0; j < hardpointsSize; j++) {
+                            ship.hardpoints.push({
+                                offset: data.shift(),
+                                direction: data.shift(),
+                                health: data.shift()
+                            });
+                        }
+                    }
+
+                    newShips.push(ship);
                 }
-            }
 
-            if (flags & 2) {
-                ship.x = data.shift();
-            }
+                for (let i = 0; i < projectilesSize; i++) {
+                    const projectile = {};
+                    projectile.id = data.shift();
 
-            if (flags & 4) {
-                ship.y = data.shift();
-            }
+                    const flags = data.shift();
 
-            if (flags & 8) {
-                ship.angle = data.shift();
-            }
+                    if (flags & 1) {
+                        projectile.x = data.shift();
+                        projectile.y = data.shift();
+                        projectile.type = data.shift();
+                        projectile.angle = data.shift();
+                        projectile.size = 2;
+                    }
 
-            if (flags & 16) {
-                ship.health = data.shift();
-            }
+                    if (flags & 2) {
+                        projectile.x = data.shift();
+                    }
 
-            if (flags & 32) {
-                ship.shield = data.shift();
-            }
+                    if (flags & 4) {
+                        projectile.y = data.shift();
+                    }
 
-            if (flags & 64) {
-                const hardpointsSize = data.shift();
+                    if (flags & 8) {
+                        projectile.angle = data.shift();
+                    }
 
-                ship.hardpoints = [];
-
-                for (let j = 0; j < hardpointsSize; j++) {
-                    ship.hardpoints.push({
-                        offset: data.shift(),
-                        direction: data.shift(),
-                        health: data.shift()
-                    });
+                    newProjectiles.push(projectile);
                 }
-            }
 
-            newShips.push(ship);
-        }
+                for (let i = 0; i < squadronsSize; i++) {
+                    const squadron = {};
+                    squadron.id = data.shift();
 
-        for (let i = 0; i < projectilesSize; i++) {
-            const projectile = {};
-            projectile.id = data.shift();
+                    const flags = data.shift();
 
-            const flags = data.shift();
+                    if (flags & 1) {
+                        squadron.health = data.shift();
+                        squadron.x = data.shift();
+                        squadron.y = data.shift();
+                        squadron.team = data.shift();
+                        squadron.asset = data.shift();
+                    }
 
-            if (flags & 1) {
-                projectile.x = data.shift();
-                projectile.y = data.shift();
-                projectile.type = data.shift();
-                projectile.angle = data.shift();
-                projectile.size = 2;
-            }
+                    if (flags & 2) {
+                        squadron.health = data.shift();
+                    }
 
-            if (flags & 2) {
-                projectile.x = data.shift();
-            }
+                    if (flags & 4) {
+                        squadron.x = data.shift();
+                    }
 
-            if (flags & 4) {
-                projectile.y = data.shift();
-            }
+                    if (flags & 8) {
+                        squadron.y = data.shift();
+                    }
 
-            if (flags & 8) {
-                projectile.angle = data.shift();
-            }
+                    newSquadrons.push(squadron);
+                }
 
-            newProjectiles.push(projectile);
-        }
+                newShips.forEach(newShip => {
+                    if (!ships.has(newShip.id)) {
+                        ships.set(newShip.id, {
+                            ...newShip,
+                            realX: newShip.x,
+                            realY: newShip.y,
+                            realAngle: newShip.angle,
+                            realHealth: newShip.health,
+                            realShield: newShip.shield
+                        });
+                    } else {
+                        const ship = ships.get(newShip.id);
 
-        for (let i = 0; i < squadronsSize; i++) {
-            const squadron = {};
-            squadron.id = data.shift();
+                        if (newShip.x !== undefined) {
+                            ship.realX = newShip.x;
+                        }
 
-            const flags = data.shift();
+                        if (newShip.y !== undefined) {
+                            ship.realY = newShip.y;
+                        }
 
-            if (flags & 1) {
-                squadron.health = data.shift();
-                squadron.x = data.shift();
-                squadron.y = data.shift();
-                squadron.team = data.shift();
-                squadron.asset = data.shift();
-            }
+                        if (newShip.angle !== undefined) {
+                            ship.realAngle = newShip.angle;
+                        }
 
-            if (flags & 2) {
-                squadron.health = data.shift();
-            }
+                        if (newShip.size !== undefined) {
+                            ship.size = newShip.size;
+                        }
 
-            if (flags & 4) {
-                squadron.x = data.shift();
-            }
+                        if (newShip.health !== undefined) {
+                            ship.realHealth = newShip.health;
+                        }
 
-            if (flags & 8) {
-                squadron.y = data.shift();
-            }
+                        if (newShip.shield !== undefined) {
+                            ship.realShield = newShip.shield;
+                        }
 
-            newSquadrons.push(squadron);
-        }
+                        if (newShip.hardpoints !== undefined) {
+                            ship.hardpoints = newShip.hardpoints;
+                        }
 
-        newShips.forEach(newShip => {
-            if (!ships.has(newShip.id)) {
-                ships.set(newShip.id, {
-                    ...newShip,
-                    realX: newShip.x,
-                    realY: newShip.y,
-                    realAngle: newShip.angle,
-                    realHealth: newShip.health,
-                    realShield: newShip.shield
+                        ships.set(newShip.id, ship);
+                    }
                 });
-            } else {
-                const ship = ships.get(newShip.id);
 
-                if (newShip.x !== undefined) {
-                    ship.realX = newShip.x;
-                }
+                newProjectiles.forEach(newProjectile => {
+                    if (!projectiles.has(newProjectile.id)) {
+                        projectiles.set(newProjectile.id, {
+                            ...newProjectile,
+                            realX: newProjectile.x,
+                            realY: newProjectile.y
+                        });
+                    } else {
+                        const projectile = projectiles.get(newProjectile.id);
 
-                if (newShip.y !== undefined) {
-                    ship.realY = newShip.y;
-                }
+                        if (newProjectile.x !== undefined) {
+                            projectile.realX = newProjectile.x;
+                        }
 
-                if (newShip.angle !== undefined) {
-                    ship.realAngle = newShip.angle;
-                }
+                        if (newProjectile.y !== undefined) {
+                            projectile.realY = newProjectile.y;
+                        }
 
-                if (newShip.size !== undefined) {
-                    ship.size = newShip.size;
-                }
+                        if (newProjectile.angle !== undefined) {
+                            projectile.angle = newProjectile.angle;
+                        }
 
-                if (newShip.health !== undefined) {
-                    ship.realHealth = newShip.health;
-                }
-
-                if (newShip.shield !== undefined) {
-                    ship.realShield = newShip.shield;
-                }
-
-                if (newShip.hardpoints !== undefined) {
-                    ship.hardpoints = newShip.hardpoints;
-                }
-
-                ships.set(newShip.id, ship);
-            }
-        });
-
-        newProjectiles.forEach(newProjectile => {
-            if (!projectiles.has(newProjectile.id)) {
-                projectiles.set(newProjectile.id, {
-                    ...newProjectile,
-                    realX: newProjectile.x,
-                    realY: newProjectile.y
+                        projectiles.set(newProjectile.id, projectile);
+                    }
                 });
-            } else {
-                const projectile = projectiles.get(newProjectile.id);
 
-                if (newProjectile.x !== undefined) {
-                    projectile.realX = newProjectile.x;
-                }
+                newSquadrons.forEach(newSquadron => {
+                    if (!squadrons.has(newSquadron.id)) {
+                        squadrons.set(newSquadron.id, {
+                            ...newSquadron,
+                            realX: newSquadron.x,
+                            realY: newSquadron.y,
+                            realHealth: newSquadron.health,
+                            hardpoints: []
+                        });
+                    } else {
+                        const squadron = squadrons.get(newSquadron.id);
 
-                if (newProjectile.y !== undefined) {
-                    projectile.realY = newProjectile.y;
-                }
+                        if (newSquadron.x !== undefined) {
+                            squadron.realX = newSquadron.x;
+                        }
 
-                if (newProjectile.angle !== undefined) {
-                    projectile.angle = newProjectile.angle;
-                }
+                        if (newSquadron.y !== undefined) {
+                            squadron.realY = newSquadron.y;
+                        }
 
-                projectiles.set(newProjectile.id, projectile);
-            }
-        });
+                        if (newSquadron.health !== undefined) {
+                            squadron.realHealth = newSquadron.health;
+                        }
 
-        newSquadrons.forEach(newSquadron => {
-            if (!squadrons.has(newSquadron.id)) {
-                squadrons.set(newSquadron.id, {
-                    ...newSquadron,
-                    realX: newSquadron.x,
-                    realY: newSquadron.y,
-                    realHealth: newSquadron.health,
-                    hardpoints: []
+                        squadrons.set(newSquadron.id, squadron);
+                    }
                 });
-            } else {
-                const squadron = squadrons.get(newSquadron.id);
 
-                if (newSquadron.x !== undefined) {
-                    squadron.realX = newSquadron.x;
-                }
+                // Delete non-existent ships
+                ships.forEach(ship => {
+                    if (!newShips.some(newShip => newShip.id === ship.id)) {
+                        ships.delete(ship.id);
+                    }
+                });
 
-                if (newSquadron.y !== undefined) {
-                    squadron.realY = newSquadron.y;
-                }
+                // Delete non-existent projectiles
+                projectiles.forEach(projectile => {
+                    if (!newProjectiles.some(newProjectile => newProjectile.id === projectile.id)) {
+                        projectiles.delete(projectile.id);
+                    }
+                });
 
-                if (newSquadron.health !== undefined) {
-                    squadron.realHealth = newSquadron.health;
-                }
-
-                squadrons.set(newSquadron.id, squadron);
-            }
-        });
-
-        // Delete non-existent ships
-        ships.forEach(ship => {
-            if (!newShips.some(newShip => newShip.id === ship.id)) {
-                ships.delete(ship.id);
-            }
-        });
-
-        // Delete non-existent projectiles
-        projectiles.forEach(projectile => {
-            if (!newProjectiles.some(newProjectile => newProjectile.id === projectile.id)) {
-                projectiles.delete(projectile.id);
-            }
-        });
-
-        // Delete non-existent squadrons
-        squadrons.forEach(squadron => {
-            if (!newSquadrons.some(newSquadron => newSquadron.id === squadron.id)) {
-                squadrons.delete(squadron.id);
-            }
-        });
-
-        // const newShips = [];
-        // const newProjectiles = [];
-        // const newSquadrons = [];
-
-        // const shipsSize = data.shift();
-        // const projectilesSize = data.shift();
-        // const squadronsSize = data.shift();
-
-        // for (let i = 0; i < shipsSize; i++) {
-        //     const ship = {
-        //         id: data.shift(),
-        //         x: data.shift(),
-        //         y: data.shift(),
-        //         angle: data.shift(),
-        //         size: data.shift(),
-        //         asset: data.shift(),
-        //         health: data.shift(),
-        //         shield: data.shift(),
-        //         isPartOfSquadron: data.shift(),
-        //         hardpoints: []
-        //     };
-
-        //     const hardpointsSize = data.shift();
-
-        //     for (let j = 0; j < hardpointsSize; j++) {
-        //         ship.hardpoints.push({
-        //             offset: data.shift(),
-        //             direction: data.shift(),
-        //             health: data.shift()
-        //         });
-        //     }
-
-        //     newShips.push(ship);
-        // }
-
-        // for (let i = 0; i < projectilesSize; i++) {
-        //     newProjectiles.push({
-        //         id: data.shift(),
-        //         x: data.shift(),
-        //         y: data.shift(),
-        //         type: data.shift(),
-        //         angle: data.shift(),
-        //         size: 2
-        //     });
-        // }
-
-        // for (let i = 0; i < squadronsSize; i++) {
-        //     newSquadrons.push({
-        //         id: data.shift(),
-        //         health: data.shift(),
-        //         x: data.shift(),
-        //         y: data.shift(),
-        //         team: data.shift(),
-        //         asset: data.shift()
-        //     });
-        // }
-
-        // newShips.forEach(newShip => {
-        //     if (!ships.has(newShip.id)) {
-        //         ships.set(newShip.id, {
-        //             ...newShip,
-        //             realX: newShip.x,
-        //             realY: newShip.y,
-        //             realAngle: newShip.angle,
-        //             realHealth: newShip.health,
-        //             realShield: newShip.shield
-        //         });
-        //     } else {
-        //         const ship = ships.get(newShip.id);
-
-        //         ship.realX = newShip.x;
-        //         ship.realY = newShip.y;
-        //         ship.realAngle = newShip.angle;
-        //         ship.realHealth = newShip.health;
-        //         ship.realShield = newShip.shield;
-        //         ship.hardpoints = newShip.hardpoints;
-        //     }
-        // });
-
-        // newProjectiles.forEach(newProjectile => {
-        //     if (!projectiles.has(newProjectile.id)) {
-        //         projectiles.set(newProjectile.id, {
-        //             ...newProjectile,
-        //             realX: newProjectile.x,
-        //             realY: newProjectile.y
-        //         });
-        //     } else {
-        //         const projectile = projectiles.get(newProjectile.id);
-
-        //         projectile.realX = newProjectile.x;
-        //         projectile.realY = newProjectile.y;
-        //         projectile.type = newProjectile.type;
-        //     }
-        // });
-
-        // newSquadrons.forEach(newSquadron => {
-        //     if (!squadrons.has(newSquadron.id)) {
-        //         squadrons.set(newSquadron.id, {
-        //             ...newSquadron,
-        //             realX: newSquadron.x,
-        //             realY: newSquadron.y,
-        //             realHealth: newSquadron.health
-        //         });
-        //     } else {
-        //         const squadron = squadrons.get(newSquadron.id);
-
-        //         squadron.realX = newSquadron.x;
-        //         squadron.realY = newSquadron.y;
-        //         squadron.realHealth = newSquadron.health;
-        //     }
-        // });
-
-        // // Delete non-existent ships
-        // ships.forEach(ship => {
-        //     if (!newShips.some(newShip => newShip.id === ship.id)) {
-        //         ships.delete(ship.id);
-        //     }
-        // });
-
-        // // Delete non-existent projectiles
-        // projectiles.forEach(projectile => {
-        //     if (!newProjectiles.some(newProjectile => newProjectile.id === projectile.id)) {
-        //         projectiles.delete(projectile.id);
-        //     }
-        // });
-
-        // // Delete non-existent squadrons
-        // squadrons.forEach(squadron => {
-        //     if (!newSquadrons.some(newSquadron => newSquadron.id === squadron.id)) {
-        //         squadrons.delete(squadron.id);
-        //     }
-        // });
-    };
+                // Delete non-existent squadrons
+                squadrons.forEach(squadron => {
+                    if (!newSquadrons.some(newSquadron => newSquadron.id === squadron.id)) {
+                        squadrons.delete(squadron.id);
+                    }
+                });
+            } break;
+            case 1: {
+                console.log(data);
+            } break;
+        }
+    }
 
     function lerp(A, B, w) {
         return (1 - w) * A + w * B;

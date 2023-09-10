@@ -1,3 +1,4 @@
+import SpatialHashGrid from "./lib/SpatialHashGrid.js";
 import { shipTypes, weaponClassifications, weaponProperties, weaponTypes } from "./lib/constants.js";
 import ships from "./lib/ships.js";
 
@@ -24,10 +25,15 @@ function lerpAngle(A, B, w) {
 
 class Projectile {
     static id = 0;
-    static projectiles = new Map();
 
     constructor(x, y, angle, ship, hardpoint) {
         this.id = Projectile.id++;
+
+        /**
+         * @type {Battle}
+         */
+        this.battle = ship.battle;
+
         this.x = x;
         this.y = y;
         this.angle = angle;
@@ -43,7 +49,7 @@ class Projectile {
         this.target = null;
         this.range = hardpoint.range + this.speed * 10;
 
-        Projectile.projectiles.set(this.id, this);
+        this.battle.projectiles.set(this.id, this);
     }
 
     get collisionRange() {
@@ -65,7 +71,8 @@ class Projectile {
         this.range -= this.speed;
 
         if (this.range <= 0) {
-            Projectile.projectiles.delete(this.id);
+            this.battle.projectiles.delete(this.id);
+            return;
         }
 
         if (this.isGuided && this.target !== null) {
@@ -115,7 +122,7 @@ class Projectile {
                     }
             }
 
-            Projectile.projectiles.delete(this.id);
+            this.battle.projectiles.delete(this.id);
         }
     }
 }
@@ -184,7 +191,7 @@ class Hardpoint {
         if (this.target === null) {
             let validShips = [];
 
-            Ship.ships.forEach(ship => {
+            this.ship.battle.ships.forEach(ship => {
                 if (ship.team !== this.ship.team && ship.health > 0) {
                     if (this.classification === weaponClassifications.IonCannon && ship.shield <= 0) {
                         return;
@@ -277,11 +284,15 @@ class Hardpoint {
 }
 
 class Squadron {
-    static squadrons = new Set();
     static id = 0;
 
     constructor(ship, hangar, config) {
         this.id = Squadron.id++;
+
+        /**
+         * @type {Battle}
+         */
+        this.battle = ship.battle;
 
         /**
          * @type {Ship}
@@ -300,7 +311,7 @@ class Squadron {
         this.squadronKey = ships[config.squadronKey].asset;
 
         for (let i = 0; i < config.squadronSize; i++) {
-            const ship = new Ship(ships[config.squadronKey], this.ship.team);
+            const ship = new Ship(this.battle, ships[config.squadronKey], this.ship.team);
             ship.x = this.ship.x + Math.random() * 100 - 50;
             ship.y = this.ship.y + Math.random() * 100 - 50;
             ship.angle = this.ship.angle;
@@ -311,7 +322,7 @@ class Squadron {
 
                 if (this.ships.length === 0) {
                     this.hangar.squadrons.delete(this);
-                    Squadron.squadrons.delete(this);
+                    this.battle.squadrons.delete(this.id);
                 }
             }
 
@@ -321,7 +332,7 @@ class Squadron {
         }
 
         this.hangar.squadrons.add(this);
-        Squadron.squadrons.add(this);
+        this.battle.squadrons.set(this.id, this);
     }
 
     findTarget() {
@@ -334,7 +345,7 @@ class Squadron {
         if (this.target === null) {
             let validShips = [];
 
-            Ship.ships.forEach(ship => {
+            this.battle.ships.forEach(ship => {
                 if (ship.team !== this.ship.team && ship.health > 0) {
                     validShips.push(ship);
                 }
@@ -460,7 +471,7 @@ class ShipAI {
         if (this.target === null) {
             let validShips = [];
 
-            Ship.ships.forEach(ship => {
+            this.ship.battle.ships.forEach(ship => {
                 if (ship.team !== this.ship.team && ship.health > 0) {
                     validShips.push(ship);
                 }
@@ -482,16 +493,6 @@ class ShipAI {
         }
 
         this.ship.speed = this.ship.maxSpeed;
-
-        // if (this.ship.size <= 45) {
-        //     this.fighterThinking();
-        // } else if (this.ship.size <= 100) {
-        //     this.corvetteThinking();
-        // } else if (this.ship.size <= 300) {
-        //     this.lightFrigateThinking();
-        // } else {
-        //     this.capitalShipThinking();
-        // }
 
         switch (this.ship.classification) {
             case shipTypes.Fighter:
@@ -563,9 +564,12 @@ class ShipAI {
 
 class Ship {
     static id = 0;
-    static ships = new Map();
-    constructor(config, team) {
+    constructor(battle, config, team) {
         this.id = Ship.id++;
+        /**
+         * @type {Battle}
+         */
+        this.battle = battle;
         this.x = 0;
         this.y = 0;
         this.size = config.size;
@@ -606,7 +610,7 @@ class Ship {
 
         this.onDead = null;
 
-        Ship.ships.set(this.id, this);
+        this.battle.ships.set(this.id, this);
     }
 
     update() {
@@ -635,7 +639,7 @@ class Ship {
         }
 
         if (this.health <= 0) {
-            Ship.ships.delete(this.id);
+            this.battle.ships.delete(this.id);
 
             if (this.onDead !== null) {
                 this.onDead();
@@ -652,9 +656,34 @@ class Ship {
     }
 }
 
+class Battle {
+    constructor(width, height, teams) {
+        this.ships = new Map();
+        this.projectiles = new Map();
+        this.squadrons = new Map();
+
+        this.width = width;
+        this.height = height;
+
+        this.updateInterval = setInterval(this.update.bind(this), 1000 / 22.5);
+    }
+
+    update() {
+        this.ships.forEach(ship => {
+            ship.update();
+        });
+
+        this.projectiles.forEach(projectile => {
+            projectile.update();
+        });
+    }
+}
+
+const battle = new Battle(7_500, 7_500, 2);
+
 const empireFleet = {
-    "SSD": 1,
-    "ISD": 2,
+    "SSD": 0,
+    "ISD": 5,
     "IMOBILIZER": 0,
     "QUASAR": 0,
     "ARQUITENS": 0,
@@ -678,20 +707,20 @@ const rebelFleet = {
     
 
     // NEW SHIPS
-    "CHIMERA_DESTROYER": 12
+    "CHIMERA_DESTROYER": 3
 };
 
 function spawn(ship, team) {
     const angle = Math.random() * Math.PI * 2;
-    const distance = 1000 * Math.random();
+    const distance = 2000 * Math.random();
 
-    const newShip = new Ship(ships[ship], team);
+    const newShip = new Ship(battle, ships[ship], team);
 
     if (team === 0) {
-        newShip.x = -4000 + Math.cos(angle) * distance;
+        newShip.x = -8000 + Math.cos(angle) * distance;
         newShip.y = Math.sin(angle) * distance;
     } else {
-        newShip.x = 4000 + Math.cos(angle) * distance;
+        newShip.x = 8000 + Math.cos(angle) * distance;
         newShip.y = Math.sin(angle) * distance;
         newShip.angle = Math.PI;
     }
@@ -708,21 +737,6 @@ for (const ship in rebelFleet) {
         spawn(ship, 1);
     }
 }
-
-function gameTick() {
-    const start = performance.now();
-    Ship.ships.forEach(ship => {
-        ship.update();
-    });
-
-    Projectile.projectiles.forEach(projectile => {
-        projectile.update();
-    });
-
-    const end = performance.now();
-}
-
-setInterval(gameTick, 1000 / 22.5);
 
 // Makes it possible to translate this to a server, not just having it in a web worker
 class Camera {
@@ -976,6 +990,11 @@ class Camera {
         this.shipsCache = new Map();
         this.projectilesCache = new Map();
         this.squadronsCache = new Map();
+
+        /**
+         * @type {Battle}
+         */
+        this.battle = connection.battle;
     }
 
     get fov() {
@@ -991,7 +1010,7 @@ class Camera {
         const projectilesIDs = [];
         const squadronsIDs = [];
 
-        Ship.ships.forEach(ship => {
+        this.battle.ships.forEach(ship => {
             if (this.isInView(ship.x, ship.y, ship.size)) {
                 shipsIDs.push(ship.id);
 
@@ -1016,7 +1035,7 @@ class Camera {
             }
         });
 
-        Projectile.projectiles.forEach(projectile => {
+        this.battle.projectiles.forEach(projectile => {
             if (this.isInView(projectile.x, projectile.y, projectile.collisionRange)) {
                 projectilesIDs.push(projectile.id);
 
@@ -1036,7 +1055,7 @@ class Camera {
             }
         });
 
-        Squadron.squadrons.forEach(squadron => {
+        this.battle.squadrons.forEach(squadron => {
             const data = squadron.packagedData;
             if (this.isInView(data.x, data.y, 50)) {
                 squadronsIDs.push(squadron.id);
@@ -1058,7 +1077,7 @@ class Camera {
             }
         });
 
-        const output = [this.x, this.y, this.zoom, shipsIDs.length, projectilesIDs.length, squadronsIDs.length];
+        const output = [0, this.x, this.y, this.zoom, shipsIDs.length, projectilesIDs.length, squadronsIDs.length];
 
         this.shipsCache.forEach(ship => {
             if (!shipsIDs.includes(ship.id)) {
@@ -1087,7 +1106,7 @@ class Camera {
             output.push(...squadron.getOutput());
         });
 
-        postMessage(output);
+        this.connection.talk(output);
     }
 }
 
@@ -1095,8 +1114,32 @@ class Connection {
     static connections = new Map();
     static id = 0;
 
-    constructor() {
+    static generateMinimapUpdate(battle) {
+        const output = [1, 0, battle.squadrons.size];
+
+        battle.ships.forEach(ship => {
+            if (ship.squadron === null) {
+                output.push(ship.id, ship.x, ship.y, ship.team);
+
+                output[1] += 1;
+            }
+        });
+
+        battle.squadrons.forEach(squadron => {
+            const data = squadron.packagedData;
+            output.push(squadron.id, data.x, data.y, squadron.ship.team);
+        });
+
+        return output;
+    }
+
+    constructor(battle) {
         this.id = Connection.id++;
+
+        /**
+         * @type {Battle}
+         */
+        this.battle = battle;
         
         this.team = 0;
         this.ships = new Map();
@@ -1107,9 +1150,22 @@ class Connection {
 
         setInterval(() => this.camera.update(), 1000 / 12.5);
     }
+
+    talk() {}
 }
 
-const connection = new Connection();
+const connection = new Connection(battle);
+connection.talk = function (data) {
+    postMessage(data);
+}
+
+setInterval(function minimapUpdate() {
+    const packet = Connection.generateMinimapUpdate(battle);
+
+    Connection.connections.forEach(connection => {
+        connection.talk(packet);
+    });
+}, 1000);
 
 onmessage = function (e) {
     connection.camera.x += e.data[0];

@@ -666,3 +666,12 @@ export const DUMMY_BLANK = {
     type: weaponTypes.BlueLaserCannon,
     health: 100
 };
+
+export const SNUB_ONE_ROCKET = {
+    reload: 15,
+    damage: 10,
+    speed: 50,
+    range: 3500,
+    type: weaponTypes.ProtonRocketAOE,
+    health: 180
+};
