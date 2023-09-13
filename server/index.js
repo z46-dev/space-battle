@@ -257,7 +257,7 @@ class Hardpoint {
                             return;
                         }
 
-                        const inaccuracy = this.classification === weaponClassifications.AreaOfEffect ? 0 : (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (this.target.ship.totalHealth / 2));
+                        const inaccuracy = this.classification === weaponClassifications.AreaOfEffect ? 0 : (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (this.target.ship.totalHealth / 1.5));
 
                         const angle = Math.atan2(predictedY - this.y, predictedX - this.x) + inaccuracy;
 
@@ -683,11 +683,11 @@ const battle = new Battle(7_500, 7_500, 2);
 
 const empireFleet = {
     "SSD": 0,
-    "ISD": 0,
+    "ISD": 2,
     "IMOBILIZER": 0,
     "QUASAR": 0,
-    "ARQUITENS": 5,
-    "RAIDER": 10,
+    "ARQUITENS": 0,
+    "RAIDER": 0,
 
     "DUMMY_CARRIER": 0,
     "THRAWN_QUASAR": 0
@@ -703,8 +703,9 @@ const rebelFleet = {
 
     "DUMMY_TARGET": 0,
     "REBEL_QUASAR": 0,
-    "LUPUSMISSILEFRIGATE": 6,
+    "LUPUSMISSILEFRIGATE": 4,
     "PROVIDENCEDESTROYER": 1,
+    "MUNIFICENT": 2,
     
 
     // NEW SHIPS
@@ -713,15 +714,16 @@ const rebelFleet = {
 
 function spawn(ship, team) {
     const angle = Math.random() * Math.PI * 2;
-    const distance = 2000 * Math.random();
+    const distance = 1000 * Math.random();
+    const spawnDistance = 3000;
 
     const newShip = new Ship(battle, ships[ship], team);
 
     if (team === 0) {
-        newShip.x = -8000 + Math.cos(angle) * distance;
+        newShip.x = -spawnDistance + Math.cos(angle) * distance;
         newShip.y = Math.sin(angle) * distance;
     } else {
-        newShip.x = 8000 + Math.cos(angle) * distance;
+        newShip.x = spawnDistance + Math.cos(angle) * distance;
         newShip.y = Math.sin(angle) * distance;
         newShip.angle = Math.PI;
     }

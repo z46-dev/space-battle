@@ -506,8 +506,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
                 for (let i = 0; i < props.count; i++) {
                     const x = -spacing * props.count / 2 + spacing * i;
 
-                    ctx.moveTo(x, -projectile.size * 5);
-                    ctx.lineTo(x, projectile.size * 5);
+                    ctx.moveTo(x, -projectile.size * props.strength * 5);
+                    ctx.lineTo(x, projectile.size * props.strength * 5);
                 }
             }
 

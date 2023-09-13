@@ -377,11 +377,11 @@ export const GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY = {
 };
 
 export const GREEN_TURBOLASER_CANNON_ULTRAHEAVY = {
-    reload: 300,
-    damage: 400,
-    speed: 45,
+    reload: 200,
+    damage: 260,
+    speed: 52.5,
     range: 7500,
-    type: weaponTypes.GreenTurbolaser,
+    type: weaponTypes.GreenUltraTurbolaser,
     health: 150,
     targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
 };
@@ -493,6 +493,11 @@ export const RED_OCTUPLE_TURBOLASER_CANNON_HEAVY = {
     type: weaponTypes.RedOctupleTurbolaser
 };
 
+export const RED_TURBOLASER_CANNON_ULTRAHEAVY = {
+    ...GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
+    type: weaponTypes.RedUltraTurbolaser
+};
+
 // BLUE WEAPON DEFS
 
 export const BLUE_FIGHTER_LASER_CANNON = {
@@ -598,6 +603,11 @@ export const BLUE_QUAD_TURBOLASER_CANNON_HEAVY = {
 export const BLUE_OCTUPLE_TURBOLASER_CANNON_HEAVY = {
     ...GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY,
     type: weaponTypes.BlueOctupleTurbolaser
+};
+
+export const BLUE_TURBOLASER_CANNON_ULTRAHEAVY = {
+    ...GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
+    type: weaponTypes.BlueUltraTurbolaser
 };
 
 // PURPLE WEAPON DEFS
