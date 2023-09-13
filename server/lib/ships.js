@@ -1,5 +1,5 @@
 import { shipTypes, weaponTypes } from "./constants.js";
-import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, FIGHTER_ION_CANNON, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_LASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TRIPLE_LASER_CANNON_HEAVY, GREEN_TURBOLASER_CANNON, ION_CANNON, ION_CANNON_HEAVY, ION_CANNON_ULTRA, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, QUAD_ION_CANNON_HEAVY, QUAD_ION_CANNON_MEDIUM, RED_DOUBLE_LASER_CANNON, RED_DOUBLE_LASER_CANNON_HEAVY, RED_DOUBLE_TURBOLASER_CANNON, RED_DOUBLE_TURBOLASER_CANNON_HEAVY, RED_FIGHTER_LASER_CANNON, RED_LASER_CANNON, RED_QUAD_LASER_CANNON, RED_RAPID_LASER_CANNON, RED_TRIPLE_LASER_CANNON, RED_TRIPLE_LASER_CANNON_HEAVY, RED_TRIPLE_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON, TRIPLE_ION_CANNON_HEAVY, FIGHTER_PROTON_BOMB, GREEN_FIGHTER_LASER_CANNON, FIGHTER_PROTON_ROCKET, ASSAULT_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, DUMMY_BLANK, RED_QUAD_TURBOLASER_CANNON_HEAVY, FIGHTER_PROTON_ROCKET_AOE, GREEN_RAPID_FIGHTER_LASER_CANNON, TIE_DEFENDER_ION_CANNON, RED_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON_HEAVY, ION_CANNON_MEDIUM, ASSAULT_PROTON_TORPEDO, BLUE_LASER_CANNON_HEAVY, BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY, BLUE_LASER_CANNON, BLUE_FIGHTER_LASER_CANNON, SNUB_ONE_ROCKET, RED_QUAD_TURBOLASER_CANNON, RED_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON_ULTRAHEAVY, TRIPLE_ION_CANNON_MEDIUM } from "./weapons.js";
+import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, FIGHTER_ION_CANNON, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_LASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TRIPLE_LASER_CANNON_HEAVY, GREEN_TURBOLASER_CANNON, ION_CANNON, ION_CANNON_HEAVY, ION_CANNON_ULTRA, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, QUAD_ION_CANNON_HEAVY, QUAD_ION_CANNON_MEDIUM, RED_DOUBLE_LASER_CANNON, RED_DOUBLE_LASER_CANNON_HEAVY, RED_DOUBLE_TURBOLASER_CANNON, RED_DOUBLE_TURBOLASER_CANNON_HEAVY, RED_FIGHTER_LASER_CANNON, RED_LASER_CANNON, RED_QUAD_LASER_CANNON, RED_RAPID_LASER_CANNON, RED_TRIPLE_LASER_CANNON, RED_TRIPLE_LASER_CANNON_HEAVY, RED_TRIPLE_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON, TRIPLE_ION_CANNON_HEAVY, FIGHTER_PROTON_BOMB, GREEN_FIGHTER_LASER_CANNON, FIGHTER_PROTON_ROCKET, ASSAULT_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, DUMMY_BLANK, RED_QUAD_TURBOLASER_CANNON_HEAVY, FIGHTER_PROTON_ROCKET_AOE, GREEN_RAPID_FIGHTER_LASER_CANNON, TIE_DEFENDER_ION_CANNON, RED_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON_HEAVY, ION_CANNON_MEDIUM, ASSAULT_PROTON_TORPEDO, BLUE_LASER_CANNON_HEAVY, BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY, BLUE_LASER_CANNON, BLUE_FIGHTER_LASER_CANNON, SNUB_ONE_ROCKET, RED_QUAD_TURBOLASER_CANNON, RED_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON_ULTRAHEAVY, TRIPLE_ION_CANNON_MEDIUM, RED_RAPID_FIGHTER_LASER_CANNON } from "./weapons.js";
 
 class Vector {
     constructor(x = 0, y = 0) {
@@ -1015,14 +1015,29 @@ ships.PROVIDENCEDESTROYER = {
         }
 
         return output;
-    })()
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 6,
+        squadronKey: "VULTUREDROID"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 4,
+        squadronKey: "HYENABOMBER"
+    }]
 };
 
 ships.MUNIFICENT = {
     name: "Munificent Frigate",
     asset: "MUNIFICENT.png",
     classification: shipTypes.HeavyFrigate,
-    size: 350,
+    size: 300,
     cost: 2700,
     speed: 4,
     turnSpeed: .02,
@@ -1072,6 +1087,144 @@ ships.MUNIFICENT = {
         x: .15,
         y: -.4,
         weapon: DOUBLE_ION_CANNON
+    }],
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 3,
+        squadronKey: "VULTUREDROID"
+    }]
+};
+
+ships.RECUSANT = {
+    name: "Recusant Light Destroyer",
+    asset: "RECUSANT.png",
+    classification: shipTypes.Capital,
+    size: 500,
+    cost: 3000,
+    speed: 3.5,
+    turnSpeed: .01,
+    shield: 3200,
+    shieldRegen: 5,
+    hardpoints: [{
+        x: 0,
+        y: .9,
+        weapon: RED_TURBOLASER_CANNON_ULTRAHEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 250
+    }, {
+        x: -.03,
+        y: .825,
+        weapon: RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+    }, {
+        x: .03,
+        y: .825,
+        weapon: RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+    }, {
+        x: -.06,
+        y: .7,
+        weapon: RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+    }, {
+        x: .06,
+        y: .7,
+        weapon: RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+    }, {
+        x: -.075,
+        y: .55,
+        weapon: ION_CANNON_HEAVY
+    }, {
+        x: .075,
+        y: .55,
+        weapon: ION_CANNON_HEAVY
+    }, {
+        x: -.075,
+        y: .35,
+        weapon: RED_QUAD_LASER_CANNON
+    }, {
+        x: .075,
+        y: .35,
+        weapon: RED_QUAD_LASER_CANNON
+    }, {
+        x: -.06,
+        y: 0,
+        weapon: RED_QUAD_LASER_CANNON
+    }, {
+        x: .06,
+        y: 0,
+        weapon: RED_QUAD_LASER_CANNON
+    }],
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 4,
+        reserveSize: 2,
+        squadronKey: "VULTUREDROID"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 4,
+        reserveSize: 2,
+        squadronKey: "HYENABOMBER"
+    }]
+};
+
+ships.VULTUREDROID = {
+    name: "Vulture Droid",
+    asset: "VULTUREDROID.png",
+    classification: shipTypes.Fighter,
+    size: 15,
+    cost: 3,
+    speed: 18,
+    turnSpeed: .025,
+    shield: 0,
+    shieldRegen: 0,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: {
+            ...RED_FIGHTER_LASER_CANNON,
+            health: 100
+        },
+        shotsAtOnce: 3,
+        shotDelay: 100
+    }]
+};
+
+ships.HYENABOMBER = {
+    name: "Hyena Bomber",
+    asset: "HYENABOMBER.png",
+    classification: shipTypes.Bomber,
+    size: 20,
+    cost: 5,
+    speed: 14,
+    turnSpeed: .1,
+    shield: 15,
+    shieldRegen: 1,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: {
+            ...RED_FIGHTER_LASER_CANNON,
+            health: 100
+        },
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: 0,
+        weapon: FIGHTER_PROTON_BOMB,
+        shotsAtOnce: 3,
+        shotDelay: 200
+    }, {
+        x: 0,
+        y: 0,
+        weapon: FIGHTER_PROTON_ROCKET,
+        shotsAtOnce: 2,
+        shotDelay: 100
     }]
 };
 
