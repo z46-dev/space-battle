@@ -683,9 +683,9 @@ const battle = new Battle(7_500, 7_500, 2);
 
 const empireFleet = {
     "SSD": 0,
-    "ISD": 2,
-    "IMOBILIZER": 0,
-    "QUASAR": 0,
+    "ISD": 1,
+    "IMOBILIZER": 2,
+    "QUASAR": 2,
     "ARQUITENS": 0,
     "RAIDER": 0,
 
@@ -703,9 +703,9 @@ const rebelFleet = {
 
     "DUMMY_TARGET": 0,
     "REBEL_QUASAR": 0,
-    "LUPUSMISSILEFRIGATE": 4,
-    "PROVIDENCEDESTROYER": 1,
-    "MUNIFICENT": 2,
+    "LUPUSMISSILEFRIGATE": 8,
+    "PROVIDENCEDESTROYER": 2,
+    "MUNIFICENT": 6,
     
 
     // NEW SHIPS
