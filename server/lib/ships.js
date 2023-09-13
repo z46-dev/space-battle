@@ -959,6 +959,55 @@ ships.LUPUSMISSILEFRIGATE = {
     }]
 };
 
+ships.PROVIDENCEDESTROYER = {
+    name: "Providence-Class Carrier/Destroyer",
+    asset: "PROVIDENCE.png",
+    classification: shipTypes.Capital,
+    size: 600,
+    cost: 4000,
+    speed: 4.5,
+    turnSpeed: .0334,
+    shield: 4250,
+    shieldRegen: 50,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: FIGHTER_PROTON_ROCKET_AOE,
+        shotsAtOnce: 2,
+        shotDelay: 120
+    }, {
+        x: 0,
+        y: 0,
+        weapon: FIGHTER_PROTON_ROCKET_AOE,
+        shotsAtOnce: 2,
+        shotDelay: 120
+    }, {
+        x: 0,
+        y: 0,
+        weapon: FIGHTER_PROTON_ROCKET_AOE,
+        shotsAtOnce: 2,
+        shotDelay: 120
+    }, {
+        x: 0,
+        y: 0,
+        weapon: FIGHTER_PROTON_ROCKET_AOE,
+        shotsAtOnce: 2,
+        shotDelay: 120
+    }, {
+        x: 0,
+        y: 0,
+        weapon: FIGHTER_PROTON_ROCKET_AOE,
+        shotsAtOnce: 2,
+        shotDelay: 120
+    }, {
+        x: 0,
+        y: 0,
+        weapon: FIGHTER_PROTON_ROCKET_AOE,
+        shotsAtOnce: 2,
+        shotDelay: 120
+    }]
+};
+
 // TEST DUMMIES
 ships.DUMMY_CARRIER = {
     name: "Dummy Carrier",
@@ -1172,35 +1221,21 @@ ships.SNUB1 = {
     turnSpeed: .125,
     shield: 0,
     shieldRegen: 0,
-    // hardpoints: [{
-    //     x: 0,
-    //     y: 0,
-    //     weapon: {
-    //         ...BLUE_FIGHTER_LASER_CANNON,
-    //         health: 150
-    //     },
-    //     shotsAtOnce: 2,
-    //     shotDelay: 75
-    // }, {
-    //     x: 0,
-    //     y: 0,
-    //     weapon: {
-    //         ...FIGHTER_PROTON_TORPEDO,
-    //         reload: 20
-    //     },
-    //     shotsAtOnce: 1,
-    //     shotDelay: 0
-    // }, {
-    //     x: 0,
-    //     y: 0,
-    //     weapon: FIGHTER_PROTON_BOMB,
-    //     shotsAtOnce: 2,
-    //     shotDelay: 150
-    // }]
     hardpoints: [{
         x: 0,
         y: 0,
-        weapon: SNUB_ONE_ROCKET
+        weapon: {
+            ...BLUE_FIGHTER_LASER_CANNON,
+            health: 150
+        },
+        shotsAtOnce: 3,
+        shotDelay: 75
+    }, {
+        x: 0,
+        y: 0,
+        weapon: FIGHTER_PROTON_BOMB,
+        shotsAtOnce: 2,
+        shotDelay: 150
     }]
 };
 

@@ -683,11 +683,11 @@ const battle = new Battle(7_500, 7_500, 2);
 
 const empireFleet = {
     "SSD": 0,
-    "ISD": 5,
+    "ISD": 0,
     "IMOBILIZER": 0,
     "QUASAR": 0,
-    "ARQUITENS": 0,
-    "RAIDER": 0,
+    "ARQUITENS": 5,
+    "RAIDER": 10,
 
     "DUMMY_CARRIER": 0,
     "THRAWN_QUASAR": 0
@@ -703,11 +703,12 @@ const rebelFleet = {
 
     "DUMMY_TARGET": 0,
     "REBEL_QUASAR": 0,
-    "LUPUSMISSILEFRIGATE": 0,
+    "LUPUSMISSILEFRIGATE": 6,
+    "PROVIDENCEDESTROYER": 1,
     
 
     // NEW SHIPS
-    "CHIMERA_DESTROYER": 3
+    "CHIMERA_DESTROYER": 0
 };
 
 function spawn(ship, team) {

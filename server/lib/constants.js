@@ -71,7 +71,7 @@ export const weaponTypes = {
 export const colors = {
     "Green": "#00FF00",
     "Red": "#FF0000",
-    "Blue": "#0000FF",
+    "Blue": "#3535FF",
     "Purple": "#C800FF",
     "Ion": "#EEEEFF",
     "Bomb": "#FFFFFF",
