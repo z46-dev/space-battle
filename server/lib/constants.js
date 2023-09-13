@@ -1,3 +1,5 @@
+// JSON STRINGIFY, CREATE AN IOTA METHOD AND THEN ADD ULTRAHEAVY TURBOLASERS AND IONCANNONS
+
 export const weaponTypes = {
     // RED WEAPONS (Rebels, Separatists)
     "RedLaserCannon": 0,

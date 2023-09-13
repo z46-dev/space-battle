@@ -376,6 +376,16 @@ export const GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY = {
     targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
 };
 
+export const GREEN_TURBOLASER_CANNON_ULTRAHEAVY = {
+    reload: 300,
+    damage: 400,
+    speed: 45,
+    range: 7500,
+    type: weaponTypes.GreenTurbolaser,
+    health: 150,
+    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
+};
+
 // RED WEAPON DEFS
 
 export const RED_FIGHTER_LASER_CANNON = {
