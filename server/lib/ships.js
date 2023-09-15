@@ -1,5 +1,5 @@
 import { shipTypes, weaponTypes } from "./constants.js";
-import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, FIGHTER_ION_CANNON, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_LASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TRIPLE_LASER_CANNON_HEAVY, GREEN_TURBOLASER_CANNON, ION_CANNON, ION_CANNON_HEAVY, ION_CANNON_ULTRA, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, QUAD_ION_CANNON_HEAVY, QUAD_ION_CANNON_MEDIUM, RED_DOUBLE_LASER_CANNON, RED_DOUBLE_LASER_CANNON_HEAVY, RED_DOUBLE_TURBOLASER_CANNON, RED_DOUBLE_TURBOLASER_CANNON_HEAVY, RED_FIGHTER_LASER_CANNON, RED_LASER_CANNON, RED_QUAD_LASER_CANNON, RED_RAPID_LASER_CANNON, RED_TRIPLE_LASER_CANNON, RED_TRIPLE_LASER_CANNON_HEAVY, RED_TRIPLE_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON, TRIPLE_ION_CANNON_HEAVY, FIGHTER_PROTON_BOMB, GREEN_FIGHTER_LASER_CANNON, FIGHTER_PROTON_ROCKET, ASSAULT_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, DUMMY_BLANK, RED_QUAD_TURBOLASER_CANNON_HEAVY, FIGHTER_PROTON_ROCKET_AOE, GREEN_RAPID_FIGHTER_LASER_CANNON, TIE_DEFENDER_ION_CANNON, RED_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON_HEAVY, ION_CANNON_MEDIUM, ASSAULT_PROTON_TORPEDO, BLUE_LASER_CANNON_HEAVY, BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY, BLUE_LASER_CANNON, BLUE_FIGHTER_LASER_CANNON, SNUB_ONE_ROCKET, RED_QUAD_TURBOLASER_CANNON, RED_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON_ULTRAHEAVY, TRIPLE_ION_CANNON_MEDIUM, RED_RAPID_FIGHTER_LASER_CANNON } from "./weapons.js";
+import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, FIGHTER_ION_CANNON, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_LASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TRIPLE_LASER_CANNON_HEAVY, GREEN_TURBOLASER_CANNON, ION_CANNON, ION_CANNON_HEAVY, ION_CANNON_ULTRA, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, QUAD_ION_CANNON_HEAVY, QUAD_ION_CANNON_MEDIUM, RED_DOUBLE_LASER_CANNON, RED_DOUBLE_LASER_CANNON_HEAVY, RED_DOUBLE_TURBOLASER_CANNON, RED_DOUBLE_TURBOLASER_CANNON_HEAVY, RED_FIGHTER_LASER_CANNON, RED_LASER_CANNON, RED_QUAD_LASER_CANNON, RED_RAPID_LASER_CANNON, RED_TRIPLE_LASER_CANNON, RED_TRIPLE_LASER_CANNON_HEAVY, RED_TRIPLE_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON, TRIPLE_ION_CANNON_HEAVY, FIGHTER_PROTON_BOMB, GREEN_FIGHTER_LASER_CANNON, FIGHTER_PROTON_ROCKET, ASSAULT_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, DUMMY_BLANK, RED_QUAD_TURBOLASER_CANNON_HEAVY, FIGHTER_PROTON_ROCKET_AOE, GREEN_RAPID_FIGHTER_LASER_CANNON, TIE_DEFENDER_ION_CANNON, RED_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON_HEAVY, ION_CANNON_MEDIUM, ASSAULT_PROTON_TORPEDO, BLUE_LASER_CANNON_HEAVY, BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY, BLUE_LASER_CANNON, BLUE_FIGHTER_LASER_CANNON, SNUB_ONE_ROCKET, RED_QUAD_TURBOLASER_CANNON, RED_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON_ULTRAHEAVY, TRIPLE_ION_CANNON_MEDIUM, RED_RAPID_FIGHTER_LASER_CANNON, GREEN_TURBOLASER_CANNON_ULTRAHEAVY } from "./weapons.js";
 
 class Vector {
     constructor(x = 0, y = 0) {
@@ -375,30 +375,30 @@ ships.SSD = {
             output.push({
                 x: -.02 - .0225 * i,
                 y: .8 - .1 * i,
-                weapon: GREEN_TRIPLE_LASER_CANNON_HEAVY
+                weapon: GREEN_QUAD_LASER_CANNON_HEAVY
             }, {
                 x: .04 + .02 * i,
                 y: .8 - .1 * i,
-                weapon: GREEN_TRIPLE_LASER_CANNON_HEAVY
+                weapon: GREEN_QUAD_LASER_CANNON_HEAVY
             }, {
                 x: -.01 - .0225 * i,
                 y: .85 - .1 * i,
-                weapon: QUAD_ION_CANNON_HEAVY
+                weapon: QUAD_ION_CANNON
             }, {
                 x: .03 + .02 * i,
                 y: .85 - .1 * i,
-                weapon: QUAD_ION_CANNON_HEAVY
+                weapon: QUAD_ION_CANNON
             }, {
                 x: -.025 - .0225 * i,
                 y: .8 - .1 * i,
                 weapon: ASSAULT_CONCUSSION_MISSILE,
-                shotsAtOnce: 2,
+                shotsAtOnce: 3,
                 shotDelay: 250
             }, {
                 x: .025 + .02 * i,
                 y: .8 - .1 * i,
                 weapon: ASSAULT_CONCUSSION_MISSILE,
-                shotsAtOnce: 2,
+                shotsAtOnce: 3,
                 shotDelay: 250
             });
         }
@@ -412,6 +412,14 @@ ships.SSD = {
                 x: .075 + .00825 * i,
                 y: .4 - .075 * i,
                 weapon: GREEN_QUAD_TURBOLASER_CANNON_HEAVY
+            }, {
+                x: -.08 - .01 * i,
+                y: .4 - .075 * i,
+                weapon: GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+            }, {
+                x: .09 + .00825 * i,
+                y: .4 - .075 * i,
+                weapon: GREEN_TURBOLASER_CANNON_ULTRAHEAVY
             });
 
             i += .5;
@@ -424,6 +432,14 @@ ships.SSD = {
                 x: .075 + .00825 * i,
                 y: .4 - .075 * i,
                 weapon: (i | 0) % 2 ? GREEN_DOUBLE_LASER_CANNON : DOUBLE_ION_CANNON_MEDIUM
+            }, {
+                x: -.08 - .01 * i,
+                y: .4 - .075 * i,
+                weapon: (i | 0) % 2 ? GREEN_DOUBLE_TURBOLASER_CANNON : GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+            }, {
+                x: .09 + .00825 * i,
+                y: .4 - .075 * i,
+                weapon: (i | 0) % 2 ? GREEN_DOUBLE_TURBOLASER_CANNON : GREEN_TURBOLASER_CANNON_ULTRAHEAVY
             });
 
             i |= 0;
@@ -926,6 +942,119 @@ ships.AWING = {
         weapon: FIGHTER_PROTON_ROCKET,
         shotsAtOnce: 4,
         shotDelay: 50
+    }]
+};
+
+ships.LUSANKYA = {
+    name: "Lusankya",
+    asset: "SSD.png",
+    classification: shipTypes.SuperCapital,
+    size: 6000,
+    cost: 60000,
+    speed: .5,
+    turnSpeed: .0005,
+    shield: 86000,
+    shieldRegen: 50,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 13; i ++) {
+            output.push({
+                x: -.02 - .0225 * i,
+                y: .8 - .1 * i,
+                weapon: RED_QUAD_LASER_CANNON_HEAVY
+            }, {
+                x: .04 + .02 * i,
+                y: .8 - .1 * i,
+                weapon: RED_QUAD_LASER_CANNON_HEAVY
+            }, {
+                x: -.01 - .0225 * i,
+                y: .85 - .1 * i,
+                weapon: QUAD_ION_CANNON
+            }, {
+                x: .03 + .02 * i,
+                y: .85 - .1 * i,
+                weapon: QUAD_ION_CANNON
+            }, {
+                x: -.025 - .0225 * i,
+                y: .8 - .1 * i,
+                weapon: ASSAULT_CONCUSSION_MISSILE,
+                shotsAtOnce: 3,
+                shotDelay: 250
+            }, {
+                x: .025 + .02 * i,
+                y: .8 - .1 * i,
+                weapon: ASSAULT_CONCUSSION_MISSILE,
+                shotsAtOnce: 3,
+                shotDelay: 250
+            });
+        }
+
+        for (let i = -4; i < 12; i ++) {
+            output.push({
+                x: -.055 - .01 * i,
+                y: .4 - .075 * i,
+                weapon: RED_QUAD_TURBOLASER_CANNON_HEAVY
+            }, {
+                x: .075 + .00825 * i,
+                y: .4 - .075 * i,
+                weapon: RED_QUAD_TURBOLASER_CANNON_HEAVY
+            }, {
+                x: -.08 - .01 * i,
+                y: .4 - .075 * i,
+                weapon: RED_TURBOLASER_CANNON_ULTRAHEAVY
+            }, {
+                x: .09 + .00825 * i,
+                y: .4 - .075 * i,
+                weapon: RED_TURBOLASER_CANNON_ULTRAHEAVY
+            });
+
+            i += .5;
+
+            output.push({
+                x: -.055 - .01 * i,
+                y: .4 - .075 * i,
+                weapon: (i | 0) % 2 ? RED_DOUBLE_LASER_CANNON : DOUBLE_ION_CANNON_MEDIUM
+            }, {
+                x: .075 + .00825 * i,
+                y: .4 - .075 * i,
+                weapon: (i | 0) % 2 ? RED_DOUBLE_LASER_CANNON : DOUBLE_ION_CANNON_MEDIUM
+            }, {
+                x: -.08 - .01 * i,
+                y: .4 - .075 * i,
+                weapon: (i | 0) % 2 ? RED_DOUBLE_TURBOLASER_CANNON : RED_TURBOLASER_CANNON_ULTRAHEAVY
+            }, {
+                x: .09 + .00825 * i,
+                y: .4 - .075 * i,
+                weapon: (i | 0) % 2 ? RED_DOUBLE_TURBOLASER_CANNON : RED_TURBOLASER_CANNON_ULTRAHEAVY
+            });
+
+            i |= 0;
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 4,
+        squadronSize: 8,
+        reserveSize: 8,
+        squadronKey: "AWING"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 3,
+        squadronSize: 8,
+        reserveSize: 6,
+        squadronKey: "YWING"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 4,
+        squadronSize: 8,
+        reserveSize: 6,
+        squadronKey: "XWING"
     }]
 };
 

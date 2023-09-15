@@ -310,6 +310,8 @@ class Squadron {
 
         this.squadronKey = ships[config.squadronKey].asset;
 
+        this.targetTick = 0;
+
         for (let i = 0; i < config.squadronSize; i++) {
             const ship = new Ship(this.battle, ships[config.squadronKey], this.ship.team);
             ship.x = this.ship.x + Math.random() * 100 - 50;
@@ -337,7 +339,7 @@ class Squadron {
 
     findTarget() {
         if (this.target !== null) {
-            if (this.target.health <= 0) {
+            if (this.target.health <= 0 || --this.targetTick <= 0) {
                 this.target = null;
             }
         }
@@ -355,6 +357,7 @@ class Squadron {
             validShips = validShips.sort((a, b) => distance(this.ship.x, this.ship.y, a.x, a.y) - distance(this.ship.x, this.ship.y, b.x, b.y));
 
             this.target = validShips[0] ?? null;
+            this.targetTick = 100;
         }
     }
 
@@ -459,11 +462,12 @@ class ShipAI {
         this.target = null;
 
         this.orbitAngle = 0;
+        this.targetTick = 0;
     }
 
     findTarget() {
         if (this.target !== null) {
-            if (this.target.health <= 0) {
+            if (this.target.health <= 0 || --this.targetTick <= 0) {
                 this.target = null;
             }
         }
@@ -481,6 +485,7 @@ class ShipAI {
             validShips = validShips.sort((a, b) => distance(this.ship.x, this.ship.y, a.x, a.y) - distance(this.ship.x, this.ship.y, b.x, b.y));
 
             this.target = validShips[0] ?? null;
+            this.targetTick = 100;
         }
     }
 
@@ -514,7 +519,7 @@ class ShipAI {
     }
 
     fighterThinking() {
-        this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
+        this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI / 2;
     }
 
     corvetteThinking() {
@@ -682,8 +687,8 @@ class Battle {
 const battle = new Battle(7_500, 7_500, 2);
 
 const empireFleet = {
-    "SSD": 0,
-    "ISD": 1,
+    "SSD": 1,
+    "ISD": 0,
     "IMOBILIZER": 0,
     "QUASAR": 0,
     "ARQUITENS": 0,
@@ -694,6 +699,7 @@ const empireFleet = {
 };
 
 const rebelFleet = {
+    "LUSANKYA": 1,
     "STARHAWK": 0,
     "HOMEONE": 0,
     "MC80LIBERTY": 0,
@@ -705,8 +711,8 @@ const rebelFleet = {
     "REBEL_QUASAR": 0,
     "LUPUSMISSILEFRIGATE": 0,
     "PROVIDENCEDESTROYER": 0,
-    "MUNIFICENT": 2,
-    "RECUSANT": 1,
+    "MUNIFICENT": 0,
+    "RECUSANT": 0,
     
 
     // NEW SHIPS
@@ -716,7 +722,7 @@ const rebelFleet = {
 function spawn(ship, team) {
     const angle = Math.random() * Math.PI * 2;
     const distance = 1000 * Math.random();
-    const spawnDistance = 4000;
+    const spawnDistance = 3000;
 
     const newShip = new Ship(battle, ships[ship], team);
 
