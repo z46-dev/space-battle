@@ -386,6 +386,30 @@ export const GREEN_TURBOLASER_CANNON_ULTRAHEAVY = {
     targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
 };
 
+export const GREEN_SUPERLASER = {
+    reload: 2000,
+    damage: 2000,
+    type: weaponTypes.GreenSuperlaser,
+    health: 4000,
+    speed: 250,
+    range: 1e6,
+    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    explosionRange: 1e10,
+    bypassShield: true
+};
+
+export const GREEN_WEAK_SUPERLASER = {
+    reload: 750,
+    damage: 160,
+    type: weaponTypes.GreenWeakSuperlaser,
+    health: 120,
+    speed: 180,
+    range: 1e6,
+    explosionRange: 1e10,
+    bypassShield: true,
+    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+};
+
 // RED WEAPON DEFS
 
 export const RED_FIGHTER_LASER_CANNON = {
@@ -646,6 +670,7 @@ export const FIGHTER_PROTON_ROCKET_AOE = {
     damage: 20,
     speed: 30,
     range: 4000,
+    collisionRange: 45,
     type: weaponTypes.ProtonRocketAOE,
     health: 25
 };
@@ -655,6 +680,7 @@ export const ASSAULT_PROTON_ROCKET = {
     damage: 95,
     speed: 35,
     range: 3000,
+    collisionRange: 60,
     type: weaponTypes.AssaultProtonRocket,
     health: 100
 };
@@ -671,11 +697,12 @@ export const ASSAULT_CONCUSSION_MISSILE = {
 
 export const ASSAULT_PROTON_TORPEDO = {
     reload: 400,
-    damage: 120,
-    speed: 30,
-    range: 3000,
+    damage: 85,
+    speed: 35,
+    range: 3500,
     type: weaponTypes.ProtonTorpedo,
-    health: 115
+    health: 150,
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital] // Can't aim well and only works on stationary/very slow targets
 };
 
 export const DUMMY_BLANK = {

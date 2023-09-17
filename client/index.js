@@ -1,4 +1,5 @@
-import { weaponDrawProperties } from "../server/lib/constants.js";
+import SpatialHashGrid from "../server/lib/SpatialHashGrid.js";
+import { weaponClassifications, weaponDrawProperties } from "../server/lib/constants.js";
 import { default as shipConfig } from "../server/lib/ships.js";
 
 (async function () {
@@ -17,9 +18,174 @@ import { default as shipConfig } from "../server/lib/ships.js";
         assets.set(name, image);
     }
 
+    const silhouettes = new Map();
+
+    function generateSilhouette(image, name, r, g, b) {
+        const canvas = new OffscreenCanvas(image.width, image.height);
+        const ctx = canvas.getContext("2d");
+
+        ctx.drawImage(image, 0, 0);
+
+        const imageData = ctx.getImageData(0, 0, image.width, image.height);
+
+        function getPixel(x, y) {
+            const index = (y * image.width + x) * 4;
+
+            return {
+                r: imageData.data[index],
+                g: imageData.data[index + 1],
+                b: imageData.data[index + 2],
+                a: imageData.data[index + 3]
+            };
+
+        }
+
+        for (let i = 0; i < imageData.data.length; i += 4) {
+            const a = imageData.data[i + 3];
+
+            if (a > 0) {
+                imageData.data[i] = r;
+                imageData.data[i + 1] = g;
+                imageData.data[i + 2] = b;
+                imageData.data[i + 3] = 255;
+            }
+        }
+
+        ctx.putImageData(imageData, 0, 0);
+
+        silhouettes.set(name, canvas.transferToImageBitmap());
+    }
+
     for (const key in shipConfig) {
         loadAsset(`./assets/ships/${shipConfig[key].asset}`, shipConfig[key].asset);
     }
+
+    const world = {
+        width: 10_000,
+        height: 10_000,
+        minimapData: [],
+        starCounter: 0,
+        starGrid: new SpatialHashGrid()
+    };
+
+    // Add stars
+    while (true) {
+        let i = 0;
+        findPos: while (i < 128) {
+            const x = Math.random() * 20_000 - 10_000;
+            const y = Math.random() * 20_000 - 10_000;
+
+            const AABB = world.starGrid.getAABB({
+                x: x,
+                y: y,
+                size: 100,
+                width: 1,
+                height: 1
+            });
+
+            const closeBy = world.starGrid.retrieve({
+                _AABB: AABB,
+                id: world.starCounter
+            });
+
+            if (closeBy.size > 0) {
+                i++;
+                continue findPos;
+            }
+
+            world.starGrid.insert({
+                x: x,
+                y: y,
+                _AABB: AABB,
+                id: world.starCounter
+            });
+
+            world.starCounter++;
+
+            break findPos;
+        }
+
+        if (i === 10) {
+            break;
+        }
+    }
+
+    class Sprite {
+        static generateFrames(image, xFrames, yFrames) {
+            const frames = [];
+            const width = image.width / xFrames;
+            const height = image.height / yFrames;
+
+            for (let y = 0; y < yFrames; y++) {
+                for (let x = 0; x < xFrames; x++) {
+                    frames.push({
+                        x: x * width,
+                        y: y * height,
+                        width,
+                        height,
+                    });
+                }
+            }
+
+            return frames;
+        }
+
+        static configs = {
+            explosion1: [4, 4],
+            explosion2: [5, 5],
+            explosion3: [4, 4],
+            explosion4: [8, 5],
+            explosion5: [6, 6],
+            explosion6: [7, 7],
+            explosion7: [3, 3],
+            blueExplosion1: [5, 5],
+            blueExplosion2: [4, 4],
+            fireSprite: [3, 3]
+        };
+
+        constructor(name, loop = true) {
+            this.image = assets.get(name);
+            this.frames = Sprite.generateFrames(this.image, ...Sprite.configs[name]);
+            this.currentFrame = 0;
+            this.loop = loop;
+        }
+
+        draw(ctx, x, y, width, height) {
+            if (this.currentFrame >= this.frames.length - 1) {
+                if (this.loop) {
+                    this.currentFrame = 0;
+                } else {
+                    return;
+                }
+            }
+
+            const frame = this.frames[this.currentFrame | 0];
+
+            ctx.drawImage(
+                this.image,
+                frame.x,
+                frame.y,
+                frame.width,
+                frame.height,
+                x,
+                y,
+                width,
+                height
+            );
+
+            this.currentFrame += .25;
+        }
+    }
+
+    for (let i = 1; i <= 7; i++) {
+        loadAsset(`./assets/explosions/explosion${i}.png`, `explosion${i}`);
+    }
+
+    for (let i = 1; i <= 2; i++) {
+        loadAsset(`./assets/explosions/blueExplosion${i}.png`, `blueExplosion${i}`);
+    }
+
+    loadAsset("./assets/explosions/fire.png", "fireSprite");
 
     const canvas = document.querySelector("canvas");
     const ctx = canvas.getContext("2d");
@@ -39,8 +205,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
     // CAMERA CONTROLS
     window.addEventListener("wheel", event => {
         camera.cZoom += event.deltaY / 1000;
-        camera.cZoom = Math.max(camera.cZoom, .1);
-        camera.cZoom = Math.min(camera.cZoom, 3);
+        camera.cZoom = Math.max(camera.cZoom, .05);
+        camera.cZoom = Math.min(camera.cZoom, 2.75);
         worker.postMessage([0, 0, camera.cZoom]);
     });
 
@@ -95,6 +261,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
     const ships = new Map();
     const projectiles = new Map();
     const squadrons = new Map();
+    const explosions = new Set();
 
     worker.onmessage = event => {
         let data = event.data;
@@ -112,8 +279,9 @@ import { default as shipConfig } from "../server/lib/ships.js";
                 const shipsSize = data[3];
                 const projectilesSize = data[4];
                 const squadronsSize = data[5];
+                const explosionsSize = data[6];
 
-                data = data.slice(6);
+                data = data.slice(7);
 
                 for (let i = 0; i < shipsSize; i++) {
                     const ship = {};
@@ -238,6 +406,17 @@ import { default as shipConfig } from "../server/lib/ships.js";
                     newSquadrons.push(squadron);
                 }
 
+                for (let i = 0; i < explosionsSize; i++) {
+                    const explosion = {};
+                    explosion.x = data.shift();
+                    explosion.y = data.shift();
+                    explosion.size = data.shift() * (Math.sin(Math.random()) * .5 + .5);
+                    explosion.angle = data.shift();
+                    explosion.sprite = new Sprite(data.shift(), false);
+
+                    explosions.add(explosion);
+                }
+
                 newShips.forEach(newShip => {
                     if (!ships.has(newShip.id)) {
                         ships.set(newShip.id, {
@@ -246,7 +425,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
                             realY: newShip.y,
                             realAngle: newShip.angle,
                             realHealth: newShip.health,
-                            realShield: newShip.shield
+                            realShield: newShip.shield,
+                            hardpointSprites: []
                         });
                     } else {
                         const ship = ships.get(newShip.id);
@@ -359,7 +539,45 @@ import { default as shipConfig } from "../server/lib/ships.js";
                 });
             } break;
             case 1: {
-                console.log(data);
+                world.width = data.shift();
+                world.height = data.shift();
+                const shipsSize = data.shift();
+                const squadronsSize = data.shift();
+
+                world.minimapData = [];
+
+                for (let i = 0; i < shipsSize; i++) {
+                    const x = data.shift();
+                    const y = data.shift();
+                    const team = data.shift();
+                    const size = data.shift();
+                    const asset = data.shift();
+                    const angle = data.shift();
+
+                    world.minimapData.push({
+                        type: 0,
+                        x: x,
+                        y: y,
+                        size: size,
+                        team: team,
+                        asset: asset,
+                        angle: angle
+                    });
+                }
+
+                for (let i = 0; i < squadronsSize; i++) {
+                    const x = data.shift();
+                    const y = data.shift();
+                    const team = data.shift();
+
+                    world.minimapData.push({
+                        type: 1,
+                        x: x,
+                        y: y,
+                        size: .02,
+                        team: team
+                    });
+                }
             } break;
         }
     }
@@ -394,6 +612,78 @@ import { default as shipConfig } from "../server/lib/ships.js";
         }
     })();
 
+    function generateWeaponSprite(props) {
+        const canvas = new OffscreenCanvas(128, 128);
+        const ctx = canvas.getContext("2d");
+
+        const size = 16;
+
+        const spacing = size;// * props.strength;
+
+        ctx.save();
+
+        ctx.lineCap = ctx.lineJoin = "round";
+
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+
+        if (props.isCircle) {
+            ctx.fillStyle = props.color;
+        } else {
+            ctx.strokeStyle = props.color;
+            ctx.lineWidth = size / 2; //* props.strength / 2;
+        }
+
+        if (props.shadows) {
+            ctx.shadowBlur = size + 5;
+            ctx.shadowColor = mixColors(props.color, "#FFFFFF", .5);
+        }
+
+        ctx.beginPath();
+
+        if (props.isCircle) {
+            ctx.arc(0, 0, size * props.strength / 2, 0, Math.PI * 2);
+        } else {
+            for (let i = 0; i < props.count; i++) {
+                const x = -spacing * props.count / 2 + spacing * i;
+
+                ctx.moveTo(x, -size/* * props.strength*/ * 2);
+                ctx.lineTo(x, size/* * props.strength*/ * 2);
+            }
+        }
+
+        ctx.closePath();
+
+        if (props.isCircle) {
+            ctx.fill();
+        } else {
+            ctx.stroke();
+        }
+
+        if (!props.isCircle) {
+            ctx.strokeStyle = mixColors(props.color, "#FFFFFF", .5);
+            ctx.lineWidth = size * props.strength * .25;
+
+            ctx.beginPath();
+
+            for (let i = 0; i < props.count; i++) {
+                const x = -spacing * props.count / 2 + spacing * i;
+
+                ctx.moveTo(x, -size/* * props.strength*/ * 2.5);
+                ctx.lineTo(x, size/* * props.strength*/ * 2.5);
+            }
+
+            ctx.closePath();
+
+            ctx.stroke();
+        }
+
+        return canvas.transferToImageBitmap();
+    }
+
+    weaponDrawProperties.forEach(props => {
+        props.sprite = generateWeaponSprite(props);
+    });
+
     function draw() {
         requestAnimationFrame(draw);
 
@@ -412,13 +702,52 @@ import { default as shipConfig } from "../server/lib/ships.js";
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = "#333333";
+        ctx.fillStyle = "#893135";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         ctx.save();
         ctx.translate(canvas.width / 2, canvas.height / 2);
         ctx.scale(scale, scale);
         ctx.translate(-camera.x, -camera.y);
+
+        const realMouseX = (mouseX - canvas.width / 2) / scale + camera.x;
+        const realMouseY = (mouseY - canvas.height / 2) / scale + camera.y;
+
+        // Draw world width/height
+        ctx.fillStyle = "#1B1B25";
+        ctx.fillRect(-world.width, -world.height, world.width * 2, world.height * 2);
+
+        // Find stars within the camera and scale
+        const AABB = world.starGrid.getAABB({
+            x: camera.x,
+            y: camera.y,
+            size: canvas.width / scale,
+            width: 1,
+            height: 1
+        });
+
+        const closeBy = world.starGrid.retrieve({
+            _AABB: AABB,
+            id: world.starCounter
+        });
+
+        ctx.fillStyle = "#DEDEDE";
+        ctx.shadowColor = "#FFFFFF";
+        closeBy.forEach(star => {
+            const XYHash = star.x * 100000 + star.y;
+            const hash = XYHash % 2147483647;
+            const size = 2 + Math.abs(hash / 5e7);
+
+            if (size * scale > 5) {
+                ctx.shadowBlur = size * 3;
+            }
+
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, size, 0, Math.PI * 2);
+            ctx.fill();
+        });
+
+        ctx.shadowBlur = 0;
 
         // Draw ships
         ships.forEach(ship => {
@@ -428,7 +757,10 @@ import { default as shipConfig } from "../server/lib/ships.js";
             ship.health = lerp(ship.health, ship.realHealth, .2);
             ship.shield = lerp(ship.shield, ship.realShield, .2);
 
-            if (ship.isPartOfSquadron && ship.size * scale < 5) {
+            if (
+                (ship.isPartOfSquadron && ship.size * scale < 5) ||
+                ship.size * scale < 2.5
+            ) {
                 return;
             }
 
@@ -441,20 +773,103 @@ import { default as shipConfig } from "../server/lib/ships.js";
 
             // Draw hardpoints
             if (ship.size >= 150) {
-                ship.hardpoints.forEach(hardpoint => {
-                    if (hardpoint.health <= 0) return;
+                const mouseOverShip = Math.abs(realMouseX - ship.x) < ship.size / 2 && Math.abs(realMouseY - ship.y) < ship.size / 2;
+                ship.hardpoints.forEach((hardpoint, index) => {
+                    if (hardpoint.health <= 0) {
+                        if (ship.hardpointSprites[index] === undefined) {
+                            ship.hardpointSprites[index] = [{
+                                x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
+                                y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
+                                sprite: new Sprite("fireSprite", false),
+                                hasDoneHalfway: false,
+                                spawnsOnDeath: true
+                            }];
+                        }
+
+                        for (let i = 0; i < ship.hardpointSprites[index].length; i++) {
+                            const sprite = ship.hardpointSprites[index][i];
+
+                            if (sprite.sprite.currentFrame >= sprite.sprite.frames.length - 1) {
+                                ship.hardpointSprites[index].splice(i, 1);
+                                i--;
+
+                                if (sprite.spawnsOnDeath) {
+                                    ship.hardpointSprites[index].push({
+                                        x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
+                                        y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
+                                        sprite: new Sprite("fireSprite", false),
+                                        hasDoneQ2: false,
+                                        hasDoneQ3: false,
+                                        spawnsOnDeath: true
+                                    });
+
+                                    if (Math.random() > .2) {
+                                        setTimeout(() => {
+                                            explosions.add({
+                                                x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
+                                                y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
+                                                size: 1,
+                                                angle: Math.random() * Math.PI * 2,
+                                                sprite: new Sprite("blueExplosion2", false)
+                                            });
+                                        }, 500);
+                                    }
+                                }
+                                continue;
+                            }
+
+                            if (sprite.sprite.currentFrame >= sprite.sprite.frames.length / 3 && !sprite.hasDoneQ2) {
+                                sprite.hasDoneQ2 = true;
+                                ship.hardpointSprites[index].push({
+                                    x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
+                                    y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
+                                    sprite: new Sprite("explosion7", false),
+                                    hasDoneQ2: true,
+                                    hasDoneQ3: true,
+                                    spawnsOnDeath: false
+                                });
+                            }
+
+                            if (sprite.sprite.currentFrame >= sprite.sprite.frames.length * 2 / 3 && !sprite.hasDoneQ3) {
+                                sprite.hasDoneQ3 = true;
+                                ship.hardpointSprites[index].push({
+                                    x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
+                                    y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
+                                    sprite: new Sprite("fireSprite", false),
+                                    hasDoneQ2: true,
+                                    hasDoneQ3: true,
+                                    spawnsOnDeath: false
+                                });
+                            }
+
+                            ctx.save();
+
+                            ctx.rotate(-ship.angle);
+                            ctx.translate(-ship.x, -ship.y);
+                            ctx.translate(sprite.x, sprite.y);
+                            ctx.scale(15, 15);
+
+                            sprite.sprite.draw(ctx, -1, -1, 2, 2);
+
+                            ctx.restore();
+                        }
+                        return;
+                    }
 
                     // Green - Yellow - Red based on hp
                     ctx.fillStyle = hardpoint.health > .667 ? "#00FF00" : hardpoint.health > .333 ? "#FFFF00" : "#FF0000";
 
+                    if (mouseOverShip && Math.abs(realMouseX - (ship.x + ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle))) < 8 && Math.abs(realMouseY - (ship.y + ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle))) < 24) {
+                        ctx.strokeStyle = ctx.fillStyle;
+                        ctx.lineWidth = 4;
+
+                        ctx.beginPath();
+                        ctx.arc(ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction), ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction), 18, 0, Math.PI * 2);
+                        ctx.stroke();
+                    }
+
                     ctx.beginPath();
-                    ctx.arc(
-                        ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction),
-                        ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction),
-                        4,
-                        0,
-                        Math.PI * 2
-                    );
+                    ctx.arc(ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction), ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction), 4, 0, Math.PI * 2);
                     ctx.fill();
                 });
             }
@@ -479,45 +894,17 @@ import { default as shipConfig } from "../server/lib/ships.js";
             projectile.y = lerp(projectile.y, projectile.realY, .2);
 
             const props = weaponDrawProperties[projectile.type];
-            const spacing = projectile.size * props.strength + 2;
+
+            if (projectile.size * props.strength * 6 * scale < 2) {
+                return;
+            }
 
             ctx.save();
             ctx.translate(projectile.x, projectile.y);
             ctx.rotate(projectile.angle - Math.PI / 2);
+            ctx.scale(6 * props.strength, 6 * props.strength);
 
-            if (props.isCircle) {
-                ctx.fillStyle = props.color;
-            } else {
-                ctx.strokeStyle = props.color;
-                ctx.lineWidth = projectile.size * props.strength;
-            }
-
-            if (props.shadows) {
-                // Flicker unique to this projectile by ID
-                ctx.shadowBlur = props.isCircle ? Math.sin(projectile.id * 2 + performance.now() / 50) * 2.5 + 12.5 : 10;
-                ctx.shadowColor = mixColors(props.color, "#FFFFFF", .5);
-            }
-
-            ctx.beginPath();
-
-            if (props.isCircle) {
-                ctx.arc(0, 0, projectile.size * props.strength, 0, Math.PI * 2);
-            } else {
-                for (let i = 0; i < props.count; i++) {
-                    const x = -spacing * props.count / 2 + spacing * i;
-
-                    ctx.moveTo(x, -projectile.size * props.strength * 5);
-                    ctx.lineTo(x, projectile.size * props.strength * 5);
-                }
-            }
-
-            ctx.closePath();
-
-            if (props.isCircle) {
-                ctx.fill();
-            } else {
-                ctx.stroke();
-            }
+            ctx.drawImage(props.sprite, -projectile.size, -projectile.size, projectile.size * 2, projectile.size * 2);
 
             ctx.restore();
         });
@@ -555,6 +942,112 @@ import { default as shipConfig } from "../server/lib/ships.js";
 
             ctx.restore();
         });
+
+        // Draw explosions
+        explosions.forEach(explosion => {
+
+            if (explosion.sprite.currentFrame >= explosion.sprite.frames.length - 1) {
+                explosions.delete(explosion);
+                return;
+            }
+
+            ctx.save();
+
+            ctx.translate(explosion.x, explosion.y);
+            ctx.scale(explosion.size, explosion.size);
+            ctx.rotate(explosion.angle);
+
+            explosion.sprite.draw(ctx, -1, -1, 2, 2);
+
+            ctx.restore();
+        });
+
+        ctx.restore();
+
+        // UI
+        const uScale = uiScale();
+
+        ctx.save();
+        ctx.scale(uScale, uScale);
+
+        ctx.globalAlpha = .5;
+
+        // Minimap
+        ctx.save();
+        ctx.translate(10, canvas.height / uScale - 10 - 230);
+
+        ctx.fillStyle = "#111111";
+        ctx.fillRect(0, 0, 230, 230);
+
+        ctx.globalAlpha = 1;
+
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = 1;
+
+        // Clip
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(0, 0, 230, 230);
+        ctx.clip();
+        ctx.closePath();
+
+        world.minimapData.forEach(data => {
+            // The center of the map is (0, 0)
+            // Top left corner is (-w, -h)
+            // Bottom right corner is (w, h)
+
+            const x = data.x * 115 + 115;
+            const y = data.y * 115 + 115;
+            const size = data.size * 115;
+
+            ctx.fillStyle = data.team === 0 ? "#FF0000" : "#0000FF";
+
+            if (data.type === 0) {
+                const silhouetteKey = `${data.asset}${data.team}`;
+                if (!silhouettes.has(silhouetteKey)) {
+                    generateSilhouette(assets.get(data.asset), silhouetteKey, data.team === 0 ? 255 : 0, data.team === 2 ? 255 : 0, data.team === 1 ? 255 : 0);
+                }
+
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(data.angle);
+                ctx.drawImage(silhouettes.get(silhouetteKey), -size / 2, -size / 2, size, size);
+                ctx.restore();
+            }
+
+            if (data.type === 1) {
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+            }
+        });
+
+        // Draw a viewbox
+        ctx.save();
+        ctx.translate(115, 115);
+        ctx.scale(1 / camera.zoom * 115, 1 / camera.zoom * 115);
+        ctx.translate(-camera.x, -camera.y);
+
+        ctx.fillStyle = "#000000";
+        ctx.globalAlpha = .25;
+        ctx.strokeStyle = "#FFFFFF";
+        ctx.lineWidth = .1 * camera.zoom;
+
+        const width = Math.sqrt(canvas.width) / camera.zoom;
+        const height = Math.sqrt(canvas.height) / camera.zoom;
+
+        ctx.fillRect(-width / 2, -height / 2, width, height);
+        ctx.strokeRect(-width / 2, -height / 2, width, height);
+
+        ctx.restore();
+        ctx.restore();
+
+        ctx.strokeStyle = "#AAAAAA";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(0, 0, 230, 230);
+
+        ctx.restore();
 
         ctx.restore();
     }

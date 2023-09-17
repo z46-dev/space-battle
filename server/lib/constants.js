@@ -31,6 +31,8 @@ export const weaponTypes = {
     "GreenQuadTurbolaser": iota(),
     "GreenOctupleTurbolaser": iota(),
     "GreenUltraTurbolaser": iota(),
+    "GreenSuperlaser": iota(),
+    "GreenWeakSuperlaser": iota(),
 
     // BLUE WEAPONS (Republic)
     "BlueLaserCannon": iota(),
@@ -102,18 +104,16 @@ export const weaponDrawProperties = (function() {
         const color = key.match(/Red|Green|Blue|Purple|Ion/)[0];
         const type = weaponTypes[key];
         const shots = key.match(/Double|Triple|Quad|Octuple/) ? key.match(/Double|Triple|Quad|Octuple/)[0] : "Single";
-        const strength = key.match(/Cannon|Ultra|Turbolaser/) ? key.match(/Cannon|Ultra|Turbolaser/)[0] : "Cannon";
-
-        console.log(strength)
+        const strength = key.match(/Cannon|Ultra|Turbolaser|WeakSuperlaser|Superlaser/) ? key.match(/Cannon|Ultra|Turbolaser|WeakSuperlaser|Superlaser/)[0] : "Cannon";
 
         output[type] = {
             color: colors[color],
             shots: shots,
             count: [1, 2, 3, 4, 8][["Single", "Double", "Triple", "Quad", "Octuple"].indexOf(shots)],
-            strength: 1 + ["Cannon", "Turbolaser", "placeholder", "placeholder", "placeholder", "Ultra"].indexOf(strength) * .5,
+            strength: 1 + ["Cannon", "Turbolaser", "placeholder", "placeholder", "placeholder", "Ultra", ...(new Array(3).fill("placeholder")), "WeakSuperlaser", ...(new Array(3).fill("placeholder")), "Superlaser"].indexOf(strength) * .5,
             key: key,
             isCircle: false,
-            shadows: false
+            shadows: true
         };
     }
 
@@ -193,7 +193,7 @@ export const weaponProperties = (function() {
     const output = [];
 
     for (const key in weaponTypes) {
-        const classification = key.match(/Laser|Ion|Turbolaser|Bomb|RocketAOE|Rocket|Missile|Torpedo/)[0];
+        const classification = key.match(/Laser|Ion|Turbolaser|WeakSuperlaser|Superlaser|Bomb|RocketAOE|Rocket|Missile|Torpedo/)[0];
 
         const map = {
             "Laser": "LaserCannon",
@@ -203,7 +203,9 @@ export const weaponProperties = (function() {
             "RocketAOE": "GuidedAOE",
             "Rocket": "Guided",
             "Missile": "AreaOfEffect",
-            "Torpedo": "Guided"
+            "Torpedo": "Guided",
+            "Superlaser": "GuidedAOE",
+            "WeakSuperlaser": "GuidedAOE"
         };
 
         output[weaponTypes[key]] = {

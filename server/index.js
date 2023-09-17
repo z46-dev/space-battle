@@ -43,6 +43,7 @@ class Projectile {
         this.type = 0;
         this.team = ship.team;
         this.classification = 0;
+        this._collisionRange = hardpoint.collisionRange ?? null;
 
         this.isGuided = false;
 
@@ -50,9 +51,16 @@ class Projectile {
         this.range = hardpoint.range + this.speed * 10;
 
         this.battle.projectiles.set(this.id, this);
+
+        // Get source
+        this.source = this.ship.source;
     }
 
     get collisionRange() {
+        if (this._collisionRange !== null) {
+            return this._collisionRange;
+        }
+
         if (this.classification === weaponClassifications.AreaOfEffect) {
             return this.speed * 3;
         }
@@ -62,6 +70,14 @@ class Projectile {
         }
 
         return this.speed * .75;
+    }
+
+    get explosionRange() {
+        if (this.hardpoint.explosionRange !== null) {
+            return this.hardpoint.explosionRange * this.collisionRange;
+        }
+
+        return this.collisionRange * 5;
     }
 
     update() {
@@ -89,9 +105,10 @@ class Projectile {
                     break;
                 case weaponClassifications.AreaOfEffect:
                 case weaponClassifications.GuidedAOE:
-                    if (this.target.ship.shield > 0) {
+                    if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
                         this.target.ship.shield -= this.hardpoint.damage * .25; // Nuh uh uh
                         this.target.ship.lastHit = performance.now();
+
                     } else {
                         this.target.ship.lastHit = performance.now();
 
@@ -100,7 +117,7 @@ class Projectile {
                         for (let i = 0; i < this.target.ship.hardpoints.length; i++) {
                             const hardpoint = this.target.ship.hardpoints[i];
 
-                            if (hardpoint.health > 0 && distance(this.x, this.y, hardpoint.x, hardpoint.y) <= this.collisionRange * 5) {
+                            if (hardpoint.health > 0 && distance(this.x, this.y, hardpoint.x, hardpoint.y) <= this.explosionRange) {
                                 validHardpoints.push(hardpoint);
                             }
                         }
@@ -108,8 +125,11 @@ class Projectile {
                         for (let i = 0; i < validHardpoints.length; i++) {
                             const hardpoint = validHardpoints[i];
 
-                            hardpoint.health -= this.hardpoint.damage / (validHardpoints.length * 2.5);
+                            hardpoint.health -= this.hardpoint.damage / (validHardpoints.length * 1.5);
                         }
+
+
+                        this.battle.explode(this.target.x, this.target.y, this.collisionRange * 1.25, this.angle, "blueExplosion" + (Math.random() * 2 | 0 + 1));
                     }
                     break;
                 default:
@@ -122,37 +142,45 @@ class Projectile {
                     }
             }
 
+            this.target.ship.hitBy = this.source;
+
             this.battle.projectiles.delete(this.id);
         }
     }
 }
 
 class Hardpoint {
+    static id = 0;
+
     /**
      * @param {Ship} ship 
      */
     constructor(ship, config) {
+        this.id = Hardpoint.id++;
         this.ship = ship;
         this.offset = config.offset;
         this.direction = config.direction;
         this.projectileType = config.weapon.type;
 
-        this.reload = config.weapon.reload;
-        this.tick = config.weapon.reload;
+        this.reload = config.weapon.reload * 1.5;
+        this.tick = config.weapon.reload * 1.5;
         this.damage = config.weapon.damage;
         this.speed = config.weapon.speed;
         this.range = config.weapon.range;
         this.shotsAtOnce = config.shotsAtOnce ?? 1;
         this.shotDelay = config.shotDelay ?? 500;
         this.targetTypes = config.weapon.targetOverride ?? null;
+        this.collisionRange = config.weapon.collisionRange ?? null;
+        this.explosionRange = config.weapon.explosionRange ?? null;
+        this.bypassShield = config.weapon.bypassShield ?? false;
 
-        this.health = config.weapon.health;
-        this.maxHealth = config.weapon.health;
+        this.health = config.weapon.health * 2;
+        this.maxHealth = config.weapon.health * 2;
         this.team = ship.team;
 
         this.classification = weaponProperties[this.projectileType].classification;
         if (this.classification !== weaponClassifications.AreaOfEffect && this.classification !== weaponClassifications.Guided && this.classification !== weaponClassifications.GuidedAOE) {
-            this.tick -= Math.random() * this.reload * .5 | 0;
+            this.tick -= Math.random() * this.reload | 0;
         }
 
         this.target = null;
@@ -189,52 +217,103 @@ class Hardpoint {
         }
 
         if (this.target === null) {
-            let validShips = [];
+            // let validShips = [];
 
-            this.ship.battle.ships.forEach(ship => {
-                if (ship.team !== this.ship.team && ship.health > 0) {
-                    if (this.classification === weaponClassifications.IonCannon && ship.shield <= 0) {
-                        return;
-                    }
+            // this.ship.battle.ships.forEach(ship => {
+            //     if (ship.team !== this.ship.team && ship.health > 0) {
+            //         if (this.classification === weaponClassifications.IonCannon && ship.shield <= 0) {
+            //             return;
+            //         }
 
-                    if (this.targetTypes !== null && this.targetTypes.indexOf(ship.classification) === -1) {
-                        return;
-                    }
+            //         if (this.targetTypes !== null && this.targetTypes.indexOf(ship.classification) === -1) {
+            //             return;
+            //         }
 
-                    validShips.push(ship);
-                }
+            //         validShips.push(ship);
+            //     }
+            // });
+
+            // validShips = validShips.sort(() => .5 - Math.random());
+            // validShips = validShips.sort((a, b) => distance(this.x, this.y, a.x, a.y) - distance(this.x, this.y, b.x, b.y));
+
+            // const ship = validShips[0] ?? null;
+
+            // if (ship !== null) {
+            //     let validHardpoints = [];
+
+            //     for (let i = 0; i < ship.hardpoints.length; i++) {
+            //         const hardpoint = ship.hardpoints[i];
+
+            //         if (hardpoint.health > 0 && distance(this.x, this.y, hardpoint.x, hardpoint.y) <= this.range) {
+            //             validHardpoints.push(hardpoint);
+            //         }
+            //     }
+
+            //     validHardpoints = validHardpoints.sort(() => .5 - Math.random());
+            //     validHardpoints = validHardpoints.sort((a, b) => distance(this.x, this.y, a.x, a.y) - distance(this.x, this.y, b.x, b.y));
+
+            //     this.target = validHardpoints[0] ?? null;
+            // }
+            const retrievalAABB = this.ship.battle.teams[this.team].spatialHash.getAABB({
+                x: this.x,
+                y: this.y,
+                size: this.range,
+                width: 1,
+                height: 1
             });
 
-            validShips = validShips.sort(() => .5 - Math.random());
-            validShips = validShips.sort((a, b) => distance(this.x, this.y, a.x, a.y) - distance(this.x, this.y, b.x, b.y));
+            const validHardpoints = [];
 
-            const ship = validShips[0] ?? null;
+            for (let i = 0; i < this.ship.battle.teams.length; i ++) {
+                if (i !== this.team) {
+                    const retrieval = this.ship.battle.teams[i].spatialHash.retrieve({
+                        id: this.ship.id,
+                        _AABB: retrievalAABB
+                    });
 
-            if (ship !== null) {
-                let validHardpoints = [];
-
-                for (let i = 0; i < ship.hardpoints.length; i++) {
-                    const hardpoint = ship.hardpoints[i];
-
-                    if (hardpoint.health > 0 && distance(this.x, this.y, hardpoint.x, hardpoint.y) <= this.range) {
-                        validHardpoints.push(hardpoint);
-                    }
+                    retrieval.forEach(object => {
+                        validHardpoints.push(object);
+                    });
                 }
-
-                validHardpoints = validHardpoints.sort(() => .5 - Math.random());
-                validHardpoints = validHardpoints.sort((a, b) => distance(this.x, this.y, a.x, a.y) - distance(this.x, this.y, b.x, b.y));
-
-                this.target = validHardpoints[0] ?? null;
             }
+
+            validHardpoints.sort(() => .5 - Math.random());
+
+            this.target = validHardpoints[0] ?? null;
         }
     }
 
-    update() {
-        this.findTarget();
-
+    insert() {
         if (this.health <= 0) {
             return;
         }
+
+        // Insert into spatial hash grid
+        this._AABB = this.ship.battle.teams[this.team].spatialHash.getAABB({
+            x: this.x,
+            y: this.y,
+            size: 3,
+            width: 1,
+            height: 1
+        });
+
+        this.ship.battle.teams[this.team].spatialHash.insert(this);
+    }
+
+    update() {
+        if (this.health <= 0) {
+            if (!this.hasExploded) {
+                this.hasExploded = true;
+
+                if ((this.ship.classification !== shipTypes.Fighter && this.ship.classification !== shipTypes.Bomber) || Math.random() > .8) {
+                    this.ship.battle.explode(this.x, this.y, Math.min(this.ship.size / 2, 80), this.angle);
+                }
+            }
+
+            return;
+        }
+
+        this.findTarget();
 
         if (this.target === null) {
             return;
@@ -251,18 +330,19 @@ class Hardpoint {
             const predictedY = this.target.y + Math.sin(this.target.ship.angle) * this.target.ship.speed * nowDist / this.speed;
 
             if (this.shotsAtOnce > 1) {
+                const target = this.target;
                 for (let i = 0; i < this.shotsAtOnce; i++) {
                     setTimeout(() => {
-                        if (this.health <= 0 || this.target === null) {
+                        if (this.health <= 0 || target === null) {
                             return;
                         }
 
-                        const inaccuracy = this.classification === weaponClassifications.AreaOfEffect ? 0 : (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (this.target.ship.totalHealth / 1.5));
+                        const inaccuracy = (this.classification === weaponClassifications.AreaOfEffect || this.classification === weaponClassifications.GuidedAOE) ? 0 : (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (target.ship.totalHealth / 1.5));
 
                         const angle = Math.atan2(predictedY - this.y, predictedX - this.x) + inaccuracy;
 
                         const projectile = new Projectile(this.x, this.y, angle, this.ship, this);
-                        projectile.target = this.target;
+                        projectile.target = target;
                         projectile.type = this.projectileType;
                         projectile.isGuided = this.classification === weaponClassifications.Guided || this.classification === weaponClassifications.GuidedAOE;
                         projectile.classification = this.classification;
@@ -314,10 +394,13 @@ class Squadron {
 
         for (let i = 0; i < config.squadronSize; i++) {
             const ship = new Ship(this.battle, ships[config.squadronKey], this.ship.team);
-            ship.x = this.ship.x + Math.random() * 100 - 50;
-            ship.y = this.ship.y + Math.random() * 100 - 50;
+            const angle = Math.PI * 2 / config.squadronSize * i;
+            const distance = ship.size * 1.25;
+            ship.x = this.hangar.x + Math.cos(angle) * distance;
+            ship.y = this.hangar.y + Math.sin(angle) * distance;
             ship.angle = this.ship.angle;
             ship.squadron = this;
+            ship.source = this.ship.source;
 
             ship.onDead = () => {
                 this.ships.splice(this.ships.indexOf(ship), 1);
@@ -345,16 +428,45 @@ class Squadron {
         }
 
         if (this.target === null) {
-            let validShips = [];
+            let validShips = [],
+                mediumPriority = [],
+                highPriority = [];
 
             this.battle.ships.forEach(ship => {
                 if (ship.team !== this.ship.team && ship.health > 0) {
                     validShips.push(ship);
+
+                    switch (this.ships[0].classification) {
+                        case shipTypes.Fighter:
+                            if (ship.classification === shipTypes.Bomber) {
+                                highPriority.push(ship);
+                            }
+
+                            if (ship.classification === shipTypes.Fighter) {
+                                mediumPriority.push(ship);
+                            }
+                            break;
+                        case shipTypes.Bomber:
+                            if (ship.classification === shipTypes.Capital || ship.classification === shipTypes.SuperCapital) {
+                                highPriority.push(ship);
+                            }
+
+                            if (ship.classification === shipTypes.Frigate || ship.classification === shipTypes.HeavyFrigate) {
+                                mediumPriority.push(ship);
+                            }
+                            break;
+                    }
                 }
             });
 
+            if (highPriority.length > 0) {
+                validShips = highPriority;
+            } else if (mediumPriority.length > 0) {
+                validShips = mediumPriority;
+            }
+
             validShips = validShips.sort(() => .5 - Math.random());
-            validShips = validShips.sort((a, b) => distance(this.ship.x, this.ship.y, a.x, a.y) - distance(this.ship.x, this.ship.y, b.x, b.y));
+            validShips = validShips.sort((a, b) => distance(this.ships[0].x, this.ships[0].y, a.x, a.y) - distance(this.ships[0].x, this.ships[0].y, b.x, b.y));
 
             this.target = validShips[0] ?? null;
             this.targetTick = 100;
@@ -371,9 +483,9 @@ class Squadron {
             return;
         }
 
-        const angle = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
-        const tx = this.target.x + Math.cos(angle) * 100;
-        const ty = this.target.y + Math.sin(angle) * 100;
+        //const angle = Math.atan2(this.target.y - this.ships[0].y, this.target.x - this.ships[0].x);
+        const tx = this.target.x;
+        const ty = this.target.y;
 
         for (let i = 0; i < this.ships.length; i++) {
             const angle = Math.PI * 2 / this.ships.length * i;
@@ -424,7 +536,18 @@ class Hangar {
         this.hangarSize = config.reserveSize + config.maxSquadrons;
         this.config = config;
 
+        this.offset = config.offset;
+        this.direction = config.direction;
+
         this.tick = 0;
+    }
+
+    get x() {
+        return this.ship.x + this.ship.size / 2 * this.offset * Math.cos(this.direction + this.ship.angle);
+    }
+
+    get y() {
+        return this.ship.y + this.ship.size / 2 * this.offset * Math.sin(this.direction + this.ship.angle);
     }
 
     update() {
@@ -467,8 +590,10 @@ class ShipAI {
 
     findTarget() {
         if (this.target !== null) {
-            if (this.target.health <= 0 || --this.targetTick <= 0) {
+            if (this.target.health <= 0) {
                 this.target = null;
+            } else {
+                this.target = distance(this.ship.x, this.ship.y, this.target.x, this.target.y) >= Math.min(...this.ship.hardpoints.map(hardpoint => hardpoint.range)) ? null : this.target;
             }
         }
 
@@ -476,7 +601,7 @@ class ShipAI {
             let validShips = [];
 
             this.ship.battle.ships.forEach(ship => {
-                if (ship.team !== this.ship.team && ship.health > 0) {
+                if (ship.team !== this.ship.team && ship.health > 0 && ((ship.classification !== shipTypes.Fighter && ship.classification !== shipTypes.Bomber) || this.ship.classification === shipTypes.Fighter || this.ship.classification === shipTypes.Bomber)) {
                     validShips.push(ship);
                 }
             });
@@ -596,6 +721,9 @@ class Ship {
         this.ai = new ShipAI(this);
         this.squadron = null;
 
+        this.source = this;
+        this.explodeOnDeath = true;
+
         /**
          * @type {Hardpoint[]}
          */
@@ -614,6 +742,14 @@ class Ship {
         }
 
         this.onDead = null;
+
+        this.events = {};
+
+        if (config.events !== undefined) {
+            for (const key in config.events) {
+                this.events[key] = config.events[key];
+            }
+        }
 
         this.battle.ships.set(this.id, this);
     }
@@ -646,9 +782,32 @@ class Ship {
         if (this.health <= 0) {
             this.battle.ships.delete(this.id);
 
+            if (this.explodeOnDeath) {
+                if (this.classification !== shipTypes.Fighter && this.classification !== shipTypes.Bomber) {
+                    for (let i = 0; i < this.hardpoints.length / 3; i++) {
+                        const x = this.hardpoints[i].x + Math.random() * this.size * .2 - this.size * .1;
+                        const y = this.hardpoints[i].y + Math.random() * this.size * .2 - this.size * .1;
+
+                        setTimeout(this.battle.explode.bind(this.battle, x, y, this.size / (2 + Math.random() * 2), Math.PI * 2 * Math.random()), i * 75);
+                    }
+
+                    this.battle.explode(this.x, this.y, this.size);
+                } else {
+                    this.battle.explode(this.x, this.y, this.size * 1.25);
+                }
+            }
+
             if (this.onDead !== null) {
                 this.onDead();
                 this.onDead = null;
+            }
+
+            if (this.events.onDead !== undefined) {
+                this.events.onDead(this, this.battle);
+            }
+
+            if (this.hitBy != null && this.hitBy.events.onKill !== undefined) {
+                this.hitBy.events.onKill(this.hitBy, this, this.battle);
             }
         }
     }
@@ -671,9 +830,37 @@ class Battle {
         this.height = height;
 
         this.updateInterval = setInterval(this.update.bind(this), 1000 / 22.5);
+
+        this.explosionsToRender = [];
+
+        this.teams = [];
+        for (let i = 0; i < teams; i++) {
+            this.teams.push({
+                i: i,
+                spatialHash: new SpatialHashGrid()
+            });
+        }
+    }
+
+    spawn(key, team, x, y) {
+        const newShip = new Ship(this, ships[key], team);
+        newShip.x = x;
+        newShip.y = y;
+
+        return newShip;
     }
 
     update() {
+        for (let i = 0; i < this.teams.length; i ++) {
+            this.teams[i].spatialHash.clear();
+        }
+
+        this.ships.forEach(ship => {
+            ship.hardpoints.forEach(hardpoint => {
+                hardpoint.insert();
+            });
+        });
+
         this.ships.forEach(ship => {
             ship.update();
         });
@@ -682,47 +869,70 @@ class Battle {
             projectile.update();
         });
     }
+
+    explode(x, y, size, angle = Math.random() * Math.PI * 2, sprite = -1) {
+        this.explosionsToRender.push({
+            x: x,
+            y: y,
+            size: size,
+            angle: angle,
+            sprite: sprite === -1 ? "explosion" + (Math.random() * 7 | 0 + 1) : sprite
+        });
+    }
 }
 
-const battle = new Battle(7_500, 7_500, 2);
+const battle = new Battle(7500, 7500, 2);
 
 const empireFleet = {
-    "SSD": 1,
-    "ISD": 0,
+    "DEATHSTAR": 0,
+    "SSD": 0,
+    "ARCHAMMER": 0,
+    "WORLDDEVASTATORBC": 1,
+    "WORLDDEVASTATORFG": 0,
+    "ONAGER": 0,
+    "ISD": 2,
     "IMOBILIZER": 0,
     "QUASAR": 0,
     "ARQUITENS": 0,
     "RAIDER": 0,
 
     "DUMMY_CARRIER": 0,
-    "THRAWN_QUASAR": 0
+    "THRAWN_QUASAR": 0,
+
+    "VENATOR": 0,
+    "ACCLIMATOR": 0
 };
 
 const rebelFleet = {
-    "LUSANKYA": 1,
+    "LUSANKYA": 0,
     "STARHAWK": 0,
-    "HOMEONE": 0,
-    "MC80LIBERTY": 0,
-    "NEBULONB": 0,
-    "PELTA": 0,
-    "CR90": 0,
+    "MC85": 1,
+    "MC75": 2,
+    "HOMEONE": 2,
+    "MC80LIBERTY": 5,
+    "NEBULONB": 7,
+    "PELTA": 3,
+    "CR90": 9,
 
     "DUMMY_TARGET": 0,
     "REBEL_QUASAR": 0,
+
     "LUPUSMISSILEFRIGATE": 0,
     "PROVIDENCEDESTROYER": 0,
     "MUNIFICENT": 0,
     "RECUSANT": 0,
-    
+    "LUCREHULK": 0,
+    "PROVIDENCEDREADNOUGHT": 0,
+
 
     // NEW SHIPS
     "CHIMERA_DESTROYER": 0
 };
 
 function spawn(ship, team) {
-    const angle = Math.random() * Math.PI * 2;
-    const distance = 1000 * Math.random();
-    const spawnDistance = 3000;
+    const angle = Math.PI / 2;
+    const distance = 10000 * Math.random() - 5000;
+    const spawnDistance = 4500;
 
     const newShip = new Ship(battle, ships[ship], team);
 
@@ -734,17 +944,55 @@ function spawn(ship, team) {
         newShip.y = Math.sin(angle) * distance;
         newShip.angle = Math.PI;
     }
+
+    if (spawnDistance === 0) {
+        newShip.angle = Math.random() * Math.PI * 2;
+    }
+
+    return newShip;
 }
 
+const empireShips = [];
 for (const ship in empireFleet) {
+    if (ship === "DEATHSTAR" && empireFleet[ship] > 0) {
+        const angle = -Math.PI / 2;
+        const distance = 5000;
+        const spawnDistance = 7500;
+
+        const newShip = new Ship(battle, ships[ship], 0);
+
+        newShip.x = -spawnDistance + Math.cos(angle) * distance;
+        newShip.y = Math.sin(angle) * distance;
+        newShip.angle = Math.PI / 2;
+        continue;
+    }
+
     for (let i = 0; i < empireFleet[ship]; i++) {
-        spawn(ship, 0);
+        empireShips.push(spawn(ship, 0));
     }
 }
 
+const rebelShips = [];
 for (const ship in rebelFleet) {
     for (let i = 0; i < rebelFleet[ship]; i++) {
-        spawn(ship, 1);
+        rebelShips.push(spawn(ship, 1));
+    }
+}
+
+empireShips.sort(() => .5 - Math.random());
+basicFormation(empireShips, -5000, -5000, Math.PI / 4);
+
+rebelShips.sort(() => .5 - Math.random());
+basicFormation(rebelShips, 5000, 5000, -Math.PI + Math.PI / 4);
+
+function basicFormation(ships, x, y, angle) {
+    for (let i = 0; i < ships.length; i++) {
+        const xDistance = 650 * (Math.floor(i / 5) - 1);//((i - 1) % 2 ? -1 : 1);
+        const yDistance = 650 * [0, -1, 1, -2, 2][i % 5];//(Math.floor(i / 3) - 1);
+
+        ships[i].x = x + xDistance * Math.cos(angle) - yDistance * Math.sin(angle);
+        ships[i].y = y + yDistance * Math.cos(angle) + xDistance * Math.sin(angle);
+        ships[i].angle = angle;
     }
 }
 
@@ -1087,7 +1335,7 @@ class Camera {
             }
         });
 
-        const output = [0, this.x, this.y, this.zoom, shipsIDs.length, projectilesIDs.length, squadronsIDs.length];
+        const output = [0, this.x, this.y, this.zoom, shipsIDs.length, projectilesIDs.length, squadronsIDs.length, this.battle.explosionsToRender.length];
 
         this.shipsCache.forEach(ship => {
             if (!shipsIDs.includes(ship.id)) {
@@ -1116,6 +1364,10 @@ class Camera {
             output.push(...squadron.getOutput());
         });
 
+        this.battle.explosionsToRender.forEach(explosion => {
+            output.push(explosion.x, explosion.y, explosion.size, explosion.angle, explosion.sprite);
+        });
+
         this.connection.talk(output);
     }
 }
@@ -1125,19 +1377,19 @@ class Connection {
     static id = 0;
 
     static generateMinimapUpdate(battle) {
-        const output = [1, 0, battle.squadrons.size];
+        const output = [1, battle.width, battle.height, 0, battle.squadrons.size];
 
         battle.ships.forEach(ship => {
-            if (ship.squadron === null) {
-                output.push(ship.id, ship.x, ship.y, ship.team);
+            if (ship.squadron == null) {
+                output.push(ship.x / battle.width, ship.y / battle.height, ship.team, ship.size / battle.width, ship.asset, ship.angle);
 
-                output[1] += 1;
+                output[3] += 1;
             }
         });
 
         battle.squadrons.forEach(squadron => {
             const data = squadron.packagedData;
-            output.push(squadron.id, data.x, data.y, squadron.ship.team);
+            output.push(data.x / battle.width, data.y / battle.height, squadron.ship.team);
         });
 
         return output;
@@ -1150,24 +1402,27 @@ class Connection {
          * @type {Battle}
          */
         this.battle = battle;
-        
+
         this.team = 0;
         this.ships = new Map();
 
         this.camera = new Camera(this);
 
         Connection.connections.set(this.id, this);
-
-        setInterval(() => this.camera.update(), 1000 / 12.5);
     }
 
-    talk() {}
+    talk() { }
 }
 
 const connection = new Connection(battle);
 connection.talk = function (data) {
     postMessage(data);
 }
+
+setInterval(function update() {
+    connection.camera.update();
+    battle.explosionsToRender = [];
+}, 1000 / 20);
 
 setInterval(function minimapUpdate() {
     const packet = Connection.generateMinimapUpdate(battle);
