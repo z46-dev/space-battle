@@ -1,13 +1,14 @@
 # High Priority
-- Minimap / Map Boundaries
-- HashGrid for optimization
+- Fix issues with rendering
+- Improve camera and focusing on entities
+- Text messages
+- Add lerp to minimap
 
 # Medium Priority
-- Space Stations / Goals
+- Space Stations / Planets / Factions
 - Shop for you and AI
 - Resources
+- First Order and Resistance ships as well as some legends stuff
 
 # Low Priority
-- Background for map
-- More ships such as Sepies and Hutts and Republic
 - Ion cannons can low-priority target hardpoints and subtract 3 ticks from the weapon reload as an "Ion Pulse" attack
