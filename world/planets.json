@@ -1,4 +1,5 @@
 {
+    "name": "Lower Galaxy and Deep Core",
     "basedOffOf": "https://static.wikia.nocookie.net/starwars/images/6/66/The_Galaxy_-_TROS_Visual_Dictionary.png/revision/latest/scale-to-width-down/1200?cb=20200102070639",
     "planets": [{
         "name": "Coruscant",
@@ -120,6 +121,41 @@
         "x": 450,
         "y": 2400,
         "color": "#FFAA55"
+    }, {
+        "name": "Malastare",
+        "x": 525,
+        "y": 2000,
+        "color": "#DD3399"
+    }, {
+        "name": "Crait",
+        "x": 625,
+        "y": 2200,
+        "color": "#FFDDAA"
+    }, {
+        "name": "Naboo",
+        "x": 1000,
+        "y": 2100,
+        "color": "#55AAFF"
+    }, {
+        "name": "D'Qar",
+        "x": 1000,
+        "y": 2400,
+        "color": "#55FFAA"
+    }, {
+        "name": "Savareen",
+        "x": 1750,
+        "y": 2250,
+        "color": "#CCAAFF"
+    }, {
+        "name": "Geonosis",
+        "x": 1900,
+        "y": 2000,
+        "color": "#CC4488"
+    }, {
+        "name": "Tatooine",
+        "x": 2000,
+        "y": 1800,
+        "color": "#FFDDAA"
     }],
     "connections": [
         ["Coruscant", "Alderaan"],
@@ -138,17 +174,27 @@
     }, {
         "id": 1,
         "color": "#EE5555",
-        "name": "Rebel Alliance",
-        "planets": ["Alderaan", "Anaxes"]
+        "name": "New Republic",
+        "planets": []
     }, {
         "id": 2,
         "color": "#55EE55",
         "name": "Galactic Empire",
-        "planets": ["Coruscant", "Byss", "Kuat"]
+        "planets": []
     }, {
         "id": 3,
         "color": "#881111",
         "name": "Hutt Cartel",
+        "planets": []
+    }, {
+        "id": 4,
+        "color": "#224488",
+        "name": "Dark Empire",
+        "planets": []
+    }, {
+        "id": 5,
+        "color": "#66AA66",
+        "name": "Zann Consortium",
         "planets": []
     }]
 }

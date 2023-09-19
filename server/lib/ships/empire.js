@@ -192,7 +192,7 @@ ships.QUASAR = {
     name: "Quasar",
     asset: "QUASAR.png",
     classification: shipTypes.Frigate,
-    size: 100,
+    size: 175,
     cost: 2000,
     speed: 3,
     turnSpeed: .025,

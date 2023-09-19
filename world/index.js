@@ -148,6 +148,59 @@ void (async function main() {
         });
     });
 
+    const camera = {
+        realX: 0,
+        realY: 0,
+        realZoom: 1,
+        //
+        x: 0,
+        y: 0,
+        zoom: 3
+    };
+
+    function lerp(A, B, w) {
+        return (1 - w) * A + w * B;
+    }
+
+    function lerpAngle(A, B, w) {
+        let CS = (1 - w) * Math.cos(A) + w * Math.cos(B);
+        let SN = (1 - w) * Math.sin(A) + w * Math.sin(B);
+        return Math.atan2(SN, CS);
+    }
+
+    // CAMERA CONTROLS
+    window.addEventListener("wheel", event => {
+        camera.realZoom += event.deltaY / 1000;
+        camera.realZoom = Math.max(camera.realZoom, .05);
+        camera.realZoom = Math.min(camera.realZoom, 2.75);
+    });
+
+    let mouseX = 0,
+        mouseY = 0,
+        mouseDirectionX = 0,
+        mouseDirectionY = 0,
+        rmb = false;
+
+    window.addEventListener("mousemove", event => {
+        mouseX = event.clientX * window.devicePixelRatio;
+        mouseY = event.clientY * window.devicePixelRatio;
+
+        mouseDirectionX = event.movementX;
+        mouseDirectionY = event.movementY;
+    });
+
+    window.addEventListener("mousedown", event => {
+        if (event.button === 2) {
+            rmb = true;
+        }
+    });
+
+    window.addEventListener("mouseup", event => {
+        if (event.button === 2) {
+            rmb = false;
+        }
+    });
+
     function uiScale() {
         if (canvas.height > canvas.width) {
             return canvas.height / 1080;
@@ -190,7 +243,16 @@ void (async function main() {
     function draw() {
         requestAnimationFrame(draw);
 
-        const scale = uiScale() * .075;
+        if (rmb) {
+            camera.realX -= mouseDirectionX / camera.realZoom;
+            camera.realY -= mouseDirectionY / camera.realZoom;
+        }
+
+        camera.x = lerp(camera.x, camera.realX, .1);
+        camera.y = lerp(camera.y, camera.realY, .1);
+        camera.zoom = lerp(camera.zoom, camera.realZoom, .1);
+
+        const scale = uiScale() * camera.zoom;
 
         ctx.save();
 
@@ -198,6 +260,7 @@ void (async function main() {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         ctx.translate(canvas.width / 2, canvas.height / 2);
+        ctx.translate(-camera.x * scale, -camera.y * scale);
         ctx.scale(scale, scale);
 
         const routesDone = {};

@@ -885,13 +885,13 @@ const battle = new Battle(7500, 7500, 2);
 
 const empireFleet = {
     "DEATHSTAR": 0,
-    "SSD": 0,
+    "SSD": 1,
     "ARCHAMMER": 0,
-    "WORLDDEVASTATORBC": 1,
+    "WORLDDEVASTATORBC": 0,
     "WORLDDEVASTATORFG": 0,
     "ONAGER": 0,
-    "ISD": 2,
-    "IMOBILIZER": 0,
+    "ISD": 6,
+    "IMOBILIZER": 1,
     "QUASAR": 0,
     "ARQUITENS": 0,
     "RAIDER": 0,
@@ -899,20 +899,20 @@ const empireFleet = {
     "DUMMY_CARRIER": 0,
     "THRAWN_QUASAR": 0,
 
-    "VENATOR": 0,
+    "VENATOR": 2,
     "ACCLIMATOR": 0
 };
 
 const rebelFleet = {
     "LUSANKYA": 0,
     "STARHAWK": 0,
-    "MC85": 1,
-    "MC75": 2,
-    "HOMEONE": 2,
-    "MC80LIBERTY": 5,
-    "NEBULONB": 7,
-    "PELTA": 3,
-    "CR90": 9,
+    "MC85": 0,
+    "MC75": 4,
+    "HOMEONE": 7,
+    "MC80LIBERTY": 14,
+    "NEBULONB": 0,
+    "PELTA": 0,
+    "CR90": 0,
 
     "DUMMY_TARGET": 0,
     "REBEL_QUASAR": 0,
@@ -930,9 +930,9 @@ const rebelFleet = {
 };
 
 function spawn(ship, team) {
-    const angle = Math.PI / 2;
-    const distance = 10000 * Math.random() - 5000;
-    const spawnDistance = 4500;
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.random() * 5000;
+    const spawnDistance = 0;
 
     const newShip = new Ship(battle, ships[ship], team);
 
