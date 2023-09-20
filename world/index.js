@@ -1,3 +1,5 @@
+import ships from "../server/lib/ships.js";
+
 void (async function main() {
     const canvas = document.querySelector("canvas");
     const ctx = canvas.getContext("2d");
@@ -15,15 +17,57 @@ void (async function main() {
     const config = await (await fetch("./planets.json")).json();
 
     const planets = new Map();
+
+    class Fleet {
+        constructor() {
+            this.ships = [];
+        }
+
+        get population() {
+            return this.ships.reduce((a, b) => a + b.population, 0);
+        }
+
+        get shipCounts() {
+            const fleetLayout = {};
+
+            this.ships.sort((a, b) => b.population - a.population).forEach(ship => {
+                fleetLayout[ship.name] = (fleetLayout[ship.name] ?? 0) + 1;
+            });
+
+            return fleetLayout;
+        }
+
+        toString() {
+            return `${this.ships.length} Ships, ${this.population} Population, comprised of ${Object.entries(this.shipCounts).map(entry => {
+                const string = entry[1] + " " + entry[0];
+
+                if (entry[1] !== 1) {
+                    return string + "s";
+                }
+
+                return string;
+            }).join(", ")}`;
+        }
+    }
+
     class Planet {
         constructor(name) {
             this.id = name;
-            this.x = 0;
-            this.y = 0;
+            this._x = 0;
+            this._y = 0;
             this.color = "#FFFFFF";
             this.joinsTo = [];
+            this.fleets = [];
             this.controlledFaction = 0;
             planets.set(this.id, this);
+        }
+
+        get x() {
+            return this._x * 1.5;
+        }
+
+        get y() {
+            return this._y * 1.5;
         }
 
         render() {
@@ -31,7 +75,7 @@ void (async function main() {
             ctx.fillStyle = this.color;
             ctx.strokeStyle = config.factions[this.controlledFaction].color;
             ctx.lineWidth = 15;
-            ctx.translate(this.x * 1.5, this.y * 1.5);
+            ctx.translate(this.x, this.y);
 
             ctx.beginPath();
             ctx.arc(0, 0, 135, 0, Math.PI * 2);
@@ -59,8 +103,8 @@ void (async function main() {
             ctx.strokeStyle = "#FFFFFF";
             ctx.lineWidth = 16;
             ctx.beginPath();
-            ctx.moveTo(this.x * 1.5, this.y * 1.5);
-            ctx.lineTo(other.x * 1.5, other.y * 1.5);
+            ctx.moveTo(this.x, this.y);
+            ctx.lineTo(other.x, other.y);
             ctx.closePath();
             ctx.stroke();
         }
@@ -129,8 +173,8 @@ void (async function main() {
 
     config.planets.forEach(planetTemplate => {
         const planet = new Planet(planetTemplate.name);
-        planet.x = planetTemplate.x;
-        planet.y = planetTemplate.y;
+        planet._x = planetTemplate.x;
+        planet._y = planetTemplate.y;
         planet.color = planetTemplate.color ?? "#FFFFFF";
     });
 
@@ -142,11 +186,67 @@ void (async function main() {
         b.joinsTo.push(a.id);
     });
 
+    function createFleet(faction, maxPopulation) {
+        const fleet = new Fleet();
+
+        let fails = 0;
+        while (maxPopulation > 0 && fails < 256) {
+            let ship = undefined,
+                i = 0;
+
+            miniLoop: while (i < faction.units.length * 5) {
+                faction.units = faction.units.sort(() => .5 - Math.random());
+                
+                const unit = ships[faction.units[0]];
+
+                if (unit.population <= maxPopulation) {
+                    ship = unit;
+                    break miniLoop;
+                }
+
+                i ++;
+            }
+
+            if (ship !== undefined) {
+                fleet.ships.push(ship);
+                maxPopulation -= ship.population;
+            } else {
+                fails ++;
+            }
+        }
+
+        return fleet;
+    }
+
+    const fleets = [];
+
     config.factions.forEach(faction => {
         faction.planets.forEach(planet => {
             planets.get(planet).controlledFaction = faction.id;
+            // const fleet = createFleet(faction, 40 + Math.random() * 80 | 0);
+            // fleets.push({
+            //     planet, faction: faction.name, population: fleet.population, ships: fleet.shipCounts
+            // });
         });
     });
+
+    planets.forEach(planet => {
+        const faction = config.factions[planet.controlledFaction];
+        const fleet = createFleet(faction, 40 + Math.random() * 80 | 0);
+
+        planet.fleets[0] = fleet;
+
+        fleets.push({
+            planet: planet.id,
+            faction: faction.name,
+            population: fleet.population,
+            ships: fleet.shipCounts
+        });
+    });
+
+    console.log(createFleet(config.factions[4], 300).toString());
+
+    console.table(fleets);
 
     const camera = {
         realX: 0,
@@ -181,6 +281,10 @@ void (async function main() {
         mouseDirectionY = 0,
         rmb = false;
 
+    // Connections
+    let firstPlanet = null,
+        secondPlanet = null;
+
     window.addEventListener("mousemove", event => {
         mouseX = event.clientX * window.devicePixelRatio;
         mouseY = event.clientY * window.devicePixelRatio;
@@ -192,6 +296,32 @@ void (async function main() {
     window.addEventListener("mousedown", event => {
         if (event.button === 2) {
             rmb = true;
+        } else {
+            const scale = uiScale() * camera.zoom;
+
+            const x = (mouseX - canvas.width / 2) / scale + camera.x;
+            const y = (mouseY - canvas.height / 2) / scale + camera.y;
+
+            let selected;
+
+            planets.forEach(planet => {
+                if (Math.sqrt(Math.pow(planet.x - x, 2) + Math.pow(planet.y - y, 2)) <= 135) {
+                    selected = planet;
+                }
+            });
+
+            if (selected) {
+                if (firstPlanet === null) {
+                    firstPlanet = selected;
+                } else {
+                    secondPlanet = selected;
+
+                    firstPlanet.joinsTo.push(secondPlanet.id);
+
+                    firstPlanet = null;
+                    secondPlanet = null;
+                }
+            }
         }
     });
 
@@ -240,6 +370,29 @@ void (async function main() {
         ctx.fillText(text, x, y);
     }
 
+    function drawGalaxySpiral(size) {
+        ctx.save();
+        ctx.scale(size, size);
+
+        ctx.strokeStyle = "#FFFFFF";
+        ctx.lineWidth = .01;
+
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+
+        for (let i = 0; i < 100; i++) {
+            const angle = Math.PI / 2 * i;
+            const radius = 1 / (i / 10 + 1);
+
+            ctx.lineTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
+        }
+
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.restore();
+    }
+
     function draw() {
         requestAnimationFrame(draw);
 
@@ -263,6 +416,8 @@ void (async function main() {
         ctx.translate(-camera.x * scale, -camera.y * scale);
         ctx.scale(scale, scale);
 
+        //drawGalaxySpiral(3000);
+
         const routesDone = {};
 
         planets.forEach(planet => {
@@ -283,4 +438,45 @@ void (async function main() {
     }
 
     draw();
+
+    window.planets = planets;
+    window.findPath = (a, b) => planets.get(a).findShortestPathTo(planets.get(b));
+
+    window.printConnections = () => {
+        const connectionLinks = [...planets.values()];
+        const connections = [];
+
+        connectionLinks.forEach(planet => {
+            const first = planet.id;
+
+            for (let other of planet.joinsTo) {
+                const conn = [first, other].sort();
+
+                if (!connections.some(ocon => ocon[0] === conn[0] && ocon[1] === conn[1])) {
+                    connections.push(conn);
+                }
+            }
+        });
+        return connections;
+    }
+
+    window.getFactionForces = (factionName) => {
+        const faction = config.factions.find(fac => fac.name === factionName);
+        const fleets = [];
+        const combinedFleet = new Fleet();
+
+        planets.forEach(planet => {
+            if (planet.controlledFaction !== faction.id) {
+                return;
+            }
+            
+            planet.fleets.forEach(fleet => {
+                fleets.push(fleet);
+
+                combinedFleet.ships.push(...fleet.ships);
+            });
+        });
+
+        return { fleets, combinedFleet };
+    }
 })();

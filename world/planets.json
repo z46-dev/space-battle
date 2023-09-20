@@ -65,7 +65,7 @@
         "name": "Exogol",
         "x": -2000,
         "y": -950,
-        "color": "#AAAACC" 
+        "color": "#AAAACC"
     }, {
         "name": "Ahch-To",
         "x": -2300,
@@ -158,43 +158,90 @@
         "color": "#FFDDAA"
     }],
     "connections": [
-        ["Coruscant", "Alderaan"],
-        ["Coruscant", "Byss"],
-        ["Coruscant", "Anaxes"],
+        ["Alderaan", "Coruscant"],
+        ["Byss", "Coruscant"],
+        ["Anaxes", "Coruscant"],
         ["Coruscant", "Fresia"],
+        ["Coruscant", "Jedha"],
         ["Alderaan", "Kuat"],
         ["Alderaan", "Fresia"],
-        ["Anaxes", "Fresia"]
+        ["Alderaan", "Onderon"],
+        ["Alderaan", "Mimban"],
+        ["Anaxes", "Fresia"],
+        ["Fresia", "Onderon"],
+        ["Kuat", "Mimban"],
+        ["Corellia", "Kuat"],
+        ["Byss", "Corellia"],
+        ["Byss", "Jakku"],
+        ["Byss", "Jedha"],
+        ["Corellia", "Jakku"],
+        ["Kashyyyk", "Onderon"],
+        ["Kashyyyk", "Mimban"],
+        ["Exogol", "Jedha"],
+        ["Ahch-To", "Jakku"],
+        ["Batuu", "Jakku"],
+        ["Ahch-To", "Ahch-To"],
+        ["Batuu", "Endor"],
+        ["Batuu", "Takodana"],
+        ["Ring of Kafrene", "Takodana"],
+        ["Endor", "Takodana"],
+        ["Hoth", "Ring of Kafrene"],
+        ["Bespin", "Endor"],
+        ["Bespin", "Hoth"],
+        ["Bespin", "Mustafar"],
+        ["Hoth", "Sullust"],
+        ["Mustafar", "Sullust"],
+        ["Dagobah", "Mustafar"],
+        ["Dagobah", "Utapau"],
+        ["Dagobah", "Sullust"],
+        ["D'Qar", "Utapau"],
+        ["Corellia", "Malastare"],
+        ["Crait", "Sullust"],
+        ["Crait", "D'Qar"],
+        ["Crait", "Naboo"],
+        ["Crait", "Malastare"],
+        ["Kuat", "Naboo"],
+        ["Geonosis", "Naboo"],
+        ["D'Qar", "Savareen"],
+        ["Geonosis", "Savareen"],
+        ["Geonosis", "Tatooine"],
+        ["Mimban", "Tatooine"]
     ],
     "factions": [{
         "id": 0,
         "color": "#DDDDDD",
         "name": "Neutral Systems",
-        "planets": []
+        "planets": [],
+        "units": ["VENATOR", "ACCLIMATOR", "NEBULONB", "CR90", "LUPUSMISSILEFRIGATE", "MUNIFICENT", "RECUSANT", "RAIDER"]
     }, {
         "id": 1,
         "color": "#EE5555",
         "name": "New Republic",
-        "planets": []
+        "planets": ["Naboo", "Crait", "D'Qar", "Endor", "Takodana"],
+        "units": ["MC80LIBERTY", "NEBULONB", "CR90", "PROVIDENCEDESTROYER", "LUPUSMISSILEFRIGATE", "REBEL_QUASAR", "MC75"]
     }, {
         "id": 2,
         "color": "#55EE55",
         "name": "Galactic Empire",
-        "planets": []
+        "planets": ["Coruscant", "Anaxes", "Alderaan", "Kuat", "Fresia"],
+        "units": ["ISD", "IMOBILIZER", "ACCLIMATOR", "ARQUITENS", "RAIDER"]
     }, {
         "id": 3,
-        "color": "#881111",
+        "color": "#AABB66",
         "name": "Hutt Cartel",
-        "planets": []
+        "planets": ["Tatooine", "Geonosis", "Mimban"],
+        "units": ["ACCLIMATOR", "LUPUSMISSILEFRIGATE", "MUNIFICENT", "RECUSANT", "PROVIDENCEDESTROYER"]
     }, {
         "id": 4,
         "color": "#224488",
         "name": "Dark Empire",
-        "planets": []
+        "planets": ["Exogol", "Jedha", "Byss"],
+        "units": ["ISD", "MTFCRUISER", "WORLDDEVASTATORFG"]
     }, {
         "id": 5,
         "color": "#66AA66",
         "name": "Zann Consortium",
-        "planets": []
+        "planets": ["Ring of Kafrene", "Savareen", "Sullust"],
+        "units": ["VENATOR", "ACCLIMATOR", "NEBULONB", "RECUSANT", "MC80LIBERTY", "CR90", "RAIDER"]
     }]
 }

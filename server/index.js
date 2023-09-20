@@ -880,7 +880,7 @@ class Battle {
 const battle = new Battle(7500, 7500, 2);
 
 const empireFleet = {
-    "DEATHSTAR": 0,
+    "DEATHSTAR": 1,
     "SSD": 0,
     "ARCHAMMER": 0,
     "WORLDDEVASTATORBC": 0,
@@ -890,36 +890,36 @@ const empireFleet = {
     "MTFCRUISER": 0,
     "IMOBILIZER": 0,
     "QUASAR": 0,
-    "ARQUITENS": 7,
+    "ARQUITENS": 0,
     "RAIDER": 0,
 
     "DUMMY_CARRIER": 0,
     "THRAWN_QUASAR": 0,
 
-    "VENATOR": 7,
-    "ACCLIMATOR": 2
+    "VENATOR": 0,
+    "ACCLIMATOR": 0
 };
 
 const rebelFleet = {
     "LUSANKYA": 0,
-    "STARHAWK": 0,
-    "MC85": 0,
-    "MC75": 0,
-    "HOMEONE": 0,
-    "MC80LIBERTY": 0,
-    "NEBULONB": 0,
-    "PELTA": 0,
-    "CR90": 0,
+    "STARHAWK": 1,
+    "MC85": 1,
+    "MC75": 1,
+    "HOMEONE": 1,
+    "MC80LIBERTY": 3,
+    "NEBULONB": 4,
+    "PELTA": 2,
+    "CR90": 6,
 
     "DUMMY_TARGET": 0,
     "REBEL_QUASAR": 0,
 
-    "LUPUSMISSILEFRIGATE": 4,
+    "LUPUSMISSILEFRIGATE": 2,
     "PROVIDENCEDESTROYER": 0,
-    "MUNIFICENT": 8,
-    "RECUSANT": 2,
+    "MUNIFICENT": 1,
+    "RECUSANT": 1,
     "LUCREHULK": 0,
-    "PROVIDENCEDREADNOUGHT": 3,
+    "PROVIDENCEDREADNOUGHT": 0,
 
 
     // NEW SHIPS
