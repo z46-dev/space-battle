@@ -3,9 +3,6 @@ import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, F
 
 const ships = {};
 
-// Give more HP to mon cala hardpoints
-// MC85
-
 ships.HOMEONE = {
     name: "Home One",
     asset: "HOMEONE.png",
@@ -312,12 +309,12 @@ ships.MC85 = {
     name: "MC-85",
     asset: "MC85.png",
     classification: shipTypes.SuperCapital,
-    size: 1650,
+    size: 2600,
     cost: 20000,
-    speed: 2.25,
-    turnSpeed: .02,
-    shield: 45000,
-    shieldRegen: 15,
+    speed: 3,
+    turnSpeed: .005,
+    shield: 47500,
+    shieldRegen: 20,
     hardpoints: (function() {
         const output = [];
 
@@ -373,6 +370,16 @@ ships.MC85 = {
             });
         }
 
+        for (let i = 0; i < output.length; i ++) {
+            output[i].weapon = {
+                ...output[i].weapon,
+                health: output[i].weapon.health * 3,
+                speed: output[i].weapon.speed * 1.15,
+                damage: output[i].weapon.damage * 1.225,
+                reload: output[i].weapon.reload * .775
+            };
+        }
+
         return output;
     })(),
     hangars: [{
@@ -396,7 +403,7 @@ ships.NEBULONB = {
     name: "Nebulon-B",
     asset: "NEBULONB.png",
     classification: shipTypes.Frigate,
-    size: 150,
+    size: 250,
     cost: 500,
     speed: 4.5,
     turnSpeed: .05,
@@ -476,7 +483,7 @@ ships.PELTA = {
     name: "Pelta Frigate",
     asset: "PELTA.png",
     classification: shipTypes.Frigate,
-    size: 120,
+    size: 160,
     cost: 640,
     speed: 4.2,
     turnSpeed: .03,
@@ -546,7 +553,7 @@ ships.CR90 = {
     size: 60,
     cost: 200,
     speed: 12,
-    turnSpeed: .075,
+    turnSpeed: .045,
     shield: 600,
     shieldRegen: .5,
     hardpoints: [{
@@ -730,16 +737,24 @@ ships.XWING = {
     cost: 5,
     speed: 20,
     turnSpeed: .05,
-    shield: 10,
-    shieldRegen: 0.1,
+    shield: 25,
+    shieldRegen: 1,
     hardpoints: [{
         x: 0,
         y: 0,
-        weapon: RED_FIGHTER_LASER_CANNON
+        weapon: {
+            ...RED_FIGHTER_LASER_CANNON,
+            health: RED_FIGHTER_LASER_CANNON.health * 4
+        },
+        shotsAtOnce: 8,
+        shotDelay: 50
     }, {
         x: 0,
         y: 0,
-        weapon: FIGHTER_PROTON_TORPEDO,
+        weapon: {
+            ...FIGHTER_PROTON_ROCKET,
+            health: FIGHTER_PROTON_ROCKET.health * 2
+        },
         shotsAtOnce: 2,
         shotDelay: 100
     }]
@@ -753,20 +768,36 @@ ships.YWING = {
     cost: 8,
     speed: 15,
     turnSpeed: .025,
-    shield: 17.5,
-    shieldRegen: 0.2,
+    shield: 65,
+    shieldRegen: 1.25,
     hardpoints: [{
         x: 0,
         y: 0,
-        weapon: RED_FIGHTER_LASER_CANNON
+        weapon: {
+            ...RED_FIGHTER_LASER_CANNON,
+            health: RED_FIGHTER_LASER_CANNON.health * 2
+        },
+        shotsAtOnce: 4,
+        shotDelay: 75
     }, {
         x: 0,
         y: 0,
-        weapon: FIGHTER_ION_CANNON
+        weapon: {
+            ...FIGHTER_ION_CANNON,
+            health: FIGHTER_ION_CANNON.health * 2
+        },
+        shotsAtOnce: 2,
+        shotDelay: 100
     }, {
         x: .5,
         y: 0,
-        weapon: FIGHTER_PROTON_BOMB,
+        weapon: {
+            ...FIGHTER_PROTON_BOMB,
+            reload: FIGHTER_PROTON_BOMB.reload * .5,
+            speed: FIGHTER_PROTON_BOMB.speed * 1.25,
+            damage: FIGHTER_PROTON_BOMB.damage * 1.5,
+            health: FIGHTER_PROTON_BOMB.health * 1.5
+        },
         shotsAtOnce: 2,
         shotDelay: 125
     }]
@@ -780,16 +811,26 @@ ships.AWING = {
     cost: 6,
     speed: 22.5,
     turnSpeed: .1,
-    shield: 7.5,
-    shieldRegen: 0.15,
+    shield: 15,
+    shieldRegen: .9,
     hardpoints: [{
         x: 0,
         y: 0,
-        weapon: RED_FIGHTER_LASER_CANNON
+        weapon: {
+            ...RED_FIGHTER_LASER_CANNON,
+            reload: RED_FIGHTER_LASER_CANNON.reload * .5,
+            damage: RED_FIGHTER_LASER_CANNON.damage * 1.5,
+            health: RED_FIGHTER_LASER_CANNON.health * 1.5
+        },
+        shotsAtOnce: 4,
+        shotDelay: 50
     }, {
         x: .5,
         y: 0,
-        weapon: FIGHTER_PROTON_ROCKET,
+        weapon: {
+            ...FIGHTER_PROTON_ROCKET,
+            health: FIGHTER_PROTON_ROCKET.health * 2
+        },
         shotsAtOnce: 4,
         shotDelay: 50
     }]

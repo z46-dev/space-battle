@@ -1,5 +1,5 @@
 import { shipTypes } from "../constants.js";
-import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_LASER_CANNON, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TURBOLASER_CANNON, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, FIGHTER_PROTON_BOMB, GREEN_FIGHTER_LASER_CANNON, FIGHTER_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, FIGHTER_PROTON_ROCKET_AOE, GREEN_RAPID_FIGHTER_LASER_CANNON, TIE_DEFENDER_ION_CANNON, GREEN_QUAD_TURBOLASER_CANNON_HEAVY, ION_CANNON_MEDIUM, GREEN_TURBOLASER_CANNON_ULTRAHEAVY, GREEN_SUPERLASER, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_WEAK_SUPERLASER, ASSAULT_PROTON_TORPEDO, TRIPLE_ION_CANNON_HEAVY, GREEN_TRIPLE_LASER_CANNON_HEAVY, ION_CANNON, GREEN_QUAD_LASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY, GREEN_OCTUPLE_TURBOLASER_CANNON } from "../weapons.js";
+import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_LASER_CANNON, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TURBOLASER_CANNON, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, FIGHTER_PROTON_BOMB, GREEN_FIGHTER_LASER_CANNON, FIGHTER_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, FIGHTER_PROTON_ROCKET_AOE, GREEN_RAPID_FIGHTER_LASER_CANNON, TIE_DEFENDER_ION_CANNON, GREEN_QUAD_TURBOLASER_CANNON_HEAVY, ION_CANNON_MEDIUM, GREEN_TURBOLASER_CANNON_ULTRAHEAVY, GREEN_SUPERLASER, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_WEAK_SUPERLASER, ASSAULT_PROTON_TORPEDO, TRIPLE_ION_CANNON_HEAVY, GREEN_TRIPLE_LASER_CANNON_HEAVY, ION_CANNON, GREEN_QUAD_LASER_CANNON } from "../weapons.js";
 
 const ships = {};
 
@@ -9,7 +9,7 @@ ships.ISD = {
     classification: shipTypes.Capital,
     size: 600,
     cost: 3200,
-    speed: 1.5,
+    speed: 2.5,
     turnSpeed: .01,
     shield: 5200,
     shieldRegen: 2,
@@ -170,7 +170,7 @@ ships.RAIDER = {
     size: 50,
     cost: 200,
     speed: 10,
-    turnSpeed: .1,
+    turnSpeed: .035,
     shield: 400,
     shieldRegen: 1,
     hardpoints: [{
@@ -339,17 +339,9 @@ ships.TIEDEFENDER = {
     cost: 25,
     speed: 19,
     turnSpeed: .16,
-    shield: 300,
+    shield: 200,
     shieldRegen: 3,
     hardpoints: [{
-        x: 0,
-        y: 0,
-        weapon: {
-            ...GREEN_RAPID_FIGHTER_LASER_CANNON,
-            damage: GREEN_RAPID_FIGHTER_LASER_CANNON.damage * 2,
-            range: GREEN_RAPID_FIGHTER_LASER_CANNON.range * .85
-        }
-    }, {
         x: 0,
         y: 0,
         weapon: {
@@ -365,17 +357,6 @@ ships.TIEDEFENDER = {
         x: 0,
         y: 0,
         weapon: FIGHTER_PROTON_ROCKET_AOE,
-        shotsAtOnce: 4,
-        shotDelay: 250
-    }, {
-        x: 0,
-        y: 0,
-        weapon: {
-            ...FIGHTER_PROTON_BOMB,
-            range: FIGHTER_PROTON_BOMB.range * 2,
-            damage: FIGHTER_PROTON_BOMB.damage * 1.5,
-            speed: FIGHTER_PROTON_BOMB.speed * 1.5
-        },
         shotsAtOnce: 4,
         shotDelay: 250
     }]
@@ -852,24 +833,17 @@ ships.WORLDDEVASTATORFG = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 4,
+        maxSquadrons: 2,
         squadronSize: 8,
         reserveSize: 1e10,
         squadronKey: "TIEFIGHTER"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
-        squadronSize: 8,
-        reserveSize: 1e10,
-        squadronKey: "TIEBOMBER"
-    }, {
-        x: 0,
-        y: 0,
         maxSquadrons: 1,
         squadronSize: 8,
         reserveSize: 1e10,
-        squadronKey: "TIEDEFENDER"
+        squadronKey: "TIEBOMBER"
     }],
     events: {
         onKill: function(me, them, battle) {
@@ -1071,24 +1045,17 @@ ships.WORLDDEVASTATORBC = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 8,
+        maxSquadrons: 6,
         squadronSize: 8,
         reserveSize: 1e10,
         squadronKey: "TIEFIGHTER"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 6,
-        squadronSize: 8,
-        reserveSize: 1e10,
-        squadronKey: "TIEBOMBER"
-    }, {
-        x: 0,
-        y: 0,
         maxSquadrons: 4,
         squadronSize: 8,
         reserveSize: 1e10,
-        squadronKey: "TIEDEFENDER"
+        squadronKey: "TIEBOMBER"
     }],
     events: {
         onKill: function(me, them, battle) {
@@ -1115,6 +1082,88 @@ ships.WORLDDEVASTATORBC = {
             }
         }
     }
+};
+
+ships.MTFCRUISER = {
+    name: "Modular Task Force Cruiser",
+    asset: "MTFCRUISER.png",
+    classification: shipTypes.Frigate,
+    size: 400,
+    cost: 5000,
+    speed: 3.9,
+    turnSpeed: .015,
+    shield: 4000,
+    shieldRegen: 10,
+    hardpoints: [{
+        x: 0,
+        y: .95,
+        weapon: ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 4,
+        shotDelay: 80
+    }, {
+        x: -.03,
+        y: .7,
+        weapon: GREEN_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .03,
+        y: .7,
+        weapon: GREEN_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.125,
+        y: .2,
+        weapon: DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .125,
+        y: .2,
+        weapon: DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.125,
+        y: -.2,
+        weapon: GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .125,
+        y: -.2,
+        weapon: GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.15,
+        y: -.9125,
+        weapon: GREEN_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .15,
+        y: -.9125,
+        weapon: GREEN_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }],
+    hangars: [{
+        x: 0,
+        y: -.8,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "TIEFIGHTER"
+    }, {
+        x: 0,
+        y: -.8,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 1,
+        squadronKey: "TIEBOMBER"
+    }]
 };
 
 export default ships;

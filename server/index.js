@@ -272,6 +272,10 @@ class Hardpoint {
                     });
 
                     retrieval.forEach(object => {
+                        if (this.targetTypes !== null && this.targetTypes.indexOf(object.ship.classification) === -1) {
+                            return;
+                        }
+                        
                         validHardpoints.push(object);
                     });
                 }
@@ -650,16 +654,8 @@ class ShipAI {
     corvetteThinking() {
         if (this.ship.shield / this.ship.maxShield < .5 && this.ship.health < .75) { // Kite
             this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
-        } else if (distance(this.ship.x, this.ship.y, this.target.x, this.target.y) > 600) {
+        } else {
             this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
-            this.orbitAngle = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
-        } else if (distance(this.ship.x, this.ship.y, this.target.x, this.target.y) < 500) {
-            const gx = this.target.x + Math.cos(this.orbitAngle) * 400;
-            const gy = this.target.y + Math.sin(this.orbitAngle) * 400;
-
-            this.ship.angleGoal = Math.atan2(gy - this.ship.y, gx - this.ship.x);
-            this.orbitAngle = this.ship.angleGoal + Math.PI / 16;
-            this.ship.speed = this.ship.maxSpeed;
         }
     }
 
@@ -885,31 +881,32 @@ const battle = new Battle(7500, 7500, 2);
 
 const empireFleet = {
     "DEATHSTAR": 0,
-    "SSD": 1,
+    "SSD": 0,
     "ARCHAMMER": 0,
     "WORLDDEVASTATORBC": 0,
     "WORLDDEVASTATORFG": 0,
     "ONAGER": 0,
-    "ISD": 6,
-    "IMOBILIZER": 1,
+    "ISD": 0,
+    "MTFCRUISER": 0,
+    "IMOBILIZER": 0,
     "QUASAR": 0,
-    "ARQUITENS": 0,
+    "ARQUITENS": 7,
     "RAIDER": 0,
 
     "DUMMY_CARRIER": 0,
     "THRAWN_QUASAR": 0,
 
-    "VENATOR": 2,
-    "ACCLIMATOR": 0
+    "VENATOR": 7,
+    "ACCLIMATOR": 2
 };
 
 const rebelFleet = {
     "LUSANKYA": 0,
     "STARHAWK": 0,
     "MC85": 0,
-    "MC75": 4,
-    "HOMEONE": 7,
-    "MC80LIBERTY": 14,
+    "MC75": 0,
+    "HOMEONE": 0,
+    "MC80LIBERTY": 0,
     "NEBULONB": 0,
     "PELTA": 0,
     "CR90": 0,
@@ -917,12 +914,12 @@ const rebelFleet = {
     "DUMMY_TARGET": 0,
     "REBEL_QUASAR": 0,
 
-    "LUPUSMISSILEFRIGATE": 0,
+    "LUPUSMISSILEFRIGATE": 4,
     "PROVIDENCEDESTROYER": 0,
-    "MUNIFICENT": 0,
-    "RECUSANT": 0,
+    "MUNIFICENT": 8,
+    "RECUSANT": 2,
     "LUCREHULK": 0,
-    "PROVIDENCEDREADNOUGHT": 0,
+    "PROVIDENCEDREADNOUGHT": 3,
 
 
     // NEW SHIPS
@@ -979,11 +976,13 @@ for (const ship in rebelFleet) {
     }
 }
 
+const spawnDistance = 2500;
+
 empireShips.sort(() => .5 - Math.random());
-basicFormation(empireShips, -5000, -5000, Math.PI / 4);
+basicFormation(empireShips, -spawnDistance, -spawnDistance, Math.PI / 4);
 
 rebelShips.sort(() => .5 - Math.random());
-basicFormation(rebelShips, 5000, 5000, -Math.PI + Math.PI / 4);
+basicFormation(rebelShips, spawnDistance, spawnDistance, -Math.PI + Math.PI / 4);
 
 function basicFormation(ships, x, y, angle) {
     for (let i = 0; i < ships.length; i++) {
