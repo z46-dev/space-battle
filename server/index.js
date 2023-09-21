@@ -880,14 +880,14 @@ class Battle {
 const battle = new Battle(7500, 7500, 2);
 
 const empireFleet = {
-    "DEATHSTAR": 1,
-    "SSD": 0,
+    "DEATHSTAR": 0,
+    "SSD": 1,
     "ARCHAMMER": 0,
     "WORLDDEVASTATORBC": 0,
     "WORLDDEVASTATORFG": 0,
     "ONAGER": 0,
-    "ISD": 0,
-    "MTFCRUISER": 0,
+    "ISD": 6,
+    "MTFCRUISER": 3,
     "IMOBILIZER": 0,
     "QUASAR": 0,
     "ARQUITENS": 0,
