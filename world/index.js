@@ -282,8 +282,7 @@ void (async function main() {
         rmb = false;
 
     // Connections
-    let firstPlanet = null,
-        secondPlanet = null;
+    let selectedPlanet = null;
 
     window.addEventListener("mousemove", event => {
         mouseX = event.clientX * window.devicePixelRatio;
@@ -310,18 +309,7 @@ void (async function main() {
                 }
             });
 
-            if (selected) {
-                if (firstPlanet === null) {
-                    firstPlanet = selected;
-                } else {
-                    secondPlanet = selected;
-
-                    firstPlanet.joinsTo.push(secondPlanet.id);
-
-                    firstPlanet = null;
-                    secondPlanet = null;
-                }
-            }
+            selectedPlanet = selected ?? null;
         }
     });
 
@@ -393,9 +381,7 @@ void (async function main() {
         ctx.restore();
     }
 
-    function draw() {
-        requestAnimationFrame(draw);
-
+    function drawScene() {
         if (rmb) {
             camera.realX -= mouseDirectionX / camera.realZoom;
             camera.realY -= mouseDirectionY / camera.realZoom;
@@ -435,6 +421,29 @@ void (async function main() {
         planets.forEach(planet => planet.render());
 
         ctx.restore();
+    }
+
+    function drawUI() {
+        const scale = uiScale();
+
+        ctx.save();
+        ctx.scale(scale, scale);
+
+        if (selectedPlanet !== null) {
+            drawText(selectedPlanet.id.toUpperCase(), 10, 40, 30, "#FFFFFF", mixColors("#FFFFFF", "#000000", .5), "left");
+            drawText(`Faction: ${config.factions[selectedPlanet.controlledFaction].name}`, 10, 70, 20, config.factions[selectedPlanet.controlledFaction].color, mixColors(config.factions[selectedPlanet.controlledFaction].color, "#000000", .5), "left");
+            drawText(`Fleet: ${selectedPlanet.fleets[0].toString()}`, 10, 100, 20, "#FFFFFF", mixColors("#FFFFFF", "#000000", .5), "left");
+        }
+
+        ctx.restore();
+    }
+
+    function draw() {
+        requestAnimationFrame(draw);
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawScene();
+        drawUI();
     }
 
     draw();
