@@ -17,7 +17,7 @@ class Shipyard {
          */
         this.planet = planet;
 
-        this.level = 1;
+        this.level = level;
 
         this.queue = [];
 
@@ -251,18 +251,6 @@ async function generateGame(configFile = "./planets.json") {
             factionConfig.planets.forEach(planet => {
                 const newPlanet = Planet.get(planet);
                 newPlanet.switchControl(faction);
-
-                const cfg = config.planets[newPlanet.id];
-
-                if (cfg.shipyardLevel > 0) {
-                    newPlanet.shipyard = new Shipyard(newPlanet, cfg.shipyardLevel);
-                    
-                    const roster = factionConfig.shipyardRosters[cfg.shipyardLevel];
-
-                    for (const ship of roster) {
-                        newPlanet.shipyard.buildables.set(ship, 50);
-                    }
-                }
             });
         }
     });
@@ -270,6 +258,19 @@ async function generateGame(configFile = "./planets.json") {
     Planet.planets.forEach(planet => {
         if (planet.controllingFaction == null) {
             planet.switchControl(Faction.factions.get(0));
+        }
+
+        const factionCfg = config.factions[planet.controllingFaction.id];
+        const planetCfg = config.planets[planet.id];
+
+        if (planetCfg.shipyardLevel > 0) {
+            planet.shipyard = new Shipyard(planet, planetCfg.shipyardLevel);
+
+            const roster = factionCfg.shipyardRosters[planetCfg.shipyardLevel];
+
+            for (const ship of roster) {
+                planet.shipyard.buildables.set(ship, 50);
+            }
         }
     });
 }

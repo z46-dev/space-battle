@@ -111,14 +111,6 @@ worker.onmessage = function onWorkerMessage(event) {
     planets.forEach(newPlanet => {
         const planet = Planet.planets.get(newPlanet.id) ?? new Planet(newPlanet.id);
         planet.income = newPlanet.income;
-
-        if (newPlanet.hasShipyard) {
-            if (planet.shipyard == null) {
-                planet.shipyard = new Shipyard(planet, newPlanet.shipyard.level);
-            }
-
-            planet.shipyard.queue = newPlanet.shipyard.queue;
-        }
     });
 
     factions.forEach(newFaction => {
@@ -134,6 +126,18 @@ worker.onmessage = function onWorkerMessage(event) {
             planet.controllingFaction = faction;
             faction.controlledPlanets.set(planetID, planet);
         });
+    });
+
+    planets.forEach(newPlanet => {
+        const planet = Planet.planets.get(newPlanet.id);
+
+        if (newPlanet.hasShipyard) {
+            if (planet.shipyard == null) {
+                planet.shipyard = new Shipyard(planet, newPlanet.shipyard.level);
+            }
+
+            planet.shipyard.queue = newPlanet.shipyard.queue;
+        }
     });
 
     window.factions = factions;
@@ -301,6 +305,31 @@ class Faction {
     }
 }
 
+class Buttons {
+    static list = [];
+
+    static addButton(x, y, width, height, callback) {
+        Buttons.list.push({
+            x1: x - width / 2,
+            y1: y - height / 2,
+            x2: x + width / 2,
+            y2: y + height / 2,
+            callback: callback
+        });
+    }
+
+    static click(x, y) {
+        for (const button of Buttons.list) {
+            if (x >= button.x1 && x <= button.x2 && y >= button.y1 && y <= button.y2) {
+                button.callback();
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
 const camera = {
     realX: 0,
     realY: 0,
@@ -351,6 +380,11 @@ window.addEventListener("mousedown", event => {
     if (event.button === 2) {
         rmb = true;
     } else {
+        const scale2 = uiScale();
+        if (Buttons.click(mouseX * window.devicePixelRatio / scale2, mouseY * window.devicePixelRatio / scale2)) {
+            return;
+        }
+
         const scale = uiScale() * camera.zoom;
 
         const x = (mouseX - canvas.width / 2) / scale + camera.x;
@@ -427,6 +461,8 @@ function renderGalaxy() {
 const myFactionID = 1;
 
 function renderUI() {
+    Buttons.list = [];
+
     const scale = uiScale();
 
     ctx.save();
@@ -476,7 +512,7 @@ function renderUI() {
         ctx.closePath();
         ctx.stroke();
 
-        function drawButton(x, y, fill, text) {
+        function drawButton(x, y, fill, text, cb) {
             ctx.translate(x, y);
 
             ctx.beginPath();
@@ -493,6 +529,8 @@ function renderUI() {
             drawText(text, 0, 20, 8, "#FFFFFF");
 
             ctx.translate(-x, -y);
+
+            Buttons.addButton(x, y + canvas.height / scale - 200, 60, 60, cb ?? function noop() {});
         }
 
         drawButton(250, 50, "#EE5555", "Shipyard"); // Shipyard
@@ -502,7 +540,7 @@ function renderUI() {
             // Draw shipyard options
             let i = 0;
             selectedPlanet.shipyard.buildables.forEach(function drawBuildable(cost, name) {
-                drawButton(400 + (i % 5) * 100, 50 + (i / 5 | 0) * 100, "#5555EE", cost);
+                drawButton(400 + (i % 5) * 100, 50 + (i / 5 | 0) * 100, "#5555EE", cost, function buildShip() {});
 
                 i++;
             });
