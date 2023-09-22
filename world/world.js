@@ -186,6 +186,12 @@ async function generateGame(configFile = "./planets.json") {
             });
         }
     });
+
+    Planet.planets.forEach(planet => {
+        if (planet.controllingFaction == null) {
+            planet.switchControl(Faction.factions.get(0));
+        }
+    });
 }
 
 function dailyTick() {

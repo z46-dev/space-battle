@@ -17,6 +17,42 @@ function resize() {
 window.addEventListener("resize", resize);
 resize();
 
+class Color {
+    static cache = new Map();
+    static regex = /\w\w/g;
+    static mix(primary, secondary, amount) {
+        const key = `${primary}${secondary}${amount}`;
+
+        if (Color.cache.has(key)) {
+            return Color.cache.get(key);
+        }
+
+        const primaryHex = primary.match(Color.regex);
+        const secondaryHex = secondary.match(Color.regex);
+
+        const red = Math.round(lerp(parseInt(primaryHex[0], 16), parseInt(secondaryHex[0], 16), amount)).toString(16).padStart(2, "0");
+        const green = Math.round(lerp(parseInt(primaryHex[1], 16), parseInt(secondaryHex[1], 16), amount)).toString(16).padStart(2, "0");
+        const blue = Math.round(lerp(parseInt(primaryHex[2], 16), parseInt(secondaryHex[2], 16), amount)).toString(16).padStart(2, "0");
+
+        const hex = `#${red}${green}${blue}`;
+        Color.cache.set(key, hex);
+
+        return hex;
+    }
+}
+
+function drawText(text, x, y, size, fill, stroke = Color.mix(fill, "#000000", .5), align = "center") {
+    ctx.font = `bold ${size}px sans-serif`;
+    ctx.textAlign = align;
+
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = size * .15;
+    ctx.strokeText(text, x, y);
+
+    ctx.fillStyle = fill;
+    ctx.fillText(text, x, y);
+}
+
 const worker = new Worker("./world.js", {
     type: "module"
 });
@@ -29,7 +65,7 @@ worker.onmessage = function onWorkerMessage(event) {
     const factions = [];
     const planets = [];
 
-    for (let i = 0; i < factionCount; i ++) {
+    for (let i = 0; i < factionCount; i++) {
         const faction = {
             id: data.shift(),
             money: data.shift(),
@@ -39,14 +75,14 @@ worker.onmessage = function onWorkerMessage(event) {
 
         const planetsSize = data.shift();
 
-        for (let j = 0; j < planetsSize; j ++) {
+        for (let j = 0; j < planetsSize; j++) {
             faction.controlledPlanets.push(data.shift());
         }
 
         factions.push(faction);
     }
 
-    for (let i = 0; i < planetCount; i ++) {
+    for (let i = 0; i < planetCount; i++) {
         const planet = {
             id: data.shift(),
             income: data.shift()
@@ -86,7 +122,15 @@ class Planet {
     static planets = new Map();
 
     static get(name) {
-        
+        let planet = null;
+
+        Planet.planets.forEach(p => {
+            if (p.name === name) {
+                planet = p;
+            }
+        });
+
+        return planet;
     }
 
     constructor(id) {
@@ -115,7 +159,65 @@ class Planet {
          */
         this.controllingFaction = null;
 
+        /**
+         * @type {Fleet[]}
+         */
+        this.fleets = [];
+
         Planet.planets.set(this.id, this);
+    }
+
+    get x() {
+        return this._x * 2;
+    }
+
+    get y() {
+        return this._y * 2;
+    }
+
+    render() {
+        ctx.save();
+
+        ctx.fillStyle = this.color;
+        ctx.strokeStyle = this.controllingFaction?.color ?? "#000000";
+        ctx.lineWidth = 15;
+
+        ctx.translate(this.x, this.y);
+
+        ctx.beginPath();
+
+        ctx.arc(0, 0, 135, 0, Math.PI * 2);
+
+        for (let i = 0; i < 6; i++) {
+            const angle = Math.PI / 3 * i + (performance.now() / 2000);
+
+            ctx.moveTo(Math.cos(angle) * 135, Math.sin(angle) * 135);
+            ctx.lineTo(Math.cos(angle) * 100, Math.sin(angle) * 100);
+        }
+
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.beginPath();
+
+        ctx.arc(0, 0, 90, 0, Math.PI * 2);
+
+        ctx.closePath();
+        ctx.fill();
+
+        drawText(this.name.toUpperCase(), 0, -115, 60, this.color);
+
+        ctx.restore();
+    }
+
+    connectTo(other) {
+        ctx.strokeStyle = "#FFFFFF";
+        ctx.lineWidth = 16;
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(other.x, other.y);
+        ctx.closePath();
+        ctx.stroke();
     }
 }
 
@@ -141,5 +243,162 @@ class Faction {
     }
 }
 
-window.Faction = Faction;
-window.Planet = Planet;
+const camera = {
+    realX: 0,
+    realY: 0,
+    realZoom: 1,
+    //
+    x: 0,
+    y: 0,
+    zoom: 3
+};
+
+function lerp(A, B, w) {
+    return (1 - w) * A + w * B;
+}
+
+function lerpAngle(A, B, w) {
+    let CS = (1 - w) * Math.cos(A) + w * Math.cos(B);
+    let SN = (1 - w) * Math.sin(A) + w * Math.sin(B);
+    return Math.atan2(SN, CS);
+}
+
+// CAMERA CONTROLS
+window.addEventListener("wheel", event => {
+    camera.realZoom += event.deltaY / 1000;
+    camera.realZoom = Math.max(camera.realZoom, .05);
+    camera.realZoom = Math.min(camera.realZoom, 2.75);
+});
+
+let mouseX = 0,
+    mouseY = 0,
+    mouseDirectionX = 0,
+    mouseDirectionY = 0,
+    rmb = false;
+
+/**
+ * @type {Planet}
+ */
+let selectedPlanet = null;
+
+window.addEventListener("mousemove", event => {
+    mouseX = event.clientX * window.devicePixelRatio;
+    mouseY = event.clientY * window.devicePixelRatio;
+
+    mouseDirectionX = event.movementX;
+    mouseDirectionY = event.movementY;
+});
+
+window.addEventListener("mousedown", event => {
+    if (event.button === 2) {
+        rmb = true;
+    } else {
+        const scale = uiScale() * camera.zoom;
+
+        const x = (mouseX - canvas.width / 2) / scale + camera.x;
+        const y = (mouseY - canvas.height / 2) / scale + camera.y;
+
+        let selected;
+
+        Planet.planets.forEach(planet => {
+            if (Math.sqrt(Math.pow(planet.x - x, 2) + Math.pow(planet.y - y, 2)) <= 135) {
+                selected = planet;
+            }
+        });
+
+        selectedPlanet = selected ?? null;
+    }
+});
+
+window.addEventListener("mouseup", event => {
+    if (event.button === 2) {
+        rmb = false;
+    }
+});
+
+function uiScale() {
+    if (canvas.height > canvas.width) {
+        return canvas.height / 1080;
+    }
+
+    return canvas.width / 1920;
+}
+
+function renderGalaxy() {
+    if (rmb) {
+        camera.realX -= mouseDirectionX / camera.realZoom;
+        camera.realY -= mouseDirectionY / camera.realZoom;
+    }
+
+    camera.x = lerp(camera.x, camera.realX, .1);
+    camera.y = lerp(camera.y, camera.realY, .1);
+    camera.zoom = lerp(camera.zoom, camera.realZoom, .1);
+
+    const scale = uiScale() * camera.zoom;
+
+    ctx.save();
+
+    ctx.fillStyle = "#1B1B25";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.translate(-camera.x * scale, -camera.y * scale);
+    ctx.scale(scale, scale);
+
+    const routesDone = {};
+
+    Planet.planets.forEach(planet => {
+        routesDone[planet.name] = true;
+
+        planet.connectingPlanets.forEach(otherPlanet => {
+            if (routesDone[otherPlanet] === true) {
+                return;
+            }
+
+            planet.connectTo(Planet.get(otherPlanet));
+        });
+    });
+
+    Planet.planets.forEach(planet => planet.render());
+
+    ctx.restore();
+}
+
+const myFactionID = 1;
+
+function renderUI() {
+    const scale = uiScale();
+
+    ctx.save();
+    ctx.scale(scale, scale);
+
+    let y = 30;
+
+    const myFaction = Faction.factions.get(myFactionID);
+
+    if (myFaction !== undefined) {
+        drawText(myFaction.name.toUpperCase(), 10, y, 30, myFaction.color, Color.mix(myFaction.color, "#000000", .5), "left");
+        y += 25;
+        drawText(`Money: ${myFaction.money} | Income: ${myFaction.income}`, 10, y, 15, "#FFFFFF", Color.mix("#FFFFFF", "#000000", .5), "left");
+        y += 30;
+    }
+
+    if (selectedPlanet !== null) {
+        drawText(selectedPlanet.name.toUpperCase(), 30, y, 20, "#FFFFFF", Color.mix("#FFFFFF", "#000000", .5), "left");
+        y += 25;
+        drawText(`Faction: ${selectedPlanet.controllingFaction.name}`, 30, y, 20, selectedPlanet.controllingFaction.color, Color.mix(selectedPlanet.controllingFaction.color, "#000000", .5), "left");
+    }
+
+    ctx.restore();
+}
+
+function render() {
+    requestAnimationFrame(render);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    renderGalaxy();
+    renderUI();
+}
+
+render();
