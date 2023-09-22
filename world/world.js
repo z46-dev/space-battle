@@ -1,3 +1,5 @@
+import ships from "../server/lib/ships.js";
+
 console.log("Hello from worker!");
 
 function loadSave(id) {}
@@ -230,10 +232,6 @@ async function generateGame(configFile = "./planets.json") {
         newPlanet.name = planet.name;
         newPlanet.income = planet.income ?? 0;
 
-        if (planet.shipyardLevel > 0) {
-            newPlanet.shipyard = new Shipyard(newPlanet, planet.shipyardLevel);
-        }
-
         newPlanet.x = planet.x;
         newPlanet.y = planet.y;
     });
@@ -251,7 +249,20 @@ async function generateGame(configFile = "./planets.json") {
 
         if (factionConfig.planets.length > 0) {
             factionConfig.planets.forEach(planet => {
-                Planet.get(planet).switchControl(faction);
+                const newPlanet = Planet.get(planet);
+                newPlanet.switchControl(faction);
+
+                const cfg = config.planets[newPlanet.id];
+
+                if (cfg.shipyardLevel > 0) {
+                    newPlanet.shipyard = new Shipyard(newPlanet, cfg.shipyardLevel);
+                    
+                    const roster = factionConfig.shipyardRosters[cfg.shipyardLevel];
+
+                    for (const ship of roster) {
+                        newPlanet.shipyard.buildables.set(ship, 50);
+                    }
+                }
             });
         }
     });
@@ -289,7 +300,15 @@ function talkToMainThread() {
     });
 
     Planet.planets.forEach(planet => {
-        message.push(planet.id, planet.income);
+        message.push(planet.id, planet.income, planet.shipyard == null ? 0 : 1);
+
+        if (planet.shipyard != null) {
+            message.push(planet.shipyard.level, planet.shipyard.queue.length);
+
+            planet.shipyard.queue.forEach(item => {
+                message.push(item.name, item.day);
+            });
+        }
     });
 
     postMessage(message);

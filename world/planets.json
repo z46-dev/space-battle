@@ -283,7 +283,14 @@
             "name": "Naboo",
             "fleetPopulation": 160,
             "baseIncome": 2300
-        }
+        },
+        "shipyardRosters": [
+            null,
+            ["CR90", "LUPUSMISSILEFRIGATE", "PELTA", "REBEL_QUASAR"],
+            ["CR90", "LUPUSMISSILEFRIGATE", "PELTA", "REBEL_QUASAR", "NEBULONB", "MC80LIBERTY"],
+            ["CR90", "LUPUSMISSILEFRIGATE", "PELTA", "REBEL_QUASAR", "NEBULONB", "MC80LIBERTY", "MC75", "PROVIDENCEDESTROYER"],
+            ["CR90", "LUPUSMISSILEFRIGATE", "PELTA", "REBEL_QUASAR", "NEBULONB", "MC80LIBERTY", "PROVIDENCEDESTROYER", "HOMEONE", "MC85"]
+        ]
     }, {
         "id": 2,
         "color": "#55EE55",
@@ -294,7 +301,14 @@
             "name": "Coruscant",
             "fleetPopulation": 300,
             "baseIncome": 3600
-        }
+        },
+        "shipyardRosters": [
+            null,
+            ["RAIDER", "ARQUITENS"],
+            ["RAIDER", "ARQUITENS", "QUASAR", "IMOBILIZER", "ACCLIMATOR"],
+            ["RAIDER", "ARQUITENS", "QUASAR", "IMOBILIZER", "ACCLIMATOR", "ISD"],
+            ["RAIDER", "ARQUITENS", "QUASAR", "IMOBILIZER", "ACCLIMATOR", "ISD", "SSD"]
+        ]
     }, {
         "id": 3,
         "color": "#AABB66",
@@ -305,7 +319,14 @@
             "name": "Tatooine",
             "fleetPopulation": 100,
             "baseIncome": 1200
-        }
+        },
+        "shipyardRosters": [
+            null,
+            ["LUPUSMISSILEFRIGATE", "ARQUITENS"],
+            ["LUPUSMISSILEFRIGATE", "ARQUITENS", "ACCLIMATOR", "MUNIFICENT"],
+            ["LUPUSMISSILEFRIGATE", "ARQUITENS", "ACCLIMATOR", "MUNIFICENT", "RECUSANT", "PROVIDENCEDESTROYER"],
+            ["LUPUSMISSILEFRIGATE", "ARQUITENS", "ACCLIMATOR", "MUNIFICENT", "RECUSANT", "PROVIDENCEDESTROYER"]
+        ]
     }, {
         "id": 4,
         "color": "#224488",
@@ -316,7 +337,14 @@
             "name": "Exogol",
             "fleetPopulation": 130,
             "baseIncome": 3000
-        }
+        },
+        "shipyardRosters": [
+            null,
+            ["RAIDER", "ARQUITENS"],
+            ["RAIDER", "ARQUITENS", "MTFCRUISER", "QUASAR"],
+            ["RAIDER", "ARQUITENS", "MTFCRUISER", "QUASAR", "ISD"],
+            ["RAIDER", "ARQUITENS", "MTFCRUISER", "QUASAR", "ISD", "WORLDDEVASTATORFG"]
+        ]
     }, {
         "id": 5,
         "color": "#66AA66",
@@ -327,6 +355,13 @@
             "name": "Ring of Kafrene",
             "fleetPopulation": 100,
             "baseIncome": 1200
-        }
+        },
+        "shipyardRosters": [
+            null,
+            ["CR90", "RAIDER", "LUPUSMISSILEFRIGATE"],
+            ["CR90", "RAIDER", "LUPUSMISSILEFRIGATE", "NEBULONB", "ACCLIMATOR"],
+            ["CR90", "RAIDER", "LUPUSMISSILEFRIGATE", "NEBULONB", "ACCLIMATOR", "RECUSANT", "VENATOR"],
+            ["CR90", "RAIDER", "LUPUSMISSILEFRIGATE", "NEBULONB", "ACCLIMATOR", "RECUSANT", "VENATOR", "LUCREHULK"]
+        ]
     }]
 }

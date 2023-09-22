@@ -85,8 +85,25 @@ worker.onmessage = function onWorkerMessage(event) {
     for (let i = 0; i < planetCount; i++) {
         const planet = {
             id: data.shift(),
-            income: data.shift()
+            income: data.shift(),
+            hasShipyard: data.shift() == 1
         };
+
+        if (planet.hasShipyard) {
+            planet.shipyard = {
+                level: data.shift(),
+                queue: []
+            };
+
+            const queueSize = data.shift();
+
+            for (let j = 0; j < queueSize; j++) {
+                planet.shipyard.queue.push({
+                    name: data.shift(),
+                    day: data.shift()
+                });
+            }
+        }
 
         planets.push(planet);
     }
@@ -94,6 +111,14 @@ worker.onmessage = function onWorkerMessage(event) {
     planets.forEach(newPlanet => {
         const planet = Planet.planets.get(newPlanet.id) ?? new Planet(newPlanet.id);
         planet.income = newPlanet.income;
+
+        if (newPlanet.hasShipyard) {
+            if (planet.shipyard == null) {
+                planet.shipyard = new Shipyard(planet, newPlanet.shipyard.level);
+            }
+
+            planet.shipyard.queue = newPlanet.shipyard.queue;
+        }
     });
 
     factions.forEach(newFaction => {
@@ -113,6 +138,21 @@ worker.onmessage = function onWorkerMessage(event) {
 
     window.factions = factions;
     window.planets = planets;
+}
+
+class Shipyard {
+    constructor(planet, level) {
+        this.planet = planet;
+        this.level = level;
+        this.queue = [];
+        this.buildables = new Map();
+
+        const roster = config.factions[planet.controllingFaction.id].shipyardRosters[level];
+
+        for (const ship of roster) {
+            this.buildables.set(ship, 50);
+        }
+    }
 }
 
 class Planet {
@@ -141,6 +181,11 @@ class Planet {
 
         this._x = config.planets[id].x;
         this._y = config.planets[id].y;
+
+        /**
+         * @type {Shipyard}
+         */
+        this.shipyard = null;
 
         this.connectingPlanets = [];
 
@@ -205,7 +250,20 @@ class Planet {
         ctx.closePath();
         ctx.fill();
 
-        drawText(this.name.toUpperCase(), 0, -115, 60, this.color);
+        ctx.restore();
+    }
+
+    text() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+
+        const myFill = this.color;
+        const myStroke = Color.mix(myFill, "#000000", .5);
+        const whiteFill = "#FFFFFF";
+        const whiteStroke = Color.mix(whiteFill, "#000000", .5);
+
+        drawText(this.name.toUpperCase(), 100, 90 * .75, 90 * .55, this.color, Color.mix(this.color, "#000000", .5), "left");
+        drawText((this.income < 0 ? "" : "+") + this.income + " | Shipyard Lvl: " + this.shipyard?.level, 100, 110, 90 * .4, "#FFFFFF", Color.mix("#FFFFFF", "#000000", .5), "left");
 
         ctx.restore();
     }
@@ -361,6 +419,8 @@ function renderGalaxy() {
 
     Planet.planets.forEach(planet => planet.render());
 
+    Planet.planets.forEach(planet => planet.text());
+
     ctx.restore();
 }
 
@@ -387,6 +447,68 @@ function renderUI() {
         drawText(selectedPlanet.name.toUpperCase(), 30, y, 20, "#FFFFFF", Color.mix("#FFFFFF", "#000000", .5), "left");
         y += 25;
         drawText(`Faction: ${selectedPlanet.controllingFaction.name}`, 30, y, 20, selectedPlanet.controllingFaction.color, Color.mix(selectedPlanet.controllingFaction.color, "#000000", .5), "left");
+    }
+
+    if (true) {
+        ctx.save();
+
+        const width = canvas.width / scale;
+
+        ctx.translate(0, canvas.height / scale - 200);
+
+        ctx.fillStyle = "#252525";
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = "#505050";
+
+        ctx.beginPath();
+        ctx.moveTo(200, 0);
+        ctx.lineTo(width - 200, 0);
+        ctx.lineTo(width - 100, 210);
+        ctx.lineTo(100, 210);
+        ctx.closePath();
+
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(300, 0);
+        ctx.lineTo(300, 210);
+        ctx.closePath();
+        ctx.stroke();
+
+        function drawButton(x, y, fill, text) {
+            ctx.translate(x, y);
+
+            ctx.beginPath();
+            ctx.arc(0, 0, 30, 0, Math.PI * 2);
+            ctx.closePath();
+
+            ctx.fillStyle = fill;
+            ctx.strokeStyle = Color.mix(fill, "#000000", .5);
+            ctx.lineWidth = 2.5;
+
+            ctx.fill();
+            ctx.stroke();
+
+            drawText(text, 0, 20, 8, "#FFFFFF");
+
+            ctx.translate(-x, -y);
+        }
+
+        drawButton(250, 50, "#EE5555", "Shipyard"); // Shipyard
+        drawButton(250, 150, "#55EE55", "Structures"); // Structures
+
+        if (selectedPlanet !== null && selectedPlanet.shipyard != null) {
+            // Draw shipyard options
+            let i = 0;
+            selectedPlanet.shipyard.buildables.forEach(function drawBuildable(cost, name) {
+                drawButton(400 + (i % 5) * 100, 50 + (i / 5 | 0) * 100, "#5555EE", cost);
+
+                i++;
+            });
+        }
+
+        ctx.restore();
     }
 
     ctx.restore();
