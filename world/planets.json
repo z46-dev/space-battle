@@ -5,17 +5,23 @@
         "name": "Coruscant",
         "x": 0,
         "y": 0,
-        "color": "#FFE5B4"
+        "color": "#FFE5B4",
+        "income": 300,
+        "shipyardLevel": 2
     }, {
         "name": "Alderaan",
         "x": 500,
         "y": 150,
-        "color": "#55CCEE"
+        "color": "#55CCEE",
+        "income": 350,
+        "shipyardLevel": 1
     }, {
         "name": "Anaxes",
         "x": 150,
         "y": -400,
-        "color": "#CCD5FF"
+        "color": "#CCD5FF",
+        "income": 400,
+        "shipyardLevel": 3
     }, {
         "name": "Fresia",
         "x": 450,
@@ -25,137 +31,191 @@
         "name": "Kuat",
         "x": 710,
         "y": 600,
-        "color": "#AAEF55"
+        "color": "#AAEF55",
+        "income": 300,
+        "shipyardLevel": 4
     }, {
         "name": "Byss",
         "x": -75,
         "y": 300,
-        "color": "#AADDBB"
+        "color": "#AADDBB",
+        "income": 200,
+        "shipyardLevel": 4
     }, {
         "name": "Corellia",
         "x": 500,
         "y": 1100,
-        "color": "#FFAA55"
+        "color": "#FFAA55",
+        "income": 200,
+        "shipyardLevel": 3
     }, {
         "name": "Onderon",
         "x": 1100,
         "y": -100,
-        "color": "#44DDAA"
+        "color": "#44DDAA",
+        "income": 250,
+        "shipyardLevel": 1
     }, {
         "name": "Kashyyyk",
         "x": 1450,
         "y": -50,
-        "color": "#11CC44"
+        "color": "#11CC44",
+        "income": 200,
+        "shipyardLevel": 1
     }, {
         "name": "Mimban",
         "x": 1250,
         "y": 300,
-        "color": "#AA5555"
+        "color": "#AA5555",
+        "income": 150,
+        "shipyardLevel": 2
     }, {
         "name": "Jedha",
         "x": -1000,
         "y": -300,
-        "color": "#FFDDAA"
+        "color": "#FFDDAA",
+        "income": 150,
+        "shipyardLevel": 1
     }, {
         "name": "Jakku",
         "x": -850,
         "y": 1250,
-        "color": "#EEAACC"
+        "color": "#EEAACC",
+        "income": 150,
+        "shipyardLevel": 1
     }, {
         "name": "Exogol",
         "x": -2000,
         "y": -950,
-        "color": "#AAAACC"
+        "color": "#AAAACC",
+        "income": 400,
+        "shipyardLevel": 3
     }, {
         "name": "Ahch-To",
         "x": -2300,
         "y": 1600,
-        "color": "#AAFFAA"
+        "color": "#AAFFAA",
+        "income": 50,
+        "shipyardLevel": 1
     }, {
         "name": "Batuu",
         "x": -1500,
         "y": 2200,
-        "color": "#FFAAFF"
+        "color": "#FFAAFF",
+        "income": 100,
+        "shipyardLevel": 1
     }, {
         "name": "Takodana",
         "x": -750,
         "y": 2300,
-        "color": "#FFCCAA"
+        "color": "#FFCCAA",
+        "income": 150,
+        "shipyardLevel": 1
     }, {
         "name": "Ring of Kafrene",
         "x": -500,
         "y": 2350,
-        "color": "#FFAA55"
+        "color": "#FFAA55",
+        "income": 300,
+        "shipyardLevel": 2
     }, {
         "name": "Endor",
         "x": -1400,
         "y": 2800,
-        "color": "#AAFFAA"
+        "color": "#AAFFAA",
+        "income": 200,
+        "shipyardLevel": 1
     }, {
         "name": "Bespin",
         "x": -300,
         "y": 3000,
-        "color": "#FFBBAA"
+        "color": "#FFBBAA",
+        "income": 200,
+        "shipyardLevel": 2
     }, {
         "name": "Hoth",
         "x": -200,
         "y": 2650,
-        "color": "#DDDDFF"
+        "color": "#DDDDFF",
+        "income": 150,
+        "shipyardLevel": 1
     }, {
         "name": "Mustafar",
         "x": 100,
         "y": 3200,
-        "color": "#CC3377"
+        "color": "#CC3377",
+        "income": 150,
+        "shipyardLevel": 2
     }, {
         "name": "Dagobah",
         "x": 500,
         "y": 3400,
-        "color": "#55DD55"
+        "color": "#55DD55",
+        "income": 100,
+        "shipyardLevel": 1
     }, {
         "name": "Utapau",
         "x": 675,
         "y": 3600,
-        "color": "#FFDDAA"
+        "color": "#FFDDAA",
+        "income": 200,
+        "shipyardLevel": 3
     }, {
         "name": "Sullust",
         "x": 450,
         "y": 2400,
-        "color": "#FFAA55"
+        "color": "#FFAA55",
+        "income": 300,
+        "shipyardLevel": 4
     }, {
         "name": "Malastare",
         "x": 525,
         "y": 2000,
-        "color": "#DD3399"
+        "color": "#DD3399",
+        "income": 200,
+        "shipyardLevel": 2
     }, {
         "name": "Crait",
         "x": 625,
         "y": 2200,
-        "color": "#FFDDAA"
+        "color": "#FFDDAA",
+        "income": 150,
+        "shipyardLevel": 1
     }, {
         "name": "Naboo",
         "x": 1000,
         "y": 2100,
-        "color": "#55AAFF"
+        "color": "#55AAFF",
+        "income": 400,
+        "shipyardLevel": 3
     }, {
         "name": "D'Qar",
         "x": 1000,
         "y": 2400,
-        "color": "#55FFAA"
+        "color": "#55FFAA",
+        "income": 200,
+        "shipyardLevel": 2
     }, {
         "name": "Savareen",
         "x": 1750,
         "y": 2250,
-        "color": "#CCAAFF"
+        "color": "#CCAAFF",
+        "income": 150,
+        "shipyardLevel": 1
     }, {
         "name": "Geonosis",
         "x": 1900,
         "y": 2000,
-        "color": "#CC4488"
+        "color": "#CC4488",
+        "income": 200,
+        "shipyardLevel": 4
     }, {
         "name": "Tatooine",
         "x": 2000,
         "y": 1800,
-        "color": "#FFDDAA"
+        "color": "#FFDDAA",
+        "income": 300,
+        "shipyardLevel": 3
     }],
     "connections": [
         ["Alderaan", "Coruscant"],

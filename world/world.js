@@ -4,6 +4,51 @@ function loadSave(id) {}
 
 function writeSave(id, data) {}
 
+class Global {
+    static day = 0;
+}
+
+class Shipyard {
+    constructor(planet, level) {
+        /**
+         * @type {Planet}
+         */
+        this.planet = planet;
+
+        this.level = 1;
+
+        this.queue = [];
+
+        // Name -> Cost
+        this.buildables = new Map();
+    }
+
+    build(buildableName) {
+        const faction = this.planet.controllingFaction;
+        
+        if (faction == null) {
+            return;
+        }
+
+        const cost = this.buildables.get(buildableName);
+
+        if (cost == null) {
+            return;
+        }
+
+        if (faction.money < cost) {
+            return;
+        }
+
+        faction.money -= cost;
+
+        this.queue.push({
+            name: buildableName,
+            day: Global.day
+        });
+    }
+}
+
 class Planet {
     static id = 0;
 
@@ -44,6 +89,11 @@ class Planet {
          * @type {Faction}
          */
         this.controllingFaction = null;
+
+        /**
+         * @type {Shipyard}
+         */
+        this.shipyard = null;
 
         Planet.planets.set(this.id, this);
     }
@@ -163,7 +213,11 @@ async function generateGame(configFile = "./planets.json") {
         const newPlanet = new Planet();
 
         newPlanet.name = planet.name;
-        newPlanet.income = planet.income ?? 50;
+        newPlanet.income = planet.income ?? 0;
+
+        if (planet.shipyardLevel > 0) {
+            newPlanet.shipyard = new Shipyard(newPlanet, planet.shipyardLevel);
+        }
 
         newPlanet.x = planet.x;
         newPlanet.y = planet.y;
@@ -195,8 +249,16 @@ async function generateGame(configFile = "./planets.json") {
 }
 
 function dailyTick() {
+    Global.day ++;
+
     Faction.factions.forEach(faction => {
         faction.money += faction.income;
+    });
+
+    Planet.planets.forEach(planet => {
+        if (planet.shipyard !== null) {
+            planet.shipyard.tick();
+        }
     });
 }
 
