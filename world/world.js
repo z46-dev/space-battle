@@ -44,8 +44,23 @@ class Shipyard {
 
         this.queue.push({
             name: buildableName,
-            day: Global.day
+            day: Global.day + 2
         });
+    }
+
+    tick() {
+        if (this.queue.length === 0) {
+            return;
+        }
+
+        const item = this.queue.shift();
+
+        if (Global.day >= item.day) {
+            console.log(this.planet.controllingFaction?.name, "has built a(n)", item.name);
+            return;
+        }
+
+        this.queue.unshift(item);
     }
 }
 
