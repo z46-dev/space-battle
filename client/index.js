@@ -21,15 +21,15 @@ import { default as shipConfig } from "../server/lib/ships.js";
     const silhouettes = new Map();
 
     function generateSilhouette(image, name, r, g, b) {
-        const canvas = new OffscreenCanvas(image.width, image.height);
+        const canvas = new OffscreenCanvas(128, 128);
         const ctx = canvas.getContext("2d");
 
-        ctx.drawImage(image, 0, 0);
+        ctx.drawImage(image, 0, 0, 128, 128);
 
-        const imageData = ctx.getImageData(0, 0, image.width, image.height);
+        const imageData = ctx.getImageData(0, 0, 128, 128);
 
         function getPixel(x, y) {
-            const index = (y * image.width + x) * 4;
+            const index = (y * 128 + x) * 4;
 
             return {
                 r: imageData.data[index],

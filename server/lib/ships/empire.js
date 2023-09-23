@@ -1,5 +1,5 @@
 import { shipTypes } from "../constants.js";
-import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_LASER_CANNON, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TURBOLASER_CANNON, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, FIGHTER_PROTON_BOMB, GREEN_FIGHTER_LASER_CANNON, FIGHTER_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, FIGHTER_PROTON_ROCKET_AOE, GREEN_RAPID_FIGHTER_LASER_CANNON, TIE_DEFENDER_ION_CANNON, GREEN_QUAD_TURBOLASER_CANNON_HEAVY, ION_CANNON_MEDIUM, GREEN_TURBOLASER_CANNON_ULTRAHEAVY, GREEN_SUPERLASER, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_WEAK_SUPERLASER, ASSAULT_PROTON_TORPEDO, TRIPLE_ION_CANNON_HEAVY, GREEN_TRIPLE_LASER_CANNON_HEAVY, ION_CANNON, GREEN_QUAD_LASER_CANNON } from "../weapons.js";
+import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_LASER_CANNON, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TURBOLASER_CANNON, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, FIGHTER_PROTON_BOMB, GREEN_FIGHTER_LASER_CANNON, FIGHTER_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, FIGHTER_PROTON_ROCKET_AOE, GREEN_RAPID_FIGHTER_LASER_CANNON, TIE_DEFENDER_ION_CANNON, GREEN_QUAD_TURBOLASER_CANNON_HEAVY, ION_CANNON_MEDIUM, GREEN_TURBOLASER_CANNON_ULTRAHEAVY, GREEN_SUPERLASER, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_WEAK_SUPERLASER, ASSAULT_PROTON_TORPEDO, TRIPLE_ION_CANNON_HEAVY, GREEN_TRIPLE_LASER_CANNON_HEAVY, ION_CANNON, GREEN_QUAD_LASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY, QUAD_ION_CANNON_HEAVY, GREEN_OCTUPLE_TURBOLASER_CANNON, ION_CANNON_ULTRA } from "../weapons.js";
 
 const ships = {};
 
@@ -126,29 +126,41 @@ ships.IMOBILIZER = {
     shield: 2100,
     shieldRegen: 3,
     hardpoints: [{
-        x: -.175,
+        x: -.15,
         y: .275,
-        weapon: GREEN_DOUBLE_LASER_CANNON_HEAVY
+        weapon: GREEN_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 80
     }, {
-        x: .175,
+        x: .15,
         y: .275,
-        weapon: GREEN_DOUBLE_LASER_CANNON_HEAVY
+        weapon: GREEN_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 80
     }, {
-        x: -.3,
+        x: -.25,
         y: -.25,
-        weapon: GREEN_LASER_CANNON
+        weapon: GREEN_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 80
     }, {
-        x: .3,
+        x: .25,
         y: -.25,
-        weapon: GREEN_LASER_CANNON
+        weapon: GREEN_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 80
     }, {
-        x: -.45,
-        y: -.75,
-        weapon: ION_CANNON_MEDIUM
+        x: -.4,
+        y: -.725,
+        weapon: ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 80
     }, {
-        x: .45,
-        y: -.75,
-        weapon: ION_CANNON_MEDIUM
+        x: .4,
+        y: -.725,
+        weapon: ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 80
     }, {
         x: 0,
         y: .8,
@@ -1179,6 +1191,343 @@ ships.MTFCRUISER = {
         squadronSize: 6,
         reserveSize: 1,
         squadronKey: "TIEBOMBER"
+    }]
+};
+
+ships.BELLATOR = {
+    name: "Bellator Star Destroyer",
+    asset: "BELLATOR.png",
+    classification: shipTypes.SuperCapital,
+    population: 110,
+    size: 5000,
+    cost: 30000,
+    speed: 1.5,
+    turnSpeed: .01,
+    shield: 39000,
+    shieldRegen: 10,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 14; i ++) {
+            output.push({
+                x: -.02 - .02 * i,
+                y: .8 - .1 * i,
+                weapon: GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY
+            }, {
+                x: .02 + .02 * i,
+                y: .8 - .1 * i,
+                weapon: GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY
+            }, {
+                x: -.005 - .02 * i,
+                y: .85 - .1 * i,
+                weapon: QUAD_ION_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 200
+            }, {
+                x: .005 + .02 * i,
+                y: .85 - .1 * i,
+                weapon: QUAD_ION_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 200
+            }, {
+                x: -.02 - .02 * i,
+                y: .85 - .1 * i,
+                weapon: GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 200
+            }, {
+                x: .02 + .02 * i,
+                y: .85 - .1 * i,
+                weapon: GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 200
+            });
+        }
+
+        for (let i = 0; i < 6; i ++) {
+            output.push({
+                x: 0,
+                y: .15 - .03 * i,
+                weapon: GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+            }, {
+                x: -.05,
+                y: .3 - .1 * i,
+                weapon: ASSAULT_CONCUSSION_MISSILE,
+                shotsAtOnce: 3,
+                shotDelay: 80
+            }, {
+                x: .05,
+                y: .3 - .1 * i,
+                weapon: ASSAULT_CONCUSSION_MISSILE,
+                shotsAtOnce: 3,
+                shotDelay: 80
+            });
+        }
+
+        for (let i = 0; i < 8; i ++) {
+            output.push({
+                x: -.1 - .02 * i,
+                y: .1 - .1 * i,
+                weapon: GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 3,
+                shotDelay: 100
+            }, {
+                x: .1 + .02 * i,
+                y: .1 - .1 * i,
+                weapon: GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 3,
+                shotDelay: 100
+            });
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 8,
+        squadronKey: "TIEFIGHTER"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 8,
+        squadronKey: "TIEBOMBER"
+    }]
+};
+
+ships.ALLEGIANCE = {
+    name: "Allegiance Star Destroyer",
+    asset: "ALLEGIANCE.png",
+    classification: shipTypes.Capital,
+    population: 54,
+    size: 1200,
+    cost: 8900,
+    speed: 1.9,
+    turnSpeed: .01,
+    shield: 11000,
+    shieldRegen: 4,
+    hardpoints: (function() {
+        const output = [{
+            x: 0,
+            y: .975,
+            weapon: ASSAULT_CONCUSSION_MISSILE,
+            shotsAtOnce: 5,
+            shotDelay: 80
+        }];
+
+        for (let i = 0; i < 6; i ++) {
+            output.push({
+                x: -.37 - .02 * i,
+                y: -.37 - .07 * i,
+                weapon: GREEN_QUAD_TURBOLASER_CANNON_HEAVY
+            }, {
+                x: .37 + .02 * i,
+                y: -.37 - .07 * i,
+                weapon: GREEN_QUAD_TURBOLASER_CANNON_HEAVY
+            });
+        }
+
+        for (let i = 0; i < 16; i ++) {
+            output.push({
+                x: -.075 - .0325 * i,
+                y: .75 - .1 * i,
+                weapon: i % 2 ? QUAD_ION_CANNON_HEAVY : GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: .075 + .0325 * i,
+                y: .75 - .1 * i,
+                weapon: i % 2 ? QUAD_ION_CANNON_HEAVY : GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            });
+        }
+
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: 0,
+                y: .25 - .05 * i,
+                weapon: i % 2 ? GREEN_OCTUPLE_TURBOLASER_CANNON : ION_CANNON_ULTRA
+            });
+        }
+
+        return output;
+    })()
+    // NO FIGHTERS
+};
+
+ships.ASSERTOR = {
+    name: "Assertor Star Dreadnought",
+    asset: "ASSERTOR.png",
+    classification: shipTypes.SuperCapital,
+    population: 200,
+    size: 8000,
+    cost: 50000,
+    speed: 1,
+    turnSpeed: .005,
+    shield: 100000,
+    shieldRegen: 25,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 36; i ++) {
+            output.push({
+                x: -.03 - .0115 * i,
+                y: .9 - .035 * i,
+                weapon: GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+            }, {
+                x: .03 + .0115 * i,
+                y: .9 - .035 * i,
+                weapon: GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+            }, {
+                x: -.02 - .0115 * i,
+                y: .85 - .035 * i,
+                weapon: GREEN_QUAD_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 200
+            }, {
+                x: .02 + .0115 * i,
+                y: .85 - .035 * i,
+                weapon: GREEN_QUAD_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 200
+            }, {
+                x: -.01 - .0115 * i,
+                y: .9 - .035 * i,
+                weapon: DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 200
+            }, {
+                x: .01 + .0115 * i,
+                y: .9 - .035 * i,
+                weapon: DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 200
+            }, {
+                x: -.01 - .0115 * i,
+                y: .85 - .035 * i,
+                weapon: GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 200
+            }, {
+                x: .01 + .0115 * i,
+                y: .85 - .035 * i,
+                weapon: GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 200
+            }, {
+                x: -.1,
+                y: .45 - .035 * i,
+                weapon: ASSAULT_CONCUSSION_MISSILE,
+                shotsAtOnce: 4,
+                shotDelay: 80
+            }, {
+                x: .1,
+                y: .45 - .035 * i,
+                weapon: ASSAULT_CONCUSSION_MISSILE,
+                shotsAtOnce: 4,
+                shotDelay: 80
+            });
+        }
+
+        for (let i = 0; i < 12; i ++) {
+            output.push({
+                x: -.002,
+                y: .3 - .05 * i,
+                weapon: GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY
+            }, {
+                x: .002,
+                y: .3 - .05 * i,
+                weapon: GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY
+            });
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 4,
+        squadronSize: 8,
+        reserveSize: 8,
+        squadronKey: "TIEFIGHTER"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 4,
+        squadronSize: 8,
+        reserveSize: 8,
+        squadronKey: "TIEBOMBER"
+    }]
+};
+
+ships.INTERDICTORSTARDESTROYER = {
+    name: "Interdictor Star Destroyer",
+    asset: "INTERDICTORSTARDESTROYER.png",
+    classification: shipTypes.Capital,
+    population: ships.ISD.population,
+    size: ships.ISD.size,
+    cost: ships.ISD.cost * 1.1 | 0,
+    speed: ships.ISD.speed * .95,
+    turnSpeed: ships.ISD.turnSpeed * .99,
+    shield: ships.ISD.shield * 1.1 | 0,
+    shieldRegen: ships.ISD.shieldRegen * 1.1 | 0,
+    hardpoints: (function() {
+        const output = [{
+            x: -.3,
+            y: -.55,
+            weapon: GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 3,
+            shotDelay: 100
+        }, {
+            x: .3,
+            y: -.55,
+            weapon: GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 3,
+            shotDelay: 100
+        }, {
+            x: -.3,
+            y: -.55,
+            weapon: QUAD_ION_CANNON_HEAVY,
+            shotsAtOnce: 3,
+            shotDelay: 100
+        }, {
+            x: .3,
+            y: -.55,
+            weapon: QUAD_ION_CANNON_HEAVY,
+            shotsAtOnce: 3,
+            shotDelay: 100
+        }];
+
+        for (let i = 0; i < 6; i ++) {
+            output.push({
+                x: -.075 - .06 * i,
+                y: .7 - .25 * i,
+                weapon: i % 2 ? DOUBLE_ION_CANNON_MEDIUM : GREEN_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: .075 + .06 * i,
+                y: .7 - .25 * i,
+                weapon: i % 2 ? DOUBLE_ION_CANNON_MEDIUM : GREEN_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            });
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "TIEFIGHTER"
     }]
 };
 

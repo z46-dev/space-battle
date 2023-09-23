@@ -204,6 +204,16 @@ export const GREEN_RAPID_LASER_CANNON = {
     health: 100
 };
 
+export const GREEN_ANTI_FIGHTER_LASER_CANNON = {
+    reload: 5,
+    damage: 20,
+    speed: 80,
+    range: 1500,
+    type: weaponTypes.GreenLaserCannon,
+    health: 100,
+    targetOverride: [shipTypes.Fighter, shipTypes.Bomber]
+};
+
 export const GREEN_LASER_CANNON = {
     reload: 15,
     damage: 4,
@@ -427,6 +437,11 @@ export const RED_RAPID_LASER_CANNON = {
     type: weaponTypes.RedLaserCannon
 };
 
+export const RED_ANTI_FIGHTER_LASER_CANNON = {
+    ...GREEN_ANTI_FIGHTER_LASER_CANNON,
+    type: weaponTypes.RedLaserCannon
+};
+
 export const RED_LASER_CANNON = {
     ...GREEN_LASER_CANNON,
     type: weaponTypes.RedLaserCannon
@@ -536,6 +551,11 @@ export const BLUE_RAPID_FIGHTER_LASER_CANNON = {
 
 export const BLUE_RAPID_LASER_CANNON = {
     ...GREEN_RAPID_LASER_CANNON,
+    type: weaponTypes.BlueLaserCannon
+};
+
+export const BLUE_ANTI_FIGHTER_LASER_CANNON = {
+    ...GREEN_ANTI_FIGHTER_LASER_CANNON,
     type: weaponTypes.BlueLaserCannon
 };
 

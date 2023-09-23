@@ -1,5 +1,5 @@
 import { shipTypes } from "../constants.js";
-import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, FIGHTER_ION_CANNON, ION_CANNON, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, RED_DOUBLE_LASER_CANNON, RED_DOUBLE_LASER_CANNON_HEAVY, RED_DOUBLE_TURBOLASER_CANNON, RED_DOUBLE_TURBOLASER_CANNON_HEAVY, RED_FIGHTER_LASER_CANNON, RED_LASER_CANNON, RED_QUAD_LASER_CANNON, RED_RAPID_LASER_CANNON, RED_TRIPLE_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON, FIGHTER_PROTON_BOMB, FIGHTER_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, RED_QUAD_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON_ULTRAHEAVY, RED_QUAD_LASER_CANNON_HEAVY, ASSAULT_PROTON_TORPEDO, TRIPLE_ION_CANNON_MEDIUM, TRIPLE_ION_CANNON, RED_TRIPLE_TURBOLASER_CANNON } from "../weapons.js";
+import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, FIGHTER_ION_CANNON, ION_CANNON, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, RED_DOUBLE_LASER_CANNON, RED_DOUBLE_LASER_CANNON_HEAVY, RED_DOUBLE_TURBOLASER_CANNON, RED_DOUBLE_TURBOLASER_CANNON_HEAVY, RED_FIGHTER_LASER_CANNON, RED_LASER_CANNON, RED_QUAD_LASER_CANNON, RED_RAPID_LASER_CANNON, RED_TRIPLE_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON, FIGHTER_PROTON_BOMB, FIGHTER_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, RED_QUAD_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON_ULTRAHEAVY, RED_QUAD_LASER_CANNON_HEAVY, ASSAULT_PROTON_TORPEDO, TRIPLE_ION_CANNON_MEDIUM, TRIPLE_ION_CANNON, RED_TRIPLE_TURBOLASER_CANNON, RED_ANTI_FIGHTER_LASER_CANNON } from "../weapons.js";
 
 const ships = {};
 
@@ -374,16 +374,6 @@ ships.MC85 = {
             });
         }
 
-        for (let i = 0; i < output.length; i ++) {
-            output[i].weapon = {
-                ...output[i].weapon,
-                health: output[i].weapon.health * 3,
-                speed: output[i].weapon.speed * 1.15,
-                damage: output[i].weapon.damage * 1.225,
-                reload: output[i].weapon.reload * .775
-            };
-        }
-
         return output;
     })(),
     hangars: [{
@@ -566,12 +556,7 @@ ships.CR90 = {
     hardpoints: [{
         x: 0,
         y: .6,
-        weapon: {
-            ...RED_RAPID_LASER_CANNON,
-            speed: RED_RAPID_LASER_CANNON.speed * 1.25,
-            damage: RED_RAPID_LASER_CANNON.damage * 2,
-            range: RED_RAPID_LASER_CANNON.range * 1.1
-        },
+        weapon: RED_RAPID_LASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 80
     }, {
@@ -588,13 +573,52 @@ ships.CR90 = {
     }, {
         x: 0,
         y: -.2,
-        weapon: {
-            ...RED_RAPID_LASER_CANNON,
-            speed: RED_RAPID_LASER_CANNON.speed * 1.25,
-            damage: RED_RAPID_LASER_CANNON.damage * 2,
-            range: RED_RAPID_LASER_CANNON.range * 1.1
-        },
+        weapon: RED_RAPID_LASER_CANNON,
         shotsAtOnce: 2,
+        shotDelay: 80
+    }, {
+        x: 0,
+        y: 0,
+        weapon: RED_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 80
+    }]
+};
+
+ships.DP20REBEL = {
+    name: "DP-20",
+    asset: "DP20REBEL.png",
+    classification: shipTypes.Corvette,
+    population: 1,
+    size: 65,
+    cost: 225,
+    speed: 10,
+    turnSpeed: .05,
+    shield: 800,
+    shieldRegen: 1,
+    hardpoints: [{
+        x: 0,
+        y: .8,
+        weapon: RED_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.2,
+        y: 0,
+        weapon: RED_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .2,
+        y: 0,
+        weapon: RED_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: -.4,
+        weapon: ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 6,
         shotDelay: 80
     }]
 };
