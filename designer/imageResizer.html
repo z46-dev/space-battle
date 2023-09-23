@@ -7,7 +7,7 @@
 
 <body>
     <script>
-        const imageURL = "/assets/ships/INTERDICTORSTARDESTROYER.png";
+        const imageURL = "/assets/TOADD/mc80achatnoircruiser.png";
 
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
@@ -21,11 +21,16 @@
             canvas.width = size;
             canvas.height = size;
 
-            ctx.drawImage(image,
-                (size - image.width) / 2,
-                (size - image.height) / 2,
-                image.width,
-                image.height);
+            ctx.translate(size / 2, size / 2);
+            ctx.rotate(Math.PI / 2);
+
+            ctx.drawImage(image, -image.width / 2, -image.height / 2, image.width, image.height);
+
+            // ctx.drawImage(image,
+            //     (size - image.width) / 2,
+            //     (size - image.height) / 2,
+            //     image.width,
+            //     image.height);
 
             document.body.appendChild(canvas);
         }

@@ -47,7 +47,7 @@ export const weaponTypes = {
     "BlueOctupleTurbolaser": iota(),
     "BlueUltraTurbolaser": iota(),
 
-    // PURPLE (Chiss, Empire of the Hand)
+    // PURPLE (Hutts)
     "PurpleLaserCannon": iota(),
     "PurpleDoubleLaserCannon": iota(),
     "PurpleTripleLaserCannon": iota(),
@@ -59,6 +59,19 @@ export const weaponTypes = {
     "PurpleQuadTurbolaser": iota(),
     "PurpleOctupleTurbolaser": iota(),
     "PurpleUltraTurbolaser": iota(),
+
+    // YELLOW (Zann Consortium)
+    "YellowLaserCannon": iota(),
+    "YellowDoubleLaserCannon": iota(),
+    "YellowTripleLaserCannon": iota(),
+    "YellowQuadLaserCannon": iota(),
+    "YellowOctupleLaserCannon": iota(),
+    "YellowTurbolaser": iota(),
+    "YellowDoubleTurbolaser": iota(),
+    "YellowTripleTurbolaser": iota(),
+    "YellowQuadTurbolaser": iota(),
+    "YellowOctupleTurbolaser": iota(),
+    "YellowUltraTurbolaser": iota(),
 
     // ION WEAPONS (All factions)
     "IonCannon": iota(),
@@ -86,6 +99,7 @@ export const colors = {
     "Red": "#FF0000",
     "Blue": "#3535FF",
     "Purple": "#C800FF",
+    "Yellow": "#C8C800",
     "Ion": "#EEEEFF",
     "Bomb": "#FFFFFF",
     "Torpedo": "#FF1F53",
@@ -101,7 +115,7 @@ export const weaponDrawProperties = (function() {
             continue;
         }
 
-        const color = key.match(/Red|Green|Blue|Purple|Ion/)[0];
+        const color = key.match(/Red|Green|Blue|Purple|Yellow|Ion/)[0];
         const type = weaponTypes[key];
         const shots = key.match(/Double|Triple|Quad|Octuple/) ? key.match(/Double|Triple|Quad|Octuple/)[0] : "Single";
         const strength = key.match(/Cannon|Ultra|Turbolaser|WeakSuperlaser|Superlaser/) ? key.match(/Cannon|Ultra|Turbolaser|WeakSuperlaser|Superlaser/)[0] : "Cannon";

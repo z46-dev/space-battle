@@ -656,6 +656,238 @@ export const BLUE_TURBOLASER_CANNON_ULTRAHEAVY = {
 
 // PURPLE WEAPON DEFS
 
+export const PURPLE_FIGHTER_LASER_CANNON = {
+    ...GREEN_FIGHTER_LASER_CANNON,
+    type: weaponTypes.PurpleLaserCannon
+};
+
+export const PURPLE_RAPID_FIGHTER_LASER_CANNON = {
+    ...GREEN_RAPID_FIGHTER_LASER_CANNON,
+    type: weaponTypes.PurpleLaserCannon
+};
+
+export const PURPLE_RAPID_LASER_CANNON = {
+    ...GREEN_RAPID_LASER_CANNON,
+    type: weaponTypes.PurpleLaserCannon
+};
+
+export const PURPLE_ANTI_FIGHTER_LASER_CANNON = {
+    ...GREEN_ANTI_FIGHTER_LASER_CANNON,
+    type: weaponTypes.PurpleLaserCannon
+};
+
+export const PURPLE_LASER_CANNON = {
+    ...GREEN_LASER_CANNON,
+    type: weaponTypes.PurpleLaserCannon
+};
+
+export const PURPLE_DOUBLE_LASER_CANNON = {
+    ...GREEN_DOUBLE_LASER_CANNON,
+    type: weaponTypes.PurpleDoubleLaserCannon
+};
+
+export const PURPLE_TRIPLE_LASER_CANNON = {
+    ...GREEN_TRIPLE_LASER_CANNON,
+    type: weaponTypes.PurpleTripleLaserCannon
+};
+
+export const PURPLE_QUAD_LASER_CANNON = {
+    ...GREEN_QUAD_LASER_CANNON,
+    type: weaponTypes.PurpleQuadLaserCannon
+};
+
+export const PURPLE_LASER_CANNON_HEAVY = {
+    ...GREEN_LASER_CANNON_HEAVY,
+    type: weaponTypes.PurpleLaserCannon
+};
+
+export const PURPLE_DOUBLE_LASER_CANNON_HEAVY = {
+    ...GREEN_DOUBLE_LASER_CANNON_HEAVY,
+    type: weaponTypes.PurpleDoubleLaserCannon
+};
+
+export const PURPLE_TRIPLE_LASER_CANNON_HEAVY = {
+    ...GREEN_TRIPLE_LASER_CANNON_HEAVY,
+    type: weaponTypes.PurpleTripleLaserCannon
+};
+
+export const PURPLE_QUAD_LASER_CANNON_HEAVY = {
+    ...GREEN_QUAD_LASER_CANNON_HEAVY,
+    type: weaponTypes.PurpleQuadLaserCannon
+};
+
+export const PURPLE_TURBOLASER_CANNON = {
+    ...GREEN_TURBOLASER_CANNON,
+    type: weaponTypes.PurpleTurbolaser
+};
+
+export const PURPLE_DOUBLE_TURBOLASER_CANNON = {
+    ...GREEN_DOUBLE_TURBOLASER_CANNON,
+    type: weaponTypes.PurpleDoubleTurbolaser
+};
+
+export const PURPLE_TRIPLE_TURBOLASER_CANNON = {
+    ...GREEN_TRIPLE_TURBOLASER_CANNON,
+    type: weaponTypes.PurpleTripleTurbolaser
+};
+
+export const PURPLE_QUAD_TURBOLASER_CANNON = {
+    ...GREEN_QUAD_TURBOLASER_CANNON,
+    type: weaponTypes.PurpleQuadTurbolaser
+};
+
+export const PURPLE_OCTUPLE_TURBOLASER_CANNON = {
+    ...GREEN_OCTUPLE_TURBOLASER_CANNON,
+    type: weaponTypes.PurpleOctupleTurbolaser
+};
+
+export const PURPLE_TURBOLASER_CANNON_HEAVY = {
+    ...GREEN_TURBOLASER_CANNON_HEAVY,
+    type: weaponTypes.PurpleTurbolaser
+};
+
+export const PURPLE_DOUBLE_TURBOLASER_CANNON_HEAVY = {
+    ...GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+    type: weaponTypes.PurpleDoubleTurbolaser
+};
+
+export const PURPLE_TRIPLE_TURBOLASER_CANNON_HEAVY = {
+    ...GREEN_TRIPLE_TURBOLASER_CANNON_HEAVY,
+    type: weaponTypes.PurpleTripleTurbolaser
+};
+
+export const PURPLE_QUAD_TURBOLASER_CANNON_HEAVY = {
+    ...GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
+    type: weaponTypes.PurpleQuadTurbolaser
+};
+
+export const PURPLE_OCTUPLE_TURBOLASER_CANNON_HEAVY = {
+    ...GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY,
+    type: weaponTypes.PurpleOctupleTurbolaser
+};
+
+export const PURPLE_TURBOLASER_CANNON_ULTRAHEAVY = {
+    ...GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
+    type: weaponTypes.PurpleUltraTurbolaser
+};
+
+// YELLOW WEAPON DEFS
+
+export const YELLOW_FIGHTER_LASER_CANNON = {
+    ...GREEN_FIGHTER_LASER_CANNON,
+    type: weaponTypes.YellowLaserCannon
+};
+
+export const YELLOW_RAPID_FIGHTER_LASER_CANNON = {
+    ...GREEN_RAPID_FIGHTER_LASER_CANNON,
+    type: weaponTypes.YellowLaserCannon
+};
+
+export const YELLOW_RAPID_LASER_CANNON = {
+    ...GREEN_RAPID_LASER_CANNON,
+    type: weaponTypes.YellowLaserCannon
+};
+
+export const YELLOW_ANTI_FIGHTER_LASER_CANNON = {
+    ...GREEN_ANTI_FIGHTER_LASER_CANNON,
+    type: weaponTypes.YellowLaserCannon
+};
+
+export const YELLOW_LASER_CANNON = {
+    ...GREEN_LASER_CANNON,
+    type: weaponTypes.YellowLaserCannon
+};
+
+export const YELLOW_DOUBLE_LASER_CANNON = {
+    ...GREEN_DOUBLE_LASER_CANNON,
+    type: weaponTypes.YellowDoubleLaserCannon
+};
+
+export const YELLOW_TRIPLE_LASER_CANNON = {
+    ...GREEN_TRIPLE_LASER_CANNON,
+    type: weaponTypes.YellowTripleLaserCannon
+};
+
+export const YELLOW_QUAD_LASER_CANNON = {
+    ...GREEN_QUAD_LASER_CANNON,
+    type: weaponTypes.YellowQuadLaserCannon
+};
+
+export const YELLOW_LASER_CANNON_HEAVY = {
+    ...GREEN_LASER_CANNON_HEAVY,
+    type: weaponTypes.YellowLaserCannon
+};
+
+export const YELLOW_DOUBLE_LASER_CANNON_HEAVY = {
+    ...GREEN_DOUBLE_LASER_CANNON_HEAVY,
+    type: weaponTypes.YellowDoubleLaserCannon
+};
+
+export const YELLOW_TRIPLE_LASER_CANNON_HEAVY = {
+    ...GREEN_TRIPLE_LASER_CANNON_HEAVY,
+    type: weaponTypes.YellowTripleLaserCannon
+};
+
+export const YELLOW_QUAD_LASER_CANNON_HEAVY = {
+    ...GREEN_QUAD_LASER_CANNON_HEAVY,
+    type: weaponTypes.YellowQuadLaserCannon
+};
+
+export const YELLOW_TURBOLASER_CANNON = {
+    ...GREEN_TURBOLASER_CANNON,
+    type: weaponTypes.YellowTurbolaser
+};
+
+export const YELLOW_DOUBLE_TURBOLASER_CANNON = {
+    ...GREEN_DOUBLE_TURBOLASER_CANNON,
+    type: weaponTypes.YellowDoubleTurbolaser
+};
+
+export const YELLOW_TRIPLE_TURBOLASER_CANNON = {
+    ...GREEN_TRIPLE_TURBOLASER_CANNON,
+    type: weaponTypes.YellowTripleTurbolaser
+};
+
+export const YELLOW_QUAD_TURBOLASER_CANNON = {
+    ...GREEN_QUAD_TURBOLASER_CANNON,
+    type: weaponTypes.YellowQuadTurbolaser
+};
+
+export const YELLOW_OCTUPLE_TURBOLASER_CANNON = {
+    ...GREEN_OCTUPLE_TURBOLASER_CANNON,
+    type: weaponTypes.YellowOctupleTurbolaser
+};
+
+export const YELLOW_TURBOLASER_CANNON_HEAVY = {
+    ...GREEN_TURBOLASER_CANNON_HEAVY,
+    type: weaponTypes.YellowTurbolaser
+};
+
+export const YELLOW_DOUBLE_TURBOLASER_CANNON_HEAVY = {
+    ...GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+    type: weaponTypes.YellowDoubleTurbolaser
+};
+
+export const YELLOW_TRIPLE_TURBOLASER_CANNON_HEAVY = {
+    ...GREEN_TRIPLE_TURBOLASER_CANNON_HEAVY,
+    type: weaponTypes.YellowTripleTurbolaser
+};
+
+export const YELLOW_QUAD_TURBOLASER_CANNON_HEAVY = {
+    ...GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
+    type: weaponTypes.YellowQuadTurbolaser
+};
+
+export const YELLOW_OCTUPLE_TURBOLASER_CANNON_HEAVY = {
+    ...GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY,
+    type: weaponTypes.YellowOctupleTurbolaser
+};
+
+export const YELLOW_TURBOLASER_CANNON_ULTRAHEAVY = {
+    ...GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
+    type: weaponTypes.YellowUltraTurbolaser
+};
+
 // PROJECTILE DEFS
 export const FIGHTER_PROTON_TORPEDO = {
     reload: 399,

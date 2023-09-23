@@ -2,6 +2,8 @@ import { default as imperialShips } from "./ships/empire.js";
 import { default as rebelShips } from "./ships/rebel.js";
 import { default as cisShips } from "./ships/CIS.js";
 import { default as republicShips } from "./ships/republic.js";
+import { default as huttShips } from "./ships/hutts.js";
+import { default as zannShips } from "./ships/zann.js";
 import { default as customShips } from "./ships/custom.js";
 import { shipTypes } from "./constants.js";
 import { DUMMY_BLANK } from "./weapons.js";
@@ -26,6 +28,8 @@ const ships = {
     ...rebelShips,
     ...cisShips,
     ...republicShips,
+    ...huttShips,
+    ...zannShips,
     ...customShips
 };
 

@@ -664,11 +664,15 @@ class ShipAI {
         const range = Math.min(...this.ship.hardpoints.map(hardpoint => hardpoint.range));
 
         if ((this.ship.shield / this.ship.maxShield < .25 && this.ship.health < .75) || myDistance < range / 3) { // Kite
-            this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
+            this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI;
         } else if (myDistance > range) { // Approach
             this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
         } else {
             this.ship.speed = 0;
+
+            if (angleDifference(this.ship.angle, Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x)) > Math.PI / 2) {
+                this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
+            }
         }
     }
 
@@ -881,7 +885,7 @@ const battle = new Battle(7500, 7500, 2);
 
 const empireFleet = {
     "DEATHSTAR": 0,
-    "ASSERTOR": 1,
+    "ASSERTOR": 0,
     "SSD": 0,
     "BELLATOR": 0,
     "ALLEGIANCE": 0,
@@ -889,13 +893,19 @@ const empireFleet = {
     "WORLDDEVASTATORBC": 0,
     "WORLDDEVASTATORFG": 0,
     "ONAGER": 0,
-    "ISD": 0,
+    "ISD": 1,
     "INTERDICTORSTARDESTROYER": 0,
+    "VICTORYSTARDESTROYER": 2,
     "MTFCRUISER": 0,
     "IMOBILIZER": 0,
     "QUASAR": 0,
     "ARQUITENS": 0,
+    "VIGILCORVETTE": 0,
+    "DREADNOUGHTHEAVYCRUISER": 2,
+    "CARRACK": 0,
+    "LANCERFRIGATE": 0,
     "RAIDER": 0,
+    "IPV1": 0,
 
     "DUMMY_CARRIER": 0,
     "THRAWN_QUASAR": 0,
@@ -905,12 +915,14 @@ const empireFleet = {
 };
 
 const rebelFleet = {
-    "LUSANKYA": 1,
+    "LUSANKYA": 0,
     "STARHAWK": 0,
     "MC85": 0,
     "MC75": 0,
     "HOMEONE": 0,
     "MC80LIBERTY": 0,
+    "MC50": 0,
+    "MC30C": 0,
     "NEBULONB": 0,
     "PELTA": 0,
     "CR90": 0,
@@ -926,6 +938,14 @@ const rebelFleet = {
     "LUCREHULK": 0,
     "PROVIDENCEDREADNOUGHT": 0,
 
+    // Hutts
+    "CONSOLARHUTT": 0,
+    "ACTIONVITRANSPORT_HUTT": 0,
+    "HUTTFRIGATE": 0,
+    "MC69NOIR": 0,
+
+    // Zann Consortium
+    "ACTIONVITRANSPORT_ZANN": 2,
 
     // NEW SHIPS
     "CHIMERA_DESTROYER": 0
@@ -981,7 +1001,7 @@ for (const ship in rebelFleet) {
     }
 }
 
-const spawnDistance = 2500;
+const spawnDistance = 1000;
 
 empireShips.sort(() => .5 - Math.random());
 basicFormation(empireShips, -spawnDistance, -spawnDistance, Math.PI / 4);
@@ -997,6 +1017,7 @@ function basicFormation(ships, x, y, angle) {
         ships[i].x = x + xDistance * Math.cos(angle) - yDistance * Math.sin(angle);
         ships[i].y = y + yDistance * Math.cos(angle) + xDistance * Math.sin(angle);
         ships[i].angle = angle;
+        ships[i].angleGoal = angle;
     }
 }
 

@@ -393,6 +393,155 @@ ships.MC85 = {
     }]
 };
 
+ships.MC50 = {
+    name: "MC-50",
+    asset: "MC50.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 12,
+    size: 600,
+    cost: 1000,
+    speed: 4,
+    turnSpeed: .035,
+    shield: 6000,
+    shieldRegen: 2,
+    hardpoints: (function() {
+        const output = [{
+            x: 0,
+            y: .85,
+            weapon: RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.15,
+            y: .75,
+            weapon: RED_DOUBLE_TURBOLASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: .15,
+            y: .75,
+            weapon: RED_DOUBLE_TURBOLASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.3,
+            y: .55,
+            weapon: TRIPLE_ION_CANNON_MEDIUM,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: .3,
+            y: .55,
+            weapon: TRIPLE_ION_CANNON_MEDIUM,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.4,
+            y: .4,
+            weapon: RED_TRIPLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: .4,
+            y: .4,
+            weapon: RED_TRIPLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }];
+
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: -.2,
+                y: .3 - .2 * i,
+                weapon: RED_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: .2,
+                y: .3 - .2 * i,
+                weapon: RED_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            });
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: -.2,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "XWING"
+    }, {
+        x: .2,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "YWING"
+    }]
+};
+
+ships.MC30C = {
+    name: "MC-30c",
+    asset: "MC30C.png",
+    classification: shipTypes.Frigate,
+    population: 11,
+    size: 300,
+    cost: 800,
+    speed: 5,
+    turnSpeed: .05,
+    shield: 4000,
+    shieldRegen: 2,
+    hardpoints: [{
+        x: -.05,
+        y: .8,
+        weapon: ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 3,
+        shotDelay: 100
+    }, {
+        x: .05,
+        y: .8,
+        weapon: ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 3,
+        shotDelay: 100
+    }, {
+        x: -.1,
+        y: .5,
+        weapon: RED_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 3,
+        shotDelay: 100
+    }, {
+        x: .1,
+        y: .5,
+        weapon: RED_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 3,
+        shotDelay: 100
+    }, {
+        x: -.1,
+        y: .2,
+        weapon: DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 3,
+        shotDelay: 100
+    }, {
+        x: .1,
+        y: .2,
+        weapon: DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 3,
+        shotDelay: 100
+    }],
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 5,
+        reserveSize: 2,
+        squadronKey: "AWING"
+    }]
+};
+
 ships.NEBULONB = {
     name: "Nebulon-B",
     asset: "NEBULONB.png",
@@ -456,6 +605,12 @@ ships.NEBULONB = {
         weapon: DOUBLE_ION_CANNON,
         shotsAtOnce: 2,
         shotDelay: 100
+    }, {
+        x: 0,
+        y: 0,
+        weapon: RED_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 4,
+        shotDelay: 60
     }],
     hangars: [{
         x: 0,
@@ -531,6 +686,12 @@ ships.PELTA = {
         weapon: RED_DOUBLE_TURBOLASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 80
+    }, {
+        x: 0,
+        y: 0,
+        weapon: RED_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 70
     }],
     hangars: [{
         x: 0,
@@ -580,7 +741,7 @@ ships.CR90 = {
         x: 0,
         y: 0,
         weapon: RED_ANTI_FIGHTER_LASER_CANNON,
-        shotsAtOnce: 2,
+        shotsAtOnce: 3,
         shotDelay: 80
     }]
 };

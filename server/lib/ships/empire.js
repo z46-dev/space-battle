@@ -1,5 +1,5 @@
 import { shipTypes } from "../constants.js";
-import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_LASER_CANNON, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TURBOLASER_CANNON, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, FIGHTER_PROTON_BOMB, GREEN_FIGHTER_LASER_CANNON, FIGHTER_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, FIGHTER_PROTON_ROCKET_AOE, GREEN_RAPID_FIGHTER_LASER_CANNON, TIE_DEFENDER_ION_CANNON, GREEN_QUAD_TURBOLASER_CANNON_HEAVY, ION_CANNON_MEDIUM, GREEN_TURBOLASER_CANNON_ULTRAHEAVY, GREEN_SUPERLASER, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_WEAK_SUPERLASER, ASSAULT_PROTON_TORPEDO, TRIPLE_ION_CANNON_HEAVY, GREEN_TRIPLE_LASER_CANNON_HEAVY, ION_CANNON, GREEN_QUAD_LASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY, QUAD_ION_CANNON_HEAVY, GREEN_OCTUPLE_TURBOLASER_CANNON, ION_CANNON_ULTRA } from "../weapons.js";
+import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_LASER_CANNON, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TURBOLASER_CANNON, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, FIGHTER_PROTON_BOMB, GREEN_FIGHTER_LASER_CANNON, FIGHTER_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, FIGHTER_PROTON_ROCKET_AOE, GREEN_RAPID_FIGHTER_LASER_CANNON, TIE_DEFENDER_ION_CANNON, GREEN_QUAD_TURBOLASER_CANNON_HEAVY, ION_CANNON_MEDIUM, GREEN_TURBOLASER_CANNON_ULTRAHEAVY, GREEN_SUPERLASER, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_WEAK_SUPERLASER, ASSAULT_PROTON_TORPEDO, TRIPLE_ION_CANNON_HEAVY, GREEN_TRIPLE_LASER_CANNON_HEAVY, ION_CANNON, GREEN_QUAD_LASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY, QUAD_ION_CANNON_HEAVY, GREEN_OCTUPLE_TURBOLASER_CANNON, ION_CANNON_ULTRA, GREEN_ANTI_FIGHTER_LASER_CANNON, ASSAULT_PROTON_ROCKET } from "../weapons.js";
 
 const ships = {};
 
@@ -183,7 +183,7 @@ ships.RAIDER = {
     asset: "RAIDER.png",
     classification: shipTypes.Corvette,
     population: 1,
-    size: 50,
+    size: 60,
     cost: 200,
     speed: 10,
     turnSpeed: .035,
@@ -192,15 +192,21 @@ ships.RAIDER = {
     hardpoints: [{
         x: -.15,
         y: .075,
-        weapon: GREEN_TURBOLASER_CANNON
+        weapon: GREEN_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
     }, {
         x: .15,
         y: .075,
-        weapon: GREEN_TURBOLASER_CANNON
+        weapon: GREEN_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
     }, {
         x: 0,
         y: -.4,
-        weapon: GREEN_RAPID_LASER_CANNON
+        weapon: GREEN_RAPID_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
     }]
 };
 
@@ -1529,6 +1535,320 @@ ships.INTERDICTORSTARDESTROYER = {
         reserveSize: 2,
         squadronKey: "TIEFIGHTER"
     }]
+};
+
+ships.CARRACK = {
+    name: "Carrack Cruiser",
+    asset: "CARRACK.png",
+    classification: shipTypes.Frigate,
+    population: 8,
+    size: 170,
+    cost: 1900,
+    speed: 4.5,
+    turnSpeed: .02,
+    shield: 2100,
+    shieldRegen: 2,
+    hardpoints: [{
+        x: 0,
+        y: .9,
+        weapon: GREEN_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.15,
+        y: .5,
+        weapon: GREEN_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .15,
+        y: .5,
+        weapon: GREEN_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.125,
+        y: .2,
+        weapon: ION_CANNON
+    }, {
+        x: .125,
+        y: .2,
+        weapon: ION_CANNON
+    }, {
+        x: -.1,
+        y: -.4,
+        weapon: GREEN_TURBOLASER_CANNON
+    }, {
+        x: .1,
+        y: -.4,
+        weapon: GREEN_TURBOLASER_CANNON
+    }, {
+        x: 0,
+        y: -.6,
+        weapon: GREEN_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 80
+    }]
+};
+
+ships.LANCERFRIGATE = {
+    name: "Lancer Frigate",
+    asset: "LANCERFRIGATE.png",
+    classification: shipTypes.Frigate,
+    population: 12,
+    size: 150,
+    cost: 3000,
+    speed: 3.9,
+    turnSpeed: .018,
+    shield: 3000,
+    shieldRegen: 3,
+    hardpoints: [{
+        x: 0,
+        y: .95,
+        weapon: ASSAULT_PROTON_ROCKET,
+        shotsAtOnce: 4,
+        shotDelay: 80
+    }, {
+        x: 0,
+        y: .6,
+        weapon: GREEN_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: .35,
+        weapon: DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: 0,
+        weapon: GREEN_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 4,
+        shotDelay: 60
+    }, {
+        x: -.15,
+        y: -.5,
+        weapon: GREEN_DOUBLE_TURBOLASER_CANNON
+    }, {
+        x: .15,
+        y: -.5,
+        weapon: GREEN_DOUBLE_TURBOLASER_CANNON
+    }]
+};
+
+ships.IPV1 = {
+    name: "IPV-1 System Patrol Craft",
+    asset: "IPV1.png",
+    classification: shipTypes.Corvette,
+    population: 1,
+    size: 60,
+    cost: 270,
+    speed: 8,
+    turnSpeed: .015,
+    shield: 500,
+    shieldRegen: .5,
+    hardpoints: [{
+        x: 0,
+        y: .9,
+        weapon: GREEN_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: 0,
+        weapon: GREEN_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 80
+    }, {
+        x: 0,
+        y: 0,
+        weapon: FIGHTER_PROTON_TORPEDO,
+        shotsAtOnce: 3,
+        shotDelay: 90
+    }]
+};
+
+ships.VIGILCORVETTE = {
+    name: "Vigil Corvette",
+    asset: "VIGILCORVETTE.png",
+    classification: shipTypes.Corvette,
+    population: 5,
+    size: 120,
+    cost: 1000,
+    speed: 5,
+    turnSpeed: .01,
+    shield: 1100,
+    shieldRegen: 2,
+    hardpoints: [{
+        x: -.375,
+        y: .05,
+        weapon: GREEN_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .4,
+        y: .025,
+        weapon: GREEN_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.375,
+        y: .05,
+        weapon: GREEN_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 60
+    }, {
+        x: .4,
+        y: .025,
+        weapon: GREEN_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 60
+    }]
+};
+
+ships.DREADNOUGHTHEAVYCRUISER = {
+    name: "Dreadnought Heavy Cruiser",
+    asset: "DREADNOUGHTHEAVYCRUISER.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 16,
+    size: 290,
+    cost: 2900,
+    speed: 3,
+    turnSpeed: .015,
+    shield: 4000,
+    shieldRegen: 4,
+    hardpoints: [{
+        x: -.075,
+        y: .8,
+        weapon: DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .075,
+        y: .8,
+        weapon: DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.2,
+        y: -.8,
+        weapon: DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .2,
+        y: -.8,
+        weapon: DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.125,
+        y: .4,
+        weapon: GREEN_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .125,
+        y: .4,
+        weapon: GREEN_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.15,
+        y: -.4,
+        weapon: GREEN_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .15,
+        y: -.4,
+        weapon: GREEN_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.175,
+        y: 0,
+        weapon: GREEN_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .175,
+        y: 0,
+        weapon: GREEN_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }],
+    hangars: [{
+        x: 0,
+        y: -.8,
+        maxSquadrons: 1,
+        squadronSize: 10,
+        reserveSize: 2,
+        squadronKey: "TIEFIGHTER"
+    }]
+};
+
+ships.VICTORYSTARDESTROYER = {
+    name: "Victory-I Star Destroyer",
+    asset: "VICTORYSTARDESTROYER.png",
+    classification: shipTypes.Capital,
+    population: 20,
+    size: 400,
+    cost: 3000,
+    speed: 2.5,
+    turnSpeed: .015,
+    shield: 5000,
+    shieldRegen: 5,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 3; i ++) {
+            output.push({
+                x: -.3,
+                y: -.4 - .1 * i,
+                weapon: i % 2 ? DOUBLE_ION_CANNON_HEAVY : GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: .3,
+                y: -.4 - .1 * i,
+                weapon: i % 2 ? DOUBLE_ION_CANNON_HEAVY : GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            });
+        }
+
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: -.55 - .025 * i,
+                y: -.25 - .15 * i,
+                weapon: i % 2 ? ASSAULT_CONCUSSION_MISSILE : ASSAULT_PROTON_ROCKET,
+                shotsAtOnce: 3,
+                shotDelay: 80
+            }, {
+                x: .55 + .025 * i,
+                y: -.25 - .15 * i,
+                weapon: i % 2 ? ASSAULT_CONCUSSION_MISSILE : ASSAULT_PROTON_ROCKET,
+                shotsAtOnce: 3,
+                shotDelay: 80
+            }, {
+                x: -.05 - .05 * i,
+                y: .8 - .2 * i,
+                weapon: i % 2 ? DOUBLE_ION_CANNON_MEDIUM : GREEN_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: .05 + .05 * i,
+                y: .8 - .2 * i,
+                weapon: i % 2 ? DOUBLE_ION_CANNON_MEDIUM : GREEN_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            });
+        }
+
+        return output;
+    })()
 };
 
 export default ships;
