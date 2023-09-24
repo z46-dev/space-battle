@@ -1,5 +1,5 @@
 import { shipTypes } from "../constants.js";
-import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_LASER_CANNON, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TURBOLASER_CANNON, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, FIGHTER_PROTON_BOMB, GREEN_FIGHTER_LASER_CANNON, FIGHTER_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, FIGHTER_PROTON_ROCKET_AOE, GREEN_RAPID_FIGHTER_LASER_CANNON, TIE_DEFENDER_ION_CANNON, GREEN_QUAD_TURBOLASER_CANNON_HEAVY, ION_CANNON_MEDIUM, GREEN_TURBOLASER_CANNON_ULTRAHEAVY, GREEN_SUPERLASER, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_WEAK_SUPERLASER, ASSAULT_PROTON_TORPEDO, TRIPLE_ION_CANNON_HEAVY, GREEN_TRIPLE_LASER_CANNON_HEAVY, ION_CANNON, GREEN_QUAD_LASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY, QUAD_ION_CANNON_HEAVY, GREEN_OCTUPLE_TURBOLASER_CANNON, ION_CANNON_ULTRA, GREEN_ANTI_FIGHTER_LASER_CANNON, ASSAULT_PROTON_ROCKET } from "../weapons.js";
+import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, GREEN_DOUBLE_LASER_CANNON, GREEN_DOUBLE_LASER_CANNON_HEAVY, GREEN_DOUBLE_TURBOLASER_CANNON, GREEN_LASER_CANNON, GREEN_QUAD_LASER_CANNON_HEAVY, GREEN_QUAD_TURBOLASER_CANNON, GREEN_RAPID_LASER_CANNON, GREEN_TURBOLASER_CANNON, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, FIGHTER_PROTON_BOMB, GREEN_FIGHTER_LASER_CANNON, FIGHTER_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, FIGHTER_PROTON_ROCKET_AOE, GREEN_RAPID_FIGHTER_LASER_CANNON, TIE_DEFENDER_ION_CANNON, GREEN_QUAD_TURBOLASER_CANNON_HEAVY, ION_CANNON_MEDIUM, GREEN_TURBOLASER_CANNON_ULTRAHEAVY, GREEN_SUPERLASER, GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY, GREEN_WEAK_SUPERLASER, ASSAULT_PROTON_TORPEDO, TRIPLE_ION_CANNON_HEAVY, GREEN_TRIPLE_LASER_CANNON_HEAVY, ION_CANNON, GREEN_QUAD_LASER_CANNON, GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY, QUAD_ION_CANNON_HEAVY, GREEN_OCTUPLE_TURBOLASER_CANNON, ION_CANNON_ULTRA, GREEN_ANTI_FIGHTER_LASER_CANNON, ASSAULT_PROTON_ROCKET, RED_SUPERLASER, RED_LIGHT_SUPERLASER } from "../weapons.js";
 
 const ships = {};
 
@@ -1849,6 +1849,98 @@ ships.VICTORYSTARDESTROYER = {
 
         return output;
     })()
+};
+
+ships.MANDATORSIEGEDREADNOUGHT = {
+    name: "Mandator IV-class Siege Dreadnought",
+    asset: "MANDATORSIEGEDREADNOUGHT.png",
+    classification: shipTypes.SuperCapital,
+    population: 140,
+    size: 5000,
+    cost: 40000,
+    speed: 1,
+    turnSpeed: .005,
+    shield: 80000,
+    shieldRegen: 20,
+    hardpoints: (function() {
+        const output = [{
+            x: -.3,
+            y: -.4,
+            weapon: RED_LIGHT_SUPERLASER,
+            shotsAtOnce: 5,
+            shotDelay: 80
+        }, {
+            x: .3,
+            y: -.4,
+            weapon: RED_LIGHT_SUPERLASER,
+            shotsAtOnce: 5,
+            shotDelay: 80
+        }];
+
+        for (let i = 0; i < 12; i ++) {
+            output.push({
+                x: -.0075 - .034 * i,
+                y: .9 - .14 * i,
+                weapon: GREEN_QUAD_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 80
+            }, {
+                x: .025 + .035 * i,
+                y: .9 - .14 * i,
+                weapon: GREEN_QUAD_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 80
+            }, {
+                x: -.0075 - .02 * i,
+                y: .875 - .14 * i,
+                weapon: GREEN_DOUBLE_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 80
+            }, {
+                x: .025 + .02 * i,
+                y: .875 - .14 * i,
+                weapon: GREEN_DOUBLE_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 80
+            }, {
+                x: -.0075 - .01 * i,
+                y: .85 - .1 * i,
+                weapon: DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 80
+            }, {
+                x: .025 + .01 * i,
+                y: .85 - .1 * i,
+                weapon: DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 80
+            });
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 3,
+        squadronSize: 8,
+        reserveSize: 8,
+        squadronKey: "TIEFIGHTER"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 5,
+        squadronSize: 8,
+        reserveSize: 8,
+        squadronKey: "TIEBOMBER"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 8,
+        squadronKey: "TIEDEFENDER"
+    }]
 };
 
 export default ships;

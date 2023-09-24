@@ -18,6 +18,9 @@ export const weaponTypes = {
     "RedQuadTurbolaser": iota(),
     "RedOctupleTurbolaser": iota(),
     "RedUltraTurbolaser": iota(),
+    "RedSuperlaser": iota(),
+    "RedWeakSuperlaser": iota(),
+    "RedLightSuperlaser": iota(),
 
     // GREEN WEAPONS (Empire)
     "GreenLaserCannon": iota(),
@@ -46,6 +49,8 @@ export const weaponTypes = {
     "BlueQuadTurbolaser": iota(),
     "BlueOctupleTurbolaser": iota(),
     "BlueUltraTurbolaser": iota(),
+    "BlueSuperlaser": iota(),
+    "BlueWeakSuperlaser": iota(),
 
     // PURPLE (Hutts)
     "PurpleLaserCannon": iota(),
@@ -59,6 +64,8 @@ export const weaponTypes = {
     "PurpleQuadTurbolaser": iota(),
     "PurpleOctupleTurbolaser": iota(),
     "PurpleUltraTurbolaser": iota(),
+    "PurpleSuperlaser": iota(),
+    "PurpleWeakSuperlaser": iota(),
 
     // YELLOW (Zann Consortium)
     "YellowLaserCannon": iota(),
@@ -72,6 +79,8 @@ export const weaponTypes = {
     "YellowQuadTurbolaser": iota(),
     "YellowOctupleTurbolaser": iota(),
     "YellowUltraTurbolaser": iota(),
+    "YellowSuperlaser": iota(),
+    "YellowWeakSuperlaser": iota(),
 
     // ION WEAPONS (All factions)
     "IonCannon": iota(),
@@ -118,13 +127,13 @@ export const weaponDrawProperties = (function() {
         const color = key.match(/Red|Green|Blue|Purple|Yellow|Ion/)[0];
         const type = weaponTypes[key];
         const shots = key.match(/Double|Triple|Quad|Octuple/) ? key.match(/Double|Triple|Quad|Octuple/)[0] : "Single";
-        const strength = key.match(/Cannon|Ultra|Turbolaser|WeakSuperlaser|Superlaser/) ? key.match(/Cannon|Ultra|Turbolaser|WeakSuperlaser|Superlaser/)[0] : "Cannon";
+        const strength = key.match(/Cannon|Ultra|Turbolaser|LightSuperlaser|WeakSuperlaser|Superlaser/) ? key.match(/Cannon|Ultra|Turbolaser|LightSuperlaser|WeakSuperlaser|Superlaser/)[0] : "Cannon";
 
         output[type] = {
             color: colors[color],
             shots: shots,
             count: [1, 2, 3, 4, 8][["Single", "Double", "Triple", "Quad", "Octuple"].indexOf(shots)],
-            strength: 1 + ["Cannon", "Turbolaser", "placeholder", "placeholder", "placeholder", "Ultra", ...(new Array(3).fill("placeholder")), "WeakSuperlaser", ...(new Array(3).fill("placeholder")), "Superlaser"].indexOf(strength) * .5,
+            strength: 1 + ["Cannon", "Turbolaser", "placeholder", "placeholder", "placeholder", "Ultra", "placeholder", "LightSuperlaser", "placeholder", "WeakSuperlaser", ...(new Array(3).fill("placeholder")), "Superlaser"].indexOf(strength) * .5,
             key: key,
             isCircle: false,
             shadows: true

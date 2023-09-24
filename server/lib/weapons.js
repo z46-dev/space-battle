@@ -537,6 +537,28 @@ export const RED_TURBOLASER_CANNON_ULTRAHEAVY = {
     type: weaponTypes.RedUltraTurbolaser
 };
 
+export const RED_SUPERLASER = {
+    ...GREEN_SUPERLASER,
+    type: weaponTypes.RedSuperlaser
+};
+
+export const RED_WEAK_SUPERLASER = {
+    ...GREEN_WEAK_SUPERLASER,
+    type: weaponTypes.RedWeakSuperlaser
+};
+
+export const RED_LIGHT_SUPERLASER = {
+    reload: 400,
+    damage: 1500,
+    type: weaponTypes.RedLightSuperlaser,
+    health: 800,
+    speed: 80,
+    range: 1e6,
+    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    explosionRange: 1e10,
+    bypassShield: true
+};
+
 // BLUE WEAPON DEFS
 
 export const BLUE_FIGHTER_LASER_CANNON = {
@@ -652,6 +674,16 @@ export const BLUE_OCTUPLE_TURBOLASER_CANNON_HEAVY = {
 export const BLUE_TURBOLASER_CANNON_ULTRAHEAVY = {
     ...GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
     type: weaponTypes.BlueUltraTurbolaser
+};
+
+export const BLUE_SUPERLASER = {
+    ...GREEN_SUPERLASER,
+    type: weaponTypes.BlueSuperlaser
+};
+
+export const BLUE_WEAK_SUPERLASER = {
+    ...GREEN_WEAK_SUPERLASER,
+    type: weaponTypes.BlueWeakSuperlaser
 };
 
 // PURPLE WEAPON DEFS
@@ -771,6 +803,16 @@ export const PURPLE_TURBOLASER_CANNON_ULTRAHEAVY = {
     type: weaponTypes.PurpleUltraTurbolaser
 };
 
+export const PURPLE_SUPERLASER = {
+    ...GREEN_SUPERLASER,
+    type: weaponTypes.PurpleSuperlaser
+};
+
+export const PURPLE_WEAK_SUPERLASER = {
+    ...GREEN_WEAK_SUPERLASER,
+    type: weaponTypes.PurpleWeakSuperlaser
+};
+
 // YELLOW WEAPON DEFS
 
 export const YELLOW_FIGHTER_LASER_CANNON = {
@@ -886,6 +928,16 @@ export const YELLOW_OCTUPLE_TURBOLASER_CANNON_HEAVY = {
 export const YELLOW_TURBOLASER_CANNON_ULTRAHEAVY = {
     ...GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
     type: weaponTypes.YellowUltraTurbolaser
+};
+
+export const YELLOW_SUPERLASER = {
+    ...GREEN_SUPERLASER,
+    type: weaponTypes.YellowSuperlaser
+};
+
+export const YELLOW_WEAK_SUPERLASER = {
+    ...GREEN_WEAK_SUPERLASER,
+    type: weaponTypes.YellowWeakSuperlaser
 };
 
 // PROJECTILE DEFS

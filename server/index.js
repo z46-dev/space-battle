@@ -264,7 +264,7 @@ class Hardpoint {
 
             const validHardpoints = [];
 
-            for (let i = 0; i < this.ship.battle.teams.length; i ++) {
+            for (let i = 0; i < this.ship.battle.teams.length; i++) {
                 if (i !== this.team) {
                     const retrieval = this.ship.battle.teams[i].spatialHash.retrieve({
                         id: this.ship.id,
@@ -275,7 +275,7 @@ class Hardpoint {
                         if (this.targetTypes !== null && this.targetTypes.indexOf(object.ship.classification) === -1) {
                             return;
                         }
-                        
+
                         validHardpoints.push(object);
                     });
                 }
@@ -342,7 +342,6 @@ class Hardpoint {
                         }
 
                         const inaccuracy = (this.classification === weaponClassifications.AreaOfEffect || this.classification === weaponClassifications.GuidedAOE) ? 0 : (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (target.ship.totalHealth / 1.5));
-
                         const angle = Math.atan2(predictedY - this.y, predictedX - this.x) + inaccuracy;
 
                         const projectile = new Projectile(this.x, this.y, angle, this.ship, this);
@@ -851,7 +850,7 @@ class Battle {
     }
 
     update() {
-        for (let i = 0; i < this.teams.length; i ++) {
+        for (let i = 0; i < this.teams.length; i++) {
             this.teams[i].spatialHash.clear();
         }
 
@@ -887,21 +886,22 @@ const empireFleet = {
     "DEATHSTAR": 0,
     "ASSERTOR": 0,
     "SSD": 0,
+    "MANDATORSIEGEDREADNOUGHT": 1,
     "BELLATOR": 0,
-    "ALLEGIANCE": 0,
+    "ALLEGIANCE": 2,
     "ARCHAMMER": 0,
     "WORLDDEVASTATORBC": 0,
     "WORLDDEVASTATORFG": 0,
     "ONAGER": 0,
-    "ISD": 1,
+    "ISD": 0,
     "INTERDICTORSTARDESTROYER": 0,
-    "VICTORYSTARDESTROYER": 2,
+    "VICTORYSTARDESTROYER": 0,
     "MTFCRUISER": 0,
     "IMOBILIZER": 0,
     "QUASAR": 0,
     "ARQUITENS": 0,
     "VIGILCORVETTE": 0,
-    "DREADNOUGHTHEAVYCRUISER": 2,
+    "DREADNOUGHTHEAVYCRUISER": 0,
     "CARRACK": 0,
     "LANCERFRIGATE": 0,
     "RAIDER": 0,
@@ -918,11 +918,11 @@ const rebelFleet = {
     "LUSANKYA": 0,
     "STARHAWK": 0,
     "MC85": 0,
-    "MC75": 0,
-    "HOMEONE": 0,
-    "MC80LIBERTY": 0,
-    "MC50": 0,
-    "MC30C": 0,
+    "MC75": 1,
+    "HOMEONE": 1,
+    "MC80LIBERTY": 2,
+    "MC50": 4,
+    "MC30C": 6,
     "NEBULONB": 0,
     "PELTA": 0,
     "CR90": 0,
@@ -945,7 +945,7 @@ const rebelFleet = {
     "MC69NOIR": 0,
 
     // Zann Consortium
-    "ACTIONVITRANSPORT_ZANN": 2,
+    "ACTIONVITRANSPORT_ZANN": 0,
 
     // NEW SHIPS
     "CHIMERA_DESTROYER": 0
@@ -1001,7 +1001,7 @@ for (const ship in rebelFleet) {
     }
 }
 
-const spawnDistance = 1000;
+const spawnDistance = 6000;
 
 empireShips.sort(() => .5 - Math.random());
 basicFormation(empireShips, -spawnDistance, -spawnDistance, Math.PI / 4);
