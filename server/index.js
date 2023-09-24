@@ -880,15 +880,15 @@ class Battle {
     }
 }
 
-const battle = new Battle(7500, 7500, 2);
+const battle = new Battle(10_000, 10_000, 2);
 
 const empireFleet = {
     "DEATHSTAR": 0,
     "ASSERTOR": 0,
     "SSD": 0,
-    "MANDATORSIEGEDREADNOUGHT": 1,
+    "MANDATORSIEGEDREADNOUGHT": 0,
     "BELLATOR": 0,
-    "ALLEGIANCE": 2,
+    "ALLEGIANCE": 0,
     "ARCHAMMER": 0,
     "WORLDDEVASTATORBC": 0,
     "WORLDDEVASTATORFG": 0,
@@ -901,11 +901,11 @@ const empireFleet = {
     "QUASAR": 0,
     "ARQUITENS": 0,
     "VIGILCORVETTE": 0,
-    "DREADNOUGHTHEAVYCRUISER": 0,
-    "CARRACK": 0,
+    "DREADNOUGHTHEAVYCRUISER": 1,
+    "CARRACK": 2,
     "LANCERFRIGATE": 0,
     "RAIDER": 0,
-    "IPV1": 0,
+    "IPV1": 2,
 
     "DUMMY_CARRIER": 0,
     "THRAWN_QUASAR": 0,
@@ -918,15 +918,15 @@ const rebelFleet = {
     "LUSANKYA": 0,
     "STARHAWK": 0,
     "MC85": 0,
-    "MC75": 1,
-    "HOMEONE": 1,
-    "MC80LIBERTY": 2,
-    "MC50": 4,
-    "MC30C": 6,
+    "MC75": 0,
+    "HOMEONE": 0,
+    "MC80LIBERTY": 0,
+    "MC50": 0,
+    "MC30C": 0,
     "NEBULONB": 0,
     "PELTA": 0,
-    "CR90": 0,
-    "DP20REBEL": 0,
+    "CR90": 3,
+    "DP20REBEL": 2,
 
     "DUMMY_TARGET": 0,
     "REBEL_QUASAR": 0,
@@ -1001,7 +1001,7 @@ for (const ship in rebelFleet) {
     }
 }
 
-const spawnDistance = 6000;
+const spawnDistance = 2000;
 
 empireShips.sort(() => .5 - Math.random());
 basicFormation(empireShips, -spawnDistance, -spawnDistance, Math.PI / 4);

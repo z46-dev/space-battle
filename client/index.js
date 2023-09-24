@@ -1005,13 +1005,20 @@ import { default as shipConfig } from "../server/lib/ships.js";
             if (data.type === 0) {
                 const silhouetteKey = `${data.asset}${data.team}`;
                 if (!silhouettes.has(silhouetteKey)) {
+                    silhouettes.set(silhouetteKey, false);
                     generateSilhouette(assets.get(data.asset), silhouetteKey, data.team === 0 ? 255 : 0, data.team === 2 ? 255 : 0, data.team === 1 ? 255 : 0);
+                }
+
+                const silhouette = silhouettes.get(silhouetteKey);
+
+                if (silhouette === false) {
+                    return;
                 }
 
                 ctx.save();
                 ctx.translate(x, y);
                 ctx.rotate(data.angle);
-                ctx.drawImage(silhouettes.get(silhouetteKey), -size / 2, -size / 2, size, size);
+                ctx.drawImage(silhouette, -size / 2, -size / 2, size, size);
                 ctx.restore();
             }
 

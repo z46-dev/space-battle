@@ -12,8 +12,8 @@ ships.ISD = {
     cost: 3200,
     speed: 2.5,
     turnSpeed: .01,
-    shield: 5200,
-    shieldRegen: 2,
+    shield: 8000,
+    shieldRegen: 8,
     hardpoints: (function() {
         const output = [];
 
@@ -21,11 +21,15 @@ ships.ISD = {
             output.push({
                 x: -.3,
                 y: -.4 - .075 * i,
-                weapon: GREEN_QUAD_TURBOLASER_CANNON
+                weapon: GREEN_QUAD_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 300
             }, {
                 x: .3,
                 y: -.4 - .075 * i,
-                weapon: GREEN_QUAD_TURBOLASER_CANNON
+                weapon: GREEN_QUAD_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 300
             });
         }
 
@@ -43,6 +47,13 @@ ships.ISD = {
                 shotsAtOnce: 2,
                 shotDelay: 100
             });
+        }
+
+        for (let i = 0; i < output.length; i ++) {
+            output[i].weapon = {
+                ...output[i].weapon,
+                health: output[i].weapon.health * 2
+            };
         }
 
         return output;
