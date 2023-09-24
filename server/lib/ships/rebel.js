@@ -1,5 +1,5 @@
 import { shipTypes } from "../constants.js";
-import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, FIGHTER_ION_CANNON, ION_CANNON, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, RED_DOUBLE_LASER_CANNON, RED_DOUBLE_LASER_CANNON_HEAVY, RED_DOUBLE_TURBOLASER_CANNON, RED_DOUBLE_TURBOLASER_CANNON_HEAVY, RED_FIGHTER_LASER_CANNON, RED_LASER_CANNON, RED_QUAD_LASER_CANNON, RED_RAPID_LASER_CANNON, RED_TRIPLE_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON, FIGHTER_PROTON_BOMB, FIGHTER_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, RED_QUAD_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON_ULTRAHEAVY, RED_QUAD_LASER_CANNON_HEAVY, ASSAULT_PROTON_TORPEDO, TRIPLE_ION_CANNON_MEDIUM, TRIPLE_ION_CANNON, RED_TRIPLE_TURBOLASER_CANNON, RED_ANTI_FIGHTER_LASER_CANNON } from "../weapons.js";
+import { DOUBLE_ION_CANNON, DOUBLE_ION_CANNON_HEAVY, DOUBLE_ION_CANNON_MEDIUM, FIGHTER_ION_CANNON, ION_CANNON, FIGHTER_PROTON_TORPEDO, QUAD_ION_CANNON, RED_DOUBLE_LASER_CANNON, RED_DOUBLE_LASER_CANNON_HEAVY, RED_DOUBLE_TURBOLASER_CANNON, RED_DOUBLE_TURBOLASER_CANNON_HEAVY, RED_FIGHTER_LASER_CANNON, RED_LASER_CANNON, RED_QUAD_LASER_CANNON, RED_RAPID_LASER_CANNON, RED_TRIPLE_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON, FIGHTER_PROTON_BOMB, FIGHTER_PROTON_ROCKET, ASSAULT_CONCUSSION_MISSILE, RED_QUAD_TURBOLASER_CANNON_HEAVY, RED_TURBOLASER_CANNON_ULTRAHEAVY, RED_QUAD_LASER_CANNON_HEAVY, ASSAULT_PROTON_TORPEDO, TRIPLE_ION_CANNON_MEDIUM, TRIPLE_ION_CANNON, RED_TRIPLE_TURBOLASER_CANNON, RED_ANTI_FIGHTER_LASER_CANNON, ASSAULT_PROTON_ROCKET } from "../weapons.js";
 
 const ships = {};
 
@@ -110,6 +110,13 @@ ships.HOMEONE = {
         squadronSize: 5,
         reserveSize: 3,
         squadronKey: "YWING"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 5,
+        reserveSize: 3,
+        squadronKey: "BWING"
     }]
 };
 
@@ -305,6 +312,13 @@ ships.MC75 = {
         squadronSize: 6,
         reserveSize: 3,
         squadronKey: "AWING"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 3,
+        squadronKey: "BWING"
     }]
 };
 
@@ -390,6 +404,13 @@ ships.MC85 = {
         squadronSize: 8,
         reserveSize: 4,
         squadronKey: "YWING"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 4,
+        squadronKey: "BWING"
     }]
 };
 
@@ -866,6 +887,13 @@ ships.STARHAWK = {
         squadronSize: 5,
         reserveSize: 4,
         squadronKey: "YWING"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 5,
+        reserveSize: 4,
+        squadronKey: "BWING"
     }]
 };
 
@@ -1033,6 +1061,36 @@ ships.AWING = {
     }]
 };
 
+ships.BWING = {
+    name: "B-Wing",
+    asset: "BWING.png",
+    classification: shipTypes.Bomber,
+    population: 0,
+    size: 22,
+    cost: 6,
+    speed: 22.5,
+    turnSpeed: .1,
+    shield: 15,
+    shieldRegen: .9,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: RED_DOUBLE_LASER_CANNON
+    }, {
+        x: .5,
+        y: 0,
+        weapon: FIGHTER_PROTON_TORPEDO,
+        shotsAtOnce: 4,
+        shotDelay: 50
+    }, {
+        x: .5,
+        y: 0,
+        weapon: FIGHTER_PROTON_BOMB,
+        shotsAtOnce: 4,
+        shotDelay: 50
+    }]
+};
+
 ships.LUSANKYA = {
     name: "Lusankya",
     asset: "SSD.png",
@@ -1144,6 +1202,63 @@ ships.LUSANKYA = {
         squadronSize: 8,
         reserveSize: 6,
         squadronKey: "XWING"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 8,
+        reserveSize: 6,
+        squadronKey: "BWING"
+    }]
+};
+
+ships.MARAUDERMISSILECRUISER_REBEL = {
+    name: "Marauder Missile Cruiser",
+    asset: "MARAUDERCORVETTE.png",
+    classification: shipTypes.Corvette,
+    population: 3,
+    size: 105,
+    cost: 500,
+    speed: 7.25,
+    turnSpeed: .05,
+    shield: 1100,
+    shieldRegen: 2,
+    hardpoints: [{
+        x: -.55,
+        y: -.3,
+        weapon: RED_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 80
+    }, {
+        x: .55,
+        y: -.3,
+        weapon: RED_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 80
+    }, {
+        x: -.55,
+        y: -.3,
+        weapon: ASSAULT_PROTON_ROCKET,
+        shotsAtOnce: 2,
+        shotDelay: 80
+    }, {
+        x: .55,
+        y: -.3,
+        weapon: ASSAULT_PROTON_ROCKET,
+        shotsAtOnce: 2,
+        shotDelay: 80
+    }, {
+        x: 0,
+        y: .6,
+        weapon: RED_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 80
+    }, {
+        x: 0,
+        y: -.6,
+        weapon: RED_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 80
     }]
 };
 

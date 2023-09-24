@@ -368,6 +368,48 @@ ships.TIEBOMBER = {
     }]
 };
 
+ships.TIEINTERCEPTOR = {
+    name: "Tie Interceptor",
+    asset: "TIEINTERCEPTOR.png",
+    classification: shipTypes.Fighter,
+    population: 0,
+    size: 15,
+    cost: 4,
+    speed: 22,
+    turnSpeed: .0334,
+    shield: 0,
+    shieldRegen: 0,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: {
+            ...GREEN_FIGHTER_LASER_CANNON,
+            health: 30
+        },
+        shotsAtOnce: 4,
+        shotDelay: 75
+    }]
+};
+
+ships.TIEINTERCEPTORELITE = {
+    ...ships.TIEINTERCEPTOR,
+    name: "Tie Interceptor Elite",
+    asset: "TIEINTERCEPTORRED.png",
+    shield: 50,
+    shieldRegen: .2,
+    speed: 23,
+    hardpoints: ships.TIEDEFENDER.hardpoints.map(h => ({
+        ...h,
+        weapon: {
+            ...h.weapon,
+            health: h.weapon.health * 1.25,
+            damage: h.weapon.damage * 1.25
+        },
+        shotsAtOnce: (h.shotsAtOnce ?? 1) + 1,
+        shotDelay: h.shotDelay ?? 100
+    }))
+};
+
 ships.TIEDEFENDER = {
     name: "Tie Defender",
     asset: "TIEDEFENDER.png",
@@ -376,17 +418,15 @@ ships.TIEDEFENDER = {
     size: 18,
     cost: 25,
     speed: 19,
-    turnSpeed: .16,
-    shield: 200,
-    shieldRegen: 3,
+    turnSpeed: .08,
+    shield: 150,
+    shieldRegen: 2,
     hardpoints: [{
         x: 0,
         y: 0,
-        weapon: {
-            ...GREEN_RAPID_FIGHTER_LASER_CANNON,
-            damage: GREEN_RAPID_FIGHTER_LASER_CANNON.damage * 2,
-            range: GREEN_RAPID_FIGHTER_LASER_CANNON.range * .85
-        }
+        weapon: GREEN_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 75
     }, {
         x: 0,
         y: 0,
@@ -397,6 +437,97 @@ ships.TIEDEFENDER = {
         weapon: FIGHTER_PROTON_ROCKET_AOE,
         shotsAtOnce: 4,
         shotDelay: 250
+    }]
+};
+
+ships.TIEDEFENDERELITE = {
+    ...ships.TIEDEFENDER,
+    name: "Tie Defender Elite",
+    asset: "TIEDEFENDERRED.png",
+    shield: 200,
+    shieldRegen: 4,
+    speed: 21,
+    hardpoints: ships.TIEDEFENDER.hardpoints.map(h => ({
+        ...h,
+        weapon: {
+            ...h.weapon,
+            health: h.weapon.health * 1.25,
+            damage: h.weapon.damage * 1.25
+        },
+        shotsAtOnce: (h.shotsAtOnce ?? 1) + 1,
+        shotDelay: h.shotDelay ?? 100
+    }))
+};
+
+ships.TONFALKCARRIER = {
+    name: "Ton Falk Carrier",
+    asset: "TONFALKESCORTCARRIER.png",
+    classification: shipTypes.Frigate,
+    population: 8,
+    size: 200,
+    cost: 1650,
+    speed: 3,
+    turnSpeed: .025,
+    shield: 2000,
+    shieldRegen: 5,
+    hardpoints: [{
+        x: -.1,
+        y: .6,
+        weapon: GREEN_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 80
+    }, {
+        x: .1,
+        y: .6,
+        weapon: GREEN_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 80
+    }, {
+        x: -.3,
+        y: 0,
+        weapon: GREEN_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 80
+    }, {
+        x: .3,
+        y: 0,
+        weapon: GREEN_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 80
+    }, {
+        x: -.3,
+        y: -.7,
+        weapon: DOUBLE_ION_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 80
+    }, {
+        x: .3,
+        y: -.7,
+        weapon: DOUBLE_ION_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 80
+    }],
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "TIEFIGHTER"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "TIEBOMBER"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "TIEDEFENDERELITE"
     }]
 };
 

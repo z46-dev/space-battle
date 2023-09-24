@@ -62,7 +62,7 @@ class Projectile {
         }
 
         if (this.classification === weaponClassifications.AreaOfEffect) {
-            return this.speed * 3;
+            return this.speed * 2;
         }
 
         if (this.classification === weaponClassifications.Turbolaser) {
@@ -895,17 +895,18 @@ const empireFleet = {
     "ONAGER": 0,
     "ISD": 0,
     "INTERDICTORSTARDESTROYER": 0,
-    "VICTORYSTARDESTROYER": 0,
+    "VICTORYSTARDESTROYER": 2,
     "MTFCRUISER": 0,
     "IMOBILIZER": 0,
     "QUASAR": 0,
     "ARQUITENS": 0,
     "VIGILCORVETTE": 0,
-    "DREADNOUGHTHEAVYCRUISER": 1,
-    "CARRACK": 2,
+    "DREADNOUGHTHEAVYCRUISER": 0,
+    "CARRACK": 0,
     "LANCERFRIGATE": 0,
     "RAIDER": 0,
-    "IPV1": 2,
+    "IPV1": 0,
+    "TONFALKCARRIER": 0,
 
     "DUMMY_CARRIER": 0,
     "THRAWN_QUASAR": 0,
@@ -925,8 +926,9 @@ const rebelFleet = {
     "MC30C": 0,
     "NEBULONB": 0,
     "PELTA": 0,
-    "CR90": 3,
-    "DP20REBEL": 2,
+    "CR90": 0,
+    "DP20REBEL": 0,
+    "MARAUDERMISSILECRUISER_REBEL": 0,
 
     "DUMMY_TARGET": 0,
     "REBEL_QUASAR": 0,
@@ -945,7 +947,8 @@ const rebelFleet = {
     "MC69NOIR": 0,
 
     // Zann Consortium
-    "ACTIONVITRANSPORT_ZANN": 0,
+    "ACTIONVITRANSPORT_ZANN": 2,
+    "KELDABEBATTLESHIP_ZANN": 1,
 
     // NEW SHIPS
     "CHIMERA_DESTROYER": 0
