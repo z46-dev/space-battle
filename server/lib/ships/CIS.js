@@ -284,7 +284,7 @@ ships.MUNIFICENT = {
 ships.RECUSANT = {
     name: "Recusant Light Destroyer",
     asset: "RECUSANT.png",
-    classification: shipTypes.Capital,
+    classification: shipTypes.HeavyFrigate,
     population: 9,
     size: 500,
     cost: 3000,

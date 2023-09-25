@@ -1,4 +1,3 @@
-import { default as imperialShips } from "./ships/empire.js";
 import { default as rebelShips } from "./ships/rebel.js";
 import { default as cisShips } from "./ships/CIS.js";
 import { default as republicShips } from "./ships/republic.js";
@@ -23,11 +22,57 @@ class Vector {
     }
 }
 
+export const empire = {
+    ...(await import("./newShips/empire/fighter.js")).default,
+    ...(await import("./newShips/empire/corvette.js")).default,
+    ...(await import("./newShips/empire/frigate.js")).default,
+    ...(await import("./newShips/empire/heavyFrigate.js")).default,
+    ...(await import("./newShips/empire/capital.js")).default,
+    ...(await import("./newShips/empire/superCapital.js")).default
+};
+
+export const darkEmpire = {
+    ...(await import("./newShips/darkEmpire/fighter.js")).default,
+    ...(await import("./newShips/darkEmpire/corvette.js")).default,
+    ...(await import("./newShips/darkEmpire/frigate.js")).default,
+    ...(await import("./newShips/darkEmpire/heavyFrigate.js")).default,
+    ...(await import("./newShips/darkEmpire/capital.js")).default,
+    ...(await import("./newShips/darkEmpire/superCapital.js")).default
+};
+
+export const rebel = {
+    ...(await import("./newShips/rebel/fighter.js")).default,
+    ...(await import("./newShips/rebel/corvette.js")).default,
+    ...(await import("./newShips/rebel/frigate.js")).default,
+    ...(await import("./newShips/rebel/heavyFrigate.js")).default,
+    ...(await import("./newShips/rebel/capital.js")).default,
+    ...(await import("./newShips/rebel/superCapital.js")).default
+};
+
+export const republic = {
+    ...(await import("./newShips/republic/fighter.js")).default,
+    ...(await import("./newShips/republic/corvette.js")).default,
+    ...(await import("./newShips/republic/frigate.js")).default,
+    ...(await import("./newShips/republic/heavyFrigate.js")).default,
+    ...(await import("./newShips/republic/capital.js")).default,
+    ...(await import("./newShips/republic/superCapital.js")).default
+};
+
+export const cis = {
+    ...(await import("./newShips/cis/fighter.js")).default,
+    ...(await import("./newShips/cis/corvette.js")).default,
+    ...(await import("./newShips/cis/frigate.js")).default,
+    ...(await import("./newShips/cis/heavyFrigate.js")).default,
+    ...(await import("./newShips/cis/capital.js")).default,
+    ...(await import("./newShips/cis/superCapital.js")).default
+};
+
 const ships = {
-    ...imperialShips,
-    ...rebelShips,
-    ...cisShips,
-    ...republicShips,
+    ...empire,
+    ...darkEmpire,
+    ...rebel,
+    ...republic,
+    ...cis,
     ...huttShips,
     ...zannShips,
     ...customShips

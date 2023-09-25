@@ -67,7 +67,7 @@ ships.IMOBILIZER_EMPIRE = {
     }]
 };
 
-ships.DREADNOUGHTHEAVYCRUISER = {
+ships.DREADNOUGHTHEAVYCRUISER_EMPIRE = {
     name: "Dreadnought Heavy Cruiser",
     asset: "DREADNOUGHTHEAVYCRUISER.png",
     classification: shipTypes.HeavyFrigate,

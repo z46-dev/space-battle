@@ -882,41 +882,45 @@ class Battle {
 
 const battle = new Battle(10_000, 10_000, 2);
 
+// const empireFleet = {
+//     "DEATHSTAR": 0,
+//     "ASSERTOR": 0,
+//     "SSD": 0,
+//     "MANDATORSIEGEDREADNOUGHT": 0,
+//     "BELLATOR": 0,
+//     "ALLEGIANCE": 0,
+//     "ARCHAMMER": 0,
+//     "WORLDDEVASTATORBC": 0,
+//     "WORLDDEVASTATORFG": 0,
+//     "ONAGER": 0,
+//     "ISD": 0,
+//     "INTERDICTORSTARDESTROYER": 0,
+//     "VICTORYSTARDESTROYER": 2,
+//     "MTFCRUISER": 0,
+//     "IMOBILIZER": 0,
+//     "QUASAR": 0,
+//     "ARQUITENS": 0,
+//     "VIGILCORVETTE": 0,
+//     "DREADNOUGHTHEAVYCRUISER": 0,
+//     "CARRACK": 0,
+//     "LANCERFRIGATE": 0,
+//     "RAIDER": 0,
+//     "IPV1": 0,
+//     "TONFALKCARRIER": 0,
+
+//     "DUMMY_CARRIER": 0,
+//     "THRAWN_QUASAR": 0,
+
+//     "VENATOR": 0,
+//     "ACCLIMATOR": 0
+// };
+
 const empireFleet = {
-    "DEATHSTAR": 0,
-    "ASSERTOR": 0,
-    "SSD": 0,
-    "MANDATORSIEGEDREADNOUGHT": 0,
-    "BELLATOR": 0,
-    "ALLEGIANCE": 0,
-    "ARCHAMMER": 0,
-    "WORLDDEVASTATORBC": 0,
-    "WORLDDEVASTATORFG": 0,
-    "ONAGER": 0,
-    "ISD": 0,
-    "INTERDICTORSTARDESTROYER": 0,
-    "VICTORYSTARDESTROYER": 2,
-    "MTFCRUISER": 0,
-    "IMOBILIZER": 0,
-    "QUASAR": 0,
-    "ARQUITENS": 0,
-    "VIGILCORVETTE": 0,
-    "DREADNOUGHTHEAVYCRUISER": 0,
-    "CARRACK": 0,
-    "LANCERFRIGATE": 0,
-    "RAIDER": 0,
-    "IPV1": 0,
-    "TONFALKCARRIER": 0,
-
-    "DUMMY_CARRIER": 0,
-    "THRAWN_QUASAR": 0,
-
-    "VENATOR": 0,
-    "ACCLIMATOR": 0
+    "WORLDDEVASTATORBC_DARKEMPIRE": 1
 };
 
 const rebelFleet = {
-    "LUSANKYA": 0,
+    "LUSANKYA_REBEL": 0,
     "STARHAWK": 0,
     "MC85": 0,
     "MC75": 0,
@@ -924,10 +928,10 @@ const rebelFleet = {
     "MC80LIBERTY": 0,
     "MC50": 0,
     "MC30C": 0,
-    "NEBULONB": 0,
+    "NEBULONB_REBEL": 3,
     "PELTA": 0,
-    "CR90": 0,
-    "DP20REBEL": 0,
+    "CR90_REBEL": 2,
+    "DP20_REBEL": 2,
     "MARAUDERMISSILECRUISER_REBEL": 0,
 
     "DUMMY_TARGET": 0,
@@ -947,8 +951,8 @@ const rebelFleet = {
     "MC69NOIR": 0,
 
     // Zann Consortium
-    "ACTIONVITRANSPORT_ZANN": 2,
-    "KELDABEBATTLESHIP_ZANN": 1,
+    "ACTIONVITRANSPORT_ZANN": 0,
+    "KELDABEBATTLESHIP_ZANN": 0,
 
     // NEW SHIPS
     "CHIMERA_DESTROYER": 0
