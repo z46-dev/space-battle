@@ -1,7 +1,3 @@
-import { default as rebelShips } from "./ships/rebel.js";
-import { default as cisShips } from "./ships/CIS.js";
-import { default as republicShips } from "./ships/republic.js";
-import { default as huttShips } from "./ships/hutts.js";
 import { default as zannShips } from "./ships/zann.js";
 import { default as customShips } from "./ships/custom.js";
 import { shipTypes } from "./constants.js";
@@ -67,13 +63,22 @@ export const cis = {
     ...(await import("./newShips/cis/superCapital.js")).default
 };
 
+export const hutts = {
+    ...(await import("./newShips/hutts/fighter.js")).default,
+    ...(await import("./newShips/hutts/corvette.js")).default,
+    ...(await import("./newShips/hutts/frigate.js")).default,
+    ...(await import("./newShips/hutts/heavyFrigate.js")).default,
+    ...(await import("./newShips/hutts/capital.js")).default,
+    ...(await import("./newShips/hutts/superCapital.js")).default
+};
+
 const ships = {
     ...empire,
     ...darkEmpire,
     ...rebel,
     ...republic,
     ...cis,
-    ...huttShips,
+    ...hutts,
     ...zannShips,
     ...customShips
 };
