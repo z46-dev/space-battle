@@ -916,7 +916,8 @@ const battle = new Battle(10_000, 10_000, 2);
 // };
 
 const empireFleet = {
-    "WORLDDEVASTATORBC_DARKEMPIRE": 1
+    "IMPERIALSTARDESTROYER_DARKEMPIRE": 0,
+    "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 1
 };
 
 const rebelFleet = {
@@ -928,10 +929,10 @@ const rebelFleet = {
     "MC80LIBERTY": 0,
     "MC50": 0,
     "MC30C": 0,
-    "NEBULONB_REBEL": 3,
+    "NEBULONB_REBEL": 0,
     "PELTA": 0,
-    "CR90_REBEL": 2,
-    "DP20_REBEL": 2,
+    "CR90_REBEL": 0,
+    "DP20_REBEL": 0,
     "MARAUDERMISSILECRUISER_REBEL": 0,
 
     "DUMMY_TARGET": 0,
@@ -955,7 +956,10 @@ const rebelFleet = {
     "KELDABEBATTLESHIP_ZANN": 0,
 
     // NEW SHIPS
-    "CHIMERA_DESTROYER": 0
+    "CHIMERA_DESTROYER": 0,
+
+
+    "MC69NOIR_HUTT": 2
 };
 
 function spawn(ship, team) {
