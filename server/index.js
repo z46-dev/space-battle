@@ -959,7 +959,7 @@ const rebelFleet = {
     "CHIMERA_DESTROYER": 0,
 
 
-    "MC69NOIR_HUTT": 2
+    "MC69NOIR_HUTT": 0
 };
 
 function spawn(ship, team) {
