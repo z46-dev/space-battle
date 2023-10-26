@@ -304,7 +304,7 @@ class Hardpoint {
                             return;
                         }
 
-                        const inaccuracy = (this.classification === weaponClassifications.AreaOfEffect || this.classification === weaponClassifications.GuidedAOE) ? 0 : (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (target.ship.totalHealth / 1.5));
+                        const inaccuracy = (this.classification === weaponClassifications.AreaOfEffect || this.classification === weaponClassifications.GuidedAOE) ? 0 : (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (target.ship.totalHealth / 1.5)) * .5;
                         const angle = Math.atan2(predictedY - this.y, predictedX - this.x) + inaccuracy;
 
                         const projectile = new Projectile(this.x, this.y, angle, this.ship, this);
@@ -315,7 +315,7 @@ class Hardpoint {
                     }, i * this.shotDelay);
                 }
             } else {
-                const inaccuracy = (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (this.target.ship.totalHealth / 2));
+                const inaccuracy = (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (this.target.ship.totalHealth / 2)) * .5;
 
                 const angle = Math.atan2(predictedY - this.y, predictedX - this.x) + inaccuracy;
 
@@ -881,51 +881,54 @@ const battle = new Battle(10_000, 10_000, 2);
 const empireFleet = {
     "DEATHSTAR_EMPIRE": 0,
     "EXECUTORSUPERSTARDESTROYER_EMPIRE": 0,
-    "IMPERIALSTARDESTROYER_EMPIRE": 2,
-    "VICTORYSTARDESTROYER_EMPIRE": 3,
-    "CARRACK_EMPIRE": 6,
+    "IMPERIALSTARDESTROYER_EMPIRE": 0,
+    "VICTORYSTARDESTROYER_EMPIRE": 0,
+    "CARRACK_EMPIRE": 0,
     "IMPERIALSTARDESTROYER_DARKEMPIRE": 0,
     "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 0,
     "ONAGER_DARKEMPIRE": 0,
     "VENATOR_REPUBLIC": 0,
     "ACCLIMATOR_REPUBLIC": 0,
-    "PELTA_REPUBLIC": 0
+    "PELTA_REPUBLIC": 0,
+    "SECUTOR_REPUBLIC": 0,
+    "QUASAR_EMPIRE": 0,
+    "AGGRESSORSTARDESTROYER_EMPIRE": 1
 };
 
 const rebelFleet = {
     "LUSANKYA_REBEL": 0,
-    "STARHAWK": 0,
+    "STARHAWK_REBEL": 0,
     "MC85_REBEL": 0,
     "MC75_REBEL": 0,
     "MC80A_REBEL": 0,
-    "MC80B_REBEL": 0,
-    "MC50": 0,
-    "MC30C": 0,
+    "MC80BLIBERTY_REBEL": 0,
+    "MC50_REBEL": 0,
+    "MC30C_REBEL": 0,
     "NEBULONB_REBEL": 0,
-    "PELTA": 0,
+    "PELTA_REBEL": 0,
     "CR90_REBEL": 0,
     "DP20_REBEL": 0,
     "MARAUDERMISSILECRUISER_REBEL": 0,
 
     "DUMMY_TARGET": 0,
-    "REBEL_QUASAR": 0,
+    "QUASAR_REBEL": 0,
 
     "LUPUSMISSILEFRIGATE_CIS": 0,
     "PROVIDENCEDESTROYER_CIS": 0,
-    "MUNIFICENT_CIS": 0,
+    "MUNIFICENT_CIS": 2,
     "RECUSANT_CIS": 0,
     "LUCREHULK_CIS": 0,
     "PROVIDENCEDREADNOUGHT_CIS": 0,
 
     // Hutts
-    "CONSOLAR_HUTT": 1,
-    "ACTIONVITRANSPORT_HUTT": 3,
-    "BRUTESUPPORTFRIGATE_HUTT": 2,
-    "MC69NOIR_HUTT": 1,
+    "CONSOLAR_HUTT": 0,
+    "ACTIONVITRANSPORT_HUTT": 0,
+    "BRUTESUPPORTFRIGATE_HUTT": 0,
+    "MC69NOIR_HUTT": 0,
 
     // Zann Consortium
-    "ACTIONVITRANSPORT_ZANN": 5,
-    "KELDABEBATTLESHIP_ZANN": 1,
+    "ACTIONVITRANSPORT_ZANN": 0,
+    "KELDABEBATTLESHIP_ZANN": 0,
 
     // NEW SHIPS
     "CHIMERA_DESTROYER": 0

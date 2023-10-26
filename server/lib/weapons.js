@@ -169,10 +169,10 @@ export const ION_CANNON_ULTRA = {
     reload: 300,
     damage: 400,
     speed: 50,
-    range: 6500,
+    range: 7500,
     type: weaponTypes.IonCannon,
     health: 100,
-    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
+    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
 };
 
 // GREEN WEAPON DEFS

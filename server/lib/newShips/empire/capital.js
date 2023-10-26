@@ -219,4 +219,97 @@ ships.VICTORYSTARDESTROYER_EMPIRE = {
     }]
 };
 
+ships.AGGRESSORSTARDESTROYER_EMPIRE = {
+    name: "Aggressor Star Destroyer",
+    asset: "AGGRESSORSTARDESTROYER.png",
+    classification: shipTypes.Capital,
+    population: 34,
+    size: 750,
+    cost: 5000,
+    speed: 3,
+    turnSpeed: .025,
+    shield: 10000,
+    shieldRegen: 10,
+    hardpoints: (function() {
+        const output = [{
+            x: 0,
+            y: .95,
+            weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 90
+        }, {
+            x: 0,
+            y: .95,
+            weapon: weapons.ION_CANNON_ULTRA,
+            shotsAtOnce: 2,
+            shotDelay: 90
+        }];
+
+        for (let i = 0; i < 5; i ++) {
+            output.push({
+                x: -.375 + .04 * i,
+                y: -.15 * i,
+                weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 3,
+                shotDelay: 100
+            }, {
+                x: .375 - .035 * i,
+                y: -.15 * i,
+                weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 3,
+                shotDelay: 100
+            });
+        }
+
+        for (let i = 0; i < 6; i ++) {
+            output.push({
+                x: -.075,
+                y: .5 - .2 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
+                shotsAtOnce: 3,
+                shotDelay: 100
+            }, {
+                x: .075,
+                y: .5 - .2 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
+                shotsAtOnce: 3,
+                shotDelay: 100
+            });
+        }
+
+        // for (let i = 0; i < 8; i ++) {
+        //     output.push({
+        //         x: -.075 - .07 * i,
+        //         y: .7 - .2 * i,
+        //         weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
+        //         shotsAtOnce: 2,
+        //         shotDelay: 100
+        //     }, {
+        //         x: .075 + .07 * i,
+        //         y: .7 - .2 * i,
+        //         weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
+        //         shotsAtOnce: 2,
+        //         shotDelay: 100
+        //     });
+        // }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "TIEINTERCEPTOR_EMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 10,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "TIEBOMBER_EMPIRE"
+    }]
+};
+
 export default ships;
