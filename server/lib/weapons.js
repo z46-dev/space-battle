@@ -169,10 +169,10 @@ export const ION_CANNON_ULTRA = {
     reload: 300,
     damage: 400,
     speed: 50,
-    range: 6500,
+    range: 7500,
     type: weaponTypes.IonCannon,
     health: 100,
-    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
+    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
 };
 
 // GREEN WEAPON DEFS
@@ -402,7 +402,7 @@ export const GREEN_SUPERLASER = {
     type: weaponTypes.GreenSuperlaser,
     health: 4000,
     speed: 250,
-    range: 1e6,
+    range: 10000,
     targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
     explosionRange: 1e10,
     bypassShield: true
@@ -414,7 +414,7 @@ export const GREEN_WEAK_SUPERLASER = {
     type: weaponTypes.GreenWeakSuperlaser,
     health: 120,
     speed: 180,
-    range: 1e6,
+    range: 7500,
     explosionRange: 1e10,
     bypassShield: true,
     targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
@@ -553,7 +553,7 @@ export const RED_LIGHT_SUPERLASER = {
     type: weaponTypes.RedLightSuperlaser,
     health: 800,
     speed: 80,
-    range: 1e6,
+    range: 7500,
     targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
     explosionRange: 1e10,
     bypassShield: true

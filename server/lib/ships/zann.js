@@ -46,7 +46,7 @@ ships.KELDABEBATTLESHIP_ZANN = {
     asset: "KELDABEBATTLESHIP.png",
     classification: shipTypes.Capital,
     population: 28,
-    size: 1150,
+    size: 980,
     cost: 7200,
     speed: 2.5,
     turnSpeed: .01,

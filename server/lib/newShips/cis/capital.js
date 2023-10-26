@@ -3,7 +3,7 @@ import * as weapons from "../../weapons.js";
 
 const ships = {};
 
-ships.PROVIDENCEDESTR9OYER_CIS = {
+ships.PROVIDENCEDESTROYER_CIS = {
     name: "Providence-Class Carrier/Destroyer",
     asset: "PROVIDENCE.png",
     classification: shipTypes.Capital,

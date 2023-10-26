@@ -103,21 +103,21 @@ ships.QUASAR_EMPIRE = {
         maxSquadrons: 1,
         squadronSize: 6,
         reserveSize: 3,
-        squadronKey: "TIEFIGHTER"
+        squadronKey: "TIEFIGHTER_EMPIRE"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 1,
         squadronSize: 6,
         reserveSize: 3,
-        squadronKey: "TIEINTERCEPTOR"
+        squadronKey: "TIEINTERCEPTOR_EMPIRE"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 1,
         squadronSize: 6,
         reserveSize: 3,
-        squadronKey: "TIEBOMBER"
+        squadronKey: "TIEBOMBER_EMPIRE"
     }]
 };
 
