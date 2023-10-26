@@ -424,7 +424,7 @@ ships.MANDATORSIEGEDREADNOUGHT_DARKEMPIRE = {
     asset: "MANDATORSIEGEDREADNOUGHT.png",
     classification: shipTypes.SuperCapital,
     population: 140,
-    size: 5000,
+    size: 4000,
     cost: 40000,
     speed: 1,
     turnSpeed: .005,

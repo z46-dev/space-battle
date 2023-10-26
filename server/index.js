@@ -217,43 +217,6 @@ class Hardpoint {
         }
 
         if (this.target === null) {
-            // let validShips = [];
-
-            // this.ship.battle.ships.forEach(ship => {
-            //     if (ship.team !== this.ship.team && ship.health > 0) {
-            //         if (this.classification === weaponClassifications.IonCannon && ship.shield <= 0) {
-            //             return;
-            //         }
-
-            //         if (this.targetTypes !== null && this.targetTypes.indexOf(ship.classification) === -1) {
-            //             return;
-            //         }
-
-            //         validShips.push(ship);
-            //     }
-            // });
-
-            // validShips = validShips.sort(() => .5 - Math.random());
-            // validShips = validShips.sort((a, b) => distance(this.x, this.y, a.x, a.y) - distance(this.x, this.y, b.x, b.y));
-
-            // const ship = validShips[0] ?? null;
-
-            // if (ship !== null) {
-            //     let validHardpoints = [];
-
-            //     for (let i = 0; i < ship.hardpoints.length; i++) {
-            //         const hardpoint = ship.hardpoints[i];
-
-            //         if (hardpoint.health > 0 && distance(this.x, this.y, hardpoint.x, hardpoint.y) <= this.range) {
-            //             validHardpoints.push(hardpoint);
-            //         }
-            //     }
-
-            //     validHardpoints = validHardpoints.sort(() => .5 - Math.random());
-            //     validHardpoints = validHardpoints.sort((a, b) => distance(this.x, this.y, a.x, a.y) - distance(this.x, this.y, b.x, b.y));
-
-            //     this.target = validHardpoints[0] ?? null;
-            // }
             const retrievalAABB = this.ship.battle.teams[this.team].spatialHash.getAABB({
                 x: this.x,
                 y: this.y,
@@ -916,17 +879,26 @@ const battle = new Battle(10_000, 10_000, 2);
 // };
 
 const empireFleet = {
+    "DEATHSTAR_EMPIRE": 0,
+    "EXECUTORSUPERSTARDESTROYER_EMPIRE": 0,
+    "IMPERIALSTARDESTROYER_EMPIRE": 2,
+    "VICTORYSTARDESTROYER_EMPIRE": 3,
+    "CARRACK_EMPIRE": 6,
     "IMPERIALSTARDESTROYER_DARKEMPIRE": 0,
-    "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 1
+    "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 0,
+    "ONAGER_DARKEMPIRE": 0,
+    "VENATOR_REPUBLIC": 0,
+    "ACCLIMATOR_REPUBLIC": 0,
+    "PELTA_REPUBLIC": 0
 };
 
 const rebelFleet = {
     "LUSANKYA_REBEL": 0,
     "STARHAWK": 0,
-    "MC85": 0,
-    "MC75": 0,
-    "HOMEONE": 0,
-    "MC80LIBERTY": 0,
+    "MC85_REBEL": 0,
+    "MC75_REBEL": 0,
+    "MC80A_REBEL": 0,
+    "MC80B_REBEL": 0,
     "MC50": 0,
     "MC30C": 0,
     "NEBULONB_REBEL": 0,
@@ -938,28 +910,25 @@ const rebelFleet = {
     "DUMMY_TARGET": 0,
     "REBEL_QUASAR": 0,
 
-    "LUPUSMISSILEFRIGATE": 0,
-    "PROVIDENCEDESTROYER": 0,
-    "MUNIFICENT": 0,
-    "RECUSANT": 0,
-    "LUCREHULK": 0,
-    "PROVIDENCEDREADNOUGHT": 0,
+    "LUPUSMISSILEFRIGATE_CIS": 0,
+    "PROVIDENCEDESTROYER_CIS": 0,
+    "MUNIFICENT_CIS": 0,
+    "RECUSANT_CIS": 0,
+    "LUCREHULK_CIS": 0,
+    "PROVIDENCEDREADNOUGHT_CIS": 0,
 
     // Hutts
-    "CONSOLARHUTT": 0,
-    "ACTIONVITRANSPORT_HUTT": 0,
-    "HUTTFRIGATE": 0,
-    "MC69NOIR": 0,
+    "CONSOLAR_HUTT": 1,
+    "ACTIONVITRANSPORT_HUTT": 3,
+    "BRUTESUPPORTFRIGATE_HUTT": 2,
+    "MC69NOIR_HUTT": 1,
 
     // Zann Consortium
-    "ACTIONVITRANSPORT_ZANN": 0,
-    "KELDABEBATTLESHIP_ZANN": 0,
+    "ACTIONVITRANSPORT_ZANN": 5,
+    "KELDABEBATTLESHIP_ZANN": 1,
 
     // NEW SHIPS
-    "CHIMERA_DESTROYER": 0,
-
-
-    "MC69NOIR_HUTT": 2
+    "CHIMERA_DESTROYER": 0
 };
 
 function spawn(ship, team) {
