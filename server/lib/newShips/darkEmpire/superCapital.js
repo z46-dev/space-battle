@@ -332,11 +332,15 @@ ships.ASSERTOR_DARKEMPIRE = {
             output.push({
                 x: -.03 - .0115 * i,
                 y: .9 - .035 * i,
-                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 300
             }, {
                 x: .03 + .0115 * i,
                 y: .9 - .035 * i,
-                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 300
             }, {
                 x: -.02 - .0115 * i,
                 y: .85 - .035 * i,
@@ -392,11 +396,15 @@ ships.ASSERTOR_DARKEMPIRE = {
             output.push({
                 x: -.002,
                 y: .3 - .05 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 300
             }, {
                 x: .002,
                 y: .3 - .05 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 300
             });
         }
 
@@ -490,14 +498,14 @@ ships.MANDATORSIEGEDREADNOUGHT_DARKEMPIRE = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 3,
+        maxSquadrons: 2,
         squadronSize: 8,
         reserveSize: 8,
         squadronKey: "TIEDEFENDER_DARKEMPIRE"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 5,
+        maxSquadrons: 3,
         squadronSize: 8,
         reserveSize: 8,
         squadronKey: "TIEBOMBER_DARKEMPIRE"

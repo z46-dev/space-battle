@@ -21,19 +21,27 @@ ships.EXECUTORSUPERSTARDESTROYER_EMPIRE = {
             output.push({
                 x: -.02 - .0225 * i,
                 y: .8 - .1 * i,
-                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY
+                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY,
+                shotsAtOnce: 3,
+                shotDelay: 250
             }, {
                 x: .04 + .02 * i,
                 y: .8 - .1 * i,
-                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY
+                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY,
+                shotsAtOnce: 3,
+                shotDelay: 250
             }, {
                 x: -.01 - .0225 * i,
                 y: .85 - .1 * i,
-                weapon: weapons.QUAD_ION_CANNON
+                weapon: weapons.QUAD_ION_CANNON,
+                shotsAtOnce: 3,
+                shotDelay: 250
             }, {
                 x: .03 + .02 * i,
                 y: .85 - .1 * i,
-                weapon: weapons.QUAD_ION_CANNON
+                weapon: weapons.QUAD_ION_CANNON,
+                shotsAtOnce: 3,
+                shotDelay: 250
             }, {
                 x: -.025 - .0225 * i,
                 y: .8 - .1 * i,
@@ -53,19 +61,27 @@ ships.EXECUTORSUPERSTARDESTROYER_EMPIRE = {
             output.push({
                 x: -.055 - .01 * i,
                 y: .4 - .075 * i,
-                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 500
             }, {
                 x: .075 + .00825 * i,
                 y: .4 - .075 * i,
-                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 500
             }, {
                 x: -.08 - .01 * i,
                 y: .4 - .075 * i,
-                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 500
             }, {
                 x: .09 + .00825 * i,
                 y: .4 - .075 * i,
-                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 500
             });
 
             i += .5;
@@ -73,19 +89,27 @@ ships.EXECUTORSUPERSTARDESTROYER_EMPIRE = {
             output.push({
                 x: -.055 - .01 * i,
                 y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.GREEN_DOUBLE_LASER_CANNON : weapons.DOUBLE_ION_CANNON_MEDIUM
+                weapon: (i | 0) % 2 ? weapons.GREEN_DOUBLE_LASER_CANNON : weapons.DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 500
             }, {
                 x: .075 + .00825 * i,
                 y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.GREEN_DOUBLE_LASER_CANNON : weapons.DOUBLE_ION_CANNON_MEDIUM
+                weapon: (i | 0) % 2 ? weapons.GREEN_DOUBLE_LASER_CANNON : weapons.DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 500
             }, {
                 x: -.08 - .01 * i,
                 y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.GREEN_DOUBLE_TURBOLASER_CANNON : weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+                weapon: (i | 0) % 2 ? weapons.GREEN_DOUBLE_TURBOLASER_CANNON : weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 500
             }, {
                 x: .09 + .00825 * i,
                 y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.GREEN_DOUBLE_TURBOLASER_CANNON : weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+                weapon: (i | 0) % 2 ? weapons.GREEN_DOUBLE_TURBOLASER_CANNON : weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 500
             });
 
             i |= 0;
