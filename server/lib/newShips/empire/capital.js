@@ -30,6 +30,10 @@ ships.IMPERIALSTARDESTROYER_EMPIRE = {
                 weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON,
                 shotsAtOnce: 2,
                 shotDelay: 300
+            }, {
+                x: 0,
+                y: .3 - .1 * i,
+                weapon: weapons.GREEN_ANTI_FIGHTER_LASER_CANNON
             });
         }
 

@@ -506,6 +506,7 @@ class Hangar {
         this.direction = config.direction;
 
         this.tick = 0;
+        this.reload = config.reload ?? 30;
     }
 
     get x() {
@@ -519,7 +520,7 @@ class Hangar {
     update() {
         this.tick++;
 
-        if (this.tick >= 30) {
+        if (this.tick >= this.reload) {
             this.tick = 0;
 
             if (this.hangarSize > 0 && this.squadrons.size < this.maxSquadrons) {
@@ -879,12 +880,13 @@ const battle = new Battle(10_000, 10_000, 2);
 // };
 
 const empireFleet = {
-    "DEATHSTAR_EMPIRE": 0,
+    "DEATHSTAR_EMPIRE": 1,
     "EXECUTORSUPERSTARDESTROYER_EMPIRE": 0,
     "IMPERIALSTARDESTROYER_EMPIRE": 0,
     "VICTORYSTARDESTROYER_EMPIRE": 0,
     "CARRACK_EMPIRE": 0,
     "IMPERIALSTARDESTROYER_DARKEMPIRE": 0,
+    "ALLEGIANCE_DARKEMPIRE": 0,
     "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 0,
     "ONAGER_DARKEMPIRE": 0,
     "VENATOR_REPUBLIC": 0,
@@ -893,26 +895,27 @@ const empireFleet = {
     "SECUTOR_REPUBLIC": 0,
     "QUASAR_EMPIRE": 0,
     "AGGRESSORSTARDESTROYER_EMPIRE": 0,
-    "ASSERTOR_DARKEMPIRE": 1,
-    "BELLATOR_DARKEMPIRE": 0
+    "ARQUITENS_EMPIRE": 0,
+    "ASSERTOR_DARKEMPIRE": 0,
+    "BELLATOR_DARKEMPIRE": 0,
+    "ARCHAMMER_EMPIRE": 0
 };
 
 const rebelFleet = {
-    "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 2,
     "LUSANKYA_REBEL": 0,
-    "STARHAWK_REBEL": 0,
+    "STARHAWK_REBEL": 1,
     "MC85_REBEL": 0,
-    "MC75_REBEL": 0,
-    "MC80A_REBEL": 0,
-    "MC80BLIBERTY_REBEL": 0,
-    "MC50_REBEL": 0,
-    "MC30C_REBEL": 0,
-    "NEBULONB_REBEL": 0,
-    "PELTA_REBEL": 0,
-    "CR90_REBEL": 0,
-    "DP20_REBEL": 0,
-    "MARAUDERMISSILECRUISER_REBEL": 0,
-    "QUASAR_REBEL": 0,
+    "MC75_REBEL": 2,
+    "MC80A_REBEL": 4,
+    "MC80BLIBERTY_REBEL": 9,
+    "MC50_REBEL": 4,
+    "MC30C_REBEL": 6,
+    "NEBULONB_REBEL": 3,
+    "PELTA_REBEL": 4,
+    "CR90_REBEL": 9,
+    "DP20_REBEL": 6,
+    "MARAUDERMISSILECRUISER_REBEL": 4,
+    "QUASAR_REBEL": 2,
 
     "LUPUSMISSILEFRIGATE_CIS": 0,
     "PROVIDENCEDESTROYER_CIS": 0,

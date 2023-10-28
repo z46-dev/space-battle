@@ -68,7 +68,7 @@ ships.TONFALKCARRIER_DARKEMPIRE = {
     }]
 };
 
-ships.MTFCRUISER = {
+ships.MTFCRUISER_DARKEMPIRE = {
     name: "Modular Task Force Cruiser",
     asset: "MTFCRUISER.png",
     classification: shipTypes.Frigate,

@@ -82,6 +82,21 @@ export const weaponTypes = {
     "YellowSuperlaser": iota(),
     "YellowWeakSuperlaser": iota(),
 
+    // BLACK (Arumn Foundaries)
+    "BlackLaserCannon": iota(),
+    "BlackDoubleLaserCannon": iota(),
+    "BlackTripleLaserCannon": iota(),
+    "BlackQuadLaserCannon": iota(),
+    "BlackOctupleLaserCannon": iota(),
+    "BlackTurbolaser": iota(),
+    "BlackDoubleTurbolaser": iota(),
+    "BlackTripleTurbolaser": iota(),
+    "BlackQuadTurbolaser": iota(),
+    "BlackOctupleTurbolaser": iota(),
+    "BlackUltraTurbolaser": iota(),
+    "BlackSuperlaser": iota(),
+    "BlackWeakSuperlaser": iota(),
+
     // ION WEAPONS (All factions)
     "IonCannon": iota(),
     "DoubleIonCannon": iota(),
@@ -109,6 +124,7 @@ export const colors = {
     "Blue": "#3535FF",
     "Purple": "#C800FF",
     "Yellow": "#C8C800",
+    "Black": "#000000",
     "Ion": "#EEEEFF",
     "Bomb": "#FFFFFF",
     "Torpedo": "#FF1F53",
@@ -124,7 +140,7 @@ export const weaponDrawProperties = (function() {
             continue;
         }
 
-        const color = key.match(/Red|Green|Blue|Purple|Yellow|Ion/)[0];
+        const color = key.match(/Red|Green|Blue|Purple|Yellow|Black|Ion/)[0];
         const type = weaponTypes[key];
         const shots = key.match(/Double|Triple|Quad|Octuple/) ? key.match(/Double|Triple|Quad|Octuple/)[0] : "Single";
         const strength = key.match(/Cannon|Ultra|Turbolaser|LightSuperlaser|WeakSuperlaser|Superlaser/) ? key.match(/Cannon|Ultra|Turbolaser|LightSuperlaser|WeakSuperlaser|Superlaser/)[0] : "Cannon";

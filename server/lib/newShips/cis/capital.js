@@ -104,11 +104,11 @@ ships.LUCREHULK_CIS = {
             output.push({
                 x: Math.cos(angle) * .8,
                 y: Math.sin(angle) * .8 + .15,
-                weapon: weapons.RED_QUAD_TURBOLASER_CANNON
+                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON
             }, {
                 x: Math.cos(angle) * .7,
                 y: Math.sin(angle) * .7 + .15,
-                weapon: i % 2 ? weapons.RED_QUAD_LASER_CANNON : weapons.TRIPLE_ION_CANNON_MEDIUM
+                weapon: i % 2 ? weapons.RED_QUAD_LASER_CANNON : weapons.ION_CANNON_MEDIUM // Giving triple m-ions is too op cuz it ruins the shields due to having 30 of these :skull:
             });
         }
 

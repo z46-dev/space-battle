@@ -30,6 +30,10 @@ ships.IMPERIALSTARDESTROYER_DARKEMPIRE = {
                 weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON,
                 shotsAtOnce: 2,
                 shotDelay: 300
+            }, {
+                x: 0,
+                y: .3 - .1 * i,
+                weapon: weapons.GREEN_ANTI_FIGHTER_LASER_CANNON
             });
         }
 
@@ -87,7 +91,7 @@ ships.ALLEGIANCE_DARKEMPIRE = {
     asset: "ALLEGIANCE.png",
     classification: shipTypes.Capital,
     population: 54,
-    size: 1200,
+    size: 1000,
     cost: 8900,
     speed: 1.9,
     turnSpeed: .01,
@@ -111,6 +115,10 @@ ships.ALLEGIANCE_DARKEMPIRE = {
                 x: .37 + .02 * i,
                 y: -.37 - .07 * i,
                 weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY
+            }, {
+                x: 0,
+                y: .3 - .05 * i,
+                weapon: weapons.GREEN_ANTI_FIGHTER_LASER_CANNON
             });
         }
 

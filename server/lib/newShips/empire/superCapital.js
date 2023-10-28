@@ -150,7 +150,7 @@ ships.ARCHAMMER_EMPIRE = {
     cost: 16000,
     speed: 2,
     turnSpeed: .01,
-    shield: 24000,
+    shield: 35000,
     shieldRegen: 10,
     hardpoints: (function() {
         const output = [];
@@ -159,19 +159,27 @@ ships.ARCHAMMER_EMPIRE = {
             output.push({
                 x: -.001 - .005 * i,
                 y: .8 - .1 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
             }, {
                 x: .015 + .0025 * i,
                 y: .8 - .1 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
             }, {
                 x: -.00065 - .0025 * i,
                 y: .6 - .05 * i,
-                weapon: weapons.DOUBLE_ION_CANNON_HEAVY
+                weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+                shotsAtOnce: 3,
+                shotDelay: 100
             }, {
                 x: .0065 + .00125 * i,
                 y: .6 - .05 * i,
-                weapon: weapons.DOUBLE_ION_CANNON_HEAVY
+                weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+                shotsAtOnce: 3,
+                shotDelay: 100
             });
         }
 
@@ -194,31 +202,31 @@ ships.ARCHAMMER_EMPIRE = {
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 1,
+        maxSquadrons: 2,
         squadronSize: 8,
         reserveSize: 1e10,
         squadronKey: "TIEDEFENDER_EMPIRE"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 3,
         squadronSize: 2,
         reserveSize: 1e10,
         squadronKey: "RAIDER_EMPIRE"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 1,
-        squadronSize: 2,
+        maxSquadrons: 3,
+        squadronSize: 1,
         reserveSize: 1e10,
         squadronKey: "ARQUITENS_EMPIRE"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 1,
-        squadronSize: 1,
+        maxSquadrons: 2,
+        squadronSize: 2,
         reserveSize: 1e10,
-        squadronKey: "QUASAR_EMPIRE"
+        squadronKey: "VIGILCORVETTE_EMPIRE"
     }]
 };
 

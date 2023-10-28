@@ -1,5 +1,5 @@
 import { shipTypes } from "../constants.js";
-import { ION_CANNON, FIGHTER_PROTON_BOMB, ASSAULT_CONCUSSION_MISSILE, BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY, BLUE_LASER_CANNON, BLUE_FIGHTER_LASER_CANNON } from "../weapons.js";
+import * as weapons from "../weapons.js";
 
 const ships = {};
 
@@ -17,91 +17,91 @@ ships.CHIMERA_DESTROYER = {
     hardpoints: [{ // FRONT
         x: -.175,
         y: .725,
-        weapon: BLUE_LASER_CANNON,
+        weapon: weapons.BLACK_LASER_CANNON,
         shotsAtOnce: 3,
         shotDelay: 80
     }, {
         x: -.175,
         y: .575,
-        weapon: ION_CANNON,
+        weapon: weapons.ION_CANNON,
         shotsAtOnce: 2,
         shotDelay: 120
     }, {
         x: .175,
         y: .725,
-        weapon: BLUE_LASER_CANNON,
+        weapon: weapons.BLACK_LASER_CANNON,
         shotsAtOnce: 3,
         shotDelay: 80
     }, {
         x: .175,
         y: .575,
-        weapon: ION_CANNON,
+        weapon: weapons.ION_CANNON,
         shotsAtOnce: 2,
         shotDelay: 120
     }, { // BACK
         x: -.125,
         y: -.8625,
-        weapon: BLUE_LASER_CANNON,
+        weapon: weapons.BLACK_DOUBLE_LASER_CANNON_HEAVY,
         shotsAtOnce: 3,
         shotDelay: 80
     }, {
         x: -.125,
         y: -.775,
-        weapon: ION_CANNON,
+        weapon: weapons.ION_CANNON,
         shotsAtOnce: 2,
         shotDelay: 120
     }, {
         x: .125,
         y: -.8625,
-        weapon: BLUE_LASER_CANNON,
+        weapon: weapons.BLACK_DOUBLE_LASER_CANNON_HEAVY,
         shotsAtOnce: 3,
         shotDelay: 80
     }, {
         x: .125,
         y: -.775,
-        weapon: ION_CANNON,
+        weapon: weapons.ION_CANNON,
         shotsAtOnce: 2,
         shotDelay: 120
     }, { // MIDDLE
         x: 0,
         y: -0.04625,
-        weapon: ASSAULT_CONCUSSION_MISSILE,
+        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
         shotsAtOnce: 3,
         shotDelay: 250
     }, {
         x: -.155,
         y: .01,
-        weapon: BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        weapon: weapons.BLACK_DOUBLE_TURBOLASER_CANNON_HEAVY,
         shotsAtOnce: 2,
         shotDelay: 200
     }, {
         x: -.155,
         y: -.11,
-        weapon: BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        weapon: weapons.BLACK_DOUBLE_TURBOLASER_CANNON_HEAVY,
         shotsAtOnce: 2,
         shotDelay: 200
     }, {
         x: -.155,
         y: -.55,
-        weapon: BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        weapon: weapons.BLACK_OCTUPLE_TURBOLASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 200
     }, {
         x: .155,
         y: .01,
-        weapon: BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        weapon: weapons.BLACK_DOUBLE_TURBOLASER_CANNON_HEAVY,
         shotsAtOnce: 2,
         shotDelay: 200
     }, {
         x: .155,
         y: -.11,
-        weapon: BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        weapon: weapons.BLACK_DOUBLE_TURBOLASER_CANNON_HEAVY,
         shotsAtOnce: 2,
         shotDelay: 200
     }, {
         x: .155,
         y: -.55,
-        weapon: BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        weapon: weapons.BLACK_OCTUPLE_TURBOLASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 200
     }],
@@ -130,7 +130,7 @@ ships.SNUB1 = {
         x: 0,
         y: 0,
         weapon: {
-            ...BLUE_FIGHTER_LASER_CANNON,
+            ...weapons.BLACK_FIGHTER_LASER_CANNON,
             health: 150
         },
         shotsAtOnce: 3,
@@ -138,7 +138,7 @@ ships.SNUB1 = {
     }, {
         x: 0,
         y: 0,
-        weapon: FIGHTER_PROTON_BOMB,
+        weapon: weapons.FIGHTER_PROTON_BOMB,
         shotsAtOnce: 2,
         shotDelay: 150
     }]

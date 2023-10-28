@@ -42,21 +42,21 @@ ships.SECUTOR_REPUBLIC = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 3,
         squadronSize: 8,
         reserveSize: 6,
         squadronKey: "ARC170_REPUBLIC"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 3,
         squadronSize: 8,
         reserveSize: 4,
         squadronKey: "YWING_REPUBLIC"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 3,
         squadronSize: 8,
         reserveSize: 4,
         squadronKey: "NTB630_REPUBLIC"
