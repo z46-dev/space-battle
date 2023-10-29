@@ -11,7 +11,7 @@ ships.VULTUREDROID_CIS = {
     size: 15,
     cost: 3,
     speed: 18,
-    turnSpeed: .025,
+    turnSpeed: .0875,
     shield: 0,
     shieldRegen: 0,
     hardpoints: [{
@@ -34,7 +34,7 @@ ships.HYENABOMBER_CIS = {
     size: 20,
     cost: 5,
     speed: 14,
-    turnSpeed: .1,
+    turnSpeed: .07,
     shield: 15,
     shieldRegen: 1,
     hardpoints: [{

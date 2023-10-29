@@ -22,7 +22,7 @@ export const FIGHTER_ION_CANNON = {
 
 export const TIE_DEFENDER_ION_CANNON = {
     reload: 20,
-    damage: 4,
+    damage: 2,
     speed: 60,
     range: 3000,
     type: weaponTypes.IonCannon,
@@ -170,7 +170,7 @@ export const ION_CANNON_ULTRA = {
     damage: 400,
     speed: 50,
     range: 7500,
-    type: weaponTypes.IonCannon,
+    type: weaponTypes.IonUltra,
     health: 100,
     targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
 };
@@ -418,6 +418,18 @@ export const GREEN_WEAK_SUPERLASER = {
     explosionRange: 1e10,
     bypassShield: true,
     targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+};
+
+export const GREEN_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD = {
+    reload: 200,
+    damage: 400,
+    type: weaponTypes.GreenUltraTurbolaserBypassShield,
+    health: 1500,
+    speed: 80,
+    range: 7500,
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    explosionRange: 1e10,
+    bypassShield: true
 };
 
 // RED WEAPON DEFS
@@ -1098,7 +1110,7 @@ export const FIGHTER_PROTON_ROCKET = {
 
 export const FIGHTER_PROTON_ROCKET_AOE = {
     reload: 80,
-    damage: 20,
+    damage: 10,
     speed: 30,
     range: 4000,
     collisionRange: 45,

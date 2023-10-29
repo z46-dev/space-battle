@@ -11,7 +11,7 @@ ships.ARC170_REPUBLIC = {
     size: 20,
     cost: 6,
     speed: 18,
-    turnSpeed: .1,
+    turnSpeed: .08,
     shield: 15,
     shieldRegen: 0.5,
     hardpoints: [{
@@ -42,7 +42,7 @@ ships.RYWING_REPUBLIC = {
     size: 22,
     cost: 8,
     speed: 14,
-    turnSpeed: .025,
+    turnSpeed: .07,
     shield: 25,
     shieldRegen: 0.5,
     hardpoints: [{
@@ -76,7 +76,7 @@ ships.NTB630_REPUBLIC = {
     size: 26,
     cost: 12,
     speed: 12,
-    turnSpeed: .05,
+    turnSpeed: .06,
     shield: 50,
     shieldRegen: 1,
     hardpoints: [{

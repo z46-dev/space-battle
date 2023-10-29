@@ -11,7 +11,7 @@ ships.TIEDRONE_DARKEMPIRE = {
     size: 14,
     cost: 4,
     speed: 19,
-    turnSpeed: .0334,
+    turnSpeed: .08,
     shield: 0,
     shieldRegen: 0,
     hardpoints: [{
@@ -34,7 +34,7 @@ ships.TIEBOMBER_DARKEMPIRE = {
     size: 19,
     cost: 9,
     speed: 13,
-    turnSpeed: .0175,
+    turnSpeed: .0725,
     shield: 0,
     shieldRegen: 0,
     hardpoints: [{
@@ -74,7 +74,7 @@ ships.TIEINTERCEPTOR_DARKEMPIRE = {
     size: 15,
     cost: 4,
     speed: 24,
-    turnSpeed: .0334,
+    turnSpeed: .1,
     shield: 50,
     shieldRegen: .1,
     hardpoints: [{
@@ -97,14 +97,14 @@ ships.TIEDEFENDER_DARKEMPIRE = {
     size: 18,
     cost: 25,
     speed: 21,
-    turnSpeed: .08,
-    shield: 200,
+    turnSpeed: .125,
+    shield: 159,
     shieldRegen: 2,
     hardpoints: [{
         x: 0,
         y: 0,
         weapon: weapons.GREEN_FIGHTER_LASER_CANNON,
-        shotsAtOnce: 6,
+        shotsAtOnce: 4,
         shotDelay: 75
     }, {
         x: 0,
@@ -114,7 +114,7 @@ ships.TIEDEFENDER_DARKEMPIRE = {
         x: 0,
         y: 0,
         weapon: weapons.FIGHTER_PROTON_ROCKET_AOE,
-        shotsAtOnce: 4,
+        shotsAtOnce: 3,
         shotDelay: 100
     }]
 };

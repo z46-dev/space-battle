@@ -1,4 +1,4 @@
-import { shipTypes } from "../../constants.js";
+import { shipTypes, weaponClassifications } from "../../constants.js";
 import * as weapons from "../../weapons.js";
 
 const ships = {};
@@ -238,15 +238,11 @@ ships.AGGRESSORSTARDESTROYER_EMPIRE = {
         const output = [{
             x: 0,
             y: .95,
-            weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
-            shotsAtOnce: 2,
-            shotDelay: 90
+            weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD
         }, {
             x: 0,
             y: .95,
-            weapon: weapons.ION_CANNON_ULTRA,
-            shotsAtOnce: 2,
-            shotDelay: 90
+            weapon: weapons.ION_CANNON_ULTRA
         }];
 
         for (let i = 0; i < 5; i ++) {

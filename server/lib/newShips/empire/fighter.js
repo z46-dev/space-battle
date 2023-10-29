@@ -11,7 +11,7 @@ ships.TIEFIGHTER_EMPIRE = {
     size: 15,
     cost: 4,
     speed: 18,
-    turnSpeed: .0334,
+    turnSpeed: .08,
     shield: 0,
     shieldRegen: 0,
     hardpoints: [{
@@ -34,7 +34,7 @@ ships.TIEBOMBER_EMPIRE = {
     size: 19,
     cost: 9,
     speed: 13,
-    turnSpeed: .0175,
+    turnSpeed: .065,
     shield: 0,
     shieldRegen: 0,
     hardpoints: [{
@@ -74,7 +74,7 @@ ships.TIEINTERCEPTOR_EMPIRE = {
     size: 15,
     cost: 4,
     speed: 22,
-    turnSpeed: .0334,
+    turnSpeed: .09,
     shield: 0,
     shieldRegen: 0,
     hardpoints: [{
@@ -97,8 +97,8 @@ ships.TIEDEFENDER_EMPIRE = {
     size: 18,
     cost: 25,
     speed: 19,
-    turnSpeed: .08,
-    shield: 150,
+    turnSpeed: .1,
+    shield: 100,
     shieldRegen: 2,
     hardpoints: [{
         x: 0,
@@ -114,7 +114,7 @@ ships.TIEDEFENDER_EMPIRE = {
         x: 0,
         y: 0,
         weapon: weapons.FIGHTER_PROTON_ROCKET_AOE,
-        shotsAtOnce: 4,
+        shotsAtOnce: 3,
         shotDelay: 250
     }]
 };

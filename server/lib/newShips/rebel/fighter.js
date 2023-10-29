@@ -11,7 +11,7 @@ ships.XWING_REBEL = {
     size: 17.5,
     cost: 5,
     speed: 20,
-    turnSpeed: .05,
+    turnSpeed: .085,
     shield: 25,
     shieldRegen: 1,
     hardpoints: [{
@@ -43,7 +43,7 @@ ships.YWING_REBEL = {
     size: 20,
     cost: 8,
     speed: 15,
-    turnSpeed: .025,
+    turnSpeed: .075,
     shield: 65,
     shieldRegen: 1.25,
     hardpoints: [{
@@ -121,7 +121,7 @@ ships.BWING_REBEL = {
     size: 22,
     cost: 6,
     speed: 22.5,
-    turnSpeed: .1,
+    turnSpeed: .08,
     shield: 15,
     shieldRegen: .9,
     hardpoints: [{

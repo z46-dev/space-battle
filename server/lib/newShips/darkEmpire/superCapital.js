@@ -457,37 +457,37 @@ ships.MANDATORSIEGEDREADNOUGHT_DARKEMPIRE = {
             output.push({
                 x: -.0075 - .034 * i,
                 y: .9 - .14 * i,
-                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY,
+                weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
                 shotsAtOnce: 2,
                 shotDelay: 80
             }, {
                 x: .025 + .035 * i,
                 y: .9 - .14 * i,
-                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY,
+                weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
                 shotsAtOnce: 2,
                 shotDelay: 80
             }, {
                 x: -.0075 - .02 * i,
                 y: .875 - .14 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
+                weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 80
             }, {
                 x: .025 + .02 * i,
                 y: .875 - .14 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
+                weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 80
             }, {
                 x: -.0075 - .01 * i,
                 y: .85 - .1 * i,
-                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+                weapon: weapons.DOUBLE_ION_CANNON,
                 shotsAtOnce: 2,
                 shotDelay: 80
             }, {
                 x: .025 + .01 * i,
                 y: .85 - .1 * i,
-                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+                weapon: weapons.DOUBLE_ION_CANNON,
                 shotsAtOnce: 2,
                 shotDelay: 80
             });
@@ -509,6 +509,144 @@ ships.MANDATORSIEGEDREADNOUGHT_DARKEMPIRE = {
         squadronSize: 8,
         reserveSize: 8,
         squadronKey: "TIEBOMBER_DARKEMPIRE"
+    }]
+};
+
+ships.MEGASTARDESTOYER_DARKEMPIRE = {
+    name: "Mega Star Destroyer",
+    asset: "MEGASTARDESTROYER.png",
+    classification: shipTypes.SuperCapital,
+    population: 400,
+    size: 20000,
+    cost: 80000,
+    speed: .01,
+    turnSpeed: .001,
+    shield: 750000,
+    shieldRegen: 50,
+    hardpoints: (function() {
+        const output = [];
+        const types = ["GREEN_TURBOLASER_CANNON_ULTRAHEAVY", "GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY", "ION_CANNON_ULTRA"];
+        const types2 = ["GREEN_DOUBLE_LASER_CANNON", "DOUBLE_ION_CANNON_MEDIUM", "GREEN_DOUBLE_LASER_CANNON", "DOUBLE_ION_CANNON_MEDIUM", "GREEN_ANTI_FIGHTER_LASER_CANNON"];
+        const types3 = ["ASSAULT_CONCUSSION_MISSILE", "ASSAULT_PROTON_ROCKET", "ASSAULT_PROTON_TORPEDO"];
+
+        for (let i = 0; i < 64; i ++) {
+            output.push({
+                x: .015 + .015 * i,
+                y: .225 - .0045 * i,
+                weapon: {
+                    ...weapons[types[i % types.length]],
+                    range: weapons[types[i % types.length]].range * 2.5
+                },
+                shotsAtOnce: 2,
+                shotDelay: 150
+            }, {
+                x: -.015 - .015 * i,
+                y: .225 - .0045 * i,
+                weapon: {
+                    ...weapons[types[i % types.length]],
+                    range: weapons[types[i % types.length]].range * 2.5
+                },
+                shotsAtOnce: 2,
+                shotDelay: 150
+            }, {
+                x: .015 + .015 * i,
+                y: .125 - .003 * i,
+                weapon: {
+                    ...weapons[types2[i % types2.length]],
+                    range: weapons[types2[i % types2.length]].range * 2.5
+                },
+                shotsAtOnce: 3,
+                shotDelay: 75
+            }, {
+                x: -.015 - .015 * i,
+                y: .125 - .003 * i,
+                weapon: {
+                    ...weapons[types2[i % types2.length]],
+                    range: weapons[types2[i % types2.length]].range * 2.5
+                },
+                shotsAtOnce: 3,
+                shotDelay: 75
+            });
+
+            if (i % 8 === 0) {
+                output.push({
+                    x: .015 + .015 * i,
+                    y: .225 - .0045 * i,
+                    weapon: {
+                        ...weapons.GREEN_SUPERLASER,
+                        speed: weapons.GREEN_SUPERLASER.speed * .5,
+                        range: weapons.GREEN_SUPERLASER.range * 3,
+                        reload: weapons.GREEN_SUPERLASER.reload * .3,
+                        damage: weapons.GREEN_SUPERLASER.damage * .4
+                    }
+                }, {
+                    x: -.015 - .015 * i,
+                    y: .225 - .0045 * i,
+                    weapon: {
+                        ...weapons.GREEN_SUPERLASER,
+                        speed: weapons.GREEN_SUPERLASER.speed * .5,
+                        range: weapons.GREEN_SUPERLASER.range * 3,
+                        reload: weapons.GREEN_SUPERLASER.reload * .3,
+                        damage: weapons.GREEN_SUPERLASER.damage * .4
+                    }
+                });
+            }
+        }
+
+        for (let i = 0; i < 16; i ++) {
+            output.push({
+                x: -.1,
+                y: .175 - .02 * i,
+                weapon: {
+                    ...weapons[types3[i % types3.length]],
+                    range: weapons[types3[i % types3.length]].range * 2.5,
+                    bypassShield: true
+                },
+                shotsAtOnce: 3,
+                shotDelay: 200
+            }, {
+                x: .1,
+                y: .175 - .02 * i,
+                weapon: {
+                    ...weapons[types3[i % types3.length]],
+                    range: weapons[types3[i % types3.length]].range * 2.5,
+                    bypassShield: true
+                },
+                shotsAtOnce: 3,
+                shotDelay: 200
+            });
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 8,
+        squadronSize: 8,
+        reserveSize: 1e10,
+        squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 8,
+        squadronSize: 8,
+        reserveSize: 1e10,
+        squadronKey: "TIEBOMBER_DARKEMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 10,
+        squadronSize: 8,
+        reserveSize: 1e10,
+        squadronKey: "TIEDRONE_DARKEMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 5,
+        squadronSize: 8,
+        reserveSize: 1e10,
+        squadronKey: "TIEDEFENDER_DARKEMPIRE"
     }]
 };
 

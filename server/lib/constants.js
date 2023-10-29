@@ -36,6 +36,7 @@ export const weaponTypes = {
     "GreenUltraTurbolaser": iota(),
     "GreenSuperlaser": iota(),
     "GreenWeakSuperlaser": iota(),
+    "GreenUltraTurbolaserBypassShield": iota(),
 
     // BLUE WEAPONS (Republic)
     "BlueLaserCannon": iota(),
@@ -108,6 +109,7 @@ export const weaponTypes = {
     "TripleIonTurbolaser": iota(),
     "QuadIonTurbolaser": iota(),
     "OctupleIonTurbolaser": iota(),
+    "IonUltra": iota(),
 
     // PROJECTILE WEAPONS (All factions)
     "ProtonBomb": iota(),
@@ -136,7 +138,7 @@ export const weaponDrawProperties = (function() {
     const output = [];
 
     for (const key in weaponTypes) {
-        if (["Bomb", "Torpedo", "Missile", "Proton"].some(x => key.includes(x))) {
+        if (["Bomb", "Torpedo", "Missile", "Proton", "Bypass"].some(x => key.includes(x))) {
             continue;
         }
 
@@ -155,6 +157,15 @@ export const weaponDrawProperties = (function() {
             shadows: true
         };
     }
+
+    output[weaponTypes.GreenUltraTurbolaserBypassShield] = {
+        color: colors.Green,
+        shots: "Single",
+        count: 1,
+        strength: 4,
+        key: "GreenUltraTurbolaserBypassShield",
+        shadows: true
+    };
 
     output[weaponTypes.ProtonBomb] = {
         color: colors.Bomb,
@@ -232,7 +243,7 @@ export const weaponProperties = (function() {
     const output = [];
 
     for (const key in weaponTypes) {
-        const classification = key.match(/Laser|Ion|Turbolaser|WeakSuperlaser|Superlaser|Bomb|RocketAOE|Rocket|Missile|Torpedo/)[0];
+        const classification = key.match(/TurbolaserBypassShield|Laser|Ion|Turbolaser|WeakSuperlaser|Superlaser|Bomb|RocketAOE|Rocket|Missile|Torpedo/)[0];
 
         const map = {
             "Laser": "LaserCannon",
@@ -244,8 +255,11 @@ export const weaponProperties = (function() {
             "Missile": "AreaOfEffect",
             "Torpedo": "Guided",
             "Superlaser": "GuidedAOE",
-            "WeakSuperlaser": "GuidedAOE"
+            "WeakSuperlaser": "GuidedAOE",
+            "TurbolaserBypassShield": "GuidedAOE"
         };
+
+        console.log(key, classification)
 
         output[weaponTypes[key]] = {
             classification: weaponClassifications[map[classification]],
@@ -255,6 +269,7 @@ export const weaponProperties = (function() {
 
     return output;
 })();
+
 
 export const shipTypes = {
     "Fighter": 0,

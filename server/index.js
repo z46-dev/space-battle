@@ -18,9 +18,7 @@ function lerp(A, B, w) {
 }
 
 function lerpAngle(A, B, w) {
-    let CS = (1 - w) * Math.cos(A) + w * Math.cos(B);
-    let SN = (1 - w) * Math.sin(A) + w * Math.sin(B);
-    return Math.atan2(SN, CS);
+    return A + angleDifference(B, A) * w;
 }
 
 class Projectile {
@@ -449,16 +447,12 @@ class Squadron {
             return;
         }
 
-        //const angle = Math.atan2(this.target.y - this.ships[0].y, this.target.x - this.ships[0].x);
-        const tx = this.target.x;
-        const ty = this.target.y;
-
         for (let i = 0; i < this.ships.length; i++) {
             const angle = Math.PI * 2 / this.ships.length * i;
             const distance = this.ships[i].size * 2.25;
 
-            const $tx = tx + Math.cos(angle) * distance;
-            const $ty = ty + Math.sin(angle) * distance;
+            const $tx = this.target.x + Math.cos(angle) * distance;
+            const $ty = this.target.y + Math.sin(angle) * distance;
 
             this.ships[i].angleGoal = Math.atan2($ty - this.ships[i].y, $tx - this.ships[i].x);
             this.ships[i].speed = this.ships[i].maxSpeed;
@@ -528,10 +522,6 @@ class Hangar {
                 this.spawn();
             }
         }
-
-        this.squadrons.forEach(squadron => {
-            squadron.update();
-        });
     }
 
     spawn() {
@@ -611,7 +601,7 @@ class ShipAI {
     }
 
     fighterThinking() {
-        this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI / 2;
+        this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
     }
 
     corvetteThinking() {
@@ -738,7 +728,7 @@ class Ship {
         // Move to the angle
         this.angle = lerpAngle(this.angle, this.angleGoal, this.turnSpeed);
 
-        if (this.ai !== undefined) {
+        if (this.ai !== undefined && this.squadron === null) {
             this.ai.update();
         }
 
@@ -831,6 +821,10 @@ class Battle {
         this.projectiles.forEach(projectile => {
             projectile.update();
         });
+
+        this.squadrons.forEach(squadron => {
+            squadron.update();
+        });
     }
 
     explode(x, y, size, angle = Math.random() * Math.PI * 2, sprite = -1) {
@@ -880,42 +874,45 @@ const battle = new Battle(10_000, 10_000, 2);
 // };
 
 const empireFleet = {
-    "DEATHSTAR_EMPIRE": 1,
+    "DEATHSTAR_EMPIRE": 0,
     "EXECUTORSUPERSTARDESTROYER_EMPIRE": 0,
-    "IMPERIALSTARDESTROYER_EMPIRE": 0,
-    "VICTORYSTARDESTROYER_EMPIRE": 0,
+    "IMPERIALSTARDESTROYER_EMPIRE": 3,
+    "VICTORYSTARDESTROYER_EMPIRE": 4,
     "CARRACK_EMPIRE": 0,
-    "IMPERIALSTARDESTROYER_DARKEMPIRE": 0,
-    "ALLEGIANCE_DARKEMPIRE": 0,
-    "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 0,
-    "ONAGER_DARKEMPIRE": 0,
+    "QUASAR_EMPIRE": 0,
+    "AGGRESSORSTARDESTROYER_EMPIRE": 2,
+    "ARQUITENS_EMPIRE": 0,
+    "ARCHAMMER_EMPIRE": 0,
+
     "VENATOR_REPUBLIC": 0,
     "ACCLIMATOR_REPUBLIC": 0,
     "PELTA_REPUBLIC": 0,
     "SECUTOR_REPUBLIC": 0,
-    "QUASAR_EMPIRE": 0,
-    "AGGRESSORSTARDESTROYER_EMPIRE": 0,
-    "ARQUITENS_EMPIRE": 0,
+    
+    "IMPERIALSTARDESTROYER_DARKEMPIRE": 0,
+    "ALLEGIANCE_DARKEMPIRE": 0,
+    "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 0,
+    "ONAGER_DARKEMPIRE": 0,
     "ASSERTOR_DARKEMPIRE": 0,
     "BELLATOR_DARKEMPIRE": 0,
-    "ARCHAMMER_EMPIRE": 0
+    "MEGASTARDESTOYER_DARKEMPIRE": 0
 };
 
 const rebelFleet = {
     "LUSANKYA_REBEL": 0,
-    "STARHAWK_REBEL": 1,
+    "STARHAWK_REBEL": 0,
     "MC85_REBEL": 0,
-    "MC75_REBEL": 2,
-    "MC80A_REBEL": 4,
-    "MC80BLIBERTY_REBEL": 9,
-    "MC50_REBEL": 4,
-    "MC30C_REBEL": 6,
-    "NEBULONB_REBEL": 3,
-    "PELTA_REBEL": 4,
-    "CR90_REBEL": 9,
-    "DP20_REBEL": 6,
-    "MARAUDERMISSILECRUISER_REBEL": 4,
-    "QUASAR_REBEL": 2,
+    "MC75_REBEL": 1,
+    "MC80A_REBEL": 1,
+    "MC80BLIBERTY_REBEL": 2,
+    "MC50_REBEL": 2,
+    "MC30C_REBEL": 3,
+    "NEBULONB_REBEL": 0,
+    "PELTA_REBEL": 0,
+    "CR90_REBEL": 0,
+    "DP20_REBEL": 0,
+    "MARAUDERMISSILECRUISER_REBEL": 0,
+    "QUASAR_REBEL": 0,
 
     "LUPUSMISSILEFRIGATE_CIS": 0,
     "PROVIDENCEDESTROYER_CIS": 0,

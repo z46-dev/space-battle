@@ -803,7 +803,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
                                         spawnsOnDeath: true
                                     });
 
-                                    if (Math.random() > .2) {
+                                    if (Math.random() > .5) {
                                         setTimeout(() => {
                                             explosions.add({
                                                 x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
