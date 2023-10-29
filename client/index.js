@@ -56,6 +56,42 @@ import { default as shipConfig } from "../server/lib/ships.js";
         silhouettes.set(name, canvas.transferToImageBitmap());
     }
 
+    function turnImageIntoShards(image) {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+    
+        canvas.width = image.width;
+        canvas.height = image.height;
+    
+        ctx.drawImage(image, 0, 0);
+    
+        const shards = [];
+    
+        const baseAngle = Math.random() * Math.PI * 2;
+        const shardCount = 4 + Math.random() * 7 | 0;
+    
+        for (let i = 0; i < shardCount; i ++) {
+            const startAngle = baseAngle + i / shardCount * Math.PI * 2;
+            const endAngle = baseAngle + (i + 1) / shardCount * Math.PI * 2;
+    
+            // Clip and paste to a new canvas
+            const shardCanvas = new OffscreenCanvas(image.width, image.height);
+            const shardCtx = shardCanvas.getContext("2d");
+    
+            shardCtx.beginPath();
+            shardCtx.moveTo(image.width / 2, image.height / 2);
+            shardCtx.arc(image.width / 2, image.height / 2, image.width / 2, startAngle, endAngle);
+            shardCtx.closePath();
+            shardCtx.clip();
+    
+            shardCtx.drawImage(canvas, 0, 0);
+    
+            shards.push(shardCanvas);
+        }
+    
+        return shards;
+    }
+
     for (const key in shipConfig) {
         loadAsset(`./assets/ships/${shipConfig[key].asset}`, shipConfig[key].asset);
     }
@@ -65,7 +101,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
         height: 10_000,
         minimapData: [],
         starCounter: 0,
-        starGrid: new SpatialHashGrid()
+        starGrid: new SpatialHashGrid(),
+        deathClones: []
     };
 
     // Add stars
@@ -134,12 +171,18 @@ import { default as shipConfig } from "../server/lib/ships.js";
             explosion1: [4, 4],
             explosion2: [5, 5],
             explosion3: [4, 4],
-            explosion4: [8, 5],
+            explosion4: [8, 6],
             explosion5: [6, 6],
             explosion6: [7, 7],
             explosion7: [3, 3],
+            explosion8: [8, 8],
+            explosion9: [6, 6],
+            explosion10: [6, 6],
             blueExplosion1: [5, 5],
-            blueExplosion2: [4, 4],
+            blueExplosion2: [4, 4, .125],
+            blueExplosion3: [16, 8, .35],
+            blueExplosion4: [5, 5, .2],
+            blueExplosion5: [4, 4, .2],
             fireSprite: [3, 3]
         };
 
@@ -148,6 +191,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
             this.frames = Sprite.generateFrames(this.image, ...Sprite.configs[name]);
             this.currentFrame = 0;
             this.loop = loop;
+            this.speed = Sprite.configs[name][2] ?? .25;
         }
 
         draw(ctx, x, y, width, height) {
@@ -173,15 +217,15 @@ import { default as shipConfig } from "../server/lib/ships.js";
                 height
             );
 
-            this.currentFrame += .25;
+            this.currentFrame += this.speed;
         }
     }
 
-    for (let i = 1; i <= 7; i++) {
+    for (let i = 1; i <= 10; i++) {
         loadAsset(`./assets/explosions/explosion${i}.png`, `explosion${i}`);
     }
 
-    for (let i = 1; i <= 2; i++) {
+    for (let i = 1; i <= 5; i++) {
         loadAsset(`./assets/explosions/blueExplosion${i}.png`, `blueExplosion${i}`);
     }
 
@@ -280,8 +324,9 @@ import { default as shipConfig } from "../server/lib/ships.js";
                 const projectilesSize = data[4];
                 const squadronsSize = data[5];
                 const explosionsSize = data[6];
+                const deathsSize = data[7];
 
-                data = data.slice(7);
+                data = data.slice(8);
 
                 for (let i = 0; i < shipsSize; i++) {
                     const ship = {};
@@ -415,6 +460,24 @@ import { default as shipConfig } from "../server/lib/ships.js";
                     explosion.sprite = new Sprite(data.shift(), false);
 
                     explosions.add(explosion);
+                }
+
+                for (let i = 0; i < deathsSize; i++) {
+                    const x = data.shift();
+                    const y = data.shift();
+                    const size = data.shift();
+                    const angle = data.shift();
+                    const asset = data.shift();
+                    world.deathClones.push(...turnImageIntoShards(assets.get(asset)).map(shard => ({
+                        x: x,
+                        y: y,
+                        size: size,
+                        forcedAngle: angle,
+                        angle: angle,
+                        angleSpeed: Math.random() * .0025 - .00125,
+                        image: shard,
+                        timer: 250 + Math.random() * 500
+                    })));
                 }
 
                 newShips.forEach(newShip => {
@@ -749,6 +812,36 @@ import { default as shipConfig } from "../server/lib/ships.js";
 
         ctx.shadowBlur = 0;
 
+        world.deathClones.forEach((clone, index) => {
+            ctx.save();
+
+            ctx.translate(clone.x, clone.y);
+            ctx.rotate(clone.angle);
+            ctx.drawImage(clone.image, -clone.size / 2, -clone.size / 2, clone.size, clone.size);
+
+            clone.x += Math.cos(clone.angle) * .5;
+            clone.y += Math.sin(clone.angle) * .5;
+            clone.angle += clone.angleSpeed;
+            clone.size *= .99995;
+            clone.timer --;
+
+            if ((clone.timer | 0) % 125 === 0 && Math.random() > .75) {
+                explosions.add({
+                    x: clone.x + Math.random() * clone.size - clone.size / 2,
+                    y: clone.y + Math.random() * clone.size - clone.size / 2,
+                    size: clone.size * (Math.random() * .5 + .25),
+                    angle: Math.random() * Math.PI * 2,
+                    sprite: new Sprite("explosion" + (1 + Math.random() * 10 | 0), false)
+                });
+            }
+
+            if (clone.timer <= 0) {
+                world.deathClones.splice(index, 1);
+            }
+
+            ctx.restore();
+        });
+
         // Draw ships
         ships.forEach(ship => {
             ship.x = lerp(ship.x, ship.realX, .2);
@@ -782,7 +875,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
                                 y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
                                 sprite: new Sprite("fireSprite", false),
                                 hasDoneHalfway: false,
-                                spawnsOnDeath: true
+                                spawnsOnDeath: true,
+                                size: .9 + Math.random()
                             }];
                         }
 
@@ -800,7 +894,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
                                         sprite: new Sprite("fireSprite", false),
                                         hasDoneQ2: false,
                                         hasDoneQ3: false,
-                                        spawnsOnDeath: true
+                                        spawnsOnDeath: true,
+                                        size: .9 + Math.random()
                                     });
 
                                     if (Math.random() > .5) {
@@ -810,7 +905,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
                                                 y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
                                                 size: 1,
                                                 angle: Math.random() * Math.PI * 2,
-                                                sprite: new Sprite("blueExplosion2", false)
+                                                sprite: new Sprite("blueExplosion" + (1 + Math.random() * 5 | 0), false)
                                             });
                                         }, 500);
                                     }
@@ -823,10 +918,11 @@ import { default as shipConfig } from "../server/lib/ships.js";
                                 ship.hardpointSprites[index].push({
                                     x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
                                     y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
-                                    sprite: new Sprite("explosion7", false),
+                                    sprite: new Sprite("explosion" + (7 + Math.random() * 4 | 0), false),
                                     hasDoneQ2: true,
                                     hasDoneQ3: true,
-                                    spawnsOnDeath: false
+                                    spawnsOnDeath: false,
+                                    size: .9 + Math.random()
                                 });
                             }
 
@@ -838,7 +934,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
                                     sprite: new Sprite("fireSprite", false),
                                     hasDoneQ2: true,
                                     hasDoneQ3: true,
-                                    spawnsOnDeath: false
+                                    spawnsOnDeath: false,
+                                    size: .9 + Math.random()
                                 });
                             }
 
@@ -847,7 +944,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
                             ctx.rotate(-ship.angle);
                             ctx.translate(-ship.x, -ship.y);
                             ctx.translate(sprite.x, sprite.y);
-                            ctx.scale(15, 15);
+                            ctx.scale(15 * sprite.size, 15 * sprite.size);
 
                             sprite.sprite.draw(ctx, -1, -1, 2, 2);
 

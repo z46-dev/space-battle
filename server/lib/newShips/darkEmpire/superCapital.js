@@ -526,7 +526,7 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
     hardpoints: (function() {
         const output = [];
         const types = ["GREEN_TURBOLASER_CANNON_ULTRAHEAVY", "GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY", "ION_CANNON_ULTRA"];
-        const types2 = ["GREEN_DOUBLE_LASER_CANNON", "DOUBLE_ION_CANNON_MEDIUM", "GREEN_DOUBLE_LASER_CANNON", "DOUBLE_ION_CANNON_MEDIUM", "GREEN_ANTI_FIGHTER_LASER_CANNON"];
+        const types2 = ["GREEN_DOUBLE_LASER_CANNON", "DOUBLE_ION_CANNON_MEDIUM", "GREEN_DOUBLE_LASER_CANNON", "DOUBLE_ION_CANNON_MEDIUM", "GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY"];
         const types3 = ["ASSAULT_CONCUSSION_MISSILE", "ASSAULT_PROTON_ROCKET", "ASSAULT_PROTON_TORPEDO"];
 
         for (let i = 0; i < 64; i ++) {
@@ -555,7 +555,7 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
                     ...weapons[types2[i % types2.length]],
                     range: weapons[types2[i % types2.length]].range * 2.5
                 },
-                shotsAtOnce: 3,
+                shotsAtOnce: 2,
                 shotDelay: 75
             }, {
                 x: -.015 - .015 * i,
@@ -564,7 +564,7 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
                     ...weapons[types2[i % types2.length]],
                     range: weapons[types2[i % types2.length]].range * 2.5
                 },
-                shotsAtOnce: 3,
+                shotsAtOnce: 2,
                 shotDelay: 75
             });
 
@@ -602,7 +602,7 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
                     range: weapons[types3[i % types3.length]].range * 2.5,
                     bypassShield: true
                 },
-                shotsAtOnce: 3,
+                shotsAtOnce: 2,
                 shotDelay: 200
             }, {
                 x: .1,
@@ -612,12 +612,18 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
                     range: weapons[types3[i % types3.length]].range * 2.5,
                     bypassShield: true
                 },
-                shotsAtOnce: 3,
+                shotsAtOnce: 2,
                 shotDelay: 200
             });
         }
 
-        return output;
+        return output.map(hp => ({
+            ...hp,
+            weapon: {
+                ...hp.weapon,
+                health: hp.weapon.health * 3
+            }
+        }));
     })(),
     hangars: [{
         x: 0,

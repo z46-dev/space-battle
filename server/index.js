@@ -127,11 +127,11 @@ class Projectile {
                         }
 
 
-                        this.battle.explode(this.target.x, this.target.y, this.collisionRange * 1.25, this.angle, "blueExplosion" + (Math.random() * 2 | 0 + 1));
+                        this.battle.explode(this.target.x, this.target.y, this.collisionRange * 1.25, this.angle, "blueExplosion" + (Math.random() * 5 | 0 + 1));
                     }
                     break;
                 default:
-                    if (this.target.ship.shield > 0) {
+                    if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
                         this.target.ship.shield -= this.hardpoint.damage * (this.classification === weaponClassifications.Guided ? 1 : .334); // Nuh uh
                         this.target.ship.lastHit = performance.now();
                     } else {
@@ -638,7 +638,7 @@ class ShipAI {
         } else {
             this.ship.speed = 0;
 
-            if (angleDifference(this.ship.angle, Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x)) > Math.PI / 3) {
+            if (this.target.classification >= shipTypes.HeavyFrigate && angleDifference(this.ship.angle, Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x)) > Math.PI / 3) {
                 this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
             }
         }
@@ -762,6 +762,10 @@ class Ship {
             if (this.hitBy != null && this.hitBy.events.onKill !== undefined) {
                 this.hitBy.events.onKill(this.hitBy, this, this.battle);
             }
+
+            if (this.classification >= shipTypes.Frigate) {
+                this.battle.dieNerd(this.x, this.y, this.size, this.angle, this.asset);
+            }
         }
     }
 
@@ -785,6 +789,7 @@ class Battle {
         this.updateInterval = setInterval(this.update.bind(this), 1000 / 22.5);
 
         this.explosionsToRender = [];
+        this.deathsToSend = [];
 
         this.teams = [];
         for (let i = 0; i < teams; i++) {
@@ -833,7 +838,17 @@ class Battle {
             y: y,
             size: size,
             angle: angle,
-            sprite: sprite === -1 ? "explosion" + (Math.random() * 7 | 0 + 1) : sprite
+            sprite: sprite === -1 ? "explosion" + (Math.random() * 10 | 0 + 1) : sprite
+        });
+    }
+
+    dieNerd(x, y, size, rotation, asset) {
+        this.deathsToSend.push({
+            x: x,
+            y: y,
+            size: size,
+            rotation: rotation,
+            asset: asset
         });
     }
 }
@@ -889,29 +904,29 @@ const empireFleet = {
     "PELTA_REPUBLIC": 0,
     "SECUTOR_REPUBLIC": 0,
     
-    "IMPERIALSTARDESTROYER_DARKEMPIRE": 0,
+    "IMPERIALSTARDESTROYER_DARKEMPIRE": 4,
     "ALLEGIANCE_DARKEMPIRE": 0,
-    "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 0,
+    "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 1,
     "ONAGER_DARKEMPIRE": 0,
     "ASSERTOR_DARKEMPIRE": 0,
     "BELLATOR_DARKEMPIRE": 0,
-    "MEGASTARDESTOYER_DARKEMPIRE": 1
+    "MEGASTARDESTOYER_DARKEMPIRE": 0
 };
 
 const rebelFleet = {
-    "LUSANKYA_REBEL": 0,
-    "STARHAWK_REBEL": 0,
+    "LUSANKYA_REBEL": 1,
+    "STARHAWK_REBEL": 1,
     "MC85_REBEL": 0,
-    "MC75_REBEL": 0,
-    "MC80A_REBEL": 0,
-    "MC80BLIBERTY_REBEL": 0,
-    "MC50_REBEL": 0,
-    "MC30C_REBEL": 0,
-    "NEBULONB_REBEL": 0,
-    "PELTA_REBEL": 0,
-    "CR90_REBEL": 0,
-    "DP20_REBEL": 0,
-    "MARAUDERMISSILECRUISER_REBEL": 0,
+    "MC75_REBEL": 1,
+    "MC80A_REBEL": 1,
+    "MC80BLIBERTY_REBEL": 2,
+    "MC50_REBEL": 1,
+    "MC30C_REBEL": 2,
+    "NEBULONB_REBEL": 2,
+    "PELTA_REBEL": 1,
+    "CR90_REBEL": 5,
+    "DP20_REBEL": 3,
+    "MARAUDERMISSILECRUISER_REBEL": 2,
     "QUASAR_REBEL": 0,
 
     "LUPUSMISSILEFRIGATE_CIS": 0,
@@ -932,7 +947,7 @@ const rebelFleet = {
     "KELDABEBATTLESHIP_ZANN": 0,
 
     // NEW SHIPS
-    "CHIMERA_DESTROYER": 16
+    "CHIMERA_DESTROYER": 0
 };
 
 function spawn(ship, team) {
@@ -995,8 +1010,8 @@ basicFormation(rebelShips, spawnDistance, spawnDistance, -Math.PI + Math.PI / 4)
 
 function basicFormation(ships, x, y, angle) {
     for (let i = 0; i < ships.length; i++) {
-        const xDistance = 650 * (Math.floor(i / 5) - 1);//((i - 1) % 2 ? -1 : 1);
-        const yDistance = 650 * [0, -1, 1, -2, 2][i % 5];//(Math.floor(i / 3) - 1);
+        const yDistance = 650 * (Math.floor(i / 5) - 1);//((i - 1) % 2 ? -1 : 1);
+        const xDistance = 650 * [0, -1, 1, -2, 2][i % 5];//(Math.floor(i / 3) - 1);
 
         ships[i].x = x + xDistance * Math.cos(angle) - yDistance * Math.sin(angle);
         ships[i].y = y + yDistance * Math.cos(angle) + xDistance * Math.sin(angle);
@@ -1344,7 +1359,7 @@ class Camera {
             }
         });
 
-        const output = [0, this.x, this.y, this.zoom, shipsIDs.length, projectilesIDs.length, squadronsIDs.length, this.battle.explosionsToRender.length];
+        const output = [0, this.x, this.y, this.zoom, shipsIDs.length, projectilesIDs.length, squadronsIDs.length, this.battle.explosionsToRender.length, this.battle.deathsToSend.length];
 
         this.shipsCache.forEach(ship => {
             if (!shipsIDs.includes(ship.id)) {
@@ -1375,6 +1390,10 @@ class Camera {
 
         this.battle.explosionsToRender.forEach(explosion => {
             output.push(explosion.x, explosion.y, explosion.size, explosion.angle, explosion.sprite);
+        });
+
+        this.battle.deathsToSend.forEach(death => {
+            output.push(death.x, death.y, death.size, death.rotation, death.asset);
         });
 
         this.connection.talk(output);
@@ -1431,6 +1450,7 @@ connection.talk = function (data) {
 setInterval(function update() {
     connection.camera.update();
     battle.explosionsToRender = [];
+    battle.deathsToSend = [];
 }, 1000 / 20);
 
 setInterval(function minimapUpdate() {

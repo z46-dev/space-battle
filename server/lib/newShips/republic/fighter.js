@@ -34,7 +34,7 @@ ships.ARC170_REPUBLIC = {
     }]
 };
 
-ships.RYWING_REPUBLIC = {
+ships.YWING_REPUBLIC = {
     name: "Republic Y-Wing",
     asset: "YWING.png",
     classification: shipTypes.Bomber,
