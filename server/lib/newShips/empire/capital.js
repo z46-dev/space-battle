@@ -250,13 +250,13 @@ ships.AGGRESSORSTARDESTROYER_EMPIRE = {
                 x: -.375 + .04 * i,
                 y: -.15 * i,
                 weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
-                shotsAtOnce: 3,
+                shotsAtOnce: 2,
                 shotDelay: 100
             }, {
                 x: .375 - .035 * i,
                 y: -.15 * i,
                 weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
-                shotsAtOnce: 3,
+                shotsAtOnce: 2,
                 shotDelay: 100
             });
         }
@@ -265,15 +265,11 @@ ships.AGGRESSORSTARDESTROYER_EMPIRE = {
             output.push({
                 x: -.075,
                 y: .5 - .2 * i,
-                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
-                shotsAtOnce: 3,
-                shotDelay: 100
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.GREEN_DOUBLE_TURBOLASER_CANNON
             }, {
                 x: .075,
                 y: .5 - .2 * i,
-                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
-                shotsAtOnce: 3,
-                shotDelay: 100
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.GREEN_DOUBLE_TURBOLASER_CANNON
             });
         }
 

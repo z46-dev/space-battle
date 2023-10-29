@@ -122,8 +122,8 @@ ships.SNUB1 = {
     population: 0,
     size: 15,
     cost: 8,
-    speed: 30,
-    turnSpeed: .125,
+    speed: 25,
+    turnSpeed: .09,
     shield: 0,
     shieldRegen: 0,
     hardpoints: [{
