@@ -3,56 +3,6 @@ import * as weapons from "../../weapons.js";
 
 const ships = {};
 
-ships.ARQUITENS_EMPIRE = {
-    name: "Arquitens",
-    asset: "ARQUITENS.png",
-    classification: shipTypes.Frigate,
-    population: 4,
-    size: 120,
-    cost: 900,
-    speed: 8,
-    turnSpeed: .075,
-    shield: 1500,
-    shieldRegen: 2,
-    hardpoints: [{
-        x: -.225,
-        y: .275,
-        weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: .225,
-        y: .275,
-        weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: -.275,
-        y: -.125,
-        weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: .275,
-        y: -.125,
-        weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: 0,
-        y: .9,
-        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-        shotsAtOnce: 3,
-        shotDelay: 100
-    }, {
-        x: 0,
-        y: 0,
-        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }]
-};
-
 ships.QUASAR_EMPIRE = {
     name: "Quasar",
     asset: "QUASAR.png",
