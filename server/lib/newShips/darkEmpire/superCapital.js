@@ -620,8 +620,7 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
         return output.map(hp => ({
             ...hp,
             weapon: {
-                ...hp.weapon,
-                health: hp.weapon.health * 3
+                ...hp.weapon
             }
         }));
     })(),
@@ -653,6 +652,13 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
         squadronSize: 8,
         reserveSize: 1e10,
         squadronKey: "TIEDEFENDER_DARKEMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 2,
+        reserveSize: 1e10,
+        squadronKey: "MTFCRUISER_DARKEMPIRE"
     }]
 };
 

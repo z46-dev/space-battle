@@ -398,7 +398,7 @@ export const GREEN_TURBOLASER_CANNON_ULTRAHEAVY = {
 
 export const GREEN_SUPERLASER = {
     reload: 1500,
-    damage: 2000,
+    damage: 5000,
     type: weaponTypes.GreenSuperlaser,
     health: 4000,
     speed: 250,

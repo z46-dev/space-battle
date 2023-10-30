@@ -69,6 +69,9 @@ import { default as shipConfig } from "../server/lib/ships.js";
     
         const baseAngle = Math.random() * Math.PI * 2;
         const shardCount = 4 + Math.random() * 7 | 0;
+
+        const x = Math.random() * image.width;
+        const y = Math.random() * image.height;
     
         for (let i = 0; i < shardCount; i ++) {
             const startAngle = baseAngle + i / shardCount * Math.PI * 2;
@@ -79,8 +82,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
             const shardCtx = shardCanvas.getContext("2d");
     
             shardCtx.beginPath();
-            shardCtx.moveTo(image.width / 2, image.height / 2);
-            shardCtx.arc(image.width / 2, image.height / 2, image.width / 2, startAngle, endAngle);
+            shardCtx.moveTo(x, y);
+            shardCtx.arc(x, y, image.width, startAngle, endAngle);
             shardCtx.closePath();
             shardCtx.clip();
     
