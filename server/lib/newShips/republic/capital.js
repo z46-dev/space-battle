@@ -57,19 +57,27 @@ ships.VENATOR_REPUBLIC = {
             output.push({
                 x: -.1 - .025 * i,
                 y: .7 - .1 * i,
-                weapon: weapons.BLUE_DOUBLE_LASER_CANNON
+                weapon: weapons.BLUE_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 75
             }, {
                 x: .1 + .025 * i,
                 y: .7 - .1 * i,
-                weapon: weapons.BLUE_DOUBLE_LASER_CANNON
+                weapon: weapons.BLUE_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 75
             }, {
                 x: -.175,
                 y: 0 - .155 * i,
-                weapon: weapons.BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 200
             }, {
                 x: .15,
                 y: 0 - .155 * i,
-                weapon: weapons.BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 200
             });
         }
 

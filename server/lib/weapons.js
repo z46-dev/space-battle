@@ -571,6 +571,11 @@ export const RED_LIGHT_SUPERLASER = {
     bypassShield: true
 };
 
+export const RED_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD = {
+    ...GREEN_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD,
+    type: weaponTypes.RedUltraTurbolaserBypassShield
+};
+
 // BLUE WEAPON DEFS
 
 export const BLUE_FIGHTER_LASER_CANNON = {
@@ -696,6 +701,11 @@ export const BLUE_SUPERLASER = {
 export const BLUE_WEAK_SUPERLASER = {
     ...GREEN_WEAK_SUPERLASER,
     type: weaponTypes.BlueWeakSuperlaser
+};
+
+export const BLUE_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD = {
+    ...GREEN_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD,
+    type: weaponTypes.BlueUltraTurbolaserBypassShield
 };
 
 // PURPLE WEAPON DEFS
@@ -825,6 +835,11 @@ export const PURPLE_WEAK_SUPERLASER = {
     type: weaponTypes.PurpleWeakSuperlaser
 };
 
+export const PURPLE_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD = {
+    ...GREEN_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD,
+    type: weaponTypes.PurpleUltraTurbolaserBypassShield
+};
+
 // YELLOW WEAPON DEFS
 
 export const YELLOW_FIGHTER_LASER_CANNON = {
@@ -952,6 +967,11 @@ export const YELLOW_WEAK_SUPERLASER = {
     type: weaponTypes.YellowWeakSuperlaser
 };
 
+export const YELLOW_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD = {
+    ...GREEN_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD,
+    type: weaponTypes.YellowUltraTurbolaserBypassShield
+};
+
 // BLACK WEAPON DEFS
 
 export const BLACK_FIGHTER_LASER_CANNON = {
@@ -1077,6 +1097,11 @@ export const BLACK_SUPERLASER = {
 export const BLACK_WEAK_SUPERLASER = {
     ...GREEN_WEAK_SUPERLASER,
     type: weaponTypes.BlackWeakSuperlaser
+};
+
+export const BLACK_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD = {
+    ...GREEN_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD,
+    type: weaponTypes.BlackUltraTurbolaserBypassShield
 };
 
 // PROJECTILE DEFS

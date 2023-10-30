@@ -8,11 +8,11 @@ ships.ARQUITENS_EMPIRE = {
     asset: "ARQUITENS.png",
     classification: shipTypes.HeavyFrigate,
     population: 4,
-    size: 220,
+    size: 190,
     cost: 900,
     speed: 5,
     turnSpeed: .02,
-    shield: 1800,
+    shield: 2300,
     shieldRegen: 2,
     hardpoints: [{
         x: -.225,
@@ -58,12 +58,12 @@ ships.IMOBILIZER_EMPIRE = {
     asset: "IMOBILIZER.png",
     classification: shipTypes.HeavyFrigate,
     population: 12,
-    size: 340,
+    size: 300,
     cost: 2200,
     speed: 3,
     turnSpeed: .06,
-    shield: 5500,
-    shieldRegen: 5,
+    shield: 6000,
+    shieldRegen: 6,
     hardpoints: [{
         x: -.1,
         y: .275,
@@ -111,9 +111,9 @@ ships.IMOBILIZER_EMPIRE = {
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 6,
+        squadronSize: 8,
         reserveSize: 2,
-        squadronKey: "TIEFIGHTER"
+        squadronKey: "TIEFIGHTER_EMPIRE"
     }]
 };
 
@@ -126,7 +126,7 @@ ships.DREADNOUGHTHEAVYCRUISER_EMPIRE = {
     cost: 2900,
     speed: 3,
     turnSpeed: .015,
-    shield: 4000,
+    shield: 6700,
     shieldRegen: 4,
     hardpoints: [{
         x: -.075,
@@ -195,7 +195,7 @@ ships.DREADNOUGHTHEAVYCRUISER_EMPIRE = {
         maxSquadrons: 1,
         squadronSize: 8,
         reserveSize: 2,
-        squadronKey: "TIEINTERCEPTOR"
+        squadronKey: "TIEINTERCEPTOR_EMPIRE"
     }]
 };
 

@@ -855,62 +855,44 @@ class Battle {
 
 const battle = new Battle(10_000, 10_000, 2);
 
-// const empireFleet = {
-//     "DEATHSTAR": 0,
-//     "ASSERTOR": 0,
-//     "SSD": 0,
-//     "MANDATORSIEGEDREADNOUGHT": 0,
-//     "BELLATOR": 0,
-//     "ALLEGIANCE": 0,
-//     "ARCHAMMER": 0,
-//     "WORLDDEVASTATORBC": 0,
-//     "WORLDDEVASTATORFG": 0,
-//     "ONAGER": 0,
-//     "ISD": 0,
-//     "INTERDICTORSTARDESTROYER": 0,
-//     "VICTORYSTARDESTROYER": 2,
-//     "MTFCRUISER": 0,
-//     "IMOBILIZER": 0,
-//     "QUASAR": 0,
-//     "ARQUITENS": 0,
-//     "VIGILCORVETTE": 0,
-//     "DREADNOUGHTHEAVYCRUISER": 0,
-//     "CARRACK": 0,
-//     "LANCERFRIGATE": 0,
-//     "RAIDER": 0,
-//     "IPV1": 0,
-//     "TONFALKCARRIER": 0,
-
-//     "DUMMY_CARRIER": 0,
-//     "THRAWN_QUASAR": 0,
-
-//     "VENATOR": 0,
-//     "ACCLIMATOR": 0
-// };
-
 const empireFleet = {
-    "DEATHSTAR_EMPIRE": 0,
-    "EXECUTORSUPERSTARDESTROYER_EMPIRE": 0,
-    "IMPERIALSTARDESTROYER_EMPIRE": 0,
-    "VICTORYSTARDESTROYER_EMPIRE": 0,
-    "CARRACK_EMPIRE": 0,
-    "QUASAR_EMPIRE": 0,
-    "AGGRESSORSTARDESTROYER_EMPIRE": 0,
-    "ARQUITENS_EMPIRE": 1,
-    "IMOBILIZER_EMPIRE": 1,
-    "ARCHAMMER_EMPIRE": 0,
-
-    "VENATOR_REPUBLIC": 0,
-    "ACCLIMATOR_REPUBLIC": 0,
     "PELTA_REPUBLIC": 0,
+    "ACCLIMATOR_REPUBLIC": 0,
+    "VENATOR_REPUBLIC": 0,
     "SECUTOR_REPUBLIC": 0,
-    
+
+    "RAIDER_EMPIRE": 0,
+    "VIGILCORVETTE_EMPIRE": 0,
+    "QUASAR_EMPIRE": 0,
+    "CARRACK_EMPIRE": 0,
+    "LANCERFRIGATE_EMPIRE": 0,
+    "ARQUITENS_EMPIRE": 0,
+    "IMOBILIZER_EMPIRE": 0,
+    "DREADNOUGHTHEAVYCRUISER_EMPIRE": 0,
+    "IMPERIALSTARDESTROYER_EMPIRE": 0,
+    "ALLEGIANCE_EMPIRE": 0,
+    "VICTORYSTARDESTROYER_EMPIRE": 0,
+    "AGGRESSORSTARDESTROYER_EMPIRE": 2,
+    "EXECUTORSUPERSTARDESTROYER_EMPIRE": 0,
+    "ARCHAMMER_EMPIRE": 1,
+    "DEATHSTAR_EMPIRE": 0,
+
+    "IPV1_DARKEMPIRE": 0,
+    "VIGILCORVETTE_DARKEMPIRE": 0,
+    "TONFALKCARRIER_DARKEMPIRE": 0,
+    "MTFCRUISER_DARKEMPIRE": 0,
+    "CARRACK_DARKEMPIRE": 0,
+    "LANCERFRIGATE_DARKEMPIRE": 0,
+    "WORLDDEVASTATORFG_DARKEMPIRE": 0,
+    "DREADNOUGHTHEAVYCRUISER_DARKEMPIRE": 0,
     "IMPERIALSTARDESTROYER_DARKEMPIRE": 0,
     "ALLEGIANCE_DARKEMPIRE": 0,
-    "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 0,
+    "INTERDICTORSTARDESTROYER_DARKEMPIRE": 0,
     "ONAGER_DARKEMPIRE": 0,
-    "ASSERTOR_DARKEMPIRE": 0,
+    "WORLDDEVASTATORBC_DARKEMPIRE": 0,
     "BELLATOR_DARKEMPIRE": 0,
+    "ASSERTOR_DARKEMPIRE": 0,
+    "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 0,
     "MEGASTARDESTOYER_DARKEMPIRE": 0
 };
 
@@ -921,7 +903,7 @@ const rebelFleet = {
     "MC75_REBEL": 0,
     "MC80A_REBEL": 0,
     "MC80BLIBERTY_REBEL": 0,
-    "MC50_REBEL": 1,
+    "MC50_REBEL": 0,
     "MC30C_REBEL": 0,
     "NEBULONB_REBEL": 0,
     "PELTA_REBEL": 0,
@@ -944,8 +926,11 @@ const rebelFleet = {
     "MC69NOIR_HUTT": 0,
 
     // Zann Consortium
-    "ACTIONVITRANSPORT_ZANN": 0,
-    "KELDABEBATTLESHIP_ZANN": 0,
+    "ACTIONVITRANSPORT_ZANN": 7,
+    "CRUSADERCORVETTE_ZANN": 4,
+    "KELDABEBATTLESHIP_ZANN": 1,
+    "AGGRESSORSTARDESTROYER_ZANN": 2,
+    "VENATOR_ZANN": 2,
 
     // NEW SHIPS
     "CHIMERA_DESTROYER": 0
@@ -1011,8 +996,8 @@ basicFormation(rebelShips, spawnDistance, spawnDistance, -Math.PI + Math.PI / 4)
 
 function basicFormation(ships, x, y, angle) {
     for (let i = 0; i < ships.length; i++) {
-        const yDistance = 650 * (Math.floor(i / 5) - 1);//((i - 1) % 2 ? -1 : 1);
-        const xDistance = 650 * [0, -1, 1, -2, 2][i % 5];//(Math.floor(i / 3) - 1);
+        const xDistance = 600 * (Math.floor(i / 5) - 1);//((i - 1) % 2 ? -1 : 1);
+        const yDistance = 1000 * [0, -1, 1, -2, 2][i % 5];//(Math.floor(i / 3) - 1);
 
         ships[i].x = x + xDistance * Math.cos(angle) - yDistance * Math.sin(angle);
         ships[i].y = y + yDistance * Math.cos(angle) + xDistance * Math.sin(angle);

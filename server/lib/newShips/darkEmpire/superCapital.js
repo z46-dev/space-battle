@@ -141,27 +141,39 @@ ships.WORLDDEVASTATORBC_DARKEMPIRE = {
             output.push({
                 x: -.1,
                 y: .8 - .15 * i,
-                weapon: i % 2 ? weapons.TRIPLE_ION_CANNON_HEAVY : weapons.GREEN_TRIPLE_LASER_CANNON_HEAVY
+                weapon: i % 2 ? weapons.TRIPLE_ION_CANNON_HEAVY : weapons.GREEN_TRIPLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
             }, {
                 x: .1,
                 y: .8 - .15 * i,
-                weapon: i % 2 ? weapons.TRIPLE_ION_CANNON_HEAVY : weapons.GREEN_TRIPLE_LASER_CANNON_HEAVY
+                weapon: i % 2 ? weapons.TRIPLE_ION_CANNON_HEAVY : weapons.GREEN_TRIPLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
             }, {
                 x: -.15,
                 y: .15 - .15 * i,
-                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
             }, {
                 x: .15,
                 y: .15 - .15 * i,
-                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
             }, {
                 x: -.2,
                 y: -.45 - .15 * i,
-                weapon: weapons.GREEN_RAPID_LASER_CANNON
+                weapon: weapons.GREEN_RAPID_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 75
             }, {
                 x: .2,
                 y: -.45 - .15 * i,
-                weapon: weapons.GREEN_RAPID_LASER_CANNON
+                weapon: weapons.GREEN_RAPID_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 75
             });
         }
 

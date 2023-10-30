@@ -21,6 +21,7 @@ export const weaponTypes = {
     "RedSuperlaser": iota(),
     "RedWeakSuperlaser": iota(),
     "RedLightSuperlaser": iota(),
+    "RedUltraTurbolaserBypassShield": iota(),
 
     // GREEN WEAPONS (Empire)
     "GreenLaserCannon": iota(),
@@ -52,6 +53,7 @@ export const weaponTypes = {
     "BlueUltraTurbolaser": iota(),
     "BlueSuperlaser": iota(),
     "BlueWeakSuperlaser": iota(),
+    "BlueUltraTurbolaserBypassShield": iota(),
 
     // PURPLE (Hutts)
     "PurpleLaserCannon": iota(),
@@ -67,6 +69,7 @@ export const weaponTypes = {
     "PurpleUltraTurbolaser": iota(),
     "PurpleSuperlaser": iota(),
     "PurpleWeakSuperlaser": iota(),
+    "PurpleUltraTurbolaserBypassShield": iota(),
 
     // YELLOW (Zann Consortium)
     "YellowLaserCannon": iota(),
@@ -82,6 +85,7 @@ export const weaponTypes = {
     "YellowUltraTurbolaser": iota(),
     "YellowSuperlaser": iota(),
     "YellowWeakSuperlaser": iota(),
+    "YellowUltraTurbolaserBypassShield": iota(),
 
     // BLACK (Arumn Foundaries)
     "BlackLaserCannon": iota(),
@@ -97,6 +101,7 @@ export const weaponTypes = {
     "BlackUltraTurbolaser": iota(),
     "BlackSuperlaser": iota(),
     "BlackWeakSuperlaser": iota(),
+    "BlackUltraTurbolaserBypassShield": iota(),
 
     // ION WEAPONS (All factions)
     "IonCannon": iota(),
@@ -158,14 +163,16 @@ export const weaponDrawProperties = (function() {
         };
     }
 
-    output[weaponTypes.GreenUltraTurbolaserBypassShield] = {
-        color: colors.Green,
-        shots: "Single",
-        count: 1,
-        strength: 4,
-        key: "GreenUltraTurbolaserBypassShield",
-        shadows: true
-    };
+    for (const color of ["Red", "Green", "Blue", "Purple", "Yellow", "Black"]) {
+        output[weaponTypes[color + "UltraTurbolaserBypassShield"]] = {
+            color: color,
+            shots: "Single",
+            count: 1,
+            strength: 3.5,
+            key: color + "UltraTurbolaserBypassShield",
+            shadows: true
+        };
+    }
 
     output[weaponTypes.ProtonBomb] = {
         color: colors.Bomb,

@@ -115,12 +115,12 @@
 - **Acclimator Assault Cruiser**
 
 ## Zann Consortium
-- **Some Bomber**
-- **Some Fighter**
+- Some Bomber
+- Some Fighter
 - Action VI Transport
-- **Crusader Corvette**
+- Crusader Corvette
 - **Aggressor Star Destroyer**
-- **Keldabe Battleship**
+- Keldabe Battleship
 - **Providence Destroyer**
 - **Venator Star Destroyer**
 - **DP-20**

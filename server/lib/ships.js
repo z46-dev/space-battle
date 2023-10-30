@@ -1,4 +1,3 @@
-import { default as zannShips } from "./ships/zann.js";
 import { default as customShips } from "./ships/custom.js";
 import { shipTypes } from "./constants.js";
 import { DUMMY_BLANK } from "./weapons.js";
@@ -72,6 +71,15 @@ export const hutts = {
     ...(await import("./newShips/hutts/superCapital.js")).default
 };
 
+export const zann = {
+    ...(await import("./newShips/zann/fighter.js")).default,
+    ...(await import("./newShips/zann/corvette.js")).default,
+    ...(await import("./newShips/zann/frigate.js")).default,
+    ...(await import("./newShips/zann/heavyFrigate.js")).default,
+    ...(await import("./newShips/zann/capital.js")).default,
+    ...(await import("./newShips/zann/superCapital.js")).default
+};
+
 const ships = {
     ...empire,
     ...darkEmpire,
@@ -79,7 +87,7 @@ const ships = {
     ...republic,
     ...cis,
     ...hutts,
-    ...zannShips,
+    ...zann,
     ...customShips
 };
 
