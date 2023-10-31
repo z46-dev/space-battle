@@ -3,4 +3,110 @@ import * as weapons from "../../weapons.js";
 
 const ships = {};
 
+ships.BROADSIDECRUISER_ZANN = {
+    name: "Broadside Cruiser",
+    asset: "BROADSIDECRUISER.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 24,
+    size: 280,
+    cost: 4500,
+    speed: 2.8,
+    turnSpeed: .01,
+    shield: 5000,
+    shieldRegen: 5,
+    hardpoints: [{
+        x: -.05,
+        y: .35,
+        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 3,
+        shotDelay: 80
+    }, {
+        x: .05,
+        y: .35,
+        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 3,
+        shotDelay: 80
+    }, {
+        x: -.15,
+        y: .35,
+        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 3,
+        shotDelay: 80
+    }, {
+        x: .15,
+        y: .35,
+        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 3,
+        shotDelay: 80
+    }, {
+        x: -.2,
+        y: .925,
+        weapon: weapons.YELLOW_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .2,
+        y: .925,
+        weapon: weapons.YELLOW_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.3,
+        y: .3,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .3,
+        y: .3,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.5,
+        y: -.5,
+        weapon: weapons.YELLOW_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .5,
+        y: -.5,
+        weapon: weapons.YELLOW_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }]
+};
+
+ships.FREEVIRGILLIABUNKERBUSTER_ZANN = {
+    name: "Free Virgillia Bunker Buster",
+    asset: "FREEVIRGILLIABUNKERBUSTER.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 28,
+    size: 450,
+    cost: 6000,
+    speed: 1.5,
+    turnSpeed: .05,
+    shield: 13500,
+    shieldRegen: 8,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: -.2 - .15 * i,
+                y: .875 - .025 * i,
+                weapon: weapons.YELLOW_DOUBLE_LASER_CANNON
+            });
+        }
+
+        return output.map(hardpoint => ({
+            ...hardpoint,
+            weapon: {
+                ...hardpoint.weapon,
+                health: hardpoint.weapon.health * 3
+            }
+        }));
+    })()
+};
+
 export default ships;

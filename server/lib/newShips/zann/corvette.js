@@ -91,4 +91,42 @@ ships.CRUSADERCORVETTE_ZANN = {
     }]
 };
 
+ships.DP20_ZANN = {
+    name: "DP-20",
+    asset: "DP20REBEL.png",
+    classification: shipTypes.Corvette,
+    population: 1,
+    size: 65,
+    cost: 225,
+    speed: 10,
+    turnSpeed: .05,
+    shield: 800,
+    shieldRegen: 1,
+    hardpoints: [{
+        x: 0,
+        y: .8,
+        weapon: weapons.YELLOW_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.2,
+        y: 0,
+        weapon: weapons.YELLOW_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .2,
+        y: 0,
+        weapon: weapons.YELLOW_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: -.4,
+        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 6,
+        shotDelay: 80
+    }]
+};
+
 export default ships;

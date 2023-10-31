@@ -111,10 +111,10 @@
 - Lupus Missile Frigate
 - Hutt Support Frigate
 - MC-69 Noir
-- **Recusant Destroyer**
-- **Munificent**
+- Recusant Destroyer
+- Munificent
 - Venator Noir
-- **Acclimator Assault Cruiser**
+- Acclimator Assault Cruiser
 
 ## Zann Consortium
 - Some Bomber
@@ -125,7 +125,7 @@
 - Keldabe Battleship
 - Providence Destroyer
 - Venator Star Destroyer
-- **DP-20**
-- **Lancer Frigate**
+- DP-20
+- Lancer Frigate
 - **Broadside Cruiser**
 - **Free Virgillia BunkerBuster**
