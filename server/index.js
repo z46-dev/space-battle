@@ -879,7 +879,7 @@ const empireFleet = {
     "VICTORYSTARDESTROYER_EMPIRE": 0,
     "AGGRESSORSTARDESTROYER_EMPIRE": 0,
     "EXECUTORSUPERSTARDESTROYER_EMPIRE": 0,
-    "ARCHAMMER_EMPIRE": 0,
+    "ARCHAMMER_EMPIRE": 1,
     "DEATHSTAR_EMPIRE": 0,
 
     "IPV1_DARKEMPIRE": 0,
@@ -890,7 +890,7 @@ const empireFleet = {
     "LANCERFRIGATE_DARKEMPIRE": 0,
     "WORLDDEVASTATORFG_DARKEMPIRE": 0,
     "DREADNOUGHTHEAVYCRUISER_DARKEMPIRE": 0,
-    "IMPERIALSTARDESTROYER_DARKEMPIRE": 1,
+    "IMPERIALSTARDESTROYER_DARKEMPIRE": 0,
     "ALLEGIANCE_DARKEMPIRE": 0,
     "INTERDICTORSTARDESTROYER_DARKEMPIRE": 0,
     "ONAGER_DARKEMPIRE": 0,
@@ -904,7 +904,7 @@ const empireFleet = {
 const rebelFleet = {
     "LUSANKYA_REBEL": 0,
     "STARHAWK_REBEL": 0,
-    "MC85_REBEL": 0,
+    "MC85_REBEL": 1,
     "MC75_REBEL": 0,
     "MC80A_REBEL": 0,
     "MC80BLIBERTY_REBEL": 0,
@@ -944,9 +944,9 @@ const rebelFleet = {
     "CRUSADERCORVETTE_ZANN": 0,
     "DP20_ZANN": 0,
     "LANCERFRIGATE_ZANN": 0,
-    "BROADSIDECRUISER_ZANN": 4,
-    "FREEVIRGILLIABUNKERBUSTER_ZANN": 1,
-    "KELDABEBATTLESHIP_ZANN": 1,
+    "BROADSIDECRUISER_ZANN": 0,
+    "FREEVIRGILLIABUNKERBUSTER_ZANN": 0,
+    "KELDABEBATTLESHIP_ZANN": 0,
     "AGGRESSORSTARDESTROYER_ZANN": 0,
     "VENATOR_ZANN": 0,
 
@@ -979,10 +979,10 @@ function spawn(ship, team) {
 
 const empireShips = [];
 for (const ship in empireFleet) {
-    if (ship === "DEATHSTAR" && empireFleet[ship] > 0) {
+    if (ship === "DEATHSTAR_EMPIRE" && empireFleet[ship] > 0) {
         const angle = -Math.PI / 2;
-        const distance = 5000;
-        const spawnDistance = 7500;
+        const distance = 0;
+        const spawnDistance = 15000;
 
         const newShip = new Ship(battle, ships[ship], 0);
 

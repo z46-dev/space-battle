@@ -172,7 +172,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
 
         static configs = {
             explosion1: [4, 4],
-            explosion2: [5, 5],
+            explosion2: [8, 4],
             explosion3: [4, 4],
             explosion4: [8, 6],
             explosion5: [6, 6],

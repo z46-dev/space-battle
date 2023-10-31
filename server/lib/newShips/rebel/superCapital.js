@@ -12,7 +12,7 @@ ships.MC85_REBEL = {
     cost: 20000,
     speed: 3,
     turnSpeed: .005,
-    shield: 47500,
+    shield: 50000,
     shieldRegen: 20,
     hardpoints: (function() {
         const output = [];
@@ -113,19 +113,27 @@ ships.LUSANKYA_REBEL = {
             output.push({
                 x: -.02 - .0225 * i,
                 y: .8 - .1 * i,
-                weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY
+                weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY,
+                shotsAtOnce: 3,
+                shotDelay: 250
             }, {
                 x: .04 + .02 * i,
                 y: .8 - .1 * i,
-                weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY
+                weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY,
+                shotsAtOnce: 3,
+                shotDelay: 250
             }, {
                 x: -.01 - .0225 * i,
                 y: .85 - .1 * i,
-                weapon: weapons.QUAD_ION_CANNON
+                weapon: weapons.QUAD_ION_CANNON,
+                shotsAtOnce: 3,
+                shotDelay: 250
             }, {
                 x: .03 + .02 * i,
                 y: .85 - .1 * i,
-                weapon: weapons.QUAD_ION_CANNON
+                weapon: weapons.QUAD_ION_CANNON,
+                shotsAtOnce: 3,
+                shotDelay: 250
             }, {
                 x: -.025 - .0225 * i,
                 y: .8 - .1 * i,
@@ -145,19 +153,27 @@ ships.LUSANKYA_REBEL = {
             output.push({
                 x: -.055 - .01 * i,
                 y: .4 - .075 * i,
-                weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 500
             }, {
                 x: .075 + .00825 * i,
                 y: .4 - .075 * i,
-                weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 500
             }, {
                 x: -.08 - .01 * i,
                 y: .4 - .075 * i,
-                weapon: weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY
+                weapon: weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 500
             }, {
                 x: .09 + .00825 * i,
                 y: .4 - .075 * i,
-                weapon: weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY
+                weapon: weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 500
             });
 
             i += .5;
@@ -165,19 +181,27 @@ ships.LUSANKYA_REBEL = {
             output.push({
                 x: -.055 - .01 * i,
                 y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.RED_DOUBLE_LASER_CANNON : weapons.DOUBLE_ION_CANNON_MEDIUM
+                weapon: (i | 0) % 2 ? weapons.RED_DOUBLE_LASER_CANNON : weapons.DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 500
             }, {
                 x: .075 + .00825 * i,
                 y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.RED_DOUBLE_LASER_CANNON : weapons.DOUBLE_ION_CANNON_MEDIUM
+                weapon: (i | 0) % 2 ? weapons.RED_DOUBLE_LASER_CANNON : weapons.DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 500
             }, {
                 x: -.08 - .01 * i,
                 y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON : weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY
+                weapon: (i | 0) % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON : weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 500
             }, {
                 x: .09 + .00825 * i,
                 y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON : weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY
+                weapon: (i | 0) % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON : weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 500
             });
 
             i |= 0;
@@ -188,28 +212,28 @@ ships.LUSANKYA_REBEL = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 3,
         squadronSize: 8,
         reserveSize: 8,
         squadronKey: "AWING_REBEL"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 3,
         squadronSize: 8,
         reserveSize: 6,
         squadronKey: "YWING_REBEL"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 3,
         squadronSize: 8,
         reserveSize: 6,
         squadronKey: "XWING_REBEL"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 3,
         squadronSize: 8,
         reserveSize: 6,
         squadronKey: "BWING_REBEL"

@@ -94,8 +94,22 @@ ships.FREEVIRGILLIABUNKERBUSTER_ZANN = {
         for (let i = 0; i < 4; i ++) {
             output.push({
                 x: -.2 - .15 * i,
-                y: .875 - .025 * i,
-                weapon: weapons.YELLOW_DOUBLE_LASER_CANNON
+                y: .875 - .075 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.YELLOW_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: .2 + .15 * i,
+                y: .875 - .075 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.YELLOW_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: 0,
+                y: .8 - .4 * i,
+                weapon: weapons.YELLOW_DOUBLE_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 200
             });
         }
 
@@ -106,7 +120,15 @@ ships.FREEVIRGILLIABUNKERBUSTER_ZANN = {
                 health: hardpoint.weapon.health * 3
             }
         }));
-    })()
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 2,
+        squadronKey: "STARVIPERATTACKCRAFT_ZANN"
+    }]
 };
 
 export default ships;
