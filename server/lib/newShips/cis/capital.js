@@ -142,6 +142,20 @@ ships.LUCREHULK_CIS = {
         squadronSize: 8,
         reserveSize: 4,
         squadronKey: "HYENABOMBER_CIS"
+    }, {
+        x: -.25,
+        y: .85,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 2,
+        squadronKey: "DROIDTRIFIGHTER_CIS"
+    }, {
+        x: .25,
+        y: .85,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 2,
+        squadronKey: "DROIDTRIFIGHTER_CIS"
     }]
 };
 

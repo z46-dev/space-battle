@@ -34,6 +34,32 @@ ships.ARC170_REPUBLIC = {
     }]
 };
 
+ships.V19TORRENT_REPUBLIC = {
+    name: "V-19 Torrent",
+    asset: "V19TORRENT.png",
+    classification: shipTypes.Fighter,
+    population: 0,
+    size: 15,
+    cost: 3,
+    speed: 21,
+    turnSpeed: .085,
+    shield: 20,
+    shieldRegen: 1,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: weapons.BLUE_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 25
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.FIGHTER_PROTON_ROCKET_AOE,
+        shotsAtOnce: 4,
+        shotDelay: 75
+    }]
+};
+
 ships.YWING_REPUBLIC = {
     name: "Republic Y-Wing",
     asset: "YWING.png",

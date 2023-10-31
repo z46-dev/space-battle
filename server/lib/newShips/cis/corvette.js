@@ -47,4 +47,34 @@ ships.LUPUSMISSILEFRIGATE_CIS = {
     }]
 };
 
+ships.DIAMOND_CIS = {
+    name: "Diamond Cruiser",
+    asset: "DIAMONDCRUISER.png",
+    classification: shipTypes.Corvette,
+    population: 1,
+    size: 100,
+    cost: 350,
+    speed: 5.6,
+    turnSpeed: .015,
+    shield: 1200,
+    shieldRegen: 2,
+    hardpoints: [{
+        x: 0,
+        y: .85,
+        weapon: weapons.RED_TURBOLASER_CANNON
+    }, {
+        x: -.8,
+        y: -.5,
+        weapon: weapons.RED_DOUBLE_LASER_CANNON
+    }, {
+        x: .8,
+        y: -.5,
+        weapon: weapons.RED_DOUBLE_LASER_CANNON
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.DOUBLE_ION_CANNON
+    }]
+};
+
 export default ships;

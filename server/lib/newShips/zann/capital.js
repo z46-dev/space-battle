@@ -330,5 +330,73 @@ ships.VENATOR_ZANN = {
     }]
 };
 
+ships.PROVIDENCEDESTROYER_ZANN = {
+    name: "Providence-Class Carrier/Destroyer",
+    asset: "PROVIDENCE.png",
+    classification: shipTypes.Capital,
+    population: 18,
+    size: 600,
+    cost: 4000,
+    speed: 4.5,
+    turnSpeed: .0334,
+    shield: 4100,
+    shieldRegen: 3,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: -.1,
+                y: .55 - .08 * i,
+                weapon: weapons.ASSAULT_PROTON_TORPEDO,
+                shotsAtOnce: 3,
+                shotDelay: 250
+            }, {
+                x: .1,
+                y: .55 - .08 * i,
+                weapon: weapons.ASSAULT_PROTON_TORPEDO,
+                shotsAtOnce: 3,
+                shotDelay: 250
+            }, {
+                x: 0,
+                y: .45 - .08 * i,
+                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+            }, {
+                x: -.125,
+                y: -.1 - .16 * i,
+                weapon: weapons.RED_LASER_CANNON
+            }, {
+                x: .125,
+                y: -.1 - .16 * i,
+                weapon: weapons.RED_LASER_CANNON
+            }, {
+                x: -.09,
+                y: -.175 - .16 * i,
+                weapon: weapons.DOUBLE_ION_CANNON
+            }, {
+                x: .09,
+                y: -.175 - .16 * i,
+                weapon: weapons.DOUBLE_ION_CANNON
+            });
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 6,
+        squadronKey: "VULTUREDROID_CIS"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 4,
+        squadronKey: "HYENABOMBER_CIS"
+    }]
+};
 
 export default ships;

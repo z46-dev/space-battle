@@ -42,14 +42,15 @@
 - Carrack Light Cruiser
 - Lancer Frigate
 - Quasar
-- Arquitens **New Model**
+- Arquitens
 - Imobilizer
 - **Acclimator Assault Cruiser**
 - Dreadnought Heavy Cruiser
 - Victory 1 Star Destroyer
 - Imperial Star Destroyer
 - **Secutor Star Destroyer**
-- Executor Super Star Destroyer **New Model & Rename**
+- **Praetor Battlecruiser**
+- Executor Super Star Destroyer
 - Arc Hammer (Hero Unit?)
 - Death Star (Unique Unit?)
 
@@ -63,55 +64,56 @@
 - Modular Task Force Cruiser
 - Interdictor Star Destroyer
 - Imperial Star Destroyer
-- Onager Battlecruiser **Rename**
+- Onager Star Destroyer
 - Allegiance Battlecruiser
 - **Secutor Star Destroyer**
 - Bellator Super Star Destroyer
 - Assertor Super Star Dreadnought
 - World Devastator Frigate
 - World Devastator Battlecruiser
-- **Mandator IV Siege Dreadnought**
+- Mandator IV Siege Dreadnought
+- Mega Star Destroyer
 
 ## Republic
 - ARC-170
-- **V-19 Torrent**
+- V-19 Torrent
 - Republic Y-Wing
 - NTB-630 Naval Bomber
-- **Consolar Corvette**
-- **CR-90 Corvette**
-- **Arquitens Command Cruiser**
-- **Carrack Light Cruiser**
+- Consolar Corvette
+- CR-90 Corvette
+- Arquitens Command Cruiser
+- Carrack Light Cruiser
 - Acclimator Assault Cruiser
 - Venator Star Destroyer
-- **Secutor Star Destroyer**
+- Secutor Star Destroyer
+- Praetor Battlecruiser
 
 ## CIS
 - Vulture Droid
 - Hyena Bomber
-- **Droid Tri-Fighter**
-- **C-9979 Landing Craft**
-- **Diamond Cruiser**
+- Droid Tri-Fighter
+- C-9979 Landing Craft
+- Diamond Cruiser
 - Lupus Missile Frigate
 - Munificent
 - Recusant
-- **Recusant Dreadnought**
+- Recusant Dreadnought
 - Providence Carrier/Destroyer **New Asset**
 - Providence Dreadnought
 - Lucrehulk **New Asset?**
 
 ## Hutts
-- **Skipray Blastboat**
-- **Some fighter**
+- A-9 Vigilance
+- Skipray Blastboat
 - Action VI Transport
 - Consolar Corvette
-- **CR-90**
-- **Lupus Missile Frigate**
-- **Diamond Cruiser**
+- CR-90
+- Lupus Missile Frigate
 - Hutt Support Frigate
 - MC-69 Noir
 - **Recusant Destroyer**
 - **Munificent**
-- **Venator Noir**
+- Venator Noir
 - **Acclimator Assault Cruiser**
 
 ## Zann Consortium
@@ -119,9 +121,11 @@
 - Some Fighter
 - Action VI Transport
 - Crusader Corvette
-- **Aggressor Star Destroyer**
+- Aggressor Star Destroyer
 - Keldabe Battleship
-- **Providence Destroyer**
-- **Venator Star Destroyer**
+- Providence Destroyer
+- Venator Star Destroyer
 - **DP-20**
 - **Lancer Frigate**
+- **Broadside Cruiser**
+- **Free Virgillia BunkerBuster**

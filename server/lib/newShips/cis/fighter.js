@@ -61,4 +61,36 @@ ships.HYENABOMBER_CIS = {
     }]
 };
 
+ships.DROIDTRIFIGHTER_CIS = {
+    name: "Tri-Fighter",
+    asset: "DROIDTRIFIGHTER.png",
+    classification: shipTypes.Fighter,
+    population: 0,
+    size: 20,
+    cost: 6,
+    speed: 21,
+    turnSpeed: .08,
+    shield: 75,
+    shieldRegen: 1,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.RED_RAPID_FIGHTER_LASER_CANNON,
+            health: 100
+        },
+        shotsAtOnce: 3,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.FIGHTER_PROTON_ROCKET_AOE,
+            health: 100
+        },
+        shotsAtOnce: 3,
+        shotDelay: 100
+    }]
+};
+
 export default ships;

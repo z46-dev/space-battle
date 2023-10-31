@@ -165,12 +165,13 @@ export const weaponDrawProperties = (function() {
 
     for (const color of ["Red", "Green", "Blue", "Purple", "Yellow", "Black"]) {
         output[weaponTypes[color + "UltraTurbolaserBypassShield"]] = {
-            color: color,
+            color: colors[color],
             shots: "Single",
             count: 1,
-            strength: 3.5,
+            strength: 4,
             key: color + "UltraTurbolaserBypassShield",
-            shadows: true
+            shadows: true,
+            isCircle: false
         };
     }
 

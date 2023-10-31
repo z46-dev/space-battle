@@ -79,5 +79,91 @@ ships.CONSOLAR_HUTT = {
     }]
 };
 
+ships.CR90_HUTT = {
+    name: "CR-90",
+    asset: "CR90.png",
+    classification: shipTypes.Corvette,
+    population: 1,
+    size: 60,
+    cost: 200,
+    speed: 12,
+    turnSpeed: .045,
+    shield: 600,
+    shieldRegen: .5,
+    hardpoints: [{
+        x: 0,
+        y: .6,
+        weapon: weapons.PURPLE_RAPID_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 80
+    }, {
+        x: 0,
+        y: .2,
+        weapon: {
+            ...weapons.PURPLE_DOUBLE_TURBOLASER_CANNON,
+            speed: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON.speed * 1.25,
+            damage: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON.damage * 2,
+            range: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON.range * 1.1
+        },
+        shotsAtOnce: 2,
+        shotDelay: 120
+    }, {
+        x: 0,
+        y: -.2,
+        weapon: weapons.PURPLE_RAPID_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 80
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.PURPLE_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 80
+    }]
+};
+
+ships.LUPUSMISSILEFRIGATE_HUTT = {
+    name: "Lupus Missile Frigate",
+    asset: "LUPUSMISSILEFRIGATE.png",
+    classification: shipTypes.Corvette,
+    population: 1,
+    size: 85,
+    cost: 400,
+    speed: 9,
+    turnSpeed: .045,
+    shield: 1000,
+    shieldRegen: 1,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.DOUBLE_ION_CANNON_MEDIUM,
+            health: weapons.DOUBLE_ION_CANNON_MEDIUM.health * 3,
+            reload: weapons.DOUBLE_ION_CANNON_MEDIUM.reload * .6
+        },
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.ASSAULT_CONCUSSION_MISSILE,
+            health: weapons.ASSAULT_CONCUSSION_MISSILE.health * 3,
+            reload: weapons.ASSAULT_CONCUSSION_MISSILE.reload * .8
+        },
+        shotsAtOnce: 6,
+        shotDelay: 120
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.ASSAULT_PROTON_ROCKET,
+            health: weapons.ASSAULT_PROTON_ROCKET.health * 3,
+            reload: weapons.ASSAULT_PROTON_ROCKET.reload * .8
+        },
+        shotsAtOnce: 4,
+        shotDelay: 120
+    }]
+};
 
 export default ships;

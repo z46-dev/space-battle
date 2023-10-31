@@ -5,7 +5,7 @@ const ships = {};
 
 ships.MUNIFICENT_CIS = {
     name: "Munificent Frigate",
-    asset: "MUNIFICENT.png",
+    asset: "MUNIFICENT.png", // do another with MUNIFICENT2.png
     classification: shipTypes.HeavyFrigate,
     population: 8,
     size: 300,
