@@ -1192,20 +1192,21 @@ import { default as shipConfig } from "../server/lib/ships.js";
 
             cfg.hardpoints.forEach(hardpoint => {
                 const text = hardpoint.weapon.name + " - " + (hardpoint.weapon.range / 1000).toFixed(1) + "km";
-                if (weapons[hardpoint.weapon.name] === undefined) {
-                    weapons[hardpoint.weapon.name] = 0;
+                if (weapons[text] === undefined) {
+                    weapons[text] = 0;
                 }
 
-                weapons[hardpoint.weapon.name] ++;
+                weapons[text] ++;
             });
 
             let listHeight = 0;
 
             Object.keys(weapons).forEach(name => {
                 const measurement = measureText(name, 18);
+                const measurement2 = measureText("x" + weapons[name], 20);
 
-                bigWidth = Math.max(bigWidth, measurement.width);
-                bigHeight = Math.max(bigHeight, measurement.height);
+                bigWidth = Math.max(bigWidth, measurement.width + measurement2.width + 5);
+                bigHeight = Math.max(bigHeight, measurement.height, measurement2.height);
                 listHeight = measurement.height;
             });
 
@@ -1217,7 +1218,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
             let y = titleMeasure.height + 40;
 
             for (const name in weapons) {
-                drawText(name + " x" + weapons[name], 20, y, 18);
+                drawText(name, 20, y, 18);
+                drawText("x" + weapons[name], 20 + measureText(name, 18).width + 5, y, 20, "#C8C8C8");
                 y += listHeight + 5;
             }
         }
