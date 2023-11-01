@@ -357,7 +357,7 @@ class Squadron {
         this.targetTick = 0;
 
         for (let i = 0; i < config.squadronSize; i++) {
-            const ship = new Ship(this.battle, ships[config.squadronKey], this.ship.team);
+            const ship = new Ship(this.battle, config.squadronKey, this.ship.team);
             const angle = Math.PI * 2 / config.squadronSize * i;
             const distance = ship.size * 1.25;
             ship.x = this.hangar.x + Math.cos(angle) * distance;
@@ -605,10 +605,25 @@ class ShipAI {
     }
 
     corvetteThinking() {
-        if (this.ship.shield / this.ship.maxShield < .5 && this.ship.health < .75) { // Kite
+        if (this.ship.shield / this.ship.maxShield < .5 && this.ship.health < .5) { // Kite
             this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
         } else {
-            this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
+            if (this.wanderGoal === undefined) {
+                this.wanderGoal = {
+                    x: this.target.x + Math.random() * this.target.size * 4 - this.target.size * 2,
+                    y: this.target.y + Math.random() * this.target.size * 4 - this.target.size * 2
+                };
+            }
+
+            const myDist = distance(this.ship.x, this.ship.y, this.wanderGoal.x, this.wanderGoal.y);
+            if (myDist <= this.ship.size * 2.5) {
+                this.wanderGoal = {
+                    x: this.target.x + Math.random() * this.target.size * 4 - this.target.size * 2,
+                    y: this.target.y + Math.random() * this.target.size * 4 - this.target.size * 2
+                };
+            }
+
+            this.ship.angleGoal = Math.atan2(this.wanderGoal.y - this.ship.y, this.wanderGoal.x - this.ship.x);
         }
     }
 
@@ -647,12 +662,14 @@ class ShipAI {
 
 class Ship {
     static id = 0;
-    constructor(battle, config, team) {
+    constructor(battle, configKey, team) {
         this.id = Ship.id++;
         /**
          * @type {Battle}
          */
         this.battle = battle;
+        this.key = configKey;
+        const config = ships[configKey];
         this.x = 0;
         this.y = 0;
         this.size = config.size;
@@ -801,7 +818,7 @@ class Battle {
     }
 
     spawn(key, team, x, y) {
-        const newShip = new Ship(this, ships[key], team);
+        const newShip = new Ship(this, key, team);
         newShip.x = x;
         newShip.y = y;
 
@@ -873,13 +890,14 @@ const empireFleet = {
     "LANCERFRIGATE_EMPIRE": 0,
     "ARQUITENS_EMPIRE": 0,
     "IMOBILIZER_EMPIRE": 0,
-    "DREADNOUGHTHEAVYCRUISER_EMPIRE": 0,
-    "IMPERIALSTARDESTROYER_EMPIRE": 0,
+    "DREADNOUGHTHEAVYCRUISER_EMPIRE": 4,
+    "ACCLIMATOR_EMPIRE": 0,
+    "IMPERIALSTARDESTROYER_EMPIRE": 1,
     "ALLEGIANCE_EMPIRE": 0,
     "VICTORYSTARDESTROYER_EMPIRE": 0,
     "AGGRESSORSTARDESTROYER_EMPIRE": 0,
     "EXECUTORSUPERSTARDESTROYER_EMPIRE": 0,
-    "ARCHAMMER_EMPIRE": 1,
+    "ARCHAMMER_EMPIRE": 0,
     "DEATHSTAR_EMPIRE": 0,
 
     "IPV1_DARKEMPIRE": 0,
@@ -904,7 +922,7 @@ const empireFleet = {
 const rebelFleet = {
     "LUSANKYA_REBEL": 0,
     "STARHAWK_REBEL": 0,
-    "MC85_REBEL": 1,
+    "MC85_REBEL": 0,
     "MC75_REBEL": 0,
     "MC80A_REBEL": 0,
     "MC80BLIBERTY_REBEL": 0,
@@ -919,6 +937,7 @@ const rebelFleet = {
 
     "LUPUSMISSILEFRIGATE_CIS": 0,
     "DIAMOND_CIS": 0,
+    "HARDCELL_CIS": 0,
     "C9979_CIS": 0,
     "PROVIDENCEDESTROYER_CIS": 0,
     "MUNIFICENT_CIS": 0,
@@ -946,8 +965,8 @@ const rebelFleet = {
     "LANCERFRIGATE_ZANN": 0,
     "BROADSIDECRUISER_ZANN": 0,
     "FREEVIRGILLIABUNKERBUSTER_ZANN": 0,
-    "KELDABEBATTLESHIP_ZANN": 0,
-    "AGGRESSORSTARDESTROYER_ZANN": 0,
+    "KELDABEBATTLESHIP_ZANN": 1,
+    "AGGRESSORSTARDESTROYER_ZANN": 2,
     "VENATOR_ZANN": 0,
 
     // NEW SHIPS
@@ -959,7 +978,7 @@ function spawn(ship, team) {
     const distance = Math.random() * 5000;
     const spawnDistance = 0;
 
-    const newShip = new Ship(battle, ships[ship], team);
+    const newShip = new Ship(battle, ship, team);
 
     if (team === 0) {
         newShip.x = -spawnDistance + Math.cos(angle) * distance;
@@ -984,7 +1003,7 @@ for (const ship in empireFleet) {
         const distance = 0;
         const spawnDistance = 15000;
 
-        const newShip = new Ship(battle, ships[ship], 0);
+        const newShip = new Ship(battle, ship, 0);
 
         newShip.x = -spawnDistance + Math.cos(angle) * distance;
         newShip.y = Math.sin(angle) * distance;
@@ -1015,7 +1034,7 @@ basicFormation(rebelShips, spawnDistance, spawnDistance, -Math.PI + Math.PI / 4)
 function basicFormation(ships, x, y, angle) {
     for (let i = 0; i < ships.length; i++) {
         const xDistance = 600 * (Math.floor(i / 5) - 1);//((i - 1) % 2 ? -1 : 1);
-        const yDistance = 1000 * [0, -1, 1, -2, 2][i % 5];//(Math.floor(i / 3) - 1);
+        const yDistance = 800 * [0, -1, 1, -2, 2][i % 5];//(Math.floor(i / 3) - 1);
 
         ships[i].x = x + xDistance * Math.cos(angle) - yDistance * Math.sin(angle);
         ships[i].y = y + yDistance * Math.cos(angle) + xDistance * Math.sin(angle);
@@ -1028,6 +1047,7 @@ function basicFormation(ships, x, y, angle) {
 class Camera {
     static ShipCache = class {
         id = 0;
+        key = "";
         x = 0;
         y = 0;
         angle = 0;
@@ -1086,7 +1106,7 @@ class Camera {
                 this.isNew = false;
 
                 // Send everything
-                output.push(this.x, this.y, this.angle, this.size, this.asset, this.health, this.shield, this.isSquadron, this.hardpoints.length, ...this.hardpoints.flat());
+                output.push(this.key, this.x, this.y, this.angle, this.size, this.asset, this.health, this.shield, this.isSquadron, this.hardpoints.length, ...this.hardpoints.flat());
             } else {
                 // Send only what changed
                 if (this.updateX) {
@@ -1304,6 +1324,7 @@ class Camera {
                     const cache = new Camera.ShipCache();
 
                     cache.id = ship.id;
+                    cache.key = ship.key;
                     cache.x = ship.x;
                     cache.y = ship.y;
                     cache.angle = ship.angle;

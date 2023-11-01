@@ -267,8 +267,6 @@ export const weaponProperties = (function() {
             "TurbolaserBypassShield": "GuidedAOE"
         };
 
-        console.log(key, classification)
-
         output[weaponTypes[key]] = {
             classification: weaponClassifications[map[classification]],
             key: key
@@ -287,4 +285,14 @@ export const shipTypes = {
     "HeavyFrigate": 4,
     "Capital": 5,
     "SuperCapital": 6
+};
+
+export const shipTypeNames = {
+    [shipTypes.Fighter]: "Fighter",
+    [shipTypes.Bomber]: "Bomber",
+    [shipTypes.Corvette]: "Corvette",
+    [shipTypes.Frigate]: "Frigate",
+    [shipTypes.HeavyFrigate]: "Heavy Frigate",
+    [shipTypes.Capital]: "Capital",
+    [shipTypes.SuperCapital]: "Super Capital",
 };

@@ -1,5 +1,5 @@
 import SpatialHashGrid from "../server/lib/SpatialHashGrid.js";
-import { weaponClassifications, weaponDrawProperties } from "../server/lib/constants.js";
+import { shipTypeNames, shipTypes, weaponClassifications, weaponDrawProperties, weaponProperties } from "../server/lib/constants.js";
 import { default as shipConfig } from "../server/lib/ships.js";
 
 (async function () {
@@ -338,6 +338,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
                     const flags = data.shift();
 
                     if (flags & 1) {
+                        ship.key = data.shift();
                         ship.x = data.shift();
                         ship.y = data.shift();
                         ship.angle = data.shift();
@@ -765,6 +766,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
         worker.postMessage(rmb ? [-mouseDirectionX / camera.zoom, -mouseDirectionY / camera.zoom, camera.cZoom] : [0, 0, camera.cZoom]);
 
         const scale = uiScale() * camera.zoom;
+        let hardpointOver = null,
+            shipOver = null;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -870,6 +873,11 @@ import { default as shipConfig } from "../server/lib/ships.js";
             // Draw hardpoints
             if (ship.size >= 150) {
                 const mouseOverShip = Math.abs(realMouseX - ship.x) < ship.size / 2 && Math.abs(realMouseY - ship.y) < ship.size / 2;
+
+                if (mouseOverShip) {
+                    shipOver = ship;
+                }
+
                 ship.hardpoints.forEach((hardpoint, index) => {
                     if (hardpoint.health <= 0) {
                         if (ship.hardpointSprites[index] === undefined) {
@@ -966,6 +974,11 @@ import { default as shipConfig } from "../server/lib/ships.js";
                         ctx.beginPath();
                         ctx.arc(ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction), ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction), 18, 0, Math.PI * 2);
                         ctx.stroke();
+
+                        hardpointOver = {
+                            health: hardpoint.health,
+                            data: shipConfig[ship.key].hardpoints[index]
+                        };
                     }
 
                     ctx.beginPath();
@@ -1156,7 +1169,86 @@ import { default as shipConfig } from "../server/lib/ships.js";
 
         ctx.restore();
 
+        if (hardpointOver !== null) {
+            const str = hardpointOver.data.weapon.name + " - " + Math.round(hardpointOver.data.weapon.damage) + "dmg";
+            const measurement = measureText(str, 18);
+            const width = measurement.width + 15;
+
+            ctx.fillStyle = "#AAAAAA";
+            ctx.fillRect(mouseX / uScale + 10, mouseY / uScale - 10, width, 50);
+            ctx.fillStyle = hardpointOver.health > .667 ? "#00FF00" : hardpointOver.health > .333 ? "#FFFF00" : "#FF0000";
+            ctx.fillRect(mouseX / uScale + 15, mouseY / uScale - 5, (width - 10) * hardpointOver.health, 15);
+            drawText(str, mouseX / uScale + 15, mouseY / uScale + 25, 18);
+        }
+
+        if (shipOver !== null) {
+            const cfg = shipConfig[shipOver.key];
+            const str = cfg.name + " - " + shipTypeNames[cfg.classification];
+            const titleMeasure = measureText(str, 28);
+            let bigWidth = titleMeasure.width,
+                bigHeight = titleMeasure.height;
+
+            const weapons = {};
+
+            cfg.hardpoints.forEach(hardpoint => {
+                const text = hardpoint.weapon.name + " - " + (hardpoint.weapon.range / 1000).toFixed(1) + "km";
+                if (weapons[hardpoint.weapon.name] === undefined) {
+                    weapons[hardpoint.weapon.name] = 0;
+                }
+
+                weapons[hardpoint.weapon.name] ++;
+            });
+
+            let listHeight = 0;
+
+            Object.keys(weapons).forEach(name => {
+                const measurement = measureText(name, 18);
+
+                bigWidth = Math.max(bigWidth, measurement.width);
+                bigHeight = Math.max(bigHeight, measurement.height);
+                listHeight = measurement.height;
+            });
+
+            ctx.fillStyle = "#AAAAAA";
+            ctx.fillRect(10, 10, bigWidth + 20, bigHeight + 30 + (listHeight + 5) * Object.keys(weapons).length);
+
+            drawText(str, 20, 35, 28);
+
+            let y = titleMeasure.height + 40;
+
+            for (const name in weapons) {
+                drawText(name + " x" + weapons[name], 20, y, 18);
+                y += listHeight + 5;
+            }
+        }
+
         ctx.restore();
+    }
+
+    function drawText(text, x, y, size, fill = "#FFFFFF", align = "left") {
+        ctx.save();
+        ctx.globalAlpha = 1;
+        ctx.font = `bold ${size}px sans-serif`;
+        ctx.textAlign = align;
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = fill;
+        ctx.fillText(text, x, y);
+        ctx.restore();
+    }
+
+    function measureText(text, size) {
+        ctx.save();
+        ctx.font = `bold ${size}px sans-serif`;
+
+        const width = ctx.measureText(text).width;
+        const height = ctx.measureText("M").width;
+        
+        ctx.restore();
+
+        return {
+            width: width,
+            height: height
+        };
     }
 
     draw();

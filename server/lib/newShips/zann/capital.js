@@ -181,16 +181,21 @@ ships.AGGRESSORSTARDESTROYER_ZANN = {
             y: .95,
             weapon: {
                 ...weapons.YELLOW_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD,
-                damage: weapons.YELLOW_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD.damage * 10
+                damage: weapons.YELLOW_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD.damage * 10,
+                bypassShield: false
             }
         }, {
             x: 0,
-            y: .95,
+            y: .85,
             weapon: {
                 ...weapons.ION_CANNON_ULTRA,
                 damage: weapons.ION_CANNON_ULTRA.damage * 5
             }
         }];
+
+        const reload = Math.min(output[0].weapon.reload, output[1].weapon.reload);
+        output[0].weapon.reload = reload;
+        output[1].weapon.reload = reload;
 
         for (let i = -1; i < 7; i ++) {
             output.push({

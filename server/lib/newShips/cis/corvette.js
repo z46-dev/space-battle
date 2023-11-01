@@ -77,4 +77,58 @@ ships.DIAMOND_CIS = {
     }]
 };
 
+ships.HARDCELL_CIS = {
+    name: "Hardcell Missile Transport",
+    asset: "HARDCELL.png",
+    classification: shipTypes.Corvette,
+    population: 2,
+    size: 76,
+    cost: 350,
+    speed: 5,
+    turnSpeed: .0275,
+    shield: 2000,
+    shieldRegen: 2,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+            health: weapons.RED_ANTI_FIGHTER_LASER_CANNON.health * 3,
+            reload: weapons.RED_ANTI_FIGHTER_LASER_CANNON.reload * .6
+        },
+        shotsAtOnce: 2,
+        shotDelay: 45
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.RED_LASER_CANNON,
+            health: weapons.RED_LASER_CANNON.health * 3,
+            reload: weapons.RED_LASER_CANNON.reload * .6
+        },
+        shotsAtOnce: 2,
+        shotDelay: 45
+    }, {
+        x: -.5,
+        y: 0,
+        weapon: {
+            ...weapons.ASSAULT_CONCUSSION_MISSILE,
+            health: weapons.ASSAULT_CONCUSSION_MISSILE.health * 3,
+            reload: weapons.ASSAULT_CONCUSSION_MISSILE.reload * .8
+        },
+        shotsAtOnce: 5,
+        shotDelay: 120
+    }, {
+        x: .5,
+        y: 0,
+        weapon: {
+            ...weapons.ASSAULT_CONCUSSION_MISSILE,
+            health: weapons.ASSAULT_CONCUSSION_MISSILE.health * 3,
+            reload: weapons.ASSAULT_CONCUSSION_MISSILE.reload * .8
+        },
+        shotsAtOnce: 5,
+        shotDelay: 120
+    }]
+};
+
 export default ships;

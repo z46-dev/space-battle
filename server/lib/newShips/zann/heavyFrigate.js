@@ -110,6 +110,12 @@ ships.FREEVIRGILLIABUNKERBUSTER_ZANN = {
                 weapon: weapons.YELLOW_DOUBLE_TURBOLASER_CANNON,
                 shotsAtOnce: 2,
                 shotDelay: 200
+            }, {
+                x: 0,
+                y: .6 - .4 * i,
+                weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+                shotsAtOnce: 3,
+                shotDelay: 200
             });
         }
 
