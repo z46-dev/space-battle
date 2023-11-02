@@ -870,6 +870,165 @@ class Battle {
     }
 }
 
+/**
+ * Lol
+ * @param {Ship} holdo The holdo
+ * @param {Ship} hux The supremacy
+ */
+function holdoManeuver(holdo, hux) {
+    holdo.ai = undefined;
+    holdo.angleGoal = Math.atan2(hux.y - holdo.y, hux.x - holdo.x);
+    holdo.angle = holdo.angleGoal + Math.PI;
+
+    holdo.shield = holdo.maxShield;
+    holdo.hardpoints.forEach(h => h.health = h.maxHealth * 10);
+
+    const a = setInterval(() => {
+        const dif = angleDifference(holdo.angle, holdo.angleGoal);
+
+        if (dif < Math.PI / 15) {
+            holdo.angle = holdo.angleGoal;
+            clearInterval(a);
+
+            holdo.speed = 1000;
+            const i = setInterval(() => {
+                const d = distance(holdo.x, holdo.y, hux.x, hux.y);
+
+                if (d <= holdo.size + hux.size * .25) {
+                    clearInterval(i);
+
+                    hux.hardpoints.forEach(h => h.health = 0);
+                    hux.shield = 0;
+
+                    holdo.hardpoints.forEach(h => h.health = 0);
+                    holdo.shield = 0;
+                }
+            }, 10);
+        }
+    }, 1000);
+}
+
+setTimeout(() => {
+    /**
+     * @type {Ship}
+     */
+    let holdo, hux;
+
+    battle.ships.forEach(ship => {
+        switch (ship.key) {
+            case "MEGASTARDESTOYER_DARKEMPIRE":
+                hux = ship;
+                break;
+            case "MC85_REBEL":
+                holdo = ship;
+        }
+    });
+
+    if (holdo && hux) {
+        holdo.ai = new class extends ShipAI {
+            constructor() {
+                super(holdo);
+
+                /**
+                 * @type {Ship}
+                 */
+                this.ramTarget = hux;
+                this.stage = 0;
+                this.timer = 0;
+            }
+
+            update() {
+                const dist = distance(this.ship.x, this.ship.y, this.ramTarget.x, this.ramTarget.y);
+                const angle = Math.atan2(this.ramTarget.y - this.ship.y, this.ramTarget.x - this.ship.x);
+
+                switch (this.stage) {
+                    case 0: // Flee
+                        this.ship.speed = 16;
+                        this.ship.angleGoal = angle + Math.PI;
+                        this.ship.turnSpeed = .005;
+
+                        if (dist >= this.ramTarget.size * 1.25) {
+                            this.stage = 1;
+                        }
+                        break;
+                    case 1: // Aim
+                        this.ship.speed = lerp(this.ship.speed, 0, .2);
+                        this.ship.angleGoal = angle;
+
+                        if (angleDifference(this.ship.angle, angle) <= Math.PI / 15) {
+                            this.stage = 2;
+                        }
+                        break;
+                    case 2: // Count down
+                        this.timer ++;
+
+                        if (this.timer >= 150) {
+                            this.stage = 3;
+                            this.ship.speed = dist * .125;
+                            this.ship.angle = angle;
+                        }
+                        break;
+                    case 3: // Ram
+                        this.ship.angle = angle;
+
+                        if (dist <= this.ship.size) {
+                            this.collide();
+                        }
+                        break;
+                }
+            }
+
+            collide() {
+                this.ship.battle.ships.delete(this.ship.id);
+                this.ramTarget.shield = 0;
+
+                for (let i = 0; i < 32; i++) {
+                    const point = getRandomPointInEllipse(this.ship.x, this.ship.y, this.ship.size * 3, this.ship.size / 2, this.ramTarget.angle);
+                    this.ship.battle.explode(
+                        point.x,
+                        point.y,
+                        this.ship.size * .15 + Math.random() * this.ramTarget.size * .2,
+                        Math.random() * Math.PI * 2,
+                        "blueExplosion" + ((Math.random() * 5 | 0) + 1)
+                    );
+                }
+
+                const angle = this.ramTarget.angle + Math.PI;
+                for (let i = 0; i < 32; i++) {
+                    const point = getRandomPointInEllipse(this.ship.x + Math.cos(angle) * this.ship.size, this.ship.y + Math.sin(angle) * this.ship.size, this.ship.size, this.ship.size / 2, this.ramTarget.angle);
+                    this.ship.battle.explode(
+                        point.x,
+                        point.y,
+                        this.ship.size * .15 + Math.random() * this.ramTarget.size * .2,
+                        Math.random() * Math.PI * 2,
+                        "blueExplosion" + ((Math.random() * 5 | 0) + 1)
+                    );
+                }
+
+                setTimeout(() => {
+                    this.ramTarget.shield = 0;
+                    this.ramTarget.hardpoints.forEach(h => h.health = 0);
+                }, 5000);
+            }
+        }
+    }
+}, 2000);
+
+function getRandomPointInEllipse(x, y, w, h, angle) {
+    // Generate random points within the unrotated ellipse
+    const randomAngle = Math.random() * 2 * Math.PI;
+    const radiusX = Math.sqrt(Math.random()) * w / 2;
+    const radiusY = Math.sqrt(Math.random()) * h / 2;
+    const randomX = x + radiusX * Math.cos(randomAngle);
+    const randomY = y + radiusY * Math.sin(randomAngle);
+
+    // Apply rotation transformation to the random points
+    const rotatedX = Math.cos(angle) * (randomX - x) - Math.sin(angle) * (randomY - y) + x;
+    const rotatedY = Math.sin(angle) * (randomX - x) + Math.cos(angle) * (randomY - y) + y;
+
+    return { x: rotatedX, y: rotatedY };
+}
+
 const battle = new Battle(10_000, 10_000, 2);
 
 const empireFleet = {
@@ -908,29 +1067,29 @@ const empireFleet = {
     "LANCERFRIGATE_DARKEMPIRE": 0,
     "WORLDDEVASTATORFG_DARKEMPIRE": 0,
     "DREADNOUGHTHEAVYCRUISER_DARKEMPIRE": 0,
-    "IMPERIALSTARDESTROYER_DARKEMPIRE": 4,
+    "IMPERIALSTARDESTROYER_DARKEMPIRE": 0,
     "ALLEGIANCE_DARKEMPIRE": 0,
     "INTERDICTORSTARDESTROYER_DARKEMPIRE": 0,
     "ONAGER_DARKEMPIRE": 0,
-    "XYSTON_DARKEMPIRE": 2,
-    "RESURGENT_DARKEMPIRE": 1,
+    "XYSTON_DARKEMPIRE": 0,
+    "RESURGENT_DARKEMPIRE": 0,
     "WORLDDEVASTATORBC_DARKEMPIRE": 0,
     "BELLATOR_DARKEMPIRE": 0,
     "ASSERTOR_DARKEMPIRE": 0,
     "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 0,
-    "MEGASTARDESTOYER_DARKEMPIRE": 0
+    "MEGASTARDESTOYER_DARKEMPIRE": 1
 };
 
 const rebelFleet = {
     "LUSANKYA_REBEL": 0,
     "STARHAWK_REBEL": 0,
-    "MC85_REBEL": 0,
-    "MC75_REBEL": 1,
+    "MC85_REBEL": 1,
+    "MC75_REBEL": 0,
     "MC80A_REBEL": 0,
-    "MC80BLIBERTY_REBEL": 1,
-    "MC50_REBEL": 1,
-    "MC30C_REBEL": 1,
-    "NEBULONB_REBEL": 2,
+    "MC80BLIBERTY_REBEL": 0,
+    "MC50_REBEL": 0,
+    "MC30C_REBEL": 0,
+    "NEBULONB_REBEL": 0,
     "PELTA_REBEL": 0,
     "CR90_REBEL": 0,
     "DP20_REBEL": 0,
@@ -1025,7 +1184,7 @@ for (const ship in rebelFleet) {
     }
 }
 
-const spawnDistance = 2000;
+const spawnDistance = 7000;
 
 empireShips.sort(() => .5 - Math.random());
 scatterFormation(empireShips, -spawnDistance, -spawnDistance, Math.PI / 4);

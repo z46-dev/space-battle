@@ -59,39 +59,39 @@ import { default as shipConfig } from "../server/lib/ships.js";
     function turnImageIntoShards(image) {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
-    
+
         canvas.width = image.width;
         canvas.height = image.height;
-    
+
         ctx.drawImage(image, 0, 0);
-    
+
         const shards = [];
-    
+
         const baseAngle = Math.random() * Math.PI * 2;
         const shardCount = 4 + Math.random() * 7 | 0;
 
         const x = Math.random() * image.width;
         const y = Math.random() * image.height;
-    
-        for (let i = 0; i < shardCount; i ++) {
+
+        for (let i = 0; i < shardCount; i++) {
             const startAngle = baseAngle + i / shardCount * Math.PI * 2;
             const endAngle = baseAngle + (i + 1) / shardCount * Math.PI * 2;
-    
+
             // Clip and paste to a new canvas
             const shardCanvas = new OffscreenCanvas(image.width, image.height);
             const shardCtx = shardCanvas.getContext("2d");
-    
+
             shardCtx.beginPath();
             shardCtx.moveTo(x, y);
             shardCtx.arc(x, y, image.width, startAngle, endAngle);
             shardCtx.closePath();
             shardCtx.clip();
-    
+
             shardCtx.drawImage(canvas, 0, 0);
-    
+
             shards.push(shardCanvas);
         }
-    
+
         return shards;
     }
 
@@ -831,188 +831,212 @@ import { default as shipConfig } from "../server/lib/ships.js";
 
         ctx.shadowBlur = 0;
 
+        const drawObjects = [];
+
         world.deathClones.forEach((clone, index) => {
-            ctx.save();
-
-            ctx.translate(clone.x, clone.y);
-            ctx.rotate(clone.angle);
-            ctx.drawImage(clone.image, -clone.size / 2, -clone.size / 2, clone.size, clone.size);
-
-            clone.x += Math.cos(clone.angle) * .5;
-            clone.y += Math.sin(clone.angle) * .5;
-            clone.angle += clone.angleSpeed;
-            clone.size *= .99995;
-            clone.timer --;
-
-            if ((clone.timer | 0) % 125 === 0 && Math.random() > .75) {
-                explosions.add({
-                    x: clone.x + Math.random() * clone.size - clone.size / 2,
-                    y: clone.y + Math.random() * clone.size - clone.size / 2,
-                    size: clone.size * (Math.random() * .5 + .25),
-                    angle: Math.random() * Math.PI * 2,
-                    sprite: new Sprite("explosion" + (1 + Math.random() * 10 | 0), false)
-                });
-            }
-
-            if (clone.timer <= 0) {
-                world.deathClones.splice(index, 1);
-            }
-
-            ctx.restore();
+            drawObjects.push({
+                type: 1,
+                key: index,
+                object: clone
+            });
         });
 
-        // Draw ships
-        ships.forEach(ship => {
-            ship.x = lerp(ship.x, ship.realX, .2);
-            ship.y = lerp(ship.y, ship.realY, .2);
-            ship.angle = lerpAngle(ship.angle, ship.realAngle, .2);
-            ship.health = lerp(ship.health, ship.realHealth, .2);
-            ship.shield = lerp(ship.shield, ship.realShield, .2);
+        ships.forEach((ship, index) => {
+            drawObjects.push({
+                type: 0,
+                key: index,
+                object: ship
+            });
+        });
 
-            if (
-                (ship.isPartOfSquadron && ship.size * scale < 5) ||
-                ship.size * scale < 2.5 ||
-                !assets.has(ship.asset)
-            ) {
-                return;
-            }
+        drawObjects.sort((a, b) => b.object.size - a.object.size);
+        drawObjects.forEach(({ type, key, object }) => {
+            switch (type) {
+                case 1: {
+                    const clone = object;
+                    const index = key;
+                    ctx.save();
 
-            const asset = assets.get(ship.asset);
+                    ctx.translate(clone.x, clone.y);
+                    ctx.rotate(clone.angle);
+                    ctx.drawImage(clone.image, -clone.size / 2, -clone.size / 2, clone.size, clone.size);
 
-            ctx.save();
-            ctx.translate(ship.x, ship.y);
-            ctx.rotate(ship.angle);
-            ctx.drawImage(asset, -ship.size / 2, -ship.size / 2, ship.size, ship.size);
+                    clone.x += Math.cos(clone.angle) * .5;
+                    clone.y += Math.sin(clone.angle) * .5;
+                    clone.angle += clone.angleSpeed;
+                    clone.size *= .99995;
+                    clone.timer--;
 
-            // Draw hardpoints
-            if (ship.size >= 150) {
-                const mouseOverShip = Math.abs(realMouseX - ship.x) < ship.size / 2 && Math.abs(realMouseY - ship.y) < ship.size / 2;
+                    if ((clone.timer | 0) % 125 === 0 && Math.random() > .75) {
+                        explosions.add({
+                            x: clone.x + Math.random() * clone.size - clone.size / 2,
+                            y: clone.y + Math.random() * clone.size - clone.size / 2,
+                            size: clone.size * (Math.random() * .5 + .25),
+                            angle: Math.random() * Math.PI * 2,
+                            sprite: new Sprite("explosion" + (1 + Math.random() * 10 | 0), false)
+                        });
+                    }
 
-                if (mouseOverShip) {
-                    shipOver = ship;
-                }
+                    if (clone.timer <= 0) {
+                        world.deathClones.splice(index, 1);
+                    }
 
-                ship.hardpoints.forEach((hardpoint, index) => {
-                    if (hardpoint.health <= 0) {
-                        if (ship.hardpointSprites[index] === undefined) {
-                            ship.hardpointSprites[index] = [{
-                                x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
-                                y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
-                                sprite: new Sprite("fireSprite", false),
-                                hasDoneHalfway: false,
-                                spawnsOnDeath: true,
-                                size: .9 + Math.random()
-                            }];
-                        }
+                    ctx.restore();
+                } break;
+                case 0: {
+                    const ship = object;
+                    ship.x = lerp(ship.x, ship.realX, .2);
+                    ship.y = lerp(ship.y, ship.realY, .2);
+                    ship.angle = lerpAngle(ship.angle, ship.realAngle, .2);
+                    ship.health = lerp(ship.health, ship.realHealth, .2);
+                    ship.shield = lerp(ship.shield, ship.realShield, .2);
 
-                        for (let i = 0; i < ship.hardpointSprites[index].length; i++) {
-                            const sprite = ship.hardpointSprites[index][i];
-
-                            if (sprite.sprite.currentFrame >= sprite.sprite.frames.length - 1) {
-                                ship.hardpointSprites[index].splice(i, 1);
-                                i--;
-
-                                if (sprite.spawnsOnDeath) {
-                                    ship.hardpointSprites[index].push({
-                                        x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
-                                        y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
-                                        sprite: new Sprite("fireSprite", false),
-                                        hasDoneQ2: false,
-                                        hasDoneQ3: false,
-                                        spawnsOnDeath: true,
-                                        size: .9 + Math.random()
-                                    });
-
-                                    if (Math.random() > .5) {
-                                        setTimeout(() => {
-                                            explosions.add({
-                                                x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
-                                                y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
-                                                size: 1,
-                                                angle: Math.random() * Math.PI * 2,
-                                                sprite: new Sprite("blueExplosion" + (1 + Math.random() * 5 | 0), false)
-                                            });
-                                        }, 500);
-                                    }
-                                }
-                                continue;
-                            }
-
-                            if (sprite.sprite.currentFrame >= sprite.sprite.frames.length / 3 && !sprite.hasDoneQ2) {
-                                sprite.hasDoneQ2 = true;
-                                ship.hardpointSprites[index].push({
-                                    x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
-                                    y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
-                                    sprite: new Sprite("explosion" + (7 + Math.random() * 4 | 0), false),
-                                    hasDoneQ2: true,
-                                    hasDoneQ3: true,
-                                    spawnsOnDeath: false,
-                                    size: .9 + Math.random()
-                                });
-                            }
-
-                            if (sprite.sprite.currentFrame >= sprite.sprite.frames.length * 2 / 3 && !sprite.hasDoneQ3) {
-                                sprite.hasDoneQ3 = true;
-                                ship.hardpointSprites[index].push({
-                                    x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
-                                    y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
-                                    sprite: new Sprite("fireSprite", false),
-                                    hasDoneQ2: true,
-                                    hasDoneQ3: true,
-                                    spawnsOnDeath: false,
-                                    size: .9 + Math.random()
-                                });
-                            }
-
-                            ctx.save();
-
-                            ctx.rotate(-ship.angle);
-                            ctx.translate(-ship.x, -ship.y);
-                            ctx.translate(sprite.x, sprite.y);
-                            ctx.scale(15 * sprite.size, 15 * sprite.size);
-
-                            sprite.sprite.draw(ctx, -1, -1, 2, 2);
-
-                            ctx.restore();
-                        }
+                    if (
+                        (ship.isPartOfSquadron && ship.size * scale < 5) ||
+                        ship.size * scale < 2.5 ||
+                        !assets.has(ship.asset)
+                    ) {
                         return;
                     }
 
-                    // Green - Yellow - Red based on hp
-                    ctx.fillStyle = hardpoint.health > .667 ? "#00FF00" : hardpoint.health > .333 ? "#FFFF00" : "#FF0000";
+                    const asset = assets.get(ship.asset);
 
-                    if (mouseOverShip && Math.abs(realMouseX - (ship.x + ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle))) < 8 && Math.abs(realMouseY - (ship.y + ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle))) < 24) {
-                        ctx.strokeStyle = ctx.fillStyle;
-                        ctx.lineWidth = 4;
+                    ctx.save();
+                    ctx.translate(ship.x, ship.y);
+                    ctx.rotate(ship.angle);
+                    ctx.drawImage(asset, -ship.size / 2, -ship.size / 2, ship.size, ship.size);
 
-                        ctx.beginPath();
-                        ctx.arc(ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction), ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction), 18, 0, Math.PI * 2);
-                        ctx.stroke();
+                    // Draw hardpoints
+                    if (ship.size >= 150) {
+                        const mouseOverShip = Math.abs(realMouseX - ship.x) < ship.size / 2 && Math.abs(realMouseY - ship.y) < ship.size / 2;
 
-                        hardpointOver = {
-                            health: hardpoint.health,
-                            data: shipConfig[ship.key].hardpoints[index]
-                        };
+                        if (mouseOverShip) {
+                            shipOver = ship;
+                        }
+
+                        ship.hardpoints.forEach((hardpoint, index) => {
+                            if (hardpoint.health <= 0) {
+                                if (ship.hardpointSprites[index] === undefined) {
+                                    ship.hardpointSprites[index] = [{
+                                        x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
+                                        y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
+                                        sprite: new Sprite("fireSprite", false),
+                                        hasDoneHalfway: false,
+                                        spawnsOnDeath: true,
+                                        size: .9 + Math.random()
+                                    }];
+                                }
+
+                                for (let i = 0; i < ship.hardpointSprites[index].length; i++) {
+                                    const sprite = ship.hardpointSprites[index][i];
+
+                                    if (sprite.sprite.currentFrame >= sprite.sprite.frames.length - 1) {
+                                        ship.hardpointSprites[index].splice(i, 1);
+                                        i--;
+
+                                        if (sprite.spawnsOnDeath) {
+                                            ship.hardpointSprites[index].push({
+                                                x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
+                                                y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
+                                                sprite: new Sprite("fireSprite", false),
+                                                hasDoneQ2: false,
+                                                hasDoneQ3: false,
+                                                spawnsOnDeath: true,
+                                                size: .9 + Math.random()
+                                            });
+
+                                            if (Math.random() > .5) {
+                                                setTimeout(() => {
+                                                    explosions.add({
+                                                        x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
+                                                        y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
+                                                        size: 1,
+                                                        angle: Math.random() * Math.PI * 2,
+                                                        sprite: new Sprite("blueExplosion" + (1 + Math.random() * 5 | 0), false)
+                                                    });
+                                                }, 500);
+                                            }
+                                        }
+                                        continue;
+                                    }
+
+                                    if (sprite.sprite.currentFrame >= sprite.sprite.frames.length / 3 && !sprite.hasDoneQ2) {
+                                        sprite.hasDoneQ2 = true;
+                                        ship.hardpointSprites[index].push({
+                                            x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
+                                            y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
+                                            sprite: new Sprite("explosion" + (7 + Math.random() * 4 | 0), false),
+                                            hasDoneQ2: true,
+                                            hasDoneQ3: true,
+                                            spawnsOnDeath: false,
+                                            size: .9 + Math.random()
+                                        });
+                                    }
+
+                                    if (sprite.sprite.currentFrame >= sprite.sprite.frames.length * 2 / 3 && !sprite.hasDoneQ3) {
+                                        sprite.hasDoneQ3 = true;
+                                        ship.hardpointSprites[index].push({
+                                            x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
+                                            y: ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle) + ship.y,
+                                            sprite: new Sprite("fireSprite", false),
+                                            hasDoneQ2: true,
+                                            hasDoneQ3: true,
+                                            spawnsOnDeath: false,
+                                            size: .9 + Math.random()
+                                        });
+                                    }
+
+                                    ctx.save();
+
+                                    ctx.rotate(-ship.angle);
+                                    ctx.translate(-ship.x, -ship.y);
+                                    ctx.translate(sprite.x, sprite.y);
+                                    ctx.scale(15 * sprite.size, 15 * sprite.size);
+
+                                    sprite.sprite.draw(ctx, -1, -1, 2, 2);
+
+                                    ctx.restore();
+                                }
+                                return;
+                            }
+
+                            // Green - Yellow - Red based on hp
+                            ctx.fillStyle = hardpoint.health > .667 ? "#00FF00" : hardpoint.health > .333 ? "#FFFF00" : "#FF0000";
+
+                            if (mouseOverShip && Math.abs(realMouseX - (ship.x + ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle))) < 8 && Math.abs(realMouseY - (ship.y + ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle))) < 24) {
+                                ctx.strokeStyle = ctx.fillStyle;
+                                ctx.lineWidth = 4;
+
+                                ctx.beginPath();
+                                ctx.arc(ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction), ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction), 18, 0, Math.PI * 2);
+                                ctx.stroke();
+
+                                hardpointOver = {
+                                    health: hardpoint.health,
+                                    data: shipConfig[ship.key].hardpoints[index]
+                                };
+                            }
+
+                            ctx.beginPath();
+                            ctx.arc(ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction), ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction), 4, 0, Math.PI * 2);
+                            ctx.fill();
+                        });
                     }
 
-                    ctx.beginPath();
-                    ctx.arc(ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction), ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction), 4, 0, Math.PI * 2);
-                    ctx.fill();
-                });
+                    if (!ship.isPartOfSquadron || ship.size * scale >= 20) {
+                        ctx.rotate(-ship.angle);
+                        const barWidth = Math.max(50, ship.size);
+
+                        drawBar(0, -barWidth / 2 - 20, barWidth, 10, ship.health, "#00FFC8");
+
+                        if (ship.shield !== -1) {
+                            drawBar(0, -barWidth / 2 - 40, barWidth, 10, ship.shield, "#00C8FF");
+                        }
+                    }
+
+                    ctx.restore();
+                } break;
             }
-
-            if (!ship.isPartOfSquadron || ship.size * scale >= 20) {
-                ctx.rotate(-ship.angle);
-                const barWidth = Math.max(50, ship.size);
-
-                drawBar(0, -barWidth / 2 - 20, barWidth, 10, ship.health, "#00FFC8");
-
-                if (ship.shield !== -1) {
-                    drawBar(0, -barWidth / 2 - 40, barWidth, 10, ship.shield, "#00C8FF");
-                }
-            }
-
-            ctx.restore();
         });
 
         // Draw projectiles
@@ -1215,7 +1239,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
                     weapons[text] = 0;
                 }
 
-                weapons[text] ++;
+                weapons[text]++;
             });
 
             let listHeight = 0;
@@ -1263,7 +1287,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
 
         const width = ctx.measureText(text).width;
         const height = ctx.measureText("M").width;
-        
+
         ctx.restore();
 
         return {

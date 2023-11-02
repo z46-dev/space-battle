@@ -589,7 +589,8 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
                         speed: weapons.GREEN_SUPERLASER.speed * .5,
                         range: weapons.GREEN_SUPERLASER.range * 3,
                         reload: weapons.GREEN_SUPERLASER.reload * .3,
-                        damage: weapons.GREEN_SUPERLASER.damage * .4
+                        damage: weapons.GREEN_SUPERLASER.damage * .4,
+                        bypassShield: false
                     }
                 }, {
                     x: -.015 - .015 * i,
@@ -599,7 +600,8 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
                         speed: weapons.GREEN_SUPERLASER.speed * .5,
                         range: weapons.GREEN_SUPERLASER.range * 3,
                         reload: weapons.GREEN_SUPERLASER.reload * .3,
-                        damage: weapons.GREEN_SUPERLASER.damage * .4
+                        damage: weapons.GREEN_SUPERLASER.damage * .4,
+                        bypassShield: false
                     }
                 });
             }
@@ -612,7 +614,7 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
                 weapon: {
                     ...weapons[types3[i % types3.length]],
                     range: weapons[types3[i % types3.length]].range * 2.5,
-                    bypassShield: true
+                    bypassShield: false
                 },
                 shotsAtOnce: 2,
                 shotDelay: 200
@@ -622,7 +624,7 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
                 weapon: {
                     ...weapons[types3[i % types3.length]],
                     range: weapons[types3[i % types3.length]].range * 2.5,
-                    bypassShield: true
+                    bypassShield: false
                 },
                 shotsAtOnce: 2,
                 shotDelay: 200

@@ -321,12 +321,12 @@ ships.XYSTON_DARKEMPIRE = {
     asset: "XYSTON.png",
     classification: shipTypes.Capital,
     population: 38,
-    size: 1200,
-    cost: 8200,
+    size: 1200, // * 2 star destroyer
+    cost: 8200, // * 2 star destroyer
     speed: 1.25,
     turnSpeed: .005,
-    shield: 16000,
-    shieldRegen: 16,
+    shield: 16000, // * 2 star destroyer
+    shieldRegen: 16, // * 2 star destroyer
     hardpoints: (function() {
         const output = [{
             x: 0,
@@ -410,7 +410,7 @@ ships.RESURGENT_DARKEMPIRE = {
     asset: "RESURGENT.png",
     classification: shipTypes.Capital,
     population: 32,
-    size: 1850,
+    size: 1450,
     cost: 8200,
     speed: 1.25,
     turnSpeed: .005,
