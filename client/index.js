@@ -95,9 +95,9 @@ import { default as shipConfig } from "../server/lib/ships.js";
         return shards;
     }
 
-    for (const key in shipConfig) {
-        loadAsset(`./assets/ships/${shipConfig[key].asset}`, shipConfig[key].asset);
-    }
+    // for (const key in shipConfig) {
+    //     loadAsset(`./assets/ships/${shipConfig[key].asset}`, shipConfig[key].asset);
+    // }
 
     const world = {
         width: 10_000,
@@ -339,6 +339,11 @@ import { default as shipConfig } from "../server/lib/ships.js";
 
                     if (flags & 1) {
                         ship.key = data.shift();
+
+                        if (!assets.has(shipConfig[ship.key].asset)) {
+                            loadAsset(`./assets/ships/${shipConfig[ship.key].asset}`, shipConfig[ship.key].asset);
+                        }
+
                         ship.x = data.shift();
                         ship.y = data.shift();
                         ship.angle = data.shift();
@@ -438,6 +443,10 @@ import { default as shipConfig } from "../server/lib/ships.js";
                         squadron.y = data.shift();
                         squadron.team = data.shift();
                         squadron.asset = data.shift();
+
+                        if (!assets.has(squadron.asset)) {
+                            loadAsset(`./assets/ships/${squadron.asset}`, squadron.asset);
+                        }
                     }
 
                     if (flags & 2) {
@@ -472,6 +481,10 @@ import { default as shipConfig } from "../server/lib/ships.js";
                     const size = data.shift();
                     const angle = data.shift();
                     const asset = data.shift();
+                    if (!assets.has(asset)) {
+                        loadAsset(`./assets/ships/${asset}`, asset);
+                        return;
+                    }
                     world.deathClones.push(...turnImageIntoShards(assets.get(asset)).map(shard => ({
                         x: x,
                         y: y,
@@ -858,7 +871,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
 
             if (
                 (ship.isPartOfSquadron && ship.size * scale < 5) ||
-                ship.size * scale < 2.5
+                ship.size * scale < 2.5 ||
+                !assets.has(ship.asset)
             ) {
                 return;
             }
@@ -1116,6 +1130,11 @@ import { default as shipConfig } from "../server/lib/ships.js";
             ctx.fillStyle = data.team === 0 ? "#FF0000" : "#0000FF";
 
             if (data.type === 0) {
+                if (!assets.has(data.asset)) {
+                    loadAsset(`./assets/ships/${data.asset}`, data.asset);
+                    return;
+                }
+
                 const silhouetteKey = `${data.asset}${data.team}`;
                 if (!silhouettes.has(silhouetteKey)) {
                     silhouettes.set(silhouetteKey, false);

@@ -890,9 +890,9 @@ const empireFleet = {
     "LANCERFRIGATE_EMPIRE": 0,
     "ARQUITENS_EMPIRE": 0,
     "IMOBILIZER_EMPIRE": 0,
-    "DREADNOUGHTHEAVYCRUISER_EMPIRE": 4,
+    "DREADNOUGHTHEAVYCRUISER_EMPIRE": 0,
     "ACCLIMATOR_EMPIRE": 0,
-    "IMPERIALSTARDESTROYER_EMPIRE": 1,
+    "IMPERIALSTARDESTROYER_EMPIRE": 0,
     "ALLEGIANCE_EMPIRE": 0,
     "VICTORYSTARDESTROYER_EMPIRE": 0,
     "AGGRESSORSTARDESTROYER_EMPIRE": 0,
@@ -908,10 +908,12 @@ const empireFleet = {
     "LANCERFRIGATE_DARKEMPIRE": 0,
     "WORLDDEVASTATORFG_DARKEMPIRE": 0,
     "DREADNOUGHTHEAVYCRUISER_DARKEMPIRE": 0,
-    "IMPERIALSTARDESTROYER_DARKEMPIRE": 0,
+    "IMPERIALSTARDESTROYER_DARKEMPIRE": 4,
     "ALLEGIANCE_DARKEMPIRE": 0,
     "INTERDICTORSTARDESTROYER_DARKEMPIRE": 0,
     "ONAGER_DARKEMPIRE": 0,
+    "XYSTON_DARKEMPIRE": 2,
+    "RESURGENT_DARKEMPIRE": 1,
     "WORLDDEVASTATORBC_DARKEMPIRE": 0,
     "BELLATOR_DARKEMPIRE": 0,
     "ASSERTOR_DARKEMPIRE": 0,
@@ -923,12 +925,12 @@ const rebelFleet = {
     "LUSANKYA_REBEL": 0,
     "STARHAWK_REBEL": 0,
     "MC85_REBEL": 0,
-    "MC75_REBEL": 0,
+    "MC75_REBEL": 1,
     "MC80A_REBEL": 0,
-    "MC80BLIBERTY_REBEL": 0,
-    "MC50_REBEL": 0,
-    "MC30C_REBEL": 0,
-    "NEBULONB_REBEL": 0,
+    "MC80BLIBERTY_REBEL": 1,
+    "MC50_REBEL": 1,
+    "MC30C_REBEL": 1,
+    "NEBULONB_REBEL": 2,
     "PELTA_REBEL": 0,
     "CR90_REBEL": 0,
     "DP20_REBEL": 0,
@@ -965,8 +967,8 @@ const rebelFleet = {
     "LANCERFRIGATE_ZANN": 0,
     "BROADSIDECRUISER_ZANN": 0,
     "FREEVIRGILLIABUNKERBUSTER_ZANN": 0,
-    "KELDABEBATTLESHIP_ZANN": 1,
-    "AGGRESSORSTARDESTROYER_ZANN": 2,
+    "KELDABEBATTLESHIP_ZANN": 0,
+    "AGGRESSORSTARDESTROYER_ZANN": 0,
     "VENATOR_ZANN": 0,
 
     // NEW SHIPS
@@ -1026,18 +1028,67 @@ for (const ship in rebelFleet) {
 const spawnDistance = 2000;
 
 empireShips.sort(() => .5 - Math.random());
-basicFormation(empireShips, -spawnDistance, -spawnDistance, Math.PI / 4);
+scatterFormation(empireShips, -spawnDistance, -spawnDistance, Math.PI / 4);
 
 rebelShips.sort(() => .5 - Math.random());
-basicFormation(rebelShips, spawnDistance, spawnDistance, -Math.PI + Math.PI / 4);
+scatterFormation(rebelShips, spawnDistance, spawnDistance, -Math.PI + Math.PI / 4);
 
 function basicFormation(ships, x, y, angle) {
     for (let i = 0; i < ships.length; i++) {
-        const xDistance = 600 * (Math.floor(i / 5) - 1);//((i - 1) % 2 ? -1 : 1);
-        const yDistance = 800 * [0, -1, 1, -2, 2][i % 5];//(Math.floor(i / 3) - 1);
+        const xDistance = ships[i].size * 1.125 * (Math.floor(i / 5) - 1);//((i - 1) % 2 ? -1 : 1);
+        const yDistance = ships[i].size * 1.334 * [0, -1, 1, -2, 2][i % 5];//(Math.floor(i / 3) - 1);
 
         ships[i].x = x + xDistance * Math.cos(angle) - yDistance * Math.sin(angle);
         ships[i].y = y + yDistance * Math.cos(angle) + xDistance * Math.sin(angle);
+        ships[i].angle = angle;
+        ships[i].angleGoal = angle;
+    }
+}
+
+function scatterFormation(ships, x, y, angle) {
+    // Biggest ship to smallest ship
+    ships.sort((a, b) => b.size - a.size);
+    // Scatter ships around using position sampling, making sure they aren't less than 1.25 * ship size to any other ship
+    const positions = [];
+
+    for (let i = 0; i < ships.length; i++) {
+        let position = {
+            x: 0,
+            y: 0
+        };
+
+        let valid = false,
+            radius = ships[i].size * 2,
+            iterations = 0;
+
+        if (i === 0) {
+            radius = 0;
+        }
+
+        while (!valid && iterations++ < 1000) {
+            position = {
+                x: x + Math.random() * radius - radius / 2,
+                y: y + Math.random() * radius - radius / 2
+            };
+
+            valid = true;
+            for (let j = 0; j < positions.length; j++) {
+                if (distance(position.x, position.y, positions[j].x, positions[j].y) < ships[i].size * .85) {
+                    valid = false;
+                    if (iterations % 10 === 0) {
+                        radius += ships[i].size * .25;
+                    }
+                    break;
+                }
+            }
+        }
+
+        positions.push(position);
+    }
+
+    for (let i = 0; i < ships.length; i++) {
+        ships[i].x = positions[i].x;
+        ships[i].y = positions[i].y;
         ships[i].angle = angle;
         ships[i].angleGoal = angle;
     }

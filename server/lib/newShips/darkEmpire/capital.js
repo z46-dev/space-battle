@@ -316,4 +316,178 @@ ships.ONAGER_DARKEMPIRE = {
     }]
 };
 
+ships.XYSTON_DARKEMPIRE = {
+    name: "Xyston Star Destroyer",
+    asset: "XYSTON.png",
+    classification: shipTypes.Capital,
+    population: 38,
+    size: 1200,
+    cost: 8200,
+    speed: 1.25,
+    turnSpeed: .005,
+    shield: 16000,
+    shieldRegen: 16,
+    hardpoints: (function() {
+        const output = [{
+            x: 0,
+            y: 0,
+            weapon: weapons.RED_LIGHT_SUPERLASER2,
+            shotsAtOnce: 100,
+            shotDelay: 5
+        }];
+
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: -.3,
+                y: -.325 - .08 * i,
+                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 300
+            }, {
+                x: .3,
+                y: -.325 - .08 * i,
+                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 300
+            }, {
+                x: 0,
+                y: .3 - .1 * i,
+                weapon: weapons.GREEN_ANTI_FIGHTER_LASER_CANNON
+            });
+        }
+
+        for (let i = 0; i < 8; i ++) {
+            output.push({
+                x: -.075 - .07 * i,
+                y: .7 - .2 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: .075 + .07 * i,
+                y: .7 - .2 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            });
+        }
+
+        for (let i = 0; i < output.length; i ++) {
+            output[i].weapon = {
+                ...output[i].weapon,
+                health: output[i].weapon.health * 2
+            };
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 3,
+        squadronKey: "TIEDRONE_DARKEMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 3,
+        squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 3,
+        squadronKey: "TIEBOMBER_DARKEMPIRE"
+    }]
+};
+
+ships.RESURGENT_DARKEMPIRE = {
+    name: "Resurgent Star Destroyer",
+    asset: "RESURGENT.png",
+    classification: shipTypes.Capital,
+    population: 32,
+    size: 1850,
+    cost: 8200,
+    speed: 1.25,
+    turnSpeed: .005,
+    shield: 21570,
+    shieldRegen: 21.57,
+    hardpoints: (function() {
+        const output = [];
+        const types = ["GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY", "DOUBLE_ION_CANNON_MEDIUM", "GREEN_LASER_CANNON", "ASSAULT_CONCUSSION_MISSILE"];
+
+        for (let i = 0; i < 16; i ++) {
+            output.push({
+                x: -.03 - .031 * i,
+                y: .85 - .1 * i,
+                weapon: weapons[types[i % 4]],
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: .03 + .031 * i,
+                y: .85 - .1 * i,
+                weapon: weapons[types[i % 4]],
+                shotsAtOnce: 2,
+                shotDelay: 100
+            });
+        }
+
+        for (let i = 0; i < 6; i ++) {
+            output.push({
+                x: -.1 - .015 * i,
+                y: -.05 * i,
+                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: .1 + .015 * i,
+                y: -.05 * i,
+                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: -.15 - .015 * i,
+                y: -.05 * i,
+                weapon: i % 2 ? weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY : weapons.QUAD_ION_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: .15 + .015 * i,
+                y: -.05 * i,
+                weapon: i % 2 ? weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY : weapons.QUAD_ION_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            });
+        }
+
+        for (let i = 0; i < output.length; i ++) {
+            output[i].weapon = {
+                ...output[i].weapon,
+                health: output[i].weapon.health * 3
+            };
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 3,
+        squadronSize: 8,
+        reserveSize: 6,
+        squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 8,
+        reserveSize: 4,
+        squadronKey: "TIEBOMBER_DARKEMPIRE"
+    }]
+};
+
 export default ships;

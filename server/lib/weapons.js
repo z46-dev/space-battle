@@ -616,6 +616,19 @@ export const RED_LIGHT_SUPERLASER = {
     name: "Light Superlaser"
 };
 
+export const RED_LIGHT_SUPERLASER2 = {
+    reload: 500,
+    damage: 75,
+    type: weaponTypes.RedLightSuperlaser2,
+    health: 3000,
+    speed: 90,
+    range: 10000,
+    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    explosionRange: 1e10,
+    bypassShield: true,
+    name: "Light Superlaser"
+};
+
 export const RED_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD = {
     ...GREEN_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD,
     type: weaponTypes.RedUltraTurbolaserBypassShield
