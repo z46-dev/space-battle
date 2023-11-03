@@ -1881,41 +1881,6 @@ async function battleOfEndorScene() {
 
     await Promise.all(rebelPromises);
     await scene.wait(1000);
-
-    // Periodically move the camera from ship to ship (but a ship that has action)
-    function selectNewShip(lastID = -1) {
-        scene.releaseLock();
-        const ships = [];
-
-        battle.ships.forEach(ship => {
-            if (ship.team === 1 && ship.classification >= shipTypes.Corvette && ship.id !== lastID) {
-                ships.push(ship);
-            }
-        });
-
-        // Sort ships by amount of hp, lowest first
-        ships.sort(() => .5 - Math.random());
-        ships.sort((a, b) => a.health / a.totalHealth - b.health / b.totalHealth);
-
-        const ship = ships[0];
-
-        if (ship) {
-            const k = performance.now();
-            const t = Math.random() * 3000 + 3000;
-            const timeout = setTimeout(() => selectNewShip(ship.id), t);
-            scene.lockOnTo(ship, .3).then(() => {
-                clearTimeout(timeout);
-
-                if (performance.now() - k < t) {
-                    setTimeout(() => selectNewShip(ship.id), t - (performance.now() - k));
-                }
-            });
-        } else {
-            setTimeout(() => selectNewShip(lastID), 500);
-        }
-    }
-
-    //selectNewShip();
     scene.unlockCamera();
 }
 
