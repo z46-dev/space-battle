@@ -529,7 +529,7 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
     asset: "MEGASTARDESTROYER.png",
     classification: shipTypes.SuperCapital,
     population: 400,
-    size: 20000,
+    size: 30000,
     cost: 80000,
     speed: .01,
     turnSpeed: .001,
@@ -589,8 +589,7 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
                         speed: weapons.GREEN_SUPERLASER.speed * .5,
                         range: weapons.GREEN_SUPERLASER.range * 3,
                         reload: weapons.GREEN_SUPERLASER.reload * .3,
-                        damage: weapons.GREEN_SUPERLASER.damage * .4,
-                        bypassShield: false
+                        damage: weapons.GREEN_SUPERLASER.damage * .4
                     }
                 }, {
                     x: -.015 - .015 * i,
@@ -600,8 +599,7 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
                         speed: weapons.GREEN_SUPERLASER.speed * .5,
                         range: weapons.GREEN_SUPERLASER.range * 3,
                         reload: weapons.GREEN_SUPERLASER.reload * .3,
-                        damage: weapons.GREEN_SUPERLASER.damage * .4,
-                        bypassShield: false
+                        damage: weapons.GREEN_SUPERLASER.damage * .4
                     }
                 });
             }

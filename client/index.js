@@ -112,13 +112,13 @@ import { default as shipConfig } from "../server/lib/ships.js";
     while (true) {
         let i = 0;
         findPos: while (i < 128) {
-            const x = Math.random() * 20_000 - 10_000;
-            const y = Math.random() * 20_000 - 10_000;
+            const x = Math.random() * 200_000 - 100_000;
+            const y = Math.random() * 200_000 - 100_000;
 
             const AABB = world.starGrid.getAABB({
                 x: x,
                 y: y,
-                size: 100,
+                size: 1250,
                 width: 1,
                 height: 1
             });
@@ -252,10 +252,12 @@ import { default as shipConfig } from "../server/lib/ships.js";
     // CAMERA CONTROLS
     window.addEventListener("wheel", event => {
         camera.cZoom += event.deltaY / 1000;
-        camera.cZoom = Math.max(camera.cZoom, .05);
+        camera.cZoom = Math.max(camera.cZoom, .01);
         camera.cZoom = Math.min(camera.cZoom, 2.75);
-        worker.postMessage([0, 0, camera.cZoom]);
+        worker.postMessage([0, 0, 0, camera.cZoom]);
     });
+
+    window.holdoManeuver = () => worker.postMessage([1]);
 
     let mouseX = 0,
         mouseY = 0,
@@ -764,19 +766,32 @@ import { default as shipConfig } from "../server/lib/ships.js";
         props.sprite = generateWeaponSprite(props);
     });
 
+    let closeByStars = [];
+
+    setInterval(() => {
+        const scale = uiScale() * camera.zoom;
+        const AABB = world.starGrid.getAABB({
+            x: camera.x,
+            y: camera.y,
+            size: canvas.width / scale,
+            width: 1,
+            height: 1
+        });
+
+        closeByStars = world.starGrid.retrieve({
+            _AABB: AABB,
+            id: world.starCounter
+        });
+    }, 1000);
+
     function draw() {
         requestAnimationFrame(draw);
-
-        // if (rmb) {
-        //     camera.realX -= mouseDirectionX / camera.zoom;
-        //     camera.realY -= mouseDirectionY / camera.zoom;
-        // }
 
         camera.x = lerp(camera.x, camera.realX, .2);
         camera.y = lerp(camera.y, camera.realY, .2);
         camera.zoom = lerp(camera.zoom, camera.realZoom, .2);
 
-        worker.postMessage(rmb ? [-mouseDirectionX / camera.zoom, -mouseDirectionY / camera.zoom, camera.cZoom] : [0, 0, camera.cZoom]);
+        worker.postMessage(rmb ? [0, -mouseDirectionX / camera.zoom, -mouseDirectionY / camera.zoom, camera.cZoom] : [0, 0, 0, camera.cZoom]);
 
         const scale = uiScale() * camera.zoom;
         let hardpointOver = null,
@@ -799,28 +814,13 @@ import { default as shipConfig } from "../server/lib/ships.js";
         ctx.fillStyle = "#1B1B25";
         ctx.fillRect(-world.width, -world.height, world.width * 2, world.height * 2);
 
-        // Find stars within the camera and scale
-        const AABB = world.starGrid.getAABB({
-            x: camera.x,
-            y: camera.y,
-            size: canvas.width / scale,
-            width: 1,
-            height: 1
-        });
-
-        const closeBy = world.starGrid.retrieve({
-            _AABB: AABB,
-            id: world.starCounter
-        });
-
         ctx.fillStyle = "#DEDEDE";
         ctx.shadowColor = "#FFFFFF";
-        closeBy.forEach(star => {
-            const XYHash = star.x * 100000 + star.y;
-            const hash = XYHash % 2147483647;
-            const size = 2 + Math.abs(hash / 5e7);
+        closeByStars.forEach(star => {
+            const XYHash = (star.x + star.y) * (.5 + Math.sin(performance.now() / 1000) * .5);
+            const size = 15 + (.5 + Math.sin(XYHash / (star.x + star.y))) * 10;
 
-            if (size * scale > 5) {
+            if (size * scale > 3) {
                 ctx.shadowBlur = size * 3;
             }
 

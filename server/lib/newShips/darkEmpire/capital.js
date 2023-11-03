@@ -388,20 +388,6 @@ ships.XYSTON_DARKEMPIRE = {
         squadronSize: 8,
         reserveSize: 3,
         squadronKey: "TIEDRONE_DARKEMPIRE"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 1,
-        squadronSize: 8,
-        reserveSize: 3,
-        squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 1,
-        squadronSize: 8,
-        reserveSize: 3,
-        squadronKey: "TIEBOMBER_DARKEMPIRE"
     }]
 };
 
@@ -476,14 +462,14 @@ ships.RESURGENT_DARKEMPIRE = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 3,
+        maxSquadrons: 1,
         squadronSize: 8,
         reserveSize: 6,
         squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 1,
         squadronSize: 8,
         reserveSize: 4,
         squadronKey: "TIEBOMBER_DARKEMPIRE"
