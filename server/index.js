@@ -1373,6 +1373,10 @@ class Camera {
 
         this.battle.ships.forEach(ship => {
             if (this.isInView(ship.x, ship.y, ship.size)) {
+                if (ship.squadron != null && ship.size < 5 * this.zoom) {
+                    return;
+                }
+
                 shipsIDs.push(ship.id);
 
                 if (!this.shipsCache.has(ship.id)) {
@@ -1705,6 +1709,12 @@ class Scene {
         });
     }
 
+    /**
+     * 
+     * @param {string} key 
+     * @param {number} team 
+     * @returns {Ship}
+     */
     getShip(key, team) {
         let ship = null;
         this.battle.ships.forEach(s => {
@@ -1843,7 +1853,8 @@ async function battleOfEndorScene() {
     const empireFleet = {
         "IMPERIALSTARDESTROYER_EMPIRE": 30,
         "ALLEGIANCE_EMPIRE": 1,
-        "EXECUTORSUPERSTARDESTROYER_EMPIRE": 1
+        "EXECUTORSUPERSTARDESTROYER_EMPIRE": 1,
+        "DEATHSTAR_EMPIRE": 1
     };
 
     const rebelFleet = {
@@ -1884,4 +1895,78 @@ async function battleOfEndorScene() {
     scene.unlockCamera();
 }
 
-battleOfEndorScene();
+async function battleOfSaleucami() {
+    const spawnpoint = {
+        x: -4000,
+        y: -4000,
+        angle: 0,
+        range: () => Math.random() * 5000 - 2500
+    };
+
+    const spawnpoint2 = {
+        x: 4000,
+        y: 4000,
+        angle: 0,
+        range: () => Math.random() * 5000 - 2500
+    };
+
+    spawnpoint.angle = Math.atan2(spawnpoint.y, spawnpoint.x) + Math.PI;
+    spawnpoint2.angle = Math.atan2(spawnpoint2.y, spawnpoint2.x) + Math.PI;
+
+    await scene.wait(1000);
+    await scene.lockCamera();
+    await scene.moveCamera(spawnpoint2.x, spawnpoint2.y, .05);
+
+    await scene.hyperspaceIn("VENATOR_REPUBLIC", 1, spawnpoint2.x / 3, spawnpoint2.y / 3, spawnpoint2.angle, 0);
+
+    await scene.wait(1000);
+
+    const eathKoth = scene.getShip("VENATOR_REPUBLIC", 1);
+    eathKoth.shield = eathKoth.maxShield = 100;
+    eathKoth.hardpoints.forEach(h => h.health = h.maxHealth = 10);
+
+    await scene.wait(1000);
+    await scene.moveCamera(spawnpoint.x, spawnpoint.y, .1);
+
+    const CISFleet = {
+        "RECUSANTDREADNOUGHT_CIS": 1,
+        "MUNIFICENT_CIS": 3
+    };
+
+    const CISPromises = [];
+
+    for (const ship in CISFleet) {
+        for (let i = 0; i < CISFleet[ship]; i++) {
+            CISPromises.push(scene.hyperspaceIn(ship, 0, spawnpoint.x + spawnpoint.range(), spawnpoint.y + spawnpoint.range(), spawnpoint.angle, Math.random() * 3000));
+        }
+    }
+
+    await Promise.all(CISPromises);
+
+    await scene.lockOnTo(eathKoth, .25);
+
+    await scene.wait(1000);
+    await scene.moveCamera(spawnpoint2.x, spawnpoint2.y, .1);
+
+    const RepublicFleet = {
+        "VENATOR_REPUBLIC": 3,
+        "ARQUITENS_REPUBLIC": 1,
+        "CONSOLAR_REPUBLIC": 3
+    };
+
+    const RepublicPromises = [];
+
+    for (const ship in RepublicFleet) {
+        for (let i = 0; i < RepublicFleet[ship]; i++) {
+            RepublicPromises.push(scene.hyperspaceIn(ship, 1, spawnpoint2.x + spawnpoint2.range(), spawnpoint2.y + spawnpoint2.range(), spawnpoint2.angle, Math.random() * 3000));
+        }
+    }
+
+    await Promise.all(RepublicPromises);
+
+    const kenobiArquitens = scene.getShip("ARQUITENS_REPUBLIC", 1);
+    kenobiArquitens.shield = kenobiArquitens.maxShield = 1e10;
+    await scene.lockOnTo(kenobiArquitens, .45);
+}
+
+holdoManeuverScene();
