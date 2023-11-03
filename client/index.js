@@ -105,7 +105,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
         minimapData: [],
         starCounter: 0,
         starGrid: new SpatialHashGrid(),
-        deathClones: []
+        deathClones: [],
+        text: []
     };
 
     // Add stars
@@ -660,6 +661,15 @@ import { default as shipConfig } from "../server/lib/ships.js";
                         team: team
                     });
                 }
+            } break;
+            case 2: {
+                const content = data.shift();
+                world.text.push({
+                    text: content,
+                    displayText: "",
+                    i: 0,
+                    timer: 5 * content.length
+                });
             } break;
         }
     }
@@ -1225,6 +1235,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
         }
 
         if (shipOver !== null) {
+            ctx.save();
             const cfg = shipConfig[shipOver.key];
             const str = cfg.name + " - " + shipTypeNames[cfg.classification];
             const titleMeasure = measureText(str, 28);
@@ -1254,6 +1265,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
             });
 
             ctx.fillStyle = "#AAAAAA";
+            ctx.translate(canvas.width / uScale - bigWidth - 30, 0);
             ctx.fillRect(10, 10, bigWidth + 20, bigHeight + 30 + (listHeight + 5) * Object.keys(weapons).length);
 
             drawText(str, 20, 35, 28);
@@ -1265,7 +1277,30 @@ import { default as shipConfig } from "../server/lib/ships.js";
                 drawText("x" + weapons[name], 20 + measureText(name, 18).width + 5, y, 20, "#C8C8C8");
                 y += listHeight + 5;
             }
+
+            ctx.restore();
         }
+
+        let y = 10;
+        world.text.forEach((textMessage, i) => {
+            const measurement = measureText(textMessage.displayText, 16);
+
+            drawText(textMessage.displayText, 10, y, 16);
+
+            textMessage.i = Math.min(textMessage.i + 1, textMessage.text.length);
+
+            textMessage.displayText = textMessage.text.slice(0, textMessage.i);
+
+            if (textMessage.displayText.length === textMessage.text.length) {
+                textMessage.timer --;
+            }
+
+            if (textMessage.timer <= 0) {
+                world.text.splice(i, 1);
+            }
+
+            y += measurement.height + 5;
+        });
 
         ctx.restore();
     }

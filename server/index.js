@@ -1726,7 +1726,7 @@ class Scene {
         return ship;
     }
 
-    hyperspaceIn(key, team, x, y, angle, delay = 0) {
+    hyperspaceIn(key, team, x, y, angle, delay = 0, cb = () => {}) {
         return new Promise(resolve => {
             setTimeout(() => {
                 const ship = new Ship(this.battle, key, team);
@@ -1741,6 +1741,8 @@ class Scene {
                 ship.y = y + Math.sin(angle2) * dist;
                 ship.speed = dist / 8;
                 ship.angle = ship.angleGoal = angle;
+
+                cb(ship);
 
                 const interval = setInterval(() => {
                     if (distance(ship.x, ship.y, x, y) < 10) {
@@ -1780,6 +1782,20 @@ class Scene {
     releaseLock() {
         this.isLocked = false;
     }
+
+    async displayText(text) {
+        connection.talk([2, text]);
+
+        await this.wait(50 * text.length);
+
+        return true;
+    }
+
+    /**
+     * @param {Hardpoint} target 
+     * @param {Ship} ship 
+     */
+    destroyWith(target, ship) {}
 }
 
 const scene = new Scene(battle);
@@ -1846,6 +1862,7 @@ async function battleOfEndorScene() {
     spawnpoint.angle = Math.atan2(spawnpoint.y, spawnpoint.x) + Math.PI;
     spawnpoint2.angle = Math.atan2(spawnpoint2.y, spawnpoint2.x) + Math.PI;
 
+    await scene.hyperspaceIn("DEATHSTAR_EMPIRE", 0, -16000, -16000, spawnpoint.angle);
     await scene.wait(1000);
     await scene.lockCamera();
     await scene.moveCamera(spawnpoint.x, spawnpoint.y, .05);
@@ -1853,8 +1870,7 @@ async function battleOfEndorScene() {
     const empireFleet = {
         "IMPERIALSTARDESTROYER_EMPIRE": 30,
         "ALLEGIANCE_EMPIRE": 1,
-        "EXECUTORSUPERSTARDESTROYER_EMPIRE": 1,
-        "DEATHSTAR_EMPIRE": 1
+        "EXECUTORSUPERSTARDESTROYER_EMPIRE": 1
     };
 
     const rebelFleet = {
@@ -1915,7 +1931,7 @@ async function battleOfSaleucami() {
 
     await scene.wait(1000);
     await scene.lockCamera();
-    await scene.moveCamera(spawnpoint2.x, spawnpoint2.y, .05);
+    await scene.moveCamera(spawnpoint2.x, spawnpoint2.y, .1);
 
     await scene.hyperspaceIn("VENATOR_REPUBLIC", 1, spawnpoint2.x / 3, spawnpoint2.y / 3, spawnpoint2.angle, 0);
 
@@ -1926,7 +1942,12 @@ async function battleOfSaleucami() {
     eathKoth.hardpoints.forEach(h => h.health = h.maxHealth = 10);
 
     await scene.wait(1000);
+    await scene.moveCamera(eathKoth.x, eathKoth.y, .2);
+    await scene.displayText("Eath Koth's Venator-Class Star Destroyer...");
     await scene.moveCamera(spawnpoint.x, spawnpoint.y, .1);
+
+    await scene.wait(500);
+    scene.displayText("[Clone Trooper]: Sir! We're detecting a Seperatist fleet on long range scanners!");
 
     const CISFleet = {
         "RECUSANTDREADNOUGHT_CIS": 1,
@@ -1942,6 +1963,12 @@ async function battleOfSaleucami() {
     }
 
     await Promise.all(CISPromises);
+    scene.displayText("[Clone Admiral]: Prepare to jump to hyperspace! Fighters-- cover us. All batteries open fire!");
+    await scene.wait(2500);
+
+    scene.wait(1500).then(() => {
+        scene.displayText("[Clone Tech]: The hyperdrive has been disabled! Systems are failing!");
+    });
 
     await scene.lockOnTo(eathKoth, .25);
 
@@ -1958,15 +1985,105 @@ async function battleOfSaleucami() {
 
     for (const ship in RepublicFleet) {
         for (let i = 0; i < RepublicFleet[ship]; i++) {
-            RepublicPromises.push(scene.hyperspaceIn(ship, 1, spawnpoint2.x + spawnpoint2.range(), spawnpoint2.y + spawnpoint2.range(), spawnpoint2.angle, Math.random() * 3000));
+            RepublicPromises.push(scene.hyperspaceIn(ship, 1, spawnpoint2.x + spawnpoint2.range(), spawnpoint2.y + spawnpoint2.range(), spawnpoint2.angle, Math.random() * 3000, ship => {
+                ship.maxShield *= 10;
+                ship.shield = ship.maxShield;
+            }));
         }
     }
 
     await Promise.all(RepublicPromises);
 
-    const kenobiArquitens = scene.getShip("ARQUITENS_REPUBLIC", 1);
-    kenobiArquitens.shield = kenobiArquitens.maxShield = 1e10;
-    await scene.lockOnTo(kenobiArquitens, .45);
+    const kenobiArquitens = scene.getShip("CONSOLAR_REPUBLIC", 1);
+    kenobiArquitens.turnSpeed /= 3;
+    await scene.lockOnTo(kenobiArquitens, .4);
 }
 
-holdoManeuverScene();
+async function escapeFromDqar() {
+    const FOSpawn = {
+        x: -8750,
+        y: 12400,
+        angle: 0,
+        range: () => Math.random() * 6000 - 3000
+    };
+    const ResistanceSpawn = {
+        x: 8750,
+        y: -12400,
+        angle: 0,
+        range: () => Math.random() * 1000 - 500
+    };
+
+    FOSpawn.angle = Math.atan2(FOSpawn.y, FOSpawn.x) + Math.PI;
+    ResistanceSpawn.angle = Math.atan2(ResistanceSpawn.y, ResistanceSpawn.x) + Math.PI;
+
+    await scene.hyperspaceIn("XWING_REBEL", 1, ResistanceSpawn.x, ResistanceSpawn.y, 0, 0);
+    const poe = scene.getShip("XWING_REBEL", 1);
+    poe.shield = poe.maxShield = 1e10;
+    poe.ai = undefined;
+    poe.speed = 0;
+
+    await Promise.all([
+        scene.hyperspaceIn("MC85_REBEL", 1, ResistanceSpawn.x, ResistanceSpawn.y, ResistanceSpawn.angle + Math.PI),
+        scene.hyperspaceIn("FREEVIRGILLIABUNKERBUSTER_ZANN", 1, ResistanceSpawn.x + ResistanceSpawn.range(), ResistanceSpawn.y + ResistanceSpawn.range(), ResistanceSpawn.angle + Math.PI),
+        scene.hyperspaceIn("NEBULONB_REBEL", 1, ResistanceSpawn.x + ResistanceSpawn.range(), ResistanceSpawn.y + ResistanceSpawn.range(), ResistanceSpawn.angle + Math.PI),
+    ]);
+    
+    await scene.lockCamera();
+    await scene.moveCamera(ResistanceSpawn.x, ResistanceSpawn.y, .1);
+    await scene.displayText("[Resistance Naval Officer]: They've found us.");
+    await scene.displayText("[Poe Dameron]: Well, we knew that was coming.");
+    await scene.wait(1000);
+    (async function() {
+        await scene.displayText("[Resistance Supply Officer]: We're not clear yet there's still thirty pallets of munitions.");
+        await scene.displayText("[Resistance Officer]: Forget the munitions! There's no time! Just get everyone on the transports we've got to go NOW!");
+    })();
+    await scene.moveCamera(ResistanceSpawn.x, ResistanceSpawn.y, .6);
+    await scene.wait(5000);
+
+    scene.moveCamera(FOSpawn.x, FOSpawn.y, .1);
+    await Promise.all([
+        scene.hyperspaceIn("RESURGENT_DARKEMPIRE", 0, FOSpawn.x + FOSpawn.range(), FOSpawn.y + FOSpawn.range(), FOSpawn.angle, 1000, () => scene.displayText("[Resistance Officer]: Oh no... .We're out of time...")),
+        scene.hyperspaceIn("RESURGENT_DARKEMPIRE", 0, FOSpawn.x + FOSpawn.range(), FOSpawn.y + FOSpawn.range(), FOSpawn.angle, 3000),
+        scene.hyperspaceIn("RESURGENT_DARKEMPIRE", 0, FOSpawn.x + FOSpawn.range(), FOSpawn.y + FOSpawn.range(), FOSpawn.angle, 4000)
+    ]);
+
+    await scene.displayText("[First Order Officer]: We've caught them in the middle of their evacuation.");
+    await scene.wait(500);
+    await scene.moveCamera(FOSpawn.x * .7, FOSpawn.y * .7, .1);
+    await scene.displayText("[General Hux]: I have my orders from Supreme Leader Snoke himself. This is where snuff out the resistance once and for all.");
+    await scene.displayText("[General Hux]: Tell Captain Canady to prime his dreadnought. Incinerate their base, destroy their transports, and obliterate their fleet.");
+    await scene.hyperspaceIn("MANDATORSIEGEDREADNOUGHT_DARKEMPIRE", 0, FOSpawn.x * .7, FOSpawn.y * .7, FOSpawn.angle, 500);
+    await scene.displayText("[First Order Petty Officer]: General, Resistance ship approaching. Guns and shields in attack mode.");
+    await scene.displayText("[First Order Bridge Officer]: He's going for the dreadnought.");
+    await scene.displayText("[General Hux]: *scoffs* He's insane.");
+
+    const canady = scene.getShip("MANDATORSIEGEDREADNOUGHT_DARKEMPIRE", 0);
+
+    // Poe's flight
+    poe.angle = Math.atan2(canady.y - poe.y, canady.x - poe.x);
+    poe.speed = poe.maxSpeed * 2;
+
+    scene.lockOnTo(poe, .65);
+
+    await scene.displayText("[Poe Dameron]: Woo! BB-8 let's take out those defense turrets for our bombers!");
+    await scene.displayText("[BB-8]: *excited beeps*");
+    canady.shield = 0;
+    canady.shieldRegen = 0;
+
+    await new Promise(resolve => {
+        const interval = setInterval(() => {
+            poe.angle = Math.atan2(canady.y - poe.y, canady.x - poe.x);
+    
+            if (distance(canady.x, canady.y, poe.x, poe.y) < canady.size) {
+                clearInterval(interval);
+                poe.speed = 0;
+                resolve();
+            }
+        }, 1000 / 30);
+    });
+
+    await scene.displayText("Reached target!");
+    await scene.destroyWith(canady.hardpoints[0], poe);
+}
+
+escapeFromDqar();
