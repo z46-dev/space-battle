@@ -513,7 +513,7 @@ ships.MANDATORSIEGEDREADNOUGHT_DARKEMPIRE = {
         maxSquadrons: 2,
         squadronSize: 8,
         reserveSize: 8,
-        squadronKey: "TIEDEFENDER_DARKEMPIRE"
+        squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
     }, {
         x: 0,
         y: 0,

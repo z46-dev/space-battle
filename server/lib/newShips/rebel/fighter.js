@@ -143,4 +143,49 @@ ships.BWING_REBEL = {
     }]
 };
 
+ships.MG100STARFORTRESS_REBEL = {
+    name: "MG-100 StarFortress SF-17",
+    asset: "MG100STARFORTRESS.png",
+    classification: shipTypes.Bomber,
+    population: 0,
+    size: 40,
+    cost: 16,
+    speed: 7.5,
+    turnSpeed: .025,
+    shield: 50,
+    shieldRegen: 5,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.RED_DOUBLE_LASER_CANNON,
+            health: weapons.RED_DOUBLE_LASER_CANNON.health * 2
+        },
+        shotsAtOnce: 4,
+        shotDelay: 75
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.FIGHTER_PROTON_TORPEDO,
+            health: weapons.FIGHTER_PROTON_TORPEDO.health * 2
+        },
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .5,
+        y: 0,
+        weapon: {
+            ...weapons.FIGHTER_PROTON_BOMB,
+            reload: weapons.FIGHTER_PROTON_BOMB.reload * 2,
+            speed: weapons.FIGHTER_PROTON_BOMB.speed * 2,
+            damage: weapons.FIGHTER_PROTON_BOMB.damage * 10,
+            health: weapons.FIGHTER_PROTON_BOMB.health * 5,
+            explosionRange: 2500,
+        },
+        shotsAtOnce: 20,
+        shotDelay: 50
+    }]
+};
+
 export default ships;

@@ -660,6 +660,25 @@ class ShipAI {
     }
 }
 
+class ShipFleeAI extends ShipAI {
+    constructor(ship, flee, angleModifier) {
+        super(ship);
+
+        this.flee = flee;
+        this.angleModifier = angleModifier;
+    }
+
+    update() {
+        if (this.flee == null || this.flee.health <= 0) {
+            this.ship.ai = new ShipAI(this.ship);
+            return;
+        }
+
+        this.ship.angleGoal = Math.atan2(this.ship.y - this.flee.y, this.ship.x - this.flee.x) + this.angleModifier;
+        this.ship.speed = this.ship.maxSpeed;
+    }
+}
+
 class Ship {
     static id = 0;
     constructor(battle, configKey, team) {
@@ -694,6 +713,9 @@ class Ship {
         this.source = this;
         this.explodeOnDeath = true;
 
+        this.disabled = false;
+        this.disableHangars = false;
+
         /**
          * @type {Hardpoint[]}
          */
@@ -725,13 +747,17 @@ class Ship {
     }
 
     update() {
-        this.hardpoints.forEach(hardpoint => {
-            hardpoint.update();
-        });
-
-        this.hangars.forEach(hangar => {
-            hangar.update();
-        });
+        if (!this.disabled) {
+            this.hardpoints.forEach(hardpoint => {
+                hardpoint.update();
+            });
+    
+            if (!this.disableHangars) {
+                this.hangars.forEach(hangar => {
+                    hangar.update();
+                });
+            }
+        }
 
         this.shield = Math.max(this.shield, 0);
         if (this.shield < this.maxShield && performance.now() - this.lastHit > 7_500) {
@@ -743,10 +769,12 @@ class Ship {
         this.y += this.speed * Math.sin(this.angle);
 
         // Move to the angle
-        this.angle = lerpAngle(this.angle, this.angleGoal, this.turnSpeed);
+        if (!this.disabled) {
+            this.angle = lerpAngle(this.angle, this.angleGoal, this.turnSpeed);
 
-        if (this.ai !== undefined && this.squadron === null) {
-            this.ai.update();
+            if (this.ai !== undefined && this.squadron === null) {
+                this.ai.update();
+            }
         }
 
         if (this.health <= 0) {
@@ -885,7 +913,8 @@ function getRandomPointInEllipse(x, y, w, h, angle) {
     return { x: rotatedX, y: rotatedY };
 }
 
-const battle = new Battle(100_000, 100_000, 2);
+const size = 12400 * 2.25; // 100_000
+const battle = new Battle(size, size, 2);
 
 const empireFleet = {
     "CONSOLAR_REPUBLIC": 0,
@@ -1756,6 +1785,27 @@ class Scene {
         });
     }
 
+    hyperspaceOut(ship, angle) {
+        return new Promise(resolve => {
+            ship.ai = undefined;
+            ship.angleGoal = angle;
+
+            const interval = setInterval(() => {
+                if (angleDifference(ship.angle, angle) < .05) {
+                    clearInterval(interval);
+                    ship.maxSpeed = 500;
+                    ship.speed = 500;
+
+                    setTimeout(() => {
+                        ship.sield = 0;
+                        ship.hardpoints.forEach(h => h.health = 0);
+                        resolve();
+                    }, 5000);
+                }
+            }, 1000 / 45);
+        });
+    }
+
     /**
      * @param {Ship} ship 
      * @param {number} zoom 
@@ -1795,10 +1845,24 @@ class Scene {
      * @param {Hardpoint} target 
      * @param {Ship} ship 
      */
-    destroyWith(target, ship) {}
+    destroyWith(target, ship) {
+        return new Promise(resolve => {
+            const interval = setInterval(() => {
+                ship.angle = ship.angleGoal = Math.atan2(target.y - ship.y, target.x - ship.x);
+
+                if (distance(ship.x, ship.y, target.x, target.y) < ship.size * 5) {
+                    target.health = -1;
+                    clearInterval(interval);
+                    resolve();
+                }
+            }, 1000 / 45);
+        });
+    }
 }
 
 const scene = new Scene(battle);
+// Consider adding the Ackbar dialogue from HISHE cuz it's funny
+// IT"S A TRAPPPPP
 async function holdoManeuverScene() {
     const spawnpoint = {
         x: -30000,
@@ -2004,11 +2068,11 @@ async function escapeFromDqar() {
         x: -8750,
         y: 12400,
         angle: 0,
-        range: () => Math.random() * 6000 - 3000
+        range: () => Math.random() * 3000 - 1500
     };
     const ResistanceSpawn = {
-        x: 8750,
-        y: -12400,
+        x: 3000,
+        y: -5000,
         angle: 0,
         range: () => Math.random() * 1000 - 500
     };
@@ -2022,10 +2086,14 @@ async function escapeFromDqar() {
     poe.ai = undefined;
     poe.speed = 0;
 
+    function disable(ship) {
+        ship.disabled = true;
+    }
+
     await Promise.all([
-        scene.hyperspaceIn("MC85_REBEL", 1, ResistanceSpawn.x, ResistanceSpawn.y, ResistanceSpawn.angle + Math.PI),
-        scene.hyperspaceIn("FREEVIRGILLIABUNKERBUSTER_ZANN", 1, ResistanceSpawn.x + ResistanceSpawn.range(), ResistanceSpawn.y + ResistanceSpawn.range(), ResistanceSpawn.angle + Math.PI),
-        scene.hyperspaceIn("NEBULONB_REBEL", 1, ResistanceSpawn.x + ResistanceSpawn.range(), ResistanceSpawn.y + ResistanceSpawn.range(), ResistanceSpawn.angle + Math.PI),
+        scene.hyperspaceIn("MC85_REBEL", 1, ResistanceSpawn.x, ResistanceSpawn.y, ResistanceSpawn.angle, 0, disable),
+        scene.hyperspaceIn("FREEVIRGILLIABUNKERBUSTER_ZANN", 1, ResistanceSpawn.x + ResistanceSpawn.range(), ResistanceSpawn.y + ResistanceSpawn.range(), ResistanceSpawn.angle, 0, disable),
+        scene.hyperspaceIn("NEBULONB_REBEL", 1, ResistanceSpawn.x + ResistanceSpawn.range(), ResistanceSpawn.y + ResistanceSpawn.range(), ResistanceSpawn.angle, 0, disable),
     ]);
     
     await scene.lockCamera();
@@ -2035,40 +2103,68 @@ async function escapeFromDqar() {
     await scene.wait(1000);
     (async function() {
         await scene.displayText("[Resistance Supply Officer]: We're not clear yet there's still thirty pallets of munitions.");
-        await scene.displayText("[Resistance Officer]: Forget the munitions! There's no time! Just get everyone on the transports we've got to go NOW!");
+        await scene.displayText("[Lieutenant Connix]: Forget the munitions! There's no time! Just get everyone on the transports we've got to go NOW!");
     })();
     await scene.moveCamera(ResistanceSpawn.x, ResistanceSpawn.y, .6);
     await scene.wait(5000);
 
     scene.moveCamera(FOSpawn.x, FOSpawn.y, .1);
     await Promise.all([
-        scene.hyperspaceIn("RESURGENT_DARKEMPIRE", 0, FOSpawn.x + FOSpawn.range(), FOSpawn.y + FOSpawn.range(), FOSpawn.angle, 1000, () => scene.displayText("[Resistance Officer]: Oh no... .We're out of time...")),
-        scene.hyperspaceIn("RESURGENT_DARKEMPIRE", 0, FOSpawn.x + FOSpawn.range(), FOSpawn.y + FOSpawn.range(), FOSpawn.angle, 3000),
-        scene.hyperspaceIn("RESURGENT_DARKEMPIRE", 0, FOSpawn.x + FOSpawn.range(), FOSpawn.y + FOSpawn.range(), FOSpawn.angle, 4000)
+        scene.hyperspaceIn("RESURGENT_DARKEMPIRE", 0, FOSpawn.x + FOSpawn.range(), FOSpawn.y + FOSpawn.range(), FOSpawn.angle, 1000, disable),
+        scene.hyperspaceIn("RESURGENT_DARKEMPIRE", 0, FOSpawn.x + FOSpawn.range(), FOSpawn.y + FOSpawn.range(), FOSpawn.angle, 3000, disable),
+        scene.hyperspaceIn("RESURGENT_DARKEMPIRE", 0, FOSpawn.x + FOSpawn.range(), FOSpawn.y + FOSpawn.range(), FOSpawn.angle, 4000, disable)
     ]);
 
-    await scene.displayText("[First Order Officer]: We've caught them in the middle of their evacuation.");
+    await scene.displayText("[Captain Peavey]: We've caught them in the middle of their evacuation.");
     await scene.wait(500);
     await scene.moveCamera(FOSpawn.x * .7, FOSpawn.y * .7, .1);
     await scene.displayText("[General Hux]: I have my orders from Supreme Leader Snoke himself. This is where snuff out the resistance once and for all.");
     await scene.displayText("[General Hux]: Tell Captain Canady to prime his dreadnought. Incinerate their base, destroy their transports, and obliterate their fleet.");
-    await scene.hyperspaceIn("MANDATORSIEGEDREADNOUGHT_DARKEMPIRE", 0, FOSpawn.x * .7, FOSpawn.y * .7, FOSpawn.angle, 500);
-    await scene.displayText("[First Order Petty Officer]: General, Resistance ship approaching. Guns and shields in attack mode.");
-    await scene.displayText("[First Order Bridge Officer]: He's going for the dreadnought.");
-    await scene.displayText("[General Hux]: *scoffs* He's insane.");
+    await scene.hyperspaceIn("MANDATORSIEGEDREADNOUGHT_DARKEMPIRE", 0, FOSpawn.x * .7, FOSpawn.y * .7, FOSpawn.angle, 500, ship => {
+        ship.disableHangars = true;
+        ship.maxSpeed = 0;
+        ship.shield = 0;
+        ship.shieldRegen = 0;
+        ship.maxShield = 0;
+    });
+    await scene.displayText("[First Order Monitor]: General, Resistance ship approaching. Guns and shields in attack mode.");
 
     const canady = scene.getShip("MANDATORSIEGEDREADNOUGHT_DARKEMPIRE", 0);
 
     // Poe's flight
+    poe.speed = poe.maxSpeed * .334;
     poe.angle = Math.atan2(canady.y - poe.y, canady.x - poe.x);
-    poe.speed = poe.maxSpeed * 2;
+    poe.angleGoal = Math.atan2(canady.y - poe.y, canady.x - poe.x);
 
     scene.lockOnTo(poe, .65);
 
-    await scene.displayText("[Poe Dameron]: Woo! BB-8 let's take out those defense turrets for our bombers!");
-    await scene.displayText("[BB-8]: *excited beeps*");
-    canady.shield = 0;
-    canady.shieldRegen = 0;
+    await scene.displayText("[BB-8]: *nervous beeps*");
+    await scene.displayText("[Poe Dameron]: Happy beeps, buddy, come on. We've pulled off crazier stunts than this.");
+    await scene.displayText("[Leia Organa Solo]: For the record Commander Dameron, I'm with the droid on this one.");
+    await scene.displayText("[Poe Dameron]: Thank you, for your support, general. *sigh* Happy beeps.");
+    await scene.displayText("[Poe Dameron]: Attention, this is commander Poe Dameron of the Republic fleet. I have an urgent communique for General Hux.");
+    await scene.displayText("[General Hux]: This is General Hux of the First Order. The Republic is no more. Your fleet are rebel scum and war criminals.");
+    await scene.displayText("[General Hux]: Tell your precious princess there will be no terms, there will be no surrender.");
+    await scene.displayText("[Poe Dameron]: Hi, I'm holding for General Hux.");
+    await scene.displayText("[General Hux]: This is Hux. You and your friends are doomed. We will wipe your filth from the galaxy.");
+    await scene.displayText("[Poe Dameron]: Okay. I'll hold.");
+    await scene.displayText("[General Hux]: Hello?");
+    await scene.displayText("[Poe Dameron]: Hello? Yup, I'm still here.");
+    await scene.displayText("[General Hux]: Can you--? Can he hear me?");
+    await scene.displayText("[Poe Dameron]: Hux? With an H? Skinny guy? Kinda pasty?");
+    await scene.displayText("[General Hux]: I can hear you. Can you hear me?");
+    await scene.displayText("[Poe Dameron]: Look I can't hold forever. If you reach him, tell him Leia has an urgent message for him.");
+    await scene.displayText("[Captain Peavey]: I believe he's tooling with you, sir.");
+    await scene.displayText("[Poe Dameron]: About his mother.");
+    await scene.displayText("[General Hux]: OPEN FIRE!!");
+    await scene.displayText("[Poe Dameron]: BB-8, punch it!");
+    await scene.displayText("[BB-8]: *happy beeps*");
+
+    poe.speed = poe.maxSpeed * 2.5;
+
+    await scene.wait(1000);
+    await scene.displayText("[Captain Peavey]: He's going for the dreadnought.");
+    await scene.displayText("[General Hux]: *scoffs* He's insane.");
 
     await new Promise(resolve => {
         const interval = setInterval(() => {
@@ -2076,14 +2172,153 @@ async function escapeFromDqar() {
     
             if (distance(canady.x, canady.y, poe.x, poe.y) < canady.size) {
                 clearInterval(interval);
-                poe.speed = 0;
                 resolve();
             }
         }, 1000 / 30);
     });
+    poe.speed = poe.maxSpeed;
 
-    await scene.displayText("Reached target!");
-    await scene.destroyWith(canady.hardpoints[0], poe);
+    await new Promise(resolve => {
+        const hardpoints = canady.hardpoints.filter(h => h.classification == weaponClassifications.LaserCannon);
+
+        function next() {
+            hardpoints.sort((a, b) => distance(a.x, a.y, poe.x, poe.y) - distance(b.x, b.y, poe.x, poe.y));
+            const hardpoint = hardpoints.shift();
+            if (hardpoint == null) {
+                resolve();
+                return;
+            }
+
+            scene.destroyWith(hardpoint, poe).then(next);
+        }
+
+        next();
+    });
+
+    await scene.displayText("[Poe Dameron]: Woo! Tallie, start your run!");
+    poe.hardpoints.forEach(h => h.health = 0);
+    poe.shield = 0;
+
+    await scene.moveCamera(canady.x, canady.y, .2);
+    await scene.displayText("[First Order Bridge Officer]: He's taken out our cannons!");
+    canady.hardpoints.forEach(h => (h.classification === weaponClassifications.LaserCannon || h.classification === weaponClassifications.IonCannon) && (h.health = 0));
+
+    canady.hangars.forEach(h => {
+        h.config = {
+            x: 0,
+            y: 0,
+            maxSquadrons: 1,
+            squadronSize: 6,
+            reserveSize: 4,
+            squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
+        };
+    });
+
+    await scene.displayText("[Captain Canady]: Launch Fighters!!");
+    canady.disableHangars = false;
+
+    battle.ships.forEach(ship => {
+        if (ship.team !== canady.team) {
+            ship.ai = new ShipFleeAI(ship, canady, 0);
+            ship.disableHangars = true;
+            ship.disabled = false;
+        }
+    });
+
+    // Let's spawn some ywings
+    const raddus = scene.getShip("MC85_REBEL", 1);
+
+    const bigGuns = canady.hardpoints.filter(h => h.health > 0);
+
+    const bombers = new Map();
+    for (let i = 0; i < 6; i ++) {
+        const bomber = new Ship(battle, "MG100STARFORTRESS_REBEL", 1);
+        bomber.x = raddus.x + Math.random() * 300 - 150;
+        bomber.y = raddus.y + Math.random() * 300 - 150;
+
+        bomber.ai.target = bigGuns[i % bigGuns.length];
+        bomber.ai.findTarget = () => {
+            const valid = bigGuns.filter(h => h.health > 0);
+
+            if (valid.length === 0) {
+                return null;
+            }
+
+            return valid[Math.random() * valid.length | 0];
+        }
+
+        bomber.turnSpeed *= .75;
+        bomber.speed = bomber.maxSpeed;
+
+        bombers.set(bomber.id, bomber);
+
+        bomber.onDead = () => {
+            bombers.delete(bomber.id);
+
+            if (bombers.size === 1) {
+                bombers.forEach(b => {
+                    b.maxShield = 10000;
+                    b.shield = 10000;
+                    b.maxSpeed *= 1.5;
+                    b.speed = b.maxSpeed;
+                    b.hardpoints.forEach(h => h.health = h.maxHealth);
+                });
+            
+            }
+        }
+    }
+
+    raddus.hangars.length = 2; // (usually 3)
+    raddus.hangars.forEach((h, i) => {
+        h.config = {
+            x: 0,
+            y: 0,
+            maxSquadrons: 2,
+            squadronSize: [7, 5][i],
+            reserveSize: 3,
+            squadronKey: ["XWING_REBEL", "AWING_REBEL"][i]
+        };
+    });
+    raddus.disableHangars = false;
+
+    await scene.displayText("[Tallisian Lintra]: All wings, form up on me. We're going in.");
+
+
+    canady.onDead = async () => {
+        bombers.forEach(bomber => {
+            bomber.hardpoints.forEach(h => h.health = 0);
+        });
+
+        await scene.displayText("[Poe Dameron]: Woo! We did it!");
+        await scene.displayText("[Tallisian Lintra]: Dreadnought down!");
+        await scene.displayText("[Leia Organa Solo]: All craft, return to the Raddus. It's time for us to leave.");
+
+        raddus.hangars.forEach(h => {
+            h.squadrons.forEach(squadron => {
+                squadron.ships.forEach(ship => {
+                    ship.shield = 0;
+                    ship.hardpoints.forEach(h => h.health = 0);
+                });
+            });
+        });
+
+        await scene.wait(1000);
+
+        await scene.moveCamera(raddus.x, raddus.y, .15);
+        const nebulonFrigate = scene.getShip("NEBULONB_REBEL", 1);
+        const bunkerBuster = scene.getShip("FREEVIRGILLIABUNKERBUSTER_ZANN", 1);
+
+        // Jump all of them away
+        await Promise.all([
+            scene.hyperspaceOut(nebulonFrigate, nebulonFrigate.angle),
+            scene.hyperspaceOut(bunkerBuster, bunkerBuster.angle),
+            scene.hyperspaceOut(raddus, raddus.angle)
+        ]);
+
+        // Hux and Snoke dialogue
+    }
+
+    scene.unlockCamera();
 }
 
 escapeFromDqar();
