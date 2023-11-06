@@ -190,7 +190,11 @@ class Scene {
                 this.cloudNoise = noise.perlin3;
             }
 
+            this.divisor = this.radius * (.25 + Math.random() * .334);
             this.drawCircles();
+
+            this.mainPalette = this.palette;
+            this.mainStarPalette = this.starPalette;
         }
 
         drawCircles() {
@@ -203,10 +207,6 @@ class Scene {
             this.cloudCtx.beginPath();
             this.cloudCtx.arc(this.radius / 2, this.radius / 2, this.radius / 2, 0, Math.PI * 2);
             this.cloudCtx.fill();
-        }
-
-        get divisor() {
-            return this.radius * (.25 + Math.random() * .334);
         }
 
         get palette() {
@@ -222,7 +222,7 @@ class Scene {
         shade(xx, yy) {
             const imageData = this.ctx.getImageData(0, 0, this.radius, this.radius);
             const divisor = this.divisor;
-            const chosenPalette = this.palette;
+            const chosenPalette = this.mainPalette;
 
             const lightingDistance = Math.min(this.radius / 3, Math.sqrt(Math.pow(this.lighting.x - xx, 2) + Math.pow(this.lighting.y - yy, 2)));
             const lightingAngle = Math.atan2(this.lighting.y - yy, this.lighting.x - xx);
@@ -267,7 +267,7 @@ class Scene {
         shadeAsSun() {
             const imageData = this.ctx.getImageData(0, 0, this.radius, this.radius);
             const divisor = this.divisor;
-            const chosenPalette = this.starPalette;
+            const chosenPalette = this.mainStarPalette;
 
             for (let index = 0; index < imageData.data.length; index += 4) {
                 if (imageData.data[index + 3] === 0) {
@@ -353,19 +353,24 @@ class Scene {
             this.cloudCtx.putImageData(imageData, 0, 0);
         }
 
-        draw(x, y, star = false) {
+        draw(x, y, star = false, i = 0) {
             if (star) {
                 this.shadeAsSun();
-                this.drawBlueBorder(x, y, true);
+                if (i === 0) {
+                    this.drawBlueBorder(x, y, true);
+                }
                 ctx.drawImage(this.canvas, x - this.radius / 2, y - this.radius / 2);
                 return;
             }
 
             this.shade(x, y);
             this.shadeClouds(x, y);
-            this.drawBlueBorder(x, y);
+            if (i === 0) {
+                this.drawBlueBorder(x, y);
+            }
             ctx.drawImage(this.canvas, x - this.radius / 2, y - this.radius / 2);
             ctx.drawImage(this.cloudCanvas, x - this.radius / 2, y - this.radius / 2);
+            this.cloudSeed += .01;
         }
 
         drawBlueBorder(x, y, isSun = false) {
@@ -394,8 +399,10 @@ ctx.fillRect(0, 0, canvas.width, canvas.height);
 const lighting = {
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    size: 128 + Math.random() * 256
-}
+    size: (128 + Math.random() * 256) * 2
+};
+
+const planets = [];
 
 const positions = [lighting];
 
@@ -423,9 +430,44 @@ for (let i = 0; i < 6; i++) {
     positions.push({ x, y, size: size * 2 });
 
     const planet = new Scene.Planet(size, Color.random(), lighting);
-    planet.draw(x, y);
+    planets.push({
+        planet,
+        x,
+        y
+    });
 }
 
 // Draw lighting
-const sun = new Scene.Planet(lighting.size, "#ffffff", lighting);
+const sun = new Scene.Planet(lighting.size / 2, "#ffffff", lighting);
 sun.draw(lighting.x, lighting.y, true);
+
+let fails = 0;
+main: while (fails < 2048) {
+    let x = Math.random() * canvas.width,
+        y = Math.random() * canvas.height,
+        size = Math.random() * .5 + .25;
+
+    for (let j = 0; j < positions.length; j++) {
+        let p = positions[j];
+        let distance = Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
+        if (distance < (size + p.size) / 4) {
+            fails++;
+            continue main;
+        }
+    }
+
+    positions.push({ x, y, size: size * 64 });
+    ctx.beginPath();
+    ctx.arc(x, y, size, 0, Math.PI * 2);
+    ctx.fillStyle = "#ffffff";
+    ctx.fill();
+}
+
+let i = 0;
+setInterval(() => {
+    planets.forEach(planet => {
+        planet.planet.draw(planet.x, planet.y, false, i);
+    });
+
+    i++;
+}, 50);
