@@ -82,10 +82,10 @@ ships.FREEVIRGILLIABUNKERBUSTER_ZANN = {
     asset: "FREEVIRGILLIABUNKERBUSTER.png",
     classification: shipTypes.HeavyFrigate,
     population: 28,
-    size: 450,
+    size: 400,
     cost: 6000,
-    speed: 1.5,
-    turnSpeed: .05,
+    speed: 2.25,
+    turnSpeed: .0175,
     shield: 13500,
     shieldRegen: 8,
     hardpoints: (function() {

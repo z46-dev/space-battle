@@ -69,7 +69,7 @@ ships.NEBULONB_REBEL = {
     size: 250,
     cost: 500,
     speed: 4.5,
-    turnSpeed: .05,
+    turnSpeed: .0175,
     shield: 1000,
     shieldRegen: 1,
     hardpoints: [{

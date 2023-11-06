@@ -11,7 +11,7 @@ ships.MC85_REBEL = {
     size: 2600,
     cost: 20000,
     speed: 3,
-    turnSpeed: .005,
+    turnSpeed: .0125,
     shield: 50000,
     shieldRegen: 20,
     hardpoints: (function() {
