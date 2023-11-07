@@ -406,7 +406,7 @@ const planets = [];
 
 const positions = [lighting];
 
-for (let i = 0; i < 6; i++) {
+for (let i = 0; i < 3; i++) {
     // Position sample to avoid overlap (x, y, size) 
     let size = 150 + Math.random() * 250,
         x = size + Math.random() * (canvas.width - size * 2),
@@ -442,7 +442,7 @@ const sun = new Scene.Planet(lighting.size / 2, "#ffffff", lighting);
 sun.draw(lighting.x, lighting.y, true);
 
 let fails = 0;
-main: while (fails < 2048) {
+main: while (fails < 512) {
     let x = Math.random() * canvas.width,
         y = Math.random() * canvas.height,
         size = Math.random() * .5 + .25;
