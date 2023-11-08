@@ -1069,7 +1069,7 @@ for (const ship in rebelFleet) {
     }
 }
 
-const spawnDistance = 20000;
+const spawnDistance = 3000;
 
 empireShips.sort(() => .5 - Math.random());
 scatterFormation(empireShips, -spawnDistance, -spawnDistance, Math.PI / 4);
@@ -2245,7 +2245,7 @@ async function escapeFromDqar() {
 
     const bombers = new Map();
     for (let i = 0; i < 6; i ++) {
-        const bomber = new Ship(battle, "MG100STARFORTRESS_REBEL", 1);
+        const bomber = new Ship(battle, "MG100STARFORTRESS_ESCAPEFROMDQAR_REBEL", 1);
         bomber.x = raddus.x + Math.random() * 300 - 150;
         bomber.y = raddus.y + Math.random() * 300 - 150;
 
@@ -2332,4 +2332,4 @@ async function escapeFromDqar() {
     scene.unlockCamera();
 }
 
-battleOfSaleucami();
+escapeFromDqar();
