@@ -100,8 +100,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
     // }
 
     const world = {
-        width: 10_000,
-        height: 10_000,
+        width: 100_000,
+        height: 100_000,
         minimapData: [],
         starCounter: 0,
         starGrid: new SpatialHashGrid(),
@@ -113,8 +113,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
     while (true) {
         let i = 0;
         findPos: while (i < 128) {
-            const x = Math.random() * 200_000 - 100_000;
-            const y = Math.random() * 200_000 - 100_000;
+            const x = Math.random() * world.width * 2 - world.width;
+            const y = Math.random() * world.width * 2 - world.width;
 
             const AABB = world.starGrid.getAABB({
                 x: x,

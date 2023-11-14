@@ -2246,7 +2246,7 @@ async function escapeFromDqar() {
 
     const bombers = new Map();
     for (let i = 0; i < 6; i ++) {
-        const bomber = new Ship(battle, "MG100STARFORTRESS_REBEL", 1);
+        const bomber = new Ship(battle, "MG100STARFORTRESS_ESCAPEFROMDQAR_REBEL", 1);
         bomber.x = raddus.x + Math.random() * 300 - 150;
         bomber.y = raddus.y + Math.random() * 300 - 150;
 
