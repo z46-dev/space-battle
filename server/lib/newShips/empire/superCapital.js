@@ -386,6 +386,116 @@ ships.LEGATORSTARDREADNOUGHT_EMPIRE = {
         squadronSize: 6,
         reserveSize: 8,
         squadronKey: "TIEFIGHTER_EMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 8,
+        squadronKey: "TIEBOMBER_EMPIRE"
+    }]
+};
+
+ships.CONSOLIDATORASSAULTSHIP_EMPIRE = {
+    name: "Consolidator Assault Ship",
+    asset: "CONSOLIDATORASSAULTSHIP.png",
+    classification: shipTypes.SuperCapital,
+    population: 85,
+    size: 1900,
+    cost: 28570,
+    speed: 1.2,
+    turnSpeed: .00025,
+    shield: 38500,
+    shieldRegen: 38.5,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 8; i ++) {
+            output.push({
+                x: -.07 - .0625 * i,
+                y: .925 - .1 * i,
+                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 250
+            }, {
+                x: .07 + .0625 * i,
+                y: .925 - .1 * i,
+                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 250
+            }, {
+                x: -.03 - .0625 * i,
+                y: .925 - .1 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 250
+            }, {
+                x: .03 + .0625 * i,
+                y: .925 - .1 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 250
+            });
+        }
+
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: -.285 - .0425 * i,
+                y: -.925 + .085 * i,
+                weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 250
+            }, {
+                x: .285 + .0425 * i,
+                y: -.925 + .085 * i,
+                weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 250
+            }, {
+                x: -.2 - .0425 * i,
+                y: -.925 + .085 * i,
+                weapon: weapons.DOUBLE_ION_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 250
+            }, {
+                x: .2 + .0425 * i,
+                y: -.925 + .085 * i,
+                weapon: weapons.DOUBLE_ION_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 250
+            });
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 8,
+        squadronKey: "TIEFIGHTER_EMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 8,
+        squadronKey: "TIEINTERCEPTOR_EMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 8,
+        squadronKey: "TIEBOMBER_EMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "TIEDEFENDER_EMPIRE"
     }]
 };
 

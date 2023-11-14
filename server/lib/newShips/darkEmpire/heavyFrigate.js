@@ -230,4 +230,93 @@ ships.DREADNOUGHTHEAVYCRUISER_DARKEMPIRE = {
     }]
 };
 
+ships.HARROWERDREADNOUGHT_DARKEMPIRE = {
+    name: "Harrower Dreadnought",
+    asset: "HARROWERDREADNOUGHT.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 19,
+    size: 850,
+    cost: 2400,
+    speed: 2,
+    turnSpeed: .005,
+    shield: 7000,
+    shieldRegen: 7,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: -.3 - .02 * i,
+                y: -.4 - .075 * i,
+                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 300
+            }, {
+                x: .3 + .02 * i,
+                y: -.4 - .075 * i,
+                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 300
+            });
+        }
+
+        for (let i = 0; i < 3; i ++) {
+            output.push({
+                x: 0,
+                y: .285 - .115 * i,
+                weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            });
+        }
+
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: -.075 - .06 * i,
+                y: .7 - .175 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            }, {
+                x: .075 + .06 * i,
+                y: .7 - .175 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            });
+        }
+
+        for (let i = 0; i < output.length; i ++) {
+            output[i].weapon = {
+                ...output[i].weapon,
+                health: output[i].weapon.health * 2
+            };
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 3,
+        squadronKey: "TIEDRONE_DARKEMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 3,
+        squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 3,
+        squadronKey: "TIEBOMBER_DARKEMPIRE"
+    }]
+};
+
 export default ships;
