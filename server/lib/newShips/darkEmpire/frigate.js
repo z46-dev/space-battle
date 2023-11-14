@@ -251,4 +251,53 @@ ships.LANCERFRIGATE_DARKEMPIRE = {
     }]
 };
 
+ships.INTERDICTORCRUISER_DARKEMPIRE = {
+    name: "Interdictor Cruiser",
+    asset: "SITHINTERDICTOR.png",
+    classification: shipTypes.Frigate,
+    population: 10,
+    size: 600,
+    cost: 5500,
+    speed: 2.6,
+    turnSpeed: .0075,
+    shield: 0,
+    shieldRegen: 0,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: -.025 - .05 * Math.pow(i, 1.2),
+                y: .9 - .1 * i,
+                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 150
+            }, {
+                x: .025 + .05 * Math.pow(i, 1.2),
+                y: .9 - .1 * i,
+                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 150
+            });
+        }
+
+        for (let i = 0; i < output.length; i ++) {
+            output[i].weapon = {
+                ...output[i].weapon,
+                health: output[i].weapon.health * 12
+            };
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 12,
+        reserveSize: 3,
+        squadronKey: "TIEDRONE_DARKEMPIRE"
+    }]
+};
+
 export default ships;
