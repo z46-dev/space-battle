@@ -252,7 +252,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
 
     // CAMERA CONTROLS
     window.addEventListener("wheel", event => {
-        camera.cZoom += event.deltaY / 1000;
+        camera.cZoom += event.deltaY / 3000;
         camera.cZoom = Math.max(camera.cZoom, .01);
         camera.cZoom = Math.min(camera.cZoom, 2.75);
         worker.postMessage([0, 0, 0, camera.cZoom]);

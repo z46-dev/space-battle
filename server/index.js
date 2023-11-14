@@ -941,6 +941,7 @@ const empireFleet = {
     "VICTORYSTARDESTROYER_EMPIRE": 0,
     "AGGRESSORSTARDESTROYER_EMPIRE": 0,
     "EXECUTORSUPERSTARDESTROYER_EMPIRE": 0,
+    "LEGATORSTARDREADNOUGHT_EMPIRE": 1,
     "ARCHAMMER_EMPIRE": 0,
     "DEATHSTAR_EMPIRE": 0,
 
@@ -968,7 +969,7 @@ const empireFleet = {
 const rebelFleet = {
     "LUSANKYA_REBEL": 0,
     "STARHAWK_REBEL": 0,
-    "MC85_REBEL": 0,
+    "MC85_REBEL": 1,
     "MC75_REBEL": 0,
     "MC80A_REBEL": 0,
     "MC80BLIBERTY_REBEL": 0,
@@ -1069,7 +1070,7 @@ for (const ship in rebelFleet) {
     }
 }
 
-const spawnDistance = 20000;
+const spawnDistance = 2000;
 
 empireShips.sort(() => .5 - Math.random());
 scatterFormation(empireShips, -spawnDistance, -spawnDistance, Math.PI / 4);
@@ -2331,5 +2332,3 @@ async function escapeFromDqar() {
 
     scene.unlockCamera();
 }
-
-battleOfSaleucami();

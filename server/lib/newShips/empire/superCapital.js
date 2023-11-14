@@ -319,4 +319,74 @@ ships.DEATHSTAR_EMPIRE = {
     }]
 };
 
+ships.LEGATORSTARDREADNOUGHT_EMPIRE = {
+    name: "Legator Star Dreadnought",
+    asset: "LEGATORSTARDREADNOUGHT.png",
+    classification: shipTypes.SuperCapital,
+    population: 100,
+    size: 7500,
+    cost: 35000,
+    speed: .75,
+    turnSpeed: .00075,
+    shield: 50000,
+    shieldRegen: 50,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 19; i ++) {
+            output.push({
+                x: -.025 - .02 * i,
+                y: .9 - .07 * i,
+                weapon: weapons.GREEN_TRIPLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 250
+            }, {
+                x: .0175 + .02 * i,
+                y: .9 - .07 * i,
+                weapon: weapons.GREEN_TRIPLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 250
+            }, {
+                x: -.0175 - .02 * i,
+                y: .95 - .07 * i,
+                weapon: weapons.TRIPLE_ION_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 250
+            }, {
+                x: .025 + .02 * i,
+                y: .95 - .07 * i,
+                weapon: weapons.TRIPLE_ION_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 250
+            });
+        }
+
+        for (let i = 0; i < 12; i ++) {
+            output.push({
+                x: -.385 + .0225 * i,
+                y: -.385 - .0475 * i,
+                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            }, {
+                x: .385 - .0225 * i,
+                y: -.385 - .0475 * i,
+                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            });
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 8,
+        squadronKey: "TIEFIGHTER_EMPIRE"
+    }]
+};
+
 export default ships;
