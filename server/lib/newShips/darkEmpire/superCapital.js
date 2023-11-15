@@ -720,23 +720,71 @@ ships.IMPELLORFLEETCARRIER_DARKEMPIRE = {
             });
         }
 
-        output.push({
-            x: -.165,
-            y: .1775,
-            weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
-        }, {
-            x: .165,
-            y: .1775,
-            weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
-        }, {
-            x: -.32,
-            y: -.2475,
-            weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
-        });
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: -.165 - .01 * i,
+                y: .1775 - .04 * i,
+                weapon: i % 2 ? weapons.ION_CANNON_ULTRA : weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+            }, {
+                x: .165 + .01 * i,
+                y: .1775 - .04 * i,
+                weapon: i % 2 ? weapons.ION_CANNON_ULTRA : weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+            }, {
+                x: -.32 - .01 * i,
+                y: -.245 - .04 * i,
+                weapon: i % 2 ? weapons.ION_CANNON_ULTRA : weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+            }, {
+                x: .32 + .01 * i,
+                y: -.245 - .04 * i,
+                weapon: i % 2 ? weapons.ION_CANNON_ULTRA : weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+            });
+        }
 
         return output;
     })(),
-    hangars: []
+    hangars: [{
+        x: -.125,
+        y: .8,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 6,
+        squadronKey: "TIEDRONE_DARKEMPIRE"
+    }, {
+        x: .125,
+        y: .8,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 6,
+        squadronKey: "TIEDRONE_DARKEMPIRE"
+    }, {
+        x: -.125,
+        y: .65,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 6,
+        squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
+    }, {
+        x: .125,
+        y: .65,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 6,
+        squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
+    }, {
+        x: -.125,
+        y: .5,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 6,
+        squadronKey: "TIEBOMBER_DARKEMPIRE"
+    }, {
+        x: .125,
+        y: .5,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 6,
+        squadronKey: "TIEBOMBER_DARKEMPIRE"
+    }]
 };
 
 export default ships;

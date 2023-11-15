@@ -377,6 +377,24 @@ ships.LEGATORSTARDREADNOUGHT_EMPIRE = {
             });
         }
 
+        for (let i = 0; i < 8; i ++) {
+            for (let j = 0; j < 4; j ++) {
+                output.push({
+                    x: -.3 + .05 * i,
+                    y: -.3 + .05 * j,
+                    weapon: i % 2 === 0 ? weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY : weapons.ION_CANNON_ULTRA,
+                    shotsAtOnce: 2,
+                    shotDelay: 250
+                }, {
+                    x: .3 - .05 * i,
+                    y: -.3 + .05 * j,
+                    weapon: i % 2 === 0 ? weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY : weapons.ION_CANNON_ULTRA,
+                    shotsAtOnce: 2,
+                    shotDelay: 250
+                });
+            }
+        }
+
         return output;
     })(),
     hangars: [{
