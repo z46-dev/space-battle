@@ -265,17 +265,29 @@ ships.INTERDICTORCRUISER_DARKEMPIRE = {
     hardpoints: (function() {
         const output = [];
 
-        for (let i = 0; i < 4; i ++) {
+        for (let i = 0; i < 5; i ++) {
             output.push({
-                x: -.025 - .05 * Math.pow(i, 1.2),
-                y: .9 - .1 * i,
-                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY,
+                x: -.025 - .05 * Math.pow(i, 1.035),
+                y: .9 - .25 * i,
+                weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
                 shotsAtOnce: 2,
                 shotDelay: 150
             }, {
-                x: .025 + .05 * Math.pow(i, 1.2),
-                y: .9 - .1 * i,
-                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY,
+                x: .025 + .05 * Math.pow(i, 1.035),
+                y: .9 - .25 * i,
+                weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 150
+            }, {
+                x: -.025 - .05 * Math.pow(i, 1.035),
+                y: -.9 + .25 * i,
+                weapon: i % 2 === 0 ? weapons.DOUBLE_ION_CANNON : weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 150
+            }, {
+                x: .025 + .05 * Math.pow(i, 1.035),
+                y: -.9 + .25 * i,
+                weapon: i % 2 === 0 ? weapons.DOUBLE_ION_CANNON : weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 150
             });
@@ -284,7 +296,7 @@ ships.INTERDICTORCRUISER_DARKEMPIRE = {
         for (let i = 0; i < output.length; i ++) {
             output[i].weapon = {
                 ...output[i].weapon,
-                health: output[i].weapon.health * 12
+                health: output[i].weapon.health * 14
             };
         }
 

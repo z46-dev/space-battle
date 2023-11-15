@@ -94,6 +94,144 @@ ships.MC50_REBEL = {
     }]
 };
 
+ships.NEBULONB2_REBEL = {
+    name: "EF-76 Nebulon-B2 Attack Frigate",
+    asset: "NEBULONB2.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 16,
+    size: 350,
+    cost: 1500,
+    speed: 3,
+    turnSpeed: .025,
+    shield: 4000,
+    shieldRegen: 4,
+    hardpoints: (function() {
+        const output = [{
+            x: 0,
+            y: .85,
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.2,
+            y: .675,
+            weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: .2,
+            y: .675,
+            weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.4,
+            y: .6,
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: .4,
+            y: .6,
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.125,
+            y: -.8,
+            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+            shotsAtOnce: 4,
+            shotDelay: 60
+        }, {
+            x: .125,
+            y: -.8,
+            weapon: weapons.ASSAULT_PROTON_ROCKET,
+            shotsAtOnce: 4,
+            shotDelay: 60
+        }];
+
+        for (let i = 0; i < 3; i ++) {
+            output.push({
+                x: 0,
+                y: .4 - .3 * i,
+                weapon: i === 1 ? weapons.RED_ANTI_FIGHTER_LASER_CANNON : weapons.RED_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 50
+            });
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: -.2,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "XWING_REBEL"
+    }]
+};
+
+ships.FREEVIRGILLIABUNKERBUSTER_REBEL = {
+    name: "Free Virgillia Bunker Buster",
+    asset: "FREEVIRGILLIABUNKERBUSTER.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 28,
+    size: 300,
+    cost: 6000,
+    speed: 2.25,
+    turnSpeed: .0175,
+    shield: 6000,
+    shieldRegen: 8,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: -.2 - .15 * i,
+                y: .875 - .075 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.RED_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: .2 + .15 * i,
+                y: .875 - .075 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.RED_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: 0,
+                y: .8 - .4 * i,
+                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 200
+            }, {
+                x: 0,
+                y: .6 - .4 * i,
+                weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+                shotsAtOnce: 3,
+                shotDelay: 200
+            });
+        }
+
+        return output.map(hardpoint => ({
+            ...hardpoint,
+            weapon: {
+                ...hardpoint.weapon,
+                health: hardpoint.weapon.health * 3
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 2,
+        squadronKey: "XWING_REBEL"
+    }]
+};
+
 ships.MC75_REBEL = {
     name: "MC-75",
     asset: "MC75.png",

@@ -277,4 +277,65 @@ ships.STARHAWK_REBEL = {
     }]
 };
 
+ships.INEXPUGNABLECOMMANDSHIP_REBEL = {
+    name: "Inexpugnable Tactical Command Ship",
+    asset: "INEXPUGNABLECOMMANDSHIP.png",
+    classification: shipTypes.Capital,
+    population: 23,
+    size: 850,
+    cost: 3850,
+    speed: 1.5,
+    turnSpeed: .001,
+    shield: 9500,
+    shieldRegen: 9.5,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 10; i ++) {
+            output.push({
+                x: .75 * Math.cos(Math.PI * 2 * i / 10),
+                y: .75 * Math.sin(Math.PI * 2 * i / 10),
+                weapon: i % 2 ? {
+                    ...weapons.TRIPLE_ION_CANNON_HEAVY,
+                    health: weapons.TRIPLE_ION_CANNON_HEAVY.health * 1.5
+                } : {
+                    ...weapons.RED_DOUBLE_TURBOLASER_CANNON,
+                    health: weapons.RED_DOUBLE_TURBOLASER_CANNON.health * 1.5
+                },
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: .6 * Math.cos(Math.PI * 2 * i / 10 + Math.PI / 10),
+                y: .6 * Math.sin(Math.PI * 2 * i / 10 + Math.PI / 10),
+                weapon: i % 2 ? {
+                    ...weapons.RED_DOUBLE_LASER_CANNON,
+                    health: weapons.RED_DOUBLE_LASER_CANNON.health * 1.5
+                } : {
+                    ...weapons.RED_TRIPLE_TURBOLASER_CANNON_HEAVY,
+                    health: weapons.RED_TRIPLE_TURBOLASER_CANNON_HEAVY.health * 1.5
+                },
+                shotsAtOnce: 2,
+                shotDelay: 100
+            });
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "MG100STARFORTRESS_REBEL"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "XWING_REBEL"
+    }]
+};
+
 export default ships;
