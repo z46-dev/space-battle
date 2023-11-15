@@ -12,7 +12,7 @@ ships.KELDABEBATTLESHIP_ZANN = {
     cost: 7200,
     speed: 2.5,
     turnSpeed: .01,
-    shield: 10000,
+    shield: 9000,
     shieldRegen: 8,
     hardpoints: [{
         x: -.075,
@@ -66,13 +66,13 @@ ships.KELDABEBATTLESHIP_ZANN = {
         x: -.125,
         y: .175,
         weapon: weapons.OCTUPLE_ION_CANNON_MEDIUM,
-        shotsAtOnce: 4,
+        shotsAtOnce: 2,
         shotDelay: 100
     }, {
         x: .125,
         y: .175,
         weapon: weapons.OCTUPLE_ION_CANNON_MEDIUM,
-        shotsAtOnce: 4,
+        shotsAtOnce: 2,
         shotDelay: 100
     }, {
         x: -.3,
@@ -90,13 +90,13 @@ ships.KELDABEBATTLESHIP_ZANN = {
         x: -.4,
         y: -.15,
         weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
-        shotsAtOnce: 4,
+        shotsAtOnce: 2,
         shotDelay: 100
     }, {
         x: .4,
         y: -.15,
         weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
-        shotsAtOnce: 4,
+        shotsAtOnce: 2,
         shotDelay: 100
     }, {
         x: -.5,

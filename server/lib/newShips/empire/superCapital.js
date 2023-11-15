@@ -324,7 +324,7 @@ ships.LEGATORSTARDREADNOUGHT_EMPIRE = {
     asset: "LEGATORSTARDREADNOUGHT.png",
     classification: shipTypes.SuperCapital,
     population: 100,
-    size: 7500,
+    size: 6000,
     cost: 35000,
     speed: .75,
     turnSpeed: .00075,

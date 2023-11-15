@@ -932,9 +932,9 @@ const empireFleet = {
     "QUASAR_EMPIRE": 0,
     "CARRACK_EMPIRE": 0,
     "LANCERFRIGATE_EMPIRE": 0,
-    "ARQUITENS_EMPIRE": 2,
+    "ARQUITENS_EMPIRE": 0,
     "IMOBILIZER_EMPIRE": 0,
-    "DREADNOUGHTHEAVYCRUISER_EMPIRE": 1,
+    "DREADNOUGHTHEAVYCRUISER_EMPIRE": 0,
     "ACCLIMATOR_EMPIRE": 0,
     "IMPERIALSTARDESTROYER_EMPIRE": 0,
     "ALLEGIANCE_EMPIRE": 0,
@@ -966,6 +966,7 @@ const empireFleet = {
     "BELLATOR_DARKEMPIRE": 0,
     "ASSERTOR_DARKEMPIRE": 0,
     "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 0,
+    "IMPELLORFLEETCARRIER_DARKEMPIRE": 1,
     "MEGASTARDESTOYER_DARKEMPIRE": 0
 };
 
@@ -976,11 +977,11 @@ const rebelFleet = {
     "MC75_REBEL": 0,
     "MC80A_REBEL": 0,
     "MC80BLIBERTY_REBEL": 0,
-    "INEXPUGNABLECOMMANDSHIP_REBEL": 0,
-    "NEBULONB2_REBEL": 1,
-    "FREEVIRGILLIABUNKERBUSTER_REBEL": 1,
+    "INEXPUGNABLECOMMANDSHIP_REBEL": 1,
+    "NEBULONB2_REBEL": 0,
+    "FREEVIRGILLIABUNKERBUSTER_REBEL": 0,
     "MC50_REBEL": 0,
-    "MC30C_REBEL": 1,
+    "MC30C_REBEL": 0,
     "NEBULONB_REBEL": 0,
     "PELTA_REBEL": 0,
     "CR90_REBEL": 0,
@@ -1097,7 +1098,7 @@ function scatterFormation(ships, x, y, angle) {
         };
 
         let valid = false,
-            radius = ships[i].size * 2,
+            radius = ships[i].size * 2.5,
             iterations = 0;
 
         if (i === 0) {
@@ -1112,10 +1113,10 @@ function scatterFormation(ships, x, y, angle) {
 
             valid = true;
             for (let j = 0; j < positions.length; j++) {
-                if (distance(position.x, position.y, positions[j].x, positions[j].y) < ships[i].size * .85) {
+                if (distance(position.x, position.y, positions[j].x, positions[j].y) < ships[i].size) {
                     valid = false;
                     if (iterations % 10 === 0) {
-                        radius += ships[i].size * .25;
+                        radius += ships[i].size * .5;
                     }
                     break;
                 }

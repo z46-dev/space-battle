@@ -639,39 +639,104 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 8,
+        maxSquadrons: 4,
         squadronSize: 8,
         reserveSize: 1e10,
         squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 8,
+        maxSquadrons: 4,
         squadronSize: 8,
         reserveSize: 1e10,
         squadronKey: "TIEBOMBER_DARKEMPIRE"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 10,
+        maxSquadrons: 6,
         squadronSize: 8,
         reserveSize: 1e10,
         squadronKey: "TIEDRONE_DARKEMPIRE"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 5,
+        maxSquadrons: 2,
         squadronSize: 8,
         reserveSize: 1e10,
         squadronKey: "TIEDEFENDER_DARKEMPIRE"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 2,
-        squadronSize: 2,
-        reserveSize: 1e10,
-        squadronKey: "MTFCRUISER_DARKEMPIRE"
-    }]
+    }, ...(new Array(5).fill({}).map(($, i) => ({
+        x: -.5 + .25 * i,
+        y: -.15,
+        maxSquadrons: 1,
+        squadronSize: 1,
+        reserveSize: 5,
+        squadronKey: "RESURGENT_DARKEMPIRE"
+    })))]
+};
+
+ships.IMPELLORFLEETCARRIER_DARKEMPIRE = {
+    name: "Impellor Fleet Carrier",
+    asset: "IMPELLORFLEETCARRIER.png",
+    classification: shipTypes.SuperCapital,
+    population: 120,
+    size: 3000,
+    cost: 20000,
+    speed: 2,
+    turnSpeed: .0025,
+    shield: 30000,
+    shieldRegen: 30,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 7; i ++) {
+            output.push({
+                x: -.125,
+                y: .9 - .1 * i,
+                weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            }, {
+                x: .125,
+                y: .9 - .1 * i,
+                weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            });
+        }
+
+        for (let i = 0; i < 16; i ++) {
+            output.push({
+                x: -.15 - .02075 * i,
+                y: .875 - .0825 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.GREEN_TRIPLE_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 125
+            }, {
+                x: .15 + .02075 * i,
+                y: .875 - .0825 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.GREEN_TRIPLE_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 125
+            });
+        }
+
+        output.push({
+            x: -.165,
+            y: .1775,
+            weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+        }, {
+            x: .165,
+            y: .1775,
+            weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+        }, {
+            x: -.32,
+            y: -.2475,
+            weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
+        });
+
+        return output;
+    })(),
+    hangars: []
 };
 
 export default ships;
