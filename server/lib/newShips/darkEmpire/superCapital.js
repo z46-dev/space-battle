@@ -679,12 +679,12 @@ ships.IMPELLORFLEETCARRIER_DARKEMPIRE = {
     asset: "IMPELLORFLEETCARRIER.png",
     classification: shipTypes.SuperCapital,
     population: 120,
-    size: 3000,
+    size: 4000,
     cost: 20000,
     speed: 2,
     turnSpeed: .0025,
-    shield: 30000,
-    shieldRegen: 30,
+    shield: 50000,
+    shieldRegen: 50,
     hardpoints: (function() {
         const output = [];
 
@@ -740,47 +740,123 @@ ships.IMPELLORFLEETCARRIER_DARKEMPIRE = {
             });
         }
 
-        return output;
+        for (let i = 0; i < 5; i ++) {
+            let x = .175 + .06 * i;
+            let y = .61 - .2225 * i;
+
+            if (i === 4) {
+                x = -.445;
+                y = -.385;
+            }
+
+            const weaponType = i % 2 ? weapons.GREEN_DOUBLE_TURBOLASER_CANNON : weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY;
+            const weapon = {
+                ...weaponType,
+                reload: weaponType.reload * .5,
+                range: weaponType.range * 1.5,
+                damage: weaponType.damage * 1.5
+            };
+
+            output.push({
+                x: x - .005,
+                y: y - .005,
+                weapon: weapon,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            }, {
+                x: x - .005,
+                y: y + .005,
+                weapon: weapon,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            }, {
+                x: x + .005,
+                y: y - .005,
+                weapon: weapon,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            }, {
+                x: x + .005,
+                y: y + .005,
+                weapon: weapon,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            });
+
+            output.push({
+                x: -x - .005,
+                y: y - .005,
+                weapon: weapon,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            }, {
+                x: -x - .005,
+                y: y + .005,
+                weapon: weapon,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            }, {
+                x: -x + .005,
+                y: y - .005,
+                weapon: weapon,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            }, {
+                x: -x + .005,
+                y: y + .005,
+                weapon: weapon,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            });
+        }
+
+        return output.map(hp => ({
+            ...hp,
+            weapon: {
+                ...hp.weapon,
+                health: hp.weapon.health * 2
+            }
+        }));
     })(),
     hangars: [{
         x: -.125,
         y: .8,
-        maxSquadrons: 1,
+        maxSquadrons: 2,
         squadronSize: 8,
         reserveSize: 6,
         squadronKey: "TIEDRONE_DARKEMPIRE"
     }, {
         x: .125,
         y: .8,
-        maxSquadrons: 1,
+        maxSquadrons: 2,
         squadronSize: 8,
         reserveSize: 6,
         squadronKey: "TIEDRONE_DARKEMPIRE"
     }, {
         x: -.125,
         y: .65,
-        maxSquadrons: 1,
+        maxSquadrons: 2,
         squadronSize: 8,
         reserveSize: 6,
         squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
     }, {
         x: .125,
         y: .65,
-        maxSquadrons: 1,
+        maxSquadrons: 2,
         squadronSize: 8,
         reserveSize: 6,
         squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
     }, {
         x: -.125,
         y: .5,
-        maxSquadrons: 1,
+        maxSquadrons: 2,
         squadronSize: 8,
         reserveSize: 6,
         squadronKey: "TIEBOMBER_DARKEMPIRE"
     }, {
         x: .125,
         y: .5,
-        maxSquadrons: 1,
+        maxSquadrons: 2,
         squadronSize: 8,
         reserveSize: 6,
         squadronKey: "TIEBOMBER_DARKEMPIRE"
