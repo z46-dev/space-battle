@@ -100,8 +100,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
     // }
 
     const world = {
-        width: 100_000,
-        height: 100_000,
+        width: 50_000,
+        height: 50_000,
         minimapData: [],
         starCounter: 0,
         starGrid: new SpatialHashGrid(),
