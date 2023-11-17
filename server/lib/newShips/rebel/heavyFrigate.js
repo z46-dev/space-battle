@@ -380,129 +380,60 @@ ships.VALORCRUISER_REBEL = {
     turnSpeed: .01,
     shield: 9500,
     shieldRegen: 9.5,
-    hardpoints: [{
-        x: 0,
-        y: .1,
-        weapon: weapons.ASSAULT_PROTON_TORPEDO,
-        shotsAtOnce: 5,
-        shotDelay: 100
-    }, {
-        x: 0,
-        y: .875,
-        weapon: weapons.RED_TRIPLE_TURBOLASER_CANNON_HEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: -.1,
-        y: .7,
-        weapon: weapons.RED_TRIPLE_TURBOLASER_CANNON_HEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: .1,
-        y: .7,
-        weapon: weapons.RED_TRIPLE_TURBOLASER_CANNON_HEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: -.15,
-        y: .5,
-        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: .15,
-        y: .5,
-        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: -.175,
-        y: .35,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: .175,
-        y: .35,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: -.175,
-        y: .15,
-        weapon: weapons.RED_TRIPLE_TURBOLASER_CANNON_HEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: .175,
-        y: .15,
-        weapon: weapons.RED_TRIPLE_TURBOLASER_CANNON_HEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: -.15,
-        y: -.025,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: .15,
-        y: -.025,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: -.125,
-        y: -.25,
-        weapon: weapons.TRIPLE_ION_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: .125,
-        y: -.25,
-        weapon: weapons.TRIPLE_ION_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: -.1125,
-        y: -.5,
-        weapon: weapons.RED_TRIPLE_TURBOLASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: .1125,
-        y: -.5,
-        weapon: weapons.RED_TRIPLE_TURBOLASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: -.09,
-        y: -.75,
-        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: .09,
-        y: -.75,
-        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }],
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 5; i ++) {
+            output.push({
+                x: -.1 - .05 * Math.pow(i, 1.035),
+                y: .9 - .25 * i,
+                weapon: weapons.RED_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 150
+            }, {
+                x: .1 + .05 * Math.pow(i, 1.035),
+                y: .9 - .25 * i,
+                weapon: weapons.RED_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 150
+            }, {
+                x: -.05 - .05 * Math.pow(i, 1.05),
+                y: -.9 + .25 * i,
+                weapon: i % 2 === 0 ? weapons.DOUBLE_ION_CANNON : weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 150
+            }, {
+                x: .05 + .05 * Math.pow(i, 1.05),
+                y: -.9 + .25 * i,
+                weapon: i % 2 === 0 ? weapons.DOUBLE_ION_CANNON : weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 150
+            });
+        }
+
+        for (let i = 0; i < output.length; i ++) {
+            output[i].weapon = {
+                ...output[i].weapon,
+                health: output[i].weapon.health * 3
+            };
+        }
+
+        return output;
+    })(),
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 1,
         squadronSize: 6,
-        reserveSize: 3,
-        squadronKey: "AWING_REBEL"
+        reserveSize: 2,
+        squadronKey: "MG100STARFORTRESS_REBEL"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 1,
         squadronSize: 6,
-        reserveSize: 3,
-        squadronKey: "BWING_REBEL"
+        reserveSize: 4,
+        squadronKey: "XWING_REBEL"
     }]
 };
 

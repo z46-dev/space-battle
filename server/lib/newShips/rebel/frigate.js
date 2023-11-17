@@ -276,4 +276,98 @@ ships.QUASAR_REBEL = {
     }]
 };
 
+ships.ZENITHCRUISER_REBEL = {
+    name: "Zenith Cruiser",
+    asset: "ZENITHCRUISER.png",
+    classification: shipTypes.Frigate,
+    population: 8,
+    size: 400,
+    cost: 800,
+    speed: 4,
+    turnSpeed: .0075,
+    shield: 1300,
+    shieldRegen: 1.3,
+    hardpoints: [{
+        x: 0,
+        y: .85,
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .075,
+        y: .8,
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.075,
+        y: .8,
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: .3,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .125,
+        y: -.7,
+        weapon: {
+            ...weapons.RED_RAPID_LASER_CANNON,
+            speed: weapons.RED_RAPID_LASER_CANNON.speed * 1.25,
+            damage: weapons.RED_RAPID_LASER_CANNON.damage * 2,
+            range: weapons.RED_RAPID_LASER_CANNON.range * 1.1,
+            reload: weapons.RED_RAPID_LASER_CANNON.reload * .5
+        },
+        shotsAtOnce: 2,
+        shotDelay: 50
+    }, {
+        x: -.125,
+        y: -.7,
+        weapon: {
+            ...weapons.RED_RAPID_LASER_CANNON,
+            speed: weapons.RED_RAPID_LASER_CANNON.speed * 1.25,
+            damage: weapons.RED_RAPID_LASER_CANNON.damage * 2,
+            range: weapons.RED_RAPID_LASER_CANNON.range * 1.1,
+            reload: weapons.RED_RAPID_LASER_CANNON.reload * .5
+        },
+        shotsAtOnce: 2,
+        shotDelay: 50
+    }, {
+        x: 0,
+        y: -.85,
+        weapon: weapons.DOUBLE_ION_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.RED_RAPID_LASER_CANNON,
+            speed: weapons.RED_RAPID_LASER_CANNON.speed * 1.25,
+            damage: weapons.RED_RAPID_LASER_CANNON.damage * 2,
+            range: weapons.RED_RAPID_LASER_CANNON.range * 1.1,
+            reload: weapons.RED_RAPID_LASER_CANNON.reload * .5
+        },
+        shotsAtOnce: 2,
+        shotDelay: 50
+    }, {
+        x: 0,
+        y: -.5,
+        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 6,
+        shotDelay: 60
+    }],
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "XWING_REBEL"
+    }]
+};
+
 export default ships;

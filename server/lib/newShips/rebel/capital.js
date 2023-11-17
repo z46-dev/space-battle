@@ -282,7 +282,7 @@ ships.INEXPUGNABLECOMMANDSHIP_REBEL = {
     asset: "INEXPUGNABLECOMMANDSHIP.png",
     classification: shipTypes.Capital,
     population: 23,
-    size: 850,
+    size: 1300,
     cost: 3850,
     speed: 1.5,
     turnSpeed: .001,

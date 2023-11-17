@@ -235,11 +235,11 @@ ships.HARROWERDREADNOUGHT_DARKEMPIRE = {
     asset: "HARROWERDREADNOUGHT.png",
     classification: shipTypes.HeavyFrigate,
     population: 19,
-    size: 850,
+    size: 900,
     cost: 2400,
     speed: 2,
     turnSpeed: .005,
-    shield: 10000,
+    shield: 15000,
     shieldRegen: 7,
     hardpoints: (function() {
         const output = [{
@@ -249,7 +249,7 @@ ships.HARROWERDREADNOUGHT_DARKEMPIRE = {
                 ...weapons.ASSAULT_PROTON_TORPEDO,
                 reload: weapons.ASSAULT_PROTON_TORPEDO.reload * .75
             },
-            shotsAtOnce: 6,
+            shotsAtOnce: 8,
             shotDelay: 85
         }];
 
@@ -257,15 +257,15 @@ ships.HARROWERDREADNOUGHT_DARKEMPIRE = {
             output.push({
                 x: -.3 - .02 * i,
                 y: -.425 - .1 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
+                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
-                shotDelay: 300
+                shotDelay: 200
             }, {
                 x: .3 + .02 * i,
                 y: -.425 - .1 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
+                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
-                shotDelay: 300
+                shotDelay: 200
             });
         }
 
@@ -273,13 +273,13 @@ ships.HARROWERDREADNOUGHT_DARKEMPIRE = {
             output.push({
                 x: -.085 - .04 * i,
                 y: .85 - .15 * i,
-                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.GREEN_DOUBLE_LASER_CANNON,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 75
             }, {
                 x: .085 + .04 * i,
                 y: .85 - .15 * i,
-                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.GREEN_DOUBLE_LASER_CANNON,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 75
             });
@@ -288,7 +288,7 @@ ships.HARROWERDREADNOUGHT_DARKEMPIRE = {
         for (let i = 0; i < output.length; i ++) {
             output[i].weapon = {
                 ...output[i].weapon,
-                health: output[i].weapon.health * 4
+                health: output[i].weapon.health * 5
             };
         }
 

@@ -134,4 +134,48 @@ ships.MARAUDERMISSILECRUISER_REBEL = {
     }]
 };
 
+ships.FORRAYBLOCKADERUNNER_REBEL = {
+    name: "Forray Blockade Runner",
+    asset: "FORRAYBLOCKADERUNNER.png",
+    classification: shipTypes.Corvette,
+    population: 2,
+    size: 210,
+    cost: 210,
+    speed: 9.5,
+    turnSpeed: .02,
+    shield: 1500,
+    shieldRegen: 1.5,
+    hardpoints: [{
+        x: 0,
+        y: .875,
+        weapon: weapons.RED_RAPID_LASER_CANNON,
+        shotsAtOnce: 4,
+        shotDelay: 75
+    }, {
+        x: 0,
+        y: .425,
+        weapon: weapons.ION_CANNON,
+        shotsAtOnce: 4,
+        shotDelay: 75
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
+        shotsAtOnce: 6,
+        shotDelay: 75
+    }, {
+        x: 0,
+        y: -.425,
+        weapon: weapons.ION_CANNON,
+        shotsAtOnce: 4,
+        shotDelay: 75
+    }, {
+        x: 0,
+        y: -.875,
+        weapon: weapons.RED_RAPID_LASER_CANNON,
+        shotsAtOnce: 4,
+        shotDelay: 75
+    }]
+};
+
 export default ships;
