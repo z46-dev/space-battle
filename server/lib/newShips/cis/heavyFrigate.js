@@ -12,8 +12,8 @@ ships.MUNIFICENT_CIS = {
     cost: 2700,
     speed: 4,
     turnSpeed: .02,
-    shield: 2400,
-    shieldRegen: 2,
+    shield: 2000,
+    shieldRegen: 1,
     hardpoints: [{
         x: 0,
         y: .8,
@@ -58,7 +58,13 @@ ships.MUNIFICENT_CIS = {
         x: .15,
         y: -.4,
         weapon: weapons.DOUBLE_ION_CANNON
-    }],
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * .5
+        }
+    })),
     hangars: [{
         x: 0,
         y: 0,
@@ -76,10 +82,10 @@ ships.RECUSANT_CIS = {
     population: 9,
     size: 500,
     cost: 3000,
-    speed: 3.5,
-    turnSpeed: .01,
-    shield: 2600,
-    shieldRegen: 2,
+    speed: 4.25,
+    turnSpeed: .015,
+    shield: 1900,
+    shieldRegen: 1.9,
     hardpoints: [{
         x: 0,
         y: .9,
@@ -126,7 +132,13 @@ ships.RECUSANT_CIS = {
         x: .06,
         y: 0,
         weapon: weapons.RED_QUAD_LASER_CANNON
-    }],
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * .334
+        }
+    })),
     hangars: [{
         x: 0,
         y: 0,
