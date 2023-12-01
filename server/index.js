@@ -913,7 +913,7 @@ function getRandomPointInEllipse(x, y, w, h, angle) {
     return { x: rotatedX, y: rotatedY };
 }
 
-const size = 6_500;
+const size = 15_000;
 const battle = new Battle(size, size, 2);
 
 const empireFleet = {
@@ -952,10 +952,10 @@ const empireFleet = {
     "MTFCRUISER_DARKEMPIRE": 0,
     "CARRACK_DARKEMPIRE": 0,
     "LANCERFRIGATE_DARKEMPIRE": 0,
-    "INTERDICTORCRUISER_DARKEMPIRE": 3,
+    "INTERDICTORCRUISER_DARKEMPIRE": 0,
     "WORLDDEVASTATORFG_DARKEMPIRE": 0,
     "DREADNOUGHTHEAVYCRUISER_DARKEMPIRE": 0,
-    "HARROWERDREADNOUGHT_DARKEMPIRE": 1,
+    "HARROWERDREADNOUGHT_DARKEMPIRE": 0,
     "IMPERIALSTARDESTROYER_DARKEMPIRE": 0,
     "ALLEGIANCE_DARKEMPIRE": 0,
     "INTERDICTORSTARDESTROYER_DARKEMPIRE": 0,
@@ -963,10 +963,10 @@ const empireFleet = {
     "XYSTON_DARKEMPIRE": 0,
     "RESURGENT_DARKEMPIRE": 0,
     "WORLDDEVASTATORBC_DARKEMPIRE": 0,
-    "BELLATOR_DARKEMPIRE": 1,
-    "ASSERTOR_DARKEMPIRE": 1,
+    "BELLATOR_DARKEMPIRE": 0,
+    "ASSERTOR_DARKEMPIRE": 0,
     "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 0,
-    "IMPELLORFLEETCARRIER_DARKEMPIRE": 0,
+    "IMPELLORFLEETCARRIER_DARKEMPIRE": 1,
     "MEGASTARDESTOYER_DARKEMPIRE": 0
 };
 
@@ -996,12 +996,15 @@ const rebelFleet = {
     "DIAMOND_CIS": 0,
     "HARDCELL_CIS": 0,
     "C9979_CIS": 0,
+    "HARDCEL_MISSILE_CIS": 64,
     "PROVIDENCEDESTROYER_CIS": 0,
     "MUNIFICENT_CIS": 0,
     "RECUSANT_CIS": 0,
-    "LUCREHULK_CIS": 1,
+    "LUCREHULK_CIS": 0,
     "PROVIDENCEDREADNOUGHT_CIS": 0,
     "RECUSANTDREADNOUGHT_CIS": 0,
+    "LUCREHULK2_CIS": 0,
+    "LUCREHULK3_CIS": 0,
 
     // Hutts
     "CONSOLAR_HUTT": 0,
@@ -1033,7 +1036,7 @@ const rebelFleet = {
 
 function spawn(ship, team) {
     const angle = Math.random() * Math.PI * 2;
-    const distance = Math.random() * 5000;
+    const distance = Math.random() * 10000;
     const spawnDistance = 0;
 
     const newShip = new Ship(battle, ship, team);
@@ -1081,7 +1084,7 @@ for (const ship in rebelFleet) {
     }
 }
 
-const spawnDistance = 2500;
+const spawnDistance = 1000;
 
 empireShips.sort(() => .5 - Math.random());
 scatterFormation(empireShips, -spawnDistance, -spawnDistance, Math.PI / 4);

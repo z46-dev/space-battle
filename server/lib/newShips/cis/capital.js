@@ -159,4 +159,199 @@ ships.LUCREHULK_CIS = {
     }]
 };
 
+ships.LUCREHULK2_CIS = {
+    name: "Lucrehulk Battleship",
+    asset: "LUCREHULKALT.png",
+    classification: shipTypes.Capital,
+    population: 54,
+    size: 1500,
+    cost: 20000,
+    speed: .9,
+    turnSpeed: .005,
+    shield: 56000,
+    shieldRegen: 56,
+    hardpoints: (function() {
+        const output = [{
+            x: -.1,
+            y: .1,
+            weapon: weapons.ASSAULT_PROTON_TORPEDO,
+            shotsAtOnce: 3,
+            shotDelay: 250
+        }, {
+            x: .1,
+            y: .1,
+            weapon: weapons.ASSAULT_PROTON_TORPEDO,
+            shotsAtOnce: 3,
+            shotDelay: 250
+        }];
+
+        for (let i = 3; i <= 33; i ++) {
+            const angle = Math.PI * 2 / 36 * i + Math.PI / 2;
+
+            output.push({
+                x: Math.cos(angle) * .7,
+                y: Math.sin(angle) * .7 + .1,
+                weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY
+            }, {
+                x: Math.cos(angle) * .6,
+                y: Math.sin(angle) * .6 + .1,
+                weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY
+            });
+        }
+
+        for (let i = 3; i <= 33; i += 2) {
+            const angle = Math.PI * 2 / 36 * i + Math.PI / 2;
+
+            output.push({
+                x: Math.cos(angle) * .65,
+                y: Math.sin(angle) * .65 + .1,
+                weapon:  weapons.DOUBLE_ION_CANNON_HEAVY
+            });
+        }
+
+        return output.map(hardpoint => ({
+            ...hardpoint,
+            weapon: {
+                ...hardpoint.weapon,
+                health: hardpoint.weapon.health * 2
+            }
+        }));
+    })(),
+    hangars: [{
+        x: -.25,
+        y: .85,
+        maxSquadrons: 3,
+        squadronSize: 10,
+        reserveSize: 6,
+        squadronKey: "VULTUREDROID_CIS"
+    }, {
+        x: .25,
+        y: .85,
+        maxSquadrons: 3,
+        squadronSize: 10,
+        reserveSize: 6,
+        squadronKey: "VULTUREDROID_CIS"
+    }, {
+        x: -.25,
+        y: .85,
+        maxSquadrons: 2,
+        squadronSize: 8,
+        reserveSize: 4,
+        squadronKey: "HYENABOMBER_CIS"
+    }, {
+        x: .25,
+        y: .85,
+        maxSquadrons: 2,
+        squadronSize: 8,
+        reserveSize: 4,
+        squadronKey: "HYENABOMBER_CIS"
+    }, {
+        x: -.25,
+        y: .85,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 2,
+        squadronKey: "DROIDTRIFIGHTER_CIS"
+    }, {
+        x: .25,
+        y: .85,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 2,
+        squadronKey: "DROIDTRIFIGHTER_CIS"
+    }]
+};
+
+ships.LUCREHULK3_CIS = {
+    name: "Lucrehulk Auxiliary Warship",
+    asset: "LUCREHULK3.png",
+    classification: shipTypes.Capital,
+    population: 50,
+    size: 1400,
+    cost: 15000,
+    speed: .9,
+    turnSpeed: .005,
+    shield: 38000,
+    shieldRegen: 38,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 3; i <= 33; i += 2) {
+            const angle = Math.PI * 2 / 36 * i + Math.PI / 2;
+
+            output.push({
+                x: Math.cos(angle) * .85,
+                y: Math.sin(angle) * .85 + .1,
+                weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY
+            }, {
+                x: Math.cos(angle) * .65,
+                y: Math.sin(angle) * .65 + .1,
+                weapon: weapons.QUAD_ION_CANNON
+            });
+        }
+
+        for (let i = 3; i <= 33; i ++) {
+            const angle = Math.PI * 2 / 36 * i + Math.PI / 2;
+
+            output.push({
+                x: Math.cos(angle) * .75,
+                y: Math.sin(angle) * .75 + .1,
+                weapon:  weapons.RED_QUAD_LASER_CANNON
+            });
+        }
+
+        return output.map(hardpoint => ({
+            ...hardpoint,
+            weapon: {
+                ...hardpoint.weapon,
+                health: hardpoint.weapon.health * 2
+            }
+        }));
+    })(),
+    hangars: [{
+        x: -.25,
+        y: .85,
+        maxSquadrons: 3,
+        squadronSize: 10,
+        reserveSize: 6,
+        squadronKey: "VULTUREDROID_CIS"
+    }, {
+        x: .25,
+        y: .85,
+        maxSquadrons: 3,
+        squadronSize: 10,
+        reserveSize: 6,
+        squadronKey: "VULTUREDROID_CIS"
+    }, {
+        x: -.25,
+        y: .85,
+        maxSquadrons: 2,
+        squadronSize: 8,
+        reserveSize: 4,
+        squadronKey: "HYENABOMBER_CIS"
+    }, {
+        x: .25,
+        y: .85,
+        maxSquadrons: 2,
+        squadronSize: 8,
+        reserveSize: 4,
+        squadronKey: "HYENABOMBER_CIS"
+    }, {
+        x: -.25,
+        y: .85,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 2,
+        squadronKey: "DROIDTRIFIGHTER_CIS"
+    }, {
+        x: .25,
+        y: .85,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 2,
+        squadronKey: "DROIDTRIFIGHTER_CIS"
+    }]
+};
+
+
 export default ships;
