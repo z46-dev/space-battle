@@ -374,12 +374,12 @@ ships.VALORCRUISER_REBEL = {
     asset: "VALORCRUISER.png",
     classification: shipTypes.HeavyFrigate,
     population: 25,
-    size: 650,
+    size: 600,
     cost: 2950,
     speed: 2,
     turnSpeed: .01,
-    shield: 9500,
-    shieldRegen: 9.5,
+    shield: 8000,
+    shieldRegen: 8,
     hardpoints: (function() {
         const output = [];
 
@@ -414,7 +414,7 @@ ships.VALORCRUISER_REBEL = {
         for (let i = 0; i < output.length; i ++) {
             output[i].weapon = {
                 ...output[i].weapon,
-                health: output[i].weapon.health * 3
+                health: output[i].weapon.health * 2.5
             };
         }
 

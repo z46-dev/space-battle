@@ -286,7 +286,7 @@ ships.INEXPUGNABLECOMMANDSHIP_REBEL = {
     cost: 3850,
     speed: 1.5,
     turnSpeed: .001,
-    shield: 9500,
+    shield: 11150,
     shieldRegen: 9.5,
     hardpoints: (function() {
         const output = [];
@@ -319,7 +319,13 @@ ships.INEXPUGNABLECOMMANDSHIP_REBEL = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 3
+            }
+        }))
     })(),
     hangars: [{
         x: 0,
