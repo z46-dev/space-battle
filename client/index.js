@@ -1247,6 +1247,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
                 bigHeight = titleMeasure.height;
 
             const weapons = {};
+            let maxHp = 0;
 
             cfg.hardpoints.forEach(hardpoint => {
                 const text = hardpoint.weapon.name + " - " + (hardpoint.weapon.range / 1000).toFixed(1) + "km";
@@ -1255,6 +1256,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
                 }
 
                 weapons[text]++;
+
+                maxHp += hardpoint.weapon.health;
             });
 
             let listHeight = 0;
@@ -1268,6 +1271,8 @@ import { default as shipConfig } from "../server/lib/ships.js";
                 listHeight = measurement.height;
             });
 
+            bigHeight += 50;
+
             ctx.fillStyle = "#AAAAAA";
             ctx.translate(canvas.width / uScale - bigWidth - 30, 0);
             ctx.fillRect(10, 10, bigWidth + 20, bigHeight + 30 + (listHeight + 5) * Object.keys(weapons).length);
@@ -1275,6 +1280,12 @@ import { default as shipConfig } from "../server/lib/ships.js";
             drawText(str, 20, 35, 28);
 
             let y = titleMeasure.height + 40;
+
+            // Health and shield values
+            drawText("Health: " + maxHp, 20, y, 20);
+            y += 25;
+            drawText("Shield: " + cfg.shield + "/" + cfg.shieldRegen + "r", 20, y, 20);
+            y += 25;
 
             for (const name in weapons) {
                 drawText(name, 20, y, 18);
