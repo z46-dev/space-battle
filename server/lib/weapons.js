@@ -1256,3 +1256,24 @@ export const SNUB_ONE_ROCKET = {
     health: 180,
     name: "Proton Rocket"
 };
+
+
+
+// New weapons
+export const NEW_PROTON_TORPEDO = {
+    reload: 100,
+    range: 4000,
+    type: weaponTypes.ProtonTorpedo,
+    health: 175,
+    name: "Proton Torpedo",
+    
+    damage: 55,
+    collisionRange: 30,
+
+    explosionDamage: 45,
+    explosionRange: 725,
+
+    speed: 28,
+    maneuverability: .01,
+    seeks: true
+};

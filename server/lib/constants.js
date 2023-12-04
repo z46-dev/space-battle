@@ -190,7 +190,7 @@ export const weaponDrawProperties = (function() {
         color: colors.Torpedo,
         shots: "Single",
         count: 1,
-        strength: 1.2,
+        strength: 1.5,
         key: "ProtonTorpedo",
         isCircle: true,
         shadows: true

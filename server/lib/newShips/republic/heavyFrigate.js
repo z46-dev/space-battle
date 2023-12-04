@@ -18,7 +18,7 @@ ships.ACCLIMATOR_REPUBLIC = {
         const output = [{
             x: 0,
             y: .85,
-            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+            weapon: weapons.NEW_PROTON_TORPEDO,
             shotsAtOnce: 5,
             shotDelay: 100
         }, {
