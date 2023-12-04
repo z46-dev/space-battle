@@ -88,7 +88,7 @@ ships.MARAUDERMISSILECRUISER_REBEL = {
     name: "Marauder Missile Cruiser",
     asset: "MARAUDERCORVETTE.png",
     classification: shipTypes.Corvette,
-    population: 3,
+    population: 2,
     size: 100,
     cost: 500,
     speed: 7.25,

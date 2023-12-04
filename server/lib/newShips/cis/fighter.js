@@ -55,7 +55,7 @@ ships.HYENABOMBER_CIS = {
     }, {
         x: 0,
         y: 0,
-        weapon: weapons.FIGHTER_PROTON_ROCKET,
+        weapon: weapons.FIGHTER_CONCUSSION_MISSILE,
         shotsAtOnce: 2,
         shotDelay: 100
     }]
@@ -85,7 +85,7 @@ ships.DROIDTRIFIGHTER_CIS = {
         x: 0,
         y: 0,
         weapon: {
-            ...weapons.FIGHTER_PROTON_ROCKET_AOE,
+            ...weapons.FIGHTER_PROTON_ROCKET,
             health: 100
         },
         shotsAtOnce: 3,
@@ -125,31 +125,31 @@ ships.DROIDGUNSHIP_CIS = {
     }, {
         x: -.4,
         y: 0,
-        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
         shotsAtOnce: 3,
         shotDelay: 200
     }, {
         x: .4,
         y: 0,
-        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
         shotsAtOnce: 3,
         shotDelay: 200
     }, {
         x: -.6,
         y: 0,
-        weapon: weapons.FIGHTER_PROTON_ROCKET_AOE,
+        weapon: weapons.FIGHTER_PROTON_ROCKET,
         shotsAtOnce: 3,
         shotDelay: 75
     }, {
         x: .6,
         y: 0,
-        weapon: weapons.FIGHTER_PROTON_ROCKET_AOE,
+        weapon: weapons.FIGHTER_PROTON_ROCKET,
         shotsAtOnce: 3,
         shotDelay: 75
     }, {
         x: 0,
         y: 0,
-        weapon: weapons.FIGHTER_PROTON_TORPEDO,
+        weapon: weapons.ASSAULT_PROTON_BOMB,
         shotsAtOnce: 3,
         shotDelay: 100
     }]

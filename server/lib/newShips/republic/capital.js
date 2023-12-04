@@ -7,7 +7,7 @@ ships.VENATOR_REPUBLIC = {
     name: "Venator-Class Star Destroyer",
     asset: "VENATOR.png",
     classification: shipTypes.Capital,
-    population: 18,
+    population: 20,
     size: 500,
     cost: 4000,
     speed: 4,

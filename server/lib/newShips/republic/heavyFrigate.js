@@ -7,7 +7,7 @@ ships.ACCLIMATOR_REPUBLIC = {
     name: "Acclimator Assault Cruiser",
     asset: "ACCLIMATOR.png",
     classification: shipTypes.HeavyFrigate,
-    population: 14,
+    population: 16,
     size: 300,
     cost: 2500,
     speed: 3,
@@ -18,28 +18,36 @@ ships.ACCLIMATOR_REPUBLIC = {
         const output = [{
             x: 0,
             y: .85,
-            weapon: weapons.NEW_PROTON_TORPEDO,
+            weapon: weapons.ASSAULT_PROTON_TORPEDO,
             shotsAtOnce: 5,
             shotDelay: 100
         }, {
             x: -.55,
             y: -.35,
-            weapon: weapons.BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY
+            weapon: weapons.BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 75
         }, {
             x: .55,
             y: -.35,
-            weapon: weapons.BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY
+            weapon: weapons.BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 75
         }];
 
         for (let i = 0; i < 4; i ++) {
             output.push({
                 x: -.2 - .1 * i,
                 y: .6 - .225 * i,
-                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.BLUE_DOUBLE_LASER_CANNON_HEAVY
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.BLUE_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
             }, {
                 x: .2 + .1 * i,
                 y: .6 - .225 * i,
-                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.BLUE_DOUBLE_LASER_CANNON_HEAVY
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.BLUE_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
             });
         }
 

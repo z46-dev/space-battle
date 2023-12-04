@@ -88,9 +88,8 @@ class Projectile {
                     this.target.tick -= Math.random() * 3 | 0;
                 }
             } else if (this.explodes) {
-                console.log(this);
                 if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
-                    this.target.ship.shield -= this.hardpoint.damage * .25; // Nuh uh uh
+                    this.target.ship.shield -= this.hardpoint.damage; // Nuh uh uh
                     this.target.ship.lastHit = performance.now();
                 } else {
                     this.target.ship.lastHit = performance.now();
@@ -112,8 +111,9 @@ class Projectile {
                         hardpoint.health -= this.explosionDamage;
                     }
 
-
-                    this.battle.explode(this.target.x, this.target.y, this.explosionRange, this.angle, "blueExplosion" + (Math.random() * 5 | 0 + 1));
+                    if (Math.random() > .85) {
+                        this.battle.explode(this.target.x, this.target.y, this.explosionRange * .667, this.angle, "blueExplosion" + (Math.random() * 5 | 0 + 1));
+                    }
                 }
             } else {
                 if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
@@ -124,7 +124,7 @@ class Projectile {
                     this.target.ship.lastHit = performance.now();
                 }
             }
-            
+
             // switch (this.classification) {
             //     case weaponClassifications.IonCannon:
             //         if (this.target.ship.shield > 0) {
@@ -190,7 +190,11 @@ class Hardpoint {
         this.ship = ship;
         this.offset = config.offset;
         this.direction = config.direction;
+        if (config.weapon == null) {
+            console.log(ship);
+        }
         this.projectileType = config.weapon.type;
+        
 
         this.reload = config.weapon.reload * 4;
         this.tick = config.weapon.reload * 4;
@@ -498,15 +502,39 @@ class Squadron {
             return;
         }
 
-        for (let i = 0; i < this.ships.length; i++) {
-            const angle = Math.PI * 2 / this.ships.length * i;
-            const distance = this.ships[i].size * 2.25;
+        const dist = distance(this.ships[0].x, this.ships[0].y, this.target.x, this.target.y);
 
-            const $tx = this.target.x + Math.cos(angle) * distance;
-            const $ty = this.target.y + Math.sin(angle) * distance;
+        if (dist > this.target.size * 1.5) {
+            for (let i = 0; i < this.ships.length; i++) {
+                const angle = Math.PI * 2 / this.ships.length * i;
+                const distance = this.ships[i].size * 4 + Math.random() * 2;
+
+                const $tx = this.target.x + Math.cos(angle) * distance;
+                const $ty = this.target.y + Math.sin(angle) * distance;
+
+                this.ships[i].angleGoal = Math.atan2($ty - this.ships[i].y, $tx - this.ships[i].x);
+                this.ships[i].speed = this.ships[i].maxSpeed * 1.1;
+                this.ships[i].turnSpeed = this.ships[i].realTurnSpeed * .667;
+                this.ships[i].dogfightAngle = 0;
+            }
+
+            return;
+        }
+
+        for (let i = 0; i < this.ships.length; i++) {
+            this.ships[i].dogfightAngle += .05 / (this.target.size / 750);
+
+            if (Math.random() * .95) {
+                this.ships[i].dogfightAngle += Math.random() * Math.PI * 2;
+            }
+
+            const d = this.target.size * Math.sin(performance.now() / 1000);
+            const $tx = this.target.x + Math.cos(this.ships[i].dogfightAngle) * d;
+            const $ty = this.target.y + Math.sin(this.ships[i].dogfightAngle) * d;
 
             this.ships[i].angleGoal = Math.atan2($ty - this.ships[i].y, $tx - this.ships[i].x);
             this.ships[i].speed = this.ships[i].maxSpeed;
+            this.ships[i].turnSpeed = this.ships[i].realTurnSpeed;
         }
     }
 
@@ -738,7 +766,7 @@ class Commander {
      */
     constructor(config, ship) {
         this.config = config;
-        this.ship = ship; 
+        this.ship = ship;
 
         this.name = config.name;
         this.description = config.tooltip;
@@ -762,6 +790,7 @@ class Ship {
         this.angle = 0;
         this.angleGoal = 0;
         this.turnSpeed = config.turnSpeed ?? 0;
+        this.realTurnSpeed = config.turnSpeed ?? 0;
 
         this.shield = config.shield ?? 0;
         this.maxShield = config.shield ?? 0;
@@ -990,7 +1019,7 @@ const battle = new Battle(size, size, 2);
 
 const empireFleet = {
     "CONSOLAR_REPUBLIC": 0,
-    "CR90_REPUBLIC": 8,
+    "CR90_REPUBLIC": 0,
     "PELTA_REPUBLIC": 0,
     "ARQUITENS_REPUBLIC": 0,
     "CARRACK_REPUBLIC": 0,
@@ -1090,7 +1119,7 @@ const rebelFleet = {
     "MUNIFICENT_HUTT": 0,
     "RECUSANT_HUTT": 0,
     "ACCLIMATOR_HUTT": 0,
-    "SABOATHDESTROYER_HUTT": 6,
+    "SABOATHDESTROYER_HUTT": 0,
     "MC69NOIR_HUTT": 0,
     "VENATOR_HUTT": 0,
 
@@ -1109,6 +1138,51 @@ const rebelFleet = {
     // NEW SHIPS
     "CHIMERA_DESTROYER": 0
 };
+
+class Fleet {
+    // All non-fighter/bomber ships
+    static ships = Object.keys(ships).filter(key => ships[key].classification >= shipTypes.Corvette);
+    static random(pop, faction = -1) {
+        console.log("Generating", pop, faction);
+        const possible = Fleet.ships.filter(key => faction === -1 || key.endsWith("_" + faction));
+
+        const output = [];
+
+        let fails = 0;
+        while (pop > 0 && fails < 256) {
+            let ship = undefined,
+                i = 0;
+
+            miniLoop: while (i < possible.length * 5) {
+                possible.sort(() => .5 - Math.random());
+
+                const unit = ships[possible[0]];
+
+                if (unit == null) {
+                    console.log("NULL SHIP", possible[0]);
+                }
+
+                if (unit.population <= pop) {
+                    ship = possible[0];
+                    break miniLoop;
+                }
+
+                i++;
+            }
+
+            if (ship !== undefined) {
+                output.push(ship);
+                pop -= ships[ship].population;
+            } else {
+                fails++;
+            }
+        }
+
+        console.log(output, output.reduce((a, b) => a + ships[b].population, 0));
+
+        return output;
+    }
+}
 
 function spawn(ship, team) {
     const angle = Math.random() * Math.PI * 2;
@@ -1137,40 +1211,86 @@ function spawn(ship, team) {
     return newShip;
 }
 
-const empireShips = [];
-for (const ship in empireFleet) {
-    if (ship === "DEATHSTAR_EMPIRE" && empireFleet[ship] > 0) {
-        const angle = -Math.PI / 2;
-        const distance = 0;
-        const spawnDistance = 15000;
+const spawnDistance = 2000;
 
-        const newShip = new Ship(battle, ship, 0);
+const fleetFactions = ["CIS", "REPUBLIC"];
 
-        newShip.x = -spawnDistance + Math.cos(angle) * distance;
-        newShip.y = Math.sin(angle) * distance;
-        newShip.angle = Math.PI / 2;
-        continue;
+for (let i = 0; i < 2; i++) {
+    const ships = Fleet.random(100, fleetFactions[i]);
+
+    const spawned = [];
+
+    for (const ship of ships) {
+        if (ship === "DEATHSTAR_EMPIRE") {
+            const angle = -Math.PI / 2;
+            const distance = 0;
+            const spawnDistance = 15000;
+
+            const newShip = new Ship(battle, ship, 0);
+
+            newShip.x = -spawnDistance + Math.cos(angle) * distance;
+            newShip.y = Math.sin(angle) * distance;
+            newShip.angle = Math.PI / 2;
+            continue;
+        }
+
+        spawned.push(spawn(ship, i));
     }
 
-    for (let i = 0; i < empireFleet[ship]; i++) {
-        empireShips.push(spawn(ship, 0));
+    spawned.sort(() => .5 - Math.random());
+
+    let x, y, angle;
+
+    switch (i) {
+        case 0:
+            x = -spawnDistance;
+            y = -spawnDistance;
+            angle = Math.PI / 4;
+            break;
+        case 1:
+            x = spawnDistance;
+            y = spawnDistance;
+            angle = Math.PI / 4 + Math.PI;
+            break;
     }
+
+    scatterFormation(spawned, x, y, angle);
 }
 
-const rebelShips = [];
-for (const ship in rebelFleet) {
-    for (let i = 0; i < rebelFleet[ship]; i++) {
-        rebelShips.push(spawn(ship, 1));
-    }
-}
+// const empireShips = [];
+// for (const ship in empireFleet) {
+//     if (ship === "DEATHSTAR_EMPIRE" && empireFleet[ship] > 0) {
+//         const angle = -Math.PI / 2;
+//         const distance = 0;
+//         const spawnDistance = 15000;
 
-const spawnDistance = 1000;
+//         const newShip = new Ship(battle, ship, 0);
 
-empireShips.sort(() => .5 - Math.random());
-scatterFormation(empireShips, -spawnDistance, -spawnDistance, Math.PI / 4);
+//         newShip.x = -spawnDistance + Math.cos(angle) * distance;
+//         newShip.y = Math.sin(angle) * distance;
+//         newShip.angle = Math.PI / 2;
+//         continue;
+//     }
 
-rebelShips.sort(() => .5 - Math.random());
-scatterFormation(rebelShips, spawnDistance, spawnDistance, -Math.PI + Math.PI / 4);
+//     for (let i = 0; i < empireFleet[ship]; i++) {
+//         empireShips.push(spawn(ship, 0));
+//     }
+// }
+
+// const rebelShips = [];
+// for (const ship in rebelFleet) {
+//     for (let i = 0; i < rebelFleet[ship]; i++) {
+//         rebelShips.push(spawn(ship, 1));
+//     }
+// }
+
+// const spawnDistance = 1500;
+
+// empireShips.sort(() => .5 - Math.random());
+// scatterFormation(empireShips, -spawnDistance, -spawnDistance, Math.PI / 4);
+
+// rebelShips.sort(() => .5 - Math.random());
+// scatterFormation(rebelShips, spawnDistance, spawnDistance, -Math.PI + Math.PI / 4);
 
 function scatterFormation(ships, x, y, angle) {
     // Biggest ship to smallest ship
@@ -2353,7 +2473,7 @@ async function escapeFromDqar() {
     const bigGuns = canady.hardpoints.filter(h => h.health > 0);
 
     const bombers = new Map();
-    for (let i = 0; i < 6; i ++) {
+    for (let i = 0; i < 6; i++) {
         const bomber = new Ship(battle, "MG100STARFORTRESS_ESCAPEFROMDQAR_REBEL", 1);
         bomber.x = raddus.x + Math.random() * 300 - 150;
         bomber.y = raddus.y + Math.random() * 300 - 150;

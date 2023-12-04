@@ -27,8 +27,8 @@ ships.XWING_REBEL = {
         x: 0,
         y: 0,
         weapon: {
-            ...weapons.FIGHTER_PROTON_ROCKET,
-            health: weapons.FIGHTER_PROTON_ROCKET.health * 2
+            ...weapons.FIGHTER_CONCUSSION_MISSILE,
+            health: weapons.FIGHTER_CONCUSSION_MISSILE.health * 2
         },
         shotsAtOnce: 2,
         shotDelay: 100
@@ -105,8 +105,8 @@ ships.AWING_REBEL = {
         x: .5,
         y: 0,
         weapon: {
-            ...weapons.FIGHTER_PROTON_ROCKET,
-            health: weapons.FIGHTER_PROTON_ROCKET.health * 2
+            ...weapons.FIGHTER_CONCUSSION_MISSILE,
+            health: weapons.FIGHTER_CONCUSSION_MISSILE.health * 2
         },
         shotsAtOnce: 4,
         shotDelay: 50

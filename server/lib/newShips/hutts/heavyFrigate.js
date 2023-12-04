@@ -210,19 +210,19 @@ ships.SABOATHDESTROYER_HUTT = {
     hardpoints: [{
         x: -.1125,
         y: .875,
-        weapon: weapons.QUAD_ION_CANNON_HEAVY,
+        weapon: weapons.QUAD_ION_CANNON_MEDIUM,
         shotsAtOnce: 2,
         shotDelay: 100
     }, {
         x: .1125,
         y: .875,
-        weapon: weapons.QUAD_ION_CANNON_HEAVY,
+        weapon: weapons.QUAD_ION_CANNON_MEDIUM,
         shotsAtOnce: 2,
         shotDelay: 100
     }, {
         x: -.1125,
         y: .675,
-        weapon: weapons.QUAD_ION_CANNON_HEAVY,
+        weapon: weapons.QUAD_ION_CANNON_MEDIUM,
         shotsAtOnce: 3,
         shotDelay: 65
     }, {
@@ -234,7 +234,7 @@ ships.SABOATHDESTROYER_HUTT = {
     }, {
         x: -.1125,
         y: .475,
-        weapon: weapons.QUAD_ION_CANNON_HEAVY,
+        weapon: weapons.QUAD_ION_CANNON_MEDIUM,
         shotsAtOnce: 2,
         shotDelay: 100
     }, {
@@ -258,37 +258,37 @@ ships.SABOATHDESTROYER_HUTT = {
     }, {
         x: -.25,
         y: .3,
-        weapon: weapons.NEW_PROTON_TORPEDO,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
         shotsAtOnce: 3,
         shotDelay: 250
     }, {
         x: -.3,
         y: .1,
-        weapon: weapons.NEW_PROTON_TORPEDO,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
         shotsAtOnce: 3,
         shotDelay: 250
     }, {
         x: -.35,
         y: -.1,
-        weapon: weapons.NEW_PROTON_TORPEDO,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
         shotsAtOnce: 3,
         shotDelay: 250
     }, {
         x: .25,
         y: .3,
-        weapon: weapons.NEW_PROTON_TORPEDO,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
         shotsAtOnce: 3,
         shotDelay: 250
     }, {
         x: .3,
         y: .1,
-        weapon: weapons.NEW_PROTON_TORPEDO,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
         shotsAtOnce: 3,
         shotDelay: 250
     }, {
         x: .35,
         y: -.1,
-        weapon: weapons.NEW_PROTON_TORPEDO,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
         shotsAtOnce: 3,
         shotDelay: 250
     }]

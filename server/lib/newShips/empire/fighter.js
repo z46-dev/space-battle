@@ -48,7 +48,7 @@ ships.TIEBOMBER_EMPIRE = {
     }, {
         x: 0,
         y: 0,
-        weapon: weapons.FIGHTER_PROTON_ROCKET,
+        weapon: weapons.FIGHTER_CONCUSSION_MISSILE,
         shotsAtOnce: 4,
         shotDelay: 80
     }, {
@@ -113,7 +113,7 @@ ships.TIEDEFENDER_EMPIRE = {
     }, {
         x: 0,
         y: 0,
-        weapon: weapons.FIGHTER_PROTON_ROCKET_AOE,
+        weapon: weapons.FIGHTER_PROTON_ROCKET,
         shotsAtOnce: 3,
         shotDelay: 250
     }]

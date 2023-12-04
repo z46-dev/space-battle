@@ -54,7 +54,7 @@ ships.V19TORRENT_REPUBLIC = {
     }, {
         x: 0,
         y: 0,
-        weapon: weapons.FIGHTER_PROTON_ROCKET_AOE,
+        weapon: weapons.FIGHTER_PROTON_ROCKET,
         shotsAtOnce: 4,
         shotDelay: 75
     }]
@@ -122,7 +122,7 @@ ships.NTB630_REPUBLIC = {
     }, {
         x: 0,
         y: 0,
-        weapon: weapons.FIGHTER_PROTON_ROCKET_AOE,
+        weapon: weapons.FIGHTER_PROTON_ROCKET,
         shotsAtOnce: 2,
         shotDelay: 200
     }, {

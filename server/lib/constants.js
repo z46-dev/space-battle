@@ -120,6 +120,7 @@ export const weaponTypes = {
     // PROJECTILE WEAPONS (All factions)
     "ProtonBomb": iota(),
     "ProtonTorpedo": iota(),
+    "AssaultProtonTorpedo": iota(),
     "ConcussionMissile": iota(),
     "ProtonRocket": iota(),
     "AssaultProtonRocket": iota(),
@@ -192,6 +193,16 @@ export const weaponDrawProperties = (function() {
         count: 1,
         strength: 1.5,
         key: "ProtonTorpedo",
+        isCircle: true,
+        shadows: true
+    };
+
+    output[weaponTypes.AssaultProtonTorpedo] = {
+        color: colors.Torpedo,
+        shots: "Single",
+        count: 1,
+        strength: 2,
+        key: "AssaultProtonTorpedo",
         isCircle: true,
         shadows: true
     };

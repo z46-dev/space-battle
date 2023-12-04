@@ -1163,80 +1163,80 @@ export const BLACK_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD = {
 };
 
 // PROJECTILE DEFS
-export const FIGHTER_PROTON_TORPEDO = {
-    reload: 399,
-    damage: 80,
-    speed: 25,
-    range: 1500,
-    type: weaponTypes.ProtonTorpedo,
-    health: 10,
-    name: "Proton Torpedo"
-};
+// export const FIGHTER_PROTON_TORPEDO = {
+//     reload: 399,
+//     damage: 80,
+//     speed: 25,
+//     range: 1500,
+//     type: weaponTypes.ProtonTorpedo,
+//     health: 10,
+//     name: "Proton Torpedo"
+// };
 
-export const FIGHTER_PROTON_BOMB = {
-    reload: 400,
-    damage: 40, // Weak cuz usually many in a squadron
-    speed: 5,
-    range: 800,
-    type: weaponTypes.ProtonBomb,
-    health: 10,
-    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital], // Can't aim well and only works on stationary/very slow targets
-    name: "Proton Bomb"
-};
+// export const FIGHTER_PROTON_BOMB = {
+//     reload: 400,
+//     damage: 40, // Weak cuz usually many in a squadron
+//     speed: 5,
+//     range: 800,
+//     type: weaponTypes.ProtonBomb,
+//     health: 10,
+//     targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital], // Can't aim well and only works on stationary/very slow targets
+//     name: "Proton Bomb"
+// };
 
-export const FIGHTER_PROTON_ROCKET = {
-    reload: 400,
-    damage: 35,
-    speed: 30,
-    range: 1000,
-    type: weaponTypes.ProtonRocket,
-    health: 10,
-    name: "Proton Rocket"
-};
+// export const FIGHTER_PROTON_ROCKET = {
+//     reload: 400,
+//     damage: 35,
+//     speed: 30,
+//     range: 1000,
+//     type: weaponTypes.ProtonRocket,
+//     health: 10,
+//     name: "Proton Rocket"
+// };
 
-export const FIGHTER_PROTON_ROCKET_AOE = {
-    reload: 80,
-    damage: 10,
-    speed: 30,
-    range: 4000,
-    collisionRange: 45,
-    type: weaponTypes.ProtonRocketAOE,
-    health: 25,
-    name: "Proton ROcket"
-};
+// export const FIGHTER_PROTON_ROCKET_AOE = {
+//     reload: 80,
+//     damage: 10,
+//     speed: 30,
+//     range: 4000,
+//     collisionRange: 45,
+//     type: weaponTypes.ProtonRocketAOE,
+//     health: 25,
+//     name: "Proton ROcket"
+// };
 
-export const ASSAULT_PROTON_ROCKET = {
-    reload: 100,
-    damage: 95,
-    speed: 35,
-    range: 3000,
-    collisionRange: 60,
-    type: weaponTypes.AssaultProtonRocket,
-    health: 100,
-    name: "Assault Proton Rocket"
-};
+// export const ASSAULT_PROTON_ROCKET = {
+//     reload: 100,
+//     damage: 95,
+//     speed: 35,
+//     range: 3000,
+//     collisionRange: 60,
+//     type: weaponTypes.AssaultProtonRocket,
+//     health: 100,
+//     name: "Assault Proton Rocket"
+// };
 
-export const ASSAULT_CONCUSSION_MISSILE = {
-    reload: 125,
-    damage: 60, // Weak cuz usually many in a volley
-    speed: 35,
-    range: 4000,
-    type: weaponTypes.ConcussionMissile,
-    health: 100,
-    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital], // Can't aim well and only works on stationary/very slow targets
-    name: "Assault Concussion Missile"
-};
+// export const ASSAULT_CONCUSSION_MISSILE = {
+//     reload: 125,
+//     damage: 60, // Weak cuz usually many in a volley
+//     speed: 35,
+//     range: 4000,
+//     type: weaponTypes.ConcussionMissile,
+//     health: 100,
+//     targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital], // Can't aim well and only works on stationary/very slow targets
+//     name: "Assault Concussion Missile"
+// };
 
-export const ASSAULT_PROTON_TORPEDO = {
-    reload: 135,
-    damage: 85,
-    speed: 35,
-    range: 3500,
-    type: weaponTypes.ProtonTorpedo,
-    health: 150,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital], // Can't aim well and only works on stationary/very slow targets
-    name: "Assault Proton Torpedo"
-};
+// export const ASSAULT_PROTON_TORPEDO = {
+//     reload: 135,
+//     damage: 85,
+//     speed: 35,
+//     range: 3500,
+//     type: weaponTypes.ProtonTorpedo,
+//     health: 150,
+//     targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital], // Can't aim well and only works on stationary/very slow targets
+//     name: "Assault Proton Torpedo"
+// };
 
 export const DUMMY_BLANK = {
     reload: 1e10,
@@ -1257,24 +1257,161 @@ export const SNUB_ONE_ROCKET = {
     name: "Proton Rocket"
 };
 
-
-
-// New weapons
-export const NEW_PROTON_TORPEDO = {
+// Fighter Explosion Ammunition
+export const FIGHTER_PROTON_TORPEDO = {
     reload: 100,
-    range: 4000,
+    range: 1500,
     type: weaponTypes.ProtonTorpedo,
     health: 175,
     name: "Proton Torpedo",
     
-    damage: 25,
+    damage: 10,
+    collisionRange: 45,
+
+    explodes: true,
+    explosionDamage: 6,
+    explosionRange: 150,
+
+    speed: 28,
+    maneuverability: .1,
+    seeks: true
+};
+
+export const FIGHTER_CONCUSSION_MISSILE = {
+    reload: 100,
+    range: 1750,
+    type: weaponTypes.ConcussionMissile,
+    health: 200,
+    name: "Concussion Missile",
+    
+    damage: 15,
+    collisionRange: 35,
+
+    explodes: true,
+    explosionDamage: 4,
+    explosionRange: 400,
+
+    speed: 20,
+    maneuverability: .005,
+    seeks: true
+};
+
+export const FIGHTER_PROTON_ROCKET = {
+    reload: 100,
+    range: 2500,
+    type: weaponTypes.ProtonRocket,
+    health: 100,
+    name: "Proton Rocket",
+    
+    damage: 5,
+    collisionRange: 30,
+
+    explodes: true,
+    explosionDamage: 6,
+    explosionRange: 10,
+
+    speed: 35,
+    maneuverability: .25,
+    seeks: true
+};
+
+export const FIGHTER_PROTON_BOMB = {
+    reload: 100,
+    range: 500,
+    type: weaponTypes.ProtonBomb,
+    health: 125,
+    name: "Proton Bomb",
+    
+    damage: 5,
+    collisionRange: 60,
+
+    explodes: true,
+    explosionDamage: 5,
+    explosionRange: 250,
+
+    speed: 4,
+    maneuverability: .075,
+    seeks: true,
+    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
+};
+
+// Assault Explosion Ammunition
+export const ASSAULT_PROTON_TORPEDO = {
+    reload: 100,
+    range: 4500,
+    type: weaponTypes.AssaultProtonTorpedo,
+    health: 175,
+    name: "Proton Torpedo",
+    
+    damage: 40,
     collisionRange: 45,
 
     explodes: true,
     explosionDamage: 4,
-    explosionRange: 300,
+    explosionRange: 400,
 
     speed: 28,
-    maneuverability: .025,
-    seeks: true
+    maneuverability: .1,
+    seeks: true,
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
+};
+
+export const ASSAULT_CONCUSSION_MISSILE = {
+    reload: 100,
+    range: 4000,
+    type: weaponTypes.ConcussionMissile,
+    health: 200,
+    name: "Concussion Missile",
+    
+    damage: 70,
+    collisionRange: 35,
+
+    explodes: true,
+    explosionDamage: 6,
+    explosionRange: 600,
+
+    speed: 20,
+    maneuverability: .005,
+    seeks: true,
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
+};
+
+export const ASSAULT_PROTON_ROCKET = {
+    reload: 100,
+    range: 4000,
+    type: weaponTypes.AssaultProtonRocket,
+    health: 100,
+    name: "Proton Rocket",
+    
+    damage: 30,
+    collisionRange: 30,
+
+    explodes: true,
+    explosionDamage: 2,
+    explosionRange: 200,
+
+    speed: 35,
+    maneuverability: .25,
+    seeks: true,
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
+};
+
+export const ASSAULT_PROTON_BOMB = {
+    reload: 100,
+    range: 8000,
+    type: weaponTypes.ProtonBomb,
+    health: 125,
+    name: "Proton Bomb",
+    
+    damage: 5,
+    collisionRange: 60,
+
+    explodes: true,
+    explosionDamage: 6,
+    explosionRange: 300,
+
+    speed: 4,
+    maneuverability: .05,
+    seeks: true,
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
 };

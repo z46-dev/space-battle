@@ -7,7 +7,7 @@ ships.RECUSANT_CIS = {
     name: "Recusant Light Destroyer",
     asset: "RECUSANT.png",
     classification: shipTypes.HeavyFrigate,
-    population: 9,
+    population: 14,
     size: 500,
     cost: 3000,
     speed: 4.25,
@@ -23,43 +23,63 @@ ships.RECUSANT_CIS = {
     }, {
         x: -.03,
         y: .825,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
     }, {
         x: .03,
         y: .825,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
     }, {
         x: -.06,
         y: .7,
-        weapon: weapons.QUAD_ION_CANNON_HEAVY
+        weapon: weapons.QUAD_ION_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
     }, {
         x: .06,
         y: .7,
-        weapon: weapons.QUAD_ION_CANNON_HEAVY
+        weapon: weapons.QUAD_ION_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
     }, {
         x: -.075,
         y: .55,
-        weapon: weapons.DOUBLE_ION_CANNON_HEAVY
+        weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 75
     }, {
         x: .075,
         y: .55,
-        weapon: weapons.DOUBLE_ION_CANNON_HEAVY
+        weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 75
     }, {
         x: -.075,
         y: .35,
-        weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY
+        weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 65
     }, {
         x: .075,
         y: .35,
-        weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY
+        weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 65
     }, {
         x: -.06,
         y: 0,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 80
     }, {
         x: .06,
         y: 0,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 80
     }].map(e => ({
         ...e,
         weapon: {
@@ -81,7 +101,7 @@ ships.SABOATHDESTROYER_CIS = {
     name: "Saboath Destroyer",
     asset: "SABOATHDESTROYER.png",
     classification: shipTypes.HeavyFrigate,
-    population: 14,
+    population: 22,
     size: 335,
     cost: 2670,
     speed: 3,
