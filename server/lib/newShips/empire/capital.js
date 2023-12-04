@@ -142,7 +142,13 @@ ships.ALLEGIANCE_EMPIRE = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 3.25 | 0
+            }
+        }));
     })()
 };
 

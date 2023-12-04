@@ -25,6 +25,10 @@ function lerpAngle(A, B, w) {
 class Projectile {
     static id = 0;
 
+    /**
+     * @param {Ship} ship 
+     * @param {Hardpoint} hardpoint 
+     */
     constructor(x, y, angle, ship, hardpoint) {
         this.id = Projectile.id++;
 
@@ -39,14 +43,18 @@ class Projectile {
         this.speed = hardpoint.speed;
         this.ship = ship;
         this.hardpoint = hardpoint;
-        this.type = 0;
+        this.type = hardpoint.projectileType;
         this.team = ship.team;
-        this.classification = 0;
-        this._collisionRange = hardpoint.collisionRange ?? null;
+        this.classification = hardpoint.classification;
+        this.collisionRange = hardpoint.config.collisionRange ?? this.speed * .75;
+        this.explosionRange = hardpoint.config.explosionRange ?? this.collisionRange * 1.5;
+        this.explosionDamage = hardpoint.config.explosionDamage ?? this.hardpoint.damage * .25;
 
-        this.isGuided = false;
+        this.explodes = hardpoint.config.explodes || this.classification === weaponClassifications.AreaOfEffect || this.classification === weaponClassifications.GuidedAOE;
+        this.isGuided = hardpoint.config.seeks || this.classification === weaponClassifications.Guided || this.classification === weaponClassifications.GuidedAOE;
+        this.maneuverability = hardpoint.config.maneuverability ?? .05;
 
-        this.target = null;
+        this.target = hardpoint.target ?? null;
         this.range = hardpoint.range + this.speed * 10;
 
         this.battle.projectiles.set(this.id, this);
@@ -55,29 +63,6 @@ class Projectile {
         this.source = this.ship.source;
     }
 
-    get collisionRange() {
-        if (this._collisionRange !== null) {
-            return this._collisionRange;
-        }
-
-        if (this.classification === weaponClassifications.AreaOfEffect) {
-            return this.speed * 2;
-        }
-
-        if (this.classification === weaponClassifications.Turbolaser) {
-            return this.speed * .5;
-        }
-
-        return this.speed * .75;
-    }
-
-    get explosionRange() {
-        if (this.hardpoint.explosionRange !== null) {
-            return this.hardpoint.explosionRange * this.collisionRange;
-        }
-
-        return this.collisionRange * 7.5;
-    }
 
     update() {
         this.x += Math.cos(this.angle) * this.speed;
@@ -91,55 +76,101 @@ class Projectile {
         }
 
         if (this.isGuided && this.target !== null) {
-            this.angle = Math.atan2(this.target.y - this.y, this.target.x - this.x);
+            this.angle = lerpAngle(this.angle, Math.atan2(this.target.y - this.y, this.target.x - this.x), this.maneuverability);
         }
 
         if (this.target !== null && distance(this.x, this.y, this.target.x, this.target.y) <= this.collisionRange) {
-            switch (this.classification) {
-                case weaponClassifications.IonCannon:
-                    if (this.target.ship.shield > 0) {
-                        this.target.ship.shield -= this.hardpoint.damage;
-                        this.target.ship.lastHit = performance.now();
-                    }
-                    break;
-                case weaponClassifications.AreaOfEffect:
-                case weaponClassifications.GuidedAOE:
-                    if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
-                        this.target.ship.shield -= this.hardpoint.damage * .25; // Nuh uh uh
-                        this.target.ship.lastHit = performance.now();
+            if (this.classification === weaponClassifications.IonCannon) {
+                if (this.target.ship.shield > 0) {
+                    this.target.ship.shield -= this.hardpoint.damage;
+                    this.target.ship.lastHit = performance.now();
+                } else {
+                    this.target.tick -= Math.random() * 3 | 0;
+                }
+            } else if (this.explodes) {
+                console.log(this);
+                if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
+                    this.target.ship.shield -= this.hardpoint.damage * .25; // Nuh uh uh
+                    this.target.ship.lastHit = performance.now();
+                } else {
+                    this.target.ship.lastHit = performance.now();
+                    this.target.health -= this.hardpoint.damage;
 
-                    } else {
-                        this.target.ship.lastHit = performance.now();
+                    const validHardpoints = [];
 
-                        const validHardpoints = [];
+                    for (let i = 0; i < this.target.ship.hardpoints.length; i++) {
+                        const hardpoint = this.target.ship.hardpoints[i];
 
-                        for (let i = 0; i < this.target.ship.hardpoints.length; i++) {
-                            const hardpoint = this.target.ship.hardpoints[i];
-
-                            if (hardpoint.health > 0 && distance(this.x, this.y, hardpoint.x, hardpoint.y) <= this.explosionRange) {
-                                validHardpoints.push(hardpoint);
-                            }
+                        if (hardpoint.health > 0 && distance(this.x, this.y, hardpoint.x, hardpoint.y) <= this.explosionRange) {
+                            validHardpoints.push(hardpoint);
                         }
-
-                        for (let i = 0; i < validHardpoints.length; i++) {
-                            const hardpoint = validHardpoints[i];
-
-                            hardpoint.health -= this.hardpoint.damage / validHardpoints.length;
-                        }
-
-
-                        this.battle.explode(this.target.x, this.target.y, this.collisionRange * 1.25, this.angle, "blueExplosion" + (Math.random() * 5 | 0 + 1));
                     }
-                    break;
-                default:
-                    if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
-                        this.target.ship.shield -= this.hardpoint.damage * (this.classification === weaponClassifications.Guided ? 1 : .334); // Nuh uh
-                        this.target.ship.lastHit = performance.now();
-                    } else {
-                        this.target.health -= this.hardpoint.damage;
-                        this.target.ship.lastHit = performance.now();
+
+                    for (let i = 0; i < validHardpoints.length; i++) {
+                        const hardpoint = validHardpoints[i];
+
+                        hardpoint.health -= this.explosionDamage;
                     }
+
+
+                    this.battle.explode(this.target.x, this.target.y, this.explosionRange, this.angle, "blueExplosion" + (Math.random() * 5 | 0 + 1));
+                }
+            } else {
+                if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
+                    this.target.ship.shield -= this.hardpoint.damage * (this.classification === weaponClassifications.Guided ? 1 : .334); // Nuh uh
+                    this.target.ship.lastHit = performance.now();
+                } else {
+                    this.target.health -= this.hardpoint.damage;
+                    this.target.ship.lastHit = performance.now();
+                }
             }
+            
+            // switch (this.classification) {
+            //     case weaponClassifications.IonCannon:
+            //         if (this.target.ship.shield > 0) {
+            //             this.target.ship.shield -= this.hardpoint.damage;
+            //             this.target.ship.lastHit = performance.now();
+            //         } else {
+            //             this.target.tick -= Math.random() * 3 | 0;
+            //         }
+            //         break;
+            //     case weaponClassifications.AreaOfEffect:
+            //     case weaponClassifications.GuidedAOE:
+            //         if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
+            //             this.target.ship.shield -= this.hardpoint.damage * .25; // Nuh uh uh
+            //             this.target.ship.lastHit = performance.now();
+            //         } else {
+            //             this.target.ship.lastHit = performance.now();
+
+            //             const validHardpoints = [];
+
+            //             for (let i = 0; i < this.target.ship.hardpoints.length; i++) {
+            //                 const hardpoint = this.target.ship.hardpoints[i];
+
+            //                 if (hardpoint.health > 0 && distance(this.x, this.y, hardpoint.x, hardpoint.y) <= this.explosionRange) {
+            //                     validHardpoints.push(hardpoint);
+            //                 }
+            //             }
+
+            //             for (let i = 0; i < validHardpoints.length; i++) {
+            //                 const hardpoint = validHardpoints[i];
+
+            //                 hardpoint.health -= this.hardpoint.damage / validHardpoints.length;
+            //             }
+
+
+            //             this.battle.explode(this.target.x, this.target.y, this.collisionRange * 1.25, this.angle, "blueExplosion" + (Math.random() * 5 | 0 + 1));
+            //         }
+            //         break;
+            //     default:
+            //         if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
+            //             this.target.ship.shield -= this.hardpoint.damage * (this.classification === weaponClassifications.Guided ? 1 : .334); // Nuh uh
+            //             this.target.ship.lastHit = performance.now();
+            //         } else {
+            //             this.target.health -= this.hardpoint.damage;
+            //             this.target.ship.lastHit = performance.now();
+            //         }
+            // }
 
             this.target.ship.hitBy = this.source;
 
@@ -172,6 +203,8 @@ class Hardpoint {
         this.collisionRange = config.weapon.collisionRange ?? null;
         this.explosionRange = config.weapon.explosionRange ?? null;
         this.bypassShield = config.weapon.bypassShield ?? false;
+
+        this.config = config.weapon;
 
         this.health = config.weapon.health * 2;
         this.maxHealth = config.weapon.health * 2;
@@ -306,11 +339,7 @@ class Hardpoint {
                         const inaccuracy = (this.classification === weaponClassifications.AreaOfEffect || this.classification === weaponClassifications.GuidedAOE) ? 0 : (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (target.ship.totalHealth / 1.5)) * .5;
                         const angle = Math.atan2(predictedY - this.y, predictedX - this.x) + inaccuracy;
 
-                        const projectile = new Projectile(this.x, this.y, angle, this.ship, this);
-                        projectile.target = target;
-                        projectile.type = this.projectileType;
-                        projectile.isGuided = this.classification === weaponClassifications.Guided || this.classification === weaponClassifications.GuidedAOE;
-                        projectile.classification = this.classification;
+                        new Projectile(this.x, this.y, angle, this.ship, this);
                     }, i * this.shotDelay);
                 }
             } else {
@@ -318,11 +347,7 @@ class Hardpoint {
 
                 const angle = Math.atan2(predictedY - this.y, predictedX - this.x) + inaccuracy;
 
-                const projectile = new Projectile(this.x, this.y, angle, this.ship, this);
-                projectile.target = this.target;
-                projectile.type = this.projectileType;
-                projectile.isGuided = this.classification === weaponClassifications.Guided || this.classification === weaponClassifications.GuidedAOE;
-                projectile.classification = this.classification;
+                new Projectile(this.x, this.y, angle, this.ship, this);
             }
         }
     }
@@ -965,11 +990,11 @@ const battle = new Battle(size, size, 2);
 
 const empireFleet = {
     "CONSOLAR_REPUBLIC": 0,
-    "CR90_REPUBLIC": 0,
+    "CR90_REPUBLIC": 8,
     "PELTA_REPUBLIC": 0,
     "ARQUITENS_REPUBLIC": 0,
     "CARRACK_REPUBLIC": 0,
-    "ACCLIMATOR_REPUBLIC": 1,
+    "ACCLIMATOR_REPUBLIC": 0,
     "VENATOR_REPUBLIC": 0,
     "SECUTOR_REPUBLIC": 0,
     "PRAETOR_REPUBLIC": 0,
@@ -1046,7 +1071,7 @@ const rebelFleet = {
     "DIAMOND_CIS": 0,
     "HARDCELL_CIS": 0,
     "C9979_CIS": 0,
-    "MUNIFICENT_CIS": 1,
+    "MUNIFICENT_CIS": 0,
     "SABOATHDESTROYER_CIS": 0,
     "RECUSANT_CIS": 0,
     "PROVIDENCEDESTROYER_CIS": 0,
@@ -1065,6 +1090,7 @@ const rebelFleet = {
     "MUNIFICENT_HUTT": 0,
     "RECUSANT_HUTT": 0,
     "ACCLIMATOR_HUTT": 0,
+    "SABOATHDESTROYER_HUTT": 6,
     "MC69NOIR_HUTT": 0,
     "VENATOR_HUTT": 0,
 
@@ -1138,7 +1164,7 @@ for (const ship in rebelFleet) {
     }
 }
 
-const spawnDistance = 3500;
+const spawnDistance = 1000;
 
 empireShips.sort(() => .5 - Math.random());
 scatterFormation(empireShips, -spawnDistance, -spawnDistance, Math.PI / 4);

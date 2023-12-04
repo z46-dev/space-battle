@@ -1267,13 +1267,14 @@ export const NEW_PROTON_TORPEDO = {
     health: 175,
     name: "Proton Torpedo",
     
-    damage: 55,
-    collisionRange: 30,
+    damage: 25,
+    collisionRange: 45,
 
-    explosionDamage: 45,
-    explosionRange: 725,
+    explodes: true,
+    explosionDamage: 4,
+    explosionRange: 300,
 
     speed: 28,
-    maneuverability: .01,
+    maneuverability: .025,
     seeks: true
 };
