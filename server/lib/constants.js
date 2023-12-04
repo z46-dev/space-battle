@@ -281,16 +281,18 @@ export const weaponProperties = (function() {
 export const shipTypes = {
     "Fighter": 0,
     "Bomber": 1,
-    "Corvette": 2,
-    "Frigate": 3,
-    "HeavyFrigate": 4,
-    "Capital": 5,
-    "SuperCapital": 6
+    "FighterBomber": 2,
+    "Corvette": 3,
+    "Frigate": 4,
+    "HeavyFrigate": 5,
+    "Capital": 6,
+    "SuperCapital": 7
 };
 
 export const shipTypeNames = {
     [shipTypes.Fighter]: "Fighter",
     [shipTypes.Bomber]: "Bomber",
+    [shipTypes.FighterBomber]: "Fighter/Bomber",
     [shipTypes.Corvette]: "Corvette",
     [shipTypes.Frigate]: "Frigate",
     [shipTypes.HeavyFrigate]: "Heavy Frigate",

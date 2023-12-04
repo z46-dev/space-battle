@@ -1,4 +1,4 @@
-import { default as customShips } from "./ships/custom.js";
+import { default as customShips } from "./newShips/custom.js";
 import { shipTypes } from "./constants.js";
 import { DUMMY_BLANK } from "./weapons.js";
 

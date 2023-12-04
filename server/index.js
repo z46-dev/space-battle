@@ -1,5 +1,6 @@
 import SpatialHashGrid from "./lib/SpatialHashGrid.js";
 import { shipTypes, weaponClassifications, weaponDrawProperties, weaponProperties, weaponTypes } from "./lib/constants.js";
+import heroes from "./lib/heroes.js";
 import ships from "./lib/ships.js";
 
 function angleDifference(a, b) {
@@ -75,7 +76,7 @@ class Projectile {
             return this.hardpoint.explosionRange * this.collisionRange;
         }
 
-        return this.collisionRange * 5;
+        return this.collisionRange * 7.5;
     }
 
     update() {
@@ -123,7 +124,7 @@ class Projectile {
                         for (let i = 0; i < validHardpoints.length; i++) {
                             const hardpoint = validHardpoints[i];
 
-                            hardpoint.health -= this.hardpoint.damage / (validHardpoints.length * 1.5);
+                            hardpoint.health -= this.hardpoint.damage / validHardpoints.length;
                         }
 
 
@@ -160,8 +161,8 @@ class Hardpoint {
         this.direction = config.direction;
         this.projectileType = config.weapon.type;
 
-        this.reload = config.weapon.reload * 1.5;
-        this.tick = config.weapon.reload * 1.5;
+        this.reload = config.weapon.reload * 4;
+        this.tick = config.weapon.reload * 4;
         this.damage = config.weapon.damage;
         this.speed = config.weapon.speed;
         this.range = config.weapon.range;
@@ -270,7 +271,7 @@ class Hardpoint {
             if (!this.hasExploded) {
                 this.hasExploded = true;
 
-                if ((this.ship.classification !== shipTypes.Fighter && this.ship.classification !== shipTypes.Bomber) || Math.random() > .8) {
+                if ((this.ship.classification !== shipTypes.Fighter && this.ship.classification !== shipTypes.FighterBomber && this.ship.classification !== shipTypes.Bomber) || Math.random() > .5) {
                     this.ship.battle.explode(this.x, this.y, Math.min(this.ship.size / 2, 80), this.angle);
                 }
             }
@@ -402,12 +403,37 @@ class Squadron {
 
                     switch (this.ships[0].classification) {
                         case shipTypes.Fighter:
-                            if (ship.classification === shipTypes.Bomber) {
-                                highPriority.push(ship);
+                            if (ship.classification === shipTypes.Bomber || ship.classification === shipTypes.FighterBomber) {
+                                if (Math.random() > .5) {
+                                    highPriority.push(ship);
+                                } else {
+                                    mediumPriority.push(ship);
+                                }
                             }
 
                             if (ship.classification === shipTypes.Fighter) {
+                                if (Math.random() > .15) {
+                                    mediumPriority.push(ship);
+                                } else {
+                                    highPriority.push(ship);
+                                }
+                            }
+                            break;
+                        case shipTypes.FighterBomber:
+                            if (ship.classification === shipTypes.Capital || ship.classification === shipTypes.SuperCapital) {
+                                highPriority.push(ship);
+                            }
+
+                            if (ship.classification === shipTypes.Frigate || ship.classification === shipTypes.HeavyFrigate) {
                                 mediumPriority.push(ship);
+                            }
+
+                            if (ship.classification === shipTypes.Bomber || ship.classification === shipTypes.FighterBomber || ship.classification === shipTypes.Fighter) {
+                                if (Math.random() > .85) {
+                                    highPriority.push(ship);
+                                } else {
+                                    mediumPriority.push(ship);
+                                }
                             }
                             break;
                         case shipTypes.Bomber:
@@ -558,7 +584,7 @@ class ShipAI {
             let validShips = [];
 
             this.ship.battle.ships.forEach(ship => {
-                if (ship.team !== this.ship.team && ship.health > 0 && ((ship.classification !== shipTypes.Fighter && ship.classification !== shipTypes.Bomber) || this.ship.classification === shipTypes.Fighter || this.ship.classification === shipTypes.Bomber)) {
+                if (ship.team !== this.ship.team && ship.health > 0 && ((ship.classification !== shipTypes.Fighter && ship.classification !== shipTypes.FighterBomber && ship.classification !== shipTypes.Bomber) || this.ship.classification === shipTypes.Fighter || this.ship.classification === shipTypes.FighterBomber || this.ship.classification === shipTypes.Bomber)) {
                     validShips.push(ship);
                 }
             });
@@ -583,6 +609,7 @@ class ShipAI {
 
         switch (this.ship.classification) {
             case shipTypes.Fighter:
+            case shipTypes.FighterBomber:
             case shipTypes.Bomber:
                 this.fighterThinking();
                 break;
@@ -679,6 +706,21 @@ class ShipFleeAI extends ShipAI {
     }
 }
 
+class Commander {
+    /**
+     * @param {Object} config
+     * @param {Ship} ship
+     */
+    constructor(config, ship) {
+        this.config = config;
+        this.ship = ship; 
+
+        this.name = config.name;
+        this.description = config.tooltip;
+        this.image = config.image;
+    }
+}
+
 class Ship {
     static id = 0;
     constructor(battle, configKey, team) {
@@ -715,6 +757,11 @@ class Ship {
 
         this.disabled = false;
         this.disableHangars = false;
+
+        /**
+         * @type {Commander}
+         */
+        this.commander = null;
 
         /**
          * @type {Hardpoint[]}
@@ -781,7 +828,7 @@ class Ship {
             this.battle.ships.delete(this.id);
 
             if (this.explodeOnDeath) {
-                if (this.classification !== shipTypes.Fighter && this.classification !== shipTypes.Bomber) {
+                if (this.classification !== shipTypes.Fighter && this.classification !== shipTypes.FighterBomber && this.classification !== shipTypes.Bomber) {
                     for (let i = 0; i < this.hardpoints.length / 3; i++) {
                         const x = this.hardpoints[i].x + Math.random() * this.size * .2 - this.size * .1;
                         const y = this.hardpoints[i].y + Math.random() * this.size * .2 - this.size * .1;
@@ -923,8 +970,8 @@ const empireFleet = {
     "ARQUITENS_REPUBLIC": 0,
     "CARRACK_REPUBLIC": 0,
     "ACCLIMATOR_REPUBLIC": 0,
-    "VENATOR_REPUBLIC": 0,
-    "SECUTOR_REPUBLIC": 0,
+    "VENATOR_REPUBLIC": 1,
+    "SECUTOR_REPUBLIC": 1,
     "PRAETOR_REPUBLIC": 0,
 
     "RAIDER_EMPIRE": 0,
@@ -936,7 +983,7 @@ const empireFleet = {
     "IMOBILIZER_EMPIRE": 0,
     "DREADNOUGHTHEAVYCRUISER_EMPIRE": 0,
     "ACCLIMATOR_EMPIRE": 0,
-    "IMPERIALSTARDESTROYER_EMPIRE": 3,
+    "IMPERIALSTARDESTROYER_EMPIRE": 0,
     "ALLEGIANCE_EMPIRE": 0,
     "VICTORYSTARDESTROYER_EMPIRE": 0,
     "AGGRESSORSTARDESTROYER_EMPIRE": 0,
@@ -967,7 +1014,10 @@ const empireFleet = {
     "ASSERTOR_DARKEMPIRE": 0,
     "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE": 0,
     "IMPELLORFLEETCARRIER_DARKEMPIRE": 0,
-    "MEGASTARDESTOYER_DARKEMPIRE": 0
+    "MEGASTARDESTOYER_DARKEMPIRE": 0,
+
+    // NEW SHIPS
+    "CHIMERA_DESTROYER": 0
 };
 
 const rebelFleet = {
@@ -987,24 +1037,24 @@ const rebelFleet = {
     "DP20_REBEL": 0,
     "MARAUDERMISSILECRUISER_REBEL": 0,
     "QUASAR_REBEL": 0,
-    "INEXPUGNABLECOMMANDSHIP_REBEL": 1,
-    "VALORCRUISER_REBEL": 1,
-    "ZENITHCRUISER_REBEL": 4,
-    "FORRAYBLOCKADERUNNER_REBEL": 6,
+    "INEXPUGNABLECOMMANDSHIP_REBEL": 0,
+    "VALORCRUISER_REBEL": 0,
+    "ZENITHCRUISER_REBEL": 0,
+    "FORRAYBLOCKADERUNNER_REBEL": 0,
 
     "LUPUSMISSILEFRIGATE_CIS": 0,
     "DIAMOND_CIS": 0,
     "HARDCELL_CIS": 0,
     "C9979_CIS": 0,
-    "HARDCEL_MISSILE_CIS": 0,
-    "PROVIDENCEDESTROYER_CIS": 0,
     "MUNIFICENT_CIS": 0,
+    "SABOATHDESTROYER_CIS": 0,
     "RECUSANT_CIS": 0,
-    "LUCREHULK_CIS": 0,
+    "PROVIDENCEDESTROYER_CIS": 0,
+    "LUCREHULKBATTLESHIP_CIS": 1,
+    "LUCREHULKAUXILIARYWARSHIP_CIS": 1,
+    "DHOMNI_CIS": 0,
     "PROVIDENCEDREADNOUGHT_CIS": 0,
     "RECUSANTDREADNOUGHT_CIS": 0,
-    "LUCREHULK2_CIS": 0,
-    "LUCREHULK3_CIS": 0,
 
     // Hutts
     "CONSOLAR_HUTT": 0,
@@ -1054,6 +1104,10 @@ function spawn(ship, team) {
         newShip.angle = Math.random() * Math.PI * 2;
     }
 
+    // if (ship === "PROVIDENCEDESTROYER_CIS") {
+    //     newShip.commander = new Commander(heroes["TI-99"], newShip);
+    // }
+
     return newShip;
 }
 
@@ -1084,7 +1138,7 @@ for (const ship in rebelFleet) {
     }
 }
 
-const spawnDistance = 1000;
+const spawnDistance = 3500;
 
 empireShips.sort(() => .5 - Math.random());
 scatterFormation(empireShips, -spawnDistance, -spawnDistance, Math.PI / 4);
@@ -1155,12 +1209,14 @@ class Camera {
         shield = 0;
         isSquadron = false;
         hardpoints = [];
+        commander = null;
 
         updateX = false;
         updateY = false;
         updateAngle = false;
         updateHealth = false;
         updateShield = false;
+        updateCommander = false;
 
         isNew = true;
 
@@ -1195,6 +1251,12 @@ class Camera {
             }
 
             this.hardpoints = newShip.hardpoints.map(hardpoint => [hardpoint.offset, hardpoint.direction, hardpoint.health / hardpoint.maxHealth]);
+
+            if (newShip.commander !== this.commander) {
+                this.commander = newShip.commander;
+                this.updateCommander = true;
+                console.log(this.commander);
+            }
         }
 
         getOutput() {
@@ -1240,6 +1302,12 @@ class Camera {
                 if (this.hardpoints.length > 0) {
                     output[1] += 64;
                     output.push(this.hardpoints.length, ...this.hardpoints.flat()); // idc about the performance here, not an issue except for like, 20 executors, which should never happen
+                }
+
+                if (this.updateCommander) {
+                    output.push(this.commander.name);
+                    this.updateCommander = false;
+                    output[1] += 128;
                 }
             }
 
@@ -1453,7 +1521,7 @@ class Camera {
             if (this.isInView(projectile.x, projectile.y, projectile.collisionRange)) {
                 const props = weaponDrawProperties[projectile.type];
 
-                if (2 * props.strength * 6 * this.zoom < 2 || (projectile.ship.classification <= shipTypes.Bomber && projectile.classification === weaponClassifications.LaserCannon)) {
+                if (2 * props.strength * 6 * this.zoom < 2/* || (projectile.ship.classification <= shipTypes.Bomber && projectile.classification === weaponClassifications.LaserCannon)*/) {
                     return;
                 }
 

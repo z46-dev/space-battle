@@ -1,6 +1,7 @@
 import SpatialHashGrid from "../server/lib/SpatialHashGrid.js";
 import { shipTypeNames, shipTypes, weaponClassifications, weaponDrawProperties, weaponProperties } from "../server/lib/constants.js";
 import { default as shipConfig } from "../server/lib/ships.js";
+import heroes from "../server/lib/heroes.js";
 
 (async function () {
     const assets = new Map();
@@ -402,6 +403,10 @@ import { default as shipConfig } from "../server/lib/ships.js";
                         }
                     }
 
+                    if (flags & 128) {
+                        ship.commanderName = data.shift();
+                    }
+
                     newShips.push(ship);
                 }
 
@@ -540,6 +545,10 @@ import { default as shipConfig } from "../server/lib/ships.js";
 
                         if (newShip.hardpoints !== undefined) {
                             ship.hardpoints = newShip.hardpoints;
+                        }
+
+                        if (newShip.commanderName !== undefined) {
+                            ship.commanderName = newShip.commanderName;
                         }
 
                         ships.set(newShip.id, ship);
@@ -1044,6 +1053,21 @@ import { default as shipConfig } from "../server/lib/ships.js";
                         }
                     }
 
+                    if (ship.commanderName) {
+                        const hero = heroes[ship.commanderName];
+
+                        const img = assets.get(hero.image);
+
+                        if (!img || !img.ready) {
+                            loadAsset(`./assets/portraits/${hero.image}`, hero.image);
+                        } else {
+                            ctx.save();
+                            ctx.translate(0, -ship.size / 2 - 50);
+                            ctx.drawImage(img, -50, -50, 100, 100);
+                            ctx.restore();
+                        }
+                    }
+
                     ctx.restore();
                 } break;
             }
@@ -1307,7 +1331,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
             textMessage.displayText = textMessage.text.slice(0, textMessage.i);
 
             if (textMessage.displayText.length === textMessage.text.length) {
-                textMessage.timer --;
+                textMessage.timer--;
             }
 
             if (textMessage.timer <= 0) {

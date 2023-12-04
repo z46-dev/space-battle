@@ -1206,7 +1206,7 @@ export const FIGHTER_PROTON_ROCKET_AOE = {
 };
 
 export const ASSAULT_PROTON_ROCKET = {
-    reload: 200,
+    reload: 100,
     damage: 95,
     speed: 35,
     range: 3000,
@@ -1217,7 +1217,7 @@ export const ASSAULT_PROTON_ROCKET = {
 };
 
 export const ASSAULT_CONCUSSION_MISSILE = {
-    reload: 300,
+    reload: 125,
     damage: 60, // Weak cuz usually many in a volley
     speed: 35,
     range: 4000,
@@ -1228,7 +1228,7 @@ export const ASSAULT_CONCUSSION_MISSILE = {
 };
 
 export const ASSAULT_PROTON_TORPEDO = {
-    reload: 400,
+    reload: 135,
     damage: 85,
     speed: 35,
     range: 3500,

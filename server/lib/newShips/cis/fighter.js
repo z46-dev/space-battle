@@ -93,4 +93,66 @@ ships.DROIDTRIFIGHTER_CIS = {
     }]
 };
 
+ships.DROIDGUNSHIP_CIS = {
+    name: "Droid Gunship",
+    asset: "DROIDGUNSHIP.png",
+    classification: shipTypes.FighterBomber,
+    population: 0,
+    size: 40,
+    cost: 20,
+    speed: 7,
+    turnSpeed: .04,
+    shield: 75,
+    shieldRegen: .5,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.RED_DOUBLE_LASER_CANNON,
+            health: 100
+        },
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+            health: 100
+        },
+        shotsAtOnce: 5,
+        shotDelay: 50
+    }, {
+        x: -.4,
+        y: 0,
+        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 3,
+        shotDelay: 200
+    }, {
+        x: .4,
+        y: 0,
+        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 3,
+        shotDelay: 200
+    }, {
+        x: -.6,
+        y: 0,
+        weapon: weapons.FIGHTER_PROTON_ROCKET_AOE,
+        shotsAtOnce: 3,
+        shotDelay: 75
+    }, {
+        x: .6,
+        y: 0,
+        weapon: weapons.FIGHTER_PROTON_ROCKET_AOE,
+        shotsAtOnce: 3,
+        shotDelay: 75
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.FIGHTER_PROTON_TORPEDO,
+        shotsAtOnce: 3,
+        shotDelay: 100
+    }]
+};
+
 export default ships;

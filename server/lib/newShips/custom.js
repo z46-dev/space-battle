@@ -12,8 +12,8 @@ ships.CHIMERA_DESTROYER = {
     cost: 7250,
     speed: 2.5,
     turnSpeed: .02,
-    shield: 10000,
-    shieldRegen: 4,
+    shield: 4750,
+    shieldRegen: 40,
     hardpoints: [{ // FRONT
         x: -.175,
         y: .725,
@@ -23,7 +23,7 @@ ships.CHIMERA_DESTROYER = {
     }, {
         x: -.175,
         y: .575,
-        weapon: weapons.ION_CANNON,
+        weapon: weapons.ION_CANNON_MEDIUM,
         shotsAtOnce: 2,
         shotDelay: 120
     }, {
@@ -35,7 +35,7 @@ ships.CHIMERA_DESTROYER = {
     }, {
         x: .175,
         y: .575,
-        weapon: weapons.ION_CANNON,
+        weapon: weapons.ION_CANNON_MEDIUM,
         shotsAtOnce: 2,
         shotDelay: 120
     }, { // BACK
@@ -47,7 +47,7 @@ ships.CHIMERA_DESTROYER = {
     }, {
         x: -.125,
         y: -.775,
-        weapon: weapons.ION_CANNON,
+        weapon: weapons.ION_CANNON_MEDIUM,
         shotsAtOnce: 2,
         shotDelay: 120
     }, {
@@ -59,7 +59,7 @@ ships.CHIMERA_DESTROYER = {
     }, {
         x: .125,
         y: -.775,
-        weapon: weapons.ION_CANNON,
+        weapon: weapons.ION_CANNON_MEDIUM,
         shotsAtOnce: 2,
         shotDelay: 120
     }, { // MIDDLE
@@ -104,7 +104,16 @@ ships.CHIMERA_DESTROYER = {
         weapon: weapons.BLACK_OCTUPLE_TURBOLASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 200
-    }],
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 2.5 | 0,
+            range: e.weapon.range * 2 | 0,
+            speed: e.weapon.speed * 1.5 | 0,
+            damage: e.weapon.damage * 1.25 | 0
+        }
+    })),
     hangars: [{
         x: 0,
         y: 0,

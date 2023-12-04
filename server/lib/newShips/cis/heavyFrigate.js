@@ -3,78 +3,6 @@ import * as weapons from "../../weapons.js";
 
 const ships = {};
 
-ships.MUNIFICENT_CIS = {
-    name: "Munificent Frigate",
-    asset: "MUNIFICENT.png", // do another with MUNIFICENT2.png
-    classification: shipTypes.HeavyFrigate,
-    population: 8,
-    size: 300,
-    cost: 2700,
-    speed: 4,
-    turnSpeed: .02,
-    shield: 2000,
-    shieldRegen: 1,
-    hardpoints: [{
-        x: 0,
-        y: .8,
-        weapon: weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY
-    }, {
-        x: -.5,
-        y: -.05,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON
-    }, {
-        x: .5,
-        y: -.05,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON
-    }, {
-        x: -.1,
-        y: 0,
-        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM
-    }, {
-        x: .1,
-        y: 0,
-        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM
-    }, {
-        x: -.225,
-        y: .25,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON
-    }, {
-        x: .225,
-        y: .25,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON
-    }, {
-        x: -.15,
-        y: .6,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON
-    }, {
-        x: .15,
-        y: .6,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON
-    }, {
-        x: -.15,
-        y: -.4,
-        weapon: weapons.DOUBLE_ION_CANNON
-    }, {
-        x: .15,
-        y: -.4,
-        weapon: weapons.DOUBLE_ION_CANNON
-    }].map(e => ({
-        ...e,
-        weapon: {
-            ...e.weapon,
-            health: e.weapon.health * .5
-        }
-    })),
-    hangars: [{
-        x: 0,
-        y: 0,
-        maxSquadrons: 1,
-        squadronSize: 6,
-        reserveSize: 3,
-        squadronKey: "VULTUREDROID_CIS"
-    }]
-};
-
 ships.RECUSANT_CIS = {
     name: "Recusant Light Destroyer",
     asset: "RECUSANT.png",
@@ -103,40 +31,40 @@ ships.RECUSANT_CIS = {
     }, {
         x: -.06,
         y: .7,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+        weapon: weapons.QUAD_ION_CANNON_HEAVY
     }, {
         x: .06,
         y: .7,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+        weapon: weapons.QUAD_ION_CANNON_HEAVY
     }, {
         x: -.075,
         y: .55,
-        weapon: weapons.ION_CANNON_HEAVY
+        weapon: weapons.DOUBLE_ION_CANNON_HEAVY
     }, {
         x: .075,
         y: .55,
-        weapon: weapons.ION_CANNON_HEAVY
+        weapon: weapons.DOUBLE_ION_CANNON_HEAVY
     }, {
         x: -.075,
         y: .35,
-        weapon: weapons.RED_QUAD_LASER_CANNON
+        weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY
     }, {
         x: .075,
         y: .35,
-        weapon: weapons.RED_QUAD_LASER_CANNON
+        weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY
     }, {
         x: -.06,
         y: 0,
-        weapon: weapons.RED_QUAD_LASER_CANNON
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY
     }, {
         x: .06,
         y: 0,
-        weapon: weapons.RED_QUAD_LASER_CANNON
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY
     }].map(e => ({
         ...e,
         weapon: {
             ...e.weapon,
-            health: e.weapon.health * .334
+            health: e.weapon.health * .5 | 0
         }
     })),
     hangars: [{
@@ -146,6 +74,119 @@ ships.RECUSANT_CIS = {
         squadronSize: 3,
         reserveSize: 2,
         squadronKey: "VULTUREDROID_CIS"
+    }]
+};
+
+ships.SABOATHDESTROYER_CIS = {
+    name: "Saboath Destroyer",
+    asset: "SABOATHDESTROYER.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 14,
+    size: 335,
+    cost: 2670,
+    speed: 3,
+    turnSpeed: .015,
+    shield: 3500,
+    shieldRegen: 3.5,
+    hardpoints: [{
+        x: -.1125,
+        y: .875,
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .1125,
+        y: .875,
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.1125,
+        y: .675,
+        weapon: weapons.RED_QUAD_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 65
+    }, {
+        x: .1125,
+        y: .675,
+        weapon: weapons.RED_QUAD_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 65
+    }, {
+        x: -.1125,
+        y: .475,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .1125,
+        y: .475,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.3125,
+        y: -.675,
+        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 4,
+        shotDelay: 50
+    }, {
+        x: .3,
+        y: -.675,
+        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 4,
+        shotDelay: 50
+    }, {
+        x: -.25,
+        y: .3,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
+        shotsAtOnce: 3,
+        shotDelay: 250
+    }, {
+        x: -.3,
+        y: .1,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
+        shotsAtOnce: 3,
+        shotDelay: 250
+    }, {
+        x: -.35,
+        y: -.1,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
+        shotsAtOnce: 3,
+        shotDelay: 250
+    }, {
+        x: .25,
+        y: .3,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
+        shotsAtOnce: 3,
+        shotDelay: 250
+    }, {
+        x: .3,
+        y: .1,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
+        shotsAtOnce: 3,
+        shotDelay: 250
+    }, {
+        x: .35,
+        y: -.1,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
+        shotsAtOnce: 3,
+        shotDelay: 250
+    }],
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "VULTUREDROID_CIS"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 1,
+        reserveSize: 4,
+        squadronKey: "DROIDGUNSHIP_CIS"
     }]
 };
 

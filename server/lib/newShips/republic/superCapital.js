@@ -12,7 +12,7 @@ ships.SECUTOR_REPUBLIC = {
     cost: 8900,
     speed: 2,
     turnSpeed: .01,
-    shield: 14000,
+    shield: 16000,
     shieldRegen: 7,
     hardpoints: (function() {
         const output = [];
@@ -37,7 +37,13 @@ ships.SECUTOR_REPUBLIC = {
             });
         }
 
-        return output;
+        return output.map(hardpoint => ({
+            ...hardpoint,
+            weapon: {
+                ...hardpoint.weapon,
+                health: hardpoint.weapon.health * 1.6 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: 0,
@@ -79,7 +85,7 @@ ships.PRAETOR_REPUBLIC = {
     cost: 9500,
     speed: .85,
     turnSpeed: .005,
-    shield: 30000,
+    shield: 26000,
     shieldRegen: 10,
     hardpoints: (function() {
         const output = [];
@@ -123,7 +129,13 @@ ships.PRAETOR_REPUBLIC = {
             });
         }
 
-        return output;
+        return output.map(hardpoint => ({
+            ...hardpoint,
+            weapon: {
+                ...hardpoint.weapon,
+                health: hardpoint.weapon.health * 1.334 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: 0,

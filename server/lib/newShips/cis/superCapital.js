@@ -12,8 +12,8 @@ ships.PROVIDENCEDREADNOUGHT_CIS = {
     cost: 9700,
     speed: 2.25,
     turnSpeed: .025,
-    shield: 30000,
-    shieldRegen: 10,
+    shield: 12000,
+    shieldRegen: 11,
     hardpoints: (function() {
         const output = [];
 
@@ -34,7 +34,7 @@ ships.PROVIDENCEDREADNOUGHT_CIS = {
                 x: 0,
                 y: .45 - .08 * i,
                 weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-                shotsAtOnce: 2,
+                shotsAtOnce: 4,
                 shotDelay: 120
             }, {
                 x: -.14,
@@ -83,7 +83,13 @@ ships.PROVIDENCEDREADNOUGHT_CIS = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2.5 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: 0,
@@ -118,8 +124,8 @@ ships.RECUSANTDREADNOUGHT_CIS = {
     cost: 6500,
     speed: 3,
     turnSpeed: .01,
-    shield: 15000,
-    shieldRegen: 6,
+    shield: 8500,
+    shieldRegen: 8.5,
     hardpoints: (function() {
         const output = [{
             x: 0,
@@ -132,26 +138,37 @@ ships.RECUSANTDREADNOUGHT_CIS = {
         }, {
             x: 0,
             y: .9,
-            weapon: weapons.ION_CANNON_ULTRA
+            weapon: {
+                ...weapons.ION_CANNON_ULTRA,
+                damage: weapons.ION_CANNON_ULTRA.damage * 3
+            }
         }];
 
         for (let i = 0; i < 5; i ++) {
             output.push({
                 x: -.05 - .0075 * i,
                 y: .85 - .1 * i,
-                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             }, {
                 x: .05 + .0075 * i,
                 y: .85 - .1 * i,
-                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             }, {
                 x: -.025 - .0075 * i,
                 y: .3 - .075 * i,
-                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             }, {
                 x: .025 + .0075 * i,
                 y: .3 - .075 * i,
-                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             });
         }
 
@@ -159,23 +176,37 @@ ships.RECUSANTDREADNOUGHT_CIS = {
             output.push({
                 x: -.03 - .0075 * i,
                 y: .9 - .125 * i,
-                weapon: i % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY : weapons.DOUBLE_ION_CANNON_HEAVY
+                weapon: i % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY : weapons.DOUBLE_ION_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             }, {
                 x: .03 + .0075 * i,
                 y: .9 - .125 * i,
-                weapon: i % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY : weapons.DOUBLE_ION_CANNON_HEAVY
+                weapon: i % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY : weapons.DOUBLE_ION_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             }, {
                 x: -.03 - .0075 * i,
                 y: .35 - .075 * i,
-                weapon: i % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY : weapons.DOUBLE_ION_CANNON_HEAVY
+                weapon: i % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY : weapons.DOUBLE_ION_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             }, {
                 x: .03 + .0075 * i,
                 y: .35 - .075 * i,
-                weapon: i % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY : weapons.DOUBLE_ION_CANNON_HEAVY
+                weapon: i % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY : weapons.DOUBLE_ION_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: 0,
