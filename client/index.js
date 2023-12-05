@@ -510,7 +510,10 @@ import heroes from "../server/lib/heroes.js";
                 const commanders = [];
 
                 for (let i = 0; i < commandersSize; i++) {
-                    commanders.push(data.shift());
+                    commanders.push({
+                        name: data.shift(),
+                        health: data.shift()
+                    });
                 }
 
                 world.commanders = commanders;
@@ -1351,7 +1354,7 @@ import heroes from "../server/lib/heroes.js";
             y += measurement.height + 5;
         });
 
-        drawCommanders();
+        drawCommanders(uScale);
 
         ctx.restore();
     }
@@ -1382,24 +1385,49 @@ import heroes from "../server/lib/heroes.js";
         };
     }
 
-    function drawCommanders() {
+    function drawCommander(commander) {
+        const hero = heroes[commander.name];
+
+        const img = assets.get(hero.image);
+
+        if (!img || !img.ready) {
+            loadAsset(`./assets/portraits/${hero.image}`, hero.image);
+            return;
+        }
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(0, 0, .5, 0, 6.3);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(img, -.5, -.5, 1, 1);
+        ctx.restore();
+        ctx.beginPath();
+        ctx.arc(0, 0, .5, 0, 6.3);
+        ctx.closePath();
+        ctx.lineWidth = .05;
+        ctx.strokeStyle = "#EEEEAA";
+        ctx.stroke();
+        
+        drawBar(0, .6, .9, .075, commander.health, "#00FFC8");
+    }
+
+    function drawCommanders(uScale) {
         const size = 75;
-        const x = canvas.width - size - 10;
-        let y = canvas.height - size - 10;
+        const x = canvas.width / uScale - size - 10;
+        let y = canvas.height / uScale - size - 20;
+        ctx.globalAlpha = 1;
 
         for (const commander of world.commanders) {
-            const hero = heroes[commander];
+            ctx.save();
+            ctx.translate(x + size / 2, y + size / 2);
+            ctx.scale(size, size);
 
-            const img = assets.get(hero.image);
+            drawCommander(commander);
 
-            if (!img || !img.ready) {
-                loadAsset(`./assets/portraits/${hero.image}`, hero.image);
-                return;
-            }
+            ctx.restore();
 
-            ctx.drawImage(img, x, y, size, size);
-
-            y -= size + 10;
+            y -= size + 15;
         }
     }
 

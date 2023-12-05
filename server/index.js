@@ -1272,7 +1272,7 @@ const fleetOverrides = [
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(400, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(200, fleetFactions[i]);
 
     const spawned = [];
 
@@ -1810,7 +1810,7 @@ class Camera {
 
         output.push(commanders.length);
         commanders.forEach(commander => {
-            output.push(commander.name);
+            output.push(commander.name, commander.ship.health);
         });
 
         this.connection.talk(output);
