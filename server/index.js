@@ -111,7 +111,7 @@ class Projectile {
                         hardpoint.health -= this.explosionDamage;
                     }
 
-                    if (Math.random() > .85) {
+                    if (Math.random() > .85 && this.explosionRange <= 1000) {
                         this.battle.explode(this.target.x, this.target.y, this.explosionRange * .667, this.angle, "blueExplosion" + (Math.random() * 5 | 0 + 1));
                     }
                 }
@@ -1214,10 +1214,15 @@ function spawn(ship, team) {
 
 const spawnDistance = 2000;
 
-const fleetFactions = ["REBEL", "EMPIRE"];
+const fleetFactions = ["EMPIRE", "CIS"];
+
+const fleetOverrides = [
+    null,
+    null
+];
 
 for (let i = 0; i < 2; i++) {
-    const ships = Fleet.random(150, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(400, fleetFactions[i]);
 
     const spawned = [];
 

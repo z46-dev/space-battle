@@ -225,4 +225,101 @@ ships.RECUSANTDREADNOUGHT_CIS = {
     }]
 };
 
+ships.BULWARKII_CIS = {
+    name: "Bulwark-II Battleship",
+    asset: "BULWARKII.png",
+    classification: shipTypes.SuperCapital,
+    population: 40,
+    size: 1000,
+    cost: 7800,
+    speed: 2,
+    turnSpeed: .0025,
+    shield: 18000,
+    shieldRegen: 18,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 16; i ++) {
+            const x = Math.sin(i / 4) * .075 + .1;
+            const y = .85 - (i / 16) * 1.7;
+
+            const weapon = [
+                weapons.RED_TURBOLASER_CANNON_HEAVY,
+                weapons.ION_CANNON_ULTRA,
+                weapons.RED_TURBOLASER_CANNON_HEAVY,
+                weapons.TRIPLE_ION_CANNON_MEDIUM
+            ][i % 4];
+
+            output.push({
+                x,
+                y,
+                weapon: weapon,
+                shotsAtOnce: 2,
+                shotDelay: 120
+            }, {
+                x: -x,
+                y,
+                weapon: weapon,
+                shotsAtOnce: 2,
+                shotDelay: 120
+            });
+        }
+
+        for (let i = 0; i < 7; i ++) {
+            const x = Math.sin(i) * .075 + .05;
+            const y = .667 - .2 * i;
+
+            for (let j = 0; j < 3; j ++) {
+                const angle = Math.PI * 2 / 3 * j;
+                const d = .02;
+                const x2 = x + Math.cos(angle) * d;
+                const y2 = y + Math.sin(angle) * d;
+
+                const weapon = [
+                    weapons.RED_TRIPLE_TURBOLASER_CANNON_HEAVY,
+                    weapons.TRIPLE_ION_CANNON,
+                    weapons.RED_TRIPLE_LASER_CANNON
+                ][j % 3];
+
+                output.push({
+                    x: x2,
+                    y: y2,
+                    weapon: weapon,
+                    shotsAtOnce: 2,
+                    shotDelay: 120
+                }, {
+                    x: -x2,
+                    y: y2,
+                    weapon: weapon,
+                    shotsAtOnce: 2,
+                    shotDelay: 120
+                });
+            }
+        }
+
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 3 | 0
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 8,
+        squadronKey: "VULTUREDROID_CIS"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 3,
+        squadronSize: 8,
+        reserveSize: 4,
+        squadronKey: "DROIDTRIFIGHTER_CIS"
+    }]
+};
+
 export default ships;
