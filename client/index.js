@@ -1064,19 +1064,15 @@ import heroes from "../server/lib/heroes.js";
                         if (ship.shield !== -1) {
                             drawBar(0, -barWidth / 2 - 40, barWidth, 10, ship.shield, "#00C8FF");
                         }
-                    }
 
-                    if (ship.commanderName) {
-                        const hero = heroes[ship.commanderName];
-
-                        const img = assets.get(hero.image);
-
-                        if (!img || !img.ready) {
-                            loadAsset(`./assets/portraits/${hero.image}`, hero.image);
-                        } else {
+                        if (ship.commanderName) {
                             ctx.save();
-                            ctx.translate(0, -ship.size / 2 - 50);
-                            ctx.drawImage(img, -50, -50, 100, 100);
+                            ctx.translate(-barWidth / 2 - 50, -barWidth / 2 - (ship.shield !== -1 ? 30 : 20));
+                            ctx.scale(80, 80);
+                            drawCommander({
+                                name: ship.commanderName,
+                                health: false
+                            });
                             ctx.restore();
                         }
                     }
@@ -1310,6 +1306,16 @@ import heroes from "../server/lib/heroes.js";
 
             bigHeight += 50;
 
+            if (shipOver.commanderName) {
+                const m1 = measureText(heroes[shipOver.commanderName].name, 20);
+                const m2 = measureText(heroes[shipOver.commanderName].tooltip, 16);
+
+                bigWidth = Math.max(bigWidth, m1.width + 5, m2.width + 5);
+                bigHeight += m1.height + 5;
+                bigHeight += m2.height + 5;
+                bigHeight += 10;
+            }
+
             ctx.fillStyle = "#AAAAAA";
             ctx.translate(canvas.width / uScale - bigWidth - 30, 0);
             ctx.fillRect(10, 10, bigWidth + 20, bigHeight + 30 + (listHeight + 5) * Object.keys(weapons).length);
@@ -1328,6 +1334,13 @@ import heroes from "../server/lib/heroes.js";
                 drawText(name, 20, y, 18);
                 drawText("x" + weapons[name], 20 + measureText(name, 18).width + 5, y, 20, "#C8C8C8");
                 y += listHeight + 5;
+            }
+
+            if (shipOver.commanderName) {
+                y += 10;
+                drawText(heroes[shipOver.commanderName].name, 20, y, 20);
+                y += 10;
+                drawText(heroes[shipOver.commanderName].description, 20, y, 16);
             }
 
             ctx.restore();
@@ -1409,7 +1422,9 @@ import heroes from "../server/lib/heroes.js";
         ctx.strokeStyle = "#EEEEAA";
         ctx.stroke();
         
-        drawBar(0, .6, .9, .075, commander.health, "#00FFC8");
+        if (commander.health !== false) {
+            drawBar(0, .6, .9, .075, commander.health, "#00FFC8");
+        }
     }
 
     function drawCommanders(uScale) {
