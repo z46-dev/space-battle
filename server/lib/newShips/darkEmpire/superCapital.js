@@ -7,8 +7,8 @@ ships.WORLDDEVASTATORBC_DARKEMPIRE = {
     name: "World Devastator Battlecruiser",
     asset: "WORLDDEVASTATOR.png",
     classification: shipTypes.SuperCapital,
-    population: 54,
-    size: 3000,
+    population: 48,
+    size: 2600,
     cost: 16000,
     speed: 2,
     turnSpeed: .01,
@@ -177,7 +177,13 @@ ships.WORLDDEVASTATORBC_DARKEMPIRE = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 3 | 0
+            }
+        }))
     })(),
     hangars: [{
         x: 0,
@@ -225,7 +231,7 @@ ships.BELLATOR_DARKEMPIRE = {
     name: "Bellator Star Destroyer",
     asset: "BELLATOR.png",
     classification: shipTypes.SuperCapital,
-    population: 110,
+    population: 90,
     size: 5000,
     cost: 30000,
     speed: 1.5,
@@ -307,7 +313,13 @@ ships.BELLATOR_DARKEMPIRE = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 3 | 0
+            }
+        }))
     })(),
     hangars: [{
         x: 0,
@@ -420,7 +432,13 @@ ships.ASSERTOR_DARKEMPIRE = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 3 | 0
+            }
+        }))
     })(),
     hangars: [{
         x: 0,
@@ -505,7 +523,13 @@ ships.MANDATORSIEGEDREADNOUGHT_DARKEMPIRE = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 3 | 0
+            }
+        }))
     })(),
     hangars: [{
         x: 0,
@@ -528,7 +552,7 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
     name: "Mega Star Destroyer",
     asset: "MEGASTARDESTROYER.png",
     classification: shipTypes.SuperCapital,
-    population: 400,
+    population: 500,
     size: 30000,
     cost: 80000,
     speed: .01,
@@ -632,7 +656,8 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
         return output.map(hp => ({
             ...hp,
             weapon: {
-                ...hp.weapon
+                ...hp.weapon,
+                health: hp.weapon.health * 3 | 0
             }
         }));
     })(),
@@ -814,7 +839,7 @@ ships.IMPELLORFLEETCARRIER_DARKEMPIRE = {
             ...hp,
             weapon: {
                 ...hp.weapon,
-                health: hp.weapon.health * 2
+                health: hp.weapon.health * 3 | 0
             }
         }));
     })(),

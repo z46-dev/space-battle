@@ -253,25 +253,25 @@ ships.VENATOR_ZANN = {
         const output = [{
             x: -.4,
             y: -.55,
-            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-            shotsAtOnce: 3,
+            weapon: weapons.ASSAULT_PROTON_TORPEDO,
+            shotsAtOnce: 4,
             shotDelay: 250
         }, {
             x: .4,
             y: -.55,
-            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+            weapon: weapons.ASSAULT_PROTON_TORPEDO,
             shotsAtOnce: 3,
             shotDelay: 250
         }, {
             x: -.275,
             y: .05,
-            weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+            weapon: weapons.TRIPLE_ION_CANNON_HEAVY,
             shotsAtOnce: 2,
             shotDelay: 350
         }, {
             x: .275,
             y: .05,
-            weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+            weapon: weapons.TRIPLE_ION_CANNON_HEAVY,
             shotsAtOnce: 2,
             shotDelay: 350
         }, {
@@ -292,25 +292,25 @@ ships.VENATOR_ZANN = {
             output.push({
                 x: -.1 - .025 * i,
                 y: .7 - .1 * i,
-                weapon: weapons.YELLOW_DOUBLE_LASER_CANNON,
+                weapon: weapons.YELLOW_DOUBLE_LASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 75
             }, {
                 x: .1 + .025 * i,
                 y: .7 - .1 * i,
-                weapon: weapons.YELLOW_DOUBLE_LASER_CANNON,
+                weapon: weapons.YELLOW_DOUBLE_LASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 75
             }, {
                 x: -.175,
                 y: 0 - .155 * i,
-                weapon: weapons.YELLOW_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                weapon: weapons.YELLOW_TRIPLE_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 200
             }, {
                 x: .15,
                 y: 0 - .155 * i,
-                weapon: weapons.YELLOW_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                weapon: weapons.YELLOW_TRIPLE_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 200
             });

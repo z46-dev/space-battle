@@ -48,7 +48,7 @@ ships.TIEBOMBER_EMPIRE = {
     }, {
         x: 0,
         y: 0,
-        weapon: weapons.FIGHTER_CONCUSSION_MISSILE,
+        weapon: weapons.FIGHTER_PROTON_ROCKET,
         shotsAtOnce: 4,
         shotDelay: 80
     }, {

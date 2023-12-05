@@ -52,7 +52,8 @@ class Projectile {
 
         this.explodes = hardpoint.config.explodes || this.classification === weaponClassifications.AreaOfEffect || this.classification === weaponClassifications.GuidedAOE;
         this.isGuided = hardpoint.config.seeks || this.classification === weaponClassifications.Guided || this.classification === weaponClassifications.GuidedAOE;
-        this.maneuverability = hardpoint.config.maneuverability ?? .05;
+        this.maneuverability = 0;
+        this.realManeuverability = hardpoint.config.maneuverability ?? .05;
 
         this.target = hardpoint.target ?? null;
         this.range = hardpoint.range + this.speed * 10;
@@ -76,6 +77,7 @@ class Projectile {
         }
 
         if (this.isGuided && this.target !== null) {
+            this.maneuverability = lerp(this.maneuverability, this.realManeuverability, .05);
             this.angle = lerpAngle(this.angle, Math.atan2(this.target.y - this.y, this.target.x - this.x), this.maneuverability);
         }
 
@@ -207,6 +209,7 @@ class Hardpoint {
         this.collisionRange = config.weapon.collisionRange ?? null;
         this.explosionRange = config.weapon.explosionRange ?? null;
         this.bypassShield = config.weapon.bypassShield ?? false;
+        this.launchAngle = config.launchAngle ?? 0;
 
         this.config = config.weapon;
 
@@ -341,7 +344,7 @@ class Hardpoint {
                         }
 
                         const inaccuracy = (this.classification === weaponClassifications.AreaOfEffect || this.classification === weaponClassifications.GuidedAOE) ? 0 : (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (target.ship.totalHealth / 1.5)) * .5;
-                        const angle = Math.atan2(predictedY - this.y, predictedX - this.x) + inaccuracy;
+                        const angle = (this.launchAngle === 0 ? Math.atan2(predictedY - this.y, predictedX - this.x) : (this.launchAngle + this.ship.angle)) + inaccuracy;
 
                         new Projectile(this.x, this.y, angle, this.ship, this);
                     }, i * this.shotDelay);
@@ -349,7 +352,7 @@ class Hardpoint {
             } else {
                 const inaccuracy = (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (this.target.ship.totalHealth / 2)) * .5;
 
-                const angle = Math.atan2(predictedY - this.y, predictedX - this.x) + inaccuracy;
+                const angle = (this.launchAngle === 0 ? Math.atan2(predictedY - this.y, predictedX - this.x) : (this.launchAngle + this.ship.angle)) + inaccuracy;
 
                 new Projectile(this.x, this.y, angle, this.ship, this);
             }
@@ -847,6 +850,16 @@ class Ship {
         this.battle.ships.set(this.id, this);
     }
 
+    repelMissiles() {
+        const radius = this.size * 1.2;
+
+        this.battle.projectiles.forEach(projectile => {
+            if (projectile.explodes) {
+                projectile.angle = Math.atan2(projectile.y - this.y, projectile.x - this.x);
+            }
+        });
+    }
+
     update() {
         if (!this.disabled) {
             this.hardpoints.forEach(hardpoint => {
@@ -926,6 +939,9 @@ class Ship {
 class Battle {
     constructor(width, height, teams) {
         this.ships = new Map();
+        /**
+         * @type {Map<number, Projectile>}
+         */
         this.projectiles = new Map();
         this.squadrons = new Map();
 
@@ -1183,6 +1199,41 @@ class Fleet {
 
         return output;
     }
+
+    static katanaFleet(pop) {
+        const output = [];
+
+        const dreadnoughtPop = pop / 2.5 | 0;
+        const supportPop = pop - dreadnoughtPop;
+
+        let fails = 0;
+        while (pop > 0 && fails < 256) {
+            let ship = undefined,
+                i = 0;
+
+            miniLoop: while (i < 5) {
+                const unitName = pop > dreadnoughtPop ? "DREADNOUGHTHEAVYCRUISER_DARKEMPIRE" : "CARRACK_DARKEMPIRE";
+
+                const unit = ships[unitName];
+
+                if (unit.population <= pop) {
+                    ship = unitName;
+                    break miniLoop;
+                }
+
+                i++;
+            }
+
+            if (ship !== undefined) {
+                output.push(ship);
+                pop -= ships[ship].population;
+            } else {
+                fails++;
+            }
+        }
+
+        return output;
+    }
 }
 
 function spawn(ship, team) {
@@ -1205,16 +1256,16 @@ function spawn(ship, team) {
         newShip.angle = Math.random() * Math.PI * 2;
     }
 
-    // if (ship === "PROVIDENCEDESTROYER_CIS") {
-    //     newShip.commander = new Commander(heroes["TI-99"], newShip);
-    // }
+    if (ship === "PROVIDENCEDESTROYER_CIS") {
+        newShip.commander = new Commander(heroes["TI-99"], newShip);
+    }
 
     return newShip;
 }
 
 const spawnDistance = 2000;
 
-const fleetFactions = ["EMPIRE", "CIS"];
+const fleetFactions = ["HUTT", "DARKEMPIRE"];
 
 const fleetOverrides = [
     null,
@@ -1222,7 +1273,7 @@ const fleetOverrides = [
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(400, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(150, fleetFactions[i]);
 
     const spawned = [];
 

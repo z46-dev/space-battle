@@ -45,7 +45,43 @@ ships.CENTURION_ZANN = {
             });
         }
 
-        return output;
+        for (let i = 0; i < 4; i ++) {
+            const x = .025 + .075 * i;
+            const y = .667 - .4 * i;
+
+            for (let j = 0; j < 3; j ++) {
+                const angle = Math.PI * 2 / 3 * j;
+                const d = .02;
+                const x2 = x + Math.cos(angle) * d;
+                const y2 = y + Math.sin(angle) * d;
+
+                const weapon = weapons.ASSAULT_PROTON_ROCKET;
+
+                output.push({
+                    x: x2,
+                    y: y2,
+                    weapon: weapon,
+                    shotsAtOnce: 6,
+                    shotDelay: 25,
+                    launchAngle: Math.PI / 2
+                }, {
+                    x: -x2,
+                    y: y2,
+                    weapon: weapon,
+                    shotsAtOnce: 6,
+                    shotDelay: 25,
+                    launchAngle: -Math.PI / 2
+                });
+            }
+        }
+
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 3
+            }
+        }))
     })(),
     hangars: [{
         x: 0,

@@ -7,12 +7,12 @@ ships.WORLDDEVASTATORFG_DARKEMPIRE = {
     name: "World Devastator Frigate",
     asset: "WORLDDEVASTATOR.png",
     classification: shipTypes.HeavyFrigate,
-    population: 14,
+    population: 18,
     size: 600,
     cost: 9000,
     speed: 4,
     turnSpeed: .02,
-    shield: 3500,
+    shield: 6000,
     shieldRegen: 10,
     hardpoints: [{
         x: -.35,
@@ -98,7 +98,13 @@ ships.WORLDDEVASTATORFG_DARKEMPIRE = {
         weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
         shotsAtOnce: 2,
         shotDelay: 100
-    }],
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 3 | 0
+        }
+    })),
     hangars: [{
         x: 0,
         y: 0,
@@ -152,7 +158,7 @@ ships.DREADNOUGHTHEAVYCRUISER_DARKEMPIRE = {
     name: "Dreadnought Heavy Cruiser",
     asset: "DREADNOUGHTHEAVYCRUISER.png",
     classification: shipTypes.HeavyFrigate,
-    population: 16,
+    population: 14,
     size: 290,
     cost: 2900,
     speed: 3,
@@ -219,7 +225,13 @@ ships.DREADNOUGHTHEAVYCRUISER_DARKEMPIRE = {
         weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 200
-    }],
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 2 | 0
+        }
+    })),
     hangars: [{
         x: 0,
         y: -.8,
@@ -234,7 +246,7 @@ ships.HARROWERDREADNOUGHT_DARKEMPIRE = {
     name: "Harrower Dreadnought",
     asset: "HARROWERDREADNOUGHT.png",
     classification: shipTypes.HeavyFrigate,
-    population: 19,
+    population: 20,
     size: 900,
     cost: 2400,
     speed: 2,

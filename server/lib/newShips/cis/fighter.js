@@ -55,9 +55,17 @@ ships.HYENABOMBER_CIS = {
     }, {
         x: 0,
         y: 0,
-        weapon: weapons.FIGHTER_CONCUSSION_MISSILE,
-        shotsAtOnce: 2,
-        shotDelay: 100
+        weapon: weapons.FIGHTER_PROTON_ROCKET,
+        shotsAtOnce: 3,
+        shotDelay: 75,
+        launchAngle: Math.PI / 2
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.FIGHTER_PROTON_ROCKET,
+        shotsAtOnce: 3,
+        shotDelay: 75,
+        launchAngle: -Math.PI / 2
     }]
 };
 

@@ -1415,3 +1415,23 @@ export const ASSAULT_PROTON_BOMB = {
     seeks: true,
     targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
 };
+
+export const SIEGE_CONCUSSION_MISSILE = {
+    reload: 75,
+    range: 6000,
+    type: weaponTypes.ConcussionMissile,
+    health: 200,
+    name: "Concussion Missile",
+    
+    damage: 70,
+    collisionRange: 35,
+
+    explodes: true,
+    explosionDamage: 6,
+    explosionRange: 600,
+
+    speed: 20,
+    maneuverability: .1,
+    seeks: true,
+    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
+};
