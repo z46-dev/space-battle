@@ -186,16 +186,16 @@ ships.VICTORYSTARDESTROYER_EMPIRE = {
             output.push({
                 x: -.525 - .0334 * i,
                 y: -.25 - .15 * i,
-                weapon: weapons.SIEGE_CONCUSSION_MISSILE,
-                shotsAtOnce: 3,
-                shotDelay: 80,
+                weapon: weapons.ASSAULT_PROTON_ROCKET,
+                shotsAtOnce: 8,
+                shotDelay: 100,
                 launchAngle: -Math.PI / 2 + Math.PI / 6
             }, {
                 x: .525 + .0334 * i,
                 y: -.25 - .15 * i,
-                weapon: weapons.SIEGE_CONCUSSION_MISSILE,
-                shotsAtOnce: 3,
-                shotDelay: 80,
+                weapon: weapons.ASSAULT_PROTON_ROCKET,
+                shotsAtOnce: 8,
+                shotDelay: 100,
                 launchAngle: Math.PI / 2 - Math.PI / 6
             }, {
                 x: -.05 - .05 * i,

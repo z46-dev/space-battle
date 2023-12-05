@@ -107,7 +107,8 @@ import heroes from "../server/lib/heroes.js";
         starCounter: 0,
         starGrid: new SpatialHashGrid(),
         deathClones: [],
-        text: []
+        text: [],
+        commanders: []
     };
 
     // Add stars
@@ -504,6 +505,15 @@ import heroes from "../server/lib/heroes.js";
                         timer: 250 + Math.random() * 500
                     })));
                 }
+
+                const commandersSize = data.shift();
+                const commanders = [];
+
+                for (let i = 0; i < commandersSize; i++) {
+                    commanders.push(data.shift());
+                }
+
+                world.commanders = commanders;
 
                 newShips.forEach(newShip => {
                     if (!ships.has(newShip.id)) {
@@ -1341,6 +1351,8 @@ import heroes from "../server/lib/heroes.js";
             y += measurement.height + 5;
         });
 
+        drawCommanders();
+
         ctx.restore();
     }
 
@@ -1368,6 +1380,27 @@ import heroes from "../server/lib/heroes.js";
             width: width,
             height: height
         };
+    }
+
+    function drawCommanders() {
+        const size = 75;
+        const x = canvas.width - size - 10;
+        let y = canvas.height - size - 10;
+
+        for (const commander of world.commanders) {
+            const hero = heroes[commander];
+
+            const img = assets.get(hero.image);
+
+            if (!img || !img.ready) {
+                loadAsset(`./assets/portraits/${hero.image}`, hero.image);
+                return;
+            }
+
+            ctx.drawImage(img, x, y, size, size);
+
+            y -= size + 10;
+        }
     }
 
     draw();

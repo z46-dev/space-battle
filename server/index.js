@@ -498,7 +498,7 @@ class Squadron {
     update() {
         this.findTarget();
 
-        if (this.target === null) {
+        if (this.target == null) {
             this.ships.forEach(ship => {
                 ship.speed = 0;
             });
@@ -1203,8 +1203,7 @@ class Fleet {
     static katanaFleet(pop) {
         const output = [];
 
-        const dreadnoughtPop = pop / 2.5 | 0;
-        const supportPop = pop - dreadnoughtPop;
+        const dreadnoughtPop = pop / 4 | 0;
 
         let fails = 0;
         while (pop > 0 && fails < 256) {
@@ -1263,9 +1262,9 @@ function spawn(ship, team) {
     return newShip;
 }
 
-const spawnDistance = 2000;
+const spawnDistance = 3000;
 
-const fleetFactions = ["HUTT", "DARKEMPIRE"];
+const fleetFactions = ["CIS", "REPUBLIC"];
 
 const fleetOverrides = [
     null,
@@ -1273,7 +1272,7 @@ const fleetOverrides = [
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(150, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(400, fleetFactions[i]);
 
     const spawned = [];
 
@@ -1685,8 +1684,12 @@ class Camera {
         const shipsIDs = [];
         const projectilesIDs = [];
         const squadronsIDs = [];
+        const commanders = [];
 
         this.battle.ships.forEach(ship => {
+            if (ship.commander !== null) {
+                commanders.push(ship.commander);
+            }
             if (this.isInView(ship.x, ship.y, ship.size)) {
                 if (ship.squadron != null && ship.size < 5 * this.zoom) {
                     return;
@@ -1803,6 +1806,11 @@ class Camera {
 
         this.battle.deathsToSend.forEach(death => {
             output.push(death.x, death.y, death.size, death.rotation, death.asset);
+        });
+
+        output.push(commanders.length);
+        commanders.forEach(commander => {
+            output.push(commander.name);
         });
 
         this.connection.talk(output);
