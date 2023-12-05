@@ -1143,8 +1143,8 @@ class Fleet {
     // All non-fighter/bomber ships
     static ships = Object.keys(ships).filter(key => ships[key].classification >= shipTypes.Corvette);
     static random(pop, faction = -1) {
-        console.log("Generating", pop, faction);
         const possible = Fleet.ships.filter(key => faction === -1 || key.endsWith("_" + faction));
+        const avgPop = possible.reduce((total, key) => total + ships[key].population, 0) / possible.length;
 
         const output = [];
 
@@ -1162,7 +1162,10 @@ class Fleet {
                     console.log("NULL SHIP", possible[0]);
                 }
 
-                if (unit.population <= pop) {
+                if (
+                    unit.population <= pop &&
+                    (unit.population <= avgPop * 1.1 || Math.random() > .9)
+                ) {
                     ship = possible[0];
                     break miniLoop;
                 }
@@ -1177,8 +1180,6 @@ class Fleet {
                 fails++;
             }
         }
-
-        console.log(output, output.reduce((a, b) => a + ships[b].population, 0));
 
         return output;
     }
@@ -1213,10 +1214,10 @@ function spawn(ship, team) {
 
 const spawnDistance = 2000;
 
-const fleetFactions = ["CIS", "REPUBLIC"];
+const fleetFactions = ["REBEL", "EMPIRE"];
 
 for (let i = 0; i < 2; i++) {
-    const ships = Fleet.random(100, fleetFactions[i]);
+    const ships = Fleet.random(150, fleetFactions[i]);
 
     const spawned = [];
 

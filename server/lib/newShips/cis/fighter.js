@@ -149,7 +149,7 @@ ships.DROIDGUNSHIP_CIS = {
     }, {
         x: 0,
         y: 0,
-        weapon: weapons.ASSAULT_PROTON_BOMB,
+        weapon: weapons.FIGHTER_PROTON_BOMB,
         shotsAtOnce: 3,
         shotDelay: 100
     }]
