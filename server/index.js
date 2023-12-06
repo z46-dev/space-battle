@@ -1203,12 +1203,12 @@ const spawnDistance = 3000;
 const fleetFactions = ["REBEL", "EMPIRE"];
 
 const fleetOverrides = [
-    null,
-    null
+    ["CAPITAL_SHIPYARD_REBEL"],
+    ["CAPITAL_SHIPYARD_EMPIRE"]
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random([25, 100][i], fleetFactions[i], i === 0 ? ["FRIGATE_SHIPYARD_REBEL"] : []);
+    const ships = fleetOverrides[i] ?? Fleet.random(200, fleetFactions[i]);
 
     const spawned = [];
 

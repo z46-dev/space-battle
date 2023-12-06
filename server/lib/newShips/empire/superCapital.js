@@ -187,7 +187,7 @@ ships.ARCHAMMER_EMPIRE = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.heath * 2 | 0
+                health: e.weapon.health * 2 | 0
             }
         }));
     })(),
