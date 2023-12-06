@@ -7,7 +7,7 @@ ships.IMPERIALSTARDESTROYER_EMPIRE = {
     name: "Imperial Star Destroyer",
     asset: "ISD.png",
     classification: shipTypes.Capital,
-    population: 24,
+    population: 20,
     size: 600,
     cost: 3200,
     speed: 2.5,
@@ -21,19 +21,21 @@ ships.IMPERIALSTARDESTROYER_EMPIRE = {
             output.push({
                 x: -.3,
                 y: -.4 - .075 * i,
-                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON,
+                weapon: i % 2 ? weapons.GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY : weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
-                shotDelay: 300
+                shotDelay: 150
             }, {
                 x: .3,
                 y: -.4 - .075 * i,
-                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON,
+                weapon: i % 2 ? weapons.GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY : weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
-                shotDelay: 300
+                shotDelay: 150
             }, {
                 x: 0,
                 y: .3 - .1 * i,
-                weapon: weapons.GREEN_ANTI_FIGHTER_LASER_CANNON
+                weapon: weapons.GREEN_ANTI_FIGHTER_LASER_CANNON,
+                shotsAtOnce: 3,
+                shotDelay: 50
             });
         }
 
@@ -42,21 +44,21 @@ ships.IMPERIALSTARDESTROYER_EMPIRE = {
                 x: -.075 - .07 * i,
                 y: .7 - .2 * i,
                 weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
-                shotsAtOnce: 2,
-                shotDelay: 100
+                shotsAtOnce: i % 2 ? 3 : 2,
+                shotDelay: 60
             }, {
                 x: .075 + .07 * i,
                 y: .7 - .2 * i,
                 weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
-                shotsAtOnce: 2,
-                shotDelay: 100
+                shotsAtOnce: i % 2 ? 3 : 2,
+                shotDelay: 60
             });
         }
 
         for (let i = 0; i < output.length; i ++) {
             output[i].weapon = {
                 ...output[i].weapon,
-                health: output[i].weapon.health * 2
+                health: output[i].weapon.health * 2.5 | 0
             };
         }
 
@@ -90,7 +92,7 @@ ships.ALLEGIANCE_EMPIRE = {
     name: "Allegiance Star Destroyer",
     asset: "ALLEGIANCE.png",
     classification: shipTypes.Capital,
-    population: 54,
+    population: 48,
     size: 1200,
     cost: 8900,
     speed: 1.9,
@@ -156,13 +158,13 @@ ships.VICTORYSTARDESTROYER_EMPIRE = {
     name: "Victory-I Star Destroyer",
     asset: "VICTORYSTARDESTROYER.png",
     classification: shipTypes.Capital,
-    population: 20,
+    population: 17,
     size: 400,
     cost: 3000,
     speed: 2.5,
     turnSpeed: .015,
-    shield: 5000,
-    shieldRegen: 5,
+    shield: 7000,
+    shieldRegen: 7,
     hardpoints: (function() {
         const output = [];
 
@@ -212,7 +214,13 @@ ships.VICTORYSTARDESTROYER_EMPIRE = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2 | 0
+            }
+        }))
     })(),
     hangars: [{
         x: 0,
@@ -235,13 +243,13 @@ ships.AGGRESSORSTARDESTROYER_EMPIRE = {
     name: "Aggressor Star Destroyer",
     asset: "AGGRESSORSTARDESTROYER.png",
     classification: shipTypes.Capital,
-    population: 34,
+    population: 26,
     size: 750,
     cost: 5000,
     speed: 3,
     turnSpeed: .025,
-    shield: 10000,
-    shieldRegen: 10,
+    shield: 7000,
+    shieldRegen: 7,
     hardpoints: (function() {
         const output = [{
             x: 0,

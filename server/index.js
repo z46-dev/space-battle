@@ -452,7 +452,7 @@ class Squadron {
                             }
                             break;
                         case shipTypes.FighterBomber:
-                            if (ship.classification === shipTypes.Capital || ship.classification === shipTypes.SuperCapital) {
+                            if (ship.classification === shipTypes.Capital || ship.classification === shipTypes.SuperCapital || ship.classification === shipTypes.SpaceStation) {
                                 highPriority.push(ship);
                             }
 
@@ -469,7 +469,7 @@ class Squadron {
                             }
                             break;
                         case shipTypes.Bomber:
-                            if (ship.classification === shipTypes.Capital || ship.classification === shipTypes.SuperCapital) {
+                            if (ship.classification === shipTypes.Capital || ship.classification === shipTypes.SuperCapital || ship.classification === shipTypes.SpaceStation) {
                                 highPriority.push(ship);
                             }
 
@@ -608,6 +608,51 @@ class Hangar {
 
     spawn() {
         new Squadron(this.ship, this, this.config);
+    }
+}
+
+class Production {
+    constructor(ship, config) {
+        /**
+         * @type {Ship}
+         */
+        this.ship = ship;
+
+        this.ticker = 0;
+        this.cooldown = config.cooldown;
+
+        this.offset = config.offset;
+        this.direction = config.direction;
+
+        this.maxAlive = config.maxAlive;
+        this.reserveSize = config.reserve + this.maxAlive;
+        this.key = config.key;
+
+        this.currAlive = 0;
+    }
+
+    get x() {
+        return this.ship.x + this.ship.size / 2 * this.offset * Math.cos(this.direction + this.ship.angle);
+    }
+
+    get y() {
+        return this.ship.y + this.ship.size / 2 * this.offset * Math.sin(this.direction + this.ship.angle);
+    }
+
+    update() {
+        this.ticker ++;
+
+        if (this.ticker >= this.cooldown && this.reserveSize > 0 && this.currAlive < this.maxAlive) {
+            this.ticker = 0;
+
+            const ship = new Ship(this.ship.battle, this.key, this.ship.team);
+            ship.x = this.x + Math.random() * this.ship.size - this.ship.size / 2;
+            ship.y = this.y + Math.random() * this.ship.size - this.ship.size / 2;
+            ship.source = this.ship;
+
+            ship.onDead = () => this.currAlive --;
+            this.currAlive ++;
+        }
     }
 }
 
@@ -825,6 +870,11 @@ class Ship {
          */
         this.hardpoints = [];
 
+        /**
+         * @type {Production[]}
+         */
+        this.production = [];
+
         this.hangars = [];
 
         for (const hardpoint of config.hardpoints) {
@@ -835,6 +885,10 @@ class Ship {
 
         for (const hangar of (config.hangars ?? [])) {
             this.hangars.push(new Hangar(this, hangar));
+        }
+
+        for (const prod of (config.production ?? [])) {
+            this.production.push(new Production(this, prod));
         }
 
         this.onDead = null;
@@ -869,6 +923,10 @@ class Ship {
             if (!this.disableHangars) {
                 this.hangars.forEach(hangar => {
                     hangar.update();
+                });
+
+                this.production.forEach(production => {
+                    production.update();
                 });
             }
         }
@@ -1035,12 +1093,12 @@ const battle = new Battle(size, size, 2);
 
 class Fleet {
     // All non-fighter/bomber ships
-    static ships = Object.keys(ships).filter(key => ships[key].classification >= shipTypes.Corvette);
-    static random(pop, faction = -1) {
+    static ships = Object.keys(ships).filter(key => ships[key].classification >= shipTypes.Corvette && !key.includes("SHIPYARD"));
+    static random(pop, faction = -1, base = []) {
         const possible = Fleet.ships.filter(key => faction === -1 || key.endsWith("_" + faction));
         const avgPop = possible.reduce((total, key) => total + ships[key].population, 0) / possible.length;
 
-        const output = [];
+        const output = [...(base ?? [])];
 
         let fails = 0;
         while (pop > 0 && fails < 256) {
@@ -1142,7 +1200,7 @@ function spawn(ship, team) {
 
 const spawnDistance = 3000;
 
-const fleetFactions = ["CIS", "REPUBLIC"];
+const fleetFactions = ["REBEL", "EMPIRE"];
 
 const fleetOverrides = [
     null,
@@ -1150,7 +1208,7 @@ const fleetOverrides = [
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(200, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random([25, 100][i], fleetFactions[i], i === 0 ? ["FRIGATE_SHIPYARD_REBEL"] : []);
 
     const spawned = [];
 

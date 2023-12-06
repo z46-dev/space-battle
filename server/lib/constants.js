@@ -297,7 +297,8 @@ export const shipTypes = {
     "Frigate": 4,
     "HeavyFrigate": 5,
     "Capital": 6,
-    "SuperCapital": 7
+    "SuperCapital": 7,
+    "SpaceStation": 8
 };
 
 export const shipTypeNames = {
@@ -309,4 +310,5 @@ export const shipTypeNames = {
     [shipTypes.HeavyFrigate]: "Heavy Frigate",
     [shipTypes.Capital]: "Capital",
     [shipTypes.SuperCapital]: "Super Capital",
+    [shipTypes.SpaceStation]: "Space Station"
 };

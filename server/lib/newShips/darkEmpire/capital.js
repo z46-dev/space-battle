@@ -21,19 +21,21 @@ ships.IMPERIALSTARDESTROYER_DARKEMPIRE = {
             output.push({
                 x: -.3,
                 y: -.4 - .075 * i,
-                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON,
+                weapon: i % 2 ? weapons.GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY : weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
-                shotDelay: 300
+                shotDelay: 150
             }, {
                 x: .3,
                 y: -.4 - .075 * i,
-                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON,
+                weapon: i % 2 ? weapons.GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY : weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
-                shotDelay: 300
+                shotDelay: 150
             }, {
                 x: 0,
                 y: .3 - .1 * i,
-                weapon: weapons.GREEN_ANTI_FIGHTER_LASER_CANNON
+                weapon: weapons.GREEN_ANTI_FIGHTER_LASER_CANNON,
+                shotsAtOnce: 3,
+                shotDelay: 50
             });
         }
 
@@ -42,21 +44,21 @@ ships.IMPERIALSTARDESTROYER_DARKEMPIRE = {
                 x: -.075 - .07 * i,
                 y: .7 - .2 * i,
                 weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
-                shotsAtOnce: 2,
-                shotDelay: 100
+                shotsAtOnce: i % 2 ? 3 : 2,
+                shotDelay: 60
             }, {
                 x: .075 + .07 * i,
                 y: .7 - .2 * i,
                 weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
-                shotsAtOnce: 2,
-                shotDelay: 100
+                shotsAtOnce: i % 2 ? 3 : 2,
+                shotDelay: 60
             });
         }
 
         for (let i = 0; i < output.length; i ++) {
             output[i].weapon = {
                 ...output[i].weapon,
-                health: output[i].weapon.health * 2
+                health: output[i].weapon.health * 2.5 | 0
             };
         }
 

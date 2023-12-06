@@ -145,13 +145,13 @@ ships.ARCHAMMER_EMPIRE = {
     name: "Arch Hammer",
     asset: "ARCHAMMER.png",
     classification: shipTypes.SuperCapital,
-    population: 72,
+    population: 100,
     size: 3000,
     cost: 16000,
     speed: 2,
     turnSpeed: .01,
-    shield: 35000,
-    shieldRegen: 10,
+    shield: 30000,
+    shieldRegen: 30,
     hardpoints: (function() {
         const output = [];
 
@@ -183,7 +183,13 @@ ships.ARCHAMMER_EMPIRE = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.heath * 2 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: 0,
@@ -234,7 +240,7 @@ ships.DEATHSTAR_EMPIRE = {
     name: "Death Star",
     asset: "DEATHSTAR.png",
     classification: shipTypes.SuperCapital,
-    population: 300,
+    population: 600,
     size: 20000,
     cost: 10000000,
     speed: .01,
@@ -286,7 +292,13 @@ ships.DEATHSTAR_EMPIRE = {
             shotDelay: 22.5
         });
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 5 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: 0,
@@ -395,7 +407,13 @@ ships.LEGATORSTARDREADNOUGHT_EMPIRE = {
             }
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2.5 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: 0,
@@ -484,7 +502,13 @@ ships.CONSOLIDATORASSAULTSHIP_EMPIRE = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2.5 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: 0,

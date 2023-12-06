@@ -1,28 +1,48 @@
-## Rework projectile weapons:
-```cpp
-struct ProjectileWeapon {
-    float Speed; // The speed
-    float Maneuverability; // How well can it turn
-    bool Seeks; // Does it seek out its prey?
-    
-    int ImpactDamage; // The damage it does to the hardpoint it impacts
-    int CollisionRange; // The range it takes to collide (accuracy)
+## Rework weapon defs
+- Light Laser Cannon
+- Medium Laser Cannon
+- Heavy Laser Cannon
 
-    int ExplosionDamage; // The damage it does to hardpoints around it
-    int ExplosionRange; // The range of the explosion
+- Light Turbolaser Cannon
+- Medium Turbolaser Cannon
+- Heavy Turbolaser Cannon
+
+- Light Ion Cannon
+- Medium Ion Cannon
+- Heavy Ion Cannon
+
+```js
+const types = {
+    laser: 0,
+    turbo: 1,
+    ion: 2
+};
+
+const strengths = {
+    light: 1,
+    medium: 1.3,
+    heavy: 1.6
+};
+
+function getDamage(strength, count, type = 0) {
+    let output = 0;
+
+    switch (type) {
+        case types.laser:
+            output = 8;
+            break;
+        case types.turbo:
+            output = 18;
+            break;
+        case types.ion:
+            output = 13;
+            break;
+    }
+
+    output *= strength;
+
+    output *= Math.max(1, (count + 1) / 2);
+
+    return output;
 }
 ```
-
-## Projectile Types:
-- Proton Torpedo
-    - High impact damage, low explosion damage, high explosion range
-    - Semi-Fast speed, decent maneuverability, seeks
-- Proton Bomb
-    - Low impact damage, high explosion damage, high explosion range
-    - Slow speed, slight maneuverability, seeks to correct course
-- Proton Rocket
-    - Medium impact damage, medium explosion damage, low explosion range
-    - High speed, high maneuverability, seeks
-- Concussion Missile
-    - High impact damage, very high explosion damage, high explosion range
-    - Medium speed, very slight maneuverability, seeks to correct course

@@ -7,13 +7,13 @@ ships.ARQUITENS_EMPIRE = {
     name: "Arquitens",
     asset: "ARQUITENS.png",
     classification: shipTypes.HeavyFrigate,
-    population: 4,
+    population: 12,
     size: 190,
     cost: 900,
     speed: 5,
     turnSpeed: .02,
     shield: 2300,
-    shieldRegen: 2,
+    shieldRegen: 2.3,
     hardpoints: [{
         x: -.225,
         y: .275,
@@ -42,7 +42,7 @@ ships.ARQUITENS_EMPIRE = {
         x: 0,
         y: .6,
         weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-        shotsAtOnce: 3,
+        shotsAtOnce: 4,
         shotDelay: 100
     }, {
         x: 0,
@@ -57,7 +57,7 @@ ships.IMOBILIZER_EMPIRE = {
     name: "Imobilizer 418",
     asset: "IMOBILIZER.png",
     classification: shipTypes.HeavyFrigate,
-    population: 12,
+    population: 16,
     size: 300,
     cost: 2200,
     speed: 3,
@@ -103,7 +103,7 @@ ships.IMOBILIZER_EMPIRE = {
     }, {
         x: 0,
         y: .75,
-        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
         shotsAtOnce: 4,
         shotDelay: 100
     }],
@@ -121,12 +121,12 @@ ships.DREADNOUGHTHEAVYCRUISER_EMPIRE = {
     name: "Dreadnought Heavy Cruiser",
     asset: "DREADNOUGHTHEAVYCRUISER.png",
     classification: shipTypes.HeavyFrigate,
-    population: 16,
+    population: 14,
     size: 290,
     cost: 2900,
     speed: 3,
     turnSpeed: .015,
-    shield: 6700,
+    shield: 4000,
     shieldRegen: 4,
     hardpoints: [{
         x: -.075,
@@ -208,7 +208,7 @@ ships.ACCLIMATOR_EMPIRE = {
     cost: 2500,
     speed: 3,
     turnSpeed: .01,
-    shield: 2780,
+    shield: 6500,
     shieldRegen: 1.5,
     hardpoints: (function() {
         const output = [{
@@ -247,7 +247,13 @@ ships.ACCLIMATOR_EMPIRE = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2 | 0
+            }
+        }))
     })(),
     hangars: [{
         x: 0,

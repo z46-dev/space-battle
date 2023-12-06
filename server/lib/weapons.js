@@ -79,7 +79,7 @@ export const ION_CANNON_MEDIUM = {
     range: 5250,
     type: weaponTypes.IonCannon,
     health: 100,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Medium Ion Cannon"
 };
 
@@ -90,7 +90,7 @@ export const DOUBLE_ION_CANNON_MEDIUM = {
     range: 5250,
     type: weaponTypes.DoubleIonCannon,
     health: 100,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Double Medium Ion Cannon"
 };
 
@@ -101,7 +101,7 @@ export const TRIPLE_ION_CANNON_MEDIUM = {
     range: 5250,
     type: weaponTypes.TripleIonCannon,
     health: 100,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Triple Medium Ion Cannon"
 };
 
@@ -112,7 +112,7 @@ export const QUAD_ION_CANNON_MEDIUM = {
     range: 5250,
     type: weaponTypes.QuadIonCannon,
     health: 100,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Quad Medium Ion Cannon"
 };
 
@@ -123,7 +123,7 @@ export const OCTUPLE_ION_CANNON_MEDIUM = {
     range: 5250,
     type: weaponTypes.OctupleIonCannon,
     health: 100,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Octuple Medium Ion Cannon"
 };
 
@@ -134,7 +134,7 @@ export const ION_CANNON_HEAVY = {
     range: 5250,
     type: weaponTypes.IonCannon,
     health: 100,
-    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Heavy Ion Cannon"
 };
 
@@ -145,7 +145,7 @@ export const DOUBLE_ION_CANNON_HEAVY = {
     range: 5250,
     type: weaponTypes.DoubleIonCannon,
     health: 100,
-    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Double Heavy Ion Cannon"
 };
 
@@ -156,7 +156,7 @@ export const TRIPLE_ION_CANNON_HEAVY = {
     range: 5250,
     type: weaponTypes.TripleIonCannon,
     health: 100,
-    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Triple Heavy Ion Cannon"
 };
 
@@ -167,7 +167,7 @@ export const QUAD_ION_CANNON_HEAVY = {
     range: 5250,
     type: weaponTypes.QuadIonCannon,
     health: 100,
-    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Quad Heavy Ion Cannon"
 };
 
@@ -178,7 +178,7 @@ export const OCTUPLE_ION_CANNON_HEAVY = {
     range: 5250,
     type: weaponTypes.OctupleIonCannon,
     health: 100,
-    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Octuple Heavy Ion Cannon"
 };
 
@@ -189,7 +189,7 @@ export const ION_CANNON_ULTRA = {
     range: 7500,
     type: weaponTypes.IonUltra,
     health: 100,
-    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Ultraheavy Ion Cannon"
 };
 
@@ -323,7 +323,7 @@ export const GREEN_TURBOLASER_CANNON = {
     range: 4500,
     type: weaponTypes.GreenTurbolaser,
     health: 125,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Turbolaser Cannon"
 };
 
@@ -334,7 +334,7 @@ export const GREEN_DOUBLE_TURBOLASER_CANNON = {
     range: 4500,
     type: weaponTypes.GreenDoubleTurbolaser,
     health: 125,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Double Turbolaser Cannon"
 };
 
@@ -345,7 +345,7 @@ export const GREEN_TRIPLE_TURBOLASER_CANNON = {
     range: 4500,
     type: weaponTypes.GreenTripleTurbolaser,
     health: 125,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Triple Turbolaser Cannon"
 };
 
@@ -356,7 +356,7 @@ export const GREEN_QUAD_TURBOLASER_CANNON = {
     range: 4500,
     type: weaponTypes.GreenQuadTurbolaser,
     health: 125,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Quad Turbolaser Cannon"
 };
 
@@ -367,7 +367,7 @@ export const GREEN_OCTUPLE_TURBOLASER_CANNON = {
     range: 4500,
     type: weaponTypes.GreenOctupleTurbolaser,
     health: 125,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Octuple Turbolaser Cannon"
 };
 
@@ -378,7 +378,7 @@ export const GREEN_TURBOLASER_CANNON_HEAVY = {
     range: 4500,
     type: weaponTypes.GreenTurbolaser,
     health: 125,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Heavy Turbolaser Cannon"
 };
 
@@ -389,7 +389,7 @@ export const GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY = {
     range: 4500,
     type: weaponTypes.GreenDoubleTurbolaser,
     health: 125,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Double Heavy Turbolaser Cannon"
 };
 
@@ -400,7 +400,7 @@ export const GREEN_TRIPLE_TURBOLASER_CANNON_HEAVY = {
     range: 4500,
     type: weaponTypes.GreenTripleTurbolaser,
     health: 125,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Triple Heavy Turbolaser Cannon"
 };
 
@@ -411,7 +411,7 @@ export const GREEN_QUAD_TURBOLASER_CANNON_HEAVY = {
     range: 4500,
     type: weaponTypes.GreenQuadTurbolaser,
     health: 125,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Quad Heavy Turbolaser Cannon"
 };
 
@@ -422,7 +422,7 @@ export const GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY = {
     range: 4500,
     type: weaponTypes.GreenOctupleTurbolaser,
     health: 125,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Octuple Heavy Turbolaser Cannon"
 };
 
@@ -433,7 +433,7 @@ export const GREEN_TURBOLASER_CANNON_ULTRAHEAVY = {
     range: 7500,
     type: weaponTypes.GreenUltraTurbolaser,
     health: 150,
-    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Ultraheavy Turbolaser Cannon"
 };
 
@@ -444,7 +444,7 @@ export const GREEN_SUPERLASER = {
     health: 4000,
     speed: 250,
     range: 10000,
-    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     explosionRange: 1e10,
     bypassShield: true,
     name: "Superlaser"
@@ -459,7 +459,7 @@ export const GREEN_WEAK_SUPERLASER = {
     range: 7500,
     explosionRange: 1e10,
     bypassShield: true,
-    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Light Superlaser"
 };
 
@@ -470,7 +470,7 @@ export const GREEN_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD = {
     health: 1500,
     speed: 80,
     range: 7500,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     explosionRange: 1e10,
     bypassShield: true,
     name: "Ultraheavy Turbolaser Cannon"
@@ -490,7 +490,8 @@ export const RED_RAPID_FIGHTER_LASER_CANNON = {
 
 export const RED_RAPID_LASER_CANNON = {
     ...GREEN_RAPID_LASER_CANNON,
-    type: weaponTypes.RedLaserCannon
+    type: weaponTypes.RedLaserCannon,
+    collisionRange: 20
 };
 
 export const RED_ANTI_FIGHTER_LASER_CANNON = {
@@ -610,7 +611,7 @@ export const RED_LIGHT_SUPERLASER = {
     health: 800,
     speed: 80,
     range: 7500,
-    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     explosionRange: 1e10,
     bypassShield: true,
     name: "Light Superlaser"
@@ -623,7 +624,7 @@ export const RED_LIGHT_SUPERLASER2 = {
     health: 3000,
     speed: 90,
     range: 10000,
-    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital],
+    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     explosionRange: 1e10,
     bypassShield: true,
     name: "Light Superlaser"
@@ -1180,7 +1181,7 @@ export const BLACK_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD = {
 //     range: 800,
 //     type: weaponTypes.ProtonBomb,
 //     health: 10,
-//     targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital], // Can't aim well and only works on stationary/very slow targets
+//     targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation], // Can't aim well and only works on stationary/very slow targets
 //     name: "Proton Bomb"
 // };
 
@@ -1223,7 +1224,7 @@ export const BLACK_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD = {
 //     range: 4000,
 //     type: weaponTypes.ConcussionMissile,
 //     health: 100,
-//     targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital], // Can't aim well and only works on stationary/very slow targets
+//     targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation], // Can't aim well and only works on stationary/very slow targets
 //     name: "Assault Concussion Missile"
 // };
 
@@ -1234,7 +1235,7 @@ export const BLACK_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD = {
 //     range: 3500,
 //     type: weaponTypes.ProtonTorpedo,
 //     health: 150,
-//     targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital], // Can't aim well and only works on stationary/very slow targets
+//     targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation], // Can't aim well and only works on stationary/very slow targets
 //     name: "Assault Proton Torpedo"
 // };
 
@@ -1322,17 +1323,17 @@ export const FIGHTER_PROTON_BOMB = {
     health: 125,
     name: "Proton Bomb",
     
-    damage: 5,
+    damage: 4,
     collisionRange: 60,
 
     explodes: true,
     explosionDamage: 5,
     explosionRange: 250,
 
-    speed: 4,
-    maneuverability: .075,
+    speed: 6,
+    maneuverability: .05,
     seeks: true,
-    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
+    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation]
 };
 
 // Assault Explosion Ammunition
@@ -1353,7 +1354,7 @@ export const ASSAULT_PROTON_TORPEDO = {
     speed: 28,
     maneuverability: .1,
     seeks: true,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation]
 };
 
 export const ASSAULT_CONCUSSION_MISSILE = {
@@ -1373,7 +1374,7 @@ export const ASSAULT_CONCUSSION_MISSILE = {
     speed: 20,
     maneuverability: .005,
     seeks: true,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation]
 };
 
 export const ASSAULT_PROTON_ROCKET = {
@@ -1393,7 +1394,7 @@ export const ASSAULT_PROTON_ROCKET = {
     speed: 35,
     maneuverability: .25,
     seeks: true,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation]
 };
 
 export const ASSAULT_PROTON_BOMB = {
@@ -1410,10 +1411,10 @@ export const ASSAULT_PROTON_BOMB = {
     explosionDamage: 6,
     explosionRange: 300,
 
-    speed: 4,
+    speed: 6,
     maneuverability: .05,
     seeks: true,
-    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
+    targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation]
 };
 
 export const SIEGE_CONCUSSION_MISSILE = {
@@ -1433,5 +1434,5 @@ export const SIEGE_CONCUSSION_MISSILE = {
     speed: 20,
     maneuverability: .1,
     seeks: true,
-    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital]
+    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation]
 };

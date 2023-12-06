@@ -80,6 +80,10 @@ export const zann = {
     ...(await import("./newShips/zann/superCapital.js")).default
 };
 
+export const stations = {
+    ...(await import("./newShips/stations/shipyards.js")).default
+};
+
 const ships = {
     ...empire,
     ...darkEmpire,
@@ -88,7 +92,8 @@ const ships = {
     ...cis,
     ...hutts,
     ...zann,
-    ...customShips
+    ...customShips,
+    ...stations
 };
 
 // TEST DUMMIES
@@ -196,6 +201,15 @@ for (const ship in ships) {
 
             hangar.offset = vector.length;
             hangar.direction = vector.angle;
+        });
+    }
+
+    if (ships[ship].production instanceof Array) {
+        ships[ship].production.forEach(production => {
+            const vector = new Vector(production.y, production.x);
+
+            production.offset = vector.length;
+            production.direction = vector.angle;
         });
     }
 }
