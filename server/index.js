@@ -1348,11 +1348,11 @@ const fleetFactions = ["REBEL", "EMPIRE"];
 
 const fleetOverrides = [
     null,
-    null
+    ["CAPITAL_SHIPYARD_EMPIRE"]
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(400, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(75, fleetFactions[i]);
 
     const spawned = [];
 
