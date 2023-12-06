@@ -131,10 +131,7 @@ function capitalShipyard(weaponColor, fighter, bomber, corvette, frigate, heavyF
                 output.push({
                     x: Math.cos(a) * d,
                     y: Math.sin(a) * d,
-                    weapon: {
-                        ...weapons.ASSAULT_PROTON_ROCKET,
-                        range: weapons.ASSAULT_PROTON_ROCKET.range * 2 | 0
-                    },
+                    weapon: weapons.ASSAULT_PROTON_ROCKET,
                     shotsAtOnce: 4,
                     shotDelay: 75,
                     launchAngle: a
@@ -198,8 +195,8 @@ function capitalShipyard(weaponColor, fighter, bomber, corvette, frigate, heavyF
                 corvette.forEach(c => output.push({
                     x: 0,
                     y: 0,
-                    maxAlive: 4,
-                    reserve: 6,
+                    maxAlive: 3,
+                    reserve: 3,
                     key: c,
                     cooldown: 80
                 }));
@@ -207,8 +204,8 @@ function capitalShipyard(weaponColor, fighter, bomber, corvette, frigate, heavyF
                 output.push({
                     x: 0,
                     y: 0,
-                    maxAlive: 6,
-                    reserve: 8,
+                    maxAlive: 4,
+                    reserve: 4,
                     key: corvette,
                     cooldown: 80
                 });
@@ -218,8 +215,8 @@ function capitalShipyard(weaponColor, fighter, bomber, corvette, frigate, heavyF
                 frigate.forEach(f => output.push({
                     x: 0,
                     y: 0,
-                    maxAlive: 3,
-                    reserve: 5,
+                    maxAlive: 2,
+                    reserve: 2,
                     key: f,
                     cooldown: 120
                 }));
@@ -227,8 +224,8 @@ function capitalShipyard(weaponColor, fighter, bomber, corvette, frigate, heavyF
                 output.push({
                     x: 0,
                     y: 0,
-                    maxAlive: 5,
-                    reserve: 4,
+                    maxAlive: 3,
+                    reserve: 3,
                     key: frigate,
                     cooldown: 120
                 });
@@ -238,7 +235,7 @@ function capitalShipyard(weaponColor, fighter, bomber, corvette, frigate, heavyF
                 heavyFrigate.forEach(h => output.push({
                     x: 0,
                     y: 0,
-                    maxAlive: 2,
+                    maxAlive: 1,
                     reserve: 2,
                     key: h,
                     cooldown: 180
@@ -247,7 +244,7 @@ function capitalShipyard(weaponColor, fighter, bomber, corvette, frigate, heavyF
                 output.push({
                     x: 0,
                     y: 0,
-                    maxAlive: 3,
+                    maxAlive: 2,
                     reserve: 3,
                     key: heavyFrigate,
                     cooldown: 180
@@ -259,7 +256,7 @@ function capitalShipyard(weaponColor, fighter, bomber, corvette, frigate, heavyF
                     x: 0,
                     y: 0,
                     maxAlive: 1,
-                    reserve: 1,
+                    reserve: 0,
                     key: c,
                     cooldown: 240
                 }));
@@ -268,7 +265,7 @@ function capitalShipyard(weaponColor, fighter, bomber, corvette, frigate, heavyF
                     x: 0,
                     y: 0,
                     maxAlive: 1,
-                    reserve: 2,
+                    reserve: 1,
                     key: capital,
                     cooldown: 240
                 });

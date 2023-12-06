@@ -698,6 +698,46 @@ class ShipAI {
         }
     }
 
+    newFindTarget() {
+        if (this.target !== null) {
+            if (this.target.health <= 0) {
+                this.target = null;
+            } else {
+                this.target = distance(this.ship.x, this.ship.y, this.target.x, this.target.y) >= Math.min(...this.ship.hardpoints.map(hardpoint => hardpoint.range)) ? null : this.target;
+            }
+        }
+
+        if (this.target !== null) {
+            return;
+        }
+
+        const validShips = [];
+        const highPriority = [];
+        const mediumPriority = [];
+
+        this.ship.battle.ships.forEach(ship => {
+            if (ship.team === this.ship.team || ship.health <= 0) {
+                return;
+            }
+
+            validShips.push(ship);
+
+            switch (this.ship.classification) {
+                case shipTypes.Corvette:
+                    break;
+                case shipTypes.Frigate:
+                    break;
+                case shipTypes.HeavyFrigate:
+                    break;
+                case shipTypes.Capital:
+                    break;
+                case shipTypes.SuperCapital:
+                case shipTypes.SpaceStation:
+                    break;
+            }
+        });
+    }
+
     update() {
         this.findTarget();
 
@@ -757,7 +797,7 @@ class ShipAI {
 
     lightFrigateThinking() {
         const myDistance = distance(this.ship.x, this.ship.y, this.target.x, this.target.y);
-        const range = Math.min(...this.ship.hardpoints.map(hardpoint => hardpoint.range));
+        const range = Math.min(...this.ship.hardpoints.map(hardpoint => hardpoint.range)) * .5;
 
         if ((this.ship.shield / this.ship.maxShield < .25 && this.ship.health < .75) || myDistance < range / 3) { // Kite
             this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI;
@@ -774,7 +814,7 @@ class ShipAI {
 
     capitalShipThinking() {
         const myDistance = distance(this.ship.x, this.ship.y, this.target.x, this.target.y);
-        const range = Math.min(...this.ship.hardpoints.map(hardpoint => hardpoint.range));
+        const range = Math.min(...this.ship.hardpoints.map(hardpoint => hardpoint.range)) * .667;
 
         if (myDistance > range) { // Approach
             this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
