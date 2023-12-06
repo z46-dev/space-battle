@@ -196,7 +196,7 @@ class Hardpoint {
             console.log(ship);
         }
         this.projectileType = config.weapon.type;
-        
+
 
         this.reload = config.weapon.reload * 4;
         this.tick = config.weapon.reload * 4;
@@ -640,7 +640,7 @@ class Production {
     }
 
     update() {
-        this.ticker ++;
+        this.ticker++;
 
         if (this.ticker >= this.cooldown && this.reserveSize > 0 && this.currAlive < this.maxAlive) {
             this.ticker = 0;
@@ -650,8 +650,8 @@ class Production {
             ship.y = this.y + Math.random() * this.ship.size - this.ship.size / 2;
             ship.source = this.ship;
 
-            ship.onDead = () => this.currAlive --;
-            this.currAlive ++;
+            ship.onDead = () => this.currAlive--;
+            this.currAlive++;
         }
     }
 }
@@ -672,7 +672,7 @@ class ShipAI {
         this.targetTick = 0;
     }
 
-    findTarget() {
+    findTargetOLD() {
         if (this.target !== null) {
             if (this.target.health <= 0) {
                 this.target = null;
@@ -698,7 +698,7 @@ class ShipAI {
         }
     }
 
-    newFindTarget() {
+    findTarget() {
         if (this.target !== null) {
             if (this.target.health <= 0) {
                 this.target = null;
@@ -724,17 +724,121 @@ class ShipAI {
 
             switch (this.ship.classification) {
                 case shipTypes.Corvette:
+                    switch (ship.classification) {
+                        case shipTypes.Fighter:
+                        case shipTypes.FighterBomber:
+                        case shipTypes.Bomber:
+                            if (Math.random() > .667) {
+                                highPriority.push(ship);
+                            } else {
+                                mediumPriority.push(ship);
+                            }
+                            break;
+                        case shipTypes.Corvette:
+                            if (Math.random() > .667) {
+                                mediumPriority.push(ship);
+                            } else {
+                                highPriority.push(ship);
+                            }
+                            break;
+                        default:
+                            mediumPriority.push(ship);
+                            break;
+                    }
                     break;
                 case shipTypes.Frigate:
+                    switch (ship.classification) {
+                        case shipTypes.Corvette:
+                        case shipTypes.Frigate:
+                            highPriority.push(ship);
+                            break;
+                        case shipTypes.Fighter:
+                        case shipTypes.FighterBomber:
+                        case shipTypes.Bomber:
+                            if (Math.random() > .8) {
+                                highPriority.push(ship);
+                            } else {
+                                mediumPriority.push(ship);
+                            }
+                            break;
+                        case shipTypes.HeavyFrigate:
+                        case shipTypes.Capital:
+                            mediumPriority.push(ship);
+                            break;
+                    }
                     break;
                 case shipTypes.HeavyFrigate:
+                    switch (ship.classification) {
+                        case shipTypes.Frigate:
+                        case shipTypes.HeavyFrigate:
+                        case shipTypes.Capital:
+                            highPriority.push(ship);
+                            break;
+                        case shipTypes.Corvette:
+                            mediumPriority.push(ship);
+                            break;
+                    }
                     break;
                 case shipTypes.Capital:
+                    switch (ship.classification) {
+                        case shipTypes.Frigate:
+                        case shipTypes.HeavyFrigate:
+                        case shipTypes.Capital:
+                        case shipTypes.SuperCapital:
+                            highPriority.push(ship);
+                            break;
+                        case shipTypes.Corvette:
+                        case shipTypes.SpaceStation:
+                            mediumPriority.push(ship);
+                            break;
+                    }
                     break;
                 case shipTypes.SuperCapital:
                 case shipTypes.SpaceStation:
+                    switch (ship.classification) {
+                        case shipTypes.Capital:
+                        case shipTypes.SuperCapital:
+                        case shipTypes.SpaceStation:
+                            highPriority.push(ship);
+                            break;
+                        case shipTypes.Frigate:
+                        case shipTypes.HeavyFrigate:
+                            if (Math.random() > .5) {
+                                highPriority.push(ship);
+                            } else {
+                                mediumPriority.push(ship);
+                            }
+                            break;
+                    }
                     break;
             }
+            
+
+            // Sort all by distance
+            validShips.sort((a, b) => distance(this.ship.x, this.ship.y, a.x, a.y) - distance(this.ship.x, this.ship.y, b.x, b.y));
+            highPriority.sort((a, b) => distance(this.ship.x, this.ship.y, a.x, a.y) - distance(this.ship.x, this.ship.y, b.x, b.y));
+            mediumPriority.sort((a, b) => distance(this.ship.x, this.ship.y, a.x, a.y) - distance(this.ship.x, this.ship.y, b.x, b.y));
+
+            if (highPriority.length > 0) {
+                this.target = highPriority[0];
+                this.targetTick = 100;
+                return;
+            }
+
+            if (mediumPriority.length > 0) {
+                this.target = mediumPriority[0];
+                this.targetTick = 100;
+                return;
+            }
+
+            if (validShips.length > 0) {
+                this.target = validShips[0];
+                this.targetTick = 100;
+                return;
+            }
+
+            this.target = null;
+            this.targetTick = 75;
         });
     }
 
@@ -1243,12 +1347,12 @@ const spawnDistance = 3000;
 const fleetFactions = ["REBEL", "EMPIRE"];
 
 const fleetOverrides = [
-    ["CAPITAL_SHIPYARD_REBEL"],
-    ["CAPITAL_SHIPYARD_EMPIRE"]
+    null,
+    null
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(200, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(400, fleetFactions[i]);
 
     const spawned = [];
 
