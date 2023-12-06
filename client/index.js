@@ -1310,10 +1310,9 @@ import heroes from "../server/lib/heroes.js";
                 const m1 = measureText(heroes[shipOver.commanderName].name, 20);
                 const m2 = measureText(heroes[shipOver.commanderName].tooltip, 16);
 
-                bigWidth = Math.max(bigWidth, m1.width + 5, m2.width + 5);
+                bigWidth = Math.max(bigWidth, m1.width + 5);
                 bigHeight += m1.height + 5;
-                bigHeight += m2.height + 5;
-                bigHeight += 10;
+                bigHeight += (m2.height + 5) * m2.width / (bigWidth - 10);
             }
 
             ctx.fillStyle = "#AAAAAA";
@@ -1339,8 +1338,8 @@ import heroes from "../server/lib/heroes.js";
             if (shipOver.commanderName) {
                 y += 10;
                 drawText(heroes[shipOver.commanderName].name, 20, y, 20);
-                y += 10;
-                drawText(heroes[shipOver.commanderName].description, 20, y, 16);
+                y += 20;
+                drawWrappedText(heroes[shipOver.commanderName].tooltip, 20, y, 16, bigWidth - 10);
             }
 
             ctx.restore();
@@ -1380,6 +1379,35 @@ import heroes from "../server/lib/heroes.js";
         ctx.textBaseline = "middle";
         ctx.fillStyle = fill;
         ctx.fillText(text, x, y);
+        ctx.restore();
+    }
+
+    function drawWrappedText(text, x, y, size, maxWidth = 200, fill = "#FFFFFF", align = "left") {
+        const words = text.split(" ");
+        let line = "";
+
+        ctx.save();
+        ctx.globalAlpha = 1;
+        ctx.font = `bold ${size}px sans-serif`;
+        ctx.textAlign = align;
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = fill;
+
+        for (let i = 0; i < words.length; i++) {
+            const testLine = line + words[i] + " ";
+            const measurement = measureText(testLine, size);
+
+            if (measurement.width > maxWidth && i > 0) {
+                ctx.fillText(line, x, y);
+                line = words[i] + " ";
+                y += measurement.height;
+            } else {
+                line = testLine;
+            }
+        }
+
+        ctx.fillText(line, x, y);
+
         ctx.restore();
     }
 
