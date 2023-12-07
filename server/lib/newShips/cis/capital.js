@@ -267,22 +267,21 @@ ships.LUCREHULKAUXILIARYWARSHIP_CIS = {
         squadronSize: 8,
         reserveSize: 4,
         squadronKey: "HYENABOMBER_CIS"
-    }, {
-        x: -.25,
-        y: .85,
-        maxSquadrons: 3,
-        squadronSize: 1,
-        reserveSize: 6,
-        squadronKey: "C9979_CIS",
-        reload: 500
-    }, {
+    }],
+    production: [{
         x: .25,
         y: .85,
-        maxSquadrons: 3,
-        squadronSize: 1,
-        reserveSize: 6,
-        squadronKey: "C9979_CIS",
-        reload: 500
+        maxAlive: 2,
+        reserve: 4,
+        key: "C9979_CIS",
+        cooldown: 250
+    },{
+        x: -.25,
+        y: .85,
+        maxAlive: 2,
+        reserve: 4,
+        key: "C9979_CIS",
+        cooldown: 250
     }]
 };
 
@@ -390,13 +389,14 @@ ships.DHOMNI_CIS = {
         squadronSize: 1,
         reserveSize: 4,
         squadronKey: "DROIDGUNSHIP_CIS"
-    }, {
+    }],
+    production: [{
         x: 0,
         y: 0,
-        maxSquadrons: 1,
-        squadronSize: 1,
-        reserveSize: 0,
-        squadronKey: "C9979_CIS"
+        maxAlive: 1,
+        reserve: 2,
+        key: "C9979_CIS",
+        cooldown: 250
     }]
 };
 

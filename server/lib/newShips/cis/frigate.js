@@ -8,7 +8,7 @@ ships.C9979_CIS = {
     asset: "C9979.png",
     classification: shipTypes.Frigate,
     population: 4,
-    size: 100,
+    size: 149,
     cost: 600,
     speed: 3,
     turnSpeed: .008,

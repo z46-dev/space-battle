@@ -7,13 +7,13 @@ ships.VENATOR_REPUBLIC = {
     name: "Venator-Class Star Destroyer",
     asset: "VENATOR.png",
     classification: shipTypes.Capital,
-    population: 20,
+    population: 19,
     size: 500,
-    cost: 4000,
+    cost: 4200,
     speed: 4,
     turnSpeed: .01,
-    shield: 3800,
-    shieldRegen: 3,
+    shield: 6800,
+    shieldRegen: 6.8,
     hardpoints: (function() {
         const output = [{
             x: -.4,
@@ -81,7 +81,13 @@ ships.VENATOR_REPUBLIC = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 1.5 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: 0,

@@ -15,21 +15,23 @@ export const ION_CANNON = {
 export const FIGHTER_ION_CANNON = {
     reload: 120,
     damage: 8,
-    speed: 55,
+    speed: 45,
     range: 600,
     type: weaponTypes.IonCannon,
     health: 5,
-    name: "Light Ion Cannon"
+    name: "Light Ion Cannon",
+    collisionRange: 20
 };
 
 export const TIE_DEFENDER_ION_CANNON = {
     reload: 20,
     damage: 2,
-    speed: 60,
+    speed: 45,
     range: 3000,
     type: weaponTypes.IonCannon,
     health: 20,
-    name: "Ion Cannon"
+    name: "Ion Cannon",
+    collisionRange: 20
 };
 
 export const DOUBLE_ION_CANNON = {
@@ -198,21 +200,23 @@ export const ION_CANNON_ULTRA = {
 export const GREEN_FIGHTER_LASER_CANNON = {
     reload: 12,
     damage: 1,
-    speed: 75,
+    speed: 50,
     range: 1200,
     type: weaponTypes.GreenLaserCannon,
     health: 5,
-    name: "Light Laser Cannon"
+    name: "Light Laser Cannon",
+    collisionRange: 20
 };
 
 export const GREEN_RAPID_FIGHTER_LASER_CANNON = {
     reload: 6,
     damage: 1,
-    speed: 75,
+    speed: 50,
     range: 700,
     type: weaponTypes.GreenLaserCannon,
     health: 30,
-    name: "Rapid Light Laser Cannon"
+    name: "Rapid Light Laser Cannon",
+    collisionRange: 20
 };
 
 export const GREEN_RAPID_LASER_CANNON = {

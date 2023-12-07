@@ -398,6 +398,7 @@ class Squadron {
             ship.angle = this.ship.angle;
             ship.squadron = this;
             ship.source = this.ship.source;
+            ship.dogfightAngle = 0;
 
             ship.onDead = () => {
                 this.ships.splice(this.ships.indexOf(ship), 1);
@@ -507,7 +508,7 @@ class Squadron {
 
         const dist = distance(this.ships[0].x, this.ships[0].y, this.target.x, this.target.y);
 
-        if (dist > this.target.size * 1.5) {
+        if ((this.target.classification > shipTypes.Corvette && dist > this.target.size * 4) && dist > this.target.size * 1.5) {
             for (let i = 0; i < this.ships.length; i++) {
                 const angle = Math.PI * 2 / this.ships.length * i;
                 const distance = this.ships[i].size * 4 + Math.random() * 2;
@@ -517,7 +518,7 @@ class Squadron {
 
                 this.ships[i].angleGoal = Math.atan2($ty - this.ships[i].y, $tx - this.ships[i].x);
                 this.ships[i].speed = this.ships[i].maxSpeed * 1.1;
-                this.ships[i].turnSpeed = this.ships[i].realTurnSpeed * .667;
+                this.ships[i].turnSpeed = this.ships[i].realTurnSpeed;
                 this.ships[i].dogfightAngle = 0;
             }
 
@@ -537,7 +538,7 @@ class Squadron {
 
             this.ships[i].angleGoal = Math.atan2($ty - this.ships[i].y, $tx - this.ships[i].x);
             this.ships[i].speed = this.ships[i].maxSpeed;
-            this.ships[i].turnSpeed = this.ships[i].realTurnSpeed;
+            this.ships[i].turnSpeed =(.75 + .25 * Math.sin(performance.now() / 1000 + this.ships[i].id)) * this.ships[i].realTurnSpeed;
         }
     }
 
@@ -672,32 +673,6 @@ class ShipAI {
         this.targetTick = 0;
     }
 
-    findTargetOLD() {
-        if (this.target !== null) {
-            if (this.target.health <= 0) {
-                this.target = null;
-            } else {
-                this.target = distance(this.ship.x, this.ship.y, this.target.x, this.target.y) >= Math.min(...this.ship.hardpoints.map(hardpoint => hardpoint.range)) ? null : this.target;
-            }
-        }
-
-        if (this.target === null) {
-            let validShips = [];
-
-            this.ship.battle.ships.forEach(ship => {
-                if (ship.team !== this.ship.team && ship.health > 0 && ((ship.classification !== shipTypes.Fighter && ship.classification !== shipTypes.FighterBomber && ship.classification !== shipTypes.Bomber) || this.ship.classification === shipTypes.Fighter || this.ship.classification === shipTypes.FighterBomber || this.ship.classification === shipTypes.Bomber)) {
-                    validShips.push(ship);
-                }
-            });
-
-            validShips = validShips.sort(() => .5 - Math.random());
-            validShips = validShips.sort((a, b) => distance(this.ship.x, this.ship.y, a.x, a.y) - distance(this.ship.x, this.ship.y, b.x, b.y));
-
-            this.target = validShips[0] ?? null;
-            this.targetTick = 100;
-        }
-    }
-
     findTarget() {
         if (this.target !== null) {
             if (this.target.health <= 0) {
@@ -755,9 +730,7 @@ class ShipAI {
                         case shipTypes.Fighter:
                         case shipTypes.FighterBomber:
                         case shipTypes.Bomber:
-                            if (Math.random() > .8) {
-                                highPriority.push(ship);
-                            } else {
+                            if (Math.random() > .95) {
                                 mediumPriority.push(ship);
                             }
                             break;
@@ -960,9 +933,12 @@ class Commander {
         this.config = config;
         this.ship = ship;
 
-        this.name = config.name;
+        this.name = config.key;
         this.description = config.tooltip;
         this.image = config.image;
+        this.onTick = config.onTick;
+
+        config.modifications(this.ship);
     }
 }
 
@@ -1073,6 +1049,10 @@ class Ship {
                     production.update();
                 });
             }
+        }
+
+        if (this.commander && this.commander.onTick) {
+            this.commander.onTick(this);
         }
 
         this.shield = Math.max(this.shield, 0);
@@ -1315,6 +1295,8 @@ class Fleet {
     }
 }
 
+const remainingCommanders = Object.values(heroes);
+
 function spawn(ship, team) {
     const angle = Math.random() * Math.PI * 2;
     const distance = Math.random() * 10000;
@@ -1335,8 +1317,14 @@ function spawn(ship, team) {
         newShip.angle = Math.random() * Math.PI * 2;
     }
 
-    if (ship === "PROVIDENCEDESTROYER_CIS") {
-        newShip.commander = new Commander(heroes["TI-99"], newShip);
+    if (remainingCommanders.length > 0) {
+        for (let i = 0; i < remainingCommanders.length; i ++) {
+            if (remainingCommanders[i].ships.includes(ship)) {
+                newShip.commander = new Commander(remainingCommanders[i], newShip);
+                remainingCommanders.splice(i, 1);
+                i --;
+            }
+        }
     }
 
     return newShip;
@@ -1344,11 +1332,11 @@ function spawn(ship, team) {
 
 const spawnDistance = 3000;
 
-const fleetFactions = ["REBEL", "EMPIRE"];
+const fleetFactions = ["REPUBLIC", "CIS"];
 
 const fleetOverrides = [
-    null,
-    ["CAPITAL_SHIPYARD_EMPIRE"]
+    ["FRIGATE_SHIPYARD_REBEL"],
+    Fleet.katanaFleet(75)
 ];
 
 for (let i = 0; i < 2; i++) {

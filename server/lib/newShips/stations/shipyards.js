@@ -6,7 +6,7 @@ const ships = {};
 function frigateShipyard(weaponColor, fighter, bomber, corvette, frigate) {
     return {
         name: "Frigate Shipyard",
-        asset: "KELDABEBATTLESHIP.png",
+        asset: "frigateShipyard.png",
         classification: shipTypes.SpaceStation,
         population: 1,
         size: 1000,
@@ -16,21 +16,38 @@ function frigateShipyard(weaponColor, fighter, bomber, corvette, frigate) {
         shield: 6500,
         shieldRegen: 6.5,
         hardpoints: (function() {
-            const output = [{
-                x: 0,
-                y: 0,
-                weapon: weapons.ASSAULT_PROTON_ROCKET,
-                shotsAtOnce: 5,
-                shotDelay: 60
-            }];
-    
-            const d = .6;
-            for (let i = 0; i < 8; i ++) {
-                const a = Math.PI / 4 * i;
+            const output = [];
+
+            for (let i = 0; i < 5; i ++) {
                 output.push({
-                    x: Math.cos(a) * d,
-                    y: Math.sin(a) * d,
-                    weapon: weapons[weaponColor + "_DOUBLE_LASER_CANNON_HEAVY"],
+                    x: -.5 + .25 * i,
+                    y: -.35,
+                    weapon: weapons[i % 2 ? "DOUBLE_ION_CANNON_MEDIUM" : (weaponColor + "_DOUBLE_LASER_CANNON_HEAVY")],
+                    shotsAtOnce: 2,
+                    shotDelay: 75
+                }, {
+                    x: -.5 + .25 * i,
+                    y: .35,
+                    weapon: weapons[i % 2 ? "DOUBLE_ION_CANNON_MEDIUM" : (weaponColor + "_DOUBLE_LASER_CANNON_HEAVY")],
+                    shotsAtOnce: 2,
+                    shotDelay: 75
+                });
+            }
+
+            for (let i = 0; i < 3; i ++) {
+                const angle = Math.PI / 1.5 * i;
+                const ds = .15;
+
+                output.push({
+                    x: .5 + Math.cos(angle) * ds,
+                    y:  Math.sin(angle) * ds,
+                    weapon: weapons[weaponColor + "_DOUBLE_TURBOLASER_CANNON"],
+                    shotsAtOnce: 2,
+                    shotDelay: 75
+                }, {
+                    x: -.5 +  Math.cos(angle + Math.PI) * ds,
+                    y:  Math.sin(angle + Math.PI) * ds,
+                    weapon: weapons[weaponColor + "_DOUBLE_TURBOLASER_CANNON"],
                     shotsAtOnce: 2,
                     shotDelay: 75
                 });
@@ -113,7 +130,7 @@ function frigateShipyard(weaponColor, fighter, bomber, corvette, frigate) {
 function capitalShipyard(weaponColor, fighter, bomber, corvette, frigate, heavyFrigate, capital) {
     return {
         name: "Capital Shipyard",
-        asset: "KELDABEBATTLESHIP.png",
+        asset: "capitalShipyard.png",
         classification: shipTypes.SpaceStation,
         population: 1,
         size: 1000,
@@ -126,41 +143,40 @@ function capitalShipyard(weaponColor, fighter, bomber, corvette, frigate, heavyF
             const output = [];
     
             for (let i = 0; i < 8; i ++) {
-                const a = Math.PI / 4 * i;
-                const d = .15;
                 output.push({
-                    x: Math.cos(a) * d,
-                    y: Math.sin(a) * d,
-                    weapon: weapons.ASSAULT_PROTON_ROCKET,
-                    shotsAtOnce: 4,
-                    shotDelay: 75,
-                    launchAngle: a
-                });
-            }
-
-            for (let i = 0; i < 12; i ++) {
-                const a = Math.PI / 6 * i;
-                const d = .4;
-                output.push({
-                    x: Math.cos(a) * d,
-                    y: Math.sin(a) * d,
-                    weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+                    x: 0,
+                    y: .75 - .2 * i,
+                    weapon: weapons[weaponColor + "_DOUBLE_TURBOLASER_CANNON"],
                     shotsAtOnce: 2,
                     shotDelay: 75
                 });
             }
 
-            for (let i = 0; i < 16; i ++) {
-                const a = Math.PI / 8 * i;
-                const d = .5;
-                output.push({
-                    x: Math.cos(a) * d,
-                    y: Math.sin(a) * d,
-                    weapon: weapons[weaponColor + "_DOUBLE_LASER_CANNON_HEAVY"],
-                    shotsAtOnce: 2,
-                    shotDelay: 75
-                });
-            }
+            [
+                [.3, .725],
+                [-.3, .725],
+                [.3, .025],
+                [-.3, .025],
+                [.3, -.685],
+                [-.3, -.685]
+            ].forEach(([x, y]) => [
+                [0, .125],
+                [0, -.125],
+                [.2, .1],
+                [.2, -.1],
+                [.4, .075],
+                [.4, -.075],
+                [.1, 0],
+                [.3, 0],
+                [.5, 0]
+            ].forEach(([xx, yy], i) => output.push({
+                x: x + (x < 0 ? xx * -1 : xx),
+                y: y + yy,
+                weapon: weapons[xx === .5 ? "SIEGE_CONCUSSION_MISSILE" : (i % 2 ? "DOUBLE_ION_CANNON_MEDIUM" : (weaponColor + "_DOUBLE_LASER_CANNON_HEAVY"))],
+                shotsAtOnce: 2,
+                shotDelay: 75,
+                launchAngle: xx === .5 ? (x > 0 ? Math.PI / 2 : -Math.PI / 2) : undefined
+            })));
     
             return output.map(h => ({
                 ...h,
@@ -278,8 +294,39 @@ function capitalShipyard(weaponColor, fighter, bomber, corvette, frigate, heavyF
 
 ships.FRIGATE_SHIPYARD_REBEL = frigateShipyard("RED", "XWING_REBEL", "YWING_REBEL", ["CR90_REBEL", "DP20_REBEL"], ["PELTA_REBEL", "NEBULONB_REBEL"]);
 ships.FRIGATE_SHIPYARD_EMPIRE = frigateShipyard("GREEN", "TIEFIGHTER_EMPIRE", "TIEBOMBER_EMPIRE", ["RAIDER_EMPIRE", "VIGILCORVETTE_EMPIRE"], ["CARRACK_EMPIRE", "LANCERFRIGATE_EMPIRE"]);
+ships.FRIGATE_SHIPYARD_CIS = frigateShipyard("RED", "VULTUREDROID_CIS", "HYENABOMBER_CIS", ["DIAMOND_CIS", "HARDCELL_CIS"], ["C9979_CIS", "MUNIFICENT_CIS"]);
+ships.FRIGATE_SHIPYARD_REPUBLIC = frigateShipyard("BLUE", "V19TORRENT_REPUBLIC", "YWING_REPUBLIC", ["CONSOLAR_REPUBLIC", "CR90_REPUBLIC"], ["PELTA_REPUBLIC", "CARRACK_REPUBLIC"]);
 
-ships.CAPITAL_SHIPYARD_REBEL = capitalShipyard("RED", "XWING_REBEL", "YWING_REBEL", ["CR90_REBEL", "DP20_REBEL"], ["PELTA_REBEL", "NEBULONB_REBEL", "MC30_REBEL"], ["MC75_REBEL", "MC50_REBEL"], "MC80BLIBERTY_REBEL");
-ships.CAPITAL_SHIPYARD_EMPIRE = capitalShipyard("GREEN", "TIEFIGHTER_EMPIRE", "TIEBOMBER_EMPIRE", ["RAIDER_EMPIRE", "VIGILCORVETTE_EMPIRE"], ["CARRACK_EMPIRE", "LANCERFRIGATE_EMPIRE", "QUASAR_EMPIRE"], ["ARQUITENS_EMPIRE", "DREADNOUGHTHEAVYCRUISER_EMPIRE", "ACCLIMATOR_EMPIRE"], "IMPERIALSTARDESTROYER_EMPIRE");
+ships.CAPITAL_SHIPYARD_REBEL = capitalShipyard(
+    "RED", "XWING_REBEL", "YWING_REBEL",
+    ["CR90_REBEL", "DP20_REBEL"],
+    ["PELTA_REBEL", "NEBULONB_REBEL", "MC30_REBEL"],
+    ["MC75_REBEL", "MC50_REBEL"],
+    "MC80BLIBERTY_REBEL"
+);
+
+ships.CAPITAL_SHIPYARD_EMPIRE = capitalShipyard(
+    "GREEN", "TIEFIGHTER_EMPIRE", "TIEBOMBER_EMPIRE",
+    ["RAIDER_EMPIRE", "VIGILCORVETTE_EMPIRE"],
+    ["CARRACK_EMPIRE", "LANCERFRIGATE_EMPIRE", "QUASAR_EMPIRE"],
+    ["ARQUITENS_EMPIRE", "DREADNOUGHTHEAVYCRUISER_EMPIRE", "ACCLIMATOR_EMPIRE"],
+    "IMPERIALSTARDESTROYER_EMPIRE"
+);
+
+ships.CAPITAL_SHIPYARD_CIS = capitalShipyard(
+    "RED", "VULTUREDROID_CIS", "HYENABOMBER_CIS",
+    ["DIAMOND_CIS", "HARDCELL_CIS"],
+    ["C9979_CIS", "MUNIFICENT_CIS"],
+    ["RECUSANT_CIS", "SABOATHDESTROYER_CIS"],
+    "PROVIDENCEDESTROYER_CIS"
+);
+
+ships.CAPITAL_SHIPYARD_REPUBLIC = capitalShipyard(
+    "BLUE", "V19TORRENT_REPUBLIC", "YWING_REPUBLIC",
+    ["CONSOLAR_REPUBLIC", "CR90_REPUBLIC"],
+    ["PELTA_REPUBLIC", "CARRACK_REPUBLIC"],
+    ["ACCLIMATOR_REPUBLIC", "ARQUITENS_REPUBLIC"],
+    "VENATOR_REPUBLIC"
+);
 
 export default ships;
