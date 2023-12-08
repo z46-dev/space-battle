@@ -12,8 +12,8 @@ ships.ACCLIMATOR_REPUBLIC = {
     cost: 2500,
     speed: 3,
     turnSpeed: .01,
-    shield: 2780,
-    shieldRegen: 1.5,
+    shield: 5000,
+    shieldRegen: 5,
     hardpoints: (function() {
         const output = [{
             x: 0,
@@ -51,7 +51,13 @@ ships.ACCLIMATOR_REPUBLIC = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 1.5 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: 0,

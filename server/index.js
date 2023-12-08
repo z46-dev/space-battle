@@ -1195,6 +1195,12 @@ class Battle {
             asset: asset
         });
     }
+
+    async displayText(text) {
+        connection.talk([2, text]);
+
+        return true;
+    }
 }
 
 function getRandomPointInEllipse(x, y, w, h, angle) {
@@ -1322,7 +1328,7 @@ function spawn(ship, team) {
             if (remainingCommanders[i].ships.includes(ship)) {
                 newShip.commander = new Commander(remainingCommanders[i], newShip);
                 remainingCommanders.splice(i, 1);
-                i --;
+                break;
             }
         }
     }
@@ -1330,17 +1336,17 @@ function spawn(ship, team) {
     return newShip;
 }
 
-const spawnDistance = 3000;
+const spawnDistance = 0;
 
 const fleetFactions = ["REPUBLIC", "CIS"];
 
 const fleetOverrides = [
-    ["FRIGATE_SHIPYARD_REBEL"],
-    Fleet.katanaFleet(75)
+    remainingCommanders.map(commander => commander.ships[0]).filter(s => s.endsWith("_REPUBLIC")), // Republic
+    remainingCommanders.map(commander => commander.ships[0]).filter(s => s.endsWith("_CIS")) // CIS
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(75, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(350, fleetFactions[i]);
 
     const spawned = [];
 

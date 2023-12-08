@@ -251,9 +251,9 @@ ships.ACCLIMATOR_EMPIRE = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 2 | 0
+                health: e.weapon.health * 1.5 | 0
             }
-        }))
+        }));
     })(),
     hangars: [{
         x: 0,
