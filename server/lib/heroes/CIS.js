@@ -202,4 +202,65 @@ heroes["Aut-0"] = {
     }
 };
 
+heroes["General Kalani"] = {
+    name: "General Kalani",
+    tooltip: "Kalani was a Super Tactical Droid in service of the Confederacy of Independent Systems during the Clone Wars, and has survived past the conflict. One of the most effective tactical units in the Confederacy's army and navy, Kalani could manage large fleets and armys with great efficiency.",
+    image: "KALANI.png",
+    ships: ["DHOMNI_CIS", "BULWARKII_CIS"],
+    modifications: function(ship) {
+        ship.shield *= 1.75;
+        ship.maxShield *= 1.75;
+        ship.shieldRegen *= 1.75;
+        ship.maxSpeed *= 1.25;
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.6;
+            hp.maxHealth *= 1.6;
+        });
+    },
+    onTick: function(ship) {
+        if (ship.kalaniAbility === undefined) {
+            ship.kalaniAbility = {
+                active: false,
+                ticker: 0
+            };
+        }
+
+        if (ship.kalaniAbility.active) {
+            ship.kalaniAbility.ticker --;
+
+            ship.battle.ships.forEach(s => {
+                if (s.team === ship.team) {
+                    if (s.maxShield > 1 && s.shield > 0) {
+                        s.shield = Math.min(s.maxShield, s.shield + s.maxShield * .0005);
+                    }
+
+                    s.hardpoints.forEach(h => {
+                        h.tick ++;
+                        h.health = Math.min(h.maxHealth, h.health + h.maxHealth * .0005);
+                    });
+                }
+            });
+
+            if (ship.kalaniAbility.ticker <= 0) {
+                ship.kalaniAbility.active = false;
+                ship.kalaniAbility.ticker = 0;
+
+                ship.battle.displayText("Kalani's ability has ended.");
+            }
+        } else {
+            ship.kalaniAbility.ticker ++;
+
+            if (ship.kalaniAbility.ticker >= 1500) {
+                ship.kalaniAbility.active = true;
+                ship.kalaniAbility.ticker = 300;
+                ship.battle.displayText("Kalani's ability has been activated!");
+            }
+        }
+
+        if (ship.shield > 1) {
+            ship.shield = Math.min(ship.maxShield, ship.shield + ship.maxShield * .00025);
+        }
+    }
+};
+
 export default heroes;

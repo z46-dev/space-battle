@@ -1325,7 +1325,7 @@ function spawn(ship, team) {
 
     if (remainingCommanders.length > 0) {
         for (let i = 0; i < remainingCommanders.length; i ++) {
-            if (remainingCommanders[i].ships.includes(ship)) {
+            if (remainingCommanders[i].ships.includes(ship) && Math.random() > .7) {
                 newShip.commander = new Commander(remainingCommanders[i], newShip);
                 remainingCommanders.splice(i, 1);
                 break;
@@ -1336,17 +1336,17 @@ function spawn(ship, team) {
     return newShip;
 }
 
-const spawnDistance = 0;
+const spawnDistance = 750;
 
 const fleetFactions = ["REPUBLIC", "CIS"];
 
 const fleetOverrides = [
-    remainingCommanders.map(commander => commander.ships[0]).filter(s => s.endsWith("_REPUBLIC")), // Republic
-    remainingCommanders.map(commander => commander.ships[0]).filter(s => s.endsWith("_CIS")) // CIS
+    null,
+    null
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(350, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(60, fleetFactions[i]);
 
     const spawned = [];
 
