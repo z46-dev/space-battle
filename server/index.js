@@ -1277,7 +1277,7 @@ class Fleet {
                 i = 0;
 
             miniLoop: while (i < 5) {
-                const unitName = pop > dreadnoughtPop ? "DREADNOUGHTHEAVYCRUISER_DARKEMPIRE" : "CARRACK_DARKEMPIRE";
+                const unitName = pop > dreadnoughtPop ? "DREADNOUGHTHEAVYCRUISER_REPUBLIC" : "CARRACK_REPUBLIC";
 
                 const unit = ships[unitName];
 
@@ -1341,12 +1341,12 @@ const spawnDistance = 750;
 const fleetFactions = ["REPUBLIC", "CIS"];
 
 const fleetOverrides = [
-    null,
+    Fleet.katanaFleet(200),
     null
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(60, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(200, fleetFactions[i]);
 
     const spawned = [];
 
