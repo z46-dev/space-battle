@@ -81,6 +81,7 @@ export const zann = {
 };
 
 export const stations = {
+    ...(await import("./newShips/stations/hapes.js")).default,
     ...(await import("./newShips/stations/shipyards.js")).default
 };
 
