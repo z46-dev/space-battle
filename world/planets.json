@@ -273,6 +273,7 @@
         "id": 0,
         "color": "#DDDDDD",
         "name": "Neutral Systems",
+        "key": "",
         "planets": [],
         "units": ["VENATOR", "ACCLIMATOR", "NEBULONB", "CR90", "LUPUSMISSILEFRIGATE", "MUNIFICENT", "RECUSANT", "RAIDER"],
         "shipyardRosters": [
@@ -286,6 +287,7 @@
         "id": 1,
         "color": "#EE5555",
         "name": "New Republic",
+        "key": "REBEL",
         "planets": ["Naboo", "Crait", "D'Qar", "Endor", "Takodana"],
         "units": ["MC80LIBERTY", "NEBULONB", "CR90", "PROVIDENCEDESTROYER", "LUPUSMISSILEFRIGATE", "REBEL_QUASAR", "MC75"],
         "capital": {
@@ -304,6 +306,7 @@
         "id": 2,
         "color": "#55EE55",
         "name": "Galactic Empire",
+        "key": "EMPIRE",
         "planets": ["Coruscant", "Anaxes", "Alderaan", "Kuat", "Fresia"],
         "units": ["ISD", "IMOBILIZER", "ACCLIMATOR", "ARQUITENS", "RAIDER"],
         "capital": {
@@ -322,6 +325,7 @@
         "id": 3,
         "color": "#AABB66",
         "name": "Hutt Cartel",
+        "key": "HUTT",
         "planets": ["Tatooine", "Geonosis", "Mimban"],
         "units": ["ACCLIMATOR", "LUPUSMISSILEFRIGATE", "MUNIFICENT", "RECUSANT", "PROVIDENCEDESTROYER"],
         "capital": {
@@ -340,6 +344,7 @@
         "id": 4,
         "color": "#224488",
         "name": "Dark Empire",
+        "key": "DARKEMPIRE",
         "planets": ["Exogol", "Jedha", "Byss"],
         "units": ["ISD", "MTFCRUISER", "WORLDDEVASTATORFG"],
         "capital": {
@@ -358,6 +363,7 @@
         "id": 5,
         "color": "#66AA66",
         "name": "Zann Consortium",
+        "key": "ZANN",
         "planets": ["Ring of Kafrene", "Savareen", "Sullust"],
         "units": ["VENATOR", "ACCLIMATOR", "NEBULONB", "RECUSANT", "MC80LIBERTY", "CR90", "RAIDER"],
         "capital": {

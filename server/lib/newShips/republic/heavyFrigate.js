@@ -76,4 +76,92 @@ ships.ACCLIMATOR_REPUBLIC = {
     }]
 };
 
+ships.DREADNOUGHTHEAVYCRUISER_REPUBLIC = {
+    name: "Dreadnought Heavy Cruiser",
+    asset: "DREADNOUGHTHEAVYCRUISER.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 12,
+    size: 290,
+    cost: 2850,
+    speed: 3,
+    turnSpeed: .015,
+    shield: 3500,
+    shieldRegen: 3.5,
+    hardpoints: [{
+        x: -.075,
+        y: .8,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .075,
+        y: .8,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.2,
+        y: -.8,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .2,
+        y: -.8,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.125,
+        y: .4,
+        weapon: weapons.BLUE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .125,
+        y: .4,
+        weapon: weapons.BLUE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.15,
+        y: -.4,
+        weapon: weapons.BLUE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .15,
+        y: -.4,
+        weapon: weapons.BLUE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.175,
+        y: 0,
+        weapon: weapons.BLUE_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .175,
+        y: 0,
+        weapon: weapons.BLUE_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 2 | 0
+        }
+    })),
+    hangars: [{
+        x: 0,
+        y: -.8,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 2,
+        squadronKey: "V19TORRENT_REPUBLIC"
+    }]
+};
+
 export default ships;
