@@ -62,6 +62,9 @@ class Projectile {
 
         // Get source
         this.source = this.ship.source;
+
+        this.x -= Math.cos(this.angle) * this.speed;
+        this.y -= Math.sin(this.angle) * this.speed;
     }
 
 
@@ -1236,7 +1239,16 @@ class Fleet {
                 i = 0;
 
             miniLoop: while (i < possible.length * 5) {
-                possible.sort(() => .5 - Math.random());
+                possible.sort((b, a) => {
+                    if (Math.random() > .5) {
+                        return .5 - Math.random();
+                    }
+
+                    const A = ships[a];
+                    const B = ships[b];
+
+                    return A.population - B.population;
+                });
 
                 const unit = ships[possible[0]];
 
@@ -1336,17 +1348,17 @@ function spawn(ship, team) {
     return newShip;
 }
 
-const spawnDistance = 750;
+const spawnDistance = 3000;
 
-const fleetFactions = ["REPUBLIC", "CIS"];
+const fleetFactions = ["EMPIRE", "HAPAN"];
 
 const fleetOverrides = [
-    Fleet.katanaFleet(200),
+    null,
     null
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(200, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(20, fleetFactions[i]);
 
     const spawned = [];
 
