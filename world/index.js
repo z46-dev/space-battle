@@ -1,3 +1,21 @@
+import { shipTypes } from "../server/lib/constants.js";
+import ships from "../server/lib/ships.js";
+
+const assets = new Map();
+
+function loadAsset(path, name) {
+    const image = new Image();
+    image.src = path;
+
+    image.ready = false;
+
+    image.onload = () => {
+        image.ready = true;
+    };
+
+    assets.set(name, image);
+}
+
 const config = (await import("./planets.json", {
     assert: {
         type: "json"
@@ -151,10 +169,13 @@ class Shipyard {
         this.queue = [];
         this.buildables = new Map();
 
-        const roster = config.factions[planet.controllingFaction.id].shipyardRosters[level];
+        const factionKey = config.factions[planet.controllingFaction.id].key;
+        const roster = Object.keys(ships).filter(e => (factionKey === "" || e.endsWith("_" + factionKey))).filter(e => ships[e].classification >= shipTypes.Corvette && ships[e].classification <= level + shipTypes.Corvette - 1);
+
+        roster.filter(e => roster.indexOf(e.split("_")[0]) === roster.lastIndexOf(e.split("_")[0]));
 
         for (const ship of roster) {
-            this.buildables.set(ship, 50);
+            this.buildables.set(ship, ships[ship].cost);
         }
     }
 }
@@ -512,7 +533,7 @@ function renderUI() {
         ctx.closePath();
         ctx.stroke();
 
-        function drawButton(x, y, fill, text, cb) {
+        function drawButton(x, y, fill, text, cb, image = null) {
             ctx.translate(x, y);
 
             ctx.beginPath();
@@ -526,11 +547,19 @@ function renderUI() {
             ctx.fill();
             ctx.stroke();
 
+            if (image !== null) {
+                ctx.save();
+                ctx.translate(-15, -15);
+                ctx.scale(30, 30);
+                ctx.drawImage(image, 0, 0, 1, 1);
+                ctx.restore();
+            }
+
             drawText(text, 0, 20, 8, "#FFFFFF");
 
             ctx.translate(-x, -y);
 
-            Buttons.addButton(x, y + canvas.height / scale - 200, 60, 60, cb ?? function noop() {});
+            Buttons.addButton(x, y + canvas.height / scale - 200, 60, 60, cb ?? function noop() { });
         }
 
         drawButton(250, 50, "#EE5555", "Shipyard"); // Shipyard
@@ -540,7 +569,11 @@ function renderUI() {
             // Draw shipyard options
             let i = 0;
             selectedPlanet.shipyard.buildables.forEach(function drawBuildable(cost, name) {
-                drawButton(400 + (i % 5) * 100, 50 + (i / 5 | 0) * 100, "#5555EE", cost, function buildShip() {});
+                if (!assets.has(name)) {
+                    loadAsset("../assets/ships/" + ships[name].asset, name);
+                }
+
+                drawButton(350 + (i % 19) * 75, 50 + (i / 19 | 0) * 75, "#5555EE", cost, function buildShip() { }, assets.get(name));
 
                 i++;
             });
