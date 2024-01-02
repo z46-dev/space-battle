@@ -98,36 +98,30 @@ ships.MARAUDERMISSILECRUISER_REBEL = {
     hardpoints: [{
         x: -.55,
         y: -.3,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON_HEAVY,
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 80
     }, {
         x: .55,
         y: -.3,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON_HEAVY,
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 80
     }, {
         x: -.55,
         y: -.3,
-        weapon: weapons.ASSAULT_PROTON_ROCKET,
-        shotsAtOnce: 2,
+        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 6,
         shotDelay: 80
     }, {
         x: .55,
         y: -.3,
-        weapon: weapons.ASSAULT_PROTON_ROCKET,
-        shotsAtOnce: 2,
+        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 6,
         shotDelay: 80
     }, {
         x: 0,
         y: .6,
-        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 80
-    }, {
-        x: 0,
-        y: -.6,
         weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 80

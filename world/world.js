@@ -1,10 +1,11 @@
+import { shipTypes } from "../server/lib/constants.js";
 import ships from "../server/lib/ships.js";
 
 console.log("Hello from worker!");
 
-function loadSave(id) {}
+function loadSave(id) { }
 
-function writeSave(id, data) {}
+function writeSave(id, data) { }
 
 class Global {
     static day = 0;
@@ -27,7 +28,7 @@ class Shipyard {
 
     build(buildableName) {
         const faction = this.planet.controllingFaction;
-        
+
         if (faction == null) {
             return;
         }
@@ -87,13 +88,15 @@ class Planet {
     }
 
     constructor() {
-        this.id = Planet.id ++;
+        this.id = Planet.id++;
         this.name = "";
 
         this.income = 0;
+        this.config = null;
 
         this.x = 0;
         this.y = 0;
+        this.isCapital = false;
 
         /**
          * @type {Map<number, Fleet>}
@@ -185,6 +188,14 @@ class Planet {
 
         this.controllingFaction = newFaction;
         this.controllingFaction.planets.set(this.id, this);
+
+        this.income = this.config.income ?? 0;
+
+        this.isCapital = false;
+        if (newFaction.capital && newFaction.capital.name === this.name) {
+            this.income = newFaction.capital.baseIncome;
+            this.isCapital = newFaction.capital;
+        }
     }
 }
 
@@ -199,6 +210,8 @@ class Faction {
         this.id = id;
 
         this.money = 0;
+
+        this.capital = null;
 
         /**
          * @type {Map<number, Planet>}
@@ -219,6 +232,61 @@ class Faction {
     }
 }
 
+class Fleet {
+    // All non-fighter/bomber ships
+    static ships = Object.keys(ships).filter(key => ships[key].classification >= shipTypes.Corvette && !key.includes("SHIPYARD"));
+    static random(pop, faction = "", base = []) {
+        const possible = Fleet.ships.filter(key => faction === "" || key.endsWith("_" + faction));
+        const avgPop = possible.reduce((total, key) => total + ships[key].population, 0) / possible.length;
+
+        const output = [...(base ?? [])];
+
+        let fails = 0;
+        while (pop > 0 && fails < 256) {
+            let ship = undefined,
+                i = 0;
+
+            miniLoop: while (i < possible.length * 5) {
+                possible.sort((b, a) => {
+                    if (Math.random() > .5) {
+                        return .5 - Math.random();
+                    }
+
+                    const A = ships[a];
+                    const B = ships[b];
+
+                    return A.population - B.population;
+                });
+
+                const unit = ships[possible[0]];
+
+                if (unit == null) {
+                    console.log("NULL SHIP", possible[0]);
+                }
+
+                if (
+                    unit.population <= pop &&
+                    (unit.population <= avgPop * 1.1 || Math.random() > .9)
+                ) {
+                    ship = possible[0];
+                    break miniLoop;
+                }
+
+                i++;
+            }
+
+            if (ship !== undefined) {
+                output.push(ship);
+                pop -= ships[ship].population;
+            } else {
+                fails++;
+            }
+        }
+
+        return output;
+    }
+}
+
 async function generateGame(configFile = "./planets.json") {
     const config = (await import(configFile, {
         assert: {
@@ -231,6 +299,7 @@ async function generateGame(configFile = "./planets.json") {
 
         newPlanet.name = planet.name;
         newPlanet.income = planet.income ?? 0;
+        newPlanet.config = planet;
 
         newPlanet.x = planet.x;
         newPlanet.y = planet.y;
@@ -246,6 +315,7 @@ async function generateGame(configFile = "./planets.json") {
 
     config.factions.forEach(factionConfig => {
         const faction = new Faction(factionConfig.id, factionConfig.name);
+        faction.capital = factionConfig.capital;
 
         if (factionConfig.planets.length > 0) {
             factionConfig.planets.forEach(planet => {
@@ -266,17 +336,30 @@ async function generateGame(configFile = "./planets.json") {
         if (planetCfg.shipyardLevel > 0) {
             planet.shipyard = new Shipyard(planet, planetCfg.shipyardLevel);
 
-            const roster = factionCfg.shipyardRosters[planetCfg.shipyardLevel];
+            const factionKey = config.factions[planet.controllingFaction.id].key;
+            const rootNames = [];
+            const roster = Object.keys(ships).filter(e => (factionKey === "" || e.endsWith("_" + factionKey))).filter(e => ships[e].classification >= shipTypes.Corvette && ships[e].classification <= planetCfg.shipyardLevel + shipTypes.Corvette - 1).filter(name => {
+                const shipName = name.split("_")[0];
+
+                if (rootNames.includes(shipName)) {
+                    return false;
+                }
+
+                rootNames.push(shipName);
+                return true;
+            });
 
             for (const ship of roster) {
-                planet.shipyard.buildables.set(ship, 50);
+                planet.shipyard.buildables.set(ship, ships[ship].cost);
             }
         }
+
+        console.log("Fleet for", planetCfg.name, Fleet.random(planet.isCapital ? planet.isCapital.fleetPopulation : (30 + (planetCfg.income / 10 | 0)), factionCfg.key), planet.isCapital);
     });
 }
 
 function dailyTick() {
-    Global.day ++;
+    Global.day++;
 
     Faction.factions.forEach(faction => {
         faction.money += faction.income;

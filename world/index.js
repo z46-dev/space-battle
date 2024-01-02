@@ -144,6 +144,8 @@ worker.onmessage = function onWorkerMessage(event) {
             planet.controllingFaction = faction;
             faction.controlledPlanets.set(planetID, planet);
         });
+
+        window.factions = Faction.factions;
     });
 
     planets.forEach(newPlanet => {
@@ -170,9 +172,17 @@ class Shipyard {
         this.buildables = new Map();
 
         const factionKey = config.factions[planet.controllingFaction.id].key;
-        const roster = Object.keys(ships).filter(e => (factionKey === "" || e.endsWith("_" + factionKey))).filter(e => ships[e].classification >= shipTypes.Corvette && ships[e].classification <= level + shipTypes.Corvette - 1);
+        const rootNames = [];
+        const roster = Object.keys(ships).filter(e => (factionKey === "" || e.endsWith("_" + factionKey))).filter(e => ships[e].classification >= shipTypes.Corvette && ships[e].classification <= level + shipTypes.Corvette - 1).filter(name => {
+            const shipName = name.split("_")[0];
 
-        roster.filter(e => roster.indexOf(e.split("_")[0]) === roster.lastIndexOf(e.split("_")[0]));
+            if (rootNames.includes(shipName)) {
+                return false;
+            }
+
+            rootNames.push(shipName);
+            return true;
+        });
 
         for (const ship of roster) {
             this.buildables.set(ship, ships[ship].cost);

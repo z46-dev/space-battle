@@ -1306,12 +1306,12 @@ const spawnDistance = 3000;
 const fleetFactions = ["EMPIRE", "REBEL"];
 
 const fleetOverrides = [
-    ["BELLATOR_DARKEMPIRE", "IMPERIALSTARDESTROYER_DARKEMPIRE", "IMPERIALSTARDESTROYER_DARKEMPIRE"],
-    null
+    ["CAPITAL_SHIPYARD_EMPIRE"],
+    ["ASSERTOR_DARKEMPIRE"]
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(150, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(250, fleetFactions[i]);
 
     const spawned = [];
 

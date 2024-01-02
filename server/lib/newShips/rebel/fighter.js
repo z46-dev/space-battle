@@ -86,7 +86,7 @@ ships.AWING_REBEL = {
     population: 0,
     size: 17,
     cost: 6,
-    speed: 22.5,
+    speed: 16,
     turnSpeed: .1,
     shield: 15,
     shieldRegen: .9,

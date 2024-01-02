@@ -59,15 +59,22 @@
         "shipyardLevel": 1
     }, {
         "name": "Kashyyyk",
-        "x": 1450,
-        "y": -50,
+        "x": 2600,
+        "y": 0,
         "color": "#11CC44",
         "income": 200,
         "shipyardLevel": 1
     }, {
-        "name": "Mimban",
-        "x": 1250,
+        "name": "Cardia",
+        "x": 1200,
         "y": 300,
+        "color": "#C8C8AA",
+        "income": 250,
+        "shipyardLevel": 2
+    }, {
+        "name": "Mimban",
+        "x": 1450,
+        "y": 850,
         "color": "#AA5555",
         "income": 150,
         "shipyardLevel": 2
@@ -218,6 +225,41 @@
         "color": "#FFDDAA",
         "income": 300,
         "shipyardLevel": 3
+    }, {
+        "name": "Hapes",
+        "x": 2100,
+        "y": -30,
+        "color": "#BBAADC",
+        "income": 400,
+        "shipyardLevel": 5
+    }, {
+        "name": "Charubah",
+        "x": 1700,
+        "y": -20,
+        "color": "#8888C8",
+        "income": 250,
+        "shipyardLevel": 4
+    }, {
+        "name": "Gallinore",
+        "x": 1750,
+        "y": -200,
+        "color": "#EE55AA",
+        "income": 300,
+        "shipyardLevel": 4
+    }, {
+        "name": "Terephon",
+        "x": 2200,
+        "y": -300,
+        "color": "#33CCAA",
+        "income": 200,
+        "shipyardLevel": 3
+    }, {
+        "name": "Nal Hutta",
+        "x": 2300,
+        "y": 650,
+        "color": "#994433",
+        "income": 600,
+        "shipyardLevel": 3
     }],
     "connections": [
         ["Alderaan", "Coruscant"],
@@ -228,7 +270,11 @@
         ["Alderaan", "Kuat"],
         ["Alderaan", "Fresia"],
         ["Alderaan", "Onderon"],
-        ["Alderaan", "Mimban"],
+        ["Alderaan", "Cardia"],
+        ["Cardia", "Mimban"],
+        ["Cardia", "Charubah"],
+        ["Cardia", "Onderon"],
+        ["Cardia", "Kuat"],
         ["Anaxes", "Fresia"],
         ["Fresia", "Onderon"],
         ["Kuat", "Mimban"],
@@ -237,8 +283,18 @@
         ["Byss", "Jakku"],
         ["Byss", "Jedha"],
         ["Corellia", "Jakku"],
-        ["Kashyyyk", "Onderon"],
+        ["Charubah", "Onderon"],
+        ["Charubah", "Mimban"],
+        ["Charubah", "Hapes"],
+        ["Charubah", "Gallinore"],
+        ["Gallinore", "Terephon"],
+        ["Terephon", "Hapes"],
+        ["Terephon", "Kashyyyk"],
+        ["Hapes", "Kashyyyk"],
         ["Kashyyyk", "Mimban"],
+        ["Kashyyyk", "Nal Hutta"],
+        ["Mimban", "Nal Hutta"],
+        ["Nal Hutta", "Tatooine"],
         ["Exogol", "Jedha"],
         ["Ahch-To", "Jakku"],
         ["Batuu", "Jakku"],
@@ -274,109 +330,72 @@
         "color": "#DDDDDD",
         "name": "Neutral Systems",
         "key": "",
-        "planets": [],
-        "units": ["VENATOR", "ACCLIMATOR", "NEBULONB", "CR90", "LUPUSMISSILEFRIGATE", "MUNIFICENT", "RECUSANT", "RAIDER"],
-        "shipyardRosters": [
-            null,
-            ["CR90", "RAIDER", "LUPUSMISSILEFRIGATE"],
-            ["CR90", "RAIDER", "LUPUSMISSILEFRIGATE", "NEBULONB", "ACCLIMATOR"],
-            ["CR90", "RAIDER", "LUPUSMISSILEFRIGATE", "NEBULONB", "ACCLIMATOR", "RECUSANT", "VENATOR"],
-            ["CR90", "RAIDER", "LUPUSMISSILEFRIGATE", "NEBULONB", "ACCLIMATOR", "RECUSANT", "VENATOR", "LUCREHULK"]
-        ]
+        "planets": []
     }, {
         "id": 1,
         "color": "#EE5555",
         "name": "New Republic",
         "key": "REBEL",
         "planets": ["Naboo", "Crait", "D'Qar", "Endor", "Takodana"],
-        "units": ["MC80LIBERTY", "NEBULONB", "CR90", "PROVIDENCEDESTROYER", "LUPUSMISSILEFRIGATE", "REBEL_QUASAR", "MC75"],
         "capital": {
             "name": "Naboo",
             "fleetPopulation": 160,
             "baseIncome": 2300
-        },
-        "shipyardRosters": [
-            null,
-            ["CR90", "LUPUSMISSILEFRIGATE", "PELTA", "REBEL_QUASAR"],
-            ["CR90", "LUPUSMISSILEFRIGATE", "PELTA", "REBEL_QUASAR", "NEBULONB", "MC80LIBERTY"],
-            ["CR90", "LUPUSMISSILEFRIGATE", "PELTA", "REBEL_QUASAR", "NEBULONB", "MC80LIBERTY", "MC75", "PROVIDENCEDESTROYER"],
-            ["CR90", "LUPUSMISSILEFRIGATE", "PELTA", "REBEL_QUASAR", "NEBULONB", "MC80LIBERTY", "PROVIDENCEDESTROYER", "HOMEONE", "MC85"]
-        ]
+        }
     }, {
         "id": 2,
         "color": "#55EE55",
         "name": "Galactic Empire",
         "key": "EMPIRE",
         "planets": ["Coruscant", "Anaxes", "Alderaan", "Kuat", "Fresia"],
-        "units": ["ISD", "IMOBILIZER", "ACCLIMATOR", "ARQUITENS", "RAIDER"],
         "capital": {
             "name": "Coruscant",
             "fleetPopulation": 300,
             "baseIncome": 3600
-        },
-        "shipyardRosters": [
-            null,
-            ["RAIDER", "ARQUITENS"],
-            ["RAIDER", "ARQUITENS", "QUASAR", "IMOBILIZER", "ACCLIMATOR"],
-            ["RAIDER", "ARQUITENS", "QUASAR", "IMOBILIZER", "ACCLIMATOR", "ISD"],
-            ["RAIDER", "ARQUITENS", "QUASAR", "IMOBILIZER", "ACCLIMATOR", "ISD", "SSD"]
-        ]
+        }
     }, {
         "id": 3,
-        "color": "#AABB66",
+        "color": "#994433",
         "name": "Hutt Cartel",
         "key": "HUTT",
-        "planets": ["Tatooine", "Geonosis", "Mimban"],
-        "units": ["ACCLIMATOR", "LUPUSMISSILEFRIGATE", "MUNIFICENT", "RECUSANT", "PROVIDENCEDESTROYER"],
+        "planets": ["Tatooine", "Geonosis", "Mimban", "Nal Hutta"],
         "capital": {
-            "name": "Tatooine",
-            "fleetPopulation": 100,
-            "baseIncome": 1200
-        },
-        "shipyardRosters": [
-            null,
-            ["LUPUSMISSILEFRIGATE", "ARQUITENS"],
-            ["LUPUSMISSILEFRIGATE", "ARQUITENS", "ACCLIMATOR", "MUNIFICENT"],
-            ["LUPUSMISSILEFRIGATE", "ARQUITENS", "ACCLIMATOR", "MUNIFICENT", "RECUSANT", "PROVIDENCEDESTROYER"],
-            ["LUPUSMISSILEFRIGATE", "ARQUITENS", "ACCLIMATOR", "MUNIFICENT", "RECUSANT", "PROVIDENCEDESTROYER"]
-        ]
+            "name": "Nal Hutta",
+            "fleetPopulation": 120,
+            "baseIncome": 1300
+        }
     }, {
         "id": 4,
         "color": "#224488",
         "name": "Dark Empire",
         "key": "DARKEMPIRE",
         "planets": ["Exogol", "Jedha", "Byss"],
-        "units": ["ISD", "MTFCRUISER", "WORLDDEVASTATORFG"],
         "capital": {
             "name": "Exogol",
             "fleetPopulation": 130,
             "baseIncome": 3000
-        },
-        "shipyardRosters": [
-            null,
-            ["RAIDER", "ARQUITENS"],
-            ["RAIDER", "ARQUITENS", "MTFCRUISER", "QUASAR"],
-            ["RAIDER", "ARQUITENS", "MTFCRUISER", "QUASAR", "ISD"],
-            ["RAIDER", "ARQUITENS", "MTFCRUISER", "QUASAR", "ISD", "WORLDDEVASTATORFG"]
-        ]
+        }
     }, {
         "id": 5,
         "color": "#66AA66",
         "name": "Zann Consortium",
         "key": "ZANN",
         "planets": ["Ring of Kafrene", "Savareen", "Sullust"],
-        "units": ["VENATOR", "ACCLIMATOR", "NEBULONB", "RECUSANT", "MC80LIBERTY", "CR90", "RAIDER"],
         "capital": {
             "name": "Ring of Kafrene",
             "fleetPopulation": 100,
             "baseIncome": 1200
-        },
-        "shipyardRosters": [
-            null,
-            ["CR90", "RAIDER", "LUPUSMISSILEFRIGATE"],
-            ["CR90", "RAIDER", "LUPUSMISSILEFRIGATE", "NEBULONB", "ACCLIMATOR"],
-            ["CR90", "RAIDER", "LUPUSMISSILEFRIGATE", "NEBULONB", "ACCLIMATOR", "RECUSANT", "VENATOR"],
-            ["CR90", "RAIDER", "LUPUSMISSILEFRIGATE", "NEBULONB", "ACCLIMATOR", "RECUSANT", "VENATOR", "LUCREHULK"]
-        ]
+        }
+    }, {
+        "id": 6,
+        "color": "#FF55EE",
+        "name": "Hapes Consortium",
+        "key": "HAPAN",
+        "planets": ["Hapes", "Charubah", "Terephon", "Gallinore"],
+        "capital": {
+            "name": "Hapes",
+            "fleetPopulation": 130,
+            "baseIncome": 1500
+        }
     }]
 }
