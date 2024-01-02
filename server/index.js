@@ -87,7 +87,7 @@ class Projectile {
         if (this.target !== null && distance(this.x, this.y, this.target.x, this.target.y) <= this.collisionRange) {
             if (this.classification === weaponClassifications.IonCannon) {
                 if (this.target.ship.shield > 0) {
-                    this.target.ship.shield -= this.hardpoint.damage;
+                    this.target.ship.shield -= this.hardpoint.damage * 1.25;
                     this.target.ship.lastHit = performance.now();
                 } else {
                     this.target.tick -= Math.random() * 3 | 0;
@@ -122,60 +122,13 @@ class Projectile {
                 }
             } else {
                 if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
-                    this.target.ship.shield -= this.hardpoint.damage * (this.classification === weaponClassifications.Guided ? 1 : .334); // Nuh uh
+                    this.target.ship.shield -= this.hardpoint.damage * (this.classification === weaponClassifications.Guided ? 1 : .45); // Nuh uh
                     this.target.ship.lastHit = performance.now();
                 } else {
                     this.target.health -= this.hardpoint.damage;
                     this.target.ship.lastHit = performance.now();
                 }
             }
-
-            // switch (this.classification) {
-            //     case weaponClassifications.IonCannon:
-            //         if (this.target.ship.shield > 0) {
-            //             this.target.ship.shield -= this.hardpoint.damage;
-            //             this.target.ship.lastHit = performance.now();
-            //         } else {
-            //             this.target.tick -= Math.random() * 3 | 0;
-            //         }
-            //         break;
-            //     case weaponClassifications.AreaOfEffect:
-            //     case weaponClassifications.GuidedAOE:
-            //         if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
-            //             this.target.ship.shield -= this.hardpoint.damage * .25; // Nuh uh uh
-            //             this.target.ship.lastHit = performance.now();
-            //         } else {
-            //             this.target.ship.lastHit = performance.now();
-
-            //             const validHardpoints = [];
-
-            //             for (let i = 0; i < this.target.ship.hardpoints.length; i++) {
-            //                 const hardpoint = this.target.ship.hardpoints[i];
-
-            //                 if (hardpoint.health > 0 && distance(this.x, this.y, hardpoint.x, hardpoint.y) <= this.explosionRange) {
-            //                     validHardpoints.push(hardpoint);
-            //                 }
-            //             }
-
-            //             for (let i = 0; i < validHardpoints.length; i++) {
-            //                 const hardpoint = validHardpoints[i];
-
-            //                 hardpoint.health -= this.hardpoint.damage / validHardpoints.length;
-            //             }
-
-
-            //             this.battle.explode(this.target.x, this.target.y, this.collisionRange * 1.25, this.angle, "blueExplosion" + (Math.random() * 5 | 0 + 1));
-            //         }
-            //         break;
-            //     default:
-            //         if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
-            //             this.target.ship.shield -= this.hardpoint.damage * (this.classification === weaponClassifications.Guided ? 1 : .334); // Nuh uh
-            //             this.target.ship.lastHit = performance.now();
-            //         } else {
-            //             this.target.health -= this.hardpoint.damage;
-            //             this.target.ship.lastHit = performance.now();
-            //         }
-            // }
 
             this.target.ship.hitBy = this.source;
 
@@ -1350,15 +1303,15 @@ function spawn(ship, team) {
 
 const spawnDistance = 3000;
 
-const fleetFactions = ["EMPIRE", "HAPAN"];
+const fleetFactions = ["EMPIRE", "REBEL"];
 
 const fleetOverrides = [
-    null,
+    ["BELLATOR_DARKEMPIRE", "IMPERIALSTARDESTROYER_DARKEMPIRE", "IMPERIALSTARDESTROYER_DARKEMPIRE"],
     null
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(20, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(150, fleetFactions[i]);
 
     const spawned = [];
 
