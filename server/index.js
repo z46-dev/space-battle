@@ -239,6 +239,30 @@ class Hardpoint {
                 }
             }
 
+            if (this.ship.ai !== undefined && this.ship.ai.target !== null) {
+                const reallyValid = [];
+
+                for (let i = 0; i < validHardpoints.length; i ++) {
+                    const hardpoint = validHardpoints[i];
+
+                    if (hardpoint.ship.id === this.ship.ai.target.id) {
+                        reallyValid.push(hardpoint);
+                    }
+                }
+
+                if (reallyValid.length === 1) {
+                    this.target = reallyValid[0];
+                    return;
+                }
+
+                if (reallyValid.length > 1) {
+                    this.target = reallyValid.sort((a, b) => {
+                        return distance(a.x, a.y, this.x, this.y) - distance(b.x, b.y, this.x, this.y);
+                    })[0];
+                    return;
+                }
+            }
+
             validHardpoints.sort(() => .5 - Math.random());
 
             this.target = validHardpoints[0] ?? null;
@@ -1301,17 +1325,17 @@ function spawn(ship, team) {
     return newShip;
 }
 
-const spawnDistance = 3000;
+const spawnDistance = 1000;
 
-const fleetFactions = ["EMPIRE", "REBEL"];
+const fleetFactions = ["HUTT", "EMPIRE"];
 
 const fleetOverrides = [
-    ["CAPITAL_SHIPYARD_EMPIRE"],
-    ["ASSERTOR_DARKEMPIRE"]
+    null,
+    ["FRIGATE_SHIPYARD_EMPIRE"]
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(250, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(15, fleetFactions[i]);
 
     const spawned = [];
 
@@ -2342,9 +2366,7 @@ async function battleOfSaleucami() {
 
     await scene.displayText("[Tactical Droid]: General, we are detecting a Republic fleet coming out of hyperspace.");
     await scene.displayText("[General Grievous]: Bahh! Raise deflectors and prepare to engage!");
-    await scene.displayText("[General Kenobi]: All ships, form up and begin your attack runs, we must rescue master Eath Koth.");
 
-    await scene.wait(10000);
     await scene.moveCamera(spawnpoint2.x, spawnpoint2.y, .1);
 
     const RepublicFleet = {
@@ -2365,6 +2387,8 @@ async function battleOfSaleucami() {
     }
 
     await Promise.all(RepublicPromises);
+
+    await scene.displayText("[General Kenobi]: All ships, form up and begin your attack runs, we must rescue master Eath Koth.");
 
     const kenobiArquitens = scene.getShip("CONSOLAR_REPUBLIC", 1);
     kenobiArquitens.turnSpeed /= 3;
@@ -2627,5 +2651,72 @@ async function escapeFromDqar() {
         // Hux and Snoke dialogue
     }
 
+    scene.unlockCamera();
+}
+
+async function battleOfEndorScene2() {
+    const spawnpoint = {
+        x: -4000,
+        y: -4000,
+        angle: 0,
+        range: () => Math.random() * 7500 - (7500 / 2)
+    };
+
+    const spawnpoint2 = {
+        x: 1500,
+        y: 1500,
+        angle: 0,
+        range: () => Math.random() * 7500 - (7500 / 2)
+    };
+
+    spawnpoint.angle = Math.atan2(spawnpoint.y, spawnpoint.x) + Math.PI;
+    spawnpoint2.angle = Math.atan2(spawnpoint2.y, spawnpoint2.x) + Math.PI;
+
+    //await scene.hyperspaceIn("DEATHSTAR_EMPIRE", 0, -16000, -16000, spawnpoint.angle);
+    await scene.wait(1000);
+    await scene.lockCamera();
+    await scene.moveCamera(spawnpoint.x, spawnpoint.y, .05);
+
+    const empireFleet = {
+        "IMPERIALSTARDESTROYER_EMPIRE": 12,
+        "ALLEGIANCE_EMPIRE": 1,
+        "EXECUTORSUPERSTARDESTROYER_EMPIRE": 1
+    };
+
+    const rebelFleet = {
+        "MC80A_REBEL": 1,
+        "MC80BLIBERTY_REBEL": 1,
+        "MC75_REBEL": 1,
+        "MC30C_REBEL": 2,
+        "MC50_REBEL": 1,
+        "NEBULONB_REBEL": 3,
+        "CR90_REBEL": 2,
+        "DP20_REBEL": 4,
+        "MARAUDERMISSILECRUISER_REBEL": 3
+    };
+
+    const empirePromises = [];
+
+    for (const ship in empireFleet) {
+        for (let i = 0; i < empireFleet[ship]; i++) {
+            empirePromises.push(scene.hyperspaceIn(ship, 0, spawnpoint.x + spawnpoint.range(), spawnpoint.y + spawnpoint.range(), spawnpoint.angle, Math.random() * 3000));
+        }
+    }
+
+    await Promise.all(empirePromises);
+
+    await scene.wait(1000);
+    await scene.moveCamera(spawnpoint2.x, spawnpoint2.y, .05);
+
+    const rebelPromises = [];
+
+    for (const ship in rebelFleet) {
+        for (let i = 0; i < rebelFleet[ship]; i++) {
+            rebelPromises.push(scene.hyperspaceIn(ship, 1, spawnpoint2.x + spawnpoint2.range(), spawnpoint2.y + spawnpoint2.range(), spawnpoint2.angle, Math.random() * 3000));
+        }
+    }
+
+    await Promise.all(rebelPromises);
+    await scene.wait(1000);
     scene.unlockCamera();
 }

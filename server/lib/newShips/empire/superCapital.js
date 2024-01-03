@@ -212,27 +212,28 @@ ships.ARCHAMMER_EMPIRE = {
         squadronSize: 8,
         reserveSize: 1e10,
         squadronKey: "TIEDEFENDER_EMPIRE"
+    }],
+    production: [{
+        x: 0,
+        y: 0,
+        maxAlive: 6,
+        reserve: 1e10,
+        key: "RAIDER_EMPIRE",
+        cooldown: 80
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 3,
-        squadronSize: 2,
-        reserveSize: 1e10,
-        squadronKey: "RAIDER_EMPIRE"
+        maxAlive: 6,
+        reserve: 1e10,
+        key: "VIGILCORVETTE_EMPIRE",
+        cooldown: 80
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 3,
-        squadronSize: 1,
-        reserveSize: 1e10,
-        squadronKey: "ARQUITENS_EMPIRE"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 2,
-        squadronSize: 2,
-        reserveSize: 1e10,
-        squadronKey: "VIGILCORVETTE_EMPIRE"
+        maxAlive: 4,
+        reserve: 1e10,
+        key: "ARQUITENS_EMPIRE",
+        cooldown: 80
     }]
 };
 
