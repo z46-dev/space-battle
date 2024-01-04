@@ -176,7 +176,7 @@ class Scene {
 
             if (Math.random() > .667) {
                 this.noise = quickNoise.create((new Array(256)).fill(0).map((_, i) => i).sort(() => Math.random() - .5));
-            } else if (Math.random() > .5){
+            } else if (Math.random() > .5) {
                 this.noise = noise.simplex3;
             } else {
                 this.noise = noise.perlin3;
@@ -184,7 +184,7 @@ class Scene {
 
             if (Math.random() > .667) {
                 this.cloudNoise = quickNoise.create((new Array(256)).fill(0).map((_, i) => i).sort(() => Math.random() - .5));
-            } else if (Math.random() > .5){
+            } else if (Math.random() > .5) {
                 this.cloudNoise = noise.simplex3;
             } else {
                 this.cloudNoise = noise.perlin3;
@@ -278,7 +278,7 @@ class Scene {
                 const y = Math.round((index / 4) / this.radius);
 
                 const noise = this.noise(x / divisor, y / divisor, this.seed);
-                
+
                 let color;
 
                 for (const [min, max, c] of chosenPalette) {
@@ -321,7 +321,7 @@ class Scene {
                 const amount = Math.max(0, distance / this.radius);
 
                 const noise = this.cloudNoise(x / divisor, y / divisor, this.cloudSeed);
-                
+
                 let col = "#555555";
                 if (noise < 0) {
                 } else if (noise < .25) {
@@ -396,82 +396,84 @@ class Scene {
 
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-const lighting = {
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    size: (128 + Math.random() * 256) * 2
-};
+// const lighting = {
+//     x: Math.random() * canvas.width,
+//     y: Math.random() * canvas.height,
+//     size: (128 + Math.random() * 256) * 2
+// };
 
-const planets = [];
+// const planets = [];
 
-const positions = [lighting];
+// const positions = [lighting];
 
-for (let i = 0; i < 3; i++) {
-    // Position sample to avoid overlap (x, y, size) 
-    let size = 150 + Math.random() * 250,
-        x = size + Math.random() * (canvas.width - size * 2),
-        y = size + Math.random() * (canvas.height - size * 2);
+// for (let i = 0; i < 3; i++) {
+//     // Position sample to avoid overlap (x, y, size) 
+//     let size = 150 + Math.random() * 250,
+//         x = size + Math.random() * (canvas.width - size * 2),
+//         y = size + Math.random() * (canvas.height - size * 2);
 
-    let overlapping = false;
-    for (let j = 0; j < positions.length; j++) {
-        let p = positions[j];
-        let distance = Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
-        if (distance < (size + p.size) / 2) {
-            overlapping = true;
-            break;
-        }
-    }
+//     let overlapping = false;
+//     for (let j = 0; j < positions.length; j++) {
+//         let p = positions[j];
+//         let distance = Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
+//         if (distance < (size + p.size) / 2) {
+//             overlapping = true;
+//             break;
+//         }
+//     }
 
-    if (overlapping) {
-        i--;
-        continue;
-    }
+//     if (overlapping) {
+//         i--;
+//         continue;
+//     }
 
-    positions.push({ x, y, size: size * 2 });
+//     positions.push({ x, y, size: size * 2 });
 
-    const planet = new Scene.Planet(size, Color.random(), lighting);
-    planets.push({
-        planet,
-        x,
-        y
-    });
-}
-
-// Draw lighting
-const sun = new Scene.Planet(lighting.size / 2, "#ffffff", lighting);
-sun.draw(lighting.x, lighting.y, true);
-
-let fails = 0;
-main: while (fails < 512) {
-    let x = Math.random() * canvas.width,
-        y = Math.random() * canvas.height,
-        size = Math.random() * .5 + .25;
-
-    for (let j = 0; j < positions.length; j++) {
-        let p = positions[j];
-        let distance = Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
-        if (distance < (size + p.size) / 4) {
-            fails++;
-            continue main;
-        }
-    }
-
-    positions.push({ x, y, size: size * 64 });
-    ctx.beginPath();
-    ctx.arc(x, y, size, 0, Math.PI * 2);
-    ctx.fillStyle = "#ffffff";
-    ctx.fill();
-}
-
-// let i = 0;
-// setInterval(() => {
-//     planets.forEach(planet => {
-//         planet.planet.draw(planet.x, planet.y, false, i);
+//     const planet = new Scene.Planet(size, Color.random(), lighting);
+//     planets.push({
+//         planet,
+//         x,
+//         y
 //     });
+// }
 
-//     i++;
-// }, 50);
+// // Draw lighting
+// const sun = new Scene.Planet(lighting.size / 2, "#ffffff", lighting);
+// sun.draw(lighting.x, lighting.y, true);
 
-    planets.forEach(planet => {
-        planet.planet.draw(planet.x, planet.y, false, 0);
-    });
+// let fails = 0;
+// main: while (fails < 512) {
+//     let x = Math.random() * canvas.width,
+//         y = Math.random() * canvas.height,
+//         size = Math.random() * .5 + .25;
+
+//     for (let j = 0; j < positions.length; j++) {
+//         let p = positions[j];
+//         let distance = Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
+//         if (distance < (size + p.size) / 4) {
+//             fails++;
+//             continue main;
+//         }
+//     }
+
+//     positions.push({ x, y, size: size * 64 });
+//     ctx.beginPath();
+//     ctx.arc(x, y, size, 0, Math.PI * 2);
+//     ctx.fillStyle = "#ffffff";
+//     ctx.fill();
+// }
+
+// planets.forEach(planet => {
+//     planet.planet.draw(planet.x, planet.y, false, 0);
+// });
+
+const planet = new Scene.Planet(1024, "#FFFFFF", {
+    x: 0,
+    y: 0
+});
+
+planet.divisor = 256;
+planet.seed = 0;
+planet.cloudSeed = 0;
+
+planet.draw(canvas.width / 2, canvas.height / 2, false, 0);

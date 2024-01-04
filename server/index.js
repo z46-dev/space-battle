@@ -1325,17 +1325,17 @@ function spawn(ship, team) {
     return newShip;
 }
 
-const spawnDistance = 1000;
+const spawnDistance = 2000;
 
-const fleetFactions = ["HUTT", "EMPIRE"];
+const fleetFactions = ["REBEL", "EMPIRE"];
 
 const fleetOverrides = [
     null,
-    ["FRIGATE_SHIPYARD_EMPIRE"]
+    ["EXECUTORSUPERSTARDESTROYER_EMPIRE"]
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(15, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(100, fleetFactions[i]);
 
     const spawned = [];
 
