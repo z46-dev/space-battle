@@ -1,0 +1,139 @@
+const heroes = {};
+
+heroes["AdmiralPellaeon"] = {
+    name: "Admiral Gillad Pellaeon",
+    tooltip: "Admiral Gillad Pellaeon is a veteran of the Clone Wars and the Galactic Civil War. He is a strong leader and served under Grand Admiral Thrawn, which aided him in his tactical growth. He eventually became the leader of the Imperial Remnant, and ended up signing the treaty that ended the Galactic Civil War.",
+    image: "Pellaeon.png",
+    ships: ["EXECUTORSUPERSTARDESTROYER_EMPIRE", "IMPERIALSTARDESTROYER_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 1.5;
+        ship.maxShield *= 1.5;
+        ship.shieldRegen *= 1.5;
+        ship.maxSpeed *= 1.15;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.3;
+            hp.maxHealth *= 1.3;
+            hp.damage *= 1.3;
+            hp.range *= 1.3;
+            hp.reload *= .85;
+        });
+    },
+    onTick: function (ship) {
+        ship.hardpoints.forEach(hp => {
+            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00075);
+        });
+    }
+};
+
+heroes["AdmiralPiett"] = {
+    name: "Admiral Firmus Piett",
+    tooltip: "Admiral Firmus Piett was the commander of Death Squadron, after Darth Vader killed Admiral Ozzel. He was a strong leader and was able to command the Executor during the Battle of Endor. He was killed when the Executor was destroyed by the Rebel Fleet.",
+    image: "AdmiralPiett.webp",
+    ships: ["EXECUTORSUPERSTARDESTROYER_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 1.3;
+        ship.maxShield *= 1.3;
+        ship.shieldRegen *= 1.3;
+        ship.maxSpeed *= 1.225;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+            hp.range *= 1.5;
+        });
+    },
+    onTick: function (ship) {
+        if (ship.piettAbility === undefined) {
+            ship.piettAbility = {
+                active: false,
+                ticker: 0
+            };
+        }
+
+        if (ship.piettAbility.active) {
+            ship.piettAbility.ticker--;
+
+            if (ship.piettAbility.ticker <= 0) {
+                ship.piettAbility.active = false;
+                ship.piettAbility.ticker = 0;
+
+                ship.hardpoints.forEach(hp => {
+                    hp.damage /= 1.1;
+                });
+
+                ship.battle.displayText("Piett's ability has ended.");
+            }
+
+            ship.shield = Math.max(ship.shield, Math.min(ship.maxShield * .334, ship.shield + ship.maxShield * .0005));
+        } else {
+            ship.piettAbility.ticker++;
+
+            if (ship.piettAbility.ticker >= 1200) {
+                ship.piettAbility.active = true;
+                ship.piettAbility.ticker = 300;
+
+                ship.hardpoints.forEach(hp => {
+                    hp.damage *= 1.1;
+                });
+
+                ship.battle.ships.forEach(s => {
+                    if (s.team === ship.team && s.id !== ship.id) {
+                        s.shield = Math.min(s.maxShield, s.shield + s.maxShield * .1);
+                    }
+                });
+
+                ship.battle.displayText("Piett's ability has been activated!");
+            }
+        }
+
+        ship.hardpoints.forEach(hp => {
+            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00075);
+
+            if (ship.piettAbility.active) {
+                hp.tick += 2.5;
+            }
+        });
+    }
+};
+
+heroes["GrandAdmiralThrawn"] = {
+    name: "Grand Admiral Thrawn",
+    tooltip: "Grand Admiral Thrawn was a Chiss who was a brilliant tactician. He was able to defeat the New Republic on multiple occasions, and was able to take over the Empire after the death of Emperor Palpatine. He was eventually killed by his bodyguard, Rukh.",
+    image: "AdmiralThrawn.jfif",
+    ships: ["IMPERIALSTARDESTROYER_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 3;
+        ship.maxShield *= 3;
+        ship.shieldRegen *= 3;
+        ship.maxSpeed *= 1.3;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.5;
+            hp.maxHealth *= 1.5;
+            hp.damage *= 1.2;
+            hp.range *= 1.5;
+            hp.reload *= .775;
+        });
+
+        ship.addHangar({
+            x: 0,
+            y: 0,
+            offset: 0,
+            direction: 0,
+            maxSquadrons: 3,
+            squadronSize: 3,
+            reserveSize: 12,
+            squadronKey: "TIEDEFENDER_EMPIRE"
+        });
+    },
+    onTick: function (ship) {
+        ship.hardpoints.forEach(hp => {
+            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00075);
+        });
+
+        ship.repelMissiles();
+    }
+};
+
+export default heroes;

@@ -242,7 +242,7 @@ class Hardpoint {
             if (this.ship.ai !== undefined && this.ship.ai.target !== null) {
                 const reallyValid = [];
 
-                for (let i = 0; i < validHardpoints.length; i ++) {
+                for (let i = 0; i < validHardpoints.length; i++) {
                     const hardpoint = validHardpoints[i];
 
                     if (hardpoint.ship.id === this.ship.ai.target.id) {
@@ -518,7 +518,7 @@ class Squadron {
 
             this.ships[i].angleGoal = Math.atan2($ty - this.ships[i].y, $tx - this.ships[i].x);
             this.ships[i].speed = this.ships[i].maxSpeed;
-            this.ships[i].turnSpeed =(.75 + .25 * Math.sin(performance.now() / 1000 + this.ships[i].id)) * this.ships[i].realTurnSpeed;
+            this.ships[i].turnSpeed = (.75 + .25 * Math.sin(performance.now() / 1000 + this.ships[i].id)) * this.ships[i].realTurnSpeed;
         }
     }
 
@@ -651,6 +651,11 @@ class ShipAI {
 
         this.orbitAngle = 0;
         this.targetTick = 0;
+
+        /**
+         * @type {{goal: {x: number, y: number} | null, target: Ship | null}}
+         */
+        this.override = null;
     }
 
     findTarget() {
@@ -765,7 +770,7 @@ class ShipAI {
                     }
                     break;
             }
-            
+
 
             // Sort all by distance
             validShips.sort((a, b) => distance(this.ship.x, this.ship.y, a.x, a.y) - distance(this.ship.x, this.ship.y, b.x, b.y));
@@ -796,32 +801,48 @@ class ShipAI {
     }
 
     update() {
-        this.findTarget();
+        if (this.override !== null && this.override.target !== null) {
+            this.target = this.override.target;
+        } else {
+            this.findTarget();
+        }
 
         if (this.target === null) {
             this.ship.speed = 0;
             return;
         }
 
-        this.ship.speed = this.ship.maxSpeed;
+        if (this.override !== null && this.override.goal !== null) {
+            const dist = distance(this.ship.x, this.ship.y, this.override.goal.x, this.override.goal.y);
 
-        switch (this.ship.classification) {
-            case shipTypes.Fighter:
-            case shipTypes.FighterBomber:
-            case shipTypes.Bomber:
-                this.fighterThinking();
-                break;
-            case shipTypes.Corvette:
-                this.corvetteThinking();
-                break;
-            case shipTypes.Frigate:
-            case shipTypes.HeavyFrigate:
-                this.lightFrigateThinking();
-                break;
-            case shipTypes.Capital:
-            case shipTypes.SuperCapital:
-                this.capitalShipThinking();
-                break;
+            if (dist <= this.ship.size * 2) {
+                this.ship.speed = lerp(this.ship.speed, 0, .05);
+                return;
+            }
+
+            this.ship.angleGoal = Math.atan2(this.override.goal.y - this.ship.y, this.override.goal.x - this.ship.x);
+            this.ship.speed = lerp(this.ship.speed, this.ship.maxSpeed, .05);
+        } else {
+            this.ship.speed = this.ship.maxSpeed;
+
+            switch (this.ship.classification) {
+                case shipTypes.Fighter:
+                case shipTypes.FighterBomber:
+                case shipTypes.Bomber:
+                    this.fighterThinking();
+                    break;
+                case shipTypes.Corvette:
+                    this.corvetteThinking();
+                    break;
+                case shipTypes.Frigate:
+                case shipTypes.HeavyFrigate:
+                    this.lightFrigateThinking();
+                    break;
+                case shipTypes.Capital:
+                case shipTypes.SuperCapital:
+                    this.capitalShipThinking();
+                    break;
+            }
         }
     }
 
@@ -1004,12 +1025,20 @@ class Ship {
         this.battle.ships.set(this.id, this);
     }
 
+    addHangar(config) {
+        this.hangars.push(new Hangar(this, config));
+    }
+
     repelMissiles() {
         const radius = this.size * 1.2;
 
         this.battle.projectiles.forEach(projectile => {
             if (projectile.explodes) {
-                projectile.angle = Math.atan2(projectile.y - this.y, projectile.x - this.x);
+                const dist = distance(this.x, this.y, projectile.x, projectile.y);
+
+                if (dist < radius) {
+                    projectile.angle = Math.atan2(projectile.y - this.y, projectile.x - this.x);
+                }
             }
         });
     }
@@ -1313,7 +1342,7 @@ function spawn(ship, team) {
     }
 
     if (remainingCommanders.length > 0) {
-        for (let i = 0; i < remainingCommanders.length; i ++) {
+        for (let i = 0; i < remainingCommanders.length; i++) {
             if (remainingCommanders[i].ships.includes(ship) && Math.random() > .7) {
                 newShip.commander = new Commander(remainingCommanders[i], newShip);
                 remainingCommanders.splice(i, 1);
@@ -1331,11 +1360,11 @@ const fleetFactions = ["REBEL", "EMPIRE"];
 
 const fleetOverrides = [
     null,
-    ["EXECUTORSUPERSTARDESTROYER_EMPIRE"]
+    null
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(100, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(250, fleetFactions[i]);
 
     const spawned = [];
 
@@ -2017,6 +2046,36 @@ onmessage = function (e) {
 
             if (holdo && hux) {
                 holdo.ai = new HoldoManeuverAI(holdo, hux);
+            }
+        } break;
+        case 2: {
+            const shipIDs = [];
+
+            while (e.data[0] > -1) {
+                shipIDs.push(e.data.shift());
+            }
+
+            e.data.shift();
+
+            const x = e.data.shift();
+            const y = e.data.shift();
+
+            for (const id of shipIDs) {
+                /**
+                 * @type {Ship}
+                 */
+                const ship = battle.ships.get(id);
+                if (ship != null) {
+                    ship.ai.override ??= {
+                        goal: null,
+                        target: null
+                    };
+                }
+
+                ship.ai.override.goal = {
+                    x: x,
+                    y: y
+                };
             }
         } break;
     }

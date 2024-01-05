@@ -268,6 +268,8 @@ import heroes from "../server/lib/heroes.js";
         mouseDirectionY = 0,
         rmb = false;
 
+    const controllingShipIDs = new Set();
+
     window.addEventListener("mousemove", event => {
         mouseX = event.clientX * window.devicePixelRatio;
         mouseY = event.clientY * window.devicePixelRatio;
@@ -280,11 +282,67 @@ import heroes from "../server/lib/heroes.js";
         if (event.button === 2) {
             rmb = true;
         }
+
+        if (event.button === 0) {
+            if (shipOver) {
+                controllingShipIDs.add(shipOver.id);
+            } else {
+                controllingShipIDs.clear();
+            }
+        }
     });
 
     window.addEventListener("mouseup", event => {
         if (event.button === 2) {
             rmb = false;
+        }
+    });
+
+    window.addEventListener("keydown", event => {
+        switch (event.key.toLowerCase()) {
+            case "m":
+                if (controllingShipIDs.size > 0) {
+                    const packet = [2];
+    
+                    controllingShipIDs.forEach(id => {
+                        packet.push(id);
+                    });
+    
+                    packet.push(-1);
+    
+                    const scale = uiScale() * camera.zoom
+                    const realMouseX = (mouseX - canvas.width / 2) / scale + camera.x;
+                    const realMouseY = (mouseY - canvas.height / 2) / scale + camera.y;
+    
+                    packet.push(realMouseX, realMouseY);
+    
+                    worker.postMessage(packet);
+                }
+                break;
+            case "a":
+                if (controllingShipIDs.size > 0) {
+                    const packet = [3];
+    
+                    controllingShipIDs.forEach(id => {
+                        packet.push(id);
+                    });
+    
+                    packet.push(-1);
+    
+                    const scale = uiScale() * camera.zoom
+                    const realMouseX = (mouseX - canvas.width / 2) / scale + camera.x;
+                    const realMouseY = (mouseY - canvas.height / 2) / scale + camera.y;
+    
+                    // Find a ship to attack
+
+                    if (shipOver) {
+                        if (shipOver.team !== 0) {
+                            packet.push(shipOver.id);
+                            worker.postMessage(packet);
+                        }
+                    }
+                }
+                break;
         }
     });
 
@@ -816,6 +874,9 @@ import heroes from "../server/lib/heroes.js";
         });
     }, 1000);
 
+    let hardpointOver = null,
+        shipOver = null;
+
     function draw() {
         requestAnimationFrame(draw);
 
@@ -826,8 +887,9 @@ import heroes from "../server/lib/heroes.js";
         worker.postMessage(rmb ? [0, -mouseDirectionX / camera.zoom, -mouseDirectionY / camera.zoom, camera.cZoom] : [0, 0, 0, camera.cZoom]);
 
         const scale = uiScale() * camera.zoom;
-        let hardpointOver = null,
-            shipOver = null;
+
+        hardpointOver = null;
+        shipOver = null;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -1425,6 +1487,63 @@ import heroes from "../server/lib/heroes.js";
         });
 
         drawCommanders(uScale);
+
+        if (true) {
+            ctx.save();
+
+            const width = canvas.width / uScale;
+
+            ctx.translate(0, canvas.height / uScale - 175);
+
+            ctx.fillStyle = "#252525";
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "#505050";
+
+            ctx.beginPath();
+            ctx.moveTo(400, 0);
+            ctx.lineTo(width - 400, 0);
+            ctx.lineTo(width - 300, 210);
+            ctx.lineTo(300, 210);
+            ctx.closePath();
+
+            ctx.fill();
+            ctx.stroke();
+
+            // Draw selected ships
+            let i = 0;
+            controllingShipIDs.forEach(id => {
+                const ship = ships.get(id);
+
+                if (!ship) {
+                    controllingShipIDs.delete(id);
+                    return;
+                }
+
+                ctx.save();
+                ctx.translate(467 + 75 * (i % 14), 50 + Math.floor(i / 14) * 75);
+                ctx.scale(30, 30);
+
+                ctx.drawImage(assets.get(ship.asset), -1, -1, 2, 2);
+
+                // health meter
+                ctx.save();
+                ctx.translate(0, .75);
+
+                if (ship.shield > .01) {
+                    drawBar(0, 0, 1, .15, ship.shield, "#00C8FF");
+                    ctx.translate(0, .2);
+                }
+
+                drawBar(0, 0, 1, .15, ship.health, "#00FFC8");
+
+                ctx.restore();
+                ctx.restore();
+
+                i++;
+            });
+
+            ctx.restore();
+        }
 
         ctx.restore();
     }

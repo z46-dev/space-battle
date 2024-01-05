@@ -59,7 +59,7 @@ ships.IMPERIALSTARDESTROYER_EMPIRE = {
             output[i].weapon = {
                 ...output[i].weapon,
                 health: output[i].weapon.health * 2.5 | 0,
-                reload: output[i].weapon.reload * .5
+                reload: output[i].weapon.reload * .8 | 0
             };
         }
 
