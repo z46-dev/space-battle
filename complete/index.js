@@ -1,3 +1,4 @@
+import Planet, { NoiseOptions, PlanetOptions } from "../Planet/Planet.js";
 import { canvas, ctx, uiScale } from "./shared/canvas.js";
 import { drawText } from "./shared/render.js";
 
@@ -18,6 +19,15 @@ import { drawText } from "./shared/render.js";
 // The outcome of battles will have an impact on things.
 // Shipyards take time for building ships, and credits matter.
 // You can save at any time to localStorage.
+const planetOptions = new PlanetOptions();
+planetOptions.Radius = 512;
+planetOptions.Detail = .334;
+planetOptions.Seed = Math.random();
+planetOptions.Clouds.Seed = Math.random();
+planetOptions.NoiseFunction = NoiseOptions.staticQuickNoise;
+
+const planet = new Planet(planetOptions);
+planet.generate();
 
 function draw() {
     requestAnimationFrame(draw);
@@ -29,6 +39,8 @@ function draw() {
 
     ctx.save();
     ctx.scale(scale, scale);
+
+    ctx.drawImage(planet.canvas, -300, -200);
 
     drawText("Hello, World!", width / 2, height / 2, 50, "#00BEFF");
 

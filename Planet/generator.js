@@ -1,3 +1,6 @@
+import perlinNoise from "./oldNoise.js";
+import quickNoise from "./noise.js";
+
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -177,17 +180,17 @@ class Scene {
             if (Math.random() > .667) {
                 this.noise = quickNoise.create((new Array(256)).fill(0).map((_, i) => i).sort(() => Math.random() - .5));
             } else if (Math.random() > .5) {
-                this.noise = noise.simplex3;
+                this.noise = perlinNoise.simplex3;
             } else {
-                this.noise = noise.perlin3;
+                this.noise = perlinNoise.perlin3;
             }
 
             if (Math.random() > .667) {
                 this.cloudNoise = quickNoise.create((new Array(256)).fill(0).map((_, i) => i).sort(() => Math.random() - .5));
             } else if (Math.random() > .5) {
-                this.cloudNoise = noise.simplex3;
+                this.cloudNoise = perlinNoise.simplex3;
             } else {
-                this.cloudNoise = noise.perlin3;
+                this.cloudNoise = perlinNoise.perlin3;
             }
 
             this.divisor = this.radius * (.25 + Math.random() * .334);
@@ -467,7 +470,7 @@ ctx.fillRect(0, 0, canvas.width, canvas.height);
 //     planet.planet.draw(planet.x, planet.y, false, 0);
 // });
 
-const planet = new Scene.Planet(1024, "#FFFFFF", {
+const planet = new Scene.Planet(256, "#FFFFFF", {
     x: 0,
     y: 0
 });

@@ -4,7 +4,7 @@
 // Written by Thom Chiovoloni, dedicated into the public domain (as explained at
 // http://creativecommons.org/publicdomain/zero/1.0/).
 //
-var quickNoise = (function() {
+const quickNoise = (function() {
 	'use strict';
 
 	function buildTable(randFunc) {
@@ -196,6 +196,4 @@ var quickNoise = (function() {
 
 }());
 
-if (typeof module !== 'undefined' && module.exports) {
-	module.exports = quickNoise;
-}
+export default quickNoise;
