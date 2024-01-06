@@ -284,8 +284,31 @@ import heroes from "../server/lib/heroes.js";
         }
 
         if (event.button === 0) {
-            if (shipOver) {
-                controllingShipIDs.add(shipOver.id);
+            window.lastMouseDown = event;
+            if (squadronOver) {
+                if (squadronOver.team === 0) {
+                    if (event.ctrlKey) {
+                        squadrons.forEach(squadron => {
+                            if (squadron.key === squadronOver.key && squadron.team === squadronOver.team) {
+                                controllingShipIDs.add(squadron.id);
+                            }
+                        })
+                    } else {
+                        controllingShipIDs.add(squadronOver.id);
+                    }
+                }
+            } if (shipOver) {
+                if (shipOver.team === 0) {
+                    if (event.ctrlKey) {
+                        ships.forEach(ship => {
+                            if (ship.key === shipOver.key && ship.team === shipOver.team) {
+                                controllingShipIDs.add(ship.id);
+                            }
+                        })
+                    } else {
+                        controllingShipIDs.add(shipOver.id);
+                    }
+                }
             } else {
                 controllingShipIDs.clear();
             }
@@ -303,37 +326,31 @@ import heroes from "../server/lib/heroes.js";
             case "m":
                 if (controllingShipIDs.size > 0) {
                     const packet = [2];
-    
+
                     controllingShipIDs.forEach(id => {
                         packet.push(id);
                     });
-    
+
                     packet.push(-1);
-    
+
                     const scale = uiScale() * camera.zoom
                     const realMouseX = (mouseX - canvas.width / 2) / scale + camera.x;
                     const realMouseY = (mouseY - canvas.height / 2) / scale + camera.y;
-    
+
                     packet.push(realMouseX, realMouseY);
-    
+
                     worker.postMessage(packet);
                 }
                 break;
             case "a":
                 if (controllingShipIDs.size > 0) {
                     const packet = [3];
-    
+
                     controllingShipIDs.forEach(id => {
                         packet.push(id);
                     });
-    
+
                     packet.push(-1);
-    
-                    const scale = uiScale() * camera.zoom
-                    const realMouseX = (mouseX - canvas.width / 2) / scale + camera.x;
-                    const realMouseY = (mouseY - canvas.height / 2) / scale + camera.y;
-    
-                    // Find a ship to attack
 
                     if (shipOver) {
                         if (shipOver.team !== 0) {
@@ -410,6 +427,7 @@ import heroes from "../server/lib/heroes.js";
                         ship.x = data.shift();
                         ship.y = data.shift();
                         ship.angle = data.shift();
+                        ship.team = data.shift();
                         ship.size = data.shift();
                         ship.asset = data.shift();
                         ship.health = data.shift();
@@ -464,6 +482,10 @@ import heroes from "../server/lib/heroes.js";
 
                     if (flags & 128) {
                         ship.commanderName = data.shift();
+                    }
+
+                    if (flags & 256) {
+                        ship.team = data.shift();
                     }
 
                     newShips.push(ship);
@@ -875,7 +897,8 @@ import heroes from "../server/lib/heroes.js";
     }, 1000);
 
     let hardpointOver = null,
-        shipOver = null;
+        shipOver = null,
+        squadronOver = null;
 
     function draw() {
         requestAnimationFrame(draw);
@@ -890,6 +913,7 @@ import heroes from "../server/lib/heroes.js";
 
         hardpointOver = null;
         shipOver = null;
+        squadronOver = null;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -1199,6 +1223,12 @@ import heroes from "../server/lib/heroes.js";
             drawBar(0, 55, 80, 10, squadron.health, "#00FFC8");
 
             ctx.restore();
+
+            const mouseOverSquadron = Math.abs(realMouseX - squadron.x) < 30 && Math.abs(realMouseY - squadron.y) < 30;
+
+            if (mouseOverSquadron) {
+                shipOver = squadron;
+            }
         });
 
         // Draw explosions

@@ -182,6 +182,8 @@ class Hardpoint {
 
         this.firingArc = [-Math.PI / 2, Math.PI / 2];
         this.idleFacing = 0;
+
+        this.lastForcedTargetID = -1;
     }
 
     isInArc(tx, ty) {
@@ -201,6 +203,7 @@ class Hardpoint {
     }
 
     findTarget() {
+        let forceTarget = null;
         if (this.target !== null) {
             if (
                 this.target.health <= 0 ||
@@ -208,6 +211,18 @@ class Hardpoint {
                 (this.classification === weaponClassifications.IonCannon && this.target.ship.shield <= 0)
             ) {
                 this.target = null;
+            }
+
+            if (this.target !== null) {
+                if (this.ship?.ai?.target) {
+                    if (this.targetTypes !== null && this.targetTypes.indexOf(this.ship?.ai?.target.classification) > -1) {
+                        forceTarget = this.ship?.ai?.target;
+
+                        if (this.target.ship.id !== forceTarget.id) {
+                            this.target = null;
+                        }
+                    }
+                }
             }
         }
 
@@ -239,13 +254,13 @@ class Hardpoint {
                 }
             }
 
-            if (this.ship.ai !== undefined && this.ship.ai.target !== null) {
+            if (forceTarget !== null) {
                 const reallyValid = [];
 
                 for (let i = 0; i < validHardpoints.length; i++) {
                     const hardpoint = validHardpoints[i];
 
-                    if (hardpoint.ship.id === this.ship.ai.target.id) {
+                    if (hardpoint.ship.id === forceTarget.id) {
                         reallyValid.push(hardpoint);
                     }
                 }
@@ -1356,7 +1371,7 @@ function spawn(ship, team) {
 
 const spawnDistance = 2000;
 
-const fleetFactions = ["REBEL", "EMPIRE"];
+const fleetFactions = ["EMPIRE", "REBEL"];
 
 const fleetOverrides = [
     null,
@@ -1364,7 +1379,7 @@ const fleetOverrides = [
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(250, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(100, fleetFactions[i]);
 
     const spawned = [];
 
@@ -1390,12 +1405,12 @@ for (let i = 0; i < 2; i++) {
     let x, y, angle;
 
     switch (i) {
-        case 0:
+        case 1:
             x = -spawnDistance;
             y = -spawnDistance;
             angle = Math.PI / 4;
             break;
-        case 1:
+        case 0:
             x = spawnDistance;
             y = spawnDistance;
             angle = Math.PI / 4 + Math.PI;
@@ -1466,6 +1481,7 @@ class Camera {
         asset = "";
         health = 0;
         shield = 0;
+        team = -1;
         isSquadron = false;
         hardpoints = [];
         commander = null;
@@ -1476,6 +1492,7 @@ class Camera {
         updateHealth = false;
         updateShield = false;
         updateCommander = false;
+        updateTeam = false;
 
         isNew = true;
 
@@ -1498,6 +1515,11 @@ class Camera {
                 this.updateAngle = true;
             }
 
+            if (newShip.team !== this.team) {
+                this.team = newShip.team;
+                this.updateTeam = true;
+            }
+
             if (newShip.health !== this.health) {
                 this.health = newShip.health;
                 this.updateHealth = true;
@@ -1514,7 +1536,6 @@ class Camera {
             if (newShip.commander !== this.commander) {
                 this.commander = newShip.commander;
                 this.updateCommander = true;
-                console.log(this.commander);
             }
         }
 
@@ -1525,7 +1546,7 @@ class Camera {
                 this.isNew = false;
 
                 // Send everything
-                output.push(this.key, this.x, this.y, this.angle, this.size, this.asset, this.health, this.shield, this.isSquadron, this.hardpoints.length, ...this.hardpoints.flat());
+                output.push(this.key, this.x, this.y, this.angle, this.team, this.size, this.asset, this.health, this.shield, this.isSquadron, this.hardpoints.length, ...this.hardpoints.flat());
             } else {
                 // Send only what changed
                 if (this.updateX) {
@@ -1567,6 +1588,12 @@ class Camera {
                     output.push(this.commander.name);
                     this.updateCommander = false;
                     output[1] += 128;
+                }
+
+                if (this.updateTeam) {
+                    output.push(this.team);
+                    this.updateTeam = false;
+                    output[1] += 256;
                 }
             }
 
@@ -1761,6 +1788,7 @@ class Camera {
                     cache.key = ship.key;
                     cache.x = ship.x;
                     cache.y = ship.y;
+                    cache.team = ship.team;
                     cache.angle = ship.angle;
                     cache.size = ship.size;
                     cache.asset = ship.asset;
@@ -2070,12 +2098,41 @@ onmessage = function (e) {
                         goal: null,
                         target: null
                     };
-                }
 
-                ship.ai.override.goal = {
-                    x: x,
-                    y: y
-                };
+                    ship.ai.override.goal = {
+                        x: x,
+                        y: y
+                    };
+                }
+            }
+        } break;
+        case 3: {
+            const shipIDs = [];
+
+            while (e.data[0] > -1) {
+                shipIDs.push(e.data.shift());
+            }
+
+            e.data.shift();
+
+            const toAttack = battle.ships.get(e.data.shift());
+
+            if (toAttack) {
+                for (const id of shipIDs) {
+                    /**
+                     * @type {Ship}
+                     */
+                    const ship = battle.ships.get(id);
+                    if (ship != null) {
+                        ship.ai.override ??= {
+                            goal: null,
+                            target: null
+                        };
+
+                        ship.ai.override.goal = null;
+                        ship.ai.override.target = toAttack;
+                    }
+                }
             }
         } break;
     }
