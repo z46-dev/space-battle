@@ -1,5 +1,6 @@
 import { shipTypes } from "../../constants.js";
 import * as weapons from "../../weapons.js";
+import templates from "../templates/superCapital.js";
 
 const ships = {};
 
@@ -95,120 +96,9 @@ ships.MC85_REBEL = {
     }]
 };
 
-ships.LUSANKYA_REBEL = {
+ships.LUSANKYA_REBEL = templates.EXECUTORSUPERSTARDESTROYER({
     name: "Lusankya",
-    asset: "SSD.png",
-    classification: shipTypes.SuperCapital,
-    population: 140,
-    size: 8000,
-    cost: 60000,
-    speed: .5,
-    turnSpeed: .0005,
-    shield: 86000,
-    shieldRegen: 20,
-    hardpoints: (function() {
-        const output = [];
-
-        for (let i = 0; i < 13; i ++) {
-            output.push({
-                x: -.02 - .0225 * i,
-                y: .8 - .1 * i,
-                weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY,
-                shotsAtOnce: 3,
-                shotDelay: 250
-            }, {
-                x: .04 + .02 * i,
-                y: .8 - .1 * i,
-                weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY,
-                shotsAtOnce: 3,
-                shotDelay: 250
-            }, {
-                x: -.01 - .0225 * i,
-                y: .85 - .1 * i,
-                weapon: weapons.QUAD_ION_CANNON,
-                shotsAtOnce: 3,
-                shotDelay: 250
-            }, {
-                x: .03 + .02 * i,
-                y: .85 - .1 * i,
-                weapon: weapons.QUAD_ION_CANNON,
-                shotsAtOnce: 3,
-                shotDelay: 250
-            }, {
-                x: -.025 - .0225 * i,
-                y: .8 - .1 * i,
-                weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-                shotsAtOnce: 3,
-                shotDelay: 250
-            }, {
-                x: .025 + .02 * i,
-                y: .8 - .1 * i,
-                weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-                shotsAtOnce: 3,
-                shotDelay: 250
-            });
-        }
-
-        for (let i = -4; i < 12; i ++) {
-            output.push({
-                x: -.055 - .01 * i,
-                y: .4 - .075 * i,
-                weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            }, {
-                x: .075 + .00825 * i,
-                y: .4 - .075 * i,
-                weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            }, {
-                x: -.08 - .01 * i,
-                y: .4 - .075 * i,
-                weapon: weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            }, {
-                x: .09 + .00825 * i,
-                y: .4 - .075 * i,
-                weapon: weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            });
-
-            i += .5;
-
-            output.push({
-                x: -.055 - .01 * i,
-                y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.RED_DOUBLE_LASER_CANNON : weapons.DOUBLE_ION_CANNON_MEDIUM,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            }, {
-                x: .075 + .00825 * i,
-                y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.RED_DOUBLE_LASER_CANNON : weapons.DOUBLE_ION_CANNON_MEDIUM,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            }, {
-                x: -.08 - .01 * i,
-                y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON : weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            }, {
-                x: .09 + .00825 * i,
-                y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON : weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            });
-
-            i |= 0;
-        }
-
-        return output;
-    })(),
+    color: "RED",
     hangars: [{
         x: 0,
         y: 0,
@@ -238,6 +128,6 @@ ships.LUSANKYA_REBEL = {
         reserveSize: 6,
         squadronKey: "BWING_REBEL"
     }]
-};
+});
 
 export default ships;

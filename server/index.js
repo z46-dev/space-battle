@@ -1369,7 +1369,7 @@ function spawn(ship, team) {
     return newShip;
 }
 
-const spawnDistance = 2000;
+const spawnDistance = 1500;
 
 const fleetFactions = ["EMPIRE", "REBEL"];
 
@@ -1379,7 +1379,7 @@ const fleetOverrides = [
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(100, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(10, fleetFactions[i]);
 
     const spawned = [];
 
@@ -1389,7 +1389,7 @@ for (let i = 0; i < 2; i++) {
             const distance = 0;
             const spawnDistance = 15000;
 
-            const newShip = new Ship(battle, ship, 0);
+            const newShip = new Ship(battle, ship, i);
 
             newShip.x = -spawnDistance + Math.cos(angle) * distance;
             newShip.y = Math.sin(angle) * distance;
@@ -2835,4 +2835,126 @@ async function battleOfEndorScene2() {
     await Promise.all(rebelPromises);
     await scene.wait(1000);
     scene.unlockCamera();
+}
+
+async function battleOfOrinda() {
+    const spawnpoint = {
+        x: -4000,
+        y: -4000,
+        angle: 0,
+        range: () => Math.random() * 5000 - 2500
+    };
+
+    const spawnpoint2 = {
+        x: 4000,
+        y: 4000,
+        angle: 0,
+        range: () => Math.random() * 5000 - 2500
+    };
+
+    spawnpoint.angle = Math.atan2(spawnpoint.y, spawnpoint.x) + Math.PI;
+    spawnpoint2.angle = Math.atan2(spawnpoint2.y, spawnpoint2.x) + Math.PI;
+
+    await scene.lockCamera();
+    await scene.moveCamera(spawnpoint2.x, spawnpoint2.y, .075);
+    await scene.hyperspaceIn("EXECUTORSUPERSTARDESTROYER_EMPIRE", 0, spawnpoint2.x, spawnpoint2.y, spawnpoint2.angle, 0, ship => {
+        ship.commander = new Commander(heroes.AdmiralPellaeon, ship);
+    });
+    await scene.hyperspaceIn("IMPERIALSTARDESTROYER_EMPIRE", 0, spawnpoint2.x - 2000, spawnpoint2.y + 100, spawnpoint2.angle, 0);
+    await scene.hyperspaceIn("IMPERIALSTARDESTROYER_EMPIRE", 0, spawnpoint2.x + 800, spawnpoint2.y - 500, spawnpoint2.angle, 0);
+
+    await scene.wait(1000);
+
+    const rebelShips = [
+        "MC80BLIBERTY_REBEL",
+        "MC80BLIBERTY_REBEL",
+        "MC80BLIBERTY_REBEL",
+        "MC80BLIBERTY_REBEL",
+        "MC80BLIBERTY_REBEL",
+        "MC50_REBEL",
+        "MC50_REBEL",
+        "MC30C_REBEL",
+        "MC30C_REBEL",
+        "MC30C_REBEL",
+        "NEBULONB_REBEL",
+        "NEBULONB_REBEL",
+        "NEBULONB_REBEL",
+        "NEBULONB_REBEL",
+        "CR90_REBEL",
+        "CR90_REBEL",
+        "CR90_REBEL",
+        "DP20_REBEL",
+        "DP20_REBEL",
+        "MARAUDERMISSILECRUISER_REBEL",
+        "MARAUDERMISSILECRUISER_REBEL",
+        "MARAUDERMISSILECRUISER_REBEL",
+        "MARAUDERMISSILECRUISER_REBEL"
+    ];
+
+    await scene.moveCamera(spawnpoint.x, spawnpoint.y, .1);
+
+    const rebelPromises = [scene.hyperspaceIn("MC80A_REBEL", 1, spawnpoint.x, spawnpoint.y, spawnpoint.angle, 0, ship => {
+        ship.commander = new Commander(heroes.AdmiralAckbar, ship);
+    })];
+
+    for (const ship of rebelShips) {
+        rebelPromises.push(scene.hyperspaceIn(ship, 1, spawnpoint.x + spawnpoint.range(), spawnpoint.y + spawnpoint.range(), spawnpoint.angle, Math.random() * 3000));
+    }
+
+    await Promise.all(rebelPromises);
+
+    await scene.wait(1000);
+    await scene.unlockCamera();
+    await scene.wait(15000);
+    await scene.lockCamera();
+    await scene.moveCamera(spawnpoint2.x + 1000, spawnpoint2.y - 3000, .08);
+    await scene.hyperspaceIn("BELLATORSUPERSTARDESTROYER_EMPIRE", 0, spawnpoint2.x + 1000, spawnpoint2.y - 3000, spawnpoint2.angle, 0, ship => {
+        ship.commander = new Commander(heroes.CapBrandei, ship);
+    });
+
+    await scene.wait(1000);
+    await scene.unlockCamera();
+}
+
+async function heroBattles() {
+    const faction1 = "EMPIRE";
+    const faction2 = "REBEL";
+
+    function pos() {
+        return [Math.random() * 10000 - 5000, Math.random() * 10000 - 5000, Math.random() * Math.PI * 2];
+    }
+
+    await scene.lockCamera();
+
+    await scene.moveCamera(0, 0, .1);
+    const promises = [];
+
+    for (const key in heroes) {
+        const ships = heroes[key].ships;
+
+        const ship = ships[Math.random() * ships.length | 0];
+
+        if (ship.endsWith("_" + faction2)) {
+            promises.push(scene.hyperspaceIn(ship, 1, ...pos(), Math.random() * 3000, ship => {
+                ship.commander = new Commander(heroes[key], ship);
+            }));
+        }
+    }
+
+    for (const key in heroes) {
+        const ships = heroes[key].ships;
+
+        const ship = ships[Math.random() * ships.length | 0];
+
+        if (ship.endsWith("_" + faction1)) {
+            promises.push(scene.hyperspaceIn(ship, 0, ...pos(), Math.random() * 3000, ship => {
+                ship.commander = new Commander(heroes[key], ship);
+            }));
+        }
+    }
+
+    await Promise.all(promises);
+
+    await scene.wait(1000);
+    await scene.unlockCamera();
 }

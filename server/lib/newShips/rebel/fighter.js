@@ -244,4 +244,82 @@ ships.MG100STARFORTRESS_ESCAPEFROMDQAR_REBEL = {
     }]
 };
 
+ships.ROGUESQUADRON_REBEL = {
+    name: "Rogue Squadron X-Wing",
+    asset: "XWING.png",
+    classification: shipTypes.Fighter,
+    population: 1,
+    size: 17.5,
+    cost: 5000,
+    speed: 25,
+    turnSpeed: .015,
+    shield: 200,
+    shieldRegen: 2,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.RED_FIGHTER_LASER_CANNON,
+            health: weapons.RED_FIGHTER_LASER_CANNON.health * 4,
+            damage: weapons.RED_FIGHTER_LASER_CANNON.damage * 2,
+            speed: weapons.RED_FIGHTER_LASER_CANNON.speed * 1.5
+        },
+        shotsAtOnce: 4,
+        shotDelay: 50
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.FIGHTER_PROTON_TORPEDO,
+            health: weapons.FIGHTER_PROTON_TORPEDO.health * 4,
+            damage: weapons.FIGHTER_PROTON_TORPEDO.damage * 2,
+            explosionDamage: weapons.FIGHTER_PROTON_TORPEDO.explosionDamage * 4,
+            explosionRange: weapons.FIGHTER_PROTON_TORPEDO.explosionRange * 2
+        },
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }]
+};
+
+ships.FALCON_REBEL = {
+    name: "Millenium Falcon",
+    asset: "FALCON.png",
+    classification: shipTypes.Fighter,
+    population: 1,
+    size: 30,
+    cost: 600,
+    speed: 18,
+    turnSpeed: .03,
+    shield: 5000,
+    shieldRegen: 5,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.RED_QUAD_LASER_CANNON,
+            health: weapons.RED_QUAD_LASER_CANNON.health * 10
+        },
+        shotsAtOnce: 2,
+        shotDelay: 50
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.RED_QUAD_LASER_CANNON_HEAVY,
+            health: weapons.RED_QUAD_LASER_CANNON_HEAVY.health * 10
+        },
+        shotsAtOnce: 2,
+        shotDelay: 50
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.FIGHTER_PROTON_TORPEDO,
+            health: weapons.FIGHTER_PROTON_TORPEDO.health * 10
+        },
+        shotsAtOnce: 8,
+        shotDelay: 75
+    }]
+};
+
 export default ships;

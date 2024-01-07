@@ -3,6 +3,8 @@ import { shipTypeNames, shipTypes, weaponClassifications, weaponDrawProperties, 
 import { default as shipConfig } from "../server/lib/ships.js";
 import heroes from "../server/lib/heroes.js";
 
+window.shipConfig = shipConfig;
+
 (async function () {
     const assets = new Map();
 
@@ -1365,7 +1367,7 @@ import heroes from "../server/lib/heroes.js";
             drawText(str, mouseX / uScale + 15, mouseY / uScale + 25, 18);
         }
 
-        if (shipOver !== null) {
+        if (shipOver !== null && shipConfig[shipOver.key]) {
             ctx.save();
             const cfg = shipConfig[shipOver.key];
             const str = cfg.name + " - " + shipTypeNames[cfg.classification];

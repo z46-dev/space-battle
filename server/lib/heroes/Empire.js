@@ -136,4 +136,103 @@ heroes["GrandAdmiralThrawn"] = {
     }
 };
 
+heroes["GeneralDelvarus"] = {
+    name: "Superior General Delvarus",
+    tooltip: "General Delvarus was a warlord after the fall of the Empire, and the leader of the Eriadu Authority. He assumed command after coming into command of the Executor-class Star Dreadnought Nighthammer.",
+    image: "DELVARUS.webp",
+    ships: ["EXECUTORSUPERSTARDESTROYER_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 1.4;
+        ship.maxShield *= 1.4;
+        ship.shieldRegen *= 2;
+        ship.maxSpeed *= 1.5;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.2;
+            hp.maxHealth *= 1.2;
+            hp.range *= 3;
+            hp.reload *= 1.3;
+            hp.damage *= 1.5;
+        });
+
+        ship.asset = "NIGHTHAMMER.png";
+    },
+    onTick: function (ship) {
+        ship.hardpoints.forEach(hp => {
+            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .001);
+        });
+    }
+};
+
+heroes["CapBrandei"] = {
+    name: "Captain Brandei",
+    tooltip: "Captain Brandei was a force-attuned Imperial officer who served under Grand Admiral Thrawn's command during the superior's campaign. He commands the Imperial Star Destroyer Judicator, and the Bellator-class Star Destroyer Dominion.",
+    image: "Brandei.webp",
+    ships: ["BELLATORSUPERSTARDESTROYER_EMPIRE", "IMPERIALSTARDESTROYER_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 1.2;
+        ship.maxShield *= 1.2;
+        ship.shieldRegen *= 1.1;
+        ship.maxSpeed *= 1.15;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.1;
+            hp.maxHealth *= 1.1;
+            hp.range *= 1.2;
+        });
+    },
+    onTick: function (ship) {
+        if (ship.shield > 0 && ship.shield < ship.maxShield) {
+            ship.shield = Math.min(ship.maxShield, ship.shield + ship.maxShield * .0001);
+        }
+    }
+};
+
+heroes["AdmiralCorburn"] = {
+    name: "Admiral Corburn",
+    tooltip: "Admiral Corburn was a veteran of the Clone Wars and knew how to utilize smaller ship types to their fullest potential. He commanded a modified Imobilizer-418 cruiser, the Constrainer, and the Legator-class Star Dreadnought Intimidator.",
+    image: "Corburn.png",
+    ships: ["IMOBILIZER_EMPIRE", "LEGATORSTARDREADNOUGHT_EMPIRE"],
+    modifications: function (ship) {
+        switch (ship.key) {
+            case "IMOBILIZER_EMPIRE":
+                ship.shield *= 4;
+                ship.maxShield *= 4;
+                ship.shieldRegen *= 2;
+                ship.maxSpeed *= 1.25;
+
+                ship.hardpoints.forEach(hp => {
+                    hp.health *= 2;
+                    hp.maxHealth *= 2;
+                    hp.range *= 2;
+                    hp.damage *= 2;
+                    hp.range *= 2;
+                    hp.reload *= .667;
+                });
+                break;
+            case "LEGATORSTARDREADNOUGHT_EMPIRE":
+                ship.shield *= 1.2;
+                ship.maxShield *= 1.2;
+                ship.shieldRegen *= 1.1;
+                ship.maxSpeed *= 1.15;
+
+                ship.hardpoints.forEach(hp => {
+                    hp.health *= 1.1;
+                    hp.maxHealth *= 1.1;
+                    hp.range *= 1.2;
+                });
+                break;
+        }
+    },
+    onTick: function (ship) {
+        if (ship.shield > 0 && ship.shield < ship.maxShield) {
+            ship.shield = Math.min(ship.maxShield, ship.shield + ship.maxShield * .00025);
+        }
+
+        if (ship.key === "IMOBILIZER_EMPIRE") {
+            ship.repelMissiles();
+        }
+    }
+};
+
 export default heroes;

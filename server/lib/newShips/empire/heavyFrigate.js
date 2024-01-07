@@ -61,9 +61,9 @@ ships.IMOBILIZER_EMPIRE = {
     size: 300,
     cost: 2200,
     speed: 3,
-    turnSpeed: .06,
-    shield: 6000,
-    shieldRegen: 6,
+    turnSpeed: .015,
+    shield: 6700,
+    shieldRegen: 6.7,
     hardpoints: [{
         x: -.1,
         y: .275,
@@ -104,7 +104,7 @@ ships.IMOBILIZER_EMPIRE = {
         x: 0,
         y: .75,
         weapon: weapons.ASSAULT_PROTON_TORPEDO,
-        shotsAtOnce: 4,
+        shotsAtOnce: 5,
         shotDelay: 100
     }],
     hangars: [{

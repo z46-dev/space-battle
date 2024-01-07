@@ -1,5 +1,6 @@
 import { shipTypes } from "../../constants.js";
 import * as weapons from "../../weapons.js";
+import templates from "../templates/superCapital.js";
 
 const ships = {};
 
@@ -227,100 +228,25 @@ ships.WORLDDEVASTATORBC_DARKEMPIRE = {
     }
 };
 
-ships.BELLATOR_DARKEMPIRE = {
-    name: "Bellator Star Destroyer",
-    asset: "BELLATOR.png",
-    classification: shipTypes.SuperCapital,
-    population: 90,
-    size: 5000,
-    cost: 30000,
-    speed: 1.5,
-    turnSpeed: .01,
-    shield: 39000,
-    shieldRegen: 10,
-    hardpoints: (function() {
-        const output = [];
+ships.EXECUTORSUPERSTARDESTROYER_DARKEMPIRE = templates.EXECUTORSUPERSTARDESTROYER({
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 5,
+        squadronSize: 6,
+        reserveSize: 8,
+        squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 4,
+        squadronSize: 6,
+        reserveSize: 8,
+        squadronKey: "TIEBOMBER_DARKEMPIRE"
+    }]
+});
 
-        for (let i = 0; i < 14; i ++) {
-            output.push({
-                x: -.02 - .02 * i,
-                y: .8 - .1 * i,
-                weapon: weapons.GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY
-            }, {
-                x: .02 + .02 * i,
-                y: .8 - .1 * i,
-                weapon: weapons.GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY
-            }, {
-                x: -.005 - .02 * i,
-                y: .85 - .1 * i,
-                weapon: weapons.QUAD_ION_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 200
-            }, {
-                x: .005 + .02 * i,
-                y: .85 - .1 * i,
-                weapon: weapons.QUAD_ION_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 200
-            }, {
-                x: -.02 - .02 * i,
-                y: .85 - .1 * i,
-                weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
-                shotsAtOnce: 2,
-                shotDelay: 200
-            }, {
-                x: .02 + .02 * i,
-                y: .85 - .1 * i,
-                weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
-                shotsAtOnce: 2,
-                shotDelay: 200
-            });
-        }
-
-        for (let i = 0; i < 6; i ++) {
-            output.push({
-                x: 0,
-                y: .15 - .03 * i,
-                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY
-            }, {
-                x: -.05,
-                y: .3 - .1 * i,
-                weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-                shotsAtOnce: 3,
-                shotDelay: 80
-            }, {
-                x: .05,
-                y: .3 - .1 * i,
-                weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-                shotsAtOnce: 3,
-                shotDelay: 80
-            });
-        }
-
-        for (let i = 0; i < 8; i ++) {
-            output.push({
-                x: -.1 - .02 * i,
-                y: .1 - .1 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 3,
-                shotDelay: 100
-            }, {
-                x: .1 + .02 * i,
-                y: .1 - .1 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 3,
-                shotDelay: 100
-            });
-        }
-
-        return output.map(e => ({
-            ...e,
-            weapon: {
-                ...e.weapon,
-                health: e.weapon.health * 3 | 0
-            }
-        }))
-    })(),
+ships.BELLATOR_DARKEMPIRE = templates.BELLATORSUPERSTARDESTROYER({
     hangars: [{
         x: 0,
         y: 0,
@@ -336,110 +262,9 @@ ships.BELLATOR_DARKEMPIRE = {
         reserveSize: 8,
         squadronKey: "TIEBOMBER_DARKEMPIRE"
     }]
-};
+});
 
-ships.ASSERTOR_DARKEMPIRE = {
-    name: "Assertor Star Dreadnought",
-    asset: "ASSERTOR.png",
-    classification: shipTypes.SuperCapital,
-    population: 200,
-    size: 8000,
-    cost: 50000,
-    speed: 1,
-    turnSpeed: .005,
-    shield: 100000,
-    shieldRegen: 25,
-    hardpoints: (function() {
-        const output = [];
-
-        for (let i = 0; i < 36; i ++) {
-            output.push({
-                x: -.03 - .0115 * i,
-                y: .9 - .035 * i,
-                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 300
-            }, {
-                x: .03 + .0115 * i,
-                y: .9 - .035 * i,
-                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 300
-            }, {
-                x: -.02 - .0115 * i,
-                y: .85 - .035 * i,
-                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON,
-                shotsAtOnce: 2,
-                shotDelay: 200
-            }, {
-                x: .02 + .0115 * i,
-                y: .85 - .035 * i,
-                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON,
-                shotsAtOnce: 2,
-                shotDelay: 200
-            }, {
-                x: -.01 - .0115 * i,
-                y: .9 - .035 * i,
-                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
-                shotsAtOnce: 2,
-                shotDelay: 200
-            }, {
-                x: .01 + .0115 * i,
-                y: .9 - .035 * i,
-                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
-                shotsAtOnce: 2,
-                shotDelay: 200
-            }, {
-                x: -.01 - .0115 * i,
-                y: .85 - .035 * i,
-                weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
-                shotsAtOnce: 2,
-                shotDelay: 200
-            }, {
-                x: .01 + .0115 * i,
-                y: .85 - .035 * i,
-                weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
-                shotsAtOnce: 2,
-                shotDelay: 200
-            }, {
-                x: -.1,
-                y: .45 - .035 * i,
-                weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-                shotsAtOnce: 4,
-                shotDelay: 80
-            }, {
-                x: .1,
-                y: .45 - .035 * i,
-                weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-                shotsAtOnce: 4,
-                shotDelay: 80
-            });
-        }
-
-        for (let i = 0; i < 12; i ++) {
-            output.push({
-                x: -.002,
-                y: .3 - .05 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 300
-            }, {
-                x: .002,
-                y: .3 - .05 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 300
-            });
-        }
-
-        return output.map(e => ({
-            ...e,
-            weapon: {
-                ...e.weapon,
-                health: e.weapon.health * 3 | 0
-            }
-        }))
-    })(),
+ships.ASSERTOR_DARKEMPIRE = templates.ASSERTORSTARDREADNOUGHT({
     hangars: [{
         x: 0,
         y: 0,
@@ -455,7 +280,7 @@ ships.ASSERTOR_DARKEMPIRE = {
         reserveSize: 8,
         squadronKey: "TIEDEFENDER_DARKEMPIRE"
     }]
-};
+});
 
 ships.MANDATORSIEGEDREADNOUGHT_DARKEMPIRE = {
     name: "Mandator IV-class Siege Dreadnought",
@@ -548,119 +373,7 @@ ships.MANDATORSIEGEDREADNOUGHT_DARKEMPIRE = {
     }]
 };
 
-ships.MEGASTARDESTOYER_DARKEMPIRE = {
-    name: "Mega Star Destroyer",
-    asset: "MEGASTARDESTROYER.png",
-    classification: shipTypes.SuperCapital,
-    population: 500,
-    size: 30000,
-    cost: 80000,
-    speed: .01,
-    turnSpeed: .001,
-    shield: 750000,
-    shieldRegen: 50,
-    hardpoints: (function() {
-        const output = [];
-        const types = ["GREEN_TURBOLASER_CANNON_ULTRAHEAVY", "GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY", "ION_CANNON_ULTRA"];
-        const types2 = ["GREEN_DOUBLE_LASER_CANNON", "DOUBLE_ION_CANNON_MEDIUM", "GREEN_DOUBLE_LASER_CANNON", "DOUBLE_ION_CANNON_MEDIUM", "GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY"];
-        const types3 = ["ASSAULT_CONCUSSION_MISSILE", "ASSAULT_PROTON_ROCKET", "ASSAULT_PROTON_TORPEDO"];
-
-        for (let i = 0; i < 64; i ++) {
-            output.push({
-                x: .015 + .015 * i,
-                y: .225 - .0045 * i,
-                weapon: {
-                    ...weapons[types[i % types.length]],
-                    range: weapons[types[i % types.length]].range * 2.5
-                },
-                shotsAtOnce: 2,
-                shotDelay: 150
-            }, {
-                x: -.015 - .015 * i,
-                y: .225 - .0045 * i,
-                weapon: {
-                    ...weapons[types[i % types.length]],
-                    range: weapons[types[i % types.length]].range * 2.5
-                },
-                shotsAtOnce: 2,
-                shotDelay: 150
-            }, {
-                x: .015 + .015 * i,
-                y: .125 - .003 * i,
-                weapon: {
-                    ...weapons[types2[i % types2.length]],
-                    range: weapons[types2[i % types2.length]].range * 2.5
-                },
-                shotsAtOnce: 2,
-                shotDelay: 75
-            }, {
-                x: -.015 - .015 * i,
-                y: .125 - .003 * i,
-                weapon: {
-                    ...weapons[types2[i % types2.length]],
-                    range: weapons[types2[i % types2.length]].range * 2.5
-                },
-                shotsAtOnce: 2,
-                shotDelay: 75
-            });
-
-            if (i % 8 === 0) {
-                output.push({
-                    x: .015 + .015 * i,
-                    y: .225 - .0045 * i,
-                    weapon: {
-                        ...weapons.GREEN_SUPERLASER,
-                        speed: weapons.GREEN_SUPERLASER.speed * .5,
-                        range: weapons.GREEN_SUPERLASER.range * 3,
-                        reload: weapons.GREEN_SUPERLASER.reload * .3,
-                        damage: weapons.GREEN_SUPERLASER.damage * .4
-                    }
-                }, {
-                    x: -.015 - .015 * i,
-                    y: .225 - .0045 * i,
-                    weapon: {
-                        ...weapons.GREEN_SUPERLASER,
-                        speed: weapons.GREEN_SUPERLASER.speed * .5,
-                        range: weapons.GREEN_SUPERLASER.range * 3,
-                        reload: weapons.GREEN_SUPERLASER.reload * .3,
-                        damage: weapons.GREEN_SUPERLASER.damage * .4
-                    }
-                });
-            }
-        }
-
-        for (let i = 0; i < 16; i ++) {
-            output.push({
-                x: -.1,
-                y: .175 - .02 * i,
-                weapon: {
-                    ...weapons[types3[i % types3.length]],
-                    range: weapons[types3[i % types3.length]].range * 2.5,
-                    bypassShield: false
-                },
-                shotsAtOnce: 2,
-                shotDelay: 200
-            }, {
-                x: .1,
-                y: .175 - .02 * i,
-                weapon: {
-                    ...weapons[types3[i % types3.length]],
-                    range: weapons[types3[i % types3.length]].range * 2.5,
-                    bypassShield: false
-                },
-                shotsAtOnce: 2,
-                shotDelay: 200
-            });
-        }
-
-        return output.map(hp => ({
-            ...hp,
-            weapon: {
-                ...hp.weapon,
-                health: hp.weapon.health * 3 | 0
-            }
-        }));
-    })(),
+ships.MEGASTARDESTROYER_DARKEMPIRE = templates.MEGASTARDESTROYER({
     hangars: [{
         x: 0,
         y: 0,
@@ -697,7 +410,7 @@ ships.MEGASTARDESTOYER_DARKEMPIRE = {
         reserveSize: 5,
         squadronKey: "RESURGENT_DARKEMPIRE"
     })))]
-};
+});
 
 ships.IMPELLORFLEETCARRIER_DARKEMPIRE = {
     name: "Impellor Fleet Carrier",

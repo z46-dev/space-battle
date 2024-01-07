@@ -1,157 +1,26 @@
 import { shipTypes } from "../../constants.js";
 import * as weapons from "../../weapons.js";
+import templates from "../templates/superCapital.js";
 
 const ships = {};
 
-ships.EXECUTORSUPERSTARDESTROYER_EMPIRE = {
-    name: "Super Star Destroyer",
-    asset: "SSD.png",
-    classification: shipTypes.SuperCapital,
-    population: 140,
-    size: 8000,
-    cost: 60000,
-    speed: .5,
-    turnSpeed: .0005,
-    shield: 86000,
-    shieldRegen: 10,
-    hardpoints: (function() {
-        const output = [];
+ships.EXECUTORSUPERSTARDESTROYER_EMPIRE = templates.EXECUTORSUPERSTARDESTROYER();
+ships.BELLATORSUPERSTARDESTROYER_EMPIRE = templates.BELLATORSUPERSTARDESTROYER();
+ships.ASSERTORSTARDREADNOUGHT_EMPIRE = templates.ASSERTORSTARDREADNOUGHT();
 
-        for (let i = 0; i < 13; i ++) {
-            output.push({
-                x: -.02 - .0225 * i,
-                y: .8 - .1 * i,
-                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY,
-                shotsAtOnce: 3,
-                shotDelay: 250
-            }, {
-                x: .04 + .02 * i,
-                y: .8 - .1 * i,
-                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY,
-                shotsAtOnce: 3,
-                shotDelay: 250
-            }, {
-                x: -.01 - .0225 * i,
-                y: .85 - .1 * i,
-                weapon: weapons.QUAD_ION_CANNON,
-                shotsAtOnce: 3,
-                shotDelay: 250
-            }, {
-                x: .03 + .02 * i,
-                y: .85 - .1 * i,
-                weapon: weapons.QUAD_ION_CANNON,
-                shotsAtOnce: 3,
-                shotDelay: 250
-            }, {
-                x: -.025 - .0225 * i,
-                y: .8 - .1 * i,
-                weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-                shotsAtOnce: 3,
-                shotDelay: 250
-            }, {
-                x: .025 + .02 * i,
-                y: .8 - .1 * i,
-                weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-                shotsAtOnce: 3,
-                shotDelay: 250
-            });
-        }
-
-        for (let i = -4; i < 12; i ++) {
-            output.push({
-                x: -.055 - .01 * i,
-                y: .4 - .075 * i,
-                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            }, {
-                x: .075 + .00825 * i,
-                y: .4 - .075 * i,
-                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            }, {
-                x: -.08 - .01 * i,
-                y: .4 - .075 * i,
-                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            }, {
-                x: .09 + .00825 * i,
-                y: .4 - .075 * i,
-                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            });
-
-            i += .5;
-
-            output.push({
-                x: -.055 - .01 * i,
-                y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.GREEN_DOUBLE_LASER_CANNON : weapons.DOUBLE_ION_CANNON_MEDIUM,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            }, {
-                x: .075 + .00825 * i,
-                y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.GREEN_DOUBLE_LASER_CANNON : weapons.DOUBLE_ION_CANNON_MEDIUM,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            }, {
-                x: -.08 - .01 * i,
-                y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.GREEN_DOUBLE_TURBOLASER_CANNON : weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            }, {
-                x: .09 + .00825 * i,
-                y: .4 - .075 * i,
-                weapon: (i | 0) % 2 ? weapons.GREEN_DOUBLE_TURBOLASER_CANNON : weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 500
-            });
-
-            i |= 0;
-        }
-
-        return output;
-    })(),
-    hangars: [{
-        x: 0,
-        y: 0,
-        maxSquadrons: 2,
-        squadronSize: 6,
-        reserveSize: 8,
-        squadronKey: "TIEFIGHTER_EMPIRE"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 2,
-        squadronSize: 6,
-        reserveSize: 6,
-        squadronKey: "TIEBOMBER_EMPIRE"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 2,
-        squadronSize: 6,
-        reserveSize: 6,
-        squadronKey: "TIEINTERCEPTOR_EMPIRE"
-    }]
-};
+ships.MEGASTARDESTROYER_EMPIRE = templates.MEGASTARDESTROYER();
 
 ships.ARCHAMMER_EMPIRE = {
     name: "Arch Hammer",
     asset: "ARCHAMMER.png",
     classification: shipTypes.SuperCapital,
     population: 100,
-    size: 3000,
+    size: 2300,
     cost: 16000,
     speed: 2,
     turnSpeed: .01,
-    shield: 30000,
-    shieldRegen: 30,
+    shield: 37500,
+    shieldRegen: 37.5,
     hardpoints: (function() {
         const output = [];
 
@@ -288,7 +157,10 @@ ships.DEATHSTAR_EMPIRE = {
         output.push({
             x: -.5,
             y: .4125,
-            weapon: weapons.GREEN_SUPERLASER,
+            weapon: {
+                ...weapons.GREEN_SUPERLASER,
+                range: weapons.GREEN_SUPERLASER.range * 3
+            },
             shotsAtOnce: 50,
             shotDelay: 22.5
         });
@@ -332,106 +204,7 @@ ships.DEATHSTAR_EMPIRE = {
     }]
 };
 
-ships.LEGATORSTARDREADNOUGHT_EMPIRE = {
-    name: "Legator Star Dreadnought",
-    asset: "LEGATORSTARDREADNOUGHT.png",
-    classification: shipTypes.SuperCapital,
-    population: 100,
-    size: 6000,
-    cost: 35000,
-    speed: .75,
-    turnSpeed: .00075,
-    shield: 50000,
-    shieldRegen: 50,
-    hardpoints: (function() {
-        const output = [];
-
-        for (let i = 0; i < 19; i ++) {
-            output.push({
-                x: -.025 - .02 * i,
-                y: .9 - .07 * i,
-                weapon: weapons.GREEN_TRIPLE_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 250
-            }, {
-                x: .0175 + .02 * i,
-                y: .9 - .07 * i,
-                weapon: weapons.GREEN_TRIPLE_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 250
-            }, {
-                x: -.0175 - .02 * i,
-                y: .95 - .07 * i,
-                weapon: weapons.TRIPLE_ION_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 250
-            }, {
-                x: .025 + .02 * i,
-                y: .95 - .07 * i,
-                weapon: weapons.TRIPLE_ION_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 250
-            });
-        }
-
-        for (let i = 0; i < 12; i ++) {
-            output.push({
-                x: -.385 + .0225 * i,
-                y: -.385 - .0475 * i,
-                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 75
-            }, {
-                x: .385 - .0225 * i,
-                y: -.385 - .0475 * i,
-                weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 75
-            });
-        }
-
-        for (let i = 0; i < 8; i ++) {
-            for (let j = 0; j < 4; j ++) {
-                output.push({
-                    x: -.3 + .05 * i,
-                    y: -.3 + .05 * j,
-                    weapon: i % 2 === 0 ? weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY : weapons.ION_CANNON_ULTRA,
-                    shotsAtOnce: 2,
-                    shotDelay: 250
-                }, {
-                    x: .3 - .05 * i,
-                    y: -.3 + .05 * j,
-                    weapon: i % 2 === 0 ? weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY : weapons.ION_CANNON_ULTRA,
-                    shotsAtOnce: 2,
-                    shotDelay: 250
-                });
-            }
-        }
-
-        return output.map(e => ({
-            ...e,
-            weapon: {
-                ...e.weapon,
-                health: e.weapon.health * 2.5 | 0
-            }
-        }));
-    })(),
-    hangars: [{
-        x: 0,
-        y: 0,
-        maxSquadrons: 2,
-        squadronSize: 6,
-        reserveSize: 8,
-        squadronKey: "TIEFIGHTER_EMPIRE"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 2,
-        squadronSize: 6,
-        reserveSize: 8,
-        squadronKey: "TIEBOMBER_EMPIRE"
-    }]
-};
+ships.LEGATORSTARDREADNOUGHT_EMPIRE = templates.LEGATORSTARDREADNOUGHT();
 
 ships.CONSOLIDATORASSAULTSHIP_EMPIRE = {
     name: "Consolidator Assault Ship",

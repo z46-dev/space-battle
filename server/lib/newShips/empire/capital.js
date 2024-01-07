@@ -113,11 +113,15 @@ ships.ALLEGIANCE_EMPIRE = {
             output.push({
                 x: -.37 - .02 * i,
                 y: -.37 - .07 * i,
-                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
             }, {
                 x: .37 + .02 * i,
                 y: -.37 - .07 * i,
-                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.GREEN_OCTUPLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
             });
         }
 
@@ -125,13 +129,13 @@ ships.ALLEGIANCE_EMPIRE = {
             output.push({
                 x: -.075 - .0325 * i,
                 y: .75 - .1 * i,
-                weapon: i % 2 ? weapons.QUAD_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
+                weapon: i % 2 ? weapons.QUAD_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 100
             }, {
                 x: .075 + .0325 * i,
                 y: .75 - .1 * i,
-                weapon: i % 2 ? weapons.QUAD_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
+                weapon: i % 2 ? weapons.QUAD_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 100
             });
@@ -149,7 +153,8 @@ ships.ALLEGIANCE_EMPIRE = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 3.25 | 0
+                health: e.weapon.health * 3.25 | 0,
+                reload: e.weapon.reload * .8 | 0
             }
         }));
     })()
@@ -200,6 +205,91 @@ ships.VICTORYSTARDESTROYER_EMPIRE = {
                 shotsAtOnce: 8,
                 shotDelay: 100,
                 launchAngle: Math.PI / 2 - Math.PI / 6
+            }, {
+                x: -.05 - .05 * i,
+                y: .8 - .2 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: .05 + .05 * i,
+                y: .8 - .2 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            });
+        }
+
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2 | 0
+            }
+        }))
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 3,
+        squadronKey: "TIEBOMBER_EMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 3,
+        squadronKey: "TIEINTERCEPTOR_EMPIRE"
+    }]
+};
+
+ships.CRIMSONCOMMAND_EMPIRE = {
+    name: "Crimson Victory-II Star Destroyer",
+    asset: "CRIMSONVICTORY.png",
+    classification: shipTypes.Capital,
+    population: 16,
+    size: 400,
+    cost: 3100,
+    speed: 2.65,
+    turnSpeed: .01667,
+    shield: 7500,
+    shieldRegen: 7.5,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 3; i ++) {
+            output.push({
+                x: -.3,
+                y: -.4 - .1 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: .3,
+                y: -.4 - .1 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            });
+        }
+
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: -.525 - .0334 * i,
+                y: -.25 - .15 * i,
+                weapon: i % 2 ? weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY : weapons.SIEGE_CONCUSSION_MISSILE,
+                shotsAtOnce: i % 2 ? 2 : 8,
+                shotDelay: 100,
+                launchAngle: i % 2 ? undefined : (-Math.PI / 2 + Math.PI / 6)
+            }, {
+                x: .525 + .0334 * i,
+                y: -.25 - .15 * i,
+                weapon: i % 2 ? weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY : weapons.SIEGE_CONCUSSION_MISSILE,
+                shotsAtOnce: i % 2 ? 2 : 8,
+                shotDelay: 100,
+                launchAngle: i % 2 ? undefined : (Math.PI / 2 - Math.PI / 6)
             }, {
                 x: -.05 - .05 * i,
                 y: .8 - .2 * i,

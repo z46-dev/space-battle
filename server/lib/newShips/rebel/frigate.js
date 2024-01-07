@@ -11,7 +11,7 @@ ships.MC30C_REBEL = {
     size: 300,
     cost: 800,
     speed: 5,
-    turnSpeed: .05,
+    turnSpeed: .02,
     shield: 4000,
     shieldRegen: 2,
     hardpoints: [{
@@ -156,7 +156,7 @@ ships.PELTA_REBEL = {
     size: 160,
     cost: 640,
     speed: 4.2,
-    turnSpeed: .03,
+    turnSpeed: .015,
     shield: 2000,
     shieldRegen: 4,
     hardpoints: [{
@@ -230,7 +230,7 @@ ships.QUASAR_REBEL = {
     size: 175,
     cost: 2000,
     speed: 3,
-    turnSpeed: .025,
+    turnSpeed: .01,
     shield: 3500,
     shieldRegen: 2.5,
     hardpoints: [{
