@@ -104,9 +104,8 @@ heroes["AdmiralAckbar"] = {
     onTick: function(ship) {
         ship.ackbarRegenAbility++;
 
-        if (ship.ackbarRegenAbility >= 300) {
+        if (ship.ackbarRegenAbility >= 15) {
             ship.ackbarRegenAbility = 0;
-            ship.shieldAbility = !!!ship.shieldAbility;
 
             ship.battle.ships.forEach(s => {
                 if (s.team === ship.team && s.classification >= shipTypes.Corvette) {
@@ -119,10 +118,6 @@ heroes["AdmiralAckbar"] = {
                     });
                 }
             });
-        }
-
-        if (ship.shieldAbility) {
-            ship.shield = Math.min(ship.maxShield, ship.shield + ship.maxShield * .025);
         }
     }
 };

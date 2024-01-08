@@ -14,6 +14,11 @@ ships.MC30C_REBEL = {
     turnSpeed: .02,
     shield: 4000,
     shieldRegen: 2,
+    shieldRegenAbility: {
+        duration: .8,
+        cooldown: .6,
+        regen: 1.05
+    },
     hardpoints: [{
         x: -.05,
         y: .8,
@@ -72,6 +77,11 @@ ships.NEBULONB_REBEL = {
     turnSpeed: .0175,
     shield: 1000,
     shieldRegen: 1,
+    shieldRegenAbility: {
+        duration: .7,
+        cooldown: 2,
+        regen: .6
+    },
     hardpoints: [{
         x: 0,
         y: .85,

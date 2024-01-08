@@ -1038,6 +1038,23 @@ class Ship {
         }
 
         this.battle.ships.set(this.id, this);
+
+        this.shieldAbility = {
+            exists: false
+        };
+
+        if (config.shieldRegenAbility !== undefined) {
+            this.shieldAbility = {
+                exists: true,
+                enabled: false,
+                duration: (config.shieldRegenAbility.duration ?? 1) * 25 * 6,
+                cooldown: (config.shieldRegenAbility.cooldown ?? 1) * 25 * 24,
+                regen: (config.shieldRegenAbility.regen ?? 1) * .0015,
+                ticker: 0
+            };
+
+            this.shieldAbility.ticker = Math.random() * this.shieldAbility.cooldown * .15 | 0;
+        } 
     }
 
     addHangar(config) {
@@ -1094,6 +1111,24 @@ class Ship {
 
             if (this.ai !== undefined && this.squadron === null) {
                 this.ai.update();
+            }
+        }
+
+        if (this.shieldAbility.exists) {
+            this.shieldAbility.ticker++;
+
+            if (this.shieldAbility.enabled) {
+                this.shield = Math.min(this.shield + this.shieldAbility.regen * this.maxShield, this.maxShield);
+
+                if (this.shieldAbility.ticker >= this.shieldAbility.duration) {
+                    this.shieldAbility.enabled = false;
+                    this.shieldAbility.ticker = 0;
+                }
+            } else {
+                if (this.shieldAbility.ticker >= this.shieldAbility.cooldown) {
+                    this.shieldAbility.enabled = true;
+                    this.shieldAbility.ticker = 0;
+                }
             }
         }
 
@@ -1379,7 +1414,7 @@ const fleetOverrides = [
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(250, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(160, fleetFactions[i]);
 
     const spawned = [];
 
@@ -1538,7 +1573,7 @@ class Camera {
                 this.updateCommander = true;
             }
 
-            this.shieldAbility = newShip.shieldAbility;
+            this.shieldAbility = newShip.shieldAbility?.enabled;
         }
 
         getOutput() {

@@ -15,6 +15,11 @@ ships.MC85_REBEL = {
     turnSpeed: .0125,
     shield: 50000,
     shieldRegen: 20,
+    shieldRegenAbility: {
+        duration: 1.25,
+        cooldown: 1.2,
+        regen: 1.5
+    },
     hardpoints: (function() {
         const output = [];
 

@@ -14,6 +14,7 @@ ships.MC50_REBEL = {
     turnSpeed: .035,
     shield: 6000,
     shieldRegen: 2,
+    shieldRegenAbility: {},
     hardpoints: (function() {
         const output = [{
             x: 0,
@@ -105,6 +106,11 @@ ships.NEBULONB2_REBEL = {
     turnSpeed: .025,
     shield: 4000,
     shieldRegen: 4,
+    shieldRegenAbility: {
+        duration: .8,
+        cooldown: 2,
+        regen: .7
+    },
     hardpoints: (function() {
         const output = [{
             x: 0,
@@ -243,6 +249,10 @@ ships.MC75_REBEL = {
     turnSpeed: .025,
     shield: 12000,
     shieldRegen: 4,
+    shieldRegenAbility: {
+        duration: 2,
+        regen: 1.2
+    },
     hardpoints: [{
         x: 0,
         y: .1,

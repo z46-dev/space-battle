@@ -14,6 +14,10 @@ ships.MC80A_REBEL = {
     turnSpeed: .02,
     shield: 14000,
     shieldRegen: 6,
+    shieldRegenAbility: {
+        cooldown: .55,
+        regen: 1.1
+    },
     hardpoints: (function() {
         const output = [];
 
@@ -131,6 +135,10 @@ ships.MC80BLIBERTY_REBEL = {
     turnSpeed: .025,
     shield: 8000,
     shieldRegen: 4,
+    shieldRegenAbility: {
+        cooldown: .9,
+        regen: 1.05
+    },
     hardpoints: (function() {
         const output = [{
             x: -.2,
