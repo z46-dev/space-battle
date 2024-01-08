@@ -1369,17 +1369,17 @@ function spawn(ship, team) {
     return newShip;
 }
 
-const spawnDistance = 1500;
+const spawnDistance = 4000;
 
 const fleetFactions = ["EMPIRE", "REBEL"];
 
 const fleetOverrides = [
-    null,
+    ["ASSERTORSTARDREADNOUGHT_EMPIRE"],
     null
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(10, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(250, fleetFactions[i]);
 
     const spawned = [];
 
@@ -1537,6 +1537,8 @@ class Camera {
                 this.commander = newShip.commander;
                 this.updateCommander = true;
             }
+
+            this.shieldAbility = newShip.shieldAbility;
         }
 
         getOutput() {
@@ -1594,6 +1596,10 @@ class Camera {
                     output.push(this.team);
                     this.updateTeam = false;
                     output[1] += 256;
+                }
+
+                if (this.shieldAbility) {
+                    output[1] += 512;
                 }
             }
 

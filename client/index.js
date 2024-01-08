@@ -2,8 +2,7 @@ import SpatialHashGrid from "../server/lib/SpatialHashGrid.js";
 import { shipTypeNames, shipTypes, weaponClassifications, weaponDrawProperties, weaponProperties } from "../server/lib/constants.js";
 import { default as shipConfig } from "../server/lib/ships.js";
 import heroes from "../server/lib/heroes.js";
-
-window.shipConfig = shipConfig;
+import noise from "../Planet/oldNoise.js";
 
 (async function () {
     const assets = new Map();
@@ -57,6 +56,63 @@ window.shipConfig = shipConfig;
         ctx.putImageData(imageData, 0, 0);
 
         silhouettes.set(name, canvas.transferToImageBitmap());
+    }
+
+    const shieldFrames = {};
+    const shieldFrameBases = {};
+
+    function generateShieldFrame(image, name, phase) {
+        const size = 256;
+        const canvas = new OffscreenCanvas(size, size);
+        const ctx = canvas.getContext("2d");
+
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(image, 0, 0, size, size);
+
+        const imageData = ctx.getImageData(0, 0, size, size);
+
+        for (let i = 0; i < imageData.data.length; i += 4) {
+            const a = imageData.data[i + 3];
+
+            if (a > 0) {
+                const x = (i / 4) % size;
+                const y = (i / 4 / size) | 0;
+                const angleRot = Math.PI * 2 * phase / 16;
+                const dist = 1;
+
+                const xx = x + Math.sin(angleRot) * dist * (i % 3 ? -2 : 1);
+                const yy = y + Math.cos(angleRot) * dist * (i % 2 ? 2 : -1);
+
+                const noiseSeed = Math.max(.2, noise.simplex3(xx / (12 * (.75 + .25 * Math.sin(x))), yy / 25, .5) + 1.5);
+
+                imageData.data[i] = 25 * (noiseSeed * .5);
+                imageData.data[i + 1] = 100 * noiseSeed;
+                imageData.data[i + 2] = 255;
+                imageData.data[i + 3] = 80;
+
+                imageData.data[i] = Math.min(255, Math.max(0, imageData.data[i]));
+                imageData.data[i + 1] = Math.min(255, Math.max(0, imageData.data[i + 1]));
+                imageData.data[i + 2] = Math.min(255, Math.max(0, imageData.data[i + 2]));
+                imageData.data[i + 3] = Math.min(255, Math.max(0, imageData.data[i + 3]));
+            }
+        }
+
+        ctx.putImageData(imageData, 0, 0);
+
+        if (shieldFrames[name] === undefined) {
+            shieldFrames[name] = [];
+        }
+
+        shieldFrames[name][phase] = canvas.transferToImageBitmap();
+    }
+
+    function getShieldFrame(image, name, phase) {
+        if (shieldFrames[name] === undefined || shieldFrames[name][phase] === undefined) {
+            generateShieldFrame(shieldFrameBases[name] ?? image, name, phase);
+            shieldFrameBases[name] ??= shieldFrames[name][phase];
+        }
+
+        return shieldFrames[name][phase];
     }
 
     function turnImageIntoShards(image) {
@@ -490,6 +546,12 @@ window.shipConfig = shipConfig;
                         ship.team = data.shift();
                     }
 
+                    if (flags & 512) {
+                        ship.shieldAbility = true;
+                    } else {
+                        ship.shieldAbility = false;
+                    }
+
                     newShips.push(ship);
                 }
 
@@ -645,6 +707,8 @@ window.shipConfig = shipConfig;
                         if (newShip.commanderName !== undefined) {
                             ship.commanderName = newShip.commanderName;
                         }
+
+                        ship.shieldAbility = newShip.shieldAbility;
 
                         ships.set(newShip.id, ship);
                     }
@@ -1025,6 +1089,10 @@ window.shipConfig = shipConfig;
                     ctx.translate(ship.x, ship.y);
                     ctx.rotate(ship.angle);
                     ctx.drawImage(asset, -ship.size / 2, -ship.size / 2, ship.size, ship.size);
+                    
+                    if (ship.shieldAbility) {
+                        ctx.drawImage(getShieldFrame(asset, ship.key, ((performance.now() / 50 | 0) % 16) | 0), -ship.size / 2, -ship.size / 2, ship.size, ship.size);
+                    }
 
                     // Draw hardpoints
                     if (shipConfig[ship.key].classification >= shipTypes.Corvette) {
