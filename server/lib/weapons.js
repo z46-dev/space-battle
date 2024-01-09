@@ -198,25 +198,25 @@ export const ION_CANNON_ULTRA = {
 // GREEN WEAPON DEFS
 
 export const GREEN_FIGHTER_LASER_CANNON = {
-    reload: 12,
-    damage: 1,
-    speed: 50,
+    reload: 10,
+    damage: 2,
+    speed: 75,
     range: 1200,
     type: weaponTypes.GreenLaserCannon,
-    health: 5,
+    health: 2,
     name: "Light Laser Cannon",
-    collisionRange: 20
+    collisionRange: 40
 };
 
 export const GREEN_RAPID_FIGHTER_LASER_CANNON = {
-    reload: 6,
+    reload: 5,
     damage: 1,
-    speed: 50,
+    speed: 75,
     range: 700,
     type: weaponTypes.GreenLaserCannon,
     health: 30,
     name: "Rapid Light Laser Cannon",
-    collisionRange: 20
+    collisionRange: 30
 };
 
 export const GREEN_RAPID_LASER_CANNON = {

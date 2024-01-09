@@ -284,14 +284,19 @@ ships.ROGUESQUADRON_REBEL = {
 ships.FALCON_REBEL = {
     name: "Millenium Falcon",
     asset: "FALCON.png",
-    classification: shipTypes.Fighter,
-    population: 1,
-    size: 30,
+    classification: shipTypes.Corvette,
+    population: 3,
+    size: 65,
     cost: 600,
-    speed: 18,
-    turnSpeed: .03,
-    shield: 5000,
-    shieldRegen: 5,
+    speed: 20,
+    turnSpeed: .0667,
+    shield: 3000,
+    shieldRegen: 3,
+    shieldRegenAbility: {
+        duration: 1.5,
+        cooldown: .5,
+        regen: 5
+    },
     hardpoints: [{
         x: 0,
         y: 0,
@@ -315,10 +320,43 @@ ships.FALCON_REBEL = {
         y: 0,
         weapon: {
             ...weapons.FIGHTER_PROTON_TORPEDO,
-            health: weapons.FIGHTER_PROTON_TORPEDO.health * 10
+            health: weapons.FIGHTER_PROTON_TORPEDO.health * 10,
+            damage: weapons.FIGHTER_PROTON_TORPEDO.damage * 2,
+            bypassShield: true
         },
-        shotsAtOnce: 8,
+        shotsAtOnce: 3,
         shotDelay: 75
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.FIGHTER_CONCUSSION_MISSILE,
+            health: weapons.FIGHTER_CONCUSSION_MISSILE.health * 10,
+            damage: weapons.FIGHTER_CONCUSSION_MISSILE.damage * 3,
+            explosionDamage: weapons.FIGHTER_CONCUSSION_MISSILE.explosionDamage * 2,
+            explosionRange: weapons.FIGHTER_CONCUSSION_MISSILE.explosionRange * 2,
+            bypassShield: true
+        },
+        shotsAtOnce: 3,
+        shotDelay: 75
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+            reload: 1,
+            damage: weapons.RED_ANTI_FIGHTER_LASER_CANNON * 10,
+            bypassShield: true
+        }
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+            reload: 1,
+            damage: weapons.RED_ANTI_FIGHTER_LASER_CANNON * 10,
+            bypassShield: true
+        }
     }]
 };
 

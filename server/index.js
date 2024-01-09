@@ -1409,8 +1409,8 @@ const spawnDistance = 4000;
 const fleetFactions = ["EMPIRE", "REBEL"];
 
 const fleetOverrides = [
-    ["ASSERTORSTARDREADNOUGHT_EMPIRE"],
-    null
+    [],
+    []
 ];
 
 for (let i = 0; i < 2; i++) {
@@ -2257,7 +2257,7 @@ class Scene {
                         ship.speed = _speed;
                         ship.ai = _ai;
                         clearInterval(interval);
-                        resolve();
+                        resolve(ship);
                     }
                 }, 5);
             }, delay);
@@ -2999,3 +2999,21 @@ async function heroBattles() {
     await scene.wait(1000);
     await scene.unlockCamera();
 }
+
+async function falconEscape() {
+    /**
+     * @type {Ship}
+     */
+    const falcon = await scene.hyperspaceIn("FALCON_REBEL", 0, -2000, -2000, Math.atan2(-2000, -2000), 0, ship => {
+        ship.commander = new Commander(heroes.HanAndChewie, ship);
+    });
+
+    for (let i = 0; i < 2; i ++) {
+        const x = 1000 + Math.cos(Math.PI / 1.5 * i) * 400;
+        const y = 1000 + Math.sin(Math.PI / 1.5 * i) * 400;
+        const angle = Math.atan2(falcon.y - y, falcon.x - x);
+        await scene.hyperspaceIn("IMPERIALSTARDESTROYER_EMPIRE", 1, x, y, angle, 0);
+    }
+}
+
+falconEscape();

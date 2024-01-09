@@ -67,13 +67,13 @@ heroes["AdmiralRaddus"] = {
             hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00075);
 
             if (ship.raddusAbility.active) {
-                const selfDmg = hp.maxHealth * .002;
+                const selfDmg = hp.maxHealth * .001;
 
                 if (hp.health - selfDmg >= hp.maxHealth * .2) {
                     hp.health -= selfDmg;
                 }
 
-                hp.tick += 3.5;
+                hp.tick += 5;
             }
         });
     }

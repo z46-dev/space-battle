@@ -83,7 +83,7 @@ import noise from "../Planet/oldNoise.js";
                 const xx = x + Math.sin(angleRot) * dist * (i % 3 ? -2 : 1);
                 const yy = y + Math.cos(angleRot) * dist * (i % 2 ? 2 : -1);
 
-                const noiseSeed = Math.max(.2, noise.simplex3(xx / (12 * (.75 + .25 * Math.sin(x))), yy / 25, .5) + 1.5);
+                const noiseSeed = Math.max(.2, noise.simplex3(xx / (20 * (.75 + .5 * Math.sin(x))), yy / 15, .5) + 1.5);
 
                 imageData.data[i] = 25 * (noiseSeed * .5);
                 imageData.data[i + 1] = 100 * noiseSeed;
