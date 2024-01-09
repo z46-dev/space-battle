@@ -236,7 +236,7 @@ export const GREEN_ANTI_FIGHTER_LASER_CANNON = {
     range: 1500,
     type: weaponTypes.GreenLaserCannon,
     health: 100,
-    targetOverride: [shipTypes.Fighter, shipTypes.Bomber],
+    targetOverride: [shipTypes.Fighter, shipTypes.Bomber, shipTypes.FighterBomber],
     name: "Anti-Fighter Laser Cannon"
 };
 

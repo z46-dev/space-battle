@@ -3008,12 +3008,68 @@ async function falconEscape() {
         ship.commander = new Commander(heroes.HanAndChewie, ship);
     });
 
-    for (let i = 0; i < 2; i ++) {
+    const ISDPromises = [];
+    /**
+     * @type {Ship[]}
+     */
+    const ISDs = [];
+
+    await scene.lockCamera();
+    await scene.moveCamera(1000, 1000, .35);
+
+    for (let i = 0; i < 3; i ++) {
         const x = 1000 + Math.cos(Math.PI / 1.5 * i) * 400;
         const y = 1000 + Math.sin(Math.PI / 1.5 * i) * 400;
         const angle = Math.atan2(falcon.y - y, falcon.x - x);
-        await scene.hyperspaceIn("IMPERIALSTARDESTROYER_EMPIRE", 1, x, y, angle, 0);
+        ISDPromises.push(scene.hyperspaceIn("IMPERIALSTARDESTROYER_EMPIRE", 1, x, y, angle, i * 1500, ship => {
+            ISDs.push(ship);
+
+            if (i === 2) {
+                ship.commander = new Commander(heroes.GrandAdmiralThrawn, ship);
+            }
+        }));
     }
+
+    for (let i = 0; i < 6; i ++) {
+        const x = 1000 + Math.cos(Math.PI / 3 * i) * 400;
+        const y = 1000 + Math.sin(Math.PI / 3 * i) * 400;
+        const angle = Math.atan2(falcon.y - y, falcon.x - x);
+        ISDPromises.push(scene.hyperspaceIn("LANCERFRIGATE_EMPIRE", 1, x, y, angle, i * 500, ship => {
+            ISDs.push(ship);
+        }));
+    }
+
+    await Promise.all(ISDPromises);
+
+    function repositionDestroyers() {
+        const positions = [];
+
+        for (let i = 0; i < ISDs.length; i ++) {
+            let x = 0, y = 0;
+
+            do {
+                x = falcon.x + Math.random() * 10000 - 5000;
+                y = falcon.y + Math.random() * 10000 - 5000;
+            } while (positions.some(p => distance(p.x, p.y, x, y) < 1000));
+
+            positions.push({ x, y });
+            ISDs[i].ai.override ??= {
+                goal: null,
+                target: null
+            };
+
+            ISDs[i].ai.override.goal = {
+                x: x,
+                y: y
+            };
+        }
+    }
+
+    setInterval(repositionDestroyers, 10000);
+
+    await scene.wait(1000);
+    await scene.lockOnTo(falcon, .5);
+    await scene.unlockCamera();
 }
 
 falconEscape();
