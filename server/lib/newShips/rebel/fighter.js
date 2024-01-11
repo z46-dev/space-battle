@@ -284,7 +284,7 @@ ships.ROGUESQUADRON_REBEL = {
 ships.FALCON_REBEL = {
     name: "Millenium Falcon",
     asset: "FALCON.png",
-    classification: shipTypes.FighterBomber,
+    classification: shipTypes.Corvette,
     population: 3,
     size: 65,
     cost: 600,
@@ -322,6 +322,8 @@ ships.FALCON_REBEL = {
             ...weapons.FIGHTER_PROTON_TORPEDO,
             health: weapons.FIGHTER_PROTON_TORPEDO.health * 10,
             damage: weapons.FIGHTER_PROTON_TORPEDO.damage * 2,
+            explosionDamage: weapons.FIGHTER_CONCUSSION_MISSILE.explosionDamage * 2,
+            explosionRange: weapons.FIGHTER_CONCUSSION_MISSILE.explosionRange * 2,
             bypassShield: true
         },
         shotsAtOnce: 3,

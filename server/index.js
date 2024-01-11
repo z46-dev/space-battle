@@ -866,25 +866,29 @@ class ShipAI {
     }
 
     corvetteThinking() {
-        if (this.ship.shield / this.ship.maxShield < .5 && this.ship.health < .5) { // Kite
+        if (this.ship.shield / this.ship.maxShield < .2 && this.ship.health < .5) { // Kite
             this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
         } else {
-            if (this.wanderGoal === undefined) {
-                this.wanderGoal = {
-                    x: this.target.x + Math.random() * this.target.size * 4 - this.target.size * 2,
-                    y: this.target.y + Math.random() * this.target.size * 4 - this.target.size * 2
-                };
-            }
+            // if (this.wanderGoal === undefined) {
+            //     this.wanderGoal = {
+            //         x: this.target.x + Math.random() * this.target.size * 2 - this.target.size * 1,
+            //         y: this.target.y + Math.random() * this.target.size * 2 - this.target.size * 1
+            //     };
+            // }
 
-            const myDist = distance(this.ship.x, this.ship.y, this.wanderGoal.x, this.wanderGoal.y);
-            if (myDist <= this.ship.size * 2.5) {
-                this.wanderGoal = {
-                    x: this.target.x + Math.random() * this.target.size * 4 - this.target.size * 2,
-                    y: this.target.y + Math.random() * this.target.size * 4 - this.target.size * 2
-                };
-            }
+            // const myDist = distance(this.ship.x, this.ship.y, this.wanderGoal.x, this.wanderGoal.y);
+            // if (myDist <= this.ship.size * 4) {
+            //     this.wanderGoal = {
+            //         x: this.target.x + Math.random() * this.target.size * 2 - this.target.size * 1,
+            //         y: this.target.y + Math.random() * this.target.size * 2 - this.target.size * 1
+            //     };
+            // }
 
-            this.ship.angleGoal = Math.atan2(this.wanderGoal.y - this.ship.y, this.wanderGoal.x - this.ship.x);
+            // this.ship.angleGoal = Math.atan2(this.wanderGoal.y - this.ship.y, this.wanderGoal.x - this.ship.x);
+
+            if ((performance.now() + this.ship.id) % 10000 > 6570) {
+                this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
+            }
         }
     }
 
@@ -3017,15 +3021,15 @@ async function falconEscape() {
     await scene.lockCamera();
     await scene.moveCamera(1000, 1000, .35);
 
-    for (let i = 0; i < 3; i ++) {
-        const x = 1000 + Math.cos(Math.PI / 1.5 * i) * 400;
-        const y = 1000 + Math.sin(Math.PI / 1.5 * i) * 400;
+    for (let i = 0; i < 1; i ++) {
+        const x = 1000 + Math.cos(Math.PI / 1.5 * i) * 0;
+        const y = 1000 + Math.sin(Math.PI / 1.5 * i) * 0;
         const angle = Math.atan2(falcon.y - y, falcon.x - x);
-        ISDPromises.push(scene.hyperspaceIn("IMPERIALSTARDESTROYER_EMPIRE", 1, x, y, angle, i * 1500, ship => {
+        ISDPromises.push(scene.hyperspaceIn("QUASAR_EMPIRE", 1, x, y, angle, 3000, ship => {
             ISDs.push(ship);
 
-            if (i === 2) {
-                ship.commander = new Commander(heroes.GrandAdmiralThrawn, ship);
+            if (i === 0) {
+                ship.commander = new Commander(heroes.AdmiralPiett, ship);
             }
         }));
     }
@@ -3034,7 +3038,7 @@ async function falconEscape() {
         const x = 1000 + Math.cos(Math.PI / 3 * i) * 400;
         const y = 1000 + Math.sin(Math.PI / 3 * i) * 400;
         const angle = Math.atan2(falcon.y - y, falcon.x - x);
-        ISDPromises.push(scene.hyperspaceIn("LANCERFRIGATE_EMPIRE", 1, x, y, angle, i * 500, ship => {
+        ISDPromises.push(scene.hyperspaceIn("LANCERFRIGATE_EMPIRE", 1, x, y, angle, (i % 3) * 500, ship => {
             ISDs.push(ship);
         }));
     }
