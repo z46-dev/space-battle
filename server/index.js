@@ -1058,7 +1058,7 @@ class Ship {
             };
 
             this.shieldAbility.ticker = Math.random() * this.shieldAbility.cooldown * .15 | 0;
-        } 
+        }
     }
 
     addHangar(config) {
@@ -3021,7 +3021,7 @@ async function falconEscape() {
     await scene.lockCamera();
     await scene.moveCamera(1000, 1000, .35);
 
-    for (let i = 0; i < 1; i ++) {
+    for (let i = 0; i < 3; i++) {
         const x = 1000 + Math.cos(Math.PI / 1.5 * i) * 0;
         const y = 1000 + Math.sin(Math.PI / 1.5 * i) * 0;
         const angle = Math.atan2(falcon.y - y, falcon.x - x);
@@ -3034,7 +3034,7 @@ async function falconEscape() {
         }));
     }
 
-    for (let i = 0; i < 6; i ++) {
+    for (let i = 0; i < 6; i++) {
         const x = 1000 + Math.cos(Math.PI / 3 * i) * 400;
         const y = 1000 + Math.sin(Math.PI / 3 * i) * 400;
         const angle = Math.atan2(falcon.y - y, falcon.x - x);
@@ -3048,7 +3048,7 @@ async function falconEscape() {
     function repositionDestroyers() {
         const positions = [];
 
-        for (let i = 0; i < ISDs.length; i ++) {
+        for (let i = 0; i < ISDs.length; i++) {
             let x = 0, y = 0;
 
             do {
@@ -3076,4 +3076,46 @@ async function falconEscape() {
     await scene.unlockCamera();
 }
 
-falconEscape();
+async function battleOfAtollon() {
+    await scene.lockCamera();
+    await scene.moveCamera(-2000, 3000, .225);
+
+    const rebelFleet = [];
+    let dodonna = false;
+    [
+        "CR90_REBEL",
+        "CR90_REBEL",
+        "CR90_REBEL",
+        "CR90_REBEL",
+        "CR90_REBEL",
+        "CR90_REBEL",
+        "CR90_REBEL",
+        "CR90_REBEL",
+        "CR90_REBEL",
+        "DP20_REBEL",
+        "DP20_REBEL",
+        "DP20_REBEL",
+        "DP20_REBEL",
+        "PELTA_REBEL",
+        "MARAUDERMISSILECRUISER_REBEL",
+        "QUASAR_REBEL",
+        "NEBULONB_REBEL",
+        "NEBULONB_REBEL",
+        "NEBULONB_REBEL"
+    ].forEach(key => {
+        const x = -2000 + Math.random() * 3000 - 1500;
+        const y = 3000 + Math.random() * 2000 - 1000;
+        rebelFleet.push(scene.hyperspaceIn(key, 0, x, y, Math.atan2(y, x) + Math.PI, Math.random() * 5000, ship => {
+            if (key === "QUASAR_REBEL") {
+                ship.commander = new Commander(heroes.JunSato, ship);
+            } else if (key === "NEBULONB_REBEL" && !dodonna) {
+                dodonna = true;
+                ship.commander = new Commander(heroes.GeneralDodonna, ship);
+            }
+        }));
+    });
+
+    await Promise.all(rebelFleet);
+}
+
+battleOfAtollon();

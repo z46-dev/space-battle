@@ -276,4 +276,43 @@ heroes["HanAndChewie"] = {
     modifications: () => {}
 };
 
+heroes["JunSato"] = {
+    name: "Commander Jun Sato",
+    tooltip: "The compassionate rebel leader of the Phoenix Squadron, Sato was a well loved leader who commanded a modified Quasar-Class Fire Carrier the Phoenix Nest. He lost his life at the battle of Atollon when going up against Grand Admiral Thrawn, heroically sacrificing himself so the Rebellion would go on.",
+    image: "CommanderSato.webp",
+    ships: ["QUASAR_REBEL"],
+    modifications: function(ship) {
+        ship.shield *= 4;
+        ship.maxShield *= 4;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 3;
+            hp.maxHealth *= 3;
+            hp.reload *= .75;
+            hp.bypassShield = true;
+            hp.damage *= .75;
+        });
+
+        ship.addHangar({
+            x: 0,
+            y: 0,
+            offset: 0,
+            direction: 0,
+            maxSquadrons: 2,
+            squadronSize: 3,
+            reserveSize: 7,
+            squadronKey: "YWING_REBEL"
+        });
+    },
+    onTick: function(ship) {
+        ship.hardpoints.forEach(hp => {
+            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .0001);
+        });
+
+        ship.hangars.forEach(hangar => {
+            hangar.hangarSize = Math.max(1, hangar.hangarSize);
+        });
+    }
+};
+
 export default heroes;
