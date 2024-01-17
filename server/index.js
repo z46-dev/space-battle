@@ -3081,7 +3081,8 @@ async function battleOfAtollon() {
     await scene.moveCamera(-2000, 3000, .225);
 
     const rebelFleet = [];
-    let dodonna = false;
+    let tempHeroCheck = false;
+
     [
         "CR90_REBEL",
         "CR90_REBEL",
@@ -3108,14 +3109,60 @@ async function battleOfAtollon() {
         rebelFleet.push(scene.hyperspaceIn(key, 0, x, y, Math.atan2(y, x) + Math.PI, Math.random() * 5000, ship => {
             if (key === "QUASAR_REBEL") {
                 ship.commander = new Commander(heroes.JunSato, ship);
-            } else if (key === "NEBULONB_REBEL" && !dodonna) {
-                dodonna = true;
+                scene.displayText("[Commander Sato]: Alright Rebels, this is where we finally strike at the Empire. We'll begin our attack on the Lothal TIE-Defender factories momentarily.");
+            } else if (key === "NEBULONB_REBEL" && !tempHeroCheck) {
+                tempHeroCheck = true;
                 ship.commander = new Commander(heroes.GeneralDodonna, ship);
             }
+
+            ship.disableHangars = true;
+            ship.disabled = true;
         }));
     });
 
     await Promise.all(rebelFleet);
+
+    scene.displayText("[Rebel Technician]: Commander, we're detecting a large Imperial fleet coming out of hyperspace!");
+
+    await scene.moveCamera(2000, -3000, .225);
+    const empireFleet = [];
+
+    [
+        "IMPERIALSTARDESTROYER_EMPIRE",
+        "IMPERIALSTARDESTROYER_EMPIRE",
+        "IMPERIALSTARDESTROYER_EMPIRE",
+        "ARQUITENS_EMPIRE",
+        "ARQUITENS_EMPIRE",
+        "ARQUITENS_EMPIRE",
+        "ARQUITENS_EMPIRE",
+        "IMOBILIZER_EMPIRE",
+        "IMOBILIZER_EMPIRE"
+    ].forEach(key => {
+        const x = 2000 + Math.random() * 3000 - 1500;
+        const y = -3000 + Math.random() * 2000 - 1000;
+
+        empireFleet.push(scene.hyperspaceIn(key, 1, x, y, Math.atan2(y, x) + Math.PI, Math.random() * 5000, ship => {
+            if (key === "IMOBILIZER_EMPIRE" && tempHeroCheck) {
+                ship.commander = new Commander(heroes.Konstantine, ship);
+                tempHeroCheck = false;
+            }
+
+            ship.disableHangars = true;
+            ship.disabled = true;
+        }));
+    });
+
+    await Promise.all(empireFleet);
+    await scene.hyperspaceIn("IMPERIALSTARDESTROYER_EMPIRE", 1, 2000, -3000, Math.atan2(-3000, 2000) + Math.PI, 0, ship => {
+        ship.commander = new Commander(heroes.GrandAdmiralThrawn, ship);
+    });
+
+    battle.ships.forEach(ship => {
+        ship.disabled = ship.disableHangars = false;
+    });
+    await scene.wait(1000);
+
+    scene.unlockCamera();
 }
 
 battleOfAtollon();

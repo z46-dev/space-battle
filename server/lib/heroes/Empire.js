@@ -235,4 +235,22 @@ heroes["AdmiralCorburn"] = {
     }
 };
 
+heroes["Konstantine"] = {
+    name: "Admiral Konstantine",
+    tooltip: "Admiral Konstantine was an admiral of the Empire who rose to power due to his political connections. He was a poor tactician, and was eventually killed by Commander Sato at the Battle of Atollon due to his greed and power-hungry nature.",
+    image: "Konstantine.jfif",
+    ships: ["IMPERIALSTARDESTROYER_EMPIRE", "IMOBILIZER_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 1.2;
+        ship.maxShield *= 1.2;
+        ship.shieldRegen *= 1.1;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.1;
+            hp.maxHealth *= 1.1;
+            hp.range *= 2;
+        });
+    }
+};
+
 export default heroes;
