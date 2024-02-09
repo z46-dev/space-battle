@@ -299,9 +299,20 @@ heroes["JunSato"] = {
             offset: 0,
             direction: 0,
             maxSquadrons: 2,
-            squadronSize: 3,
-            reserveSize: 7,
+            squadronSize: 6,
+            reserveSize: 3,
             squadronKey: "YWING_REBEL"
+        });
+
+        ship.addHangar({
+            x: 0,
+            y: 0,
+            offset: 0,
+            direction: 0,
+            maxSquadrons: 1,
+            squadronSize: 3,
+            reserveSize: 3,
+            squadronKey: "BWING_EXPERIMENTAL_REBEL"
         });
     },
     onTick: function(ship) {

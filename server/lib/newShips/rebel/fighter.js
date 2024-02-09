@@ -120,7 +120,7 @@ ships.BWING_REBEL = {
     population: 0,
     size: 22,
     cost: 6,
-    speed: 22.5,
+    speed: 16,
     turnSpeed: .08,
     shield: 15,
     shieldRegen: .9,
@@ -140,6 +140,40 @@ ships.BWING_REBEL = {
         weapon: weapons.FIGHTER_PROTON_BOMB,
         shotsAtOnce: 4,
         shotDelay: 50
+    }]
+};
+
+ships.BWING_EXPERIMENTAL_REBEL = {
+    name: "Experimental B-Wing",
+    asset: "BWING.png",
+    classification: shipTypes.FighterBomber,
+    population: 0,
+    size: 22,
+    cost: 6,
+    speed: 17,
+    turnSpeed: .08,
+    shield: 55,
+    shieldRegen: 5,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: weapons.RED_DOUBLE_LASER_CANNON
+    }, {
+        x: .5,
+        y: 0,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
+        shotsAtOnce: 5,
+        shotDelay: 190
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.ASSAULT_CONCUSSION_MISSILE,
+            damage: weapons.ASSAULT_CONCUSSION_MISSILE.damage * 5,
+            explosionDamage: weapons.ASSAULT_CONCUSSION_MISSILE.explosionDamage * 5,
+            explosionRange: weapons.ASSAULT_CONCUSSION_MISSILE.explosionRange * 5,
+            bypassShield: true
+        }
     }]
 };
 
