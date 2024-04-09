@@ -132,7 +132,7 @@ heroes["GrandAdmiralThrawn"] = {
             hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00075);
         });
 
-        ship.repelMissiles();
+        //ship.repelMissiles();
     }
 };
 

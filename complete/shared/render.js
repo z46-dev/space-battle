@@ -38,7 +38,7 @@ export function drawText(text, x, y, size, fill, stroke = Color.mix(fill, "#0000
     ctx.font = `bold ${size}px sans-serif`;
     ctx.fillStyle = fill;
     ctx.strokeStyle = stroke;
-    ctx.lineWidth = size / 5;
+    ctx.lineWidth = size / 7.5;
 
     ctx.strokeText(text, x, y);
     ctx.fillText(text, x, y);

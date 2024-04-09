@@ -159,8 +159,8 @@ import noise from "../Planet/oldNoise.js";
     // }
 
     const world = {
-        width: 15_000,
-        height: 15_000,
+        width: 64_000,
+        height: 64_000,
         minimapData: [],
         starCounter: 0,
         starGrid: new SpatialHashGrid(),

@@ -1281,7 +1281,7 @@ function getRandomPointInEllipse(x, y, w, h, angle) {
     return { x: rotatedX, y: rotatedY };
 }
 
-const size = 15_000;
+const size = 64_000;
 const battle = new Battle(size, size, 2);
 
 class Fleet {
@@ -1397,7 +1397,7 @@ function spawn(ship, team) {
 
     if (remainingCommanders.length > 0) {
         for (let i = 0; i < remainingCommanders.length; i++) {
-            if (remainingCommanders[i].ships.includes(ship) && Math.random() > .7) {
+            if (remainingCommanders[i].ships.includes(ship) && Math.random() > .925) {
                 newShip.commander = new Commander(remainingCommanders[i], newShip);
                 remainingCommanders.splice(i, 1);
                 break;
@@ -1409,8 +1409,7 @@ function spawn(ship, team) {
 }
 
 const spawnDistance = 4000;
-
-const fleetFactions = ["EMPIRE", "REBEL"];
+const fleetFactions = ["EMPIRE", "CIS"];
 
 const fleetOverrides = [
     [],
@@ -1418,7 +1417,7 @@ const fleetOverrides = [
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(160, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(35, fleetFactions[i]);
 
     const spawned = [];
 
@@ -2109,7 +2108,7 @@ onmessage = function (e) {
 
             battle.ships.forEach(ship => {
                 switch (ship.key) {
-                    case "MEGASTARDESTOYER_DARKEMPIRE":
+                    case "MEGASTARDESTROYER_DARKEMPIRE":
                         hux = ship;
                         break;
                     case "MC85_REBEL":
@@ -2383,10 +2382,10 @@ async function holdoManeuverScene() {
     await scene.moveCamera(spawnpoint.x, spawnpoint.y, .025);
 
     await scene.wait(1000);
-    await scene.hyperspaceIn("MEGASTARDESTOYER_DARKEMPIRE", 0, spawnpoint.x, spawnpoint.y, spawnpoint.angle, 0);
+    await scene.hyperspaceIn("MEGASTARDESTROYER_DARKEMPIRE", 0, spawnpoint.x, spawnpoint.y, spawnpoint.angle, 0);
     await scene.wait(5000);
 
-    const supremacy = scene.getShip("MEGASTARDESTOYER_DARKEMPIRE", 0);
+    const supremacy = scene.getShip("MEGASTARDESTROYER_DARKEMPIRE", 0);
     const raddus = scene.getShip("MC85_REBEL", 1);
 
     raddus.ai = new HoldoManeuverAI(raddus, supremacy);
@@ -3076,9 +3075,4 @@ async function falconEscape() {
     await scene.unlockCamera();
 }
 
-async function rebelAssaultOnTheShipyards() {
-    // 3 shipyards, all dead = rebel win
-    
-}
-
-satoVSKonstantine();
+battleOfOrinda();
