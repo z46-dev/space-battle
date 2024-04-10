@@ -194,4 +194,132 @@ ships.VENATOR_HUTT = {
     }]
 };
 
+ships.KARAGGA_HUTT = {
+    name: "Karragga Destroyer",
+    asset: "karaggaDestroyer.png",
+    classification: shipTypes.Capital,
+    population: 22,
+    size: 675,
+    cost: 6000,
+    speed: 1.3,
+    turnSpeed: .01,
+    shield: 9500,
+    shieldRegen: 95,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: -.15,
+                y: .7 - .3 * i,
+                weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+                shotsAtOnce: 3,
+                shotDelay: 75
+            }, {
+                x: .15,
+                y: .7 - .3 * i,
+                weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+                shotsAtOnce: 3,
+                shotDelay: 75
+            }, {
+                x: -.075,
+                y: .875 - .45 * i,
+                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            }, {
+                x: .075,
+                y: .875 - .45 * i,
+                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            });
+        }
+
+        return output.map(hp => ({
+            ...hp,
+            weapon: {
+                ...hp.weapon,
+                health: hp.weapon.health * 2
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "A9VIGILANCE_HUTT"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "SKIPRAYBLASTBOAT_HUTT"
+    }]
+};
+
+ships.VONTOR_HUTT = {
+    name: "Vontor Destroyer",
+    asset: "vontorDestroyer.png",
+    classification: shipTypes.Capital,
+    population: 30,
+    size: 1000,
+    cost: 9990,
+    speed: 1.5,
+    turnSpeed: .008,
+    shield: 12330,
+    shieldRegen: 100,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 7; i ++) {
+            output.push({
+                x: -.075 - .01 * i,
+                y: .925 - .225 * i,
+                weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            }, {
+                x: .075 + .01 * i,
+                y: .925 - .225 * i,
+                weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            }, {
+                x: 0,
+                y: .8 - .225 * i,
+                weapon: weapons.QUAD_ION_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 125
+            });
+        }
+
+        return output.map(hp => ({
+            ...hp,
+            weapon: {
+                ...hp.weapon,
+                health: hp.weapon.health * 2
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 4,
+        squadronKey: "A9VIGILANCE_HUTT"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 2,
+        squadronKey: "SKIPRAYBLASTBOAT_HUTT"
+    }]
+};
+
 export default ships;

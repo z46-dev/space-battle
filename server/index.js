@@ -1409,15 +1409,15 @@ function spawn(ship, team) {
 }
 
 const spawnDistance = 4000;
-const fleetFactions = ["EMPIRE", "CIS"];
+const fleetFactions = ["HUTT", "EMPIRE"];
 
 const fleetOverrides = [
-    [],
-    []
+    null,
+    ["CAPITAL_SHIPYARD_EMPIRE", "IMPERIALSTARDESTROYER_EMPIRE", "IMPERIALSTARDESTROYER_EMPIRE"]
 ];
 
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(35, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(500, fleetFactions[i]);
 
     const spawned = [];
 
@@ -3074,5 +3074,3 @@ async function falconEscape() {
     await scene.lockOnTo(falcon, .5);
     await scene.unlockCamera();
 }
-
-battleOfOrinda();

@@ -7,7 +7,7 @@
 
 <body>
     <script>
-        const imageURL = "/assets/ships/VICTORYSTARDESTROYER.png";
+        const imageURL = "/tmpImage.png";
 
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
@@ -17,6 +17,26 @@
 
         const image = new Image();
         image.src = imageURL;
+
+        function removeBackground(r, g, b, tolerance = 5) {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                const r1 = imageData.data[i];
+                const g1 = imageData.data[i + 1];
+                const b1 = imageData.data[i + 2];
+
+                const dr = Math.abs(r1 - r);
+                const dg = Math.abs(g1 - g);
+                const db = Math.abs(b1 - b);
+
+                if (dr <= tolerance && dg <= tolerance && db <= tolerance) {
+                    imageData.data[i + 3] = 0;
+                }
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+        }
 
         function reColor(tR, tG, tB, str) {
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -102,6 +122,59 @@
             ctx.putImageData(newImageData, 0, 0);
         }
 
+        function getSizing() {
+            let minX = canvas.width,
+                minY = canvas.height,
+                maxX = 0,
+                maxY = 0;
+
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                const r = imageData.data[i];
+                const g = imageData.data[i + 1];
+                const b = imageData.data[i + 2];
+                const a = imageData.data[i + 3];
+
+                if (a === 0) {
+                    continue;
+                }
+
+                const x = Math.floor(i / 4 % canvas.width);
+                const y = Math.floor(i / 4 / canvas.width);
+
+                minX = Math.min(minX, x);
+                minY = Math.min(minY, y);
+                maxX = Math.max(maxX, x);
+                maxY = Math.max(maxY, y);
+            }
+
+            return {
+                x: minX,
+                y: minY,
+                width: maxX - minX + 1,
+                height: maxY - minY + 1
+            };
+        }
+
+        function center() {
+            const sizing = getSizing();
+
+            const newCanvas = document.createElement("canvas");
+            const newCtx = newCanvas.getContext("2d");
+
+            newCanvas.width = sizing.width;
+            newCanvas.height = sizing.width;
+
+            // Put the image in the center of the new canvas
+            newCtx.drawImage(canvas, sizing.x, sizing.y, sizing.width, sizing.height, 0, sizing.width / 2 - sizing.height / 2, sizing.width, sizing.height);
+
+            canvas.width = sizing.width;
+            canvas.height = sizing.width;
+
+            ctx.drawImage(newCanvas, 0, 0);
+        }
+
         image.onload = function () {
             const size = Math.max(image.width, image.height);
 
@@ -112,13 +185,12 @@
             ctx.scale(ratio, ratio);
 
             ctx.translate(size / 2, size / 2);
-            //ctx.rotate(-Math.PI / 2);
+            ctx.rotate(Math.PI);
 
             ctx.drawImage(image, -image.width / 2, -image.height / 2, image.width, image.height);
 
-            reColor(200, 0, 0, .45);
-
-            // smoothlyScale(2);
+            removeBackground(255, 255, 255, 50);
+            center();
 
             document.body.appendChild(canvas);
         }

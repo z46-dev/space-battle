@@ -294,4 +294,311 @@ ships.SABOATHDESTROYER_HUTT = {
     }]
 };
 
+ships.UBRIKKIAN_HUTT = {
+    name: "Ubrikkian Frigate",
+    asset: "ubrikkianFrigate.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 15,
+    size: 340,
+    cost: 2900,
+    speed: 3,
+    turnSpeed: .015,
+    shield: 4000,
+    shieldRegen: 4,
+    hardpoints: [{
+        x: -.075,
+        y: .8,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .075,
+        y: .8,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.2,
+        y: -.8,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .2,
+        y: -.8,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.125,
+        y: .4,
+        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .125,
+        y: .4,
+        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.125,
+        y: -.4,
+        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .125,
+        y: -.4,
+        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.125,
+        y: 0,
+        weapon: weapons.PURPLE_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .125,
+        y: 0,
+        weapon: weapons.PURPLE_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }].map(hp => ({
+        ...hp,
+        weapon: {
+            ...hp.weapon,
+            health: hp.weapon.health * 2
+        }
+    })),
+    hangars: [{
+        x: 0,
+        y: -.8,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 2,
+        squadronKey: "A9VIGILANCE_HUTT"
+    }]
+};
+
+ships.TEMPEST_HUTT = {
+    name: "Tempest Heavy Cruiser",
+    asset: "tempestCruiser.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 20,
+    size: 500,
+    cost: 4000,
+    speed: 2.5,
+    turnSpeed: .01,
+    shield: 6500,
+    shieldRegen: 20,
+    hardpoints: [{
+        x: -.1,
+        y: .95,
+        weapon: {
+            ...weapons.ASSAULT_PROTON_ROCKET,
+            reload: weapons.ASSAULT_PROTON_ROCKET.reload / 3
+        },
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .1,
+        y: .95,
+        weapon: {
+            ...weapons.ASSAULT_PROTON_ROCKET,
+            reload: weapons.ASSAULT_PROTON_ROCKET.reload / 3
+        },
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.18,
+        y: .55,
+        weapon: weapons.PURPLE_RAPID_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 40
+    }, {
+        x: .18,
+        y: .55,
+        weapon: weapons.PURPLE_RAPID_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 40
+    }, {
+        x: -.12,
+        y: .3,
+        weapon: weapons.PURPLE_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 55
+    }, {
+        x: .12,
+        y: .3,
+        weapon: weapons.PURPLE_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 55
+    }, {
+        x: -.12,
+        y: .1,
+        weapon: weapons.QUAD_ION_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 55
+    }, {
+        x: .12,
+        y: .1,
+        weapon: weapons.QUAD_ION_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 55
+    }, {
+        x: -.12,
+        y: -.1,
+        weapon: weapons.PURPLE_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 55
+    }, {
+        x: .12,
+        y: -.1,
+        weapon: weapons.PURPLE_DOUBLE_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 55
+    }, {
+        x: -.09,
+        y: -.4,
+        weapon: weapons.PURPLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 55
+    }, {
+        x: .09,
+        y: -.4,
+        weapon: weapons.PURPLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 55
+    }, {
+        x: 0,
+        y: -.55,
+        weapon: weapons.PURPLE_TRIPLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 55
+    }].map(hp => ({
+        ...hp,
+        weapon: {
+            ...hp.weapon,
+            health: hp.weapon.health * 2
+        }
+    })),
+    hangars: [{
+        x: 0,
+        y: -.8,
+        maxSquadrons: 2,
+        squadronSize: 4,
+        reserveSize: 4,
+        squadronKey: "A9VIGILANCE_HUTT"
+    }]
+};
+
+ships.SZAJIN_HUTT = {
+    name: "Szajin Cruiser",
+    asset: "szajinCruiser.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 20,
+    size: 500,
+    cost: 4000,
+    speed: 1.9,
+    turnSpeed: .005,
+    shield: 8800,
+    shieldRegen: 88,
+    hardpoints: [{
+        x: -.075,
+        y: .915,
+        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 75
+    }, {
+        x: .075,
+        y: .915,
+        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 75
+    }, {
+        x: -.2,
+        y: .6,
+        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 75
+    }, {
+        x: .2,
+        y: .6,
+        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 75
+    }, {
+        x: -.25,
+        y: .2,
+        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 75
+    }, {
+        x: .25,
+        y: .2,
+        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 75
+    }, {
+        x: -.25,
+        y: -.3,
+        weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 75
+    }, {
+        x: .25,
+        y: -.3,
+        weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 75
+    }, {
+        x: -.25,
+        y: -.7,
+        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 75
+    }, {
+        x: .25,
+        y: -.7,
+        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 75
+    }, {
+        x: 0,
+        y: .4,
+        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 3,
+        shotDelay: 100
+    }, {
+        x: .25,
+        y: .4,
+        weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+        shotsAtOnce: 3,
+        shotDelay: 100
+    }].map(hp => ({
+        ...hp,
+        weapon: {
+            ...hp.weapon,
+            health: hp.weapon.health * 3
+        }
+    })),
+    hangars: [{
+        x: 0,
+        y: -.8,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "A9VIGILANCE_HUTT"
+    }, {
+        x: 0,
+        y: -.8,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "SKIPRAYBLASTBOAT_HUTT"
+    }]
+};
+
 export default ships;
