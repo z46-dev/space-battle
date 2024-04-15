@@ -1409,11 +1409,11 @@ function spawn(ship, team) {
 }
 
 const spawnDistance = 4000;
-const fleetFactions = ["DESTROYER", "HUTT"];
+const fleetFactions = ["REBEL", "EMPIRE"];
 
 const fleetOverrides = [
-    null,
-    null
+    [],
+    []
 ];
 
 const pop = ships.CHIMERA_DESTROYER.population * 6;
@@ -3076,3 +3076,48 @@ async function falconEscape() {
     await scene.lockOnTo(falcon, .5);
     await scene.unlockCamera();
 }
+
+async function theEndOfDalla() {
+    const spawnpoint = {
+        x: -4000,
+        y: -4000,
+        angle: 0,
+        range: () => Math.random() * 5000 - 2500
+    };
+
+    const spawnpoint2 = {
+        x: 4000,
+        y: 4000,
+        angle: 0,
+        range: () => Math.random() * 5000 - 2500
+    };
+
+    spawnpoint.angle = Math.atan2(spawnpoint.y, spawnpoint.x) + Math.PI;
+    spawnpoint2.angle = Math.atan2(spawnpoint2.y, spawnpoint2.x) + Math.PI;
+
+    await scene.lockCamera();
+    await scene.moveCamera(spawnpoint2.x, spawnpoint2.y, .075);
+    await scene.hyperspaceIn("EXECUTORSUPERSTARDESTROYER_EMPIRE", 0, spawnpoint2.x, spawnpoint2.y, spawnpoint2.angle, 0, ship => {
+        ship.commander = new Commander(heroes.GeneralDelvarus, ship);
+    });
+    await scene.hyperspaceIn("IMPERIALSTARDESTROYER_EMPIRE", 0, spawnpoint2.x - 2000, spawnpoint2.y + 100, spawnpoint2.angle, 0);
+    await scene.hyperspaceIn("IMPERIALSTARDESTROYER_EMPIRE", 0, spawnpoint2.x + 800, spawnpoint2.y - 500, spawnpoint2.angle, 0);
+
+    await scene.wait(1000);
+
+    await scene.moveCamera(spawnpoint.x, spawnpoint.y, .1);
+
+    await Promise.all([
+        scene.hyperspaceIn("MC80A_REBEL", 1, spawnpoint.x, spawnpoint.y, spawnpoint.angle, 0, ship => {
+            ship.commander = new Commander(heroes.AdmiralAckbar, ship);
+        }),
+        scene.hyperspaceIn("LUSANKYA_REBEL", 1, spawnpoint.x, spawnpoint.y, spawnpoint.angle, 0, ship => {
+            ship.commander = new Commander(heroes.WedgeAntilles, ship);
+        })
+    ]);
+
+    await scene.wait(1000);
+    await scene.unlockCamera();
+}
+
+theEndOfDalla();
