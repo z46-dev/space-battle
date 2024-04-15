@@ -3111,9 +3111,7 @@ async function theEndOfDalla() {
         scene.hyperspaceIn("MC80A_REBEL", 1, spawnpoint.x, spawnpoint.y, spawnpoint.angle, 0, ship => {
             ship.commander = new Commander(heroes.AdmiralAckbar, ship);
         }),
-        scene.hyperspaceIn("LUSANKYA_REBEL", 1, spawnpoint.x, spawnpoint.y, spawnpoint.angle, 0, ship => {
-            ship.commander = new Commander(heroes.WedgeAntilles, ship);
-        })
+        ...["MC50_REBEL", "MC30C_REBEL", "MC80BLIBERTY_REBEL", "MC50_REBEL", "MC30C_REBEL", "MC80BLIBERTY_REBEL", "MC50_REBEL", "MC30C_REBEL", "MC80BLIBERTY_REBEL"].map(key => scene.hyperspaceIn(key, 1, spawnpoint.x + spawnpoint.range(), spawnpoint.y + spawnpoint.range(), spawnpoint.angle, Math.random() * 3000))
     ]);
 
     await scene.wait(1000);
