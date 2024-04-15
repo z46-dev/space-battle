@@ -1408,15 +1408,19 @@ function spawn(ship, team) {
     return newShip;
 }
 
+function randomFaction() {
+    const factions = ["DESTOYER", "EMPIRE", "REBEL", "REPUBLIC", "CIS", "DARKEMPIRE", "HUTT", "ZANN", -1];
+}
+
 const spawnDistance = 4000;
-const fleetFactions = ["REBEL", "EMPIRE"];
+const fleetFactions = [randomFaction(), randomFaction()];
 
 const fleetOverrides = [
-    [],
-    []
+    null,
+    null
 ];
 
-const pop = ships.CHIMERA_DESTROYER.population * 6;
+const pop = 30 + Math.random() * 171 | 0;
 
 for (let i = 0; i < 2; i++) {
     const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);
@@ -3117,5 +3121,3 @@ async function theEndOfDalla() {
     await scene.wait(1000);
     await scene.unlockCamera();
 }
-
-theEndOfDalla();
