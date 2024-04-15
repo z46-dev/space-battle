@@ -10,7 +10,7 @@ ships.MIYTILFIGHTER_HAPAN = {
     population: 0,
     size: 16,
     cost: 3,
-    speed: 22,
+    speed: 24,
     turnSpeed: .08,
     shield: 100,
     shieldRegen: 1,
@@ -24,12 +24,14 @@ ships.MIYTILFIGHTER_HAPAN = {
         x: 0,
         y: 0,
         weapon: weapons.FIGHTER_ION_CANNON,
-        shotsAtOnce: 2,
+        shotsAtOnce: 4,
         shotDelay: 15
     }, {
         x: 0,
         y: 0,
-        weapon: weapons.FIGHTER_PROTON_TORPEDO
+        weapon: weapons.FIGHTER_PROTON_TORPEDO,
+        shotsAtOnce: 3,
+        shotDelay: 130
     }]
 };
 
@@ -42,8 +44,8 @@ ships.BETACRUISER_HAPAN = {
     cost: 1200,
     speed: 4.5,
     turnSpeed: .01,
-    shield: 2000,
-    shieldRegen: 1,
+    shield: 2560,
+    shieldRegen: 2,
     hardpoints: [{
         x: 0,
         y: .8,
@@ -62,7 +64,7 @@ ships.BETACRUISER_HAPAN = {
         ...e,
         weapon: {
             ...e.weapon,
-            health: e.weapon.health * 2
+            health: e.weapon.health * 3
         }
     }))
 };
@@ -76,7 +78,7 @@ ships.NOVACRUISER_HAPAN = {
     cost: 2500,
     speed: 3.7,
     turnSpeed: .009,
-    shield: 3000,
+    shield: 3980,
     shieldRegen: 3,
     hardpoints: [{
         x: 0,
@@ -108,7 +110,13 @@ ships.NOVACRUISER_HAPAN = {
         weapon: weapons.BLUE_DOUBLE_LASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 100
-    }]
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 4
+        }
+    }))
 };
 
 ships.CHARUBAH_HAPAN = {
@@ -120,8 +128,8 @@ ships.CHARUBAH_HAPAN = {
     cost: 3000,
     speed: 3.6,
     turnSpeed: .0125,
-    shield: 3140,
-    shieldRegen: 3,
+    shield: 4560,
+    shieldRegen: 4,
     hardpoints: [{
         x: -.15,
         y: .7,
@@ -172,8 +180,8 @@ ships.MAGNETAR_HAPAN = {
     cost: 3120,
     speed: 3,
     turnSpeed: .0125,
-    shield: 4360,
-    shieldRegen: 4,
+    shield: 5560,
+    shieldRegen: 5,
     hardpoints: [{
         x: -.15,
         y: .55,
@@ -236,7 +244,7 @@ ships.BATTLEDRAGON_HAPAN = {
     cost: 6580,
     speed: 3,
     turnSpeed: .0025,
-    shield: 5000,
+    shield: 6780,
     shieldRegen: .05,
     hardpoints: [{
         x: 0,
@@ -269,15 +277,15 @@ ships.BATTLEDRAGON_HAPAN = {
         ...e,
         weapon: {
             ...e.weapon,
-            health: e.weapon.health * 11
+            health: e.weapon.health * 12
         }
     })),
     hangars: [{
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 5,
-        reserveSize: 2,
+        squadronSize: 7,
+        reserveSize: 4,
         squadronKey: "MIYTILFIGHTER_HAPAN"
     }]
 };
@@ -287,22 +295,22 @@ ships.TEREPHON_HAPAN = {
     asset: "TEREPHONCRUISER.png",
     classification: shipTypes.Capital,
     population: 18,
-    size: 450,
+    size: 550,
     cost: 6000,
     speed: 3,
     turnSpeed: .0125,
-    shield: 4800,
-    shieldRegen: 5,
+    shield: 7890,
+    shieldRegen: 7,
     hardpoints: [{
         x: -.1,
         y: .85,
-        weapon: weapons.ION_CANNON_HEAVY,
+        weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
         shotsAtOnce: 2,
         shotDelay: 100
     }, {
         x: .1,
         y: .85,
-        weapon: weapons.ION_CANNON_HEAVY,
+        weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
         shotsAtOnce: 2,
         shotDelay: 100
     }, {
@@ -320,13 +328,13 @@ ships.TEREPHON_HAPAN = {
     }, {
         x: -.125,
         y: .375,
-        weapon: weapons.BLUE_TURBOLASER_CANNON_HEAVY,
+        weapon: weapons.BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY,
         shotsAtOnce: 2,
         shotDelay: 100
     }, {
         x: .125,
         y: .375,
-        weapon: weapons.BLUE_TURBOLASER_CANNON_HEAVY,
+        weapon: weapons.BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY,
         shotsAtOnce: 2,
         shotDelay: 100
     }, {
@@ -345,27 +353,27 @@ ships.TEREPHON_HAPAN = {
         x: -.2,
         y: -.15,
         weapon: weapons.ASSAULT_PROTON_ROCKET,
-        shotsAtOnce: 2,
+        shotsAtOnce: 6,
         shotDelay: 100
     }, {
         x: .2,
         y: -.15,
         weapon: weapons.ASSAULT_PROTON_ROCKET,
-        shotsAtOnce: 2,
+        shotsAtOnce: 6,
         shotDelay: 100
     }].map(e => ({
         ...e,
         weapon: {
             ...e.weapon,
-            health: e.weapon.health * 4
+            health: e.weapon.health * 5
         }
     })),
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 1,
-        squadronSize: 5,
-        reserveSize: 2,
+        maxSquadrons: 2,
+        squadronSize: 7,
+        reserveSize: 4,
         squadronKey: "MIYTILFIGHTER_HAPAN"
     }]
 };
@@ -379,8 +387,8 @@ ships.NEUTRON_HAPAN = {
     cost: 9850,
     speed: 2.9,
     turnSpeed: .006,
-    shield: 12000,
-    shieldRegen: 12,
+    shield: 14320,
+    shieldRegen: 14,
     hardpoints: [{
         x: -.7,
         y: -.7,
@@ -473,6 +481,18 @@ ships.NEUTRON_HAPAN = {
         weapon: weapons.BLUE_DOUBLE_LASER_CANNON_HEAVY,
         shotsAtOnce: 2,
         shotDelay: 100
+    }, {
+        x: -.3,
+        y: -.45,
+        weapon: weapons.BLUE_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 40
+    }, {
+        x: .3,
+        y: -.45,
+        weapon: weapons.BLUE_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 40
     }].map(e => ({
         ...e,
         weapon: {
@@ -483,9 +503,9 @@ ships.NEUTRON_HAPAN = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 1,
-        squadronSize: 5,
-        reserveSize: 2,
+        maxSquadrons: 3,
+        squadronSize: 8,
+        reserveSize: 6,
         squadronKey: "MIYTILFIGHTER_HAPAN"
     }]
 };

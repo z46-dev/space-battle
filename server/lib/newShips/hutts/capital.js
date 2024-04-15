@@ -213,13 +213,13 @@ ships.KARAGGA_HUTT = {
                 x: -.15,
                 y: .7 - .3 * i,
                 weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-                shotsAtOnce: 3,
+                shotsAtOnce: 4,
                 shotDelay: 75
             }, {
                 x: .15,
                 y: .7 - .3 * i,
                 weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-                shotsAtOnce: 3,
+                shotsAtOnce: 4,
                 shotDelay: 75
             }, {
                 x: -.075,
@@ -231,6 +231,19 @@ ships.KARAGGA_HUTT = {
                 x: .075,
                 y: .875 - .45 * i,
                 weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            });
+        }
+
+        for (let i = 0; i < 6; i ++) {
+            const a = Math.PI * 2 / 6 * i;
+            const x = Math.cos(a) * .1;
+            const y = Math.sin(a) * .05 - .8;
+            output.push({
+                x: x,
+                y: y,
+                weapon: weapons.PURPLE_DOUBLE_LASER_CANNON,
                 shotsAtOnce: 2,
                 shotDelay: 75
             });
@@ -279,21 +292,21 @@ ships.VONTOR_HUTT = {
             output.push({
                 x: -.075 - .01 * i,
                 y: .925 - .225 * i,
-                weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                weapon: i === 0 ? weapons.PURPLE_OCTUPLE_TURBOLASER_CANNON_HEAVY : weapons.PURPLE_DOUBLE_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 75
             }, {
                 x: .075 + .01 * i,
                 y: .925 - .225 * i,
-                weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                weapon: i === 0 ? weapons.PURPLE_OCTUPLE_TURBOLASER_CANNON_HEAVY : weapons.PURPLE_DOUBLE_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
-                shotDelay: 75
+                shotDelay: 225
             }, {
                 x: 0,
                 y: .8 - .225 * i,
                 weapon: weapons.QUAD_ION_CANNON_HEAVY,
                 shotsAtOnce: 2,
-                shotDelay: 125
+                shotDelay: 225
             });
         }
 

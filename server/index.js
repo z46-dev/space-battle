@@ -1397,7 +1397,7 @@ function spawn(ship, team) {
 
     if (remainingCommanders.length > 0) {
         for (let i = 0; i < remainingCommanders.length; i++) {
-            if (remainingCommanders[i].ships.includes(ship) && Math.random() > .925) {
+            if (remainingCommanders[i].ships.includes(ship) && Math.random() > .6) {
                 newShip.commander = new Commander(remainingCommanders[i], newShip);
                 remainingCommanders.splice(i, 1);
                 break;
@@ -1409,15 +1409,17 @@ function spawn(ship, team) {
 }
 
 const spawnDistance = 4000;
-const fleetFactions = ["HAPAN", "HUTT"];
+const fleetFactions = ["DESTROYER", "HUTT"];
 
 const fleetOverrides = [
     null,
     null
 ];
 
+const pop = ships.CHIMERA_DESTROYER.population * 6;
+
 for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(240, fleetFactions[i]);
+    const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);
 
     const spawned = [];
 
@@ -1425,7 +1427,7 @@ for (let i = 0; i < 2; i++) {
         if (ship === "DEATHSTAR_EMPIRE") {
             const angle = -Math.PI / 2;
             const distance = 0;
-            const spawnDistance = 15000;
+            const spawnDistance = 32_000;
 
             const newShip = new Ship(battle, ship, i);
 
@@ -1445,13 +1447,13 @@ for (let i = 0; i < 2; i++) {
     switch (i) {
         case 1:
             x = -spawnDistance;
-            y = -spawnDistance;
-            angle = Math.PI / 4;
+            y = 0;
+            angle = 0;
             break;
         case 0:
             x = spawnDistance;
-            y = spawnDistance;
-            angle = Math.PI / 4 + Math.PI;
+            y = 0;
+            angle = Math.PI;
             break;
     }
 

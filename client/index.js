@@ -3,6 +3,7 @@ import { shipTypeNames, shipTypes, weaponClassifications, weaponDrawProperties, 
 import { default as shipConfig } from "../server/lib/ships.js";
 import heroes from "../server/lib/heroes.js";
 import noise from "../Planet/oldNoise.js";
+import Planet, { NoiseOptions, PlanetColors, PlanetOptions } from "../Planet/Planet.js";
 
 (async function () {
     const assets = new Map();
@@ -168,6 +169,17 @@ import noise from "../Planet/oldNoise.js";
         text: [],
         commanders: []
     };
+
+    const planetOptions = new PlanetOptions();
+    planetOptions.Radius = 1024;
+    planetOptions.Detail = .334;
+    planetOptions.Seed = Math.random();
+    planetOptions.Clouds.Seed = Math.random();
+    planetOptions.NoiseFunction = NoiseOptions.perlin2;
+    planetOptions.Colors = PlanetColors.chooseForMe();
+
+    const planet = new Planet(planetOptions);
+    planet.generate();
 
     // Add stars
     while (true) {
@@ -1013,6 +1025,11 @@ import noise from "../Planet/oldNoise.js";
             ctx.fill();
         });
 
+        const planetSize = planetOptions.Radius * 32;
+        ctx.shadowBlur = planetOptions.Radius * 2;
+        ctx.shadowColor = planetOptions.Colors[3][2];
+        ctx.drawImage(planet.canvas, -planetSize / 1.125, -planetSize / 1.125, planetSize, planetSize);
+
         ctx.shadowBlur = 0;
 
         const drawObjects = [];
@@ -1089,7 +1106,7 @@ import noise from "../Planet/oldNoise.js";
                     ctx.translate(ship.x, ship.y);
                     ctx.rotate(ship.angle);
                     ctx.drawImage(asset, -ship.size / 2, -ship.size / 2, ship.size, ship.size);
-                    
+
                     if (ship.shieldAbility) {
                         ctx.drawImage(getShieldFrame(asset, ship.key, ((performance.now() / 50 | 0) % 16) | 0), -ship.size / 2, -ship.size / 2, ship.size, ship.size);
                     }

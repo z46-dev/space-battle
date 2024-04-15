@@ -24,13 +24,13 @@ ships.DORBULLA_HUTT = {
             weapons.PURPLE_DOUBLE_LASER_CANNON_HEAVY
         ];
 
-        for (let i = 0; i < 5; i ++) {
-            const x = .1 + .02 * i;
-            const y = .6 - .3 * i;
+        for (let i = 0; i < 7; i ++) {
+            const x = .1 + .01 * i;
+            const y = .75 - .25 * i;
 
             for (let j = 0; j < 5; j ++) {
                 const angle = Math.PI * 2 / 5 * j;
-                const d = .02;
+                const d = .0125;
                 const x2 = x + Math.cos(angle) * d;
                 const y2 = y + Math.sin(angle) * d;
                 const weapon = myWeapons[j];

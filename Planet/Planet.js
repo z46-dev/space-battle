@@ -116,6 +116,11 @@ export class PlanetColors {
         [.75, 1, "#FF0000"],
         [1, 1, "#FF0000"]
     ];
+
+    static chooseForMe() {
+        const list = Object.keys(PlanetColors).filter(key => key !== "chooseForMe");
+        return PlanetColors[list[Math.floor(Math.random() * list.length)]];
+    }
 }
 
 export class NoiseOptions {
