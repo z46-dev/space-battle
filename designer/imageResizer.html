@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Image Resizer</title>
+</head>
+
+<body>
+    <script>
+        const imageURL = "/assets/ships/tmpImage.png";
+
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
+
+        const image = new Image();
+        image.src = imageURL;
+
+        function removeBackground(r, g, b, tolerance = 5) {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                const r1 = imageData.data[i];
+                const g1 = imageData.data[i + 1];
+                const b1 = imageData.data[i + 2];
+
+                const dr = Math.abs(r1 - r);
+                const dg = Math.abs(g1 - g);
+                const db = Math.abs(b1 - b);
+
+                if (dr <= tolerance && dg <= tolerance && db <= tolerance) {
+                    imageData.data[i + 3] = 0;
+                }
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function reColor(tR, tG, tB, str) {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                const r = imageData.data[i];
+                const g = imageData.data[i + 1];
+                const b = imageData.data[i + 2];
+                const a = imageData.data[i + 3];
+
+                if (a === 0) {
+                    continue;
+                }
+
+                imageData.data[i] = (r - tR) * (1 - str) + tR;
+                imageData.data[i + 1] = (g - tG) * (1 - str) + tG;
+                imageData.data[i + 2] = (b - tB) * (1 - str) + tB;
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function smoothlyScale(scale) {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+            const newWidth = canvas.width * scale;
+            const newHeight = canvas.height * scale;
+
+            const newImageData = ctx.createImageData(newWidth, newHeight);
+
+            for (let i = 0; i < newImageData.data.length; i += 4) {
+                const x = Math.floor(i / 4 % newWidth);
+                const y = Math.floor(i / 4 / newWidth);
+
+                const x1 = Math.floor(x / scale);
+                const y1 = Math.floor(y / scale);
+
+                const x2 = Math.ceil(x / scale);
+                const y2 = Math.ceil(y / scale);
+
+                const x3 = Math.floor(x / scale);
+                const y3 = Math.ceil(y / scale);
+
+                const x4 = Math.ceil(x / scale);
+                const y4 = Math.floor(y / scale);
+
+                const dx = x / scale - x1;
+                const dy = y / scale - y1;
+
+                const r1 = imageData.data[(y1 * canvas.width + x1) * 4];
+                const g1 = imageData.data[(y1 * canvas.width + x1) * 4 + 1];
+                const b1 = imageData.data[(y1 * canvas.width + x1) * 4 + 2];
+                const a1 = imageData.data[(y1 * canvas.width + x1) * 4 + 3];
+
+                const r2 = imageData.data[(y2 * canvas.width + x2) * 4];
+                const g2 = imageData.data[(y2 * canvas.width + x2) * 4 + 1];
+                const b2 = imageData.data[(y2 * canvas.width + x2) * 4 + 2];
+                const a2 = imageData.data[(y2 * canvas.width + x2) * 4 + 3];
+
+                const r3 = imageData.data[(y3 * canvas.width + x3) * 4];
+                const g3 = imageData.data[(y3 * canvas.width + x3) * 4 + 1];
+                const b3 = imageData.data[(y3 * canvas.width + x3) * 4 + 2];
+                const a3 = imageData.data[(y3 * canvas.width + x3) * 4 + 3];
+
+                const r4 = imageData.data[(y4 * canvas.width + x4) * 4];
+                const g4 = imageData.data[(y4 * canvas.width + x4) * 4 + 1];
+                const b4 = imageData.data[(y4 * canvas.width + x4) * 4 + 2];
+                const a4 = imageData.data[(y4 * canvas.width + x4) * 4 + 3];
+
+                const r = (r1 * (1 - dx) + r2 * dx) * (1 - dy) + (r3 * (1 - dx) + r4 * dx) * dy;
+                const g = (g1 * (1 - dx) + g2 * dx) * (1 - dy) + (g3 * (1 - dx) + g4 * dx) * dy;
+                const b = (b1 * (1 - dx) + b2 * dx) * (1 - dy) + (b3 * (1 - dx) + b4 * dx) * dy;
+                const a = (a1 * (1 - dx) + a2 * dx) * (1 - dy) + (a3 * (1 - dx) + a4 * dx) * dy;
+
+                newImageData.data[i] = r;
+                newImageData.data[i + 1] = g;
+                newImageData.data[i + 2] = b;
+                newImageData.data[i + 3] = a;
+            }
+
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+            ctx.putImageData(newImageData, 0, 0);
+        }
+
+        function getSizing() {
+            let minX = canvas.width,
+                minY = canvas.height,
+                maxX = 0,
+                maxY = 0;
+
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                const r = imageData.data[i];
+                const g = imageData.data[i + 1];
+                const b = imageData.data[i + 2];
+                const a = imageData.data[i + 3];
+
+                if (a === 0) {
+                    continue;
+                }
+
+                const x = Math.floor(i / 4 % canvas.width);
+                const y = Math.floor(i / 4 / canvas.width);
+
+                minX = Math.min(minX, x);
+                minY = Math.min(minY, y);
+                maxX = Math.max(maxX, x);
+                maxY = Math.max(maxY, y);
+            }
+
+            return {
+                x: minX,
+                y: minY,
+                width: maxX - minX + 1,
+                height: maxY - minY + 1
+            };
+        }
+
+        function center() {
+            const sizing = getSizing();
+
+            const newCanvas = document.createElement("canvas");
+            const newCtx = newCanvas.getContext("2d");
+
+            newCanvas.width = sizing.width;
+            newCanvas.height = sizing.width;
+
+            // Put the image in the center of the new canvas
+            newCtx.drawImage(canvas, sizing.x, sizing.y, sizing.width, sizing.height, 0, sizing.width / 2 - sizing.height / 2, sizing.width, sizing.height);
+
+            canvas.width = sizing.width;
+            canvas.height = sizing.width;
+
+            ctx.drawImage(newCanvas, 0, 0);
+        }
+
+        image.onload = function () {
+            const size = Math.max(image.width, image.height);
+
+            const ratio = 1;
+            canvas.width = size * ratio;
+            canvas.height = size * ratio;
+
+            ctx.scale(ratio, ratio);
+
+            ctx.translate(size / 2, size / 2);
+            ctx.rotate(Math.PI);
+
+            ctx.drawImage(image, -image.width / 2, -image.height / 2, image.width, image.height);
+
+            //removeBackground(255, 255, 255, 50);
+            center();
+
+            document.body.appendChild(canvas);
+        }
+    </script>
+</body>
+
+</html>

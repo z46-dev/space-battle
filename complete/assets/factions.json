@@ -1,0 +1,73 @@
+[{
+    "id": 0,
+    "color": "#DDDDDD",
+    "name": "Neutral Systems",
+    "key": "",
+    "planets": []
+}, {
+    "id": 1,
+    "color": "#EE5555",
+    "name": "New Republic",
+    "key": "REBEL",
+    "planets": ["Naboo", "Crait", "D'Qar", "Endor", "Takodana"],
+    "capital": {
+        "name": "Naboo",
+        "fleetPopulation": 160,
+        "baseIncome": 2300
+    }
+}, {
+    "id": 2,
+    "color": "#55EE55",
+    "name": "Galactic Empire",
+    "key": "EMPIRE",
+    "planets": ["Coruscant", "Anaxes", "Alderaan", "Kuat", "Fresia"],
+    "capital": {
+        "name": "Coruscant",
+        "fleetPopulation": 300,
+        "baseIncome": 3600
+    }
+}, {
+    "id": 3,
+    "color": "#994433",
+    "name": "Hutt Cartel",
+    "key": "HUTT",
+    "planets": ["Tatooine", "Geonosis", "Mimban", "Nal Hutta"],
+    "capital": {
+        "name": "Nal Hutta",
+        "fleetPopulation": 120,
+        "baseIncome": 1300
+    }
+}, {
+    "id": 4,
+    "color": "#224488",
+    "name": "Dark Empire",
+    "key": "DARKEMPIRE",
+    "planets": ["Exogol", "Jedha", "Byss"],
+    "capital": {
+        "name": "Exogol",
+        "fleetPopulation": 130,
+        "baseIncome": 3000
+    }
+}, {
+    "id": 5,
+    "color": "#66AA66",
+    "name": "Zann Consortium",
+    "key": "ZANN",
+    "planets": ["Ring of Kafrene", "Savareen", "Sullust"],
+    "capital": {
+        "name": "Ring of Kafrene",
+        "fleetPopulation": 100,
+        "baseIncome": 1200
+    }
+}, {
+    "id": 6,
+    "color": "#FF55EE",
+    "name": "Hapes Consortium",
+    "key": "HAPAN",
+    "planets": ["Hapes", "Charubah", "Terephon", "Gallinore"],
+    "capital": {
+        "name": "Hapes",
+        "fleetPopulation": 130,
+        "baseIncome": 1500
+    }
+}]
