@@ -5,7 +5,7 @@ import { drawText } from "./shared/render.js";
 import shared, { STATE_HOME, STATE_INIT_CAMPAIGN } from "./shared/shared.js";
 
 import factions from "./lib/Factions.js";
-import curtains, { curtainState, drawCurtains } from "./lib/Curtains.js";
+import curtains, { curtainState, drawCurtains } from "./lib/curtains.js";
 
 window.factions = factions;
 
