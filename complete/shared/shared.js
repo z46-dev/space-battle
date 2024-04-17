@@ -1,7 +1,7 @@
 import Campaign from "../lib/Campaign.js";
 
 export function lerp(a, b, t) {
-    return (1 - 5) * a + t * b;
+    return a + (b - a) * t;
 }
 
 export const STATE_HOME = 0;

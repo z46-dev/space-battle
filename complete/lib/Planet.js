@@ -1,5 +1,6 @@
 import { ctx } from "../shared/canvas.js";
 import { Color, drawText } from "../shared/render.js";
+import { NoiseOptions, PlanetColors, PlanetOptions, default as RenderPlanet } from "../../Planet/Planet.js";
 
 const loaded = await (await fetch("./assets/planets.json")).json();
 
@@ -29,6 +30,45 @@ export default class Planet {
         this.controllingFaction = null;
 
         this.fleets = [];
+
+        /**
+         * @type {RenderPlanet}
+         */
+        this.realPlanet = null;
+        this.loadPlanet().then(planet => this.realPlanet = planet);
+    }
+
+    loadPlanet() {
+        return new Promise(resolve => {
+            const planetOptions = new PlanetOptions();
+            planetOptions.Radius = 128;
+            planetOptions.Detail = .334 + Math.random() * .25;
+            planetOptions.Seed = Math.random();
+            planetOptions.Clouds.Seed = Math.random();
+            planetOptions.NoiseFunction = [NoiseOptions.perlin2, NoiseOptions.perlin3, NoiseOptions.quickNoise, NoiseOptions.simplex2, NoiseOptions.simplex3][Math.floor(Math.random() * 5)];
+            planetOptions.Clouds.NoiseFunction = [NoiseOptions.perlin2, NoiseOptions.perlin3, NoiseOptions.quickNoise, NoiseOptions.simplex2, NoiseOptions.simplex3][Math.floor(Math.random() * 5)];
+            
+            let minColDist = Infinity,
+                cols = PlanetColors.chooseForMe();
+
+            for (const key in PlanetColors) {
+                const dist = Math.min(PlanetColors[key].map(c => Color.distance(c[2], this.color)));
+
+                if (dist < minColDist) {
+                    minColDist = dist;
+                    cols = PlanetColors[key];
+                }
+            }
+
+            planetOptions.Colors = cols;
+
+            console.log(Object.keys(PlanetColors));
+
+            const p = new RenderPlanet(planetOptions);
+            p.generate();
+
+            resolve(p);
+        });
     }
 
     render() {
@@ -51,10 +91,14 @@ export default class Planet {
         ctx.closePath();
         ctx.stroke();
 
-        ctx.beginPath();
-        ctx.arc(0, 0, 90, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.fill();
+        if (this.realPlanet) {
+            ctx.drawImage(this.realPlanet.canvas, -90, -90, 180, 180);
+        } else {
+            ctx.beginPath();
+            ctx.arc(0, 0, 90, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.fill();
+        }
 
         ctx.restore();
     }

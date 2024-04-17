@@ -1,4 +1,5 @@
 import { canvas, ctx, uiScale } from "../shared/canvas.js";
+import { drawText } from "../shared/render.js";
 import { lerp } from "../shared/shared.js";
 import Planet, { planetConfig } from "./Planet.js";
 

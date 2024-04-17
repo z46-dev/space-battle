@@ -11,7 +11,7 @@ export class Color {
     }
 
     static mix(primary, secondary, amount) {
-        const key = `${primary}${secondary}${amount}`;
+        const key = `m${primary}${secondary}${amount}`;
 
         if (this.#cache.has(key)) {
             return this.#cache.get(key);
@@ -31,6 +31,27 @@ export class Color {
         this.#cache.set(key, hex);
 
         return hex;
+    }
+
+    static distance(primary, secondary) {
+        const key = `d${primary}${secondary}`;
+
+        if (this.#cache.has(key)) {
+            return this.#cache.get(key);
+        }
+
+        const pr = parseInt(primary.slice(1), 16);
+        const se = parseInt(secondary.slice(1), 16);
+
+        const r = (pr >> 16) & 255 - (se >> 16) & 255;
+        const g = (pr >> 8) & 255 - (se >> 8) & 255;
+        const b = pr & 255 - se & 255;
+
+        const dist = Math.sqrt(r * r + g * g + b * b);
+
+        this.#cache.set(key, dist);
+
+        return dist;
     }
 }
 
