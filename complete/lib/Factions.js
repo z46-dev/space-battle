@@ -16,6 +16,9 @@ export class Faction {
      * @type {CapitalInfo | null}
      */
     capitalPlanet = null;
+
+    // Mutable
+    money = 0;
 }
 
 /**

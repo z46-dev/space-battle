@@ -1,7 +1,9 @@
 import { canvas, ctx, uiScale } from "../shared/canvas.js";
 import { drawText } from "../shared/render.js";
 import { lerp } from "../shared/shared.js";
+import factions from "./Factions.js";
 import Planet, { planetConfig } from "./Planet.js";
+import Shipyard from "./Shipyard.js";
 
 export class Camera {
     realX = 0;
@@ -79,14 +81,25 @@ export default class Campaign {
                 this.rightMouseDown = false;
             }
         });
+
+        this.lastTick = 0;
     }
 
     init() {
         planetConfig.forEach(($, i) => {
             this.planets.set(i, new Planet(i));
         });
+
+        factions.forEach(faction => {
+            faction.defaultStartingPlanets.forEach(planetName => {
+                this.getPlanet(planetName).setControl(faction);
+            });
+        });
     }
 
+    /**
+     * @returns {Planet}
+     */
     getPlanet(name) {
         let planet = null;
 
@@ -133,5 +146,24 @@ export default class Campaign {
         this.planets.forEach(planet => planet.text());
 
         ctx.restore();
+
+        if (performance.now() - this.lastTick > 3e4) {
+            this.lastTick = performance.now();
+            this.dailyTick();
+        }
+    }
+
+    dailyTick() {
+        factions.forEach(faction => {
+            this.planets.forEach(planet => {
+                faction.money += planet.income;
+            });
+        });
+
+        this.planets.forEach(planet => {
+            if (planet.shipyard) {
+                planet.shipyard.tick();
+            }
+        });
     }
 }

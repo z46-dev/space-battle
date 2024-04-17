@@ -1,8 +1,38 @@
 import { ctx } from "../shared/canvas.js";
 import { Color, drawText } from "../shared/render.js";
-import { NoiseOptions, PlanetColors, PlanetOptions, default as RenderPlanet } from "../../Planet/Planet.js";
+import Shipyard from "./Shipyard.js";
+import { Faction } from "./Factions.js";
 
 const loaded = await (await fetch("./assets/planets.json")).json();
+
+const worker = new Worker("./lib/ComputeWorker.js", {
+    type: "module"
+});
+
+const cache = {};
+let cacheID = 0;
+
+worker.onmessage = function({ data }) {
+    switch (data[0]) {
+        case 0:
+            if (data[1] in cache) {
+                cache[data[1]](data[2]);
+            }
+            break;
+    }
+}
+
+export function getPlanet(color) {
+    const id = cacheID ++;
+    worker.postMessage([0, color, id]);
+
+    return new Promise(resolve => {
+        cache[id] = imageBitmap => {
+            delete cache[id];
+            resolve(imageBitmap);
+        };
+    });
+}
 
 export const PLANET_RENDER_SCALE = 2;
 
@@ -14,7 +44,7 @@ export default class Planet {
         this.id = id;
         this.name = planetConfig[id].name;
         this.color = planetConfig[id].color;
-        this.income = 0;
+        this.income = planetConfig[id].income;
 
         this.x = planetConfig[id].x * PLANET_RENDER_SCALE;
         this.y = planetConfig[id].y * PLANET_RENDER_SCALE;
@@ -27,48 +57,35 @@ export default class Planet {
             }
         });
 
+        /**
+         * @type {Faction}
+         */
         this.controllingFaction = null;
+        this.shipyard = new Shipyard(this, planetConfig[id].shipyardLevel);
 
         this.fleets = [];
 
         /**
-         * @type {RenderPlanet}
+         * @type {ImageBitmap | null}
          */
         this.realPlanet = null;
-        this.loadPlanet().then(planet => this.realPlanet = planet);
+        getPlanet(this.color).then(bm => {
+            console.log(bm);
+            this.realPlanet = bm;
+        });
     }
 
-    loadPlanet() {
-        return new Promise(resolve => {
-            const planetOptions = new PlanetOptions();
-            planetOptions.Radius = 128;
-            planetOptions.Detail = .334 + Math.random() * .25;
-            planetOptions.Seed = Math.random();
-            planetOptions.Clouds.Seed = Math.random();
-            planetOptions.NoiseFunction = [NoiseOptions.perlin2, NoiseOptions.perlin3, NoiseOptions.quickNoise, NoiseOptions.simplex2, NoiseOptions.simplex3][Math.floor(Math.random() * 5)];
-            planetOptions.Clouds.NoiseFunction = [NoiseOptions.perlin2, NoiseOptions.perlin3, NoiseOptions.quickNoise, NoiseOptions.simplex2, NoiseOptions.simplex3][Math.floor(Math.random() * 5)];
-            
-            let minColDist = Infinity,
-                cols = PlanetColors.chooseForMe();
+    /**
+     * Sets control of the planet to a faction. If null, defaults
+     * @param {Faction | null} faction 
+     */
+    setControl(faction) {
+        this.income = planetConfig[this.id].income;
+        this.controllingFaction = faction;
 
-            for (const key in PlanetColors) {
-                const dist = Math.min(PlanetColors[key].map(c => Color.distance(c[2], this.color)));
-
-                if (dist < minColDist) {
-                    minColDist = dist;
-                    cols = PlanetColors[key];
-                }
-            }
-
-            planetOptions.Colors = cols;
-
-            console.log(Object.keys(PlanetColors));
-
-            const p = new RenderPlanet(planetOptions);
-            p.generate();
-
-            resolve(p);
-        });
+        if (faction?.capitalPlanet?.name === this.name) {
+            this.income = faction.capitalPlanet.baseIncome;
+        }
     }
 
     render() {
@@ -92,7 +109,7 @@ export default class Planet {
         ctx.stroke();
 
         if (this.realPlanet) {
-            ctx.drawImage(this.realPlanet.canvas, -90, -90, 180, 180);
+            ctx.drawImage(this.realPlanet, -90, -90, 180, 180);
         } else {
             ctx.beginPath();
             ctx.arc(0, 0, 90, 0, Math.PI * 2);

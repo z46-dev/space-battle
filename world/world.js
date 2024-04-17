@@ -122,7 +122,7 @@ class Planet {
     findAllPaths(otherPlanet) {
         const paths = [];
         const visited = new Set();
-        const controlledFaction = this.controlledFaction;
+        const controlledFaction = this.controllingFaction;
 
         function findPaths(currentPlanet, path, distance) {
             visited.add(currentPlanet.id);

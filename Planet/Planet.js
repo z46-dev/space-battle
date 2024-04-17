@@ -7,7 +7,7 @@ function lerp(a, b, t) {
     return (b - a) * t + a;
 }
 
-class Color {
+export class Color {
     static cache = new Map();
     static regex = /\w\w/g;
 
@@ -45,6 +45,33 @@ class Color {
 }
 
 export class PlanetColors {
+    static expandStandardColors(numSteps, standardColors) {
+        const expandedColors = [];
+
+        for (let i = 0; i < standardColors.length - 1; i++) {
+            const [minNoiseValue1, maxNoiseValue1, color1] = standardColors[i];
+            const [$, maxNoiseValue2, color2] = standardColors[i + 1];
+            
+            // Adjust the noise range to exclude overlap
+            const adjustedMin1 = minNoiseValue1;
+            const adjustedMax2 = maxNoiseValue1;
+            
+            // Calculate the step size based on the adjusted range
+            const stepSize = (adjustedMax2 - adjustedMin1) / numSteps;
+            console.log(stepSize);
+            
+            for (let j = 0; j < numSteps; j++) {
+                const newMinNoiseValue = adjustedMin1 + j * stepSize;
+                const newMaxNoiseValue = adjustedMin1 + (j + 1) * stepSize; // Ensure non-overlapping ranges
+                const lerpAmount = (newMinNoiseValue - minNoiseValue1) / (maxNoiseValue2 - minNoiseValue1);
+                const interpolatedColor = Color.mix(color1, color2, lerpAmount);
+                expandedColors.push([newMinNoiseValue, newMaxNoiseValue, interpolatedColor]);
+            }
+        }
+
+        return expandedColors;
+    }
+
     static standardColors = [
         [-1, -.75, Color.mix(Color.palette.water, Color.palette.black, .5)],
         [-.75, -.5, Color.mix(Color.palette.water, Color.palette.black, .25)],
@@ -123,13 +150,29 @@ export class PlanetColors {
     }
 }
 
+const quickNoiseTable2 = quickNoise.create(new Array(256).fill(0).map(($, i) => i).sort(() => .5 - Math.random()));
+const staticQuickNoiseFunc = quickNoise.create(quickNoiseTable);
+
+// Made like this for Function.name
 export class NoiseOptions {
-    static quickNoise = quickNoise.create(new Array(256).fill(0).map(($, i) => i).sort(() => .5 - Math.random()));
-    static staticQuickNoise = quickNoise.create(quickNoiseTable);
-    static perlin2 = perlinNoise.perlin2;
-    static perlin3 = perlinNoise.perlin3;
-    static simplex2 = perlinNoise.simplex2;
-    static simplex3 = perlinNoise.simplex3;
+    static quickNoise = function quickNoise() {
+        return quickNoiseTable2(...arguments);
+    }
+    static staticQuickNoise = function staticQuickNoise() {
+        return staticQuickNoiseFunc(...arguments);
+    }
+    static perlin2 = function perlin2() {
+        return perlinNoise.perlin2(...arguments);
+    }
+    static perlin3 = function perlin3() {
+        return perlinNoise.perlin3(...arguments);
+    }
+    static simplex2 = function simplex2() {
+        return perlinNoise.simplex2(...arguments);
+    }
+    static simplex3 = function simplex3() {
+        return perlinNoise.simplex3(...arguments);
+    }
 }
 
 export class PlanetOptions {
