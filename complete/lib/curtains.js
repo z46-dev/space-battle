@@ -12,10 +12,9 @@ export function drawCurtains() {
     if (!curtainState.active) {
         return;
     }
-
-    const scale = uiScale();
-    const width = canvas.width / scale;
-    const height = canvas.height / scale;
+    
+    const width = canvas.width;
+    const height = canvas.height;
 
     const rectWidth = width / 2 * curtainState.value;
 

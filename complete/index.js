@@ -2,12 +2,11 @@ import Planet, { NoiseOptions, PlanetOptions } from "../Planet/Planet.js";
 import UIButton from "./shared/Button.js";
 import { canvas, ctx, uiScale } from "./shared/canvas.js";
 import { drawText } from "./shared/render.js";
-import shared, { STATE_HOME, STATE_INIT_CAMPAIGN } from "./shared/shared.js";
+import shared, { STATE_HOME, STATE_INIT_CAMPAIGN, STATE_TACTICAL_MAP } from "./shared/shared.js";
 
 import factions from "./lib/Factions.js";
 import curtains, { curtainState, drawCurtains } from "./lib/curtains.js";
-
-window.factions = factions;
+import Campaign from "./lib/Campaign.js";
 
 // Do a UI all split up in canvas.
 // Add a home menu and an option for saves and an option for
@@ -61,21 +60,21 @@ function regenerateStars() {
     const height = canvas.height / scale;
 
     for (let i = 0; i < 128; i++) {
-        internal1: for (let j = 0; j < 32; j ++) {
+        internal1: for (let j = 0; j < 32; j++) {
             const x = Math.random() * width;
             const y = Math.random() * height;
-    
+
             for (let k = 0; k < stars.length; k++) {
                 const star = stars[k];
                 const dx = star.x - x;
                 const dy = star.y - y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
-    
+
                 if (distance < 32) {
                     continue internal1;
                 }
             }
-    
+
             stars.push(new Star(x, y, Math.random() * 2 + 1));
             break;
         }
@@ -129,7 +128,7 @@ buttonMaps[STATE_HOME] = [{
 
 buttonMaps[STATE_INIT_CAMPAIGN] = [];
 
-for (let i = 0; i < factions.length - 1; i ++) {
+for (let i = 0; i < factions.length - 1; i++) {
     const faction = factions[i + 1]; // Skip Neutral Systems
 
     buttonMaps[STATE_INIT_CAMPAIGN].push({
@@ -140,7 +139,9 @@ for (let i = 0; i < factions.length - 1; i ++) {
         text: faction.name,
         color: faction.color,
         action: () => {
-            console.log("New Campaign as " + faction.name);
+            shared.campaign = new Campaign();
+            changeState(STATE_TACTICAL_MAP);
+            shared.campaign.init();
         }
     });
 }
@@ -163,42 +164,48 @@ function draw() {
             for (const star of stars) {
                 star.draw();
             }
-        
+
             ctx.shadowColor = planetOptions.Colors[4][2];
             ctx.shadowBlur = 25;
             ctx.drawImage(planet.canvas, -300, -200);
             ctx.shadowBlur = 0;
-        
+
             drawText("Conquest", width / 2, height / 2 - 96, 75, "#FFFFFF");
         } break;
         case STATE_INIT_CAMPAIGN: {
             for (const star of stars) {
                 star.draw();
             }
-        
+
             ctx.shadowColor = planetOptions.Colors[4][2];
             ctx.shadowBlur = 25;
             ctx.drawImage(planet.canvas, -300, -200);
             ctx.shadowBlur = 0;
-        
+
             drawText("Create New Campaign", width / 2, height / 2 - 96, 75, "#FFFFFF");
+        } break;
+        case STATE_TACTICAL_MAP: {
+            ctx.scale(1 / scale, 1 / scale);
+            shared.campaign.draw();
         } break;
     }
 
-    for (let i = 0; i < buttonMaps[shared.state].length; i++) {
-        const button = buttons[i];
-        const map = buttonMaps[shared.state][i];
+    if (shared.state in buttonMaps) {
+        for (let i = 0; i < buttonMaps[shared.state].length; i++) {
+            const button = buttons[i];
+            const map = buttonMaps[shared.state][i];
 
-        button.centerX = width / 2 + map.x;
-        button.centerY = height / 2 + map.y;
-        button.width = map.width;
-        button.height = map.height;
-        button.color = map.color;
-        button.nowDrawMe = () => {
-            drawText(map.text, 0, 0, 1, "#FFFFFF");
-        };
-        button.clickEvent = map.action;
-        button.draw();
+            button.centerX = width / 2 + map.x;
+            button.centerY = height / 2 + map.y;
+            button.width = map.width;
+            button.height = map.height;
+            button.color = map.color;
+            button.nowDrawMe = () => {
+                drawText(map.text, 0, 0, 1, "#FFFFFF");
+            };
+            button.clickEvent = map.action;
+            button.draw();
+        }
     }
 
     ctx.restore();
@@ -213,9 +220,11 @@ window.addEventListener("mousemove", event => {
     const x = event.offsetX / scale * window.devicePixelRatio;
     const y = event.offsetY / scale * window.devicePixelRatio;
 
-    for (let i = 0; i < buttonMaps[shared.state].length; i++) {
-        const button = buttons[i];
-        button.mouseIsOver = button.contains(x, y);
+    if (shared.state in buttonMaps) {
+        for (let i = 0; i < buttonMaps[shared.state].length; i++) {
+            const button = buttons[i];
+            button.mouseIsOver = button.contains(x, y);
+        }
     }
 });
 
@@ -228,11 +237,13 @@ window.addEventListener("click", event => {
     const x = event.offsetX / scale * window.devicePixelRatio;
     const y = event.offsetY / scale * window.devicePixelRatio;
 
-    for (let i = 0; i < buttonMaps[shared.state].length; i++) {
-        const button = buttons[i];
+    if (shared.state in buttonMaps) {
+        for (let i = 0; i < buttonMaps[shared.state].length; i++) {
+            const button = buttons[i];
 
-        if (button.contains(x, y)) {
-            button.clickEvent();
+            if (button.contains(x, y)) {
+                button.clickEvent();
+            }
         }
     }
 });
