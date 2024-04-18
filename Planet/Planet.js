@@ -51,22 +51,22 @@ export class PlanetColors {
         for (let i = 0; i < standardColors.length - 1; i++) {
             const [minNoiseValue1, maxNoiseValue1, color1] = standardColors[i];
             const [$, maxNoiseValue2, color2] = standardColors[i + 1];
-            
-            // Adjust the noise range to exclude overlap
             const adjustedMin1 = minNoiseValue1;
             const adjustedMax2 = maxNoiseValue1;
-            
-            // Calculate the step size based on the adjusted range
             const stepSize = (adjustedMax2 - adjustedMin1) / numSteps;
-            console.log(stepSize);
             
             for (let j = 0; j < numSteps; j++) {
                 const newMinNoiseValue = adjustedMin1 + j * stepSize;
-                const newMaxNoiseValue = adjustedMin1 + (j + 1) * stepSize; // Ensure non-overlapping ranges
+                const newMaxNoiseValue = adjustedMin1 + (j + 1) * stepSize;
                 const lerpAmount = (newMinNoiseValue - minNoiseValue1) / (maxNoiseValue2 - minNoiseValue1);
                 const interpolatedColor = Color.mix(color1, color2, lerpAmount);
                 expandedColors.push([newMinNoiseValue, newMaxNoiseValue, interpolatedColor]);
             }
+        }
+
+        if (expandedColors[expandedColors.length - 1][1] !== 1) {
+            const [$, maxNoiseValue, color] = standardColors[standardColors.length - 1];
+            expandedColors.push([maxNoiseValue, 1, color]);
         }
 
         return expandedColors;
@@ -142,6 +142,54 @@ export class PlanetColors {
         [.5, .75, "#FF0000"],
         [.75, 1, "#FF0000"],
         [1, 1, "#FF0000"]
+    ];
+
+    static externalBluePlanet = [
+        [-1, -.3, "#275a95"],
+        [-.3, 0, "#184682"],
+        [0, .1, "#a9d5f4"],
+        [.1, .6, "#81b2e5"],
+        [.6, 1, "#383c66"]
+    ];
+
+    static externalRedPlanet = [
+        [-1, -.3, "#5f3311"],
+        [-.3, 0, "#2e1a0b"],
+        [0, .1, "#040404"],
+        [.1, .6, "#7c5431"],
+        [.6, 1, "#3c2c1c"]
+    ];
+
+    static externalDarkPlanet = [
+        [-1, -.3, "#1c1026"],
+        [-.3, 0, "#c6bbb9"],
+        [0, .1, "#4c1e3c"],
+        [.1, .6, "#21242b"],
+        [.6, 1, "#7a748c"]
+    ];
+
+    static externalSandPlanet = [
+        [-1, -.1, "#916643"],
+        [-.1, .1, "#a27342"],
+        [.1, .4, "#73706f"],
+        [.4, .7, "#3b4449"],
+        [.7, 1, "#1c2832"]
+    ];
+
+    static externalLavaPlanet = [
+        [-1, -.1, "#f47c54"],
+        [-.1, .1, "#cb4e42"],
+        [.1, .4, "#916643"],
+        [.4, .7, "#5c646c"],
+        [.7, 1, Color.palette.mountain]
+    ];
+
+    static externalForestPlanet = [
+        [-1, -.1, "#3C6912"],
+        [-.1, .1, "#845c42"],
+        [.1, .4, "#728c52"],
+        [.4, .7, "#babc71"],
+        [.7, 1, "#c9bd96"]
     ];
 
     static chooseForMe() {

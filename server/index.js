@@ -2601,7 +2601,7 @@ async function escapeFromDqar() {
     await scene.displayText("[Poe Dameron]: Well, we knew that was coming.");
     await scene.wait(1000);
     (async function () {
-        await scene.displayText("[Resistance Supply Officer]: We're not clear yet there's still thirty pallets of munitions.");
+        await scene.displayText("[Resistance Supply Officer]: We're not clear yet there's still thirty paletts of munitions.");
         await scene.displayText("[Lieutenant Connix]: Forget the munitions! There's no time! Just get everyone on the transports we've got to go NOW!");
     })();
     await scene.moveCamera(ResistanceSpawn.x, ResistanceSpawn.y, .6);

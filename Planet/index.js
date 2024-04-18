@@ -3,10 +3,6 @@ import Planet, { Color, NoiseOptions, PlanetColors, PlanetOptions } from "./Plan
 const options = new PlanetOptions();
 options.Radius = 256;
 options.Seed = Math.random();
-options.Colors = PlanetColors.expandStandardColors(3, PlanetColors.chooseForMe());
-
-console.log(options.Colors);
-
 options.Detail = 1;
 options.NoiseFunction = NoiseOptions.staticQuickNoise;
 
@@ -29,10 +25,7 @@ function generate() {
     });
 }
 
-generate();
-window.generate = generate;
-
-document.getElementById("planetRadius").oninput = function() {
+document.getElementById("planetRadius").oninput = function () {
     let value = +document.getElementById("planetRadius").value;
     value = Math.min(Math.max(1, value + .5 | 0), 4096);
 
@@ -40,7 +33,7 @@ document.getElementById("planetRadius").oninput = function() {
     generate();
 }
 
-document.getElementById("planetDetail").oninput = function() {
+document.getElementById("planetDetail").oninput = function () {
     let value = +document.getElementById("planetDetail").value;
     value = Math.min(Math.max(.01, value), 512);
 
@@ -49,7 +42,7 @@ document.getElementById("planetDetail").oninput = function() {
 }
 
 document.getElementById("planetSeed").value = options.Seed;
-document.getElementById("planetSeed").oninput = function() {
+document.getElementById("planetSeed").oninput = function () {
     let value = +document.getElementById("planetSeed").value;
 
     options.Seed = value;
@@ -70,7 +63,7 @@ for (const key in NoiseOptions) {
     noiseFuncDropdown.appendChild(option);
 }
 
-noiseFuncDropdown.onchange = function() {
+noiseFuncDropdown.onchange = function () {
     options.NoiseFunction = NoiseOptions[noiseFuncDropdown.value];
     generate();
 }
@@ -84,15 +77,70 @@ for (const key in PlanetColors) {
     colorTypeDropdown.appendChild(option);
 }
 
-colorTypeDropdown.onchange = function() {
-    options.Colors = PlanetColors[colorTypeDropdown.value];
+colorTypeDropdown.onchange = function () {
+    options.Colors = PlanetColors.expandStandardColors(+document.getElementById("colorDepth").value, PlanetColors[colorTypeDropdown.value]);
+    console.log(options.Colors);
     generate();
 }
 
-window.getOptions = () => {
-    const obj = JSON.parse(JSON.stringify(options));
-    obj.NoiseFunction = options.NoiseFunction.name;
-    obj.Clouds.NoiseFunction = options.Clouds.NoiseFunction.name;
+document.getElementById("colorDepth").oninput = function () {
+    let value = +document.getElementById("colorDepth").value;
+    value = Math.min(Math.max(1, value + .5 | 0), 64);
 
-    return JSON.stringify(obj);
+    options.Colors = PlanetColors.expandStandardColors(value, PlanetColors[colorTypeDropdown.value]);
+    console.log(options.Colors);
+    generate();
+}
+
+{
+    const key = Object.keys(PlanetColors)[Math.random() * Object.keys(PlanetColors).length | 0];
+    options.Colors = PlanetColors.expandStandardColors(+document.getElementById("colorDepth").value, PlanetColors[key]);
+    console.log(options.Colors);
+
+    colorTypeDropdown.value = key;
+}
+
+generate();
+window.generate = generate;
+
+window.getOptions = () => {
+    const data = [
+        options.Radius + .5 | 0,
+        options.Seed.toFixed(5),
+        options.Detail.toFixed(2),
+        colorTypeDropdown.value,
+        +document.getElementById("colorDepth").value + .5 | 0,
+        noiseFuncDropdown.value
+    ];
+
+    return data.join(";");
+}
+
+document.getElementById("export").onclick = function() {
+    const data = window.getOptions();
+    
+    confirm("The data is \"" + data + "\". Copy it to your clipboard?") && navigator.clipboard.writeText(data);
+}
+
+document.getElementById("import").onclick = function() {
+    const data = prompt("Enter the data to import:");
+    if (!data) return;
+
+    const parts = data.replaceAll("\"", "").split(";");
+    if (parts.length !== 6) {
+        alert("Invalid data.");
+        return;
+    }
+
+    options.Radius = +parts[0];
+    options.Seed = +parts[1];
+    options.Detail = +parts[2];
+    colorTypeDropdown.value = parts[3];
+    document.getElementById("colorDepth").value = +parts[4];
+    noiseFuncDropdown.value = parts[5];
+
+    options.Colors = PlanetColors.expandStandardColors(+document.getElementById("colorDepth").value, PlanetColors[colorTypeDropdown.value]);
+    options.NoiseFunction = NoiseOptions[noiseFuncDropdown.value];
+
+    generate();
 }

@@ -180,7 +180,8 @@
         "y": 2000,
         "color": "#DD3399",
         "income": 200,
-        "shipyardLevel": 2
+        "shipyardLevel": 2,
+        "design": "128;0.00000;1.30;externalRedPlanet;4;simplex3"
     }, {
         "name": "Crait",
         "x": 625,

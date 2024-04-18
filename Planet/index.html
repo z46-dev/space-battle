@@ -6,6 +6,8 @@
     <style>
         * {
             font-family: sans-serif;
+            font-weight: bold;
+            font-size: 2.5vmin;
         }
 
         html, body {
@@ -20,10 +22,11 @@
             position: absolute;
             top: 0px;
             left: 0px;
-            width: 48vmin;
+            width: 46vmin;
             height: 100%;
             background-color: #C8C8C8;
             overflow-y: auto;
+            padding: 1vmin;
         }
 
         img {
@@ -48,9 +51,14 @@
         <label for="planetSeed">Seed</label>
         <input id="planetSeed" type="number" value="1" min="0" max="999" step=".05"/><br/>
         <label for="noiseFunction">Noise Method</label>
-        <select id="noiseFunction"></select>
+        <select id="noiseFunction"></select><br/>
         <label for="colorType">Color Theme</label>
-        <select id="colorType"></select>
+        <select id="colorType"></select><br/>
+        <label for="colorDepth">Color Depth</label>
+        <input id="colorDepth" type="number" value="4" min="1" max="64" step="1"/><br/><br/>
+
+        <button id="export">Export</button>
+        <button id="import">Import</button>
     </div>
 </body>
 

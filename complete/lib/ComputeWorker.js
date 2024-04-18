@@ -62,7 +62,7 @@ function loadPlanet(sourceColor) {
     planetOptions.Seed = Math.random();
     planetOptions.Clouds.Seed = Math.random();
     planetOptions.NoiseFunction = [NoiseOptions.perlin2, NoiseOptions.perlin3, NoiseOptions.quickNoise, NoiseOptions.simplex2, NoiseOptions.simplex3][Math.floor(Math.random() * 5)];
-    planetOptions.Clouds.NoiseFunction = [NoiseOptions.perlin2, NoiseOptions.perlin3, NoiseOptions.quickNoise, NoiseOptions.simplex2, NoiseOptions.simplex3][Math.floor(Math.random() * 5)];
+    planetOptions.Clouds.NoiseFunction = [NoiseOptions.staticQuickNoise, NoiseOptions.perlin3, NoiseOptions.quickNoise, NoiseOptions.simplex2, NoiseOptions.simplex3][Math.floor(Math.random() * 5)];
 
     let minColDist = Infinity,
         cols = PlanetColors.chooseForMe();
