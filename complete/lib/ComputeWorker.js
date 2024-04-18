@@ -5,7 +5,7 @@ class Color {
      * @type {Map<string, string>}
      */
     static #cache = new Map();
-    
+
     static #lerp(from, to, strength) {
         return (to - from) * strength + from;
     }
@@ -20,7 +20,7 @@ class Color {
         const pr = parseInt(primary.slice(1), 16);
         const se = parseInt(secondary.slice(1), 16);
 
-        const re = 
+        const re =
             1 << 24 |
             (this.#lerp((pr >> 16) & 255, (se >> 16) & 255, amount) | 0) << 16 |
             (this.#lerp((pr >> 8) & 255, (se >> 8) & 255, amount) | 0) << 8 |
@@ -55,27 +55,35 @@ class Color {
     }
 }
 
-function loadPlanet(sourceColor) {
-    const planetOptions = new PlanetOptions();
-    planetOptions.Radius = 128;
-    planetOptions.Detail = .1 + Math.random() * .9;
-    planetOptions.Seed = Math.random();
-    planetOptions.Clouds.Seed = Math.random();
-    planetOptions.NoiseFunction = [NoiseOptions.perlin2, NoiseOptions.perlin3, NoiseOptions.quickNoise, NoiseOptions.simplex2, NoiseOptions.simplex3][Math.floor(Math.random() * 5)];
-    planetOptions.Clouds.NoiseFunction = [NoiseOptions.staticQuickNoise, NoiseOptions.perlin3, NoiseOptions.quickNoise, NoiseOptions.simplex2, NoiseOptions.simplex3][Math.floor(Math.random() * 5)];
-
-    let minColDist = Infinity,
-        cols = PlanetColors.chooseForMe();
-
-    for (const key in PlanetColors) {
-        const dist = Math.min(...PlanetColors[key].map(c => Color.distance(c[2], sourceColor)));
-        if (dist < minColDist) {
-            minColDist = dist;
-            cols = PlanetColors[key];
-        }
+function loadPlanet(importString, sourceColor) {
+    let planetOptions = null;
+    if (importString && importString.length > 0) {
+        planetOptions = PlanetOptions.fromSave(importString);
     }
 
-    planetOptions.Colors = cols;
+    if (planetOptions == null) {
+        planetOptions = new PlanetOptions();
+        planetOptions.Detail = .1 + Math.random() * .9;
+        planetOptions.Seed = Math.random();
+        planetOptions.Clouds.Seed = Math.random();
+        planetOptions.NoiseFunction = [NoiseOptions.perlin2, NoiseOptions.perlin3, NoiseOptions.quickNoise, NoiseOptions.simplex2, NoiseOptions.simplex3][Math.floor(Math.random() * 5)];
+        planetOptions.Clouds.NoiseFunction = [NoiseOptions.staticQuickNoise, NoiseOptions.perlin3, NoiseOptions.quickNoise, NoiseOptions.simplex2, NoiseOptions.simplex3][Math.floor(Math.random() * 5)];
+
+        let minColDist = Infinity,
+            cols = PlanetColors.chooseForMe();
+
+        for (const key in PlanetColors) {
+            const dist = Math.min(...PlanetColors[key].map(c => Color.distance(c[2], sourceColor)));
+            if (dist < minColDist) {
+                minColDist = dist;
+                cols = PlanetColors[key];
+            }
+        }
+
+        planetOptions.Colors = cols;
+    }
+
+    planetOptions.Radius = 128;
 
     const planet = new Planet(planetOptions);
     planet.generate();
@@ -83,11 +91,11 @@ function loadPlanet(sourceColor) {
     return createImageBitmap(planet.canvas);
 }
 
-self.onmessage = function({ data }) {
+self.onmessage = function ({ data }) {
     switch (data[0]) {
         case 0: // Generate planet
-            loadPlanet(data[1]).then(imageBitmap => {
-                self.postMessage([0, data[2], imageBitmap], [imageBitmap]);
+            loadPlanet(data[1], data[2]).then(imageBitmap => {
+                self.postMessage([0, data[3], imageBitmap], [imageBitmap]);
             });
             break;
     }

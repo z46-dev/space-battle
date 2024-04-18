@@ -5,175 +5,200 @@
         "y": 0,
         "color": "#FFE5B4",
         "income": 300,
-        "shipyardLevel": 2
+        "shipyardLevel": 2,
+        "design": "256;0.43185;5.00;externalBrightPlanet;4;simplex3"
     }, {
         "name": "Alderaan",
         "x": 500,
         "y": 150,
         "color": "#55CCEE",
         "income": 350,
-        "shipyardLevel": 1
+        "shipyardLevel": 1,
+        "design": "256;1.00000;0.60;externalLushPlanet;6;perlin3"
     }, {
         "name": "Anaxes",
         "x": 150,
         "y": -400,
         "color": "#CCD5FF",
         "income": 400,
-        "shipyardLevel": 3
+        "shipyardLevel": 3,
+        "design": "256;3.00000;0.10;externalLavaPlanet;6;simplex3"
     }, {
         "name": "Fresia",
         "x": 450,
         "y": -270,
         "color": "#55AAFF",
         "income": 200,
-        "shipyardLevel": 2
+        "shipyardLevel": 2,
+        "design": "256;1.20000;4.00;externalLushPlanet;32;quickNoise"
     }, {
         "name": "Kuat",
         "x": 710,
         "y": 600,
         "color": "#AAEF55",
         "income": 300,
-        "shipyardLevel": 4
+        "shipyardLevel": 4,
+        "design": "256;4.00000;0.15;externalForestPlanet;6;simplex3"
     }, {
         "name": "Byss",
         "x": -75,
         "y": 300,
         "color": "#AADDBB",
         "income": 200,
-        "shipyardLevel": 4
+        "shipyardLevel": 4,
+        "design": "256;10.20000;0.23;externalRedPlanet;8;quickNoise"
     }, {
         "name": "Corellia",
         "x": 500,
         "y": 1100,
         "color": "#FFAA55",
         "income": 200,
-        "shipyardLevel": 3
+        "shipyardLevel": 3,
+        "design": "256;1.00000;2.00;externalSandPlanet;4;quickNoise"
     }, {
         "name": "Onderon",
         "x": 1100,
         "y": -100,
         "color": "#44DDAA",
         "income": 250,
-        "shipyardLevel": 1
+        "shipyardLevel": 1,
+        "design": "256;0.94884;0.70;externalDarkPlanet;4;staticQuickNoise"
     }, {
         "name": "Kashyyyk",
         "x": 2600,
         "y": 0,
         "color": "#11CC44",
         "income": 200,
-        "shipyardLevel": 1
+        "shipyardLevel": 1,
+        "design": "256;1.76500;7.00;externalForestPlanet;32;quickNoise"
     }, {
-        "name": "Cardia",
+        "name": "Carida",
         "x": 1200,
         "y": 300,
         "color": "#C8C8AA",
         "income": 250,
-        "shipyardLevel": 2
+        "shipyardLevel": 2,
+        "design": "256;0.62218;6.00;externalLushPlanet;4;quickNoise"
     }, {
         "name": "Mimban",
         "x": 1450,
         "y": 850,
         "color": "#AA5555",
         "income": 150,
-        "shipyardLevel": 2
+        "shipyardLevel": 2,
+        "design": "256;19.00000;0.30;externalSandPlanet;64;perlin3"
     }, {
         "name": "Jedha",
         "x": -1000,
         "y": -300,
         "color": "#FFDDAA",
         "income": 150,
-        "shipyardLevel": 1
+        "shipyardLevel": 1,
+        "design": "256;19.00000;0.30;externalBrightPlanet;64;simplex3"
     }, {
         "name": "Jakku",
         "x": -850,
         "y": 1250,
         "color": "#EEAACC",
         "income": 150,
-        "shipyardLevel": 1
+        "shipyardLevel": 1,
+        "design": "256;11.00000;0.25;desertColors;32;simplex3"
     }, {
         "name": "Exogol",
         "x": -2000,
         "y": -950,
         "color": "#AAAACC",
         "income": 400,
-        "shipyardLevel": 3
+        "shipyardLevel": 3,
+        "design": "256;0.52488;1.00;externalBluePlanet;32;staticQuickNoise"
     }, {
         "name": "Ahch-To",
         "x": -2300,
         "y": 1600,
         "color": "#AAFFAA",
         "income": 50,
-        "shipyardLevel": 1
+        "shipyardLevel": 1,
+        "design": "256;9.00000;1.50;externalLushPlanet;8;simplex3"
     }, {
         "name": "Batuu",
         "x": -1500,
         "y": 2200,
         "color": "#FFAAFF",
         "income": 100,
-        "shipyardLevel": 1
+        "shipyardLevel": 1,
+        "design": "256;0.50136;1.00;snowColors;4;staticQuickNoise"
     }, {
         "name": "Takodana",
         "x": -750,
         "y": 2300,
         "color": "#FFCCAA",
         "income": 150,
-        "shipyardLevel": 1
+        "shipyardLevel": 1,
+        "design": "256;45.00000;1.00;standardColors;32;simplex3"
     }, {
         "name": "Ring of Kafrene",
         "x": -500,
         "y": 2350,
         "color": "#FFAA55",
         "income": 300,
-        "shipyardLevel": 2
+        "shipyardLevel": 2,
+        "design": "256;0.70096;1.00;externalRedPlanet;4;staticQuickNoise"
     }, {
         "name": "Endor",
         "x": -1400,
         "y": 2800,
         "color": "#AAFFAA",
         "income": 200,
-        "shipyardLevel": 1
+        "shipyardLevel": 1,
+        "design": "256;0.25000;2.00;externalForestPlanet;4;perlin3"
     }, {
         "name": "Bespin",
         "x": -300,
         "y": 3000,
         "color": "#FFBBAA",
         "income": 200,
-        "shipyardLevel": 2
+        "shipyardLevel": 2,
+        "design": "256;64.00000;0.30;desertColors;3;quickNoise"
     }, {
         "name": "Hoth",
         "x": -200,
         "y": 2650,
         "color": "#DDDDFF",
         "income": 150,
-        "shipyardLevel": 1
+        "shipyardLevel": 1,
+        "design": "256;4.40000;1.00;snowColors;6;quickNoise"
     }, {
         "name": "Mustafar",
         "x": 100,
         "y": 3200,
         "color": "#CC3377",
         "income": 150,
-        "shipyardLevel": 2
+        "shipyardLevel": 2,
+        "design": "256;7.00000;0.40;externalLavaPlanet;64;staticQuickNoise"
     }, {
         "name": "Dagobah",
         "x": 500,
         "y": 3400,
         "color": "#55DD55",
         "income": 100,
-        "shipyardLevel": 1
+        "shipyardLevel": 1,
+        "design": "256;7.00000;1.00;externalForestPlanet;4;staticQuickNoise"
     }, {
         "name": "Utapau",
         "x": 675,
         "y": 3600,
         "color": "#FFDDAA",
         "income": 200,
-        "shipyardLevel": 3
+        "shipyardLevel": 3,
+        "design": "256;0.91664;2.00;externalForestPlanet;8;simplex3"
     }, {
         "name": "Sullust",
         "x": 450,
         "y": 2400,
         "color": "#FFAA55",
         "income": 300,
-        "shipyardLevel": 4
+        "shipyardLevel": 4,
+        "design": "256;0.91664;2.00;desertColors;8;perlin3"
     }, {
         "name": "Malastare",
         "x": 525,
@@ -181,21 +206,23 @@
         "color": "#DD3399",
         "income": 200,
         "shipyardLevel": 2,
-        "design": "128;0.00000;1.30;externalRedPlanet;4;simplex3"
+        "design": "256;5.00000;1.00;externalDarkPlanet;4;staticQuickNoise"
     }, {
         "name": "Crait",
         "x": 625,
         "y": 2200,
         "color": "#FFDDAA",
         "income": 150,
-        "shipyardLevel": 1
+        "shipyardLevel": 1,
+        "design": "256;33.00000;0.10;snowColors;4;staticQuickNoise"
     }, {
         "name": "Naboo",
         "x": 1000,
         "y": 2100,
         "color": "#55AAFF",
         "income": 400,
-        "shipyardLevel": 3
+        "shipyardLevel": 3,
+        "design": "256;0.57940;1.00;externalLushPlanet;4;simplex2"
     }, {
         "name": "D'Qar",
         "x": 1000,
@@ -269,11 +296,11 @@
         ["Alderaan", "Kuat"],
         ["Alderaan", "Fresia"],
         ["Alderaan", "Onderon"],
-        ["Alderaan", "Cardia"],
-        ["Cardia", "Mimban"],
-        ["Cardia", "Charubah"],
-        ["Cardia", "Onderon"],
-        ["Cardia", "Kuat"],
+        ["Alderaan", "Carida"],
+        ["Carida", "Mimban"],
+        ["Carida", "Charubah"],
+        ["Carida", "Onderon"],
+        ["Carida", "Kuat"],
         ["Anaxes", "Fresia"],
         ["Fresia", "Onderon"],
         ["Kuat", "Mimban"],

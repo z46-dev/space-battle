@@ -30,6 +30,10 @@ heroes["Jabba The Hutt"] = {
 
         if (ship.jabbaAbility.active) {
             ship.jabbaAbility.ticker--;
+
+            if (ship.jabbaAbility.ticker <= 0) {
+                ship.jabbaAbility.active = false;
+            }
             ship.shield = Math.max(ship.shield, Math.min(ship.maxShield * .334, ship.shield + ship.maxShield * .0005));
         } else {
             ship.jabbaAbility.ticker++;

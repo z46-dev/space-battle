@@ -54,7 +54,7 @@ export class PlanetColors {
             const adjustedMin1 = minNoiseValue1;
             const adjustedMax2 = maxNoiseValue1;
             const stepSize = (adjustedMax2 - adjustedMin1) / numSteps;
-            
+
             for (let j = 0; j < numSteps; j++) {
                 const newMinNoiseValue = adjustedMin1 + j * stepSize;
                 const newMaxNoiseValue = adjustedMin1 + (j + 1) * stepSize;
@@ -65,7 +65,7 @@ export class PlanetColors {
         }
 
         if (expandedColors[expandedColors.length - 1][1] !== 1) {
-            const [$, maxNoiseValue, color] = standardColors[standardColors.length - 1];
+            const [$, maxNoiseValue, color] = expandedColors[expandedColors.length - 1];
             expandedColors.push([maxNoiseValue, 1, color]);
         }
 
@@ -180,8 +180,8 @@ export class PlanetColors {
         [-1, -.1, "#f47c54"],
         [-.1, .1, "#cb4e42"],
         [.1, .4, "#916643"],
-        [.4, .7, "#5c646c"],
-        [.7, 1, Color.palette.mountain]
+        [.4, .7, Color.palette.mountain],
+        [.7, 1, "#5c646c"]
     ];
 
     static externalForestPlanet = [
@@ -190,6 +190,22 @@ export class PlanetColors {
         [.1, .4, "#728c52"],
         [.4, .7, "#babc71"],
         [.7, 1, "#c9bd96"]
+    ];
+
+    static externalLushPlanet = [
+        [-1, -.1, "#146459"],
+        [-.1, .1, "#40958E"],
+        [.1, .4, "#859F93"],
+        [.4, .7, "#5DABB0"],
+        [.7, 1, "#B5C8CF"]
+    ];
+
+    static externalBrightPlanet = [
+        [-1, -.1, "#3d324a"],
+        [-.1, .2, "#754248"],
+        [.2, .5, "#423745"],
+        [.5, .95, "#301804"],
+        [.95, 1, "#b06b56"]
     ];
 
     static chooseForMe() {
@@ -241,6 +257,41 @@ export class PlanetOptions {
         angle: 0,
         distance: 0
     };
+
+    static fromSave(data) {
+        const parts = data.replaceAll("\"", "").split(";");
+        if (parts.length < 6) {
+            alert("Invalid data.");
+            return;
+        }
+
+        const options = new PlanetOptions();
+        options.Radius = +parts[0];
+        options.Seed = +parts[1];
+        options.Detail = +parts[2];
+        options.Colors = PlanetColors.expandStandardColors(parts[4], PlanetColors[parts[3]]);
+        options.NoiseFunction = NoiseOptions[parts[5]];
+
+        if (parts[6] != null) {
+            options.Clouds.Seed = +parts[6];
+        } else {
+            options.Clouds.Seed = Math.random();
+        }
+
+        if (parts[7] != null) {
+            options.Clouds.Detail = +parts[7];
+        } else {
+            options.Clouds.Detail = .2 + Math.random();
+        }
+
+        if (parts[8] != null) {
+            options.Clouds.NoiseFunction = NoiseOptions[parts[8]];
+        } else {
+            options.Clouds.NoiseFunction = NoiseOptions[Object.keys(NoiseOptions)[Math.random() * Object.keys(NoiseOptions).length | 0]];
+        }
+
+        return options;
+    }
 }
 
 export default class Planet {

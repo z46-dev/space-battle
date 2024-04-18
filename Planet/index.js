@@ -79,7 +79,6 @@ for (const key in PlanetColors) {
 
 colorTypeDropdown.onchange = function () {
     options.Colors = PlanetColors.expandStandardColors(+document.getElementById("colorDepth").value, PlanetColors[colorTypeDropdown.value]);
-    console.log(options.Colors);
     generate();
 }
 
@@ -88,15 +87,12 @@ document.getElementById("colorDepth").oninput = function () {
     value = Math.min(Math.max(1, value + .5 | 0), 64);
 
     options.Colors = PlanetColors.expandStandardColors(value, PlanetColors[colorTypeDropdown.value]);
-    console.log(options.Colors);
     generate();
 }
 
 {
     const key = Object.keys(PlanetColors)[Math.random() * Object.keys(PlanetColors).length | 0];
     options.Colors = PlanetColors.expandStandardColors(+document.getElementById("colorDepth").value, PlanetColors[key]);
-    console.log(options.Colors);
-
     colorTypeDropdown.value = key;
 }
 

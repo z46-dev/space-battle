@@ -22,9 +22,9 @@ worker.onmessage = function({ data }) {
     }
 }
 
-export function getPlanet(color) {
+export function getPlanet(design, color) {
     const id = cacheID ++;
-    worker.postMessage([0, color, id]);
+    worker.postMessage([0, design ?? false, color, id]);
 
     return new Promise(resolve => {
         cache[id] = imageBitmap => {
@@ -69,7 +69,7 @@ export default class Planet {
          * @type {ImageBitmap | null}
          */
         this.realPlanet = null;
-        getPlanet(this.color).then(bm => {
+        getPlanet(planetConfig[id].design, this.color).then(bm => {
             console.log(bm);
             this.realPlanet = bm;
         });
