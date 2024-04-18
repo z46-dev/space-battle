@@ -70,7 +70,6 @@ export default class Planet {
          */
         this.realPlanet = null;
         getPlanet(planetConfig[id].design, this.color).then(bm => {
-            console.log(bm);
             this.realPlanet = bm;
         });
     }

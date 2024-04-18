@@ -9,7 +9,7 @@
     "color": "#EE5555",
     "name": "New Republic",
     "key": "REBEL",
-    "planets": ["Naboo", "Crait", "D'Qar", "Endor", "Takodana"],
+    "planets": ["Naboo", "Crait", "D'Qar", "Endor", "Takodana", "Malastare", "Ahch-To", "Hoth", "Dagobah"],
     "capital": {
         "name": "Naboo",
         "fleetPopulation": 160,
@@ -20,7 +20,7 @@
     "color": "#55EE55",
     "name": "Galactic Empire",
     "key": "EMPIRE",
-    "planets": ["Coruscant", "Anaxes", "Alderaan", "Kuat", "Fresia"],
+    "planets": ["Coruscant", "Anaxes", "Alderaan", "Kuat", "Fresia", "Corellia", "Jakku", "Batuu", "Carida", "Onderon", "Kashyyyk", "Bespin", "Mustafar"],
     "capital": {
         "name": "Coruscant",
         "fleetPopulation": 300,
@@ -53,7 +53,7 @@
     "color": "#66AA66",
     "name": "Zann Consortium",
     "key": "ZANN",
-    "planets": ["Ring of Kafrene", "Savareen", "Sullust"],
+    "planets": ["Ring of Kafrene", "Savareen", "Sullust", "Utapau"],
     "capital": {
         "name": "Ring of Kafrene",
         "fleetPopulation": 100,
@@ -64,7 +64,7 @@
     "color": "#FF55EE",
     "name": "Hapes Consortium",
     "key": "HAPAN",
-    "planets": ["Hapes", "Charubah", "Terephon", "Gallinore"],
+    "planets": ["Hapes", "Charubah", "Terephon", "Gallinore", "Relephon"],
     "capital": {
         "name": "Hapes",
         "fleetPopulation": 130,

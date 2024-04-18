@@ -229,63 +229,80 @@
         "y": 2400,
         "color": "#55FFAA",
         "income": 200,
-        "shipyardLevel": 2
+        "shipyardLevel": 2,
+        "design": "256;455.00000;0.40;externalForestPlanet;8;staticQuickNoise"
     }, {
         "name": "Savareen",
         "x": 1750,
         "y": 2250,
         "color": "#CCAAFF",
         "income": 150,
-        "shipyardLevel": 1
+        "shipyardLevel": 1,
+        "design": "256;467.65000;0.25;standardColors;8;quickNoise"
     }, {
         "name": "Geonosis",
         "x": 1900,
         "y": 2000,
         "color": "#CC4488",
         "income": 200,
-        "shipyardLevel": 4
+        "shipyardLevel": 4,
+        "design": "256;467.65000;2.00;externalLavaPlanet;4;quickNoise"
     }, {
         "name": "Tatooine",
         "x": 2000,
         "y": 1800,
         "color": "#FFDDAA",
         "income": 300,
-        "shipyardLevel": 3
+        "shipyardLevel": 3,
+        "design": "256;4.15000;0.25;desertColors;12;staticQuickNoise"
     }, {
         "name": "Hapes",
-        "x": 2100,
-        "y": -30,
+        "x": 2300,
+        "y": -350,
         "color": "#BBAADC",
         "income": 400,
-        "shipyardLevel": 5
+        "shipyardLevel": 3,
+        "design": "256;0.37696;1.00;standardColors;4;staticQuickNoise"
     }, {
         "name": "Charubah",
         "x": 1700,
-        "y": -20,
+        "y": -300,
         "color": "#8888C8",
         "income": 250,
-        "shipyardLevel": 4
+        "shipyardLevel": 2,
+        "design": "256;4.00000;2.00;externalLushPlanet;32;staticQuickNoise"
     }, {
         "name": "Gallinore",
-        "x": 1750,
-        "y": -200,
+        "x": 1480,
+        "y": -675,
         "color": "#EE55AA",
         "income": 300,
-        "shipyardLevel": 4
+        "shipyardLevel": 3,
+        "design": "256;0.88924;1.00;desertColors;4;staticQuickNoise"
     }, {
         "name": "Terephon",
-        "x": 2200,
-        "y": -300,
+        "x": 1890,
+        "y": -800,
         "color": "#33CCAA",
         "income": 200,
-        "shipyardLevel": 3
+        "shipyardLevel": 1,
+        "design": "256;6.00000;1.00;externalForestPlanet;4;staticQuickNoise"
+    }, {
+        "name": "Relephon",
+        "x": 2000,
+        "y": -75,
+        "color": "#CCCCAA",
+        "income": 700,
+        "shipyardLevel": 2,
+        "design": "256;0.95000;1.00;snowColors;4;staticQuickNoise"
     }, {
         "name": "Nal Hutta",
         "x": 2300,
         "y": 650,
         "color": "#994433",
         "income": 600,
-        "shipyardLevel": 3
+        "shipyardLevel": 3,
+        "design": "256;0.78123;4.00;externalSandPlanet;8;staticQuickNoise"
     }],
     "connections": [
         ["Alderaan", "Coruscant"],
@@ -311,8 +328,9 @@
         ["Corellia", "Jakku"],
         ["Charubah", "Onderon"],
         ["Charubah", "Mimban"],
-        ["Charubah", "Hapes"],
+        ["Charubah", "Relephon"],
         ["Charubah", "Gallinore"],
+        ["Relephon", "Hapes"],
         ["Gallinore", "Terephon"],
         ["Terephon", "Hapes"],
         ["Terephon", "Kashyyyk"],
