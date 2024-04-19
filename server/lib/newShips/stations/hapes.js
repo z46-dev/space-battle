@@ -35,6 +35,82 @@ ships.MIYTILFIGHTER_HAPAN = {
     }]
 };
 
+ships.BAIDAM_HAPAN = {
+    name: "Baidam Corvette",
+    asset: "BAIDAM_HAPAN.png",
+    classification: shipTypes.Corvette,
+    population: 2,
+    size: 85,
+    cost: 360,
+    speed: 11.2,
+    turnSpeed: .03,
+    shield: 1675,
+    shieldRegen: 2,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: weapons.BLUE_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 6,
+        shotDelay: 45
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.BLUE_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 6,
+        shotDelay: 45
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.ION_CANNON_HEAVY,
+        shotsAtOnce: 3,
+        shotDelay: 60
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 2.5 | 0
+        }
+    }))
+};
+
+ships.FLARE_HAPAN = {
+    name: "Flare Corvette",
+    asset: "FLARE_HAPAN.png",
+    classification: shipTypes.Corvette,
+    population: 3,
+    size: 100,
+    cost: 490,
+    speed: 8,
+    turnSpeed: .02,
+    shield: 2000,
+    shieldRegen: 2,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: weapons.BLUE_TURBOLASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 60
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.BLUE_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 60
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.BLUE_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 60
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 2.75 | 0
+        }
+    }))
+};
+
 ships.BETACRUISER_HAPAN = {
     name: "Beta Cruiser",
     asset: "BETACRUISER.png",
@@ -115,6 +191,54 @@ ships.NOVACRUISER_HAPAN = {
         weapon: {
             ...e.weapon,
             health: e.weapon.health * 4
+        }
+    }))
+};
+
+ships.STELLA_HAPAN = {
+    name: "Stella Frigate",
+    asset: "STELLA_HAP.png",
+    classification: shipTypes.Frigate,
+    population: 7,
+    size: 280,
+    cost: 2370,
+    speed: 4,
+    turnSpeed: .01,
+    shield: 3904,
+    shieldRegen: 3,
+    hardpoints: [{
+        x: 0,
+        y: .8,
+        weapon: weapons.BLUE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: .2,
+        weapon: weapons.BLUE_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 4,
+        shotDelay: 45
+    }, {
+        x: 0,
+        y: -.3,
+        weapon: weapons.BLUE_QUAD_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 60
+    }, {
+        x: .2,
+        y: -.7,
+        weapon: weapons.BLUE_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 4,
+        shotDelay: 45
+    }, {
+        x: -.2,
+        y: -.7,
+        weapon: weapons.TRIPLE_ION_CANNON
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 3
         }
     }))
 };
@@ -231,6 +355,160 @@ ships.MAGNETAR_HAPAN = {
         maxSquadrons: 1,
         squadronSize: 5,
         reserveSize: 2,
+        squadronKey: "MIYTILFIGHTER_HAPAN"
+    }]
+};
+
+ships.CORONAL_HAPAN = {
+    name: "Coronal Tender",
+    asset: "CORONAL_HAPAN.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 16,
+    size: 400,
+    cost: 4590,
+    speed: 3.4,
+    turnSpeed: .008,
+    shield: 7673,
+    shieldRegen: 8,
+    shieldRegenAbility: {
+        cooldown: .55,
+        regen: 1.25
+    },
+    tenderAbility: {
+        frequency: 1,
+        power: 1
+    },
+    hardpoints: [{
+        x: -.3,
+        y: .3,
+        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .3,
+        y: .3,
+        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.55,
+        y: -.2,
+        weapon: weapons.BLUE_TRIPLE_TURBOLASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .55,
+        y: -.2,
+        weapon: weapons.BLUE_TRIPLE_TURBOLASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.3,
+        y: -.8,
+        weapon: weapons.BLUE_TRIPLE_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 60
+    }, {
+        x: .3,
+        y: -.8,
+        weapon: weapons.BLUE_TRIPLE_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 60
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            range: e.weapon.range * 2,
+            damage: e.weapon.damage * 1.5,
+            health: e.weapon.health * 9.5 + .5 | 0
+        }
+    })),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 5,
+        reserveSize: 1,
+        squadronKey: "MIYTILFIGHTER_HAPAN"
+    }]
+};
+
+ships.MIST_HAPAN = {
+    name: "Mist Carrier",
+    asset: "MIST_CARRIER_HAPAN.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 29,
+    size: 600,
+    cost: 7488,
+    speed: 2.6,
+    turnSpeed: .008,
+    shield: 9800,
+    shieldRegen: 9,
+    shieldRegenAbility: {
+        cooldown: .7,
+        regen: 1.5
+    },
+    hardpoints: [{
+        x: -.5,
+        y: .6,
+        weapon: weapons.BLUE_TRIPLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .5,
+        y: .6,
+        weapon: weapons.BLUE_TRIPLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.3,
+        y: .3,
+        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .3,
+        y: .3,
+        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.55,
+        y: -.2,
+        weapon: weapons.BLUE_TRIPLE_TURBOLASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: .55,
+        y: -.2,
+        weapon: weapons.BLUE_TRIPLE_TURBOLASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: -.3,
+        y: -.8,
+        weapon: weapons.BLUE_TRIPLE_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 60
+    }, {
+        x: .3,
+        y: -.8,
+        weapon: weapons.BLUE_TRIPLE_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 60
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 9.5 + .5 | 0
+        }
+    })),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 3,
+        squadronSize: 6,
+        reserveSize: 6,
         squadronKey: "MIYTILFIGHTER_HAPAN"
     }]
 };

@@ -1059,6 +1059,22 @@ class Ship {
 
             this.shieldAbility.ticker = Math.random() * this.shieldAbility.cooldown * .15 | 0;
         }
+
+        this.tenderAbility = {
+            exists: false
+        };
+
+        if (config.tenderAbility !== undefined) {
+            this.tenderAbility = {
+                exists: true,
+                enabled: false,
+                frequency: 25 * 3 / (config.tenderAbility.frequency ?? 1),
+                power: config.tenderAbility.power ?? 1,
+                ticker: 0
+            };
+
+            this.tenderAbility.ticker = Math.random() * this.tenderAbility.frequency * .5 | 0;
+        }
     }
 
     addHangar(config) {
@@ -1129,10 +1145,29 @@ class Ship {
                     this.shieldAbility.ticker = 0;
                 }
             } else {
-                if (this.shieldAbility.ticker >= this.shieldAbility.cooldown) {
+                if (this.shieldAbility.ticker >= this.shieldAbility.cooldown && this.shield < this.maxShield * .5) {
                     this.shieldAbility.enabled = true;
                     this.shieldAbility.ticker = 0;
                 }
+            }
+        }
+
+        if (this.tenderAbility.exists) {
+            this.tenderAbility.ticker++;
+
+            if (this.tenderAbility.ticker >= this.tenderAbility.frequency) {
+                this.tenderAbility.ticker = 0;
+
+                const radius = this.size * 5.5;
+
+                this.battle.ships.forEach(ship => {
+                    if (ship.team === this.team && ship.classification >= shipTypes.Corvette && distance(this.x, this.y, ship.x, ship.y) <= radius) {
+                        for (let i = 0; i < ship.hardpoints.length; i++) {
+                            ship.hardpoints[i].health = Math.min(ship.hardpoints[i].maxHealth, Math.max(0, ship.hardpoints[i].health + ship.hardpoints[i].maxHealth * (.05 * this.tenderAbility.power)));
+                            ship.hardpoints[i].hasExploded = false;
+                        }
+                    }
+                });
             }
         }
 
@@ -1414,14 +1449,14 @@ function randomFaction() {
 }
 
 const spawnDistance = 4000;
-const fleetFactions = [randomFaction(), randomFaction()];
+const fleetFactions = ["HAPAN", randomFaction()];
 
 const fleetOverrides = [
     null,
     null
 ];
 
-const pop = 75;
+const pop = 125;
 
 for (let i = 0; i < 2; i++) {
     const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);
