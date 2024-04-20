@@ -296,6 +296,10 @@ ships.DHOMNI_CIS = {
     turnSpeed: .0075,
     shield: 6000,
     shieldRegen: 6,
+    tenderAbility: {
+        frequency: 2,
+        power: .5
+    },
     hardpoints: (function() {
         const output = [{
             x: -.15,

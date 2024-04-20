@@ -139,7 +139,7 @@ for (let i = 0; i < factions.length - 1; i++) {
         text: faction.name,
         color: faction.color,
         action: () => {
-            shared.campaign = new Campaign();
+            shared.campaign = new Campaign(faction);
             changeState(STATE_TACTICAL_MAP);
             shared.campaign.init();
         }

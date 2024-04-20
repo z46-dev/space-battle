@@ -2,6 +2,8 @@ import { ctx } from "../shared/canvas.js";
 import { Color, drawText } from "../shared/render.js";
 import Shipyard from "./Shipyard.js";
 import { Faction } from "./Factions.js";
+import Fleet from "./Fleet.js";
+import UIElement from "./UIElement.js";
 
 const loaded = await (await fetch("./assets/planets.json")).json();
 
@@ -63,6 +65,9 @@ export default class Planet {
         this.controllingFaction = null;
         this.shipyard = new Shipyard(this, planetConfig[id].shipyardLevel);
 
+        /**
+         * @type {Fleet[]}
+         */
         this.fleets = [];
 
         /**
@@ -72,18 +77,31 @@ export default class Planet {
         getPlanet(planetConfig[id].design, this.color).then(bm => {
             this.realPlanet = bm;
         });
+
+        /**
+         * @type {UIElement}
+         */
+        this.element = null;
     }
 
     /**
      * Sets control of the planet to a faction. If null, defaults
-     * @param {Faction | null} faction 
+     * @param {Faction | null} faction
+     * @param {boolean} createFleet
      */
-    setControl(faction) {
+    setControl(faction, createFleet = false) {
         this.income = planetConfig[this.id].income;
         this.controllingFaction = faction;
 
         if (faction?.capitalPlanet?.name === this.name) {
             this.income = faction.capitalPlanet.baseIncome;
+            this.isCapital = faction.capitalPlanet;
+        }
+
+        if (createFleet) {
+            this.fleets.push(Fleet.random(this.isCapital ? this.isCapital.fleetPopulation : (30 + (this.income / 10 | 0)), faction.key));
+
+            console.log(this.name + ",", this.controllingFaction.name, this.fleets[this.fleets.length - 1]);
         }
     }
 

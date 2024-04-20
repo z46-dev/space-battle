@@ -33,6 +33,10 @@ export class Color {
         return hex;
     }
 
+    static darken(primary, amount) {
+        return this.mix(primary, "#000000", amount);
+    }
+
     static distance(primary, secondary) {
         const key = `d${primary}${secondary}`;
 
@@ -63,4 +67,19 @@ export function drawText(text, x, y, size, fill, stroke = Color.mix(fill, "#0000
 
     ctx.strokeText(text, x, y);
     ctx.fillText(text, x, y);
+}
+
+export const assets = new Map();
+
+export function loadAsset(path, name) {
+    const image = new Image();
+    image.src = path;
+
+    image.ready = false;
+
+    image.onload = () => {
+        image.ready = true;
+    };
+
+    assets.set(name, image);
 }

@@ -1269,7 +1269,7 @@ export const FIGHTER_PROTON_TORPEDO = {
     type: weaponTypes.ProtonTorpedo,
     health: 175,
     name: "Proton Torpedo",
-    
+
     damage: 10,
     collisionRange: 45,
 
@@ -1288,7 +1288,7 @@ export const FIGHTER_CONCUSSION_MISSILE = {
     type: weaponTypes.ConcussionMissile,
     health: 200,
     name: "Concussion Missile",
-    
+
     damage: 15,
     collisionRange: 35,
 
@@ -1307,7 +1307,7 @@ export const FIGHTER_PROTON_ROCKET = {
     type: weaponTypes.ProtonRocket,
     health: 100,
     name: "Proton Rocket",
-    
+
     damage: 5,
     collisionRange: 30,
 
@@ -1326,12 +1326,12 @@ export const FIGHTER_PROTON_BOMB = {
     type: weaponTypes.ProtonBomb,
     health: 125,
     name: "Proton Bomb",
-    
-    damage: 4,
+
+    damage: 6,
     collisionRange: 60,
 
     explodes: true,
-    explosionDamage: 5,
+    explosionDamage: 6,
     explosionRange: 250,
 
     speed: 6,
@@ -1347,7 +1347,7 @@ export const ASSAULT_PROTON_TORPEDO = {
     type: weaponTypes.AssaultProtonTorpedo,
     health: 175,
     name: "Proton Torpedo",
-    
+
     damage: 40,
     collisionRange: 45,
 
@@ -1367,7 +1367,7 @@ export const ASSAULT_CONCUSSION_MISSILE = {
     type: weaponTypes.ConcussionMissile,
     health: 200,
     name: "Concussion Missile",
-    
+
     damage: 70,
     collisionRange: 35,
 
@@ -1387,7 +1387,7 @@ export const ASSAULT_PROTON_ROCKET = {
     type: weaponTypes.AssaultProtonRocket,
     health: 100,
     name: "Proton Rocket",
-    
+
     damage: 30,
     collisionRange: 30,
 
@@ -1407,7 +1407,7 @@ export const ASSAULT_PROTON_BOMB = {
     type: weaponTypes.ProtonBomb,
     health: 125,
     name: "Proton Bomb",
-    
+
     damage: 5,
     collisionRange: 60,
 
@@ -1427,7 +1427,7 @@ export const SIEGE_CONCUSSION_MISSILE = {
     type: weaponTypes.ConcussionMissile,
     health: 200,
     name: "Concussion Missile",
-    
+
     damage: 70,
     collisionRange: 35,
 
@@ -1440,3 +1440,36 @@ export const SIEGE_CONCUSSION_MISSILE = {
     seeks: true,
     targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation]
 };
+
+export const TENDER_FREQUENCY_SECONDS = 3;
+export const TENDER_HEAL_PULSE_AMOUNT = 62;
+
+export function spawner(squadrons = [], ships = []) {
+    return {
+        name: "Spawner",
+        asset: "frigateShipyard.png",
+        classification: shipTypes.SpaceStation,
+        population: 0,
+        size: 1,
+        cost: 0,
+        speed: 0,
+        turnSpeed: 0,
+        shield: 2048,
+        shieldRegen: 2048,
+        hardpoints: [{
+            x: 0,
+            y: 0,
+            weapon: {
+                reload: Infinity,
+                damage: 0,
+                speed: 100,
+                range: 0,
+                type: weaponTypes.IonCannon,
+                health: 2048,
+                name: "Ion Cannon"
+            }
+        }], // {x,y,maxSquadrons,squadronSize,reserveSize:0,squadronKey}
+        hangars: squadrons,
+        production: ships // {x,y,maxAlive,key,reserve:0,cooldown:0}
+    };
+}

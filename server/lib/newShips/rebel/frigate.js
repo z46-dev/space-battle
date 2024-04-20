@@ -159,7 +159,7 @@ ships.NEBULONB_REBEL = {
 };
 
 ships.PELTA_REBEL = {
-    name: "Pelta Frigate",
+    name: "Pelta Medical Frigate",
     asset: "PELTA.png",
     classification: shipTypes.Frigate,
     population: 6,
@@ -169,6 +169,10 @@ ships.PELTA_REBEL = {
     turnSpeed: .015,
     shield: 2000,
     shieldRegen: 4,
+    tenderAbility: {
+        frequency: 1,
+        power: 1
+    },
     hardpoints: [{
         x: -.2,
         y: .85,
@@ -379,5 +383,21 @@ ships.ZENITHCRUISER_REBEL = {
         squadronKey: "XWING_REBEL"
     }]
 };
+
+ships.SPAWNER_FIGHTER_BOMBER_REBEL = weapons.spawner([{
+    x: 0,
+    y: 0,
+    maxSquadrons: 3,
+    squadronSize: 8,
+    reserveSize: 0,
+    squadronKey: "AWING_REBEL"
+}, {
+    x: 0,
+    y: 0,
+    maxSquadrons: 6,
+    squadronSize: 8,
+    reserveSize: 0,
+    squadronKey: "YWING_REBEL"
+}]);
 
 export default ships;

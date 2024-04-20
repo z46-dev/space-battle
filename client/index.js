@@ -4,6 +4,7 @@ import { default as shipConfig } from "../server/lib/ships.js";
 import heroes from "../server/lib/heroes.js";
 import noise from "../Planet/oldNoise.js";
 import Planet, { NoiseOptions, PlanetColors, PlanetOptions } from "../Planet/Planet.js";
+import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/lib/weapons.js";
 
 (async function () {
     const assets = new Map();
@@ -1117,6 +1118,15 @@ import Planet, { NoiseOptions, PlanetColors, PlanetOptions } from "../Planet/Pla
 
                         if (mouseOverShip) {
                             shipOver = ship;
+
+                            if (shipConfig[ship.key].tenderAbility) {
+                                ctx.beginPath();
+                                ctx.arc(0, 0, ship.size * 5.5, 0, Math.PI * 2);
+                                ctx.closePath();
+                                ctx.strokeStyle = "#AAEEAA";
+                                ctx.lineWidth = 8;
+                                ctx.stroke();
+                            }
                         }
 
                         if (ship.size >= 150) {
@@ -1515,6 +1525,10 @@ import Planet, { NoiseOptions, PlanetColors, PlanetOptions } from "../Planet/Pla
 
             bigHeight += 50;
 
+            if (cfg.tenderAbility) {
+                bigHeight += 35;
+            }
+
             if (shipOver.commanderName) {
                 const m1 = measureText(heroes[shipOver.commanderName].name, 20);
                 const m2 = measureText(heroes[shipOver.commanderName].tooltip, 16);
@@ -1577,6 +1591,12 @@ import Planet, { NoiseOptions, PlanetColors, PlanetOptions } from "../Planet/Pla
                 drawText(heroes[shipOver.commanderName].name, 20, y, 20);
                 y += 20;
                 drawWrappedText(heroes[shipOver.commanderName].tooltip, 20, y, 16, bigWidth - 10);
+            }
+
+            if (cfg.tenderAbility) {
+                drawText("Tender Frequency: " + (cfg.tenderAbility.frequency * TENDER_FREQUENCY_SECONDS).toFixed(2) + "s", 20, y, 18);
+                y += listHeight + 5;
+                drawText("Tender Pulse Amount: " + (cfg.tenderAbility.power * TENDER_HEAL_PULSE_AMOUNT).toFixed(2) + "hp", 20, y, 18);
             }
 
             ctx.restore();

@@ -2,6 +2,7 @@ import SpatialHashGrid from "./lib/SpatialHashGrid.js";
 import { shipTypes, weaponClassifications, weaponDrawProperties, weaponProperties, weaponTypes } from "./lib/constants.js";
 import heroes from "./lib/heroes.js";
 import ships from "./lib/ships.js";
+import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "./lib/weapons.js";
 
 function angleDifference(a, b) {
     return Math.atan2(Math.sin(a - b), Math.cos(a - b));
@@ -94,7 +95,7 @@ class Projectile {
                 }
             } else if (this.explodes) {
                 if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
-                    this.target.ship.shield -= this.hardpoint.damage; // Nuh uh uh
+                    this.target.ship.shield -= this.hardpoint.damage * (this.hardpoint.projectileType === weaponTypes.ProtonBomb ? 3 : 1); // Nuh uh uh
                     this.target.ship.lastHit = performance.now();
                 } else {
                     this.target.ship.lastHit = performance.now();
@@ -116,8 +117,8 @@ class Projectile {
                         hardpoint.health -= this.explosionDamage;
                     }
 
-                    if (Math.random() > .85 && this.explosionRange <= 1000) {
-                        this.battle.explode(this.target.x, this.target.y, this.explosionRange * .667, this.angle, "blueExplosion" + (Math.random() * 5 | 0 + 1));
+                    if (Math.random() > .5 && this.explosionRange <= 1000) {
+                        this.battle.explode(this.target.x, this.target.y, this.explosionRange * .667, this.angle, Math.random() > .5 ? "explosion" + (Math.random() * 10 | 0 + 1) : ("blueExplosion" + (Math.random() * 5 | 0 + 1)));
                     }
                 }
             } else {
@@ -1068,7 +1069,7 @@ class Ship {
             this.tenderAbility = {
                 exists: true,
                 enabled: false,
-                frequency: 25 * 3 / (config.tenderAbility.frequency ?? 1),
+                frequency: 25 * TENDER_FREQUENCY_SECONDS / (config.tenderAbility.frequency ?? 1),
                 power: config.tenderAbility.power ?? 1,
                 ticker: 0
             };
@@ -1163,8 +1164,9 @@ class Ship {
                 this.battle.ships.forEach(ship => {
                     if (ship.team === this.team && ship.classification >= shipTypes.Corvette && distance(this.x, this.y, ship.x, ship.y) <= radius) {
                         for (let i = 0; i < ship.hardpoints.length; i++) {
-                            ship.hardpoints[i].health = Math.min(ship.hardpoints[i].maxHealth, Math.max(0, ship.hardpoints[i].health + ship.hardpoints[i].maxHealth * (.05 * this.tenderAbility.power)));
-                            ship.hardpoints[i].hasExploded = false;
+                            if (ship.hardpoints[i].health > 0) {
+                                ship.hardpoints[i].health = Math.min(ship.hardpoints[i].maxHealth, Math.max(0, ship.hardpoints[i].health + TENDER_HEAL_PULSE_AMOUNT * this.tenderAbility.power));
+                            }
                         }
                     }
                 });
@@ -1449,14 +1451,14 @@ function randomFaction() {
 }
 
 const spawnDistance = 4000;
-const fleetFactions = ["HAPAN", randomFaction()];
+const fleetFactions = ["EMPIRE", "REBEL"];
 
 const fleetOverrides = [
     null,
-    null
+    ["SPAWNER_FIGHTER_BOMBER_REBEL"]
 ];
 
-const pop = 125;
+const pop = 30;
 
 for (let i = 0; i < 2; i++) {
     const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);
