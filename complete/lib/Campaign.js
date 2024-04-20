@@ -85,7 +85,7 @@ export default class Campaign {
             if (event.button === 2) {
                 this.rightMouseDown = true;
             } else {
-                for (let i = this.UIElements.length - 1; i > 0; i --) {
+                for (let i = this.UIElements.length - 1; i >= 0; i --) {
                     if (this.UIElements[i].contains(this.mouseX, this.mouseY)) {
                         this.UIElements[i].callback();
                         return;
