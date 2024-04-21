@@ -3,7 +3,8 @@
     "color": "#DDDDDD",
     "name": "Neutral Systems",
     "key": "",
-    "planets": []
+    "planets": [],
+    "campaignTypes": [0, 1, 2]
 }, {
     "id": 1,
     "color": "#EE5555",
@@ -14,29 +15,32 @@
         "name": "Naboo",
         "fleetPopulation": 160,
         "baseIncome": 2300
-    }
+    },
+    "campaignTypes": [1, 2]
 }, {
     "id": 2,
     "color": "#55EE55",
     "name": "Galactic Empire",
     "key": "EMPIRE",
-    "planets": ["Coruscant", "Anaxes", "Alderaan", "Kuat", "Fresia", "Corellia", "Jakku", "Batuu", "Carida", "Onderon", "Kashyyyk", "Bespin", "Mustafar"],
+    "planets": ["Coruscant", "Anaxes", "Alderaan", "Kuat", "Fresia", "Corellia", "Jakku", "Batuu", "Carida", "Onderon", "Bespin", "Mustafar"],
     "capital": {
         "name": "Coruscant",
         "fleetPopulation": 300,
         "baseIncome": 3600
-    }
+    },
+    "campaignTypes": [1, 2]
 }, {
     "id": 3,
     "color": "#994433",
     "name": "Hutt Cartel",
     "key": "HUTT",
-    "planets": ["Tatooine", "Geonosis", "Mimban", "Nal Hutta"],
+    "planets": ["Tatooine", "Kashyyyk", "Mimban", "Nal Hutta"],
     "capital": {
         "name": "Nal Hutta",
         "fleetPopulation": 120,
         "baseIncome": 1300
-    }
+    },
+    "campaignTypes": [0, 1, 2]
 }, {
     "id": 4,
     "color": "#224488",
@@ -47,7 +51,8 @@
         "name": "Exogol",
         "fleetPopulation": 130,
         "baseIncome": 3000
-    }
+    },
+    "campaignTypes": [2]
 }, {
     "id": 5,
     "color": "#66AA66",
@@ -58,7 +63,8 @@
         "name": "Ring of Kafrene",
         "fleetPopulation": 100,
         "baseIncome": 1200
-    }
+    },
+    "campaignTypes": [1, 2]
 }, {
     "id": 6,
     "color": "#FF55EE",
@@ -69,5 +75,30 @@
         "name": "Hapes",
         "fleetPopulation": 130,
         "baseIncome": 1500
-    }
+    },
+    "campaignTypes": [2]
+}, {
+    "id": 7,
+    "color": "#EE3333",
+    "name": "Republic",
+    "key": "REPUBLIC",
+    "planets": ["Coruscant"],
+    "capital": {
+        "name": "Coruscant",
+        "fleetPopulation": 140,
+        "baseIncome": 3000
+    },
+    "campaignTypes": [0]
+}, {
+    "id": 8,
+    "color": "#3333EE",
+    "name": "CIS",
+    "key": "CIS",
+    "planets": ["Geonosis"],
+    "capital": {
+        "name": "Geonosis",
+        "fleetPopulation": 140,
+        "baseIncome": 3000
+    },
+    "campaignTypes": [0]
 }]

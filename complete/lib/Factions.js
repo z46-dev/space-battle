@@ -17,6 +17,8 @@ export class Faction {
      */
     capitalPlanet = null;
 
+    campaignTypes = [-1];
+
     // Mutable
     money = 0;
 }
@@ -34,6 +36,7 @@ for (const factionData of data) {
     faction.color = factionData.color;
     faction.name = factionData.name;
     faction.key = factionData.key;
+    faction.campaignTypes = factionData.campaignTypes;
 
     if (factionData.planets && factionData.planets.length > 0) {
         faction.defaultStartingPlanets = factionData.planets;

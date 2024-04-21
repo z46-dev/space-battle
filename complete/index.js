@@ -2,7 +2,7 @@ import Planet, { NoiseOptions, PlanetOptions } from "../Planet/Planet.js";
 import UIButton from "./shared/Button.js";
 import { canvas, ctx, uiScale } from "./shared/canvas.js";
 import { drawText } from "./shared/render.js";
-import shared, { STATE_HOME, STATE_INIT_CAMPAIGN, STATE_TACTICAL_MAP } from "./shared/shared.js";
+import shared, { STATE_HOME, STATE_INIT_CAMPAIGN, STATE_INIT_SURVIVAL, STATE_SELECT_TIMEFRAME, STATE_TACTICAL_MAP } from "./shared/shared.js";
 
 import factions from "./lib/Factions.js";
 import curtains, { curtainState, drawCurtains } from "./lib/curtains.js";
@@ -87,6 +87,33 @@ window.addEventListener("resize", regenerateStars);
 function changeState(newState) {
     shared.buttonsEnabled = false;
 
+    if (newState === STATE_INIT_CAMPAIGN) {
+        let x = 0;
+        for (let i = 0; i < factions.length - 1; i++) {
+            const faction = factions[i + 1]; // Skip Neutral Systems
+
+            if (faction.campaignTypes.indexOf(shared.campaignType) === -1) {
+                continue;
+            }
+        
+            buttonMaps[STATE_INIT_CAMPAIGN].push({
+                x: -((128 + 32) + 16) + (x % 3) * ((128 + 32) + 16),
+                y: (48 + 8) * Math.floor(x / 3),
+                width: 128 + 32,
+                height: 48,
+                text: faction.name,
+                color: faction.color,
+                action: () => {
+                    shared.campaign = new Campaign(faction);
+                    changeState(STATE_TACTICAL_MAP);
+                    shared.campaign.init();
+                }
+            });
+
+            x ++;
+        }
+    }
+
     curtains(function onceHalfway() {
         shared.state = newState;
     }).then(() => shared.buttonsEnabled = true);
@@ -102,7 +129,7 @@ buttonMaps[STATE_HOME] = [{
     text: "New Campaign",
     color: "#C8C8C8",
     action: () => {
-        changeState(STATE_INIT_CAMPAIGN);
+        changeState(STATE_SELECT_TIMEFRAME);
     }
 }, {
     x: 0,
@@ -119,19 +146,57 @@ buttonMaps[STATE_HOME] = [{
     y: 144,
     width: 256,
     height: 64,
-    text: "Skirmish Mode",
+    text: "Survival Mode",
     color: "#C8C8C8",
     action: () => {
-        console.log("Skirmish Mode");
+        changeState(STATE_INIT_SURVIVAL);
+    }
+}];
+
+buttonMaps[STATE_SELECT_TIMEFRAME] = [{
+    x: 0,
+    y: 0,
+    width: 256,
+    height: 64,
+    text: "Imperial Remnant",
+    color: "#C8C8C8",
+    action: () => {
+        shared.campaignType = 2;
+        changeState(STATE_INIT_CAMPAIGN);
+    }
+}, {
+    x: 0,
+    y: 72,
+    width: 256,
+    height: 64,
+    text: "Galactic Civil War",
+    color: "#C8C8C8",
+    action: () => {
+        return;
+        shared.campaignType = 1;
+        changeState(STATE_INIT_CAMPAIGN);
+    }
+}, {
+    x: 0,
+    y: 144,
+    width: 256,
+    height: 64,
+    text: "The Clone Wars",
+    color: "#C8C8C8",
+    action: () => {
+        return;
+        shared.campaignType = 0;
+        changeState(STATE_INIT_CAMPAIGN);
     }
 }];
 
 buttonMaps[STATE_INIT_CAMPAIGN] = [];
+buttonMaps[STATE_INIT_SURVIVAL] = [];
 
 for (let i = 0; i < factions.length - 1; i++) {
     const faction = factions[i + 1]; // Skip Neutral Systems
 
-    buttonMaps[STATE_INIT_CAMPAIGN].push({
+    buttonMaps[STATE_INIT_SURVIVAL].push({
         x: -((128 + 32) + 16) + (i % 3) * ((128 + 32) + 16),
         y: (48 + 8) * Math.floor(i / 3),
         width: 128 + 32,
@@ -139,14 +204,12 @@ for (let i = 0; i < factions.length - 1; i++) {
         text: faction.name,
         color: faction.color,
         action: () => {
-            shared.campaign = new Campaign(faction);
-            changeState(STATE_TACTICAL_MAP);
-            shared.campaign.init();
+            changeState
         }
     });
 }
 
-const buttons = new Array(Math.max(...buttonMaps.map(map => map.length))).fill(0).map(() => new UIButton(0, 0, 0, 0));
+const buttons = new Array(Math.max(...buttonMaps.filter(e => e.length).map(map => map.length))).fill(0).map(() => new UIButton(0, 0, 0, 0));
 
 function draw() {
     requestAnimationFrame(draw);
@@ -183,6 +246,30 @@ function draw() {
             ctx.shadowBlur = 0;
 
             drawText("Create New Campaign", width / 2, height / 2 - 96, 75, "#FFFFFF");
+        } break;
+        case STATE_SELECT_TIMEFRAME: {
+            for (const star of stars) {
+                star.draw();
+            }
+
+            ctx.shadowColor = planetOptions.Colors[4][2];
+            ctx.shadowBlur = 25;
+            ctx.drawImage(planet.canvas, -300, -200);
+            ctx.shadowBlur = 0;
+
+            drawText("Select Timeframe", width / 2, height / 2 - 96, 75, "#FFFFFF");
+        } break;
+        case STATE_INIT_SURVIVAL: {
+            for (const star of stars) {
+                star.draw();
+            }
+
+            ctx.shadowColor = planetOptions.Colors[4][2];
+            ctx.shadowBlur = 25;
+            ctx.drawImage(planet.canvas, -300, -200);
+            ctx.shadowBlur = 0;
+
+            drawText("Select a Faction", width / 2, height / 2 - 96, 75, "#FFFFFF");
         } break;
         case STATE_TACTICAL_MAP: {
             ctx.scale(1 / scale, 1 / scale);

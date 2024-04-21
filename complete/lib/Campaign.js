@@ -85,7 +85,7 @@ export default class Campaign {
             if (event.button === 2) {
                 this.rightMouseDown = true;
             } else {
-                for (let i = this.UIElements.length - 1; i >= 0; i --) {
+                for (let i = this.UIElements.length - 1; i >= 0; i--) {
                     if (this.UIElements[i].contains(this.mouseX, this.mouseY)) {
                         this.UIElements[i].callback();
                         return;
@@ -121,6 +121,10 @@ export default class Campaign {
         });
 
         factions.forEach(faction => {
+            if (faction.campaignTypes.indexOf(shared.campaignType) === -1) {
+                return;
+            }
+
             faction.defaultStartingPlanets.forEach(planetName => {
                 this.getPlanet(planetName).setControl(faction, true);
             });
@@ -211,7 +215,7 @@ export default class Campaign {
             drawText(`Faction: ${this.selectedPlanet.controllingFaction.name}`, 30, 100, 20, this.selectedPlanet.controllingFaction.color);
 
             let yVal = 120;
-            for (let i = 0; i < this.selectedPlanet.fleets.length; i ++) {
+            for (let i = 0; i < this.selectedPlanet.fleets.length; i++) {
                 ctx.save();
                 ctx.translate(30, yVal);
                 yVal += this.selectedPlanet.fleets[i].draw();
@@ -231,6 +235,10 @@ export default class Campaign {
 
     dailyTick() {
         factions.forEach(faction => {
+            if (faction.campaignTypes.indexOf(shared.campaignType) === -1) {
+                return;
+            }
+
             faction.income = 0;
             this.planets.forEach(planet => {
                 if (planet.controllingFaction.id !== faction.id) {
