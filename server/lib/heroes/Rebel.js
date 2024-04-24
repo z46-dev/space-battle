@@ -287,7 +287,6 @@ heroes["JunSato"] = {
             hp.health *= 3;
             hp.maxHealth *= 3;
             hp.reload *= .75;
-            hp.bypassShield = true;
             hp.damage *= .75;
         });
 

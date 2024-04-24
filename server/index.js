@@ -1162,7 +1162,7 @@ class Ship {
                 const radius = this.size * 5.5;
 
                 this.battle.ships.forEach(ship => {
-                    if (ship.team === this.team && ship.classification >= shipTypes.Corvette && distance(this.x, this.y, ship.x, ship.y) <= radius) {
+                    if (ship.team === this.team && distance(this.x, this.y, ship.x, ship.y) <= radius) {
                         for (let i = 0; i < ship.hardpoints.length; i++) {
                             if (ship.hardpoints[i].health > 0) {
                                 ship.hardpoints[i].health = Math.min(ship.hardpoints[i].maxHealth, Math.max(0, ship.hardpoints[i].health + TENDER_HEAL_PULSE_AMOUNT * this.tenderAbility.power));
@@ -1294,6 +1294,16 @@ class Battle {
             rotation: rotation,
             asset: asset
         });
+    }
+
+    randomShipOfType(typeInt) {
+        const possible = Array.from(this.ships.values()).filter(ship => ship.classification === typeInt);
+
+        if (possible.length === 0) {
+            return null;
+        }
+
+        return possible[Math.random() * possible.length | 0];
     }
 
     async displayText(text) {
@@ -1451,11 +1461,11 @@ function randomFaction() {
 }
 
 const spawnDistance = 4000;
-const fleetFactions = ["EMPIRE", "REBEL"];
+const fleetFactions = [randomFaction(), randomFaction()];
 
 const fleetOverrides = [
-    ["QUASARMOD1_EMPIRE", "ARQUITENS_EMPIRE", "ARQUITENS_EMPIRE"],
-    ["QUASAR_REBEL", "NEBULONB_REBEL"]
+    null,
+    null
 ];
 
 const pop = 30;
@@ -2227,12 +2237,17 @@ onmessage = function (e) {
 }
 
 class Scene {
+    #battleCamOn = false;
+
     constructor(battle) {
         /**
          * @type {Battle}
          */
         this.battle = battle;
         this.camera = connection.camera;
+        this.#battleCamOn = false;
+
+        setInterval(this.#battleCamTick.bind(this), 1000 / 60);
     }
 
     wait(time) {
@@ -2389,6 +2404,52 @@ class Scene {
                 }
             }, 1000 / 45);
         });
+    }
+
+    battleCam(on = -1) {
+        this.#battleCamOn = on === -1 ? !this.#battleCamOn : on;
+
+        if (this.#battleCamOn) {
+            this.lockCamera();
+        } else {
+            this.unlockCamera();
+        }
+    }
+
+    #battleCamTick() {
+        if (!this.#battleCamOn) {
+            return;
+        }
+
+        if (!this.isLocked || performance.now() - this.lastBattleCamLock > 0) {
+            if (this.battle.ships.size === 0) {
+                return;
+            }
+
+            let ship;
+
+            for (let i = shipTypes.SuperCapital; i >= shipTypes.Fighter; i--) {
+                if (Math.random() > .2 && i > shipTypes.Fighter) {
+                    continue;
+                }
+
+                let j = 0;
+                do {
+                    ship = this.battle.randomShipOfType(i);
+                    j++;
+                } while (ship.id === this.lastBattleCamID && j < 5);
+
+                if (ship) {
+                    break;
+                }
+            }
+
+            if (ship) {
+                this.lockOnTo(ship, Math.min(2, 1 / (ship.size / 150)));
+                this.lastBattleCamLock = performance.now() + 5000 + Math.random() * 10001 | 0;
+                this.lastBattleCamID = ship.id;
+            }
+        }
     }
 }
 
@@ -3159,3 +3220,5 @@ async function theEndOfDalla() {
     await scene.wait(1000);
     await scene.unlockCamera();
 }
+
+scene.battleCam(true);

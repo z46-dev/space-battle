@@ -251,7 +251,8 @@ ships.ACCLIMATOR_EMPIRE = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 1.5 | 0
+                reload: e.weapon.reload * .85,
+                health: e.weapon.health * 3.5 | 0
             }
         }));
     })(),
