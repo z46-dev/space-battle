@@ -14,6 +14,10 @@ ships.TONFALKCARRIER_DARKEMPIRE = {
     turnSpeed: .025,
     shield: 2000,
     shieldRegen: 5,
+    tenderAbility: {
+        frequency: 1.334,
+        power: 1.334
+    },
     hardpoints: [{
         x: -.1,
         y: .6,
@@ -39,14 +43,14 @@ ships.TONFALKCARRIER_DARKEMPIRE = {
         shotsAtOnce: 2,
         shotDelay: 80
     }, {
-        x: -.3,
-        y: -.7,
+        x: -.2,
+        y: -.4,
         weapon: weapons.DOUBLE_ION_CANNON,
         shotsAtOnce: 2,
         shotDelay: 80
     }, {
-        x: .3,
-        y: -.7,
+        x: .2,
+        y: -.4,
         weapon: weapons.DOUBLE_ION_CANNON,
         shotsAtOnce: 2,
         shotDelay: 80

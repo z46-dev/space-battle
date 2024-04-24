@@ -331,6 +331,10 @@ ships.FALCON_REBEL = {
         cooldown: .5,
         regen: 5
     },
+    tenderAbility: {
+        frequency: 1,
+        power: 1
+    },
     hardpoints: [{
         x: 0,
         y: 0,

@@ -71,6 +71,73 @@ ships.QUASAR_EMPIRE = {
     }]
 };
 
+ships.QUASARMOD1_EMPIRE = {
+    name: "Quasar",
+    asset: "QUASAR.png",
+    classification: shipTypes.Frigate,
+    population: 10,
+    size: 175,
+    cost: 2000,
+    speed: 3,
+    turnSpeed: .025,
+    shield: 1900,
+    shieldRegen: 5,
+    hardpoints: [{
+        x: -.05,
+        y: .95,
+        weapon: weapons.GREEN_DOUBLE_LASER_CANNON
+    }, {
+        x: .05,
+        y: .95,
+        weapon: weapons.GREEN_DOUBLE_LASER_CANNON
+    }, {
+        x: -.175,
+        y: .6,
+        weapon: weapons.DOUBLE_ION_CANNON
+    }, {
+        x: .175,
+        y: .6,
+        weapon: weapons.DOUBLE_ION_CANNON
+    }, {
+        x: -.325,
+        y: .15,
+        weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON
+    }, {
+        x: .325,
+        y: .15,
+        weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON
+    }, {
+        x: -.55,
+        y: -.3,
+        weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY
+    }, {
+        x: .55,
+        y: -.3,
+        weapon: weapons.GREEN_QUAD_LASER_CANNON_HEAVY
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 4
+        }
+    })),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 4,
+        reserveSize: 6,
+        squadronKey: "TIEINTERCEPTOR_EMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 3,
+        reserveSize: 4,
+        squadronKey: "TIEDEFENDER_EMPIRE"
+    }]
+};
+
 ships.CARRACK_EMPIRE = {
     name: "Carrack Cruiser",
     asset: "CARRACK.png",

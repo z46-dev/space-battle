@@ -19,10 +19,10 @@ ships.TIEFIGHTER_EMPIRE = {
         y: 0,
         weapon: {
             ...weapons.GREEN_FIGHTER_LASER_CANNON,
-            health: 100
+            health: 75
         },
         shotsAtOnce: 2,
-        shotDelay: 75
+        shotDelay: 50
     }]
 };
 
@@ -40,29 +40,19 @@ ships.TIEBOMBER_EMPIRE = {
     hardpoints: [{
         x: 0,
         y: 0,
-        weapon: weapons.GREEN_FIGHTER_LASER_CANNON
-    }, {
-        x: 0,
-        y: 0,
-        weapon: weapons.GREEN_FIGHTER_LASER_CANNON
-    }, {
-        x: 0,
-        y: 0,
-        weapon: weapons.FIGHTER_PROTON_ROCKET,
-        shotsAtOnce: 4,
-        shotDelay: 80
+        weapon: weapons.GREEN_RAPID_FIGHTER_LASER_CANNON
     }, {
         x: .5,
         y: 0,
         weapon: weapons.FIGHTER_PROTON_BOMB,
-        shotsAtOnce: 2,
-        shotDelay: 75
+        shotsAtOnce: 5,
+        shotDelay: 140
     }, {
         x: .5,
         y: 0,
         weapon: weapons.FIGHTER_PROTON_TORPEDO,
-        shotsAtOnce: 1,
-        shotDelay: 75
+        shotsAtOnce: 5,
+        shotDelay: 140
     }]
 };
 
@@ -81,11 +71,11 @@ ships.TIEINTERCEPTOR_EMPIRE = {
         x: 0,
         y: 0,
         weapon: {
-            ...weapons.GREEN_FIGHTER_LASER_CANNON,
-            health: 30
+            ...weapons.GREEN_RAPID_FIGHTER_LASER_CANNON,
+            health: 66
         },
         shotsAtOnce: 4,
-        shotDelay: 75
+        shotDelay: 25
     }]
 };
 
@@ -98,23 +88,31 @@ ships.TIEDEFENDER_EMPIRE = {
     cost: 25,
     speed: 19,
     turnSpeed: .1,
-    shield: 100,
-    shieldRegen: 2,
+    shield: 150,
+    shieldRegen: 5,
     hardpoints: [{
         x: 0,
         y: 0,
-        weapon: weapons.GREEN_FIGHTER_LASER_CANNON,
+        weapon: weapons.GREEN_ANTI_FIGHTER_LASER_CANNON,
         shotsAtOnce: 3,
-        shotDelay: 75
+        shotDelay: 15
     }, {
         x: 0,
         y: 0,
-        weapon: weapons.TIE_DEFENDER_ION_CANNON
+        weapon: weapons.GREEN_LASER_CANNON_HEAVY,
+        shotsAtOnce: 3,
+        shotDelay: 45
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.TIE_DEFENDER_ION_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 20
     }, {
         x: 0,
         y: 0,
         weapon: weapons.FIGHTER_PROTON_ROCKET,
-        shotsAtOnce: 3,
+        shotsAtOnce: 6,
         shotDelay: 250
     }]
 };

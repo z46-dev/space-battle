@@ -25,7 +25,7 @@ export const FIGHTER_ION_CANNON = {
 
 export const TIE_DEFENDER_ION_CANNON = {
     reload: 20,
-    damage: 2,
+    damage: 12,
     speed: 45,
     range: 3000,
     type: weaponTypes.IonCannon,

@@ -64,8 +64,8 @@ class Projectile {
         // Get source
         this.source = this.ship.source;
 
-        this.x -= Math.cos(this.angle) * this.speed;
-        this.y -= Math.sin(this.angle) * this.speed;
+        //this.x -= Math.cos(this.angle) * this.speed;
+        //this.y -= Math.sin(this.angle) * this.speed;
     }
 
 
@@ -1323,7 +1323,7 @@ const battle = new Battle(size, size, 2);
 
 class Fleet {
     // All non-fighter/bomber ships
-    static ships = Object.keys(ships).filter(key => ships[key].classification >= shipTypes.Corvette && !key.includes("SHIPYARD"));
+    static ships = Object.keys(ships).filter(key => ships[key].classification >= shipTypes.Corvette && ships[key].classification < shipTypes.SpaceStation && !key.includes("SHIPYARD"));
     static random(pop, faction = -1, base = []) {
         const possible = Fleet.ships.filter(key => faction === -1 || key.endsWith("_" + faction));
         const avgPop = possible.reduce((total, key) => total + ships[key].population, 0) / possible.length;
@@ -1454,8 +1454,8 @@ const spawnDistance = 4000;
 const fleetFactions = ["EMPIRE", "REBEL"];
 
 const fleetOverrides = [
-    null,
-    ["SPAWNER_FIGHTER_BOMBER_REBEL"]
+    ["QUASARMOD1_EMPIRE", "ARQUITENS_EMPIRE", "ARQUITENS_EMPIRE"],
+    ["QUASAR_REBEL", "NEBULONB_REBEL"]
 ];
 
 const pop = 30;

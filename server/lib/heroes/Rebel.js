@@ -135,9 +135,7 @@ heroes["GarmBelIblis"] = {
         ship.hardpoints.forEach(hp => {
             hp.health *= 5;
             hp.maxHealth *= 5;
-            hp.damage *= 2;
             hp.range *= 2;
-            hp.reload *= .8;
         });
     },
     onTick: function(ship) {
@@ -170,7 +168,7 @@ heroes["GarmBelIblis"] = {
 
             if (ship.garmBurst.ticker >= 800) {
                 ship.garmBurst.active = true;
-                ship.garmBurst.ticker = 250;
+                ship.garmBurst.ticker = 100;
 
                 ship.hardpoints.forEach(hp => {
                     hp.damage *= 1.2;

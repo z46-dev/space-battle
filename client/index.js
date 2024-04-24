@@ -173,10 +173,10 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
 
     const planetOptions = new PlanetOptions();
     planetOptions.Radius = 1024;
-    planetOptions.Detail = .334;
+    planetOptions.Detail = 1 + Math.random() * 2;
     planetOptions.Seed = Math.random();
     planetOptions.Clouds.Seed = Math.random();
-    planetOptions.NoiseFunction = NoiseOptions.perlin2;
+    planetOptions.NoiseFunction = [NoiseOptions.perlin2, NoiseOptions.perlin3, NoiseOptions.simplex3, NoiseOptions.staticQuickNoise][Math.random() * 4 | 0];
     planetOptions.Colors = PlanetColors.chooseForMe();
 
     const planet = new Planet(planetOptions);
