@@ -326,6 +326,7 @@ ships.FALCON_REBEL = {
     turnSpeed: .0667,
     shield: 3000,
     shieldRegen: 3,
+    uniqueUnit: true,
     shieldRegenAbility: {
         duration: 1.5,
         cooldown: .5,

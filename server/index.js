@@ -1361,11 +1361,13 @@ class Fleet {
 
                 if (unit == null) {
                     console.log("NULL SHIP", possible[0]);
+                    continue;
                 }
 
                 if (
                     unit.population <= pop &&
-                    (unit.population <= avgPop * 1.1 || Math.random() > .9)
+                    (unit.population <= avgPop * 1.1 || Math.random() > .9) &&
+                    (!unit.uniqueUnit || !output.includes(possible[0]))
                 ) {
                     ship = possible[0];
                     break miniLoop;
@@ -1465,7 +1467,7 @@ const fleetFactions = [randomFaction(), randomFaction()];
 
 const fleetOverrides = [
     null,
-    ["DEATHSTAR_EMPIRE"]
+    null
 ];
 
 const pop = 30 + Math.random() * 120 | 0;
@@ -2455,7 +2457,7 @@ class Scene {
 
             if (ship) {
                 this.lockOnTo(ship, Math.min(2, 1 / (ship.size / 150)));
-                this.lastBattleCamLock = performance.now() + 2000 + Math.random() * (2500 * ship.classification) | 0;
+                this.lastBattleCamLock = performance.now() + 2000 + Math.random() * (333 * ship.classification) | 0;
                 this.lastBattleCamID = ship.id;
             }
         }
