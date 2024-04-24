@@ -55,7 +55,7 @@ ships.ACCLIMATOR_REPUBLIC = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 1.5 | 0
+                health: e.weapon.health * 2.5 | 0
             }
         }));
     })(),

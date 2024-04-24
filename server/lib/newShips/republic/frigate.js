@@ -14,6 +14,10 @@ ships.PELTA_REPUBLIC = {
     turnSpeed: .03,
     shield: 2000,
     shieldRegen: 4,
+    tenderAbility: {
+        frequency: 2,
+        power: 2
+    },
     hardpoints: [{
         x: -.2,
         y: .85,
@@ -76,7 +80,7 @@ ships.ARQUITENS_REPUBLIC = {
     population: 10,
     size: 175,
     cost: 900,
-    speed: 5,
+    speed: 6,
     turnSpeed: .02,
     shield: 1950,
     shieldRegen: 20,

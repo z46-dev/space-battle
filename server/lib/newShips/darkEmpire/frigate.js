@@ -260,7 +260,7 @@ ships.INTERDICTORCRUISER_DARKEMPIRE = {
     asset: "SITHINTERDICTOR.png",
     classification: shipTypes.Frigate,
     population: 12,
-    size: 500,
+    size: 450,
     cost: 5500,
     speed: 2.6,
     turnSpeed: .0075,
@@ -300,7 +300,7 @@ ships.INTERDICTORCRUISER_DARKEMPIRE = {
         for (let i = 0; i < output.length; i ++) {
             output[i].weapon = {
                 ...output[i].weapon,
-                health: output[i].weapon.health * 10
+                health: output[i].weapon.health * 7
             };
         }
 

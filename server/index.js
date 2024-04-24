@@ -1465,10 +1465,10 @@ const fleetFactions = [randomFaction(), randomFaction()];
 
 const fleetOverrides = [
     null,
-    null
+    ["DEATHSTAR_EMPIRE"]
 ];
 
-const pop = 30;
+const pop = 30 + Math.random() * 120 | 0;
 
 for (let i = 0; i < 2; i++) {
     const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);
@@ -2233,6 +2233,12 @@ onmessage = function (e) {
                 }
             }
         } break;
+        case 4: {
+            scene.battleCam(-1);
+        } break;
+        case 5: {
+            scene.lastBattleCamLock = performance.now();
+        } break;
     }
 }
 
@@ -2413,7 +2419,10 @@ class Scene {
             this.lockCamera();
         } else {
             this.unlockCamera();
+            this.isLocked = false;
         }
+
+        this.displayText("BattleCam: " + (this.#battleCamOn ? "On" : "Off"));
     }
 
     #battleCamTick() {
@@ -2421,7 +2430,7 @@ class Scene {
             return;
         }
 
-        if (!this.isLocked || performance.now() - this.lastBattleCamLock > 0) {
+        if (!this.isLocked || performance.now() > this.lastBattleCamLock) {
             if (this.battle.ships.size === 0) {
                 return;
             }
@@ -2446,7 +2455,7 @@ class Scene {
 
             if (ship) {
                 this.lockOnTo(ship, Math.min(2, 1 / (ship.size / 150)));
-                this.lastBattleCamLock = performance.now() + 5000 + Math.random() * 10001 | 0;
+                this.lastBattleCamLock = performance.now() + 2000 + Math.random() * (2500 * ship.classification) | 0;
                 this.lastBattleCamID = ship.id;
             }
         }

@@ -118,7 +118,7 @@ ships.QUASARMOD1_EMPIRE = {
         ...e,
         weapon: {
             ...e.weapon,
-            health: e.weapon.health * 4
+            health: e.weapon.health * 2.5 | 0
         }
     })),
     hangars: [{
