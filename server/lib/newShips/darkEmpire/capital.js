@@ -229,19 +229,19 @@ ships.ONAGER_DARKEMPIRE = {
     asset: "ONAGER.png",
     classification: shipTypes.Capital,
     population: 42,
-    size: 950,
+    size: 790,
     cost: 10000,
     speed: 1.5,
-    turnSpeed: .01,
-    shield: 13000,
-    shieldRegen: 8,
+    turnSpeed: .001,
+    shield: 9580,
+    shieldRegen: 9,
     hardpoints: (function() {
         const output = [{
             x: 0,
             y: -.05,
             weapon: weapons.GREEN_WEAK_SUPERLASER,
-            shotsAtOnce: 15,
-            shotDelay: 45
+            shotsAtOnce: 2,
+            shotDelay: 600
         }, {
             x: -.65,
             y: .8,
@@ -272,19 +272,27 @@ ships.ONAGER_DARKEMPIRE = {
             output.push({
                 x: -.075,
                 y: .85 - .15 * i,
-                weapon: i % 2 ? weapons.TRIPLE_ION_CANNON_HEAVY : weapons.GREEN_TRIPLE_LASER_CANNON_HEAVY
+                weapon: i % 2 ? weapons.TRIPLE_ION_CANNON_HEAVY : weapons.GREEN_TRIPLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 90
             }, {
                 x: .075,
                 y: .85 - .15 * i,
-                weapon: i % 2 ? weapons.TRIPLE_ION_CANNON_HEAVY : weapons.GREEN_TRIPLE_LASER_CANNON_HEAVY
+                weapon: i % 2 ? weapons.TRIPLE_ION_CANNON_HEAVY : weapons.GREEN_TRIPLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 90
             }, {
                 x: -.2 - .015 * i,
                 y: .6 - .15 * i,
-                weapon: i % 2 ? weapons.ION_CANNON : weapons.GREEN_QUAD_LASER_CANNON
+                weapon: i % 2 ? weapons.ION_CANNON : weapons.DOUBLE_ION_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 45
             }, {
                 x: .2 + .015 * i,
                 y: .6 - .15 * i,
-                weapon: i % 2 ? weapons.ION_CANNON : weapons.GREEN_QUAD_LASER_CANNON
+                weapon: i % 2 ? weapons.ION_CANNON : weapons.DOUBLE_ION_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 45
             });
         }
 
@@ -292,11 +300,15 @@ ships.ONAGER_DARKEMPIRE = {
             output.push({
                 x: -.2 - .015 * i,
                 y: .6 - .15 * i,
-                weapon: i % 2 ? weapons.ION_CANNON : weapons.GREEN_QUAD_LASER_CANNON
+                weapon: i % 2 ? weapons.ION_CANNON : weapons.GREEN_QUAD_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 45
             }, {
                 x: .2 + .015 * i,
                 y: .6 - .15 * i,
-                weapon: i % 2 ? weapons.ION_CANNON : weapons.GREEN_QUAD_LASER_CANNON
+                weapon: i % 2 ? weapons.ION_CANNON : weapons.GREEN_QUAD_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 45
             });
         }
 
@@ -304,15 +316,25 @@ ships.ONAGER_DARKEMPIRE = {
             output.push({
                 x: -.1 - .2 * i,
                 y: .9334 - .025 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             }, {
                 x: .1 + .2 * i,
                 y: .9334 - .025 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.GREEN_QUAD_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2.5 | 0
+            }
+        }))
     })(),
     hangars: [{
         x: 0,

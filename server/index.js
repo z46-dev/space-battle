@@ -1463,10 +1463,10 @@ function randomFaction() {
 }
 
 const spawnDistance = 4000;
-const fleetFactions = [randomFaction(), randomFaction()];
+const fleetFactions = ["EMPIRE", randomFaction()];
 
 const fleetOverrides = [
-    null,
+    ["CAPITAL_SHIPYARD_EMPIRE"],
     null
 ];
 
@@ -3231,5 +3231,3 @@ async function theEndOfDalla() {
     await scene.wait(1000);
     await scene.unlockCamera();
 }
-
-scene.battleCam(true);
