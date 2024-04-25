@@ -1463,7 +1463,7 @@ function randomFaction() {
 }
 
 const spawnDistance = 4000;
-const fleetFactions = ["EMPIRE", "REBEL"];
+const fleetFactions = [randomFaction(), randomFaction()];
 
 const fleetOverrides = [
     null,
