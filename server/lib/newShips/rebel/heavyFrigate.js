@@ -11,7 +11,7 @@ ships.MC50_REBEL = {
     size: 600,
     cost: 1000,
     speed: 4,
-    turnSpeed: .035,
+    turnSpeed: .008,
     shield: 6000,
     shieldRegen: 2,
     shieldRegenAbility: {},
@@ -103,7 +103,7 @@ ships.NEBULONB2_REBEL = {
     size: 350,
     cost: 1500,
     speed: 3,
-    turnSpeed: .025,
+    turnSpeed: .008,
     shield: 4000,
     shieldRegen: 4,
     shieldRegenAbility: {
@@ -186,7 +186,7 @@ ships.FREEVIRGILLIABUNKERBUSTER_REBEL = {
     size: 300,
     cost: 6000,
     speed: 2.25,
-    turnSpeed: .0175,
+    turnSpeed: .01,
     shield: 6000,
     shieldRegen: 8,
     hardpoints: (function() {
@@ -246,7 +246,7 @@ ships.MC75_REBEL = {
     size: 500,
     cost: 2400,
     speed: 3,
-    turnSpeed: .025,
+    turnSpeed: .006,
     shield: 12000,
     shieldRegen: 4,
     shieldRegenAbility: {

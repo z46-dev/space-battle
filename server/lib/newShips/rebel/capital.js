@@ -91,7 +91,13 @@ ships.MC80A_REBEL = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: 0,
@@ -174,7 +180,13 @@ ships.MC80BLIBERTY_REBEL = {
             })
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 1.75 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: 0,
@@ -198,12 +210,12 @@ ships.STARHAWK_REBEL = {
     asset: "STARHAWK.png",
     classification: shipTypes.Capital,
     population: 32,
-    size: 750,
-    cost: 6540,
+    size: 800,
+    cost: 9300,
     speed: 2,
-    turnSpeed: .01,
-    shield: 7200,
-    shieldRegen: 4,
+    turnSpeed: .001,
+    shield: 12340,
+    shieldRegen: 12,
     hardpoints: (function() {
         const output = [{
             x: -.075,
@@ -220,46 +232,76 @@ ships.STARHAWK_REBEL = {
         }, {
             x: -.3,
             y: .3,
-            weapon: weapons.DOUBLE_ION_CANNON_MEDIUM
+            weapon: weapons.ION_CANNON_ULTRA,
+            shotsAtOnce: 2,
+            shotDelay: 60
+        }, {
+            x: .3,
+            y: .3,
+            weapon: weapons.ION_CANNON_ULTRA,
+            shotsAtOnce: 2,
+            shotDelay: 60
         }, {
             x: -.225,
             y: -.55,
-            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 60
         }, {
             x: .225,
             y: -.55,
-            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 60
         }, {
             x: -.15,
             y: -.7,
-            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON
+            weapon: weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 60
         }, {
             x: .15,
             y: -.7,
-            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON
+            weapon: weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 60
         }];
 
         for (let i = 0; i < 4; i ++) {
             output.push({
                 x: -.2,
                 y: .6 - .075 * i,
-                weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             }, {
                 x: .2,
                 y: .6 - .075 * i,
-                weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             }, {
                 x: -.125,
                 y: .2 - .125 * i,
-                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.RED_DOUBLE_LASER_CANNON
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.RED_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 3,
+                shotDelay: 60
             }, {
                 x: .125,
                 y: .2 - .125 * i,
-                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.RED_DOUBLE_LASER_CANNON
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.RED_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 3,
+                shotDelay: 60
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 5.3 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: 0,

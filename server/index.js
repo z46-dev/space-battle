@@ -1146,7 +1146,7 @@ class Ship {
                     this.shieldAbility.ticker = 0;
                 }
             } else {
-                if (this.shieldAbility.ticker >= this.shieldAbility.cooldown && this.shield < this.maxShield * .5) {
+                if (this.shieldAbility.ticker >= this.shieldAbility.cooldown && this.shield < this.maxShield * .5 && this.shield > 0) {
                     this.shieldAbility.enabled = true;
                     this.shieldAbility.ticker = 0;
                 }
@@ -1463,10 +1463,10 @@ function randomFaction() {
 }
 
 const spawnDistance = 4000;
-const fleetFactions = ["EMPIRE", randomFaction()];
+const fleetFactions = ["EMPIRE", "REBEL"];
 
 const fleetOverrides = [
-    ["CAPITAL_SHIPYARD_EMPIRE"],
+    null,
     null
 ];
 

@@ -75,7 +75,13 @@ ships.MC85_REBEL = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e,
+                health: e.weapon.health * 6 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: 0,
