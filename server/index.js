@@ -1466,11 +1466,11 @@ const spawnDistance = 2000;
 const fleetFactions = [randomFaction(), randomFaction()];
 
 const fleetOverrides = [
-    ["VENATOR_REPUBLIC", "VENATOR_REPUBLIC"],
-    ["RECUSANT_CIS", "PROVIDENCEDESTROYER_CIS", "MUNIFICENT_CIS", "MUNIFICENT_CIS"]
+    null,
+    null
 ];
 
-const pop = 128;//30 + Math.random() * 120 | 0;
+const pop = 30 + Math.random() * 120 | 0;
 
 for (let i = 0; i < 2; i++) {
     const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);
