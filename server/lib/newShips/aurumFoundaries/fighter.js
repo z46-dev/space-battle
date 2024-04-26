@@ -3,7 +3,7 @@ import * as weapons from "../../weapons.js";
 
 const ships = {};
 
-ships.SNUB1 = {
+ships.SNUB1_AURUM = {
     name: "Snub-1",
     asset: "SNUB1.png",
     classification: shipTypes.Fighter,
@@ -32,7 +32,7 @@ ships.SNUB1 = {
     }]
 };
 
-ships.BLAST2 = {
+ships.BLAST2_AURUM = {
     name: "Blast-2",
     asset: "SNUB1.png",
     classification: shipTypes.Bomber,

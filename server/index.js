@@ -1458,15 +1458,15 @@ function spawn(ship, team) {
 }
 
 function randomFaction() {
-    const factions = ["DESTROYER", "EMPIRE", "REBEL", "REPUBLIC", "CIS", "DARKEMPIRE", "HUTT", "ZANN", "HAPAN", -1];
+    const factions = ["AURUM", "EMPIRE", "REBEL", "REPUBLIC", "CIS", "DARKEMPIRE", "HUTT", "ZANN", "HAPAN", -1];
     return factions[Math.random() * factions.length | 0];
 }
 
 const spawnDistance = 2000;
-const fleetFactions = [randomFaction(), randomFaction()];
+const fleetFactions = ["AURUM", randomFaction()];
 
 const fleetOverrides = [
-    null,
+    ["ARGENTUMBATTLESHIP_AURUM", "CHIMERADESTROYER_AURUM", "CHIMERADESTROYER_AURUM", "CHIMERADESTROYER_AURUM"],
     null
 ];
 

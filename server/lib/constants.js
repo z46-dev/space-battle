@@ -131,7 +131,7 @@ export const colors = {
     "Blue": "#3535FF",
     "Purple": "#C800FF",
     "Yellow": "#C8C800",
-    "Black": "#000000",
+    "Black": "#EEFFAA", // Changed cuz looked wonky
     "Ion": "#EEEEFF",
     "Bomb": "#FFFFFF",
     "Torpedo": "#FF1F53",
