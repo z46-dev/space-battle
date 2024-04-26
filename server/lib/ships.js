@@ -1,4 +1,3 @@
-import { default as customShips } from "./newShips/custom.js";
 import { shipTypes } from "./constants.js";
 import { DUMMY_BLANK } from "./weapons.js";
 
@@ -80,8 +79,27 @@ export const zann = {
     ...(await import("./newShips/zann/superCapital.js")).default
 };
 
+export const hapan = {
+    ...(await import("./newShips/hapesConsortium/fighter.js")).default,
+    ...(await import("./newShips/hapesConsortium/corvette.js")).default,
+    ...(await import("./newShips/hapesConsortium/frigate.js")).default,
+    ...(await import("./newShips/hapesConsortium/heavyFrigate.js")).default,
+    ...(await import("./newShips/hapesConsortium/capital.js")).default,
+    ...(await import("./newShips/hapesConsortium/superCapital.js")).default,
+    ...(await import("./newShips/hapesConsortium/spaceStation.js")).default
+};
+
+export const aurumFoundaries = {
+    ...(await import("./newShips/aurumFoundaries/fighter.js")).default,
+    ...(await import("./newShips/aurumFoundaries/corvette.js")).default,
+    ...(await import("./newShips/aurumFoundaries/frigate.js")).default,
+    ...(await import("./newShips/aurumFoundaries/heavyFrigate.js")).default,
+    ...(await import("./newShips/aurumFoundaries/capital.js")).default,
+    ...(await import("./newShips/aurumFoundaries/superCapital.js")).default,
+    ...(await import("./newShips/aurumFoundaries/spaceStation.js")).default
+};
+
 export const stations = {
-    ...(await import("./newShips/stations/hapes.js")).default,
     ...(await import("./newShips/stations/shipyards.js")).default
 };
 
@@ -93,7 +111,8 @@ const ships = {
     ...cis,
     ...hutts,
     ...zann,
-    ...customShips,
+    ...hapan,
+    ...aurumFoundaries,
     ...stations
 };
 

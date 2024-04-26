@@ -1,5 +1,3 @@
-// JSON STRINGIFY, CREATE AN IOTA METHOD AND THEN ADD ULTRAHEAVY TURBOLASERS AND IONCANNONS
-
 const iota = (() => {
     let i = 0;
     return () => i++;
@@ -88,7 +86,7 @@ export const weaponTypes = {
     "YellowWeakSuperlaser": iota(),
     "YellowUltraTurbolaserBypassShield": iota(),
 
-    // BLACK (Arumn Foundaries)
+    // BLACK (Aurum Foundaries)
     "BlackLaserCannon": iota(),
     "BlackDoubleLaserCannon": iota(),
     "BlackTripleLaserCannon": iota(),

@@ -1458,19 +1458,19 @@ function spawn(ship, team) {
 }
 
 function randomFaction() {
-    const factions = ["DESTOYER", "EMPIRE", "REBEL", "REPUBLIC", "CIS", "DARKEMPIRE", "HUTT", "ZANN", "HAPAN", -1];
+    const factions = ["DESTROYER", "EMPIRE", "REBEL", "REPUBLIC", "CIS", "DARKEMPIRE", "HUTT", "ZANN", "HAPAN", -1];
     return factions[Math.random() * factions.length | 0];
 }
 
-const spawnDistance = 4000;
+const spawnDistance = 2000;
 const fleetFactions = [randomFaction(), randomFaction()];
 
 const fleetOverrides = [
-    null,
-    null
+    ["VENATOR_REPUBLIC", "VENATOR_REPUBLIC"],
+    ["RECUSANT_CIS", "PROVIDENCEDESTROYER_CIS", "MUNIFICENT_CIS", "MUNIFICENT_CIS"]
 ];
 
-const pop = 30 + Math.random() * 120 | 0;
+const pop = 128;//30 + Math.random() * 120 | 0;
 
 for (let i = 0; i < 2; i++) {
     const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);

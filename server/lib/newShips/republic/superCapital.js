@@ -21,19 +21,27 @@ ships.SECUTOR_REPUBLIC = {
             output.push({
                 x: -.025 - .01 * i,
                 y: .7 - .075 * i,
-                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.BLUE_DOUBLE_LASER_CANNON
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.BLUE_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 60
             }, {
                 x: .025 + .01 * i,
                 y: .7 - .075 * i,
-                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.BLUE_DOUBLE_LASER_CANNON
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.BLUE_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 60
             }, {
                 x: -.1 - .035 * i,
                 y: .9 - .095 * i,
-                weapon: i % 2 ? weapons.QUAD_ION_CANNON_HEAVY : weapons.BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY
+                weapon: i % 2 ? weapons.QUAD_ION_CANNON_HEAVY : weapons.BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             }, {
                 x: .1 + .035 * i,
                 y: .9 - .095 * i,
-                weapon: i % 2 ? weapons.QUAD_ION_CANNON_HEAVY : weapons.BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY
+                weapon: i % 2 ? weapons.QUAD_ION_CANNON_HEAVY : weapons.BLUE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             });
         }
 
@@ -41,7 +49,7 @@ ships.SECUTOR_REPUBLIC = {
             ...hardpoint,
             weapon: {
                 ...hardpoint.weapon,
-                health: hardpoint.weapon.health * 1.6 | 0
+                health: hardpoint.weapon.health * 2 | 0
             }
         }));
     })(),
@@ -94,19 +102,27 @@ ships.PRAETOR_REPUBLIC = {
             output.push({
                 x: -.03 - .028 * i,
                 y: .925 - .05 * i,
-                weapon: i % 2 ? weapons.QUAD_ION_CANNON_HEAVY : weapons.BLUE_QUAD_TURBOLASER_CANNON_HEAVY
+                weapon: i % 2 ? weapons.QUAD_ION_CANNON_HEAVY : weapons.BLUE_QUAD_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             }, {
                 x: .03 + .028 * i,
                 y: .925 - .05 * i,
-                weapon: i % 2 ? weapons.QUAD_ION_CANNON_HEAVY : weapons.BLUE_QUAD_TURBOLASER_CANNON_HEAVY
+                weapon: i % 2 ? weapons.QUAD_ION_CANNON_HEAVY : weapons.BLUE_QUAD_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 120
             }, {
                 x: -.0075 - .028 * i,
                 y: .915 - .05 * i,
-                weapon: i % 2 ? weapons.BLUE_DOUBLE_TURBOLASER_CANNON : weapons.BLUE_QUAD_LASER_CANNON
+                weapon: i % 2 ? weapons.BLUE_DOUBLE_TURBOLASER_CANNON : weapons.BLUE_QUAD_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 60
             }, {
                 x: .0075 + .028 * i,
                 y: .915 - .05 * i,
-                weapon: i % 2 ? weapons.BLUE_DOUBLE_TURBOLASER_CANNON : weapons.BLUE_QUAD_LASER_CANNON
+                weapon: i % 2 ? weapons.BLUE_DOUBLE_TURBOLASER_CANNON : weapons.BLUE_QUAD_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 60
             });
         }
 
@@ -121,11 +137,15 @@ ships.PRAETOR_REPUBLIC = {
             output.push({
                 x: x1 + d * Math.cos(angle),
                 y: y + d * Math.sin(angle),
-                weapon: i % 2 ? weapons.ASSAULT_CONCUSSION_MISSILE : weapons.BLUE_DOUBLE_LASER_CANNON_HEAVY
+                weapon: i % 2 ? weapons.ASSAULT_CONCUSSION_MISSILE : weapons.BLUE_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
             }, {
                 x: x2 + d * Math.cos(angle),
                 y: y + d * Math.sin(angle),
-                weapon: i % 2 ? weapons.ASSAULT_CONCUSSION_MISSILE : weapons.BLUE_DOUBLE_LASER_CANNON_HEAVY
+                weapon: i % 2 ? weapons.ASSAULT_CONCUSSION_MISSILE : weapons.BLUE_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
             });
         }
 
@@ -133,7 +153,7 @@ ships.PRAETOR_REPUBLIC = {
             ...hardpoint,
             weapon: {
                 ...hardpoint.weapon,
-                health: hardpoint.weapon.health * 1.334 | 0
+                health: hardpoint.weapon.health * 1.55 | 0
             }
         }));
     })(),

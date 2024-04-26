@@ -62,10 +62,10 @@ ships.MUNIFICENT_CIS = {
     population: 10,
     size: 300,
     cost: 2200,
-    speed: 4,
-    turnSpeed: .02,
-    shield: 2100,
-    shieldRegen: 2.1,
+    speed: 3.5,
+    turnSpeed: .009,
+    shield: 2000,
+    shieldRegen: 2,
     hardpoints: [{
         x: 0,
         y: .8,
@@ -73,56 +73,70 @@ ships.MUNIFICENT_CIS = {
     }, {
         x: -.5,
         y: -.05,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 90
     }, {
         x: .5,
         y: -.05,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 90
     }, {
         x: -.1,
         y: 0,
-        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM
+        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 90
     }, {
         x: .1,
         y: 0,
-        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM
+        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 90
     }, {
         x: -.225,
         y: .25,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 90
     }, {
         x: .225,
         y: .25,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 90
     }, {
         x: -.15,
         y: .6,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON
+        weapon: weapons.RED_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 45
     }, {
         x: .15,
         y: .6,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON
+        weapon: weapons.RED_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 45
     }, {
         x: -.15,
         y: -.4,
-        weapon: weapons.DOUBLE_ION_CANNON
+        weapon: weapons.DOUBLE_ION_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 45
     }, {
         x: .15,
         y: -.4,
-        weapon: weapons.DOUBLE_ION_CANNON
-    }].map(e => ({
-        ...e,
-        weapon: {
-            ...e.weapon,
-            health: e.weapon.health * .667 | 0
-        }
-    })),
+        weapon: weapons.DOUBLE_ION_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 45
+    }],
     hangars: [{
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 6,
-        reserveSize: 3,
+        squadronSize: 5,
+        reserveSize: 1,
         squadronKey: "VULTUREDROID_CIS"
     }]
 };

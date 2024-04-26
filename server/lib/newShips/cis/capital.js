@@ -12,8 +12,8 @@ ships.PROVIDENCEDESTROYER_CIS = {
     cost: 4250,
     speed: 4.5,
     turnSpeed: .006,
-    shield: 4100,
-    shieldRegen: 3,
+    shield: 5340,
+    shieldRegen: 5,
     hardpoints: (function() {
         const output = [];
 
@@ -33,23 +33,33 @@ ships.PROVIDENCEDESTROYER_CIS = {
             }, {
                 x: 0,
                 y: .45 - .08 * i,
-                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
             }, {
                 x: -.125,
                 y: -.1 - .16 * i,
-                weapon: weapons.RED_LASER_CANNON
+                weapon: weapons.RED_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 30
             }, {
                 x: .125,
                 y: -.1 - .16 * i,
-                weapon: weapons.RED_LASER_CANNON
+                weapon: weapons.RED_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 30
             }, {
                 x: -.09,
                 y: -.175 - .16 * i,
-                weapon: weapons.DOUBLE_ION_CANNON
+                weapon: weapons.DOUBLE_ION_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 30
             }, {
                 x: .09,
                 y: -.175 - .16 * i,
-                weapon: weapons.DOUBLE_ION_CANNON
+                weapon: weapons.DOUBLE_ION_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 30
             });
         }
 
@@ -88,13 +98,13 @@ ships.LUCREHULKBATTLESHIP_CIS = {
             x: -.1,
             y: .1,
             weapon: weapons.ASSAULT_PROTON_TORPEDO,
-            shotsAtOnce: 3,
+            shotsAtOnce: 5,
             shotDelay: 250
         }, {
             x: .1,
             y: .1,
             weapon: weapons.ASSAULT_PROTON_TORPEDO,
-            shotsAtOnce: 3,
+            shotsAtOnce: 5,
             shotDelay: 250
         }];
 
@@ -104,11 +114,15 @@ ships.LUCREHULKBATTLESHIP_CIS = {
             output.push({
                 x: Math.cos(angle) * .7,
                 y: Math.sin(angle) * .7 + .1,
-                weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY
+                weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
             }, {
                 x: Math.cos(angle) * .6,
                 y: Math.sin(angle) * .6 + .1,
-                weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY
+                weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
             });
         }
 
@@ -118,7 +132,9 @@ ships.LUCREHULKBATTLESHIP_CIS = {
             output.push({
                 x: Math.cos(angle) * .65,
                 y: Math.sin(angle) * .65 + .1,
-                weapon:  weapons.DOUBLE_ION_CANNON_HEAVY
+                weapon:  weapons.DOUBLE_ION_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
             });
         }
 
@@ -361,7 +377,7 @@ ships.DHOMNI_CIS = {
             ...hardpoint,
             weapon: {
                 ...hardpoint.weapon,
-                health: hardpoint.weapon.health * 3
+                health: hardpoint.weapon.health * 4
             }
         }));
     })(),

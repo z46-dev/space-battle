@@ -1,5 +1,5 @@
-import { shipTypes } from "../constants.js";
-import * as weapons from "../weapons.js";
+import { shipTypes } from "../../constants.js";
+import * as weapons from "../../weapons.js";
 
 const ships = {};
 
@@ -8,12 +8,12 @@ ships.CHIMERA_DESTROYER = {
     asset: "CHIMERA_DESTROYER.png",
     classification: shipTypes.Capital,
     population: 18,
-    size: 525,
+    size: 750,
     cost: 7250,
     speed: 4.25,
     turnSpeed: .015,
-    shield: 5430,
-    shieldRegen: 30,
+    shield: 9530,
+    shieldRegen: 9,
     hardpoints: [{ // FRONT
         x: -.175,
         y: .725,
@@ -108,8 +108,8 @@ ships.CHIMERA_DESTROYER = {
         ...e,
         weapon: {
             ...e.weapon,
-            health: e.weapon.health * 4.5 | 0,
-            range: e.weapon.range * 2.5 | 0,
+            health: e.weapon.health * 6.5 | 0,
+            range: e.weapon.range * 1.8 | 0,
             speed: e.weapon.speed * 2 | 0,
             damage: e.weapon.damage * 1.334 | 0
         }
@@ -128,79 +128,6 @@ ships.CHIMERA_DESTROYER = {
         squadronSize: 5,
         reserveSize: 4,
         squadronKey: "BLAST2"
-    }]
-};
-
-ships.SNUB1 = {
-    name: "Snub-1",
-    asset: "SNUB1.png",
-    classification: shipTypes.Fighter,
-    population: 0,
-    size: 15,
-    cost: 8,
-    speed: 25,
-    turnSpeed: .09,
-    shield: 0,
-    shieldRegen: 0,
-    hardpoints: [{
-        x: 0,
-        y: 0,
-        weapon: {
-            ...weapons.BLACK_FIGHTER_LASER_CANNON,
-            health: 150
-        },
-        shotsAtOnce: 3,
-        shotDelay: 75
-    }, {
-        x: 0,
-        y: 0,
-        weapon: weapons.FIGHTER_PROTON_BOMB,
-        shotsAtOnce: 2,
-        shotDelay: 150
-    }]
-};
-
-ships.BLAST2 = {
-    name: "Blast-2",
-    asset: "SNUB1.png",
-    classification: shipTypes.Bomber,
-    population: 0,
-    size: 25,
-    cost: 8,
-    speed: 16,
-    turnSpeed: .04,
-    shield: 0,
-    shieldRegen: 0,
-    hardpoints: [{
-        x: 0,
-        y: 0,
-        weapon: {
-            ...weapons.BLACK_FIGHTER_LASER_CANNON,
-            health: 150
-        },
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: 0,
-        y: 0,
-        weapon: {
-            ...weapons.FIGHTER_ION_CANNON,
-            health: 150
-        },
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: 0,
-        y: 0,
-        weapon: weapons.FIGHTER_PROTON_BOMB,
-        shotsAtOnce: 8,
-        shotDelay: 45
-    }, {
-        x: 0,
-        y: 0,
-        weapon: weapons.FIGHTER_PROTON_TORPEDO,
-        shotsAtOnce: 2,
-        shotDelay: 120
     }]
 };
 

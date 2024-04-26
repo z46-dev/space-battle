@@ -61,19 +61,27 @@ ships.DIAMOND_CIS = {
     hardpoints: [{
         x: 0,
         y: .85,
-        weapon: weapons.RED_TURBOLASER_CANNON
+        weapon: weapons.RED_TURBOLASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
     }, {
         x: -.8,
         y: -.5,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON
+        weapon: weapons.RED_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 30
     }, {
         x: .8,
         y: -.5,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON
+        weapon: weapons.RED_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 30
     }, {
         x: 0,
         y: 0,
-        weapon: weapons.DOUBLE_ION_CANNON
+        weapon: weapons.DOUBLE_ION_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 30
     }]
 };
 

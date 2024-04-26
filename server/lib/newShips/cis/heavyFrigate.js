@@ -10,8 +10,8 @@ ships.RECUSANT_CIS = {
     population: 14,
     size: 500,
     cost: 3000,
-    speed: 4.25,
-    turnSpeed: .015,
+    speed: 3.4,
+    turnSpeed: .07,
     shield: 1900,
     shieldRegen: 1.9,
     hardpoints: [{
@@ -80,13 +80,7 @@ ships.RECUSANT_CIS = {
         weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
         shotsAtOnce: 2,
         shotDelay: 80
-    }].map(e => ({
-        ...e,
-        weapon: {
-            ...e.weapon,
-            health: e.weapon.health * .5 | 0
-        }
-    })),
+    }],
     hangars: [{
         x: 0,
         y: 0,
