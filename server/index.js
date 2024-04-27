@@ -1466,8 +1466,8 @@ const spawnDistance = 2000;
 const fleetFactions = ["AURUM", randomFaction()];
 
 const fleetOverrides = [
-    ["ARGENTUMBATTLESHIP_AURUM", "CHIMERADESTROYER_AURUM", "CHIMERADESTROYER_AURUM", "CHIMERADESTROYER_AURUM"],
-    null
+    ['ARGENTUMBATTLESHIP_AURUM'],
+    ["MUNIFICENT_CIS", "MUNIFICENT_CIS", "MUNIFICENT_CIS"]
 ];
 
 const pop = 30 + Math.random() * 120 | 0;
