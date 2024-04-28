@@ -168,7 +168,8 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
         starGrid: new SpatialHashGrid(),
         deathClones: [],
         text: [],
-        commanders: []
+        commanders: [],
+        snapshotMode: false
     };
 
     const planetOptions = new PlanetOptions();
@@ -438,6 +439,9 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
             case " ": { // BattleCam change
                 worker.postMessage([5]);
             } break;
+            case "z":
+                world.snapshotMode = !world.snapshotMode;
+                break;
         }
     });
 
@@ -1126,7 +1130,7 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
                         if (mouseOverShip) {
                             shipOver = ship;
 
-                            if (shipConfig[ship.key].tenderAbility) {
+                            if (shipConfig[ship.key].tenderAbility && !world.snapshotMode) {
                                 ctx.beginPath();
                                 ctx.arc(0, 0, ship.size * 5.5, 0, Math.PI * 2);
                                 ctx.closePath();
@@ -1223,31 +1227,33 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
                                     return;
                                 }
 
-                                // Green - Yellow - Red based on hp
-                                ctx.fillStyle = hardpoint.health > .667 ? "#00FF00" : hardpoint.health > .333 ? "#FFFF00" : "#FF0000";
+                                if (!world.snapshotMode) {
+                                    // Green - Yellow - Red based on hp
+                                    ctx.fillStyle = hardpoint.health > .667 ? "#00FF00" : hardpoint.health > .333 ? "#FFFF00" : "#FF0000";
 
-                                if (mouseOverShip && Math.abs(realMouseX - (ship.x + ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle))) < 8 && Math.abs(realMouseY - (ship.y + ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle))) < 24) {
-                                    ctx.strokeStyle = ctx.fillStyle;
-                                    ctx.lineWidth = 4;
+                                    if (mouseOverShip && Math.abs(realMouseX - (ship.x + ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle))) < 8 && Math.abs(realMouseY - (ship.y + ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction + ship.angle))) < 24) {
+                                        ctx.strokeStyle = ctx.fillStyle;
+                                        ctx.lineWidth = 4;
+
+                                        ctx.beginPath();
+                                        ctx.arc(ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction), ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction), 18, 0, Math.PI * 2);
+                                        ctx.stroke();
+
+                                        hardpointOver = {
+                                            health: hardpoint.health,
+                                            data: shipConfig[ship.key].hardpoints[index]
+                                        };
+                                    }
 
                                     ctx.beginPath();
-                                    ctx.arc(ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction), ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction), 18, 0, Math.PI * 2);
-                                    ctx.stroke();
-
-                                    hardpointOver = {
-                                        health: hardpoint.health,
-                                        data: shipConfig[ship.key].hardpoints[index]
-                                    };
+                                    ctx.arc(ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction), ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction), 4, 0, Math.PI * 2);
+                                    ctx.fill();
                                 }
-
-                                ctx.beginPath();
-                                ctx.arc(ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction), ship.size / 2 * hardpoint.offset * Math.sin(hardpoint.direction), 4, 0, Math.PI * 2);
-                                ctx.fill();
                             });
                         }
                     }
 
-                    if (!ship.isPartOfSquadron || ship.size * scale >= 20) {
+                    if ((!ship.isPartOfSquadron || ship.size * scale >= 20) && !world.snapshotMode) {
                         ctx.rotate(-ship.angle);
                         const barWidth = Math.max(50, ship.size);
 
@@ -1632,7 +1638,7 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
 
         drawCommanders(uScale);
 
-        if (true) {
+        if (!world.snapshotMode) {
             ctx.save();
 
             const width = canvas.width / uScale;

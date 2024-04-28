@@ -1466,8 +1466,8 @@ const spawnDistance = 2000;
 const fleetFactions = ["AURUM", randomFaction()];
 
 const fleetOverrides = [
-    ['ARGENTUMBATTLESHIP_AURUM'],
-    ["MUNIFICENT_CIS", "MUNIFICENT_CIS", "MUNIFICENT_CIS"]
+    [],
+    []
 ];
 
 const pop = 30 + Math.random() * 120 | 0;
@@ -2668,7 +2668,7 @@ async function battleOfSaleucami() {
 
     const kenobiArquitens = scene.getShip("CONSOLAR_REPUBLIC", 1);
     kenobiArquitens.turnSpeed /= 3;
-    await scene.lockOnTo(kenobiArquitens, .4);
+    scene.battleCam(true);
 }
 
 async function escapeFromDqar() {
@@ -3231,3 +3231,51 @@ async function theEndOfDalla() {
     await scene.wait(1000);
     await scene.unlockCamera();
 }
+
+async function aurumAttacks() {
+    const station = spawn("STARBASE02_HAPAN", 0);
+    station.x = 0;
+    station.y = -500;
+    await scene.lockCamera();
+    await scene.moveCamera(0, 0, .2);
+    [
+        "MAGNETAR_HAPAN",
+        "MAGNETAR_HAPAN",
+        "TEREPHON_HAPAN",
+        "BATTLEDRAGON_HAPAN",
+        "NEUTRON_HAPAN",
+        "CORONAL_HAPAN",
+        "CORONAL_HAPAN"
+    ].forEach(ship => {
+        scene.hyperspaceIn(ship, 0, Math.random() * 2000 - 1000, Math.random() * 2000 - 1000, 0, Math.random() * 3000);
+    });
+    await scene.displayText("[Hapan Queen Mother]: We must protect the planet at all costs. It is crucial to the survival of our people.");
+    await scene.displayText("[Hapan Tech]: Scanners are picking up a fleet of unidentified ships. Their energy signatures are unlike anything we've seen before.");
+    await scene.moveCamera(1000, 0, .2);
+    await Promise.all([
+        "CHIMERADESTROYER_AURUM",
+        "CHIMERADESTROYER_AURUM",
+        "CHIMERADESTROYER_AURUM",
+        "CHIMERADESTROYER_AURUM",
+        "ARGENTUMBATTLESHIP_AURUM"
+    ].map(ship => scene.hyperspaceIn(ship, 1, 4000 + Math.random() * 2000 - 1000, Math.random() * 2000 - 1000, Math.PI, Math.random() * 3000)));
+    await scene.wait(1000);
+    await scene.displayText("[Hapan Queen Mother]: All ships, attack formation.");
+    scene.battleCam(true);
+    await scene.wait(12000);
+    scene.battleCam(false);
+    await scene.lockCamera();
+    scene.moveCamera(-1000, 0, .2);
+    await scene.displayText("[Hapan Tech]: Sir, another group of ships is coming out of hyperspace behind us! We're surrounded!");
+    await Promise.all([
+        "CHIMERADESTROYER_AURUM",
+        "CHIMERADESTROYER_AURUM",
+        "CHIMERADESTROYER_AURUM",
+        "CHIMERADESTROYER_AURUM",
+        "ARGENTUMBATTLESHIP_AURUM"
+    ].map(ship => scene.hyperspaceIn(ship, 1, -1500 + Math.random() * 2000 - 1000, Math.random() * 2000 - 1000, 0, Math.random() * 3000)));
+    await scene.wait(1000);
+    scene.battleCam(true);
+}
+
+battleOfSaleucami();

@@ -232,6 +232,8 @@ for (const ship in ships) {
             production.direction = vector.angle;
         });
     }
+
+    ships[ship]._key = ship;
 }
 
 export default ships;
