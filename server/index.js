@@ -3278,4 +3278,4 @@ async function aurumAttacks() {
     scene.battleCam(true);
 }
 
-battleOfSaleucami();
+aurumAttacks();
