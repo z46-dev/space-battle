@@ -1462,15 +1462,15 @@ function randomFaction() {
     return factions[Math.random() * factions.length | 0];
 }
 
-const spawnDistance = 2000;
-const fleetFactions = ["AURUM", randomFaction()];
+const spawnDistance = 4500;
+const fleetFactions = ["EMPIRE", "CIS"];
 
 const fleetOverrides = [
-    [],
-    []
+    ["IMPERIALSTARDESTROYER_EMPIRE", "IMPERIALSTARDESTROYER_EMPIRE"],
+    ["LUCREHULKBATTLESHIP_CIS"]
 ];
 
-const pop = 30 + Math.random() * 120 | 0;
+const pop = 64;
 
 for (let i = 0; i < 2; i++) {
     const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);
@@ -3277,5 +3277,3 @@ async function aurumAttacks() {
     await scene.wait(1000);
     scene.battleCam(true);
 }
-
-aurumAttacks();

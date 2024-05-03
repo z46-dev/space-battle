@@ -11,7 +11,7 @@ ships.RECUSANT_CIS = {
     size: 500,
     cost: 3000,
     speed: 3.4,
-    turnSpeed: .07,
+    turnSpeed: .01,
     shield: 1900,
     shieldRegen: 1.9,
     hardpoints: [{
