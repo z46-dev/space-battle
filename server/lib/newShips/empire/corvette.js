@@ -10,28 +10,34 @@ ships.RAIDER_EMPIRE = {
     population: 1,
     size: 60,
     cost: 200,
-    speed: 10,
-    turnSpeed: .035,
-    shield: 400,
+    speed: 11,
+    turnSpeed: .0375,
+    shield: 450,
     shieldRegen: 1,
     hardpoints: [{
         x: -.15,
         y: .075,
         weapon: weapons.GREEN_TURBOLASER_CANNON,
         shotsAtOnce: 2,
-        shotDelay: 100
+        shotDelay: 50
     }, {
         x: .15,
         y: .075,
         weapon: weapons.GREEN_TURBOLASER_CANNON,
         shotsAtOnce: 2,
-        shotDelay: 100
+        shotDelay: 50
     }, {
         x: 0,
         y: -.4,
         weapon: weapons.GREEN_RAPID_LASER_CANNON,
         shotsAtOnce: 2,
-        shotDelay: 100
+        shotDelay: 50
+    }, {
+        x: 0,
+        y: .4,
+        weapon: weapons.DOUBLE_ION_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 50
     }]
 };
 

@@ -1,15 +1,13 @@
-const shiftA = 9;
-const shiftB = 9;
+const shiftA = 10;
+const shiftB = 10;
 
 export default class SpatialHashGrid {
     constructor() {
         this.grid = new Map();
-        this.currentQuery = 0;
     }
 
     clear() {
         this.grid.clear();
-        this.currentQuery = 0;
     }
 
     insert(object) {
@@ -17,11 +15,16 @@ export default class SpatialHashGrid {
         const startY = object._AABB.y1 >> shiftA;
         const endX = object._AABB.x2 >> shiftA;
         const endY = object._AABB.y2 >> shiftA;
+
         for (let y = startY; y <= endY; y++) {
             for (let x = startX; x <= endX; x++) {
                 const key = x | (y << shiftB);
-                if (!this.grid.has(key)) this.grid.set(key, [object]);
-                else this.grid.get(key).push(object);
+
+                if (!this.grid.has(key)) {
+                    this.grid.set(key, [object]);
+                } else {
+                    this.grid.get(key).push(object);
+                }
             }
         }
     }
@@ -32,29 +35,24 @@ export default class SpatialHashGrid {
         const startY = object._AABB.y1 >> shiftA;
         const endX = object._AABB.x2 >> shiftA;
         const endY = object._AABB.y2 >> shiftA;
+
         for (let y = startY; y <= endY; y++) {
             for (let x = startX; x <= endX; x++) {
                 const key = x | (y << shiftB);
+
                 if (!this.grid.has(key)) {
                     continue;
                 }
 
                 const cell = this.grid.get(key);
                 for (let i = 0; i < cell.length; i++) {
-                    if (cell[i]._AABB.currentQuery != this.currentQuery) {
-                        cell[i]._AABB.currentQuery = this.currentQuery;
-                        if (
-                            cell[i].hash !== 0 &&
-                            this.hitDetection(object, cell[i])
-                        ) {
-                            result.set(cell[i].id, cell[i]);
-                        }
+                    if (!result.has(cell[i].id) && this.hitDetection(object, cell[i])) {
+                        result.set(cell[i].id, cell[i]);
                     }
                 }
             }
         }
-        
-        this.currentQuery = (this.currentQuery + 1) >>> 0;
+
         return result;
     }
 
@@ -63,13 +61,14 @@ export default class SpatialHashGrid {
     }
 
     getAABB(object) {
-        const size = object.size;
+        const width = object.width * object.size;
+        const height = object.height * object.size;
+
         return {
-            x1: object.x - size * object.width,
-            y1: object.y - size * object.height,
-            x2: object.x + size * object.width,
-            y2: object.y + size * object.height,
-            currentQuery: -1
+            x1: object.x - width,
+            y1: object.y - height,
+            x2: object.x + width,
+            y2: object.y + height
         };
     }
 }

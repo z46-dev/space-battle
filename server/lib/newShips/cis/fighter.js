@@ -128,37 +128,37 @@ ships.DROIDGUNSHIP_CIS = {
             ...weapons.RED_ANTI_FIGHTER_LASER_CANNON,
             health: 100
         },
-        shotsAtOnce: 5,
+        shotsAtOnce: 2,
         shotDelay: 50
     }, {
-        x: -.4,
+        x: -.6,
         y: 0,
         weapon: weapons.ASSAULT_PROTON_TORPEDO,
-        shotsAtOnce: 3,
+        shotsAtOnce: 2,
         shotDelay: 200
     }, {
-        x: .4,
+        x: .6,
         y: 0,
         weapon: weapons.ASSAULT_PROTON_TORPEDO,
-        shotsAtOnce: 3,
+        shotsAtOnce: 2,
         shotDelay: 200
     }, {
         x: -.6,
         y: 0,
         weapon: weapons.FIGHTER_PROTON_ROCKET,
-        shotsAtOnce: 3,
+        shotsAtOnce: 2,
         shotDelay: 75
     }, {
         x: .6,
         y: 0,
         weapon: weapons.FIGHTER_PROTON_ROCKET,
-        shotsAtOnce: 3,
+        shotsAtOnce: 2,
         shotDelay: 75
     }, {
         x: 0,
         y: 0,
         weapon: weapons.FIGHTER_PROTON_BOMB,
-        shotsAtOnce: 3,
+        shotsAtOnce: 2,
         shotDelay: 100
     }]
 };

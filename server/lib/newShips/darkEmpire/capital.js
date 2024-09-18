@@ -34,7 +34,7 @@ ships.IMPERIALSTARDESTROYER_DARKEMPIRE = {
                 x: 0,
                 y: .3 - .1 * i,
                 weapon: weapons.GREEN_ANTI_FIGHTER_LASER_CANNON,
-                shotsAtOnce: 3,
+                shotsAtOnce: 1,
                 shotDelay: 50
             });
         }

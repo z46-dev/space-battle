@@ -154,7 +154,6 @@ class Hardpoint {
         }
         this.projectileType = config.weapon.type;
 
-
         this.reload = config.weapon.reload * 4;
         this.tick = config.weapon.reload * 4;
         this.damage = config.weapon.damage;
@@ -1242,6 +1241,23 @@ class Battle {
                 spatialHash: new SpatialHashGrid()
             });
         }
+
+        this.fps = 0;
+        this.mspt = 0;
+
+        this.frames = 0;
+        this.totalTime = 0;
+
+        setInterval(() => {
+            if (this.frames > 0) {
+                this.fps = this.frames;
+                this.mspt = this.totalTime / this.frames;
+                this.frames = 0;
+                this.totalTime = 0;
+            }
+
+            console.log(this.fps, this.mspt);
+        }, 1E3);
     }
 
     spawn(key, team, x, y) {
@@ -1253,6 +1269,7 @@ class Battle {
     }
 
     update() {
+        const start = performance.now();
         for (let i = 0; i < this.teams.length; i++) {
             this.teams[i].spatialHash.clear();
         }
@@ -1274,6 +1291,9 @@ class Battle {
         this.squadrons.forEach(squadron => {
             squadron.update();
         });
+
+        this.frames ++;
+        this.totalTime += performance.now() - start;
     }
 
     explode(x, y, size, angle = Math.random() * Math.PI * 2, sprite = -1) {
@@ -1463,14 +1483,11 @@ function randomFaction() {
 }
 
 const spawnDistance = 4500;
-const fleetFactions = ["EMPIRE", "CIS"];
+const fleetFactions = ["REBEL", "EMPIRE"];
 
-const fleetOverrides = [
-    ["IMPERIALSTARDESTROYER_EMPIRE", "IMPERIALSTARDESTROYER_EMPIRE"],
-    ["LUCREHULKBATTLESHIP_CIS"]
-];
+const fleetOverrides = [null, null];
 
-const pop = 64;
+const pop = 128;
 
 for (let i = 0; i < 2; i++) {
     const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);
@@ -1854,6 +1871,11 @@ class Camera {
          * @type {Battle}
          */
         this.battle = connection.battle;
+
+        /**
+         * @type {Ship|null}
+         */
+        this.shipLockedOnTo = null;
     }
 
     get fov() {
@@ -1865,6 +1887,11 @@ class Camera {
     }
 
     update() {
+        if (this.shipLockedOnTo !== null) {
+            this.x = this.shipLockedOnTo.x;
+            this.y = this.shipLockedOnTo.y;
+        }
+
         const shipsIDs = [];
         const projectilesIDs = [];
         const squadronsIDs = [];
@@ -2270,6 +2297,7 @@ class Scene {
 
     async unlockCamera() {
         this.camera.locked = false;
+        this.camera.shipLockedOnTo = null;
     }
 
     moveCamera(x, y, zoom) {
@@ -2366,26 +2394,31 @@ class Scene {
      * @param {number} zoom 
      */
     lockOnTo(ship, zoom = 1) {
-        return new Promise(resolve => {
-            this.isLocked = ship.id;
+        // return new Promise(resolve => {
+        //     this.isLocked = ship.id;
 
-            const interval = setInterval(() => {
-                if (ship == null || !this.battle.ships.has(ship.id) || this.isLocked !== ship.id) {
-                    clearInterval(interval);
-                    this.isLocked = false;
-                    resolve();
-                    return;
-                }
+        //     const interval = setInterval(() => {
+        //         if (ship == null || !this.battle.ships.has(ship.id) || this.isLocked !== ship.id) {
+        //             clearInterval(interval);
+        //             this.isLocked = false;
+        //             resolve();
+        //             return;
+        //         }
 
-                this.camera.x = ship.x;
-                this.camera.y = ship.y;
-                this.camera.zoom = zoom;
-            }, 1000 / 45);
-        });
+        //         this.camera.x = ship.x;
+        //         this.camera.y = ship.y;
+        //         this.camera.zoom = zoom;
+        //     }, 1000 / 120);
+        // });
+
+        this.isLocked = ship.id;
+        this.camera.shipLockedOnTo = ship;
+        this.camera.zoom = zoom;
     }
 
     releaseLock() {
         this.isLocked = false;
+        this.camera.shipLockedOnTo = null;
     }
 
     async displayText(text) {

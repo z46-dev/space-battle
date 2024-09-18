@@ -1727,7 +1727,7 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
             if (measurement.width > maxWidth && i > 0) {
                 ctx.fillText(line, x, y);
                 line = words[i] + " ";
-                y += measurement.height;
+                y += measurement.height * 1.1;
             } else {
                 line = testLine;
             }

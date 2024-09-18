@@ -78,7 +78,7 @@ ships.MC85_REBEL = {
         return output.map(e => ({
             ...e,
             weapon: {
-                ...e,
+                ...e.weapon,
                 health: e.weapon.health * 6 | 0
             }
         }));
