@@ -8,12 +8,12 @@ ships.CR90_REBEL = {
     asset: "CR90.png",
     classification: shipTypes.Corvette,
     population: 1,
-    size: 75,
+    size: 95,
     cost: 200,
     speed: 12,
     turnSpeed: .045,
-    shield: 600,
-    shieldRegen: .5,
+    shield: 1000,
+    shieldRegen: 1,
     hardpoints: [{
         x: 0,
         y: .6,
@@ -43,7 +43,7 @@ ships.CR90_REBEL = {
         weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
         shotsAtOnce: 3,
         shotDelay: 80
-    }]
+    }].map(hp => ({ ...hp, weapon: { ...hp.weapon, health: 380 } }))
 };
 
 ships.DP20_REBEL = {

@@ -140,7 +140,13 @@ ships.NEBULONB_REBEL = {
         weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
         shotsAtOnce: 4,
         shotDelay: 60
-    }],
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 1.75 | 0
+        }
+    })),
     hangars: [{
         x: 0,
         y: 0,
@@ -299,8 +305,8 @@ ships.ZENITHCRUISER_REBEL = {
     cost: 800,
     speed: 4,
     turnSpeed: .0075,
-    shield: 1300,
-    shieldRegen: 1.3,
+    shield: 4300,
+    shieldRegen: 4.3,
     hardpoints: [{
         x: 0,
         y: .85,
@@ -373,7 +379,13 @@ ships.ZENITHCRUISER_REBEL = {
         weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
         shotsAtOnce: 6,
         shotDelay: 60
-    }],
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 3.5 | 0
+        }
+    })),
     hangars: [{
         x: 0,
         y: 0,

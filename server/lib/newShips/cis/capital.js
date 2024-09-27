@@ -154,7 +154,7 @@ ships.LUCREHULKBATTLESHIP_CIS = {
             ...hardpoint,
             weapon: {
                 ...hardpoint.weapon,
-                health: hardpoint.weapon.health * 2
+                health: hardpoint.weapon.health * 2.25 | 0
             }
         }));
     })(),
@@ -219,24 +219,6 @@ ships.LUCREHULKAUXILIARYWARSHIP_CIS = {
     hardpoints: (function() {
         const output = [];
 
-        for (let i = 3; i <= 33; i += 4) {
-            const angle = Math.PI * 2 / 36 * i + Math.PI / 2;
-
-            output.push({
-                x: Math.cos(angle) * .85,
-                y: Math.sin(angle) * .85 + .05,
-                weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY
-            });
-
-            if (i % 2) {
-                output.push({
-                    x: Math.cos(angle) * .65,
-                    y: Math.sin(angle) * .65 + .05,
-                    weapon: weapons.QUAD_ION_CANNON
-                });
-            }
-        }
-
         for (let i = 3; i <= 33; i += 2) {
             const angle = Math.PI * 2 / 36 * i + Math.PI / 2;
 
@@ -244,6 +226,14 @@ ships.LUCREHULKAUXILIARYWARSHIP_CIS = {
                 x: Math.cos(angle) * .75,
                 y: Math.sin(angle) * .75 + .05,
                 weapon:  weapons.RED_QUAD_LASER_CANNON
+            }, {
+                x: Math.cos(angle) * .85,
+                y: Math.sin(angle) * .85 + .05,
+                weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY
+            }, {
+                x: Math.cos(angle) * .65,
+                y: Math.sin(angle) * .65 + .05,
+                weapon: weapons.QUAD_ION_CANNON
             });
         }
 
@@ -251,7 +241,7 @@ ships.LUCREHULKAUXILIARYWARSHIP_CIS = {
             ...hardpoint,
             weapon: {
                 ...hardpoint.weapon,
-                health: hardpoint.weapon.health * 5
+                health: hardpoint.weapon.health * 4
             }
         }));
     })(),

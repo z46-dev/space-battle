@@ -8,14 +8,14 @@ heroes["Jabba The Hutt"] = {
     image: "jabbaTheHutt.png",
     ships: ["VONTOR_HUTT", "KARAGGA_HUTT", "DORBULLA_HUTT"],
     modifications: function (ship) {
-        ship.shield *= 2;
-        ship.maxShield *= 2;
+        ship.shield *= 1.5;
+        ship.maxShield *= 1.5;
         ship.shieldRegen *= 1.5;
         ship.maxSpeed *= 1.5;
 
         ship.hardpoints.forEach(hp => {
-            hp.health *= 3;
-            hp.maxHealth *= 3;
+            hp.health *= 2;
+            hp.maxHealth *= 2;
             hp.range *= 2;
             hp.damage *= 1.25;
         });
@@ -45,7 +45,7 @@ heroes["Jabba The Hutt"] = {
         }
 
         ship.hardpoints.forEach(hp => {
-            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00075);
+            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00025);
 
             if (ship.jabbaAbility.active) {
                 const selfDmg = hp.maxHealth * .001;

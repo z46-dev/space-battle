@@ -664,7 +664,7 @@ class ShipAI {
          */
         this.target = null;
 
-        this.orbitAngle = 0;
+        this.orbitAngle = Math.random();
         this.targetTick = 0;
 
         /**
@@ -886,7 +886,7 @@ class ShipAI {
 
             // this.ship.angleGoal = Math.atan2(this.wanderGoal.y - this.ship.y, this.wanderGoal.x - this.ship.x);
 
-            if ((performance.now() + this.ship.id) % 10000 > 6570) {
+            if ((performance.now() + this.ship.id) % 10000 > (5000 + (this.ship.id * 234) % 2350)) {
                 this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
             }
         }
@@ -1229,8 +1229,6 @@ class Battle {
         this.width = width;
         this.height = height;
 
-        this.updateInterval = setInterval(this.update.bind(this), 1000 / 22.5);
-
         this.explosionsToRender = [];
         this.deathsToSend = [];
 
@@ -1247,6 +1245,8 @@ class Battle {
 
         this.frames = 0;
         this.totalTime = 0;
+        
+        this.updateInterval = setInterval(this.update.bind(this), 1000 / 22.5);
 
         setInterval(() => {
             if (this.frames > 0) {
@@ -1440,6 +1440,40 @@ class Fleet {
 
         return output;
     }
+
+    static moncala(pop) {
+        const options = ["MC30C_REBEL", "MC50_REBEL", "MC75_REBEL", "MC80A_REBEL", "MC80BLIBERTY_REBEL", "MC85_REBEL"];
+        const output = [];
+
+        let fails = 0;
+
+        while (pop > 0 && fails < 256) {
+            let ship = undefined,
+                i = 0;
+
+            miniLoop: while (i < 5) {
+                const unitName = options[Math.random() * options.length | 0];
+
+                const unit = ships[unitName];
+
+                if (unit.population <= pop) {
+                    ship = unitName;
+                    break miniLoop;
+                }
+
+                i++;
+            }
+
+            if (ship !== undefined) {
+                output.push(ship);
+                pop -= ships[ship].population;
+            } else {
+                fails++;
+            }
+        }
+
+        return output;
+    }
 }
 
 const remainingCommanders = Object.values(heroes);
@@ -1482,12 +1516,10 @@ function randomFaction() {
     return factions[Math.random() * factions.length | 0];
 }
 
-const spawnDistance = 4500;
+const spawnDistance = 4000;
 const fleetFactions = ["REBEL", "EMPIRE"];
-
-const fleetOverrides = [null, null];
-
 const pop = 128;
+const fleetOverrides = [["PELTA_REBEL", "CR90_REBEL", "CR90_REBEL", "CR90_REBEL", "CR90_REBEL"], ["ARQUITENS_EMPIRE", "VIGILCORVETTE_EMPIRE", "ARQUITENS_EMPIRE", "IMOBILIZER_EMPIRE"]];
 
 for (let i = 0; i < 2; i++) {
     const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);
@@ -2455,6 +2487,7 @@ class Scene {
         } else {
             this.unlockCamera();
             this.isLocked = false;
+            this.camera.shipLockedOnTo = null;
         }
 
         this.displayText("BattleCam: " + (this.#battleCamOn ? "On" : "Off"));
@@ -2481,7 +2514,7 @@ class Scene {
                 do {
                     ship = this.battle.randomShipOfType(i);
                     j++;
-                } while (ship.id === this.lastBattleCamID && j < 5);
+                } while ((ship == null || ship.id === this.lastBattleCamID) && j < 5);
 
                 if (ship) {
                     break;
@@ -2489,8 +2522,8 @@ class Scene {
             }
 
             if (ship) {
-                this.lockOnTo(ship, Math.min(2, 1 / (ship.size / 150)));
-                this.lastBattleCamLock = performance.now() + 2000 + Math.random() * (333 * ship.classification) | 0;
+                this.lockOnTo(ship, Math.min(2, 1 / (ship.size / 200)));
+                this.lastBattleCamLock = performance.now() + 3000 + Math.random() * 7000 | 0;
                 this.lastBattleCamID = ship.id;
             }
         }
@@ -3307,6 +3340,68 @@ async function aurumAttacks() {
         "CHIMERADESTROYER_AURUM",
         "ARGENTUMBATTLESHIP_AURUM"
     ].map(ship => scene.hyperspaceIn(ship, 1, -1500 + Math.random() * 2000 - 1000, Math.random() * 2000 - 1000, 0, Math.random() * 3000)));
+    await scene.wait(1000);
+    scene.battleCam(true);
+}
+
+async function katanaFleet() {
+    const leia = spawn("MC80BLIBERTY_REBEL", 0);
+    leia.x = -1500;
+    leia.y = -1500;
+    leia.commander = new Commander(heroes.GeneralLeiaOrganaSolo, leia);
+
+    await scene.lockCamera();
+    await scene.moveCamera(-1500, -1500, .2);
+    await scene.displayText("[Mon Calamari Officer]: General, we're detecting a fleet of Imperial Star Destroyers coming out of hyperspace.");
+    scene.displayText("[General Leia Organa Solo]: All ships, prepare for battle. We have to hold out until help arrives."); // let it happen as camera moves
+
+    const ISDs = [{
+        x: 4500,
+        y: 4500
+    }, {
+        x: 3340,
+        y: 4300,
+        commander: heroes.CapBrandei
+    }];
+
+    await scene.moveCamera(4000, 4000, .2);
+
+    const promises = [];
+
+    let i = 0;
+    for (const ISD of ISDs) {
+        promises.push(scene.hyperspaceIn("IMPERIALSTARDESTROYER_EMPIRE", 1, ISD.x, ISD.y, Math.atan2(-ISD.y, -ISD.x), (i ++) * 2500, ship => {
+            if (ISD.commander) {
+                ship.commander = new Commander(ISD.commander, ship);
+            }
+        }));
+    }
+
+    await Promise.all(promises);
+
+    await scene.wait(1000);
+    scene.battleCam(true);
+
+    await scene.wait(20_000);
+    await scene.displayText("[General Garm Bel Iblis]: General Organa Solo, may we offer our assistance?");
+    scene.battleCam(false);
+    await scene.lockCamera();
+    scene.lockOnTo(leia, .15);
+    await scene.displayText("[General Leia Organa Solo]: General Bel Iblis, join the fight. We need all the help we can get.");
+
+    promises.length = 0;
+
+    for (let i = 0; i < 6; i++) {
+        const offA = Math.PI / 6 * i;
+        const d = 1500 + Math.sin(Math.random()) * 500;
+        promises.push(scene.hyperspaceIn("DREADNOUGHTHEAVYCRUISER_REBEL", 0, leia.x + Math.cos(offA) * d, leia.y + Math.sin(offA) * d, leia.angle, Math.random() * 6000, ship => {
+            if (i === 0) {
+                ship.commander = new Commander(heroes.GarmBelIblis, ship);
+            }
+        }));
+    }
+
+    await Promise.all(promises);
     await scene.wait(1000);
     scene.battleCam(true);
 }

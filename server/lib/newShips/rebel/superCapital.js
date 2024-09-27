@@ -8,13 +8,13 @@ ships.MC85_REBEL = {
     name: "MC-85",
     asset: "MC85.png",
     classification: shipTypes.SuperCapital,
-    population: 74,
-    size: 2600,
-    cost: 20000,
-    speed: 3,
+    population: 62,
+    size: 1920,
+    cost: 18200,
+    speed: 4,
     turnSpeed: .0125,
-    shield: 50000,
-    shieldRegen: 20,
+    shield: 32390,
+    shieldRegen: 32,
     shieldRegenAbility: {
         duration: 1.25,
         cooldown: 1.2,
@@ -79,7 +79,7 @@ ships.MC85_REBEL = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 6 | 0
+                health: e.weapon.health * 5 | 0
             }
         }));
     })(),

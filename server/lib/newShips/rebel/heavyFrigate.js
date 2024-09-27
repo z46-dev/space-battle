@@ -166,7 +166,13 @@ ships.NEBULONB2_REBEL = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: -.2,
@@ -247,8 +253,8 @@ ships.MC75_REBEL = {
     cost: 2400,
     speed: 3,
     turnSpeed: .006,
-    shield: 12000,
-    shieldRegen: 4,
+    shield: 9800,
+    shieldRegen: 3,
     shieldRegenAbility: {
         duration: 2,
         regen: 1.2
@@ -361,7 +367,13 @@ ships.MC75_REBEL = {
         weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
         shotsAtOnce: 2,
         shotDelay: 100
-    }],
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 1.45
+        }
+    })),
     hangars: [{
         x: 0,
         y: 0,
@@ -444,6 +456,101 @@ ships.VALORCRUISER_REBEL = {
         squadronSize: 6,
         reserveSize: 4,
         squadronKey: "XWING_REBEL"
+    }]
+};
+
+ships.DREADNOUGHTHEAVYCRUISER_REBEL = {
+    name: "Dreadnought Heavy Cruiser (Refit)",
+    asset: "DREADNOUGHTHEAVYCRUISER.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 16,
+    size: 290,
+    cost: 3300,
+    speed: 3.5,
+    turnSpeed: .02,
+    shield: 5230,
+    shieldRegen: 5,
+    hardpoints: [{
+        x: -.075,
+        y: .8,
+        weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .075,
+        y: .8,
+        weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.2,
+        y: -.8,
+        weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .2,
+        y: -.8,
+        weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.125,
+        y: .4,
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .125,
+        y: .4,
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.15,
+        y: -.4,
+        weapon: weapons.RED_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .15,
+        y: -.4,
+        weapon: weapons.RED_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: -.175,
+        y: 0,
+        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 50
+    }, {
+        x: .175,
+        y: 0,
+        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 50
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 2.5 | 0
+        }
+    })),
+    hangars: [{
+        x: 0,
+        y: -.8,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "XWING_REBEL"
+    }, {
+        x: 0,
+        y: -.8,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "AWING_REBEL"
     }]
 };
 

@@ -163,7 +163,7 @@ ships.INTERDICTORSTARDESTROYER_DARKEMPIRE = {
     asset: "INTERDICTORSTARDESTROYER.png",
     classification: shipTypes.Capital,
     population: ships.IMPERIALSTARDESTROYER_DARKEMPIRE.population,
-    size: ships.IMPERIALSTARDESTROYER_DARKEMPIRE.size,
+    size: ships.IMPERIALSTARDESTROYER_DARKEMPIRE.size * 1.05 | 0,
     cost: ships.IMPERIALSTARDESTROYER_DARKEMPIRE.cost * 1.1 | 0,
     speed: ships.IMPERIALSTARDESTROYER_DARKEMPIRE.speed * .95,
     turnSpeed: ships.IMPERIALSTARDESTROYER_DARKEMPIRE.turnSpeed * .99,
@@ -212,7 +212,13 @@ ships.INTERDICTORSTARDESTROYER_DARKEMPIRE = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 3 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: 0,
@@ -430,11 +436,11 @@ ships.RESURGENT_DARKEMPIRE = {
     cost: 8200,
     speed: 1.25,
     turnSpeed: .005,
-    shield: 21570,
-    shieldRegen: 21.57,
+    shield: 23400,
+    shieldRegen: 23.4,
     hardpoints: (function() {
         const output = [];
-        const types = ["GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY", "DOUBLE_ION_CANNON_MEDIUM", "GREEN_LASER_CANNON", "ASSAULT_CONCUSSION_MISSILE"];
+        const types = ["GREEN_ANTI_FIGHTER_LASER_CANNON", "DOUBLE_ION_CANNON_MEDIUM", "GREEN_LASER_CANNON", "ASSAULT_CONCUSSION_MISSILE"];
 
         for (let i = 0; i < 16; i ++) {
             output.push({
@@ -483,7 +489,7 @@ ships.RESURGENT_DARKEMPIRE = {
         for (let i = 0; i < output.length; i ++) {
             output[i].weapon = {
                 ...output[i].weapon,
-                health: output[i].weapon.health * 3
+                health: output[i].weapon.health * 4
             };
         }
 
@@ -492,16 +498,16 @@ ships.RESURGENT_DARKEMPIRE = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 1,
-        squadronSize: 8,
+        maxSquadrons: 3,
+        squadronSize: 6,
         reserveSize: 6,
         squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 1,
-        squadronSize: 8,
-        reserveSize: 4,
+        maxSquadrons: 3,
+        squadronSize: 6,
+        reserveSize: 6,
         squadronKey: "TIEBOMBER_DARKEMPIRE"
     }]
 };

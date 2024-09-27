@@ -143,40 +143,6 @@ ships.BWING_REBEL = {
     }]
 };
 
-ships.BWING_EXPERIMENTAL_REBEL = {
-    name: "Experimental B-Wing",
-    asset: "BWING.png",
-    classification: shipTypes.FighterBomber,
-    population: 0,
-    size: 22,
-    cost: 6,
-    speed: 17,
-    turnSpeed: .08,
-    shield: 55,
-    shieldRegen: 5,
-    hardpoints: [{
-        x: 0,
-        y: 0,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON
-    }, {
-        x: .5,
-        y: 0,
-        weapon: weapons.ASSAULT_PROTON_TORPEDO,
-        shotsAtOnce: 5,
-        shotDelay: 190
-    }, {
-        x: 0,
-        y: 0,
-        weapon: {
-            ...weapons.ASSAULT_CONCUSSION_MISSILE,
-            damage: weapons.ASSAULT_CONCUSSION_MISSILE.damage * 5,
-            explosionDamage: weapons.ASSAULT_CONCUSSION_MISSILE.explosionDamage * 5,
-            explosionRange: weapons.ASSAULT_CONCUSSION_MISSILE.explosionRange * 5,
-            bypassShield: true
-        }
-    }]
-};
-
 ships.MG100STARFORTRESS_REBEL = {
     name: "MG-100 StarFortress SF-17",
     asset: "MG100STARFORTRESS.png",
@@ -186,7 +152,7 @@ ships.MG100STARFORTRESS_REBEL = {
     cost: 16,
     speed: 7.5,
     turnSpeed: .025,
-    shield: 50,
+    shield: 125,
     shieldRegen: 5,
     hardpoints: [{
         x: 0,
@@ -195,7 +161,16 @@ ships.MG100STARFORTRESS_REBEL = {
             ...weapons.RED_DOUBLE_LASER_CANNON,
             health: weapons.RED_DOUBLE_LASER_CANNON.health * 2
         },
-        shotsAtOnce: 4,
+        shotsAtOnce: 5,
+        shotDelay: 75
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.DOUBLE_ION_CANNON,
+            health: weapons.DOUBLE_ION_CANNON.health * 2
+        },
+        shotsAtOnce: 2,
         shotDelay: 75
     }, {
         x: 0,
@@ -204,8 +179,8 @@ ships.MG100STARFORTRESS_REBEL = {
             ...weapons.FIGHTER_PROTON_TORPEDO,
             health: weapons.FIGHTER_PROTON_TORPEDO.health * 2
         },
-        shotsAtOnce: 2,
-        shotDelay: 100,
+        shotsAtOnce: 3,
+        shotDelay: 75,
         launchAngle: Math.PI / 2
     }, {
         x: 0,
@@ -214,22 +189,22 @@ ships.MG100STARFORTRESS_REBEL = {
             ...weapons.FIGHTER_PROTON_TORPEDO,
             health: weapons.FIGHTER_PROTON_TORPEDO.health * 2
         },
-        shotsAtOnce: 2,
-        shotDelay: 100,
+        shotsAtOnce: 3,
+        shotDelay: 75,
         launchAngle: -Math.PI / 2
     }, {
         x: .5,
         y: 0,
         weapon: {
             ...weapons.FIGHTER_PROTON_BOMB,
-            reload: weapons.FIGHTER_PROTON_BOMB.reload * 2,
+            reload: weapons.FIGHTER_PROTON_BOMB.reload * .75,
             speed: weapons.FIGHTER_PROTON_BOMB.speed * 2,
             damage: weapons.FIGHTER_PROTON_BOMB.damage * 3,
-            health: weapons.FIGHTER_PROTON_BOMB.health * 5,
-            explosionRange: 900,
+            health: weapons.FIGHTER_PROTON_BOMB.health * 6,
+            explosionRange: 900
         },
-        shotsAtOnce: 10,
-        shotDelay: 50
+        shotsAtOnce: 12,
+        shotDelay: 75
     }]
 };
 

@@ -8,12 +8,12 @@ ships.MC80A_REBEL = {
     asset: "HOMEONE.png",
     classification: shipTypes.Capital,
     population: 38,
-    size: 1100,
+    size: 1450,
     cost: 4500,
     speed: 2.5,
     turnSpeed: .02,
-    shield: 14000,
-    shieldRegen: 6,
+    shield: 14300,
+    shieldRegen: 14,
     shieldRegenAbility: {
         cooldown: .55,
         regen: 1.1
@@ -95,7 +95,8 @@ ships.MC80A_REBEL = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 2 | 0
+                health: e.weapon.health * 3 | 0,
+                reload: e.weapon.reload * .5 | 0
             }
         }));
     })(),
@@ -336,8 +337,8 @@ ships.INEXPUGNABLECOMMANDSHIP_REBEL = {
     cost: 3850,
     speed: 1.5,
     turnSpeed: .001,
-    shield: 11150,
-    shieldRegen: 9.5,
+    shield: 21540,
+    shieldRegen: 21.54,
     hardpoints: (function() {
         const output = [];
 
@@ -352,8 +353,8 @@ ships.INEXPUGNABLECOMMANDSHIP_REBEL = {
                     ...weapons.RED_DOUBLE_TURBOLASER_CANNON,
                     health: weapons.RED_DOUBLE_TURBOLASER_CANNON.health * 1.5
                 },
-                shotsAtOnce: 2,
-                shotDelay: 100
+                shotsAtOnce: 3,
+                shotDelay: 75
             }, {
                 x: .6 * Math.cos(Math.PI * 2 * i / 10 + Math.PI / 10),
                 y: .6 * Math.sin(Math.PI * 2 * i / 10 + Math.PI / 10),
@@ -364,8 +365,8 @@ ships.INEXPUGNABLECOMMANDSHIP_REBEL = {
                     ...weapons.RED_TRIPLE_TURBOLASER_CANNON_HEAVY,
                     health: weapons.RED_TRIPLE_TURBOLASER_CANNON_HEAVY.health * 1.5
                 },
-                shotsAtOnce: 2,
-                shotDelay: 100
+                shotsAtOnce: 3,
+                shotDelay: 75
             });
         }
 
@@ -373,23 +374,23 @@ ships.INEXPUGNABLECOMMANDSHIP_REBEL = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 3
+                health: e.weapon.health * 7
             }
         }))
     })(),
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 1,
-        squadronSize: 6,
-        reserveSize: 2,
+        maxSquadrons: 2,
+        squadronSize: 5,
+        reserveSize: 4,
         squadronKey: "MG100STARFORTRESS_REBEL"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 3,
         squadronSize: 6,
-        reserveSize: 4,
+        reserveSize: 6,
         squadronKey: "XWING_REBEL"
     }]
 };

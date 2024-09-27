@@ -481,7 +481,7 @@ ships.TEMPEST_HUTT = {
         ...hp,
         weapon: {
             ...hp.weapon,
-            health: hp.weapon.health * 2
+            health: hp.weapon.health * 3.5 | 0
         }
     })),
     hangars: [{

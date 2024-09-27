@@ -95,17 +95,17 @@ ships.TIEDEFENDER_DARKEMPIRE = {
     classification: shipTypes.Fighter,
     population: 0,
     size: 18,
-    cost: 25,
-    speed: 21,
-    turnSpeed: .125,
-    shield: 159,
+    cost: 100,
+    speed: 22,
+    turnSpeed: .2,
+    shield: 200,
     shieldRegen: 2,
     hardpoints: [{
         x: 0,
         y: 0,
         weapon: weapons.GREEN_FIGHTER_LASER_CANNON,
-        shotsAtOnce: 4,
-        shotDelay: 75
+        shotsAtOnce: 6,
+        shotDelay: 50
     }, {
         x: 0,
         y: 0,
@@ -115,7 +115,7 @@ ships.TIEDEFENDER_DARKEMPIRE = {
         y: 0,
         weapon: weapons.FIGHTER_PROTON_ROCKET,
         shotsAtOnce: 3,
-        shotDelay: 100
+        shotDelay: 75
     }]
 };
 

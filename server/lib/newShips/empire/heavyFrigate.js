@@ -8,49 +8,55 @@ ships.ARQUITENS_EMPIRE = {
     asset: "ARQUITENS.png",
     classification: shipTypes.HeavyFrigate,
     population: 12,
-    size: 190,
+    size: 275,
     cost: 900,
     speed: 5,
     turnSpeed: .02,
-    shield: 2300,
-    shieldRegen: 2.3,
+    shield: 3230,
+    shieldRegen: 3.23,
     hardpoints: [{
         x: -.225,
         y: .275,
         weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
         shotsAtOnce: 2,
-        shotDelay: 100
+        shotDelay: 200
     }, {
         x: .225,
         y: .275,
         weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
         shotsAtOnce: 2,
-        shotDelay: 100
+        shotDelay: 200
     }, {
         x: -.275,
         y: -.125,
         weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
         shotsAtOnce: 2,
-        shotDelay: 100
+        shotDelay: 75
     }, {
         x: .275,
         y: -.125,
         weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
         shotsAtOnce: 2,
-        shotDelay: 100
+        shotDelay: 75
     }, {
         x: 0,
         y: .6,
         weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
         shotsAtOnce: 4,
-        shotDelay: 100
+        shotDelay: 75
     }, {
-        x: 0,
-        y: 0,
+        x: -.3,
+        y: -.25,
         weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
         shotsAtOnce: 2,
-        shotDelay: 100
-    }]
+        shotDelay: 75
+    }, {
+        x: .3,
+        y: -.25,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+        shotsAtOnce: 2,
+        shotDelay: 75
+    }].map(hp => ({ ...hp, weapon: { ...hp.weapon, health: hp.weapon.health * 2.75 | 0 } }))
 };
 
 ships.IMOBILIZER_EMPIRE = {

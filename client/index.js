@@ -172,18 +172,21 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
         snapshotMode: false
     };
 
+    console.time("Planet generation");
     const planetOptions = new PlanetOptions();
     planetOptions.Radius = 1024;
     planetOptions.Detail = 1 + Math.random() * 2;
 
     planetOptions.Seed = Math.random();
     planetOptions.Clouds.Seed = Math.random();
-    planetOptions.NoiseFunction = [NoiseOptions.perlin2, NoiseOptions.perlin3, NoiseOptions.simplex3, NoiseOptions.staticQuickNoise][Math.random() * 4 | 0];
+    planetOptions.NoiseFunction = NoiseOptions.staticQuickNoise;//[NoiseOptions.perlin2, NoiseOptions.perlin3, NoiseOptions.simplex3, NoiseOptions.staticQuickNoise][Math.random() * 4 | 0];
     planetOptions.Colors = PlanetColors.expandStandardColors(1 + Math.random() * 8 | 0, PlanetColors.chooseForMe());
 
     const planet = new Planet(planetOptions);
     planet.generate();
+    console.timeEnd("Planet generation");
 
+    console.time("Star generation");
     // Add stars
     while (true) {
         let i = 0;
@@ -225,6 +228,7 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
             break;
         }
     }
+    console.timeEnd("Star generation");
 
     class Sprite {
         static generateFrames(image, xFrames, yFrames) {
@@ -300,6 +304,7 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
         }
     }
 
+    console.time("Loading assets");
     for (let i = 1; i <= 10; i++) {
         loadAsset(`./assets/explosions/explosion${i}.png`, `explosion${i}`);
     }
@@ -309,6 +314,7 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
     }
 
     loadAsset("./assets/explosions/fire.png", "fireSprite");
+    console.timeEnd("Loading assets");
 
     const canvas = document.querySelector("canvas");
     const ctx = canvas.getContext("2d");
@@ -1603,7 +1609,7 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
 
                 drawText(heroes[shipOver.commanderName].name, 20, y, 20);
                 y += 20;
-                drawWrappedText(heroes[shipOver.commanderName].tooltip, 20, y, 16, bigWidth - 10);
+                y += drawWrappedText(heroes[shipOver.commanderName].tooltip, 20, y, 16, bigWidth - 10);
             }
 
             if (cfg.tenderAbility) {
@@ -1711,7 +1717,8 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
 
     function drawWrappedText(text, x, y, size, maxWidth = 200, fill = "#FFFFFF", align = "left") {
         const words = text.split(" ");
-        let line = "";
+        let line = "",
+            height = 0;
 
         ctx.save();
         ctx.globalAlpha = 1;
@@ -1728,14 +1735,18 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
                 ctx.fillText(line, x, y);
                 line = words[i] + " ";
                 y += measurement.height * 1.1;
+                height += measurement.height * 1.1;
             } else {
                 line = testLine;
             }
         }
 
         ctx.fillText(line, x, y);
+        height += measureText(line, size).height * 1.1;
 
         ctx.restore();
+
+        return height;
     }
 
     function measureText(text, size) {

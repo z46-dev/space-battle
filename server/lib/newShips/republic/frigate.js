@@ -78,7 +78,7 @@ ships.ARQUITENS_REPUBLIC = {
     asset: "ARQUITENS.png",
     classification: shipTypes.HeavyFrigate,
     population: 10,
-    size: 175,
+    size: 250,
     cost: 900,
     speed: 6,
     turnSpeed: .02,
