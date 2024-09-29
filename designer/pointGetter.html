@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Image Resizer</title>
+</head>
+
+<body>
+    <script>
+        function formatNumber(number) {
+            const fixed = number.toFixed(3);
+
+            if (Math.abs(fixed) < 1) {
+                return fixed.replace("0.", ".");
+            }
+
+            return fixed;
+        }
+
+        const imageURL = "/assets/ships/SORONNAN.png";
+
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
+
+        const image = new Image();
+        image.src = imageURL;
+
+        image.onload = function () {
+            const size = Math.max(image.width, image.height);
+
+            const ratio = 1;
+            canvas.width = size * ratio;
+            canvas.height = size * ratio;
+
+            ctx.scale(ratio, ratio);
+
+            ctx.drawImage(image, 0, 0, image.width, image.height);
+
+            const points = [];
+            
+            document.onclick = () => {
+                const x = event.clientX;
+                const y = event.clientY;
+
+                const rect = canvas.getBoundingClientRect();
+                const xRatio = canvas.width / rect.width;
+                const yRatio = canvas.height / rect.height;
+
+                const xInCanvas = (x - rect.left) * xRatio;
+                const yInCanvas = (y - rect.top) * yRatio;
+
+                // draw circle over it
+                ctx.beginPath();
+                ctx.arc(xInCanvas, yInCanvas, 5, 0, 2 * Math.PI);
+                ctx.fillStyle = "red";
+                ctx.fill();
+
+                // Point in ratio to the center
+                const xRatioToCenter = (xInCanvas - canvas.width / 2) / canvas.width * 2;
+                const yRatioToCenter = (yInCanvas - canvas.height / 2) / canvas.height * 2;
+
+                points.push({ x: formatNumber(yRatioToCenter), y: formatNumber(xRatioToCenter) });
+            }
+
+            window.getPoints = () => {
+                console.log(points.map(p => `{\n\tx: ${p.x},\n\ty: ${p.y}\n}`).join(", "));
+            }
+
+            document.body.appendChild(canvas);
+        }
+    </script>
+</body>
+
+</html>

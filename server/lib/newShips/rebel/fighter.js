@@ -86,7 +86,7 @@ ships.AWING_REBEL = {
     population: 0,
     size: 14,
     cost: 6,
-    speed: 16,
+    speed: 24,
     turnSpeed: .1,
     shield: 15,
     shieldRegen: .9,
@@ -122,24 +122,31 @@ ships.BWING_REBEL = {
     cost: 6,
     speed: 16,
     turnSpeed: .08,
-    shield: 15,
-    shieldRegen: .9,
+    shield: 35,
+    shieldRegen: .35,
     hardpoints: [{
         x: 0,
         y: 0,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON
-    }, {
-        x: .5,
-        y: 0,
-        weapon: weapons.FIGHTER_PROTON_TORPEDO,
-        shotsAtOnce: 4,
+        weapon: weapons.RED_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
         shotDelay: 50
     }, {
         x: .5,
         y: 0,
-        weapon: weapons.FIGHTER_PROTON_BOMB,
-        shotsAtOnce: 4,
-        shotDelay: 50
+        weapon: weapons.FIGHTER_CONCUSSION_MISSILE,
+        shotsAtOnce: 2,
+        shotDelay: 200
+    }, {
+        x: .5,
+        y: 0,
+        weapon: {
+            ...weapons.FIGHTER_PROTON_BOMB,
+            health: weapons.FIGHTER_PROTON_BOMB.health * 2,
+            damage: weapons.FIGHTER_PROTON_BOMB.damage * 1.25,
+            explosionRange: weapons.FIGHTER_PROTON_BOMB.explosionRange * 2
+        },
+        shotsAtOnce: 10,
+        shotDelay: 100
     }]
 };
 

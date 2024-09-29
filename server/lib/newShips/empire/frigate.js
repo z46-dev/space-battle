@@ -50,23 +50,16 @@ ships.QUASAR_EMPIRE = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 1,
-        squadronSize: 6,
-        reserveSize: 3,
+        maxSquadrons: 2,
+        squadronSize: 7,
+        reserveSize: 4,
         squadronKey: "TIEFIGHTER_EMPIRE"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 1,
-        squadronSize: 6,
-        reserveSize: 3,
-        squadronKey: "TIEINTERCEPTOR_EMPIRE"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 1,
-        squadronSize: 6,
-        reserveSize: 3,
+        maxSquadrons: 2,
+        squadronSize: 7,
+        reserveSize: 4,
         squadronKey: "TIEBOMBER_EMPIRE"
     }]
 };

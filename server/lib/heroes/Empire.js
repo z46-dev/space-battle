@@ -21,7 +21,7 @@ heroes["AdmiralPellaeon"] = {
     },
     onTick: function (ship) {
         ship.hardpoints.forEach(hp => {
-            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00075);
+            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00025);
         });
     }
 };
@@ -129,7 +129,7 @@ heroes["GrandAdmiralThrawn"] = {
     },
     onTick: function (ship) {
         ship.hardpoints.forEach(hp => {
-            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00075);
+            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .0003);
         });
 
         //ship.repelMissiles();

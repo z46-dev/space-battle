@@ -6,7 +6,7 @@ heroes["AdmiralRaddus"] = {
     name: "Admiral Raddus",
     tooltip: "A Mon Calamari Admiral who led the Rebel fleet at the Battle of Scarif, Raddus was a tactician and a fighter for what he believed was good for all people of the galaxy. He commanded a modified MC-75 Cruiser, the Profundity, and was known for his ability to inspire his troops to fight against tyranny.",
     image: "AdmiralRaddus.webp",
-    ships: ["MC75_REBEL"],
+    ships: ["MC75_REBEL", "MC90_REBEL"],
     modifications: function (ship) {
         ship.shield *= 1.3;
         ship.maxShield *= 1.3;
@@ -83,7 +83,7 @@ heroes["AdmiralAckbar"] = {
     name: "Admiral Ackbar",
     tooltip: "The Supreme Commander of the Rebel Alliance Fleet, Ackbar was a Mon Calamari Admiral who led the Rebel fleet at the Battle of Endor. He was known for his tactical genius and his ability to inspire his troops to fight against tyranny. He commanded a modified MC-80 Cruiser, the Home One, and was a key figure in the Alliance's victory at Endor.",
     image: "AdmiralAckbar.webp",
-    ships: ["MC80A_REBEL", "MC85_REBEL"],
+    ships: ["MC80A_REBEL", "MC85_REBEL", "MC90_REBEL"],
     modifications: function(ship) {
         ship.shield *= 2;
         ship.maxShield *= 2;
@@ -270,7 +270,7 @@ heroes["HanAndChewie"] = {
     name: "Han and Chewie",
     tooltip: "A Corellian smuggler and his Wookiee co-pilot, Han Solo and Chewbacca were key figures in the Alliance's victory at Endor. They were known for their ability to inspire their troops to fight against tyranny, and their piloting skills.",
     image: "HanChewie.webp",
-    ships: ["FALCON_REBEL", "MC80A_REBEL"],
+    ships: ["FALCON_REBEL", "MC80B_REBEL"],
     modifications: () => {}
 };
 
@@ -316,7 +316,7 @@ heroes["GeneralLeiaOrganaSolo"] = {
     name: "General Leia Organa Solo",
     tooltip: "The Princess of Alderaan and leader of the Resistance, Leia Organa Solo was a key figure in the Rebel Alliance's victory at Endor. She was known for her ability to inspire her troops to fight against tyranny, and her leadership skills. She commanded a modified MC-90 Cruiser, the Hope, and was a prominent figure in the New Republic's fight against the Empire.",
     image: "leia.png",
-    ships: ["MC85_REBEL", "MC80BLIBERTY_REBEL"],
+    ships: ["MC85_REBEL", "MC80BLIBERTY_REBEL", "MC90_REBEL"],
     modifications: function(ship) {
         ship.shield *= 4;
         ship.maxShield *= 4;
@@ -354,6 +354,40 @@ heroes["GeneralLeiaOrganaSolo"] = {
         ship.hardpoints.forEach(hp => {
             hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00025);
         });
+    }
+};
+
+heroes["AdmriralTallon"] = {
+    name: "Admiral Adar Tallon",
+    tooltip: "Adar Tallon made a name for himself during the Clone Wars due to his tactical exploits. He had a good moral compass and was a strong leader. He would go on to serve as a major tactician in the Rebel Alliance.",
+    image: "AdarTallon.webp",
+    ships: ["MC90_REBEL", "BLUEDIVER_REBEL"],
+    modifications: function (ship) {
+        ship.shield *= 1.3;
+        ship.maxShield *= 1.3;
+        ship.shieldRegen *= 1.3;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.3;
+            hp.maxHealth *= 1.3;
+        });
+    },
+    onTick: function (ship) {
+        if (ship.tallonRegenAbility === undefined) {
+            ship.tallonRegenAbility = 0;
+        }
+
+        ship.tallonRegenAbility++;
+
+        if (ship.tallonRegenAbility >= 15) {
+            ship.tallonRegenAbility = 0;
+
+            ship.battle.ships.forEach(s => {
+                if (s.team === ship.team && s.shield > 0) {
+                    s.shield = Math.min(s.maxShield, s.shield + s.maxShield * .0025);
+                }
+            });
+        }
     }
 };
 

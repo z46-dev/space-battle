@@ -1442,7 +1442,7 @@ class Fleet {
     }
 
     static moncala(pop) {
-        const options = ["MC30C_REBEL", "MC50_REBEL", "MC75_REBEL", "MC80A_REBEL", "MC80BLIBERTY_REBEL", "MC85_REBEL"];
+        const options = ["MC30C_REBEL", "MC50_REBEL", "MC75_REBEL", "MC80BLIBERTY_REBEL", "MC80B_REBEL", "MC80A_REBEL", "MC85_REBEL", "MC90_REBEL", "BLUEDIVER_REBEL", "MEDIATOR_REBEL", "VISCOUNT_PROTOTYPE_REBEL"];
         const output = [];
 
         let fails = 0;
@@ -1474,6 +1474,33 @@ class Fleet {
 
         return output;
     }
+
+    static standardImperial(pop) {
+        // Put as many ISDs and then add arquitens and quasars to fill it up
+        const output = [];
+
+        const isdPop = ships["IMPERIALSTARDESTROYER_EMPIRE"].population;
+        const arquitensPop = ships["ARQUITENS_EMPIRE"].population;
+        const quasarPop = ships["QUASAR_EMPIRE"].population; 
+        
+        const isdCount = pop / isdPop | 0;
+        const arquitensCount = (pop - isdCount * isdPop) / arquitensPop | 0;
+        const quasarCount = (pop - isdCount * isdPop - arquitensCount * arquitensPop) / quasarPop | 0;
+
+        for (let i = 0; i < isdCount; i++) {
+            output.push("IMPERIALSTARDESTROYER_EMPIRE");
+        }
+
+        for (let i = 0; i < arquitensCount; i++) {
+            output.push("ARQUITENS_EMPIRE");
+        }
+
+        for (let i = 0; i < quasarCount; i++) {
+            output.push("QUASAR_EMPIRE");
+        }
+
+        return output;
+    }
 }
 
 const remainingCommanders = Object.values(heroes);
@@ -1498,9 +1525,9 @@ function spawn(ship, team) {
         newShip.angle = Math.random() * Math.PI * 2;
     }
 
-    if (remainingCommanders.length > 0) {
+    if (remainingCommanders.length > 0 && allowHeroes) {
         for (let i = 0; i < remainingCommanders.length; i++) {
-            if (remainingCommanders[i].ships.includes(ship) && Math.random() > .6) {
+            if (remainingCommanders[i].ships.includes(ship)) {
                 newShip.commander = new Commander(remainingCommanders[i], newShip);
                 remainingCommanders.splice(i, 1);
                 break;
@@ -1518,8 +1545,9 @@ function randomFaction() {
 
 const spawnDistance = 4000;
 const fleetFactions = ["REBEL", "EMPIRE"];
-const pop = 128;
-const fleetOverrides = [["PELTA_REBEL", "CR90_REBEL", "CR90_REBEL", "CR90_REBEL", "CR90_REBEL"], ["ARQUITENS_EMPIRE", "VIGILCORVETTE_EMPIRE", "ARQUITENS_EMPIRE", "IMOBILIZER_EMPIRE"]];
+const pop = 256;
+const allowHeroes = true;
+const fleetOverrides = [["NEBULA_REBEL"], ["SORONNAN_DARKEMPIRE"]];
 
 for (let i = 0; i < 2; i++) {
     const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);

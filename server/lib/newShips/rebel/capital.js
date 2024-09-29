@@ -5,7 +5,7 @@ const ships = {};
 
 ships.MC80A_REBEL = {
     name: "MC-80a Home One Type",
-    asset: "HOMEONE.png",
+    asset: "MC80A.png",
     classification: shipTypes.Capital,
     population: 38,
     size: 1450,
@@ -185,7 +185,7 @@ ships.MC80BLIBERTY_REBEL = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 1.75 | 0
+                health: e.weapon.health * 3 | 0
             }
         }));
     })(),
@@ -203,6 +203,107 @@ ships.MC80BLIBERTY_REBEL = {
         squadronSize: 6,
         reserveSize: 3,
         squadronKey: "YWING_REBEL"
+    }]
+};
+
+ships.MC80B_REBEL = {
+    name: "MC-80b",
+    asset: "MC80B.png",
+    classification: shipTypes.Capital,
+    population: 29,
+    size: 750,
+    cost: 2400,
+    speed: 3,
+    turnSpeed: .025,
+    shield: 9500,
+    shieldRegen: 9.5,
+    shieldRegenAbility: {
+        cooldown: 1,
+        regen: 1
+    },
+    hardpoints: (function() {
+        const output = [{
+            x: -.075,
+            y: .85,
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.15,
+            y: .65,
+            weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.2,
+            y: .45,
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.25,
+            y: .25,
+            weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.3,
+            y: .05,
+            weapon: weapons.RED_QUAD_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.35,
+            y: -.15,
+            weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.225,
+            y: -.35,
+            weapon: weapons.QUAD_ION_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.1,
+            y: -.55,
+            weapon: weapons.RED_DOUBLE_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }];
+
+        for (let i = 0, j = output.length; i < j; i ++) {
+            output.push({
+                x: -output[i].x,
+                y: output[i].y,
+                weapon: output[i].weapon,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            })
+        }
+
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 4 | 0
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 3,
+        squadronKey: "AWING_REBEL"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 3,
+        squadronKey: "BWING_REBEL"
     }]
 };
 
@@ -391,6 +492,341 @@ ships.INEXPUGNABLECOMMANDSHIP_REBEL = {
         maxSquadrons: 3,
         squadronSize: 6,
         reserveSize: 6,
+        squadronKey: "XWING_REBEL"
+    }]
+};
+
+ships.MC90_REBEL = {
+    name: "MC-90 Star Cruiser",
+    asset: "MC90.png",
+    classification: shipTypes.Capital,
+    population: 40,
+    size: 950,
+    cost: 3700,
+    speed: 3,
+    turnSpeed: .03,
+    shield: 11300,
+    shieldRegen: 11,
+    shieldRegenAbility: {
+        cooldown: 1,
+        regen: 1.25
+    },
+    hardpoints: (function() {
+        const output = [];
+        const positions = [{
+            x: 0,
+            y: .85,
+            weapons: [weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY, weapons.DOUBLE_ION_CANNON_HEAVY, weapons.RED_QUAD_LASER_CANNON_HEAVY]
+        }, {
+            x: .1,
+            y: .6,
+            weapons: [weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY, weapons.QUAD_ION_CANNON_HEAVY, weapons.RED_ANTI_FIGHTER_LASER_CANNON]
+        }, {
+            x: -.1,
+            y: .6,
+            weapons: [weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY, weapons.QUAD_ION_CANNON_HEAVY, weapons.RED_ANTI_FIGHTER_LASER_CANNON]
+        }, {
+            x: .15,
+            y: .35,
+            weapons: [weapons.RED_QUAD_TURBOLASER_CANNON, weapons.QUAD_ION_CANNON, weapons.ASSAULT_CONCUSSION_MISSILE]
+        }, {
+            x: -.15,
+            y: .35,
+            weapons: [weapons.RED_QUAD_TURBOLASER_CANNON, weapons.QUAD_ION_CANNON, weapons.ASSAULT_CONCUSSION_MISSILE]
+        }, {
+            x: .2,
+            y: .1,
+            weapons: [weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY, weapons.QUAD_ION_CANNON_HEAVY, weapons.RED_ANTI_FIGHTER_LASER_CANNON]
+        }, {
+            x: -.2,
+            y: .1,
+            weapons: [weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY, weapons.QUAD_ION_CANNON_HEAVY, weapons.RED_ANTI_FIGHTER_LASER_CANNON]
+        }, {
+            x: .25,
+            y: -.25,
+            weapons: [weapons.RED_QUAD_TURBOLASER_CANNON, weapons.QUAD_ION_CANNON, weapons.ASSAULT_CONCUSSION_MISSILE]
+        }, {
+            x: -.25,
+            y: -.25,
+            weapons: [weapons.RED_QUAD_TURBOLASER_CANNON, weapons.QUAD_ION_CANNON, weapons.ASSAULT_CONCUSSION_MISSILE]
+        }, {
+            x: .25,
+            y: -.5,
+            weapons: [weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY, weapons.QUAD_ION_CANNON_HEAVY, weapons.RED_ANTI_FIGHTER_LASER_CANNON]
+        }, {
+            x: -.25,
+            y: -.5,
+            weapons: [weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY, weapons.QUAD_ION_CANNON_HEAVY, weapons.RED_ANTI_FIGHTER_LASER_CANNON]
+        }, {
+            x: .15,
+            y: -.75,
+            weapons: [weapons.RED_QUAD_TURBOLASER_CANNON, weapons.QUAD_ION_CANNON, weapons.ASSAULT_CONCUSSION_MISSILE]
+        }, {
+            x: -.15,
+            y: -.75,
+            weapons: [weapons.RED_QUAD_TURBOLASER_CANNON, weapons.QUAD_ION_CANNON, weapons.ASSAULT_CONCUSSION_MISSILE]
+        }, {
+            x: 0,
+            y: .1,
+            weapons: [weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY, weapons.DOUBLE_ION_CANNON_HEAVY, weapons.RED_QUAD_LASER_CANNON_HEAVY]
+        }, {
+            x: 0,
+            y: -.6,
+            weapons: [weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY, weapons.DOUBLE_ION_CANNON_HEAVY, weapons.RED_QUAD_LASER_CANNON_HEAVY]
+        }];
+
+        for (const { x, y, weapons } of positions) {
+            for (let i = 0; i < weapons.length; i ++) {
+                const ang = Math.PI * 2 * i / weapons.length;
+                const d = .04;
+
+                output.push({
+                    x: x + d * Math.cos(ang),
+                    y: y + d * Math.sin(ang),
+                    weapon: weapons[i],
+                    shotsAtOnce: 2,
+                    shotDelay: 100
+                });
+            }
+        }
+
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2.25 | 0
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 5,
+        reserveSize: 2,
+        squadronKey: "XWING_REBEL"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "AWING_REBEL"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 5,
+        reserveSize: 2,
+        squadronKey: "YWING_REBEL"
+    }]
+};
+
+ships.ENDURANCE_REBEL = {
+    name: "Endurance Fleet Carrier",
+    asset: "ENDURANCE.png",
+    classification: shipTypes.Capital,
+    population: 26,
+    size: 600,
+    cost: 3130,
+    speed: 3.5,
+    turnSpeed: .01,
+    shield: 9250,
+    shieldRegen: 9.25,
+    shieldRegenAbility: {
+        cooldown: 2,
+        regen: .8
+    },
+    hardpoints: (function() {
+        const output = [{
+            x: -.075,
+            y: .85,
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.125,
+            y: .65,
+            weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.175,
+            y: .45,
+            weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.225,
+            y: .25,
+            weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.275,
+            y: .05,
+            weapon: weapons.RED_QUAD_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.325,
+            y: -.15,
+            weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }];
+
+        for (let i = 0, j = output.length; i < j; i ++) {
+            output.push({
+                x: -output[i].x,
+                y: output[i].y,
+                weapon: output[i].weapon,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            });
+        }
+
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 5 | 0
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 3,
+        squadronSize: 6,
+        reserveSize: 5,
+        squadronKey: "AWING_REBEL"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 3,
+        squadronSize: 6,
+        reserveSize: 5,
+        squadronKey: "BWING_REBEL"
+    }]
+};
+
+ships.NEBULA_REBEL = {
+    name: "Nebula Star Destroyer",
+    asset: "NEBULA_DESTROYER.png",
+    classification: shipTypes.Capital,
+    population: 26,
+    size: 600,
+    cost: 3130,
+    speed: 3.5,
+    turnSpeed: .01,
+    shield: 11100,
+    shieldRegen: 11.1,
+    shieldRegenAbility: {
+        cooldown: .5,
+        regen: .75,
+        duration: .5
+    },
+    hardpoints: (function() {
+        const output = [{
+            x: -.075,
+            y: .85,
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.125,
+            y: .65,
+            weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.175,
+            y: .45,
+            weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.225,
+            y: .275,
+            weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.3,
+            y: -.075,
+            weapon: weapons.RED_QUAD_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.35,
+            y: -.3,
+            weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.4,
+            y: -.5,
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.45,
+            y: -.7,
+            weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.225,
+            y: -.15,
+            weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: -.225,
+            y: -.3,
+            weapon: weapons.QUAD_ION_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            x: 0,
+            y: .95,
+            weapon: weapons.ASSAULT_PROTON_TORPEDO,
+            shotsAtOnce: 6,
+            shotDelay: 75
+        }];
+
+        for (let i = 0, j = output.length; i < j; i ++) {
+            output.push({
+                x: -output[i].x,
+                y: output[i].y,
+                weapon: output[i].weapon,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            });
+        }
+
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 5 | 0
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "AWING_REBEL"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 2,
         squadronKey: "XWING_REBEL"
     }]
 };

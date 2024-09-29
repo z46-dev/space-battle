@@ -290,9 +290,16 @@ ships.QUASAR_REBEL = {
         x: 0,
         y: 0,
         maxSquadrons: 2,
-        squadronSize: 5,
-        reserveSize: 4,
+        squadronSize: 6,
+        reserveSize: 6,
         squadronKey: "AWING_REBEL"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 7,
+        reserveSize: 4,
+        squadronKey: "YWING_REBEL"
     }]
 };
 
