@@ -55,7 +55,13 @@ ships.MC30C_REBEL = {
         weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
         shotsAtOnce: 3,
         shotDelay: 100
-    }],
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 2.5 | 0
+        }
+    })),
     hangars: [{
         x: 0,
         y: 0,

@@ -76,7 +76,13 @@ ships.MC50_REBEL = {
             });
         }
 
-        return output;
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2.5 | 0
+            }
+        }));
     })(),
     hangars: [{
         x: -.2,

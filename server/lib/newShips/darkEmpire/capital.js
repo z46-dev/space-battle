@@ -775,7 +775,15 @@ ships.SORONNAN_DARKEMPIRE = {
         weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 75
-    }],
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 4 | 0,
+            reload: e.weapon.reload * .9 | 0,
+            range: e.weapon.range * 1.5 | 0
+        }
+    })),
     hangars: [{
         x: 0,
         y: 0,

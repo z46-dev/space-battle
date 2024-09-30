@@ -1545,9 +1545,9 @@ function randomFaction() {
 
 const spawnDistance = 4000;
 const fleetFactions = ["REBEL", "EMPIRE"];
-const pop = 256;
+const pop = 128;
 const allowHeroes = true;
-const fleetOverrides = [["NEBULA_REBEL"], ["SORONNAN_DARKEMPIRE"]];
+const fleetOverrides = [Fleet.moncala(pop), null];
 
 for (let i = 0; i < 2; i++) {
     const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);

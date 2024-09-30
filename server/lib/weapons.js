@@ -1377,7 +1377,7 @@ export const ASSAULT_CONCUSSION_MISSILE = {
     explosionRange: 600,
 
     speed: 20,
-    maneuverability: .01,
+    maneuverability: .0334,
     seeks: true,
     targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation]
 };
@@ -1417,7 +1417,7 @@ export const ASSAULT_PROTON_BOMB = {
     explosionRange: 300,
 
     speed: 6,
-    maneuverability: .05,
+    maneuverability: .075,
     seeks: true,
     targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation]
 };
