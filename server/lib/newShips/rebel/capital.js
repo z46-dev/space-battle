@@ -831,4 +831,96 @@ ships.NEBULA_REBEL = {
     }]
 };
 
+ships.LUCREHULKAUXILIARYWARSHIP_REBEL = {
+    name: "Rebel Conversion Lucrehulk",
+    asset: "LUCREHULK3.png",
+    classification: shipTypes.Capital,
+    population: 40,
+    size: 1400,
+    cost: 11500,
+    speed: 1,
+    turnSpeed: .001,
+    shield: 23200,
+    shieldRegen: 23,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 3; i <= 33; i += 2) {
+            const angle = Math.PI * 2 / 36 * i + Math.PI / 2;
+
+            output.push({
+                x: Math.cos(angle) * .75,
+                y: Math.sin(angle) * .75 + .05,
+                weapon:  weapons.RED_QUAD_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: Math.cos(angle) * .85,
+                y: Math.sin(angle) * .85 + .05,
+                weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            }, {
+                x: Math.cos(angle) * .65,
+                y: Math.sin(angle) * .65 + .05,
+                weapon: weapons.QUAD_ION_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            });
+        }
+
+        return output.map(hardpoint => ({
+            ...hardpoint,
+            weapon: {
+                ...hardpoint.weapon,
+                health: hardpoint.weapon.health * 4.25 | 0
+            }
+        }));
+    })(),
+    hangars: [{
+        x: -.25,
+        y: .85,
+        maxSquadrons: 4,
+        squadronSize: 6,
+        reserveSize: 8,
+        squadronKey: "XWING_REBEL"
+    }, {
+        x: .25,
+        y: .85,
+        maxSquadrons: 4,
+        squadronSize: 6,
+        reserveSize: 8,
+        squadronKey: "AWING_REBEL"
+    }, {
+        x: -.25,
+        y: .85,
+        maxSquadrons: 3,
+        squadronSize: 5,
+        reserveSize: 8,
+        squadronKey: "YWING_REBEL"
+    }, {
+        x: .25,
+        y: .85,
+        maxSquadrons: 3,
+        squadronSize: 5,
+        reserveSize: 8,
+        squadronKey: "BWING_REBEL"
+    }],
+    production: [{
+        x: .25,
+        y: .85,
+        maxAlive: 2,
+        reserve: 2,
+        key: "CR90_REBEL",
+        cooldown: 250
+    },{
+        x: -.25,
+        y: .85,
+        maxAlive: 2,
+        reserve: 2,
+        key: "DP20_REBEL",
+        cooldown: 250
+    }]
+};
+
 export default ships;

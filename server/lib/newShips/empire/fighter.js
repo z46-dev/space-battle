@@ -117,4 +117,55 @@ ships.TIEDEFENDER_EMPIRE = {
     }]
 };
 
+ships.TIEREAPER_EMPIRE = {
+    name: "Tie Reaper",
+    asset: "TIEREAPER.png",
+    classification: shipTypes.Fighter,
+    population: 0,
+    size: 25,
+    cost: 6,
+    speed: 16,
+    turnSpeed: .12,
+    shield: 50,
+    shieldRegen: .05,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.GREEN_RAPID_FIGHTER_LASER_CANNON,
+            health: 250
+        },
+        shotsAtOnce: 2,
+        shotDelay: 50
+    }]
+};
+
+ships.TIEPUNISHER_EMPIRE = {
+    name: "Tie Punisher",
+    asset: "TIE_PUNISHER.png",
+    classification: shipTypes.Bomber,
+    population: 0,
+    size: 22,
+    cost: 12,
+    speed: 10,
+    turnSpeed: .04,
+    shield: 125,
+    shieldRegen: .025,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: weapons.GREEN_RAPID_FIGHTER_LASER_CANNON
+    }, {
+        x: .5,
+        y: 0,
+        weapon: {
+            ...weapons.FIGHTER_PROTON_BOMB,
+            explosionRange: weapons.FIGHTER_PROTON_BOMB.explosionRange * 2,
+            explosionDamage: weapons.FIGHTER_PROTON_BOMB.explosionDamage * 1.5
+        },
+        shotsAtOnce: 8,
+        shotDelay: 200
+    }].map(hp => ({ ...hp, weapon: { ...hp.weapon, health: hp.weapon.health * 30 | 0 } }))
+};
+
 export default ships;

@@ -7,7 +7,7 @@
 
 <body>
     <script>
-        const imageURL = "/assets/TOADD/SORONNAN.png";
+        const imageURL = "/assets/TOADD/image.png";
 
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
@@ -109,7 +109,7 @@
 
         function secondRemoveBackground(r, g, b, tolerance = 30) {
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            
+
             for (let i = 0; i < imageData.data.length; i += 4) {
                 const r1 = imageData.data[i];
                 const g1 = imageData.data[i + 1];
@@ -220,22 +220,28 @@
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
             for (let i = 0; i < imageData.data.length; i += 4) {
-                const r = imageData.data[i];
-                const g = imageData.data[i + 1];
-                const b = imageData.data[i + 2];
                 const a = imageData.data[i + 3];
 
                 if (a === 0) {
                     continue;
                 }
 
-                const x = Math.floor(i / 4 % canvas.width);
-                const y = Math.floor(i / 4 / canvas.width);
+                const x = Math.floor((i / 4) % canvas.width);
+                const y = Math.floor((i / 4) / canvas.width);
 
                 minX = Math.min(minX, x);
                 minY = Math.min(minY, y);
                 maxX = Math.max(maxX, x);
                 maxY = Math.max(maxY, y);
+            }
+
+            if (minX > maxX || minY > maxY) {
+                return {
+                    x: 0,
+                    y: 0,
+                    width: 0,
+                    height: 0
+                };
             }
 
             return {
@@ -246,20 +252,78 @@
             };
         }
 
+        function fuzzBorders() {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                const a = imageData.data[i + 3];
+
+                imageData.data[i + 3] = a < 225 ? 0 : 255;
+            }
+
+            const getNeighbors = (x, y) => {
+                const output = [];
+
+                for (let dx = -1; dx <= 1; dx++) {
+                    for (let dy = -1; dy <= 1; dy++) {
+                        if (dx === 0 && dy === 0) {
+                            continue;
+                        }
+
+                        const nx = x + dx;
+                        const ny = y + dy;
+
+                        if (nx >= 0 && nx < canvas.width && ny >= 0 && ny < canvas.height) {
+                            output.push([nx, ny]);
+                        }
+                    }
+                }
+
+                return output;
+            }
+
+            const toProcess = [];
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                const a = imageData.data[i + 3];
+
+                if (a > 0) {
+                    const x = (i / 4) % canvas.width;
+                    const y = Math.floor((i / 4) / canvas.width);
+                    const neighbors = getNeighbors(x, y).map(([nx, ny]) => {
+                        const nPos = (ny * canvas.width + nx) * 4;
+                        return imageData.data[nPos + 3];
+                    });
+
+                    // Adjust the condition as needed
+                    if (neighbors.filter(n => n === 0).length >= 2) {
+                        toProcess.push(i + 3);
+                    }
+                }
+            }
+
+            for (let i = 0; i < toProcess.length; i++) {
+                imageData.data[toProcess[i]] = 0;
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+        }
+
         function center() {
             const sizing = getSizing();
 
             const newCanvas = document.createElement("canvas");
             const newCtx = newCanvas.getContext("2d");
 
-            newCanvas.width = sizing.width;
-            newCanvas.height = sizing.width;
+            const sz = Math.max(sizing.width, sizing.height);
+
+            newCanvas.width = sz;
+            newCanvas.height = sz;
 
             // Put the image in the center of the new canvas
-            newCtx.drawImage(canvas, sizing.x, sizing.y, sizing.width, sizing.height, 0, sizing.width / 2 - sizing.height / 2, sizing.width, sizing.height);
+            newCtx.drawImage(canvas, sizing.x, sizing.y, sizing.width, sizing.height, 0, sizing.height > sizing.width ? 0 : (sizing.width / 2 - sizing.height / 2), sizing.width, sizing.height);
 
-            canvas.width = sizing.width;
-            canvas.height = sizing.width;
+            canvas.width = sz;
+            canvas.height = sz;
 
             ctx.drawImage(newCanvas, 0, 0);
         }
@@ -271,6 +335,8 @@
             canvas.width = size * ratio;
             canvas.height = size * ratio;
 
+            console.log(size, image.width, image.height);
+
             ctx.scale(ratio, ratio);
 
             ctx.translate(size / 2, size / 2);
@@ -280,6 +346,7 @@
 
             removeBackground(255, 0, 255, 96);
             center();
+            fuzzBorders();
 
             document.body.appendChild(canvas);
         }

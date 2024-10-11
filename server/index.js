@@ -97,6 +97,10 @@ class Projectile {
                 if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
                     this.target.ship.shield -= this.hardpoint.damage * (this.hardpoint.projectileType === weaponTypes.ProtonBomb ? 3 : 1); // Nuh uh uh
                     this.target.ship.lastHit = performance.now();
+
+                    if (Math.random() > .9 && this.explosionRange <= 1000) {
+                        this.battle.explode(this.target.x, this.target.y, this.explosionRange * .667, this.angle, Math.random() > .3 ? "explosion" + (Math.random() * 10 | 0 + 1) : ("blueExplosion" + (Math.random() * 5 | 0 + 1)));
+                    }
                 } else {
                     this.target.ship.lastHit = performance.now();
                     this.target.health -= this.hardpoint.damage;
@@ -1544,11 +1548,10 @@ function randomFaction() {
 }
 
 const spawnDistance = 4000;
-const fleetFactions = ["REBEL", "EMPIRE"];
+const fleetFactions = [randomFaction(), randomFaction()];
 const pop = 128;
 const allowHeroes = true;
-const fleetOverrides = [Fleet.moncala(pop), null];
-
+const fleetOverrides = [null, null];
 for (let i = 0; i < 2; i++) {
     const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);
 

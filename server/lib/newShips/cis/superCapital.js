@@ -1,4 +1,4 @@
-import { shipTypes } from "../../constants.js";
+import { shipTypes, weaponTypes } from "../../constants.js";
 import * as weapons from "../../weapons.js";
 
 const ships = {};
@@ -12,7 +12,7 @@ ships.PROVIDENCEDREADNOUGHT_CIS = {
     cost: 9700,
     speed: 2.25,
     turnSpeed: .003,
-    shield: 12000,
+    shield: 14500,
     shieldRegen: 11,
     hardpoints: (function() {
         const output = [];
@@ -87,7 +87,7 @@ ships.PROVIDENCEDREADNOUGHT_CIS = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 2.5 | 0
+                health: e.weapon.health * 4.25 | 0
             }
         }));
     })(),
@@ -318,6 +318,214 @@ ships.BULWARKII_CIS = {
         maxSquadrons: 3,
         squadronSize: 8,
         reserveSize: 4,
+        squadronKey: "DROIDTRIFIGHTER_CIS"
+    }]
+};
+
+ships.SUBJUGATOR_CIS = {
+    name: "Subjugator-Class Battlecruiser",
+    asset: "SUBJUGATOR.png",
+    classification: shipTypes.SuperCapital,
+    population: 75,
+    size: 3230,
+    cost: 45000,
+    speed: 1,
+    turnSpeed: .0005,
+    shield: 52300,
+    shieldRegen: 52,
+    hardpoints: (function() {
+        const output = [];
+
+        const points = [{
+            x: .001,
+            y: .940
+        }, {
+            x: -.030,
+            y: .820
+        }, {
+            x: -.001,
+            y: .868
+        }, {
+            x: .022,
+            y: .809
+        }, {
+            x: -.033,
+            y: .712
+        }, {
+            x: .043,
+            y: .701
+        }, {
+            x: .069,
+            y: .609
+        }, {
+            x: .090,
+            y: .524
+        }, {
+            x: -.093,
+            y: .488
+        }, {
+            x: -.083,
+            y: .571
+        }, {
+            x: -.066,
+            y: .641
+        }, {
+            x: .002,
+            y: .763
+        }, {
+            x: -.035,
+            y: .614
+        }, {
+            x: .001,
+            y: .650
+        }, {
+            x: .013,
+            y: .538
+        }, {
+            x: -.047,
+            y: .497
+        }, {
+            x: -.005,
+            y: .587
+        }, {
+            x: .046,
+            y: .460
+        }, {
+            x: -.039,
+            y: .431
+        }, {
+            x: -.001,
+            y: .488
+        }, {
+            x: .061,
+            y: .281
+        }, {
+            x: -.077,
+            y: .358
+        }, {
+            x: .075,
+            y: .354
+        }, {
+            x: -.037,
+            y: .087
+        }, {
+            x: .051,
+            y: .097
+        }, {
+            x: -.052,
+            y: .236
+        }, {
+            x: -.003,
+            y: .176
+        }, {
+            x: -.068,
+            y: -.020
+        }, {
+            x: .031,
+            y: -.011
+        }, {
+            x: -.047,
+            y: -.155
+        }, {
+            x: .066,
+            y: -.126
+        }, {
+            x: -.029,
+            y: -.074
+        }, {
+            x: .031,
+            y: -.778
+        }, {
+            x: -.056,
+            y: -.696
+        }, {
+            x: .040,
+            y: -.668
+        }, {
+            x: .066,
+            y: -.525
+        }, {
+            x: .97,
+            y: -.432
+        }, {
+            x: -.97,
+            y: -.432
+        }, {
+            x: -.084,
+            y: -.530
+        }, {
+            x: -.025,
+            y: -.279
+        }, {
+            x: -.083,
+            y: -.330
+        }, {
+            x: .078,
+            y: -.150
+        }, {
+            x: .058,
+            y: -.340
+        }, {
+            x: -.062,
+            y: -.223
+        }, {
+            x: .092,
+            y: .194
+        }, {
+            x: -.107,
+            y: .101
+        }];
+
+        const weaps = [weapons.RED_DOUBLE_LASER_CANNON_HEAVY, weapons.RED_DOUBLE_LASER_CANNON_HEAVY, weapons.DOUBLE_ION_CANNON_MEDIUM, weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY];
+
+        for (const point of points) {
+            for (let j = 0; j < 4; j ++) {
+                const angle = Math.PI * 2 / 4 * j;
+                const d = .005;
+
+                output.push({
+                    x: point.x + Math.cos(angle) * d,
+                    y: point.y + Math.sin(angle) * d,
+                    weapon: weaps[j]
+                });
+            }
+        }
+
+        for (const point of [{
+            x: -.242,
+            y: .326
+        }, {
+            x: .241,
+            y: .333
+        }]) {
+            output.push({
+                x: point.x,
+                y: point.y,
+                weapon: weapons.SUBJUGATOR_ION_BLAST
+            });
+        }
+
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 3 | 0
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 4,
+        reserveSize: 12,
+        squadronKey: "HYENABOMBER_CIS"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 5,
+        squadronSize: 3,
+        reserveSize: 24,
         squadronKey: "DROIDTRIFIGHTER_CIS"
     }]
 };

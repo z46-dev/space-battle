@@ -195,6 +195,20 @@ export const ION_CANNON_ULTRA = {
     name: "Ultraheavy Ion Cannon"
 };
 
+export const SUBJUGATOR_ION_BLAST = {
+    reload: 1000,
+    damage: 25000,
+    speed: 25,
+    range: 7500,
+    type: weaponTypes.SubjugatorIonBlast,
+    health: 1000,
+    targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
+    explosionRange: 1e10,
+    name: "Ion Pulse Generator",
+    maneuverability: .05,
+    seeks: true
+};
+
 // GREEN WEAPON DEFS
 
 export const GREEN_FIGHTER_LASER_CANNON = {

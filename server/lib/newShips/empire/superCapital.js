@@ -15,48 +15,42 @@ ships.ARCHAMMER_EMPIRE = {
     asset: "ARCHAMMER.png",
     classification: shipTypes.SuperCapital,
     population: 100,
-    size: 2300,
+    size: 3450,
     cost: 16000,
-    speed: 2,
+    speed: 3,
     turnSpeed: .01,
-    shield: 37500,
-    shieldRegen: 37.5,
+    shield: 54340,
+    shieldRegen: 54,
     hardpoints: (function() {
         const output = [];
 
-        for (let i = 0; i < 12; i ++) {
+        for (let i = 0; i < 18; i ++) {
             output.push({
-                x: -.001 - .005 * i,
-                y: .8 - .1 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                x: -.01 - .0025 * i,
+                y: .85 - .099 * i,
+                weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
                 shotsAtOnce: 2,
-                shotDelay: 100
+                shotDelay: 75
             }, {
-                x: .015 + .0025 * i,
-                y: .8 - .1 * i,
-                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                x: -.01 - .0025 * i,
+                y: .85 - .099 / 2 - .099 * i,
+                weapon: weapons.DOUBLE_ION_CANNON,
                 shotsAtOnce: 2,
-                shotDelay: 100
-            }, {
-                x: -.00065 - .0025 * i,
-                y: .6 - .05 * i,
-                weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
-                shotsAtOnce: 3,
-                shotDelay: 100
-            }, {
-                x: .0065 + .00125 * i,
-                y: .6 - .05 * i,
-                weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
-                shotsAtOnce: 3,
-                shotDelay: 100
+                shotDelay: 75
             });
+        }
+
+        for (let i = 0, l = output.length; i < l; i ++) {
+            output.push(structuredClone(output[i]));
+            output[output.length - 1].x *= -1;
         }
 
         return output.map(e => ({
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 2 | 0
+                health: e.weapon.health * 5.63 | 0,
+                reload: e.weapon.reload * .5 | 0
             }
         }));
     })(),
@@ -64,23 +58,30 @@ ships.ARCHAMMER_EMPIRE = {
         x: 0,
         y: 0,
         maxSquadrons: 4,
-        squadronSize: 8,
-        reserveSize: 1e10,
-        squadronKey: "TIEINTERCEPTOR_EMPIRE"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 2,
-        squadronSize: 8,
+        squadronSize: 6,
         reserveSize: 1e10,
         squadronKey: "TIEBOMBER_EMPIRE"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
-        squadronSize: 8,
+        maxSquadrons: 4,
+        squadronSize: 6,
         reserveSize: 1e10,
         squadronKey: "TIEDEFENDER_EMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 4,
+        squadronSize: 6,
+        reserveSize: 1e10,
+        squadronKey: "TIEPUNISHER_EMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 4,
+        squadronSize: 6,
+        reserveSize: 1e10,
+        squadronKey: "TIEREAPER_EMPIRE"
     }],
     production: [{
         x: 0,
@@ -88,21 +89,14 @@ ships.ARCHAMMER_EMPIRE = {
         maxAlive: 6,
         reserve: 1e10,
         key: "RAIDER_EMPIRE",
-        cooldown: 80
+        cooldown: 50
     }, {
         x: 0,
         y: 0,
-        maxAlive: 6,
+        maxAlive: 2,
         reserve: 1e10,
         key: "VIGILCORVETTE_EMPIRE",
-        cooldown: 80
-    }, {
-        x: 0,
-        y: 0,
-        maxAlive: 4,
-        reserve: 1e10,
-        key: "ARQUITENS_EMPIRE",
-        cooldown: 80
+        cooldown: 150
     }]
 };
 

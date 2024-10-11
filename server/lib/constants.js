@@ -122,7 +122,10 @@ export const weaponTypes = {
     "ConcussionMissile": iota(),
     "ProtonRocket": iota(),
     "AssaultProtonRocket": iota(),
-    "ProtonRocketAOE": iota()
+    "ProtonRocketAOE": iota(),
+
+    // SPECIAL WEAPONS (All factions)
+    "SubjugatorIonBlast": iota()
 };
 
 export const colors = {
@@ -143,7 +146,7 @@ export const weaponDrawProperties = (function() {
     const output = [];
 
     for (const key in weaponTypes) {
-        if (["Bomb", "Torpedo", "Missile", "Proton", "Bypass"].some(x => key.includes(x))) {
+        if (["Bomb", "Torpedo", "Missile", "Proton", "Bypass", "SubjugatorIonBlast"].some(x => key.includes(x))) {
             continue;
         }
 
@@ -241,6 +244,16 @@ export const weaponDrawProperties = (function() {
         count: 1,
         strength: 1.5,
         key: "ProtonRocketAOE",
+        isCircle: true,
+        shadows: true
+    };
+
+    output[weaponTypes.SubjugatorIonBlast] = {
+        color: colors.Ion,
+        shots: "Single",
+        count: 1,
+        strength: 10,
+        key: "SubjugatorIonBlast",
         isCircle: true,
         shadows: true
     };

@@ -677,7 +677,7 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
                         angleSpeed: Math.random() * .0025 - .00125,
                         image: shard,
                         timer: 250 + Math.random() * 500
-                    })));
+                    }))); // TODO: Consider making this use the ship's last x and y to determine velocity to make the split more interesting
                 }
 
                 const commandersSize = data.shift();
@@ -971,6 +971,10 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
     }
 
     weaponDrawProperties.forEach(props => {
+        if (props.key === "SubjugatorIonBlast") {
+            return;
+        }
+
         props.sprite = generateWeaponSprite(props);
     });
 
@@ -1302,7 +1306,46 @@ import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/li
             ctx.rotate(projectile.angle - Math.PI / 2);
             ctx.scale(6 * props.strength, 6 * props.strength);
 
-            ctx.drawImage(props.sprite, -projectile.size, -projectile.size, projectile.size * 2, projectile.size * 2);
+            if (props.key === "SubjugatorIonBlast") {
+                const q = performance.now();
+                ctx.save();
+
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = "#FFFFFF";
+
+                ctx.globalAlpha = .3;
+
+                // Define the hue range for purple-pink-white
+                const minHue = 270;
+                const maxHue = 330;
+
+                // Calculate the hue value within the range
+                const hue = (q / 10 % (maxHue - minHue)) + minHue;
+                ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+
+                ctx.scale(projectile.size, projectile.size);
+
+                ctx.beginPath();
+
+                for (let i = 0; i < 24; i++) {
+                    const angle = Math.PI * 2 / 24 * i + q / 1000 + performance.now() / 2300;
+                    const dist = Math.sin(angle * 4 + q / 1230 + i) * .5 + .5 * Math.sin((q + Math.tan(i)) / 1000);
+
+                    ctx.lineTo(Math.cos(angle) * dist, Math.sin(angle) * dist * 1.15);
+                }
+
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(0, 0, .2 + (Math.sin(q) * .25 + .25), 0, Math.PI * 2);
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fill();
+
+                ctx.restore();
+            } else {
+                ctx.drawImage(props.sprite, -projectile.size, -projectile.size, projectile.size * 2, projectile.size * 2);
+            }
 
             ctx.restore();
         });

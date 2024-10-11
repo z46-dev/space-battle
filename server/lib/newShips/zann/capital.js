@@ -146,7 +146,13 @@ ships.KELDABEBATTLESHIP_ZANN = {
         weapon: weapons.DOUBLE_ION_CANNON,
         shotsAtOnce: 3,
         shotDelay: 100
-    }],
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 6 | 0
+        }
+    })),
     hangars: [{
         x: 0,
         y: 0,
