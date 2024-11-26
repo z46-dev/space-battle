@@ -241,6 +241,7 @@ export default class Campaign {
 
             faction.income = 0;
             this.planets.forEach(planet => {
+                console.log(planet);
                 if (planet.controllingFaction.id !== faction.id) {
                     return;
                 }

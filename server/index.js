@@ -153,9 +153,6 @@ class Hardpoint {
         this.ship = ship;
         this.offset = config.offset;
         this.direction = config.direction;
-        if (config.weapon == null) {
-            console.log(ship);
-        }
         this.projectileType = config.weapon.type;
 
         this.reload = config.weapon.reload * 4;
@@ -1260,7 +1257,7 @@ class Battle {
                 this.totalTime = 0;
             }
 
-            console.log(this.fps, this.mspt);
+            console.log(this.fps, this.mspt, this.ships.size + this.projectiles.size);
         }, 1E3);
     }
 
@@ -1548,9 +1545,9 @@ function randomFaction() {
 }
 
 const spawnDistance = 4000;
-const fleetFactions = [randomFaction(), randomFaction()];
+const fleetFactions = ["AURUM", "EMPIRE", "REBEL", "REPUBLIC", "CIS", "DARKEMPIRE", "HUTT", "ZANN", "HAPAN"].sort(() => .5 - Math.random()).slice(0, 2);
 const pop = 128;
-const allowHeroes = true;
+const allowHeroes = false;
 const fleetOverrides = [null, null];
 for (let i = 0; i < 2; i++) {
     const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);

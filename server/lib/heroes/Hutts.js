@@ -34,6 +34,7 @@ heroes["Jabba The Hutt"] = {
             if (ship.jabbaAbility.ticker <= 0) {
                 ship.jabbaAbility.active = false;
             }
+
             ship.shield = Math.max(ship.shield, Math.min(ship.maxShield * .334, ship.shield + ship.maxShield * .0005));
         } else {
             ship.jabbaAbility.ticker++;
@@ -45,7 +46,7 @@ heroes["Jabba The Hutt"] = {
         }
 
         ship.hardpoints.forEach(hp => {
-            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00025);
+            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00001);
 
             if (ship.jabbaAbility.active) {
                 const selfDmg = hp.maxHealth * .001;

@@ -34,7 +34,7 @@
     "color": "#994433",
     "name": "Hutt Cartel",
     "key": "HUTT",
-    "planets": ["Tatooine", "Kashyyyk", "Mimban", "Nal Hutta"],
+    "planets": ["Tatooine", "Kashyyyk", "Mimban", "Nal Hutta", "Geonosis"],
     "capital": {
         "name": "Nal Hutta",
         "fleetPopulation": 120,

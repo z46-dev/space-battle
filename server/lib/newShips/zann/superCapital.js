@@ -8,12 +8,12 @@ ships.CENTURION_ZANN = {
     asset: "CENTURION.png",
     classification: shipTypes.SuperCapital,
     population: 42,
-    size: 2000,
+    size: 1300,
     cost: 9200,
     speed: 1,
     turnSpeed: .0025,
-    shield: 30000,
-    shieldRegen: 30,
+    shield: 19230,
+    shieldRegen: 19,
     hardpoints: (function() {
         const output = [];
 
@@ -79,7 +79,7 @@ ships.CENTURION_ZANN = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 3
+                health: e.weapon.health * 1.5
             }
         }))
     })(),
