@@ -1300,6 +1300,10 @@ class Battle {
                 };
             }
 
+            connection.camera.shipsCache.clear();
+            connection.camera.squadronsCache.clear();
+            connection.camera.projectilesCache.clear();
+
             connection.talk([3, packet]);
         }, 1E3);
 
@@ -2326,6 +2330,11 @@ onmessage = function (e) {
                                 y = 0;
                                 angle = Math.PI;
                                 break;
+                        }
+
+                        if (!e.data[e.data.length - 1]) {
+                            x *= -1;
+                            angle += Math.PI;
                         }
         
                         scatterFormation(spawned, x, y, angle);

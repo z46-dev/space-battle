@@ -976,6 +976,6 @@ export default function draw() {
     ctx.restore();
 }
 
-export function initializeBattle(myShips, enemyShips) {
-    state.worker.postMessage([1, 0, JSON.stringify(myShips), JSON.stringify(enemyShips)]);
+export function initializeBattle(myShips, enemyShips, attacking) {
+    state.worker.postMessage([1, 0, JSON.stringify(myShips), JSON.stringify(enemyShips), attacking]);
 }

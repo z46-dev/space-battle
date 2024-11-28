@@ -149,7 +149,7 @@ export default class Campaign {
 
     init() {
         planetConfig.forEach(($, i) => {
-            const planet = new Planet(i);
+            const planet = new Planet(i, this);
             planet.element = new UIElement(true);
             planet.element.canBeDropedInto = planet;
             planet.element.callback = () => {
@@ -333,7 +333,7 @@ export default class Campaign {
                 return;
             }
 
-            faction.AI(this);
+            // faction.AI(this);
         });
 
         this.planets.forEach(planet => {

@@ -44,8 +44,14 @@ export const planetConfig = loaded.planets;
 export const planetConnections = loaded.connections;
 
 export default class Planet {
-    constructor(id) {
+    constructor(id, campaign) {
         this.id = id;
+
+        /**
+         * @type {import("./Campaign").default}
+         */
+        this.campaign = campaign;
+
         this.name = planetConfig[id].name;
         this.color = planetConfig[id].color;
         this.income = planetConfig[id].income;
@@ -103,6 +109,7 @@ export default class Planet {
         if (createFleet) {
             this.fleets.push(Fleet.random(this.isCapital ? this.isCapital.fleetPopulation : (30 + (this.income / 10 | 0)), faction.key));
             this.fleets[this.fleets.length - 1].setFaction(faction);
+            this.fleets[this.fleets.length - 1].planet = this;
         }
     }
 
@@ -138,102 +145,12 @@ export default class Planet {
         ctx.restore();
 
         if (this.fleets.length > 0) {
+            for (const fleet of this.fleets) {
+                fleet.updateInTransit();
+            }
+
             const totalRadians = this.fleets.length * Math.PI / 6;
             for (let i = 0; i < this.fleets.length; i++) {
-                this.fleets[i].planet = this;
-                if (this.fleets[i].inTransit) {
-                    this.fleets[i].draggable.isDragging = false;
-                    if (this.fleets[i].transitPath.length > 0) {
-                        if (this.fleets[i].transitProgress >= this.fleets[i].transitPath[0].distance) {
-                            // Move the fleet to the next planet
-                            const nextPlanet = this.fleets[i].transitPath.shift().planet;
-
-                            if (this.fleets[i].transitPath.length === 0) {
-                                this.fleets[i].inTransit = false;
-                            }
-
-                            this.fleets[i].planet = nextPlanet;
-                            nextPlanet.fleets.push(this.fleets[i]);
-                            this.fleets[i].transitProgress = 0;
-
-                            if (nextPlanet.controllingFaction?.id !== this.fleets[i].faction?.id) {
-                                const myFleet = this.fleets[i];
-                                const enemyFleet = nextPlanet.fleets[0];
-
-                                if (!enemyFleet) {
-                                    nextPlanet.setControl(myFleet.faction, false);
-
-                                    myFleet.transitPath = [];
-                                    myFleet.inTransit = false;
-                                    myFleet.transitProgress = 0;
-                                } else {
-                                    if (
-                                        myFleet.faction.id !== playerFaction.id &&
-                                        enemyFleet.faction.id !== playerFaction.id
-                                    ) {
-                                        let winner = myFleet.population === enemyFleet.population ? Math.random() > .5 : myFleet.population > enemyFleet.population;
-
-                                        console.log(`AI Battle between ${myFleet.faction.name} and ${enemyFleet.faction.name} won by ${winner ? myFleet.faction.name : enemyFleet.faction.name}`);
-
-                                        if (winner) {
-                                            nextPlanet.fleets = nextPlanet.fleets.filter(fleet => fleet !== enemyFleet);
-                                            nextPlanet.setControl(myFleet.faction, false);
-                                        } else {
-                                            nextPlanet.fleets = nextPlanet.fleets.filter(fleet => fleet !== myFleet);
-                                            this.fleets = this.fleets.filter(fleet => fleet !== myFleet);
-                                        }
-
-                                        return;
-                                    }
-
-                                    let first = myFleet.faction.id === playerFaction.id ? myFleet : enemyFleet,
-                                        second = myFleet.faction.id === playerFaction.id ? enemyFleet : myFleet;
-
-                                    shared.beginBattle(first.__ships, second.__ships);
-
-                                    on(EVENTS.BATTLE_END, data => {
-                                        shared.state = STATE_TACTICAL_MAP;
-
-                                        console.log(data);
-
-                                        const me = data[0];
-                                        const enemy = data[1];
-
-                                        first.ships.clear();
-                                        second.ships.clear();
-
-                                        for (const ship of me.survived) {
-                                            first.add(ship);
-                                        }
-
-                                        for (const ship of enemy.survived) {
-                                            second.add(ship);
-                                        }
-
-                                        if (myFleet.population <= 0) {
-                                            nextPlanet.fleets = nextPlanet.fleets.filter(fleet => fleet !== myFleet);
-                                        } else if (enemyFleet.population <= 0) {
-                                            nextPlanet.fleets = nextPlanet.fleets.filter(fleet => fleet !== enemyFleet);
-                                            nextPlanet.setControl(myFleet.faction, false);
-                                        }
-                                    }, true);
-                                }
-                            }
-
-                            this.fleets = this.fleets.filter(fleet => fleet !== this.fleets[i]);
-                            return;
-                        }
-
-                        const angle = Math.atan2(this.fleets[i].transitPath[0].planet.y - this.y, this.fleets[i].transitPath[0].planet.x - this.x);
-                        const distance = this.fleets[i].transitProgress;
-
-                        this.fleets[i].draggable.x = Math.cos(angle) * distance + this.x;
-                        this.fleets[i].draggable.y = Math.sin(angle) * distance + this.y;
-
-                        this.fleets[i].transitProgress += 4;
-                    }
-                }
-
                 const angle = totalRadians / this.fleets.length * i - Math.PI / 2;
 
                 if (!this.fleets[i].draggable.isDragging && !this.fleets[i].inTransit) {

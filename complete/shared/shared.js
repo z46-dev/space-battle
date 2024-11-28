@@ -23,8 +23,8 @@ const shared = {
     campaign: null,
     campaignType: -1,
 
-    beginBattle(myShips, enemyShips) {
-        initializeBattle(myShips, enemyShips);
+    beginBattle(myShips, enemyShips, attacking = false) {
+        initializeBattle(myShips, enemyShips, attacking);
         shared.state = STATE_BATTLE;
     }
 };

@@ -585,6 +585,12 @@ worker.onmessage = event => {
 
             handlers[EVENTS.BATTLE_END]?.forEach(handler => handler(battleData));
             oneTimeHandlers[EVENTS.BATTLE_END]?.forEach(handler => handler(battleData));
+
+            world.deathClones = [];
+            explosions.clear();
+            ships.clear();
+            projectiles.clear();
+            squadrons.clear();
         } break;
     }
 }
