@@ -159,6 +159,35 @@ window.addEventListener("keydown", event => {
     }
 });
 
+const handlers = {};
+const oneTimeHandlers = {};
+
+export const EVENTS = {
+    BATTLE_END: 0
+};
+
+export function on(event, handler, once = false) {
+    if (once) {
+        oneTimeHandlers[event] = oneTimeHandlers[event] || [];
+        oneTimeHandlers[event].push(handler);
+        return;
+    }
+
+    if (!handlers[event]) {
+        handlers[event] = [];
+    }
+
+    handlers[event].push(handler);
+}
+
+export function off(event, handler) {
+    if (!handlers[event]) {
+        return;
+    }
+
+    handlers[event] = handlers[event].filter(h => h !== handler);
+}
+
 worker.onmessage = event => {
     let data = event.data;
 
@@ -550,6 +579,12 @@ worker.onmessage = event => {
                 i: 0,
                 timer: 5 * content.length
             });
+        } break;
+        case 3: { // Battle over
+            const battleData = data.shift();
+
+            handlers[EVENTS.BATTLE_END]?.forEach(handler => handler(battleData));
+            oneTimeHandlers[EVENTS.BATTLE_END]?.forEach(handler => handler(battleData));
         } break;
     }
 }

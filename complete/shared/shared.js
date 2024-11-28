@@ -1,4 +1,4 @@
-import Campaign from "../lib/Campaign.js";
+import { initializeBattle } from "../../client/index.js";
 
 export function lerp(a, b, t) {
     return a + (b - a) * t;
@@ -18,10 +18,15 @@ const shared = {
     buttonsEnabled: false,
 
     /**
-     * @type {Campaign}
+     * @type {import("../lib/Campaign.js").default}
      */
     campaign: null,
-    campaignType: -1
+    campaignType: -1,
+
+    beginBattle(myShips, enemyShips) {
+        initializeBattle(myShips, enemyShips);
+        shared.state = STATE_BATTLE;
+    }
 };
 
 export default shared;

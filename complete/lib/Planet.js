@@ -4,6 +4,8 @@ import Shipyard from "./Shipyard.js";
 import { Faction } from "./Factions.js";
 import Fleet from "./Fleet.js";
 import UIElement from "./UIElement.js";
+import shared, { STATE_TACTICAL_MAP } from "../shared/shared.js";
+import { EVENTS, on } from "../../client/lib/state.js";
 
 const loaded = await (await fetch("./assets/planets.json")).json();
 
@@ -104,7 +106,7 @@ export default class Planet {
         }
     }
 
-    render(scale) {
+    render(scale, playerFaction) {
         ctx.save();
         ctx.fillStyle = this.color;
         ctx.strokeStyle = this.controllingFaction?.color ?? "#000000";
@@ -155,7 +157,67 @@ export default class Planet {
                             this.fleets[i].transitProgress = 0;
 
                             if (nextPlanet.controllingFaction?.id !== this.fleets[i].faction?.id) {
-                                startBattle(this.fleets[i].__ships, nextPlanet.fleets[0].__ships);
+                                const myFleet = this.fleets[i];
+                                const enemyFleet = nextPlanet.fleets[0];
+
+                                if (!enemyFleet) {
+                                    nextPlanet.setControl(myFleet.faction, false);
+
+                                    myFleet.transitPath = [];
+                                    myFleet.inTransit = false;
+                                    myFleet.transitProgress = 0;
+                                } else {
+                                    if (
+                                        myFleet.faction.id !== playerFaction.id &&
+                                        enemyFleet.faction.id !== playerFaction.id
+                                    ) {
+                                        let winner = myFleet.population === enemyFleet.population ? Math.random() > .5 : myFleet.population > enemyFleet.population;
+
+                                        console.log(`AI Battle between ${myFleet.faction.name} and ${enemyFleet.faction.name} won by ${winner ? myFleet.faction.name : enemyFleet.faction.name}`);
+
+                                        if (winner) {
+                                            nextPlanet.fleets = nextPlanet.fleets.filter(fleet => fleet !== enemyFleet);
+                                            nextPlanet.setControl(myFleet.faction, false);
+                                        } else {
+                                            nextPlanet.fleets = nextPlanet.fleets.filter(fleet => fleet !== myFleet);
+                                            this.fleets = this.fleets.filter(fleet => fleet !== myFleet);
+                                        }
+
+                                        return;
+                                    }
+
+                                    let first = myFleet.faction.id === playerFaction.id ? myFleet : enemyFleet,
+                                        second = myFleet.faction.id === playerFaction.id ? enemyFleet : myFleet;
+
+                                    shared.beginBattle(first.__ships, second.__ships);
+
+                                    on(EVENTS.BATTLE_END, data => {
+                                        shared.state = STATE_TACTICAL_MAP;
+
+                                        console.log(data);
+
+                                        const me = data[0];
+                                        const enemy = data[1];
+
+                                        first.ships.clear();
+                                        second.ships.clear();
+
+                                        for (const ship of me.survived) {
+                                            first.add(ship);
+                                        }
+
+                                        for (const ship of enemy.survived) {
+                                            second.add(ship);
+                                        }
+
+                                        if (myFleet.population <= 0) {
+                                            nextPlanet.fleets = nextPlanet.fleets.filter(fleet => fleet !== myFleet);
+                                        } else if (enemyFleet.population <= 0) {
+                                            nextPlanet.fleets = nextPlanet.fleets.filter(fleet => fleet !== enemyFleet);
+                                            nextPlanet.setControl(myFleet.faction, false);
+                                        }
+                                    }, true);
+                                }
                             }
 
                             this.fleets = this.fleets.filter(fleet => fleet !== this.fleets[i]);

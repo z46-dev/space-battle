@@ -2,7 +2,7 @@ import Planet, { NoiseOptions, PlanetOptions } from "../Planet/Planet.js";
 import UIButton from "./shared/Button.js";
 import { canvas, ctx, uiScale } from "./shared/canvas.js";
 import { drawText } from "./shared/render.js";
-import shared, { STATE_HOME, STATE_INIT_CAMPAIGN, STATE_INIT_SURVIVAL, STATE_SELECT_TIMEFRAME, STATE_TACTICAL_MAP } from "./shared/shared.js";
+import shared, { STATE_BATTLE, STATE_HOME, STATE_INIT_CAMPAIGN, STATE_INIT_SURVIVAL, STATE_SELECT_TIMEFRAME, STATE_TACTICAL_MAP } from "./shared/shared.js";
 
 import factions from "./lib/Factions.js";
 import curtains, { curtainState, drawCurtains } from "./lib/curtains.js";
@@ -212,46 +212,13 @@ for (let i = 0; i < factions.length - 1; i++) {
     });
 }
 
-let isInBattle = false;
-window.startBattle = (myShips, enemyShips) => {
-    isInBattle = true;
-    initializeBattle(myShips, enemyShips);
-}
-
-window.attackPlanet = (withPlanet, againstPlanet) => {
-    const myPlanet = shared.campaign.getPlanet(withPlanet);
-    const enemyPlanet = shared.campaign.getPlanet(againstPlanet);
-
-    if (!myPlanet) {
-        throw new Error("Your planet not found.");
-    }
-
-    if (!enemyPlanet) {
-        throw new Error("Enemy planet not found.");
-    }
-
-    if (enemyPlanet.controllingFaction?.id === shared.campaign.playerFaction.id) {
-        throw new Error("You already control this planet.");
-    }
-
-    if (myPlanet.controllingFaction?.id !== shared.campaign.playerFaction.id) {
-        throw new Error("You do not control this planet.");
-    }
-
-    if (myPlanet.fleets.length === 0) {
-        throw new Error("You have no fleets to attack with.");
-    }
-
-    startBattle(myPlanet.fleets[0].__ships, enemyPlanet.fleets[0].__ships);
-}
-
 const buttons = new Array(Math.max(...buttonMaps.filter(e => e.length).map(map => map.length))).fill(0).map(() => new UIButton(0, 0, 0, 0));
 
 function draw() {
     requestAnimationFrame(draw);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (isInBattle) {
+    if (shared.state === STATE_BATTLE) {
         drawBattle();
         return;
     }

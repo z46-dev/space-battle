@@ -1261,7 +1261,9 @@ class Battle {
                 this.totalTime = 0;
             }
 
-            console.log(this.fps, this.mspt, this.ships.size + this.projectiles.size);
+            if (this.mspt > 15 && (this.ships.size + this.projectiles.size) > 100) {
+                console.log(this.fps, this.mspt, this.ships.size + this.projectiles.size);
+            }
 
             if (this.ships.size === 0) {
                 return;
@@ -1278,8 +1280,6 @@ class Battle {
             if (teamsAlive.size > 1) {
                 return;
             }
-
-            console.log("Battle ended!");
 
             // Kill everything
             this.ships.forEach(ship => {
@@ -1300,7 +1300,7 @@ class Battle {
                 };
             }
 
-            console.log(packet);
+            connection.talk([3, packet]);
         }, 1E3);
 
         this.shipsStartedWith = [];
@@ -2302,13 +2302,14 @@ onmessage = function (e) {
                         });
                     });
 
+                    battle.shipsStartedWith = [];
+
                     battle.projectiles.forEach(projectile => {
                         projectile.battle.projectiles.delete(projectile.id);
                     });
 
                     for (let i = 0; i < 2; i++) {
                         const ships = JSON.parse(e.data.shift()) ?? Fleet.random(128, randomFaction());
-                        console.log(ships);
         
                         const spawned = ships.map(ship => spawn(ship, i)).sort(() => .5 - Math.random());
         

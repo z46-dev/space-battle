@@ -222,7 +222,7 @@ export default class Campaign {
             planet.element.radius = 90 * scale;
 
             this.UIElements.push(planet.element);
-            planet.render(scale, this.camera.x, this.camera.y);
+            planet.render(scale, this.playerFaction);
         });
 
         this.planets.forEach(planet => planet.text());
@@ -328,6 +328,12 @@ export default class Campaign {
                 faction.money += planet.income;
                 faction.income += planet.income;
             });
+
+            if (faction.id === this.playerFaction.id) {
+                return;
+            }
+
+            faction.AI(this);
         });
 
         this.planets.forEach(planet => {
