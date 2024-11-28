@@ -100,12 +100,11 @@ export default class Planet {
 
         if (createFleet) {
             this.fleets.push(Fleet.random(this.isCapital ? this.isCapital.fleetPopulation : (30 + (this.income / 10 | 0)), faction.key));
-
-            console.log(this.name + ",", this.controllingFaction.name, this.fleets[this.fleets.length - 1]);
+            this.fleets[this.fleets.length - 1].setFaction(faction);
         }
     }
 
-    render() {
+    render(scale) {
         ctx.save();
         ctx.fillStyle = this.color;
         ctx.strokeStyle = this.controllingFaction?.color ?? "#000000";
@@ -132,6 +131,30 @@ export default class Planet {
             ctx.arc(0, 0, 90, 0, Math.PI * 2);
             ctx.closePath();
             ctx.fill();
+        }
+
+        if (this.fleets.length > 0) {
+            const totalRadians = this.fleets.length * Math.PI / 6;
+            for (let i = 0; i < this.fleets.length; i ++) {
+                ctx.fillStyle = this.fleets[i].faction?.color ?? "#000000";
+                ctx.strokeStyle = Color.mix(ctx.fillStyle, "#000000", .2);
+                ctx.lineWidth = 5;
+
+                const angle = totalRadians / this.fleets.length * i - Math.PI / 2;
+
+                ctx.beginPath();
+                ctx.arc(Math.cos(angle) * 225, Math.sin(angle) * 225, 50, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+                drawText(this.fleets[i].population, Math.cos(angle) * 225, Math.sin(angle) * 225, 45, "#FFFFFF");
+
+                this.fleets[i].draggable.x = Math.cos(angle) * 225 + this.x;
+                this.fleets[i].draggable.y = Math.sin(angle) * 225 + this.y;
+                this.fleets[i].draggable.radius = 50;
+                this.fleets[i].draggable.scaleAtRender = 1 / scale;
+            }
         }
 
         ctx.restore();

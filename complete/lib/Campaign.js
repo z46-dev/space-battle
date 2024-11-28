@@ -183,7 +183,7 @@ export default class Campaign {
             planet.element.radius = 90 * scale;
 
             this.UIElements.push(planet.element);
-            planet.render();
+            planet.render(scale);
         });
 
         this.planets.forEach(planet => planet.text());
@@ -216,15 +216,15 @@ export default class Campaign {
 
             let yVal = 120;
             for (let i = 0; i < this.selectedPlanet.fleets.length; i++) {
+                this.selectedPlanet.fleets[i].element.x = 30;
+                this.selectedPlanet.fleets[i].element.y = yVal;
+                this.selectedPlanet.fleets[i].element.scaleAtRender = 1 / scale;
+                this.UIElements.push(this.selectedPlanet.fleets[i].element);
+
                 ctx.save();
                 ctx.translate(30, yVal);
                 yVal += this.selectedPlanet.fleets[i].draw();
                 ctx.restore();
-
-                this.selectedPlanet.fleets[i].element.x = 30;
-                this.selectedPlanet.fleets[i].element.y = yVal;
-                this.selectedPlanet.fleets[i].element.scaleAtRender = scale;
-                this.UIElements.push(this.selectedPlanet.fleets[i].element);
             }
         }
 
@@ -241,7 +241,6 @@ export default class Campaign {
 
             faction.income = 0;
             this.planets.forEach(planet => {
-                console.log(planet);
                 if (planet.controllingFaction.id !== faction.id) {
                     return;
                 }

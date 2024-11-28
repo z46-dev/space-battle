@@ -1220,7 +1220,11 @@ class Ship {
 
 class Battle {
     constructor(width, height, teams) {
+        /**
+         * @type {Map<number, Ship>}
+         */
         this.ships = new Map();
+
         /**
          * @type {Map<number, Projectile>}
          */
@@ -1246,7 +1250,7 @@ class Battle {
 
         this.frames = 0;
         this.totalTime = 0;
-        
+
         this.updateInterval = setInterval(this.update.bind(this), 1000 / 22.5);
 
         setInterval(() => {
@@ -1258,7 +1262,48 @@ class Battle {
             }
 
             console.log(this.fps, this.mspt, this.ships.size + this.projectiles.size);
+
+            if (this.ships.size === 0) {
+                return;
+            }
+
+            const teamsAlive = new Set();
+
+            for (const ship of this.ships.values()) {
+                if (ship.classification >= shipTypes.Corvette) {
+                    teamsAlive.add(ship.team);
+                }
+            }
+
+            if (teamsAlive.size > 1) {
+                return;
+            }
+
+            console.log("Battle ended!");
+
+            // Kill everything
+            this.ships.forEach(ship => {
+                ship.shield = 0;
+                ship.lastHit = Infinity;
+
+                for (const hardpoint of ship.hardpoints) {
+                    hardpoint.health = 0;
+                }
+            });
+
+            const packet = {};
+
+            for (const team of this.teams) {    
+                packet[team.i] = {
+                    survived: this.shipsStartedWith[team.i].filter(ship => this.ships.has(ship.id)).map(ship => ship.key),
+                    died: this.shipsStartedWith[team.i].filter(ship => !this.ships.has(ship.id)).map(ship => ship.key)
+                };
+            }
+
+            console.log(packet);
         }, 1E3);
+
+        this.shipsStartedWith = [];
     }
 
     spawn(key, team, x, y) {
@@ -1293,7 +1338,7 @@ class Battle {
             squadron.update();
         });
 
-        this.frames ++;
+        this.frames++;
         this.totalTime += performance.now() - start;
     }
 
@@ -1482,8 +1527,8 @@ class Fleet {
 
         const isdPop = ships["IMPERIALSTARDESTROYER_EMPIRE"].population;
         const arquitensPop = ships["ARQUITENS_EMPIRE"].population;
-        const quasarPop = ships["QUASAR_EMPIRE"].population; 
-        
+        const quasarPop = ships["QUASAR_EMPIRE"].population;
+
         const isdCount = pop / isdPop | 0;
         const arquitensCount = (pop - isdCount * isdPop) / arquitensPop | 0;
         const quasarCount = (pop - isdCount * isdPop - arquitensCount * arquitensPop) / quasarPop | 0;
@@ -1545,51 +1590,51 @@ function randomFaction() {
 }
 
 const spawnDistance = 4000;
-const fleetFactions = ["AURUM", "EMPIRE", "REBEL", "REPUBLIC", "CIS", "DARKEMPIRE", "HUTT", "ZANN", "HAPAN"].sort(() => .5 - Math.random()).slice(0, 2);
-const pop = 128;
+// const fleetFactions = ["AURUM", "EMPIRE", "REBEL", "REPUBLIC", "CIS", "DARKEMPIRE", "HUTT", "ZANN", "HAPAN"].sort(() => .5 - Math.random()).slice(0, 2);
+// const pop = 128;
 const allowHeroes = false;
-const fleetOverrides = [null, null];
-for (let i = 0; i < 2; i++) {
-    const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);
+// const fleetOverrides = [null, null];
+// for (let i = 0; i < 2; i++) {
+//     const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);
 
-    const spawned = [];
+//     const spawned = [];
 
-    for (const ship of ships) {
-        if (ship === "DEATHSTAR_EMPIRE") {
-            const angle = -Math.PI / 2;
-            const distance = 0;
-            const spawnDistance = 32_000;
+//     for (const ship of ships) {
+//         if (ship === "DEATHSTAR_EMPIRE") {
+//             const angle = -Math.PI / 2;
+//             const distance = 0;
+//             const spawnDistance = 32_000;
 
-            const newShip = new Ship(battle, ship, i);
+//             const newShip = new Ship(battle, ship, i);
 
-            newShip.x = -spawnDistance + Math.cos(angle) * distance;
-            newShip.y = Math.sin(angle) * distance;
-            newShip.angle = Math.PI / 2;
-            continue;
-        }
+//             newShip.x = -spawnDistance + Math.cos(angle) * distance;
+//             newShip.y = Math.sin(angle) * distance;
+//             newShip.angle = Math.PI / 2;
+//             continue;
+//         }
 
-        spawned.push(spawn(ship, i));
-    }
+//         spawned.push(spawn(ship, i));
+//     }
 
-    spawned.sort(() => .5 - Math.random());
+//     spawned.sort(() => .5 - Math.random());
 
-    let x, y, angle;
+//     let x, y, angle;
 
-    switch (i) {
-        case 1:
-            x = -spawnDistance;
-            y = 0;
-            angle = 0;
-            break;
-        case 0:
-            x = spawnDistance;
-            y = 0;
-            angle = Math.PI;
-            break;
-    }
+//     switch (i) {
+//         case 1:
+//             x = -spawnDistance;
+//             y = 0;
+//             angle = 0;
+//             break;
+//         case 0:
+//             x = spawnDistance;
+//             y = 0;
+//             angle = Math.PI;
+//             break;
+//     }
 
-    scatterFormation(spawned, x, y, angle);
-}
+//     scatterFormation(spawned, x, y, angle);
+// }
 
 function scatterFormation(ships, x, y, angle) {
     // Biggest ship to smallest ship
@@ -2246,21 +2291,47 @@ onmessage = function (e) {
                 connection.camera.zoom = e.data[2];
             }
             break;
-        case 1: {
-            let holdo, hux;
+        case 1: { // Broad commandings
+            switch (e.data.shift()) {
+                case 0: { // Initialize battle
+                    battle.ships.forEach(ship => {
+                        ship.shield = 0;
+                        ship.lastHit = Infinity;
+                        ship.hardpoints.forEach(hardpoint => {
+                            hardpoint.health = 0;
+                        });
+                    });
 
-            battle.ships.forEach(ship => {
-                switch (ship.key) {
-                    case "MEGASTARDESTROYER_DARKEMPIRE":
-                        hux = ship;
-                        break;
-                    case "MC85_REBEL":
-                        holdo = ship;
-                }
-            });
+                    battle.projectiles.forEach(projectile => {
+                        projectile.battle.projectiles.delete(projectile.id);
+                    });
 
-            if (holdo && hux) {
-                holdo.ai = new HoldoManeuverAI(holdo, hux);
+                    for (let i = 0; i < 2; i++) {
+                        const ships = JSON.parse(e.data.shift()) ?? Fleet.random(128, randomFaction());
+                        console.log(ships);
+        
+                        const spawned = ships.map(ship => spawn(ship, i)).sort(() => .5 - Math.random());
+        
+                        let x, y, angle;
+        
+                        switch (i) {
+                            case 1:
+                                x = -spawnDistance;
+                                y = 0;
+                                angle = 0;
+                                break;
+                            case 0:
+                                x = spawnDistance;
+                                y = 0;
+                                angle = Math.PI;
+                                break;
+                        }
+        
+                        scatterFormation(spawned, x, y, angle);
+
+                        battle.shipsStartedWith.push(spawned);
+                    }
+                } break;
             }
         } break;
         case 2: {
@@ -3398,7 +3469,7 @@ async function katanaFleet() {
 
     let i = 0;
     for (const ISD of ISDs) {
-        promises.push(scene.hyperspaceIn("IMPERIALSTARDESTROYER_EMPIRE", 1, ISD.x, ISD.y, Math.atan2(-ISD.y, -ISD.x), (i ++) * 2500, ship => {
+        promises.push(scene.hyperspaceIn("IMPERIALSTARDESTROYER_EMPIRE", 1, ISD.x, ISD.y, Math.atan2(-ISD.y, -ISD.x), (i++) * 2500, ship => {
             if (ISD.commander) {
                 ship.commander = new Commander(ISD.commander, ship);
             }

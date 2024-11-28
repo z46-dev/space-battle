@@ -2,6 +2,7 @@ import { shipTypes } from "../../server/lib/constants.js";
 import ships from "../../server/lib/ships.js";
 import { ctx } from "../shared/canvas.js";
 import { Color, assets, drawText, loadAsset } from "../shared/render.js";
+import { Faction } from "./Factions.js";
 import UIElement from "./UIElement.js";
 
 export default class Fleet {
@@ -69,6 +70,18 @@ export default class Fleet {
 
         // Prevent clicking off of the planet when touching this
         this.element = new UIElement(false);
+
+        // Drag a fleet to another planet
+        this.draggable = new UIElement(true);
+
+        /**
+         * @type {Faction | null
+         */
+        this.faction = null;
+    }
+
+    setFaction(faction) {
+        this.faction = faction;
     }
 
     add(name) {
@@ -76,7 +89,14 @@ export default class Fleet {
     }
 
     get population() {
-        return this.ships.reduce((total, key) => total + ships[key].population, 0);
+        // return this.ships.reduce((total, key) => total + ships[key].population, 0);
+        let total = 0;
+
+        this.ships.forEach((count, key) => {
+            total += ships[key].population * count;
+        });
+
+        return total;
     }
 
     getHeight() {
@@ -104,7 +124,7 @@ export default class Fleet {
             ctx.fill();
 
             if (!assets.has(ship)) {
-                loadAsset("../../assets/ships/" + ships[ship].asset, ship);
+                loadAsset("/assets/ships/" + ships[ship].asset, ship);
             } else {
                 ctx.save();
                 ctx.translate((i % Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SPACING + Fleet.ICON_SIZE / 2, Math.floor(i / Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SPACING + Fleet.ICON_SIZE / 2);
@@ -120,5 +140,17 @@ export default class Fleet {
         });
 
         return height;
+    }
+
+    get __ships() {
+        const output = [];
+
+        this.ships.forEach((count, ship) => {
+            for (let i = 0; i < count; i++) {
+                output.push(ship);
+            }
+        });
+
+        return output;
     }
 }

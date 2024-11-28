@@ -25,14 +25,11 @@ export default class UIElement {
             return dx * dx + dy * dy < this.radius * this.radius;
         }
 
-        console.log(x * this.scaleAtRender, y * this.scaleAtRender, this.x, this.y, this.width, this.height, x * this.scaleAtRender >= this.x &&
-            x * this.scaleAtRender <= this.x + this.width &&
-            y * this.scaleAtRender >= this.y &&
-            y * this.scaleAtRender <= this.y + this.height);
-
         return x * this.scaleAtRender >= this.x &&
             x * this.scaleAtRender <= this.x + this.width &&
             y * this.scaleAtRender >= this.y &&
             y * this.scaleAtRender <= this.y + this.height;
     }
 }
+
+// IMPLEMENT: drag & drop on top of UIElement, Fleet drag, fleet merge, fleet attack, planet conquer, shipyard!
