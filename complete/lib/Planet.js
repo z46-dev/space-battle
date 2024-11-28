@@ -1,4 +1,4 @@
-import { ctx } from "../shared/canvas.js";
+import { canvas, ctx } from "../shared/canvas.js";
 import { Color, drawText } from "../shared/render.js";
 import Shipyard from "./Shipyard.js";
 import { Faction } from "./Factions.js";
@@ -14,7 +14,7 @@ const worker = new Worker("./lib/ComputeWorker.js", {
 const cache = {};
 let cacheID = 0;
 
-worker.onmessage = function({ data }) {
+worker.onmessage = function ({ data }) {
     switch (data[0]) {
         case 0:
             if (data[1] in cache) {
@@ -25,7 +25,7 @@ worker.onmessage = function({ data }) {
 }
 
 export function getPlanet(design, color) {
-    const id = cacheID ++;
+    const id = cacheID++;
     worker.postMessage([0, design ?? false, color, id]);
 
     return new Promise(resolve => {
@@ -133,31 +133,69 @@ export default class Planet {
             ctx.fill();
         }
 
+        ctx.restore();
+
         if (this.fleets.length > 0) {
             const totalRadians = this.fleets.length * Math.PI / 6;
-            for (let i = 0; i < this.fleets.length; i ++) {
+            for (let i = 0; i < this.fleets.length; i++) {
+                this.fleets[i].planet = this;
+                if (this.fleets[i].inTransit) {
+                    this.fleets[i].draggable.isDragging = false;
+                    if (this.fleets[i].transitPath.length > 0) {
+                        if (this.fleets[i].transitProgress >= this.fleets[i].transitPath[0].distance) {
+                            // Move the fleet to the next planet
+                            const nextPlanet = this.fleets[i].transitPath.shift().planet;
+
+                            if (this.fleets[i].transitPath.length === 0) {
+                                this.fleets[i].inTransit = false;
+                            }
+
+                            this.fleets[i].planet = nextPlanet;
+                            nextPlanet.fleets.push(this.fleets[i]);
+                            this.fleets[i].transitProgress = 0;
+
+                            if (nextPlanet.controllingFaction?.id !== this.fleets[i].faction?.id) {
+                                startBattle(this.fleets[i].__ships, nextPlanet.fleets[0].__ships);
+                            }
+
+                            this.fleets = this.fleets.filter(fleet => fleet !== this.fleets[i]);
+                            return;
+                        }
+
+                        const angle = Math.atan2(this.fleets[i].transitPath[0].planet.y - this.y, this.fleets[i].transitPath[0].planet.x - this.x);
+                        const distance = this.fleets[i].transitProgress;
+
+                        this.fleets[i].draggable.x = Math.cos(angle) * distance + this.x;
+                        this.fleets[i].draggable.y = Math.sin(angle) * distance + this.y;
+
+                        this.fleets[i].transitProgress += 4;
+                    }
+                }
+
+                const angle = totalRadians / this.fleets.length * i - Math.PI / 2;
+
+                if (!this.fleets[i].draggable.isDragging && !this.fleets[i].inTransit) {
+                    this.fleets[i].draggable.x = Math.cos(angle) * 225 + this.x;
+                    this.fleets[i].draggable.y = Math.sin(angle) * 225 + this.y;
+                }
+
+                this.fleets[i].draggable.radius = 50 + 10 * this.fleets[i].draggable.isDragging;
+                this.fleets[i].draggable.scaleAtRender = 1 / scale;
+                this.fleets[i].draggable.callback = () => alert("Fleet " + this.fleets[i].faction.name);
+
                 ctx.fillStyle = this.fleets[i].faction?.color ?? "#000000";
                 ctx.strokeStyle = Color.mix(ctx.fillStyle, "#000000", .2);
                 ctx.lineWidth = 5;
 
-                const angle = totalRadians / this.fleets.length * i - Math.PI / 2;
-
                 ctx.beginPath();
-                ctx.arc(Math.cos(angle) * 225, Math.sin(angle) * 225, 50, 0, Math.PI * 2);
+                ctx.arc(this.fleets[i].draggable.x, this.fleets[i].draggable.y, this.fleets[i].draggable.radius, 0, Math.PI * 2);
                 ctx.closePath();
                 ctx.fill();
                 ctx.stroke();
 
-                drawText(this.fleets[i].population, Math.cos(angle) * 225, Math.sin(angle) * 225, 45, "#FFFFFF");
-
-                this.fleets[i].draggable.x = Math.cos(angle) * 225 + this.x;
-                this.fleets[i].draggable.y = Math.sin(angle) * 225 + this.y;
-                this.fleets[i].draggable.radius = 50;
-                this.fleets[i].draggable.scaleAtRender = 1 / scale;
+                drawText(this.fleets[i].population, this.fleets[i].draggable.x, this.fleets[i].draggable.y, this.fleets[i].draggable.radius * .9, "#FFFFFF");
             }
         }
-
-        ctx.restore();
     }
 
     text() {

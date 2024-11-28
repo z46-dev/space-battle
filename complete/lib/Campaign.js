@@ -2,6 +2,7 @@ import { canvas, ctx, uiScale } from "../shared/canvas.js";
 import { drawText } from "../shared/render.js";
 import shared, { STATE_TACTICAL_MAP, lerp } from "../shared/shared.js";
 import factions, { Faction } from "./Factions.js";
+import Fleet from "./Fleet.js";
 import Planet, { planetConfig } from "./Planet.js";
 import UIElement from "./UIElement.js";
 
@@ -52,6 +53,11 @@ export default class Campaign {
          */
         this.UIElements = [];
 
+        /**
+         * @type {UIElement | null}
+         */
+        this.draggingElement = null;
+
         window.addEventListener("wheel", event => {
             if (shared.state !== STATE_TACTICAL_MAP) {
                 return;
@@ -72,6 +78,17 @@ export default class Campaign {
 
             this.mouseDirX = event.movementX;
             this.mouseDirY = event.movementY;
+
+            if (this.draggingElement !== null) {
+                this.draggingElement.x = this.mouseX * this.draggingElement.scaleAtRender;
+                this.draggingElement.y = this.mouseY * this.draggingElement.scaleAtRender;
+
+                if (this.draggingElement.isGameObject) {
+                    const scale = uiScale() * this.camera.zoom;
+                    this.draggingElement.x += this.camera.x * scale * this.draggingElement.scaleAtRender - canvas.width / 2 * this.draggingElement.scaleAtRender;
+                    this.draggingElement.y += this.camera.y * scale * this.draggingElement.scaleAtRender - canvas.height / 2 * this.draggingElement.scaleAtRender;
+                }
+            }
         });
 
         window.addEventListener("mousedown", event => {
@@ -85,8 +102,15 @@ export default class Campaign {
             if (event.button === 2) {
                 this.rightMouseDown = true;
             } else {
+                const scale = uiScale() * this.camera.zoom;
                 for (let i = this.UIElements.length - 1; i >= 0; i--) {
-                    if (this.UIElements[i].contains(this.mouseX, this.mouseY)) {
+                    if (this.UIElements[i].contains(this.mouseX, this.mouseY, this.camera.x, this.camera.y, canvas.width, canvas.height, scale)) {
+                        if (this.UIElements[i].draggable) {
+                            this.draggingElement = this.UIElements[i];
+                            this.draggingElement.isDragging = true;
+                            return;
+                        }
+
                         this.UIElements[i].callback();
                         return;
                     }
@@ -103,6 +127,20 @@ export default class Campaign {
 
             if (event.button === 2) {
                 this.rightMouseDown = false;
+            } else if (this.draggingElement !== null) {
+                const scale = uiScale() * this.camera.zoom;
+                for (let i = this.UIElements.length - 1; i >= 0; i--) {
+                    if (this.UIElements[i].canBeDropedInto && this.UIElements[i].contains(this.mouseX, this.mouseY, this.camera.x, this.camera.y, canvas.width, canvas.height, scale)) {
+                        this.draggingElement.onDrop(this.UIElements[i]);
+                        this.draggingElement.isDragging = false;
+                        this.draggingElement = null;
+                        return;
+                    }
+                }
+
+                this.draggingElement.isDragging = false;
+                this.draggingElement.onDrop(null);
+                this.draggingElement = null;
             }
         });
 
@@ -113,6 +151,7 @@ export default class Campaign {
         planetConfig.forEach(($, i) => {
             const planet = new Planet(i);
             planet.element = new UIElement(true);
+            planet.element.canBeDropedInto = planet;
             planet.element.callback = () => {
                 this.selectedPlanet = planet;
             }
@@ -183,7 +222,7 @@ export default class Campaign {
             planet.element.radius = 90 * scale;
 
             this.UIElements.push(planet.element);
-            planet.render(scale);
+            planet.render(scale, this.camera.x, this.camera.y);
         });
 
         this.planets.forEach(planet => planet.text());
@@ -228,6 +267,47 @@ export default class Campaign {
             }
         }
 
+        this.planets.forEach(planet => {
+            if (planet.controllingFaction?.id !== this.playerFaction.id) {
+                return;
+            }
+
+            for (let i = 0; i < planet.fleets.length; i++) {
+                if (planet.fleets[i].faction.id !== this.playerFaction.id) {
+                    continue;
+                }
+
+                planet.fleets[i].draggable.onDrop = drop => {
+                    if (drop === null) {
+                        return;
+                    }
+
+                    const targetPlanet = drop.canBeDropedInto;
+                    const fleet = planet.fleets[i];
+                    if (!(targetPlanet instanceof Planet) || !(fleet instanceof Fleet)) {
+                        console.error("Invalid drop");
+                        return;
+                    }
+
+                    if (planet === targetPlanet) {
+                        console.error("Can't drop fleet on the same planet");
+                        return;
+                    }
+
+                    const route = this.findRoute(planet, targetPlanet);
+
+                    if (route === null) {
+                        console.error("No route found");
+                        return;
+                    }
+
+                    fleet.transitTo(route);
+                }
+
+                this.UIElements.push(planet.fleets[i].draggable);
+            }
+        });
+
         ctx.textAlign = "center";
 
         ctx.restore();
@@ -255,5 +335,42 @@ export default class Campaign {
                 planet.shipyard.tick();
             }
         });
+    }
+
+    /**
+     * Finds the shortest (maybe safe) route to another planet.
+     * Safe means that every planet we go through (up until the destination) is controlled by the same faction.
+     * 
+     * @param {Planet} from The planet to start from
+     * @param {Planet} other The planet to find a route to
+     */
+    findRoute(from, other) {
+        const visited = new Set();
+        const queue = [[from]];
+
+        while (queue.length > 0) {
+            const path = queue.shift();
+            const current = path[path.length - 1];
+
+            if (current === other) {
+                return path;
+            }
+
+            visited.add(current);
+            current.connectingPlanets.forEach(planetName => {
+                const planet = this.getPlanet(planetName);
+                if (visited.has(planet)) {
+                    return;
+                }
+
+                if (planet.controllingFaction !== from.controllingFaction && planet !== other) {
+                    return;
+                }
+
+                queue.push([...path, planet]);
+            });
+        }
+
+        return null;
     }
 }

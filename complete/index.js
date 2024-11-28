@@ -108,6 +108,8 @@ function changeState(newState) {
                     shared.campaign = new Campaign(faction);
                     changeState(STATE_TACTICAL_MAP);
                     shared.campaign.init();
+
+                    window.campaign = shared.campaign;
                 }
             });
 

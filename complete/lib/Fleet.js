@@ -5,6 +5,17 @@ import { Color, assets, drawText, loadAsset } from "../shared/render.js";
 import { Faction } from "./Factions.js";
 import UIElement from "./UIElement.js";
 
+class TransitNode {
+    /**
+     * @param {import("./Planet.js").default} planet
+     * @param {number} distance
+     */
+    constructor(planet, distance) {
+        this.planet = planet;
+        this.distance = distance;
+    }
+}
+
 export default class Fleet {
     static ICON_SIZE = 100;
     static ICON_SPACING = 7.5;
@@ -72,12 +83,53 @@ export default class Fleet {
         this.element = new UIElement(false);
 
         // Drag a fleet to another planet
-        this.draggable = new UIElement(true);
+        this.draggable = new UIElement(true, true, true);
+        this.draggable.object = this;
 
         /**
-         * @type {Faction | null
+         * @type {import("./Planet.js").default | null}
+         */
+        this.planet = null;
+
+        this.inTransit = false;
+        this.transitProgress = 0;
+
+        /**
+         * @type {TransitNode[]}
+         */
+        this.transitPath = [];
+
+        /**
+         * @type {Faction | null}
          */
         this.faction = null;
+    }
+
+    /**
+     * @param {import("./Planet.js").default[]} planet 
+     */
+    transitTo(planet) {
+        // if (this.planet === null || this.planet === planet || this.inTransit) {
+        //     return;
+        // }
+
+        // this.travelingTo = planet;
+        // this.inTransit = true;
+        // this.travelProgress = 0;
+
+        if (this.planet === null || this.planet === planet[planet.length - 1]) {
+            return;
+        }
+
+        this.inTransit = true;
+        this.transitPath = [];
+
+        let last = this.planet;
+
+        for (let i = 1; i < planet.length; i++) {
+            this.transitPath.push(new TransitNode(planet[i], Math.sqrt((planet[i].x - last.x) ** 2 + (planet[i].y - last.y) ** 2)));
+            last = planet[i];
+        }
     }
 
     setFaction(faction) {

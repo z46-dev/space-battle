@@ -1,9 +1,12 @@
 export default class UIElement {
-    constructor(isRound = false) {
+    constructor(isRound = false, draggable = false, isGameObject = false) {
         this.x = 0;
         this.y = 0;
 
         this.isRound = isRound;
+        this.draggable = draggable;
+        this.isGameObject = isGameObject;
+        this.canBeDropedInto = false;
 
         if (this.isRound) {
             this.radius = 1;
@@ -13,11 +16,22 @@ export default class UIElement {
         }
 
         this.scaleAtRender = 1;
+
+        this.isDragging = false;
+
+        this.object = null;
     }
 
     callback() {}
 
-    contains(x, y) {
+    onDrop() {}
+
+    contains(x, y, cx, cy, cw, ch, scale) { // mouse x, mouse y, camera x, camera y, canvas width, canvas height
+        if (this.isGameObject) {
+            x += cx * scale - cw / 2;
+            y += cy * scale - ch / 2;
+        }
+
         if (this.isRound) {
             const dx = x * this.scaleAtRender - this.x;
             const dy = y * this.scaleAtRender - this.y;
@@ -31,5 +45,3 @@ export default class UIElement {
             y * this.scaleAtRender <= this.y + this.height;
     }
 }
-
-// IMPLEMENT: drag & drop on top of UIElement, Fleet drag, fleet merge, fleet attack, planet conquer, shipyard!
