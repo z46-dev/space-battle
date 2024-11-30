@@ -433,7 +433,7 @@ ships.INEXPUGNABLECOMMANDSHIP_REBEL = {
     name: "Inexpugnable Tactical Command Ship",
     asset: "INEXPUGNABLECOMMANDSHIP.png",
     classification: shipTypes.Capital,
-    population: 30,
+    population: 45,
     size: 1300,
     cost: 3850,
     speed: 1.5,

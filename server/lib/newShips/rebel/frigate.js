@@ -409,20 +409,4 @@ ships.ZENITHCRUISER_REBEL = {
     }]
 };
 
-ships.SPAWNER_FIGHTER_BOMBER_REBEL = weapons.spawner([{
-    x: 0,
-    y: 0,
-    maxSquadrons: 3,
-    squadronSize: 8,
-    reserveSize: 0,
-    squadronKey: "AWING_REBEL"
-}, {
-    x: 0,
-    y: 0,
-    maxSquadrons: 6,
-    squadronSize: 8,
-    reserveSize: 0,
-    squadronKey: "YWING_REBEL"
-}]);
-
 export default ships;

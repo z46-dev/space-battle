@@ -1,9 +1,10 @@
 import { canvas, ctx, uiScale } from "../shared/canvas.js";
+import { planetConfig } from "../shared/loader.js";
 import { drawText } from "../shared/render.js";
 import shared, { STATE_TACTICAL_MAP, lerp } from "../shared/shared.js";
 import factions, { Faction } from "./Factions.js";
 import Fleet from "./Fleet.js";
-import Planet, { planetConfig } from "./Planet.js";
+import Planet from "./Planet.js";
 import UIElement from "./UIElement.js";
 
 export class Camera {
@@ -79,6 +80,12 @@ export default class Campaign {
             this.mouseDirX = event.movementX;
             this.mouseDirY = event.movementY;
 
+            const e = this.UIElements.find(e => e.haha === 1);
+
+                if (e) {
+                    console.log(this.mouseX, this.mouseY);
+                }
+
             if (this.draggingElement !== null) {
                 this.draggingElement.x = this.mouseX * this.draggingElement.scaleAtRender;
                 this.draggingElement.y = this.mouseY * this.draggingElement.scaleAtRender;
@@ -103,6 +110,7 @@ export default class Campaign {
                 this.rightMouseDown = true;
             } else {
                 const scale = uiScale() * this.camera.zoom;
+
                 for (let i = this.UIElements.length - 1; i >= 0; i--) {
                     if (this.UIElements[i].contains(this.mouseX, this.mouseY, this.camera.x, this.camera.y, canvas.width, canvas.height, scale)) {
                         if (this.UIElements[i].draggable) {
@@ -145,25 +153,22 @@ export default class Campaign {
         });
 
         this.lastTick = -3e4;
+        this.tickID = 0;
     }
 
     init() {
-        planetConfig.forEach(($, i) => {
-            const planet = new Planet(i, this);
+        shared.campaignConfig.planets.forEach(pConf => {
+            const planet = new Planet(pConf.id, this);
             planet.element = new UIElement(true);
             planet.element.canBeDropedInto = planet;
             planet.element.callback = () => {
                 this.selectedPlanet = planet;
             }
 
-            this.planets.set(i, planet);
+            this.planets.set(pConf.id, planet);
         });
 
         factions.forEach(faction => {
-            if (faction.campaignTypes.indexOf(shared.campaignType) === -1) {
-                return;
-            }
-
             faction.defaultStartingPlanets.forEach(planetName => {
                 this.getPlanet(planetName).setControl(faction, true);
             });
@@ -222,7 +227,7 @@ export default class Campaign {
             planet.element.radius = 90 * scale;
 
             this.UIElements.push(planet.element);
-            planet.render(scale, this.playerFaction);
+            planet.render(scale);
         });
 
         this.planets.forEach(planet => planet.text());
@@ -235,6 +240,20 @@ export default class Campaign {
         }
 
         this.drawUI();
+
+        // if (++this.tickID % 450 === 0) {
+        //     const timer = `AI Tick (${factions.length - 1} factions)`;
+        //     console.time(timer);
+        //     factions.forEach(faction => {
+        //         if (faction.id === this.playerFaction.id) {
+        //             return;
+        //         }
+
+        //         faction.AI(this);
+        //     });
+
+        //     console.timeEnd(timer);
+        // }
     }
 
     drawUI() {
@@ -262,7 +281,7 @@ export default class Campaign {
 
                 ctx.save();
                 ctx.translate(30, yVal);
-                yVal += this.selectedPlanet.fleets[i].draw();
+                yVal += this.selectedPlanet.fleets[i].draw(scale, this.selectedPlanet.fleets.length > 1);
                 ctx.restore();
             }
         }
@@ -315,10 +334,6 @@ export default class Campaign {
 
     dailyTick() {
         factions.forEach(faction => {
-            if (faction.campaignTypes.indexOf(shared.campaignType) === -1) {
-                return;
-            }
-
             faction.income = 0;
             this.planets.forEach(planet => {
                 if (planet.controllingFaction.id !== faction.id) {
@@ -332,8 +347,6 @@ export default class Campaign {
             if (faction.id === this.playerFaction.id) {
                 return;
             }
-
-            // faction.AI(this);
         });
 
         this.planets.forEach(planet => {

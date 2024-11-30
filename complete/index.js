@@ -4,10 +4,11 @@ import { canvas, ctx, uiScale } from "./shared/canvas.js";
 import { drawText } from "./shared/render.js";
 import shared, { STATE_BATTLE, STATE_HOME, STATE_INIT_CAMPAIGN, STATE_INIT_SURVIVAL, STATE_SELECT_TIMEFRAME, STATE_TACTICAL_MAP } from "./shared/shared.js";
 
-import factions from "./lib/Factions.js";
+import factions, { CapitalInfo, Faction } from "./lib/Factions.js";
 import curtains, { curtainState, drawCurtains } from "./lib/curtains.js";
 import Campaign from "./lib/Campaign.js";
-import { initializeBattle, default as drawBattle } from "../client/index.js";
+import drawBattle from "../client/index.js";
+import { loadCampaign, campaignConfig } from "./shared/loader.js";
 
 // Do a UI all split up in canvas.
 // Add a home menu and an option for saves and an option for
@@ -90,13 +91,7 @@ function changeState(newState) {
 
     if (newState === STATE_INIT_CAMPAIGN) {
         let x = 0;
-        for (let i = 0; i < factions.length - 1; i++) {
-            const faction = factions[i + 1]; // Skip Neutral Systems
-
-            if (faction.campaignTypes.indexOf(shared.campaignType) === -1) {
-                continue;
-            }
-        
+        for (const faction of factions) {
             buttonMaps[STATE_INIT_CAMPAIGN].push({
                 x: -((128 + 32) + 16) + (x % 3) * ((128 + 32) + 16),
                 y: (48 + 8) * Math.floor(x / 3),
@@ -156,42 +151,45 @@ buttonMaps[STATE_HOME] = [{
     }
 }];
 
-buttonMaps[STATE_SELECT_TIMEFRAME] = [{
+
+buttonMaps[STATE_SELECT_TIMEFRAME] = campaignConfig.map((campaign, i) => ({
     x: 0,
-    y: 0,
+    y: i * 72,
     width: 256,
     height: 64,
-    text: "Imperial Remnant",
+    text: campaign.name,
     color: "#C8C8C8",
     action: () => {
-        shared.campaignType = 2;
+        const campaignConfig = loadCampaign(campaign.name);
+
+        factions.length = 0;
+
+        campaignConfig.campaign.factions.forEach(conf => {
+            const faction = new Faction();
+            faction.id = conf.id;
+            faction.color = conf.color;
+            faction.name = conf.name;
+            faction.key = conf.key;
+
+            if (conf.planets && conf.planets.length > 0) {
+                faction.defaultStartingPlanets = conf.planets;
+            }
+
+            if (conf.capital) {
+                faction.capitalPlanet = new CapitalInfo();
+                faction.capitalPlanet.name = conf.capital.name;
+                faction.capitalPlanet.fleetPopulation = conf.capital.fleetPopulation;
+                faction.capitalPlanet.baseIncome = conf.capital.baseIncome;
+            }
+
+            factions.push(faction);
+        });
+
+        shared.campaignType = i;
+        shared.campaignConfig = campaignConfig;
         changeState(STATE_INIT_CAMPAIGN);
     }
-}, {
-    x: 0,
-    y: 72,
-    width: 256,
-    height: 64,
-    text: "Galactic Civil War",
-    color: "#C8C8C8",
-    action: () => {
-        return;
-        shared.campaignType = 1;
-        changeState(STATE_INIT_CAMPAIGN);
-    }
-}, {
-    x: 0,
-    y: 144,
-    width: 256,
-    height: 64,
-    text: "The Clone Wars",
-    color: "#C8C8C8",
-    action: () => {
-        return;
-        shared.campaignType = 0;
-        changeState(STATE_INIT_CAMPAIGN);
-    }
-}];
+}));
 
 buttonMaps[STATE_INIT_CAMPAIGN] = [];
 buttonMaps[STATE_INIT_SURVIVAL] = [];
@@ -207,12 +205,12 @@ for (let i = 0; i < factions.length - 1; i++) {
         text: faction.name,
         color: faction.color,
         action: () => {
-            changeState
+            changeState(STATE_HOME);
         }
     });
 }
 
-const buttons = new Array(Math.max(...buttonMaps.filter(e => e.length).map(map => map.length))).fill(0).map(() => new UIButton(0, 0, 0, 0));
+const buttons = new Array(Math.max(...campaignConfig.map(e => e.factions.length), ...buttonMaps.filter(e => e.length).map(map => map.length))).fill(0).map(() => new UIButton(0, 0, 0, 0));
 
 function draw() {
     requestAnimationFrame(draw);

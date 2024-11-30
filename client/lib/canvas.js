@@ -3,7 +3,7 @@ import * as assetsLib from "./graphicalFuncs.js";
 
 export const canvas = document.querySelector("canvas");
 export const ctx = canvas.getContext("2d");
-export const planetOptions = new PlanetOptions();
+export let planetOptions = new PlanetOptions();
 
 planetOptions.Radius = 1024;
 planetOptions.Detail = 1 + Math.random() * 2;
@@ -12,7 +12,12 @@ planetOptions.Clouds.Seed = Math.random();
 planetOptions.NoiseFunction = NoiseOptions.staticQuickNoise;
 planetOptions.Colors = PlanetColors.expandStandardColors(1 + Math.random() * 8 | 0, PlanetColors.chooseForMe());
 
-export const planet = new Planet(planetOptions);
+export let planet = new Planet(planetOptions);
+
+export function regeneratePlanet(string) {
+    planetOptions = PlanetOptions.fromSave(string);
+    planet = new Planet(planetOptions);
+}
 
 export class Sprite {
     static generateFrames(image, xFrames, yFrames) {

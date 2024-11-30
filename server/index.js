@@ -2314,7 +2314,6 @@ onmessage = function (e) {
 
                     for (let i = 0; i < 2; i++) {
                         const ships = JSON.parse(e.data.shift()) ?? Fleet.random(128, randomFaction());
-        
                         const spawned = ships.map(ship => spawn(ship, i)).sort(() => .5 - Math.random());
         
                         let x, y, angle;
@@ -2332,7 +2331,7 @@ onmessage = function (e) {
                                 break;
                         }
 
-                        if (!e.data[e.data.length - 1]) {
+                        if (e.data[e.data.length - 1]) {
                             x *= -1;
                             angle += Math.PI;
                         }

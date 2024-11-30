@@ -1,13 +1,11 @@
-import { canvas, ctx } from "../shared/canvas.js";
+import { ctx } from "../shared/canvas.js";
 import { Color, drawText } from "../shared/render.js";
 import Shipyard from "./Shipyard.js";
 import { Faction } from "./Factions.js";
 import Fleet from "./Fleet.js";
 import UIElement from "./UIElement.js";
-import shared, { STATE_TACTICAL_MAP } from "../shared/shared.js";
-import { EVENTS, on } from "../../client/lib/state.js";
-
-const loaded = await (await fetch("./assets/planets.json")).json();
+import { planetConfig } from "../shared/loader.js";
+import shared from "../shared/shared.js";
 
 const worker = new Worker("./lib/ComputeWorker.js", {
     type: "module"
@@ -40,9 +38,6 @@ export function getPlanet(design, color) {
 
 export const PLANET_RENDER_SCALE = 2;
 
-export const planetConfig = loaded.planets;
-export const planetConnections = loaded.connections;
-
 export default class Planet {
     constructor(id, campaign) {
         this.id = id;
@@ -61,7 +56,7 @@ export default class Planet {
 
         this.connectingPlanets = [];
 
-        planetConnections.forEach(connection => {
+        shared.campaignConfig.connections.forEach(connection => {
             if (connection.includes(this.name)) {
                 this.connectingPlanets.push(connection[0] === this.name ? connection[1] : connection[0]);
             }
@@ -86,6 +81,8 @@ export default class Planet {
             this.realPlanet = bm;
         });
 
+        this.planetConfig = planetConfig[id];
+
         /**
          * @type {UIElement}
          */
@@ -107,13 +104,13 @@ export default class Planet {
         }
 
         if (createFleet) {
-            this.fleets.push(Fleet.random(this.isCapital ? this.isCapital.fleetPopulation : (30 + (this.income / 10 | 0)), faction.key));
+            this.fleets.push(Fleet.random(this.isCapital ? this.isCapital.fleetPopulation : (12 + (this.income / 22 | 0)), faction.key));
             this.fleets[this.fleets.length - 1].setFaction(faction);
             this.fleets[this.fleets.length - 1].planet = this;
         }
     }
 
-    render(scale, playerFaction) {
+    render(scale) {
         ctx.save();
         ctx.fillStyle = this.color;
         ctx.strokeStyle = this.controllingFaction?.color ?? "#000000";

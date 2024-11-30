@@ -7,6 +7,13 @@ import shared, { STATE_TACTICAL_MAP } from "../shared/shared.js";
 import { Faction } from "./Factions.js";
 import UIElement from "./UIElement.js";
 
+export class FleetItem {
+    constructor(name, count) {
+        this.name = name;
+        this.count = count;
+    }
+}
+
 class TransitNode {
     /**
      * @param {import("./Planet.js").default} planet
@@ -39,14 +46,14 @@ export default class Fleet {
 
             miniLoop: while (i < possible.length * 5) {
                 possible.sort((b, a) => {
-                    if (Math.random() > .5) {
+                    if (Math.random() > .04) {
                         return .5 - Math.random();
                     }
 
                     const A = ships[a];
                     const B = ships[b];
 
-                    return A.population - B.population;
+                    return B.population - A.population;
                 });
 
                 const unit = ships[possible[0]];
@@ -105,20 +112,15 @@ export default class Fleet {
          * @type {Faction | null}
          */
         this.faction = null;
+
+        /** @type {UIElement[]} */
+        this.shipElements = [];
     }
 
     /**
      * @param {import("./Planet.js").default[]} planet 
      */
     transitTo(planet) {
-        // if (this.planet === null || this.planet === planet || this.inTransit) {
-        //     return;
-        // }
-
-        // this.travelingTo = planet;
-        // this.inTransit = true;
-        // this.travelProgress = 0;
-
         if (this.planet === null || this.planet === planet[planet.length - 1]) {
             return;
         }
@@ -140,10 +142,17 @@ export default class Fleet {
 
     add(name) {
         this.ships.set(name, (this.ships.get(name) ?? 0) + 1);
+
+        if (this.ships.size !== this.shipElements.length) {
+            this.shipElements = [];
+            
+            for (let i = 0; i < this.ships.size; i++) {
+                this.shipElements.push(new UIElement(true, true, false));
+            }
+        }
     }
 
     get population() {
-        // return this.ships.reduce((total, key) => total + ships[key].population, 0);
         let total = 0;
 
         this.ships.forEach((count, key) => {
@@ -157,7 +166,7 @@ export default class Fleet {
         return Math.ceil((new Set(this.ships)).size / Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SPACING;
     }
 
-    draw() {
+    draw(scale, isMultiple) {
         const height = this.getHeight();
         ctx.fillStyle = "#AAAAAA";
         ctx.strokeStyle = Color.darken("#AAAAAA", .2);
@@ -170,11 +179,23 @@ export default class Fleet {
         this.element.width = Fleet.ICONS_PER_ROW * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SPACING;
         this.element.height = height;
 
+
         let i = 0;
         this.ships.forEach((count, ship) => {
+            let x, y;
+
+            if (isMultiple && this.shipElements[i].isDragging) {
+                x = this.shipElements[i].x - this.element.x;
+                y = this.shipElements[i].y - this.element.y;
+                console.log(x, y);
+            } else {
+                x = (i % Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SIZE / 2 + Fleet.ICON_SPACING;
+                y = Math.floor(i / Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SIZE / 2 + Fleet.ICON_SPACING;
+            }
+
             ctx.fillStyle = "#555555";
             ctx.beginPath();
-            ctx.arc((i % Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SIZE / 2 + Fleet.ICON_SPACING, Math.floor(i / Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SIZE / 2 + Fleet.ICON_SPACING, Fleet.ICON_SIZE / 2, 0, Math.PI * 2);
+            ctx.arc(x, y, Fleet.ICON_SIZE / 2, 0, Math.PI * 2);
             ctx.fill();
 
             if (!assets.has(ship)) {
@@ -188,9 +209,24 @@ export default class Fleet {
                 ctx.restore();
             }
 
-            drawText("x" + count, (i % Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SIZE / 2 + Fleet.ICON_SPACING, Math.floor(i / Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SIZE / 2 + Fleet.ICON_SPACING, Fleet.ICON_SIZE / 3, "#FFFFFF");
+            if (isMultiple) {
+                this.shipElements[i].x = x + this.element.x;
+                this.shipElements[i].y = y + this.element.y;
+                this.shipElements[i].width = Fleet.ICON_SIZE;
+                this.shipElements[i].height = Fleet.ICON_SIZE;
+                this.shipElements[i].object = new FleetItem(ship, count);
+                this.shipElements[i].scaleAtRender = scale;
+                this.shipElements[i].haha = 1;
+                this.planet.campaign.UIElements.push(this.shipElements[i]);
 
-            i ++;
+                if (i === 0 && this.shipElements[i].y < 250) {
+                    console.log(this.shipElements[i].x, this.shipElements[i].y);
+                }
+            }
+
+            drawText("x" + count, x, y + Fleet.ICON_SPACING, Fleet.ICON_SIZE / 3, "#FFFFFF");
+
+            i++;
         });
 
         return height;
@@ -209,7 +245,7 @@ export default class Fleet {
         }
 
         const angleToPlanet = Math.atan2(this.transitPath[0].planet.y - this.planet.y, this.transitPath[0].planet.x - this.planet.x);
-        
+
         this.draggable.x = this.planet.x + Math.cos(angleToPlanet) * this.transitProgress;
         this.draggable.y = this.planet.y + Math.sin(angleToPlanet) * this.transitProgress;
 
@@ -225,7 +261,7 @@ export default class Fleet {
         const oldPlanet = this.planet;
         const newPlanet = node.planet;
         this.planet = newPlanet;
-        
+
         oldPlanet.fleets = oldPlanet.fleets.filter(fleet => fleet !== this);
         newPlanet.fleets.push(this);
 
@@ -268,13 +304,13 @@ export default class Fleet {
         }
 
         // If the player faction is involved, determine if they are attacking or defending and initiate the battle
-        shared.beginBattle(this.__ships, enemyFleets.map(fleet => fleet.__ships).flat(), this.faction === playerFaction);
+        shared.beginBattle(this.__ships, enemyFleets.map(fleet => fleet.__ships).flat(), this.faction !== playerFaction, this.planet.planetConfig);
 
         on(EVENTS.BATTLE_END, data => {
             shared.state = STATE_TACTICAL_MAP;
 
-            const me = data[0];
-            const enemy = data[1];
+            const me = data[+(this.faction !== playerFaction)];
+            const enemy = data[+(this.faction === playerFaction)];
 
             this.ships.clear();
 
@@ -290,7 +326,8 @@ export default class Fleet {
             }
 
             if (this.population <= 0) {
-                planet.fleets = planet.fleets.filter(fleet => fleet.faction !== this.faction);
+                planet.fleets = [second];
+
             } else if (second.population <= 0) {
                 planet.fleets = planet.fleets.filter(fleet => fleet.faction === this.faction);
                 planet.setControl(this.faction);

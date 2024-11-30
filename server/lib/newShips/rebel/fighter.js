@@ -306,24 +306,24 @@ ships.FALCON_REBEL = {
     cost: 600,
     speed: 20,
     turnSpeed: .0667,
-    shield: 3000,
-    shieldRegen: 3,
+    shield: 2500,
+    shieldRegen: 2.5,
     uniqueUnit: true,
     shieldRegenAbility: {
-        duration: 1.5,
-        cooldown: .5,
-        regen: 5
+        duration: 1.2,
+        cooldown: 1.2,
+        regen: 2
     },
     tenderAbility: {
-        frequency: 1,
-        power: 1
+        frequency: .8,
+        power: .5
     },
     hardpoints: [{
         x: 0,
         y: 0,
         weapon: {
             ...weapons.RED_QUAD_LASER_CANNON,
-            health: weapons.RED_QUAD_LASER_CANNON.health * 10
+            health: weapons.RED_QUAD_LASER_CANNON.health * 4
         },
         shotsAtOnce: 2,
         shotDelay: 50
@@ -332,7 +332,7 @@ ships.FALCON_REBEL = {
         y: 0,
         weapon: {
             ...weapons.RED_QUAD_LASER_CANNON_HEAVY,
-            health: weapons.RED_QUAD_LASER_CANNON_HEAVY.health * 10
+            health: weapons.RED_QUAD_LASER_CANNON_HEAVY.health * 4
         },
         shotsAtOnce: 2,
         shotDelay: 50
@@ -341,11 +341,10 @@ ships.FALCON_REBEL = {
         y: 0,
         weapon: {
             ...weapons.FIGHTER_PROTON_TORPEDO,
-            health: weapons.FIGHTER_PROTON_TORPEDO.health * 10,
-            damage: weapons.FIGHTER_PROTON_TORPEDO.damage * 2,
-            explosionDamage: weapons.FIGHTER_CONCUSSION_MISSILE.explosionDamage * 2,
-            explosionRange: weapons.FIGHTER_CONCUSSION_MISSILE.explosionRange * 2,
-            bypassShield: true
+            health: weapons.FIGHTER_PROTON_TORPEDO.health * 4,
+            damage: weapons.FIGHTER_PROTON_TORPEDO.damage * 1.25,
+            explosionDamage: weapons.FIGHTER_CONCUSSION_MISSILE.explosionDamage * 1.25,
+            explosionRange: weapons.FIGHTER_CONCUSSION_MISSILE.explosionRange * 1.25
         },
         shotsAtOnce: 3,
         shotDelay: 75
@@ -354,30 +353,21 @@ ships.FALCON_REBEL = {
         y: 0,
         weapon: {
             ...weapons.FIGHTER_CONCUSSION_MISSILE,
-            health: weapons.FIGHTER_CONCUSSION_MISSILE.health * 10,
-            damage: weapons.FIGHTER_CONCUSSION_MISSILE.damage * 3,
-            explosionDamage: weapons.FIGHTER_CONCUSSION_MISSILE.explosionDamage * 2,
-            explosionRange: weapons.FIGHTER_CONCUSSION_MISSILE.explosionRange * 2,
-            bypassShield: true
+            health: weapons.FIGHTER_CONCUSSION_MISSILE.health * 4,
+            damage: weapons.FIGHTER_CONCUSSION_MISSILE.damage * 1.3,
+            explosionDamage: weapons.FIGHTER_CONCUSSION_MISSILE.explosionDamage * 1.3,
+            explosionRange: weapons.FIGHTER_CONCUSSION_MISSILE.explosionRange * 1.3,
         },
         shotsAtOnce: 3,
         shotDelay: 75
     }, {
         x: 0,
         y: 0,
-        weapon: {
-            ...weapons.RED_ANTI_FIGHTER_LASER_CANNON,
-            reload: 1,
-            damage: weapons.RED_ANTI_FIGHTER_LASER_CANNON.damage * 10
-        }
+        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON
     }, {
         x: 0,
         y: 0,
-        weapon: {
-            ...weapons.RED_ANTI_FIGHTER_LASER_CANNON,
-            reload: 1,
-            damage: weapons.RED_ANTI_FIGHTER_LASER_CANNON.damage * 10
-        }
+        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON
     }]
 };
 

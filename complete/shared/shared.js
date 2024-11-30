@@ -1,4 +1,5 @@
 import { initializeBattle } from "../../client/index.js";
+import { LoadedCampaign } from "./loader.js";
 
 export function lerp(a, b, t) {
     return a + (b - a) * t;
@@ -23,8 +24,17 @@ const shared = {
     campaign: null,
     campaignType: -1,
 
-    beginBattle(myShips, enemyShips, attacking = false) {
-        initializeBattle(myShips, enemyShips, attacking);
+    /** @type {LoadedCampaign} */
+    campaignConfig: null,
+
+    beginBattle(myShips, enemyShips, attacking = false, designConfig = null) {
+        let fleets = [myShips, enemyShips];
+
+        if (attacking) {
+            fleets = fleets.reverse();
+        }
+
+        initializeBattle(...fleets, attacking, designConfig);
         shared.state = STATE_BATTLE;
     }
 };

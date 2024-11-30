@@ -17,10 +17,9 @@ export class Faction {
      */
     capitalPlanet = null;
 
-    campaignTypes = [-1];
-
     // Mutable
     money = 0;
+    income = 0;
 
     /**
      * @param {import("./Campaign.js").default} campaign
@@ -55,29 +54,5 @@ export class Faction {
  * @type {Faction[]}
  */
 const factions = [];
-
-const data = await (await fetch("./assets/factions.json")).json();
-
-for (const factionData of data) {
-    const faction = new Faction();
-    faction.id = factionData.id;
-    faction.color = factionData.color;
-    faction.name = factionData.name;
-    faction.key = factionData.key;
-    faction.campaignTypes = factionData.campaignTypes;
-
-    if (factionData.planets && factionData.planets.length > 0) {
-        faction.defaultStartingPlanets = factionData.planets;
-    }
-
-    if (factionData.capital) {
-        faction.capitalPlanet = new CapitalInfo();
-        faction.capitalPlanet.name = factionData.capital.name;
-        faction.capitalPlanet.fleetPopulation = factionData.capital.fleetPopulation;
-        faction.capitalPlanet.baseIncome = factionData.capital.baseIncome;
-    }
-
-    factions.push(faction);
-}
 
 export default factions;

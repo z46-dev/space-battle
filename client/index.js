@@ -4,7 +4,7 @@ import heroes from "../server/lib/heroes.js";
 import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "../server/lib/weapons.js";
 
 import * as assetsLib from "./lib/graphicalFuncs.js";
-import { canvas, ctx, planetOptions, planet, Sprite } from "./lib/canvas.js";
+import { canvas, ctx, planetOptions, planet, Sprite, regeneratePlanet } from "./lib/canvas.js";
 // import { world, camera, mouseDirectionX, mouseDirectionY, shipOver, hardpointOver, rmb, mouseX, mouseY } from "./lib/state.js";
 import { ships, projectiles, explosions, squadrons } from "./lib/state.js";
 import * as state from "./lib/state.js";
@@ -976,6 +976,13 @@ export default function draw() {
     ctx.restore();
 }
 
-export function initializeBattle(myShips, enemyShips, attacking) {
+export function initializeBattle(myShips, enemyShips, attacking, designConfig) {
     state.worker.postMessage([1, 0, JSON.stringify(myShips), JSON.stringify(enemyShips), attacking]);
+
+    if (designConfig != null && "design" in designConfig && typeof designConfig.design === "string") {
+        console.log("Regenerating planet with design: " + designConfig.design);
+        regeneratePlanet(designConfig.design);
+
+        planet.generate();
+    }
 }
