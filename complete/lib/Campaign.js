@@ -1,11 +1,12 @@
 import { canvas, ctx, uiScale } from "../shared/canvas.js";
-import { planetConfig } from "../shared/loader.js";
-import { drawText } from "../shared/render.js";
+import { assets, drawText, loadAsset } from "../shared/render.js";
 import shared, { STATE_TACTICAL_MAP, lerp } from "../shared/shared.js";
 import factions, { Faction } from "./Factions.js";
 import Fleet from "./Fleet.js";
 import Planet from "./Planet.js";
 import UIElement from "./UIElement.js";
+import shipConfigs from "../../server/lib/ships.js";
+import FactionAI from "./FactionAI.js";
 
 export class Camera {
     realX = 0;
@@ -80,12 +81,6 @@ export default class Campaign {
             this.mouseDirX = event.movementX;
             this.mouseDirY = event.movementY;
 
-            const e = this.UIElements.find(e => e.haha === 1);
-
-                if (e) {
-                    console.log(this.mouseX, this.mouseY);
-                }
-
             if (this.draggingElement !== null) {
                 this.draggingElement.x = this.mouseX * this.draggingElement.scaleAtRender;
                 this.draggingElement.y = this.mouseY * this.draggingElement.scaleAtRender;
@@ -154,6 +149,9 @@ export default class Campaign {
 
         this.lastTick = -3e4;
         this.tickID = 0;
+
+        /** @type {UIElement[]} */
+        this.shipyardButtonsElements = [];
     }
 
     init() {
@@ -172,6 +170,10 @@ export default class Campaign {
             faction.defaultStartingPlanets.forEach(planetName => {
                 this.getPlanet(planetName).setControl(faction, true);
             });
+
+            if (faction !== this.playerFaction) {
+                faction.ai = new FactionAI(faction, this);
+            }
         });
     }
 
@@ -228,6 +230,10 @@ export default class Campaign {
 
             this.UIElements.push(planet.element);
             planet.render(scale);
+
+            if (planet.shipyard !== null) {
+                planet.shipyard.tick();
+            }
         });
 
         this.planets.forEach(planet => planet.text());
@@ -241,19 +247,19 @@ export default class Campaign {
 
         this.drawUI();
 
-        // if (++this.tickID % 450 === 0) {
-        //     const timer = `AI Tick (${factions.length - 1} factions)`;
-        //     console.time(timer);
-        //     factions.forEach(faction => {
-        //         if (faction.id === this.playerFaction.id) {
-        //             return;
-        //         }
+        if (++this.tickID % 450 === 0) {
+            const timer = `AI Tick (${factions.length - 1} factions)`;
+            console.time(timer);
+            factions.forEach(faction => {
+                if (faction.id === this.playerFaction.id) {
+                    return;
+                }
 
-        //         faction.AI(this);
-        //     });
+                faction.ai.think();
+            });
 
-        //     console.timeEnd(timer);
-        // }
+            console.timeEnd(timer);
+        }
     }
 
     drawUI() {
@@ -282,6 +288,110 @@ export default class Campaign {
                 ctx.save();
                 ctx.translate(30, yVal);
                 yVal += this.selectedPlanet.fleets[i].draw(scale, this.selectedPlanet.fleets.length > 1);
+                ctx.restore();
+            }
+
+            if (this.selectedPlanet.shipyard != null) {
+                ctx.save();
+
+                const width = canvas.width / scale;
+
+                ctx.translate(0, canvas.height / scale - 175);
+
+                ctx.fillStyle = "#252525";
+                ctx.lineWidth = 5;
+                ctx.strokeStyle = "#505050";
+
+                ctx.beginPath();
+                ctx.moveTo(400, 0);
+                ctx.lineTo(width - 400, 0);
+                ctx.lineTo(width - 300, 210);
+                ctx.lineTo(300, 210);
+                ctx.closePath();
+
+                ctx.fill();
+                ctx.stroke();
+
+                // Translate to it
+                ctx.translate(400, 0);
+
+                let i = 0;
+                this.selectedPlanet.shipyard.buildables.forEach((cost, name) => {
+                    if (i + 1 > this.shipyardButtonsElements.length) {
+                        this.shipyardButtonsElements.push(new UIElement(true));
+                    }
+
+                    // Circle badges with image of ship (name) and cost at bottom of them
+                    const x = 50 + 60 * (i % 15);
+                    const y = 40 + 70 * Math.floor(i / 15);
+
+                    ctx.save();
+                    ctx.translate(x, y);
+                    ctx.fillStyle = "#1B1B25";
+
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 30, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    if (!assets.has(name)) {
+                        loadAsset("/assets/ships/" + shipConfigs[name].asset, name);
+                    } else {
+                        ctx.save();
+                        ctx.rotate(Math.PI / 4);
+                        ctx.scale(.8, .8);
+                        ctx.drawImage(assets.get(name), -20, -20, 40, 40);
+                        ctx.restore();
+                    }
+
+                    ctx.textAlign = "center";
+                    drawText(cost, 0, 25, 10, "#FFFFFF");
+
+                    ctx.restore();
+
+                    this.shipyardButtonsElements[i].x = x + 400;
+                    this.shipyardButtonsElements[i].y = y + canvas.height / scale - 175;
+                    this.shipyardButtonsElements[i].radius = 30;
+                    this.shipyardButtonsElements[i].scaleAtRender = 1 / scale;
+                    this.shipyardButtonsElements[i].callback = () => this.selectedPlanet.shipyard.build(name);
+
+                    this.UIElements.push(this.shipyardButtonsElements[i]);
+
+                    i++;
+                });
+
+                for (let i = 0; i < this.selectedPlanet.shipyard.queue.length; i ++) {
+                    const obj = this.selectedPlanet.shipyard.queue[i]; // { name, complete, time } (ratio is complete / time)
+
+                    let x = 50 + 60 * i,
+                        y = -40;
+
+                    ctx.translate(x, y);
+
+                    ctx.fillStyle = "#111111";
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 30, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    if (!assets.has(obj.name)) {
+                        loadAsset("/assets/ships/" + shipConfigs[obj.name].asset, obj.name);
+                    } else {
+                        ctx.save();
+                        ctx.rotate(Math.PI / 4);
+                        ctx.scale(.8, .8);
+                        ctx.drawImage(assets.get(obj.name), -20, -20, 40, 40);
+                        ctx.restore();
+                    }
+
+                    ctx.fillStyle = "rgba(255, 255, 255, .2)";
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.arc(0, 0, 30, 0, Math.PI * 2 * obj.complete / obj.time);
+                    ctx.lineTo(0, 0);
+                    ctx.fill();
+
+                    ctx.translate(-x, -y);
+                }
+
                 ctx.restore();
             }
         }

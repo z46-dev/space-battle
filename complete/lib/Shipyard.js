@@ -1,5 +1,9 @@
+import Fleet from "./Fleet.js";
+
 export default class Shipyard {
     constructor(planet, level) {
+        /** @type {import("./Planet.js").default} */
+        
         this.planet = planet;
         this.level = level;
         this.queue = [];
@@ -20,7 +24,8 @@ export default class Shipyard {
 
         this.queue.push({
             name: buildableName,
-            time: cost / 100
+            time: cost,
+            complete: 0
         })
     }
 
@@ -29,11 +34,22 @@ export default class Shipyard {
             return;
         }
 
-        this.queue[0].time --;
+        this.queue[0].complete += 2;
 
-        if (this.queue[0].time < 0) {
-            console.log(this.queue[0].name, "built by", this.planet.controllingFaction.name);
-            this.queue.shift();
+        if (this.queue[0].complete >= this.queue[0].time) {
+            const item = this.queue.shift();
+
+            console.log(item.name, "built by", this.planet.controllingFaction.name);
+
+            let fleet = this.planet.fleets.find(f => f.faction === this.planet.controllingFaction);
+            if (!fleet) {
+                fleet = new Fleet();
+                fleet.faction = this.planet.controllingFaction;
+                fleet.planet = this.planet;
+                this.planet.fleets.push(fleet);
+            }
+
+            fleet.add(item.name);
         }
     }
 }

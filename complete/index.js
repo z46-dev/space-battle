@@ -182,6 +182,8 @@ buttonMaps[STATE_SELECT_TIMEFRAME] = campaignConfig.map((campaign, i) => ({
                 faction.capitalPlanet.baseIncome = conf.capital.baseIncome;
             }
 
+            faction.shipyardConfigs = conf.shipyards;
+
             factions.push(faction);
         });
 

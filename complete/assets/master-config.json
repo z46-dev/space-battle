@@ -79,7 +79,7 @@
         "income": 200,
         "shipyardLevel": 1,
         "design": "256;1.76500;7.00;externalForestPlanet;32;quickNoise",
-        "connections": ["Terephon", "Hapes", "Mimban", "Nal Hutta"]
+        "connections": ["Hapes", "Mimban", "Nal Hutta"]
     }, {
         "name": "Carida",
         "x": 1200,
@@ -322,7 +322,7 @@
         "income": 200,
         "shipyardLevel": 1,
         "design": "256;6.00000;1.00;externalForestPlanet;4;staticQuickNoise",
-        "connections": ["Gallinore", "Hapes", "Kashyyyk"]
+        "connections": ["Gallinore", "Hapes"]
     }, {
         "name": "Relephon",
         "x": 2000,
@@ -355,7 +355,20 @@
                 "name": "Naboo",
                 "fleetPopulation": 135,
                 "baseIncome": 2300
-            }
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": ["CR90_REBEL", "DP20_REBEL", "MARAUDERMISSILECRUISER_REBEL", "MC30C_REBEL", "NEBULONB_REBEL", "PELTA_REBEL", "QUASAR_REBEL"]
+            }, {
+                "id": 2,
+                "ships": ["MC50_REBEL", "NEBULONB2_REBEL", "FREEVIRGILLIABUNKERBUSTER_REBEL", "MC75_REBEL"]
+            }, {
+                "id": 3,
+                "ships": ["MC80A_REBEL", "MC80BLIBERTY_REBEL", "MC80B_REBEL", "STARHAWK_REBEL", "MC90_REBEL", "ENDURANCE_REBEL", "NEBULA_REBEL"]
+            }, {
+                "id": 4,
+                "ships": ["MC85_REBEL", "BLUEDIVER_REBEL", "MEDIATOR_REBEL", "VISCOUNT_PROTOTYPE_REBEL"]
+            }]
         }, {
             "id": 1,
             "color": "#55EE55",
@@ -366,7 +379,20 @@
                 "name": "Coruscant",
                 "fleetPopulation": 150,
                 "baseIncome": 3600
-            }
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": ["RAIDER_EMPIRE", "VIGILCORVETTE_EMPIRE", "QUASAR_EMPIRE", "CARRACK_EMPIRE", "LANCERFRIGATE_EMPIRE"]
+            }, {
+                "id": 2,
+                "ships": ["ARQUITENS_EMPIRE", "IMOBILIZER_EMPIRE", "DREADNOUGHTHEAVYCRUISER_EMPIRE", "ACCLIMATOR_EMPIRE"]
+            }, {
+                "id": 3,
+                "ships": ["VICTORYSTARDESTROYER_EMPIRE", "CRIMSONCOMMAND_EMPIRE", "IMPERIALSTARDESTROYER_EMPIRE", "AGGRESSORSTARDESTROYER_EMPIRE", "ALLEGIANCE_EMPIRE"]
+            }, {
+                "id": 4,
+                "ships": ["CONSOLIDATORASSAULTSHIP_EMPIRE", "ARCHAMMER_EMPIRE", "EXECUTORSUPERSTARDESTROYER_EMPIRE", "BELLATORSUPERSTARDESTROYER_EMPIRE", "ASSERTORSTARDREADNOUGHT_EMPIRE", "LEGATORSTARDREADNOUGHT_EMPIRE"]
+            }]
         }, {
             "id": 2,
             "color": "#994433",
@@ -377,7 +403,20 @@
                 "name": "Nal Hutta",
                 "fleetPopulation": 75,
                 "baseIncome": 1300
-            }
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": ["ACTIONVITRANSPORT_HUTT", "CONSOLAR_HUTT", "CR90_HUTT", "LUPUSMISSILEFRIGATE_HUTT", "LIGHT_MINSTREL_HUTT", "HEAVY_MINSTREL_HUTT", "BRUTESUPPORTFRIGATE_HUTT", "JUVARD_HUTT", "BARABBULA_HUTT"]
+            }, {
+                "id": 2,
+                "ships": ["SABOATHDESTROYER_HUTT", "UBRIKKIAN_HUTT", "TEMPEST_HUTT", "SZAJIN_HUTT"]
+            }, {
+                "id": 3,
+                "ships": ["MC69NOIR_HUTT", "VENATOR_HUTT", "KARAGGA_HUTT", "VONTOR_HUTT"]
+            }, {
+                "id": 4,
+                "ships": ["DORBULLA_HUTT"]
+            }]
         }, {
             "id": 3,
             "color": "#224488",
@@ -388,7 +427,20 @@
                 "name": "Exogol",
                 "fleetPopulation": 130,
                 "baseIncome": 3000
-            }
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": ["IPV1_DARKEMPIRE", "VIGILCORVETTE_DARKEMPIRE", "TONFALKCARRIER_DARKEMPIRE", "MTFCRUISER_DARKEMPIRE", "CARRACK_DARKEMPIRE", "LANCERFRIGATE_DARKEMPIRE"]
+            }, {
+                "id": 2,
+                "ships": ["WORLDDEVASTATORFG_DARKEMPIRE", "DREADNOUGHTHEAVYCRUISER_DARKEMPIRE"]
+            }, {
+                "id": 3,
+                "ships": ["IMPERIALSTARDESTROYER_DARKEMPIRE", "INTERDICTORSTARDESTROYER_DARKEMPIRE", "RESURGENT_DARKEMPIRE", "ALLEGIANCE_DARKEMPIRE"]
+            }, {
+                "id": 4,
+                "ships": ["ONAGER_DARKEMPIRE", "XYSTON_DARKEMPIRE", "WORLDDEVASTATORBC_DARKEMPIRE", "BELLATOR_DARKEMPIRE", "ASSERTOR_DARKEMPIRE", "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE", "IMPELLORFLEETCARRIER_DARKEMPIRE"]
+            }]
         }, {
             "id": 4,
             "color": "#66AA66",
@@ -399,7 +451,20 @@
                 "name": "Ring of Kafrene",
                 "fleetPopulation": 75,
                 "baseIncome": 1200
-            }
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": ["ACTIONVITRANSPORT_ZANN", "CRUSADERCORVETTE_ZANN", "DP20_ZANN", "LANCERFRIGATE_ZANN"]
+            }, {
+                "id": 2,
+                "ships": ["BROADSIDECRUISER_ZANN", "FREEVIRGILLIABUNKERBUSTER_ZANN"]
+            }, {
+                "id": 3,
+                "ships": ["KELDABEBATTLESHIP_ZANN", "AGGRESSORSTARDESTROYER_ZANN", "VENATOR_ZANN", "PROVIDENCEDESTROYER_ZANN"]
+            }, {
+                "id": 4,
+                "ships": ["CENTURION_ZANN"]
+            }]
         }, {
             "id": 5,
             "color": "#FF55EE",
@@ -410,7 +475,20 @@
                 "name": "Hapes",
                 "fleetPopulation": 90,
                 "baseIncome": 1500
-            }
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": ["BAIDAM_HAPAN", "FLARE_HAPAN", "BETACRUISER_HAPAN", "NOVACRUISER_HAPAN", "STELLA_HAPAN", "CHARUBAH_HAPAN"]
+            }, {
+                "id": 2,
+                "ships": ["MAGNETAR_HAPAN", "CORONAL_HAPAN", "MIST_HAPAN"]
+            }, {
+                "id": 3,
+                "ships": ["BATTLEDRAGON_HAPAN", "TEREPHON_HAPAN", "NEUTRON_HAPAN"]
+            }, {
+                "id": 4,
+                "ships": []
+            }]
         }]
     }, {
         "id": 1,
@@ -425,7 +503,20 @@
                 "name": "Coruscant",
                 "fleetPopulation": 105,
                 "baseIncome": 3000
-            }
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": ["CONSOLAR_REPUBLIC", "CR90_REPUBLIC", "PELTA_REPUBLIC", "ARQUITENS_REPUBLIC", "CARRACK_REPUBLIC"]
+            }, {
+                "id": 2,
+                "ships": ["ACCLIMATOR_REPUBLIC", "DREADNOUGHTHEAVYCRUISER_REPUBLIC"]
+            }, {
+                "id": 3,
+                "ships": ["VENATOR_REPUBLIC", "MAELSTROM_REPUBLIC"]
+            }, {
+                "id": 4,
+                "ships": ["PROCURATOR_REPUBLIC", "SECUTOR_REPUBLIC", "PRAETOR_REPUBLIC"]
+            }]
         }, {
             "id": 8,
             "color": "#3333EE",
@@ -436,7 +527,20 @@
                 "name": "Geonosis",
                 "fleetPopulation": 85,
                 "baseIncome": 3000
-            }
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": ["HARDCELL_CIS", "DIAMOND_CIS", "LUPUSMISSILEFRIGATE_CIS", "C9979_CIS", "MUNIFICENT_CIS"]
+            }, {
+                "id": 2,
+                "ships": ["RECUSANT_CIS", "SABOATHDESTROYER_CIS"]
+            }, {
+                "id": 3,
+                "ships": ["PROVIDENCEDESTROYER_CIS", "DHOMNI_CIS", "LUCREHULKAUXILIARYWARSHIP_CIS", "LUCREHULKBATTLESHIP_CIS"]
+            }, {
+                "id": 4,
+                "ships": ["PROVIDENCEDREADNOUGHT_CIS", "RECUSANTDREADNOUGHT_CIS", "BULWARKII_CIS", "SUBJUGATOR_CIS"]
+            }]
         }]
     }]
 }

@@ -8,7 +8,13 @@ import { Faction } from "./Factions.js";
 import UIElement from "./UIElement.js";
 
 export class FleetItem {
-    constructor(name, count) {
+    /**
+     * @param {Fleet} fleet
+     * @param {string} name
+     * @param {number} count
+     */
+    constructor(fleet, name, count) {
+        this.fleet = fleet;
         this.name = name;
         this.count = count;
     }
@@ -90,6 +96,8 @@ export default class Fleet {
 
         // Prevent clicking off of the planet when touching this
         this.element = new UIElement(false);
+        this.element.canBeDropedInto = true;
+        this.element.object = this;
 
         // Drag a fleet to another planet
         this.draggable = new UIElement(true, true, true);
@@ -187,7 +195,6 @@ export default class Fleet {
             if (isMultiple && this.shipElements[i].isDragging) {
                 x = this.shipElements[i].x - this.element.x;
                 y = this.shipElements[i].y - this.element.y;
-                console.log(x, y);
             } else {
                 x = (i % Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SIZE / 2 + Fleet.ICON_SPACING;
                 y = Math.floor(i / Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SIZE / 2 + Fleet.ICON_SPACING;
@@ -202,7 +209,7 @@ export default class Fleet {
                 loadAsset("/assets/ships/" + ships[ship].asset, ship);
             } else {
                 ctx.save();
-                ctx.translate((i % Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SPACING + Fleet.ICON_SIZE / 2, Math.floor(i / Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SPACING + Fleet.ICON_SIZE / 2);
+                ctx.translate(x, y);
                 ctx.rotate(Math.PI / 4);
                 ctx.scale(.8, .8);
                 ctx.drawImage(assets.get(ship), -Fleet.ICON_SIZE / 2, -Fleet.ICON_SIZE / 2, Fleet.ICON_SIZE, Fleet.ICON_SIZE);
@@ -212,16 +219,13 @@ export default class Fleet {
             if (isMultiple) {
                 this.shipElements[i].x = x + this.element.x;
                 this.shipElements[i].y = y + this.element.y;
-                this.shipElements[i].width = Fleet.ICON_SIZE;
-                this.shipElements[i].height = Fleet.ICON_SIZE;
-                this.shipElements[i].object = new FleetItem(ship, count);
-                this.shipElements[i].scaleAtRender = scale;
-                this.shipElements[i].haha = 1;
+                this.shipElements[i].radius = Fleet.ICON_SIZE / 2;
+                this.shipElements[i].object = new FleetItem(this, ship, count);
+                this.shipElements[i].scaleAtRender = 1 / scale;
                 this.planet.campaign.UIElements.push(this.shipElements[i]);
 
-                if (i === 0 && this.shipElements[i].y < 250) {
-                    console.log(this.shipElements[i].x, this.shipElements[i].y);
-                }
+                const elem = this.shipElements[i];
+                elem.onDrop = drop => this.dropItemIntoOtherFleet(elem.object, drop);
             }
 
             drawText("x" + count, x, y + Fleet.ICON_SPACING, Fleet.ICON_SIZE / 3, "#FFFFFF");
@@ -345,5 +349,35 @@ export default class Fleet {
         });
 
         return output;
+    }
+
+    /** @param {FleetItem} item */
+    dropItemIntoOtherFleet(item, drop) {
+        if (drop === null) {
+            return;
+        }
+
+        if (!(drop.object instanceof Fleet)) {
+            return;
+        }
+
+        /** @type {Fleet} */
+        const otherFleet = drop.object;
+        
+        if (otherFleet === item.fleet) {
+            return;
+        }
+
+        if (item.count > 1) {
+            item.fleet.ships.set(item.name, item.count - 1);
+        } else {
+            item.fleet.ships.delete(item.name);
+        }
+
+        if (item.fleet.population === 0) {
+            item.fleet.planet.fleets = item.fleet.planet.fleets.filter(f => f !== item.fleet);
+        }
+
+        otherFleet.add(item.name);
     }
 }

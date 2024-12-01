@@ -1,3 +1,6 @@
+import shipConfigs from "../../server/lib/ships.js";
+
+
 const data = await (await fetch("./assets/master-config.json")).json();
 
 export class PlanetConfig {
@@ -29,6 +32,9 @@ export class FactionConfig {
         fleetPopulation: 0,
         baseIncome: 0
     };
+
+    /** @type {{id:number,ships:string[]}[]} */
+    shipyards = [];
 }
 
 export class CampaignConfig {
@@ -89,6 +95,14 @@ export function loadCampaign(nameOrID) {
             }
 
             output.planets.push(planetConfig.find(p => p.name === planetName));
+        }
+
+        for (const shipyard of faction.shipyards) {
+            for (const ship of shipyard.ships) {
+                if (!(ship in shipConfigs)) {
+                    throw new Error(`Faction ${faction.name} invalid shipyard ship ${ship}`);
+                }
+            }
         }
     }
 

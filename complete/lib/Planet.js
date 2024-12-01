@@ -6,6 +6,7 @@ import Fleet from "./Fleet.js";
 import UIElement from "./UIElement.js";
 import { planetConfig } from "../shared/loader.js";
 import shared from "../shared/shared.js";
+import shipConfigs from "../../server/lib/ships.js";
 
 const worker = new Worker("./lib/ComputeWorker.js", {
     type: "module"
@@ -66,7 +67,9 @@ export default class Planet {
          * @type {Faction}
          */
         this.controllingFaction = null;
-        this.shipyard = new Shipyard(this, planetConfig[id].shipyardLevel);
+        
+        /** @type {Shipyard} */
+        this.shipyard = null;
 
         /**
          * @type {Fleet[]}
@@ -107,6 +110,20 @@ export default class Planet {
             this.fleets.push(Fleet.random(this.isCapital ? this.isCapital.fleetPopulation : (12 + (this.income / 22 | 0)), faction.key));
             this.fleets[this.fleets.length - 1].setFaction(faction);
             this.fleets[this.fleets.length - 1].planet = this;
+        }
+
+        if (this.planetConfig.shipyardLevel > 0) {
+            this.shipyard = new Shipyard(this, this.planetConfig.shipyardLevel);
+
+            this.controllingFaction.shipyardConfigs.forEach(conf => {
+                if (conf.id <= this.planetConfig.shipyardLevel) {
+                    for (const ship of conf.ships) {
+                        this.shipyard.buildables.set(ship, shipConfigs[ship].cost);
+                    }
+                }
+            });
+        } else {
+            this.shipyard = null;
         }
     }
 

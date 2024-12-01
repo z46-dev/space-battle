@@ -12,6 +12,9 @@ export class Faction {
     key = "generic_faction";
     defaultStartingPlanets = [];
 
+    /** @type {{id:number,ships:string[]}[]} */
+    shipyardConfigs = [];
+
     /**
      * @type {CapitalInfo | null}
      */
@@ -20,6 +23,9 @@ export class Faction {
     // Mutable
     money = 0;
     income = 0;
+
+    /** @type {import("./FactionAI.js").default} */
+    ai = null;
 
     /**
      * @param {import("./Campaign.js").default} campaign
@@ -43,7 +49,7 @@ export class Faction {
             }
         }
 
-        if (targetPlanet && Math.random() > .65) {
+        if (targetPlanet && Math.random() > .99) {
             console.log(`AI: ${this.name} is sending a fleet from ${sourcePlanet.name} to ${targetPlanet.name}`);
             sourcePlanet.fleets[0].transitTo(campaign.findRoute(sourcePlanet, targetPlanet));
         }
