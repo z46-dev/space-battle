@@ -103,8 +103,8 @@ export default class FactionAI {
      * @returns {boolean} True if action was taken, otherwise false.
      */
     handleDanger(info) {
-        const planetsInDanger = info.planets.filter(p => p.inDangerScale > 2.5);
-        const planetsSafe = info.planets.filter(p => p.inDangerScale < 0.5);
+        const planetsInDanger = info.planets.filter(p => p.inDangerScale > 3);
+        const planetsSafe = info.planets.filter(p => p.inDangerScale < .5);
 
         if (planetsInDanger.length === 0 || planetsSafe.length === 0) {
             return false;
@@ -117,13 +117,13 @@ export default class FactionAI {
             const planet = safePlanetInfo.planet;
 
             planet.fleets.forEach(fleet => {
-                if (fleet.faction === this.faction && Math.random() > 0.9) {
+                if (fleet.faction === this.faction && Math.random() > .5) {
                     fleet.transitTo(this.campaign.findRoute(planet, planetsInDanger[i].planet));
                     movedFleets++;
+
+                    i = (i + 1) % planetsInDanger.length;
                 }
             });
-
-            i = (i + 1) % planetsInDanger.length;
         });
 
         return movedFleets > 0;
@@ -138,7 +138,11 @@ export default class FactionAI {
         const shipyards = info.shipyards.filter(s => s.isEmpty);
 
         if (shipyards.length === 0) {
-            return false;
+            shipyards.push(...info.shipyards.filter(s => s.inDangerScale < 3));
+
+            if (shipyards.length === 0) {
+                return false;
+            }
         }
 
         /** @type {{score: number, shipyard: import("./Shipyard.js").default}[]} */
@@ -157,11 +161,11 @@ export default class FactionAI {
 
         const bestChoice = choices[0];
 
-        if (Math.random() > 0.5) {
+        if (Math.random() > .72) {
             let buildableName = null;
 
             bestChoice.shipyard.buildables.forEach((cost, name) => {
-                if (this.faction.money >= cost && (!buildableName || Math.random() > 0.45)) {
+                if (this.faction.money >= cost && (!buildableName || Math.random() > .56)) {
                     buildableName = name;
                 }
             });
@@ -207,12 +211,11 @@ export default class FactionAI {
         }
 
         console.log(`Faction ${this.faction.name} is attacking faction ${weakestFaction.faction.name}`);
-        // Logic to send fleets to attack weakestFaction
         let attackFleetCount = 0;
 
         targetPlanet.fleets.forEach(fleet => {
-            if (fleet.faction === this.faction && Math.random() > 0.5) {
-                const target = weakestFaction.threateningPlanets[0]; // Pick a random threatening planet
+            if (fleet.faction === this.faction && Math.random() > .5) {
+                const target = weakestFaction.threateningPlanets[0];
                 fleet.transitTo(this.campaign.findRoute(targetPlanet, target));
                 attackFleetCount++;
             }
