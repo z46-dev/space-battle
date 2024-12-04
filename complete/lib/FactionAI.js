@@ -117,7 +117,7 @@ export default class FactionAI {
             const planet = safePlanetInfo.planet;
 
             planet.fleets.forEach(fleet => {
-                if (fleet.faction === this.faction && Math.random() > .5) {
+                if (fleet.faction === this.faction && Math.random() > .85) {
                     fleet.transitTo(this.campaign.findRoute(planet, planetsInDanger[i].planet));
                     movedFleets++;
 
@@ -186,7 +186,7 @@ export default class FactionAI {
      * @returns {boolean} True if action was taken, otherwise false.
      */
     attackWeakTargets(info) {
-        const safePlanets = info.planets.filter(p => p.inDangerScale < 1).sort((a, b) => a.inDangerScale - b.inDangerScale);
+        const safePlanets = info.planets.filter(p => p.inDangerScale < 1 && p.inDangerScale > 0).sort((a, b) => a.inDangerScale - b.inDangerScale);
 
         if (safePlanets.length === 0) {
             return false;
@@ -194,9 +194,7 @@ export default class FactionAI {
 
         const targetPlanet = safePlanets[0].planet;
 
-        const threatsToTarget = info.threats.filter(threat =>
-            threat.threateningPlanets.some(p => p.id === targetPlanet.id)
-        );
+        const threatsToTarget = info.threats.filter(threat => threat.threateningPlanets.some(p => p.connectingPlanets.includes(targetPlanet.name)));
 
         if (threatsToTarget.length === 0) {
             return false;
@@ -210,17 +208,79 @@ export default class FactionAI {
             return false;
         }
 
-        console.log(`Faction ${this.faction.name} is attacking faction ${weakestFaction.faction.name}`);
         let attackFleetCount = 0;
 
         targetPlanet.fleets.forEach(fleet => {
             if (fleet.faction === this.faction && Math.random() > .5) {
-                const target = weakestFaction.threateningPlanets[0];
+                const target = weakestFaction.threateningPlanets.find(p => p.connectingPlanets.includes(targetPlanet.name));
+                if (target == null) {
+                    return;
+                }
+
                 fleet.transitTo(this.campaign.findRoute(targetPlanet, target));
                 attackFleetCount++;
+                console.log(`Faction ${this.faction.name} is attacking faction ${weakestFaction.faction.name} on planet ${target.name}`);
             }
         });
 
         return attackFleetCount > 0;
+    }
+
+    /**
+     * Handles attacking weak planets and factions.
+     * @param {ReturnType<FactionAI['gatherInformation']>} info
+     * @returns {boolean} True if action was taken, otherwise false.
+     */
+    attackWeakTargets(info) {
+        /** @type {{ attackWith: import("./Planet.js").default, attacking: import("./Planet.js").default, score: number }[]} */
+        const choices = [];
+
+        info.threats.forEach(threat => {
+            threat.threateningPlanets.forEach(planet => {
+                planet.connectingPlanets.forEach(name => {
+                    const other = this.campaign.getPlanet(name);
+
+                    if (other.controllingFaction !== this.faction) {
+                        return;
+                    }
+
+                    choices.push({
+                        attackWith: other,
+                        attacking: planet,
+                        score: planet.fleets.reduce((a, b) => a + b.population, 0) / other.fleets.reduce((a, b) => a + b.population, 0)
+                    });
+                });
+            });
+        });
+
+        if (choices.length === 0) {
+            return false;
+        }
+
+        choices.sort((a, b) => b.score - a.score);
+
+        const choice = choices[(Math.exp(Math.random() * Math.log(choices.length + 1)) - 1) | 0];
+        const fleets = choice.attackWith.fleets.sort((a, b) => b.population - a.population);
+
+        if (fleets.length === 0) {
+            return;
+        }
+
+        if (fleets.length > 1 && fleets[0].population <= choice.attacking.fleets.reduce((a, b) => a + b.population, 0) * 1.15) {
+            for (let i = 1; i < fleets.length; i++) {
+                while (fleets[i].population > 25) {
+                    const keys = Array.from(fleets[i].ships.keys());
+                    const key = keys[Math.random() * keys.length | 0];
+
+                    fleets[i].removeShip(key);
+                    fleets[0].addShip(key);
+                }
+            }
+        }
+
+        if (Math.random() > .95) {
+            fleets[0].transitTo(this.campaign.findRoute(choice.attackWith, choice.attacking));
+            console.log(`Faction ${this.faction.name} is attacking faction ${choice.attacking.controllingFaction.name} on planet ${choice.attacking.name}`);
+        }
     }
 }

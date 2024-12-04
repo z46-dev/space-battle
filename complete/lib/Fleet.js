@@ -126,10 +126,10 @@ export default class Fleet {
     }
 
     /**
-     * @param {import("./Planet.js").default[]} planet 
+     * @param {import("./Planet.js").default[]} destinationPath 
      */
-    transitTo(planet) {
-        if (this.planet === null || this.planet === planet[planet.length - 1]) {
+    transitTo(destinationPath) {
+        if (destinationPath == null || destinationPath.length === 0 || this.planet === null || this.planet === destinationPath[destinationPath.length - 1]) {
             return;
         }
 
@@ -138,9 +138,9 @@ export default class Fleet {
 
         let last = this.planet;
 
-        for (let i = 1; i < planet.length; i++) {
-            this.transitPath.push(new TransitNode(planet[i], Math.sqrt((planet[i].x - last.x) ** 2 + (planet[i].y - last.y) ** 2)));
-            last = planet[i];
+        for (let i = 1; i < destinationPath.length; i++) {
+            this.transitPath.push(new TransitNode(destinationPath[i], Math.sqrt((destinationPath[i].x - last.x) ** 2 + (destinationPath[i].y - last.y) ** 2)));
+            last = destinationPath[i];
         }
     }
 
@@ -157,6 +157,18 @@ export default class Fleet {
             for (let i = 0; i < this.ships.size; i++) {
                 this.shipElements.push(new UIElement(true, true, false));
             }
+        }
+    }
+
+    remove(name) {
+        if (!this.ships.has(name)) {
+            return;
+        }
+
+        this.ships.set(name, this.ships.get(name) - 1);
+
+        if (this.ships.get(name) <= 0) {
+            this.ships.delete(name);
         }
     }
 
@@ -270,7 +282,9 @@ export default class Fleet {
         newPlanet.fleets.push(this);
 
         if (this.transitPath.length > 0) {
-            return;
+            if (this.transitPath[0].planet.controllingFaction === this.faction) {
+                return;
+            }
         }
 
         this.inTransit = false;
@@ -331,9 +345,8 @@ export default class Fleet {
 
             if (this.population <= 0) {
                 planet.fleets = [second];
-
             } else if (second.population <= 0) {
-                planet.fleets = planet.fleets.filter(fleet => fleet.faction === this.faction);
+                planet.fleets = planet.fleets.filter(fleet => !enemyFleets.includes(fleet));
                 planet.setControl(this.faction);
             }
         }, true);
@@ -368,11 +381,7 @@ export default class Fleet {
             return;
         }
 
-        if (item.count > 1) {
-            item.fleet.ships.set(item.name, item.count - 1);
-        } else {
-            item.fleet.ships.delete(item.name);
-        }
+        item.fleet.remove(item.name);
 
         if (item.fleet.population === 0) {
             item.fleet.planet.fleets = item.fleet.planet.fleets.filter(f => f !== item.fleet);

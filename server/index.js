@@ -1253,6 +1253,8 @@ class Battle {
 
         this.updateInterval = setInterval(this.update.bind(this), 1000 / 22.5);
 
+        const performanceMetrics = {};
+
         setInterval(() => {
             if (this.frames > 0) {
                 this.fps = this.frames;
