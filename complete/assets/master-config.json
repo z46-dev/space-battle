@@ -542,5 +542,57 @@
                 "ships": ["PROVIDENCEDREADNOUGHT_CIS", "RECUSANTDREADNOUGHT_CIS", "BULWARKII_CIS", "SUBJUGATOR_CIS"]
             }]
         }]
+    }, {
+        "id": 2,
+        "name": "Testing",
+        "factions": [{
+            "id": 0,
+            "color": "#2222EE",
+            "name": "Dark Empire",
+            "key": "DARKEMPIRE",
+            "planets": ["Coruscant", "Anaxes", "Alderaan", "Kuat", "Jedha", "Byss", "Exogol"],
+            "capital": {
+                "name": "Byss",
+                "fleetPopulation": 75,
+                "baseIncome": 15000
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": ["IPV1_DARKEMPIRE", "VIGILCORVETTE_DARKEMPIRE", "TONFALKCARRIER_DARKEMPIRE", "MTFCRUISER_DARKEMPIRE", "CARRACK_DARKEMPIRE", "LANCERFRIGATE_DARKEMPIRE"]
+            }, {
+                "id": 2,
+                "ships": ["WORLDDEVASTATORFG_DARKEMPIRE", "DREADNOUGHTHEAVYCRUISER_DARKEMPIRE"]
+            }, {
+                "id": 3,
+                "ships": ["IMPERIALSTARDESTROYER_DARKEMPIRE", "INTERDICTORSTARDESTROYER_DARKEMPIRE", "RESURGENT_DARKEMPIRE", "ALLEGIANCE_DARKEMPIRE"]
+            }, {
+                "id": 4,
+                "ships": ["ONAGER_DARKEMPIRE", "XYSTON_DARKEMPIRE", "WORLDDEVASTATORBC_DARKEMPIRE", "BELLATOR_DARKEMPIRE", "ASSERTOR_DARKEMPIRE", "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE", "IMPELLORFLEETCARRIER_DARKEMPIRE"]
+            }]
+        }, {
+            "id": 1,
+            "color": "#EEAA33",
+            "name": "Hapes Consortium",
+            "key": "HAPAN",
+            "planets": ["Fresia", "Onderon", "Carida", "Corellia", "Mimban", "Hapes", "Charubah", "Terephon", "Gallinore", "Relephon"],
+            "capital": {
+                "name": "Hapes",
+                "fleetPopulation": 50,
+                "baseIncome": 10000
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": ["BAIDAM_HAPAN", "FLARE_HAPAN", "BETACRUISER_HAPAN", "NOVACRUISER_HAPAN", "STELLA_HAPAN", "CHARUBAH_HAPAN"]
+            }, {
+                "id": 2,
+                "ships": ["MAGNETAR_HAPAN", "CORONAL_HAPAN", "MIST_HAPAN"]
+            }, {
+                "id": 3,
+                "ships": ["BATTLEDRAGON_HAPAN", "TEREPHON_HAPAN", "NEUTRON_HAPAN"]
+            }, {
+                "id": 4,
+                "ships": []
+            }]
+        }]
     }]
 }

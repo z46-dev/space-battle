@@ -986,3 +986,9 @@ export function initializeBattle(myShips, enemyShips, attacking, designConfig) {
         planet.generate();
     }
 }
+
+if (!location.href.includes("complete")) {
+    draw();
+
+    initializeBattle(["CR90_REBEL"], ["QUASAR_EMPIRE"], 0);
+}

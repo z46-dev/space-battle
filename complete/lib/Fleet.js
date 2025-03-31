@@ -266,7 +266,7 @@ export default class Fleet {
         this.draggable.y = this.planet.y + Math.sin(angleToPlanet) * this.transitProgress;
 
         if (this.transitProgress < this.transitPath[0].distance) {
-            this.transitProgress += 4;
+            this.transitProgress += 8;
             return;
         }
 
@@ -296,7 +296,7 @@ export default class Fleet {
 
     initializeInvasion() {
         const planet = this.planet;
-        const enemyFleets = planet.fleets.filter(fleet => fleet.faction !== this.faction);
+        const enemyFleets = planet.fleets.filter(fleet => !fleet.inTransit && fleet.faction !== this.faction);
 
         if (enemyFleets.length === 0) {
             planet.setControl(this.faction);
