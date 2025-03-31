@@ -2308,6 +2308,11 @@ onmessage = function (e) {
                         });
                     });
 
+                    battle.ships.clear();
+                    battle.squadrons.clear();
+                    battle.explosionsToRender = [];
+                    battle.deathsToSend = [];
+
                     battle.shipsStartedWith = [];
 
                     battle.projectiles.forEach(projectile => {
@@ -2342,6 +2347,9 @@ onmessage = function (e) {
 
                         battle.shipsStartedWith.push(spawned);
                     }
+                } break;
+                case 1: {
+
                 } break;
             }
         } break;

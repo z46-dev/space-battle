@@ -227,6 +227,20 @@ ships.INTERDICTORSTARDESTROYER_DARKEMPIRE = {
         squadronSize: 6,
         reserveSize: 2,
         squadronKey: "TIEDEFENDER_DARKEMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 2,
+        squadronKey: "TIEBOMBER_DARKEMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 4,
+        squadronSize: 4,
+        reserveSize: 8,
+        squadronKey: "TIEDRONE_DARKEMPIRE"
     }]
 };
 
