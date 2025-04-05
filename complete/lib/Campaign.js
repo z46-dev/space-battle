@@ -260,6 +260,43 @@ export default class Campaign {
 
             console.timeEnd(timer);
         }
+
+        if (this.tickID % 300 === 0) {
+            console.time("Check fleets");
+            this.checkFleets();
+            console.timeEnd("Check fleets");
+        }
+    }
+
+    checkFleets() {
+        // Make sure a fleet is only in one planet at a time
+        /** @type {Map<Fleet, Planet[]>} */
+        const fleets = new Map();
+        
+        this.planets.forEach(planet => {
+            planet.fleets.forEach(fleet => {
+                if (!fleets.has(fleet)) {
+                    fleets.set(fleet, []);
+                }
+
+                fleets.get(fleet).push(planet);
+            });
+        });
+
+        fleets.forEach((planets, fleet) => {
+            if (planets.length > 1) {
+                for (let i = 1; i < planets.length; i++) {
+                    planets[i].removeFleet(fleet);
+                }
+
+                console.warn("Fleet is in multiple planets", fleet, planets);
+            }
+
+            fleet.planet = planets[0];
+            if (!fleet.planet.fleets.includes(fleet)) {
+                fleet.planet.fleets.push(fleet);
+            }
+        });
     }
 
     drawUI() {

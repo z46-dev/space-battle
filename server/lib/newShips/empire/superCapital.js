@@ -14,9 +14,9 @@ ships.ARCHAMMER_EMPIRE = {
     name: "Arch Hammer",
     asset: "ARCHAMMER.png",
     classification: shipTypes.SuperCapital,
-    population: 100,
+    population: 145,
     size: 3450,
-    cost: 16000,
+    cost: 23400,
     speed: 3,
     turnSpeed: .01,
     shield: 54340,
@@ -57,29 +57,29 @@ ships.ARCHAMMER_EMPIRE = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 4,
-        squadronSize: 6,
+        maxSquadrons: 3,
+        squadronSize: 4,
         reserveSize: 1e10,
         squadronKey: "TIEBOMBER_EMPIRE"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 4,
-        squadronSize: 6,
+        maxSquadrons: 3,
+        squadronSize: 4,
         reserveSize: 1e10,
         squadronKey: "TIEDEFENDER_EMPIRE"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 4,
-        squadronSize: 6,
+        maxSquadrons: 3,
+        squadronSize: 4,
         reserveSize: 1e10,
         squadronKey: "TIEPUNISHER_EMPIRE"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 4,
-        squadronSize: 6,
+        maxSquadrons: 3,
+        squadronSize: 4,
         reserveSize: 1e10,
         squadronKey: "TIEREAPER_EMPIRE"
     }],
