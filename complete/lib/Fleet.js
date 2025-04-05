@@ -153,7 +153,7 @@ export default class Fleet {
 
         if (this.ships.size !== this.shipElements.length) {
             this.shipElements = [];
-            
+
             for (let i = 0; i < this.ships.size; i++) {
                 this.shipElements.push(new UIElement(true, true, false));
             }
@@ -274,7 +274,6 @@ export default class Fleet {
 
         this.transitProgress = 0;
 
-        const oldPlanet = this.planet;
         const newPlanet = node.planet;
         this.planet.fleets = this.planet.fleets.filter(fleet => fleet !== this);
         this.planet = newPlanet;
@@ -294,84 +293,6 @@ export default class Fleet {
     }
 
     initializeInvasion() {
-        // const planet = this.planet;
-        // const enemyFleets = planet.fleets.filter(fleet => !fleet.inTransit && fleet.faction !== this.faction);
-
-        // if (enemyFleets.length === 0) {
-        //     planet.setControl(this.faction);
-        //     return;
-        // }
-
-        // const playerFaction = planet.campaign.playerFaction;
-
-        // // If neither of the two factions are the player faction, decide it by pop or randomly if tie
-        // if (this.faction !== playerFaction && planet.controllingFaction !== playerFaction) {
-        //     const enemyPopulation = enemyFleets.reduce((total, fleet) => total + fleet.population, 0);
-        //     const winner = this.population === enemyPopulation ? Math.random() > .5 : this.population > enemyPopulation;
-
-        //     if (winner) {
-        //         planet.fleets = planet.fleets.filter(fleet => fleet.faction === this.faction);
-        //         planet.setControl(this.faction);
-        //     } else {
-        //         planet.fleets = planet.fleets.filter(fleet => fleet.faction !== this.faction);
-        //     }
-
-        //     console.log(`[AI] Invasion of ${planet.name} by ${this.faction.name} vs ${enemyFleets.map(fleet => fleet.faction.name).join(", ")}: ${winner ? this.faction.name : enemyFleets.map(fleet => fleet.faction.name).join(", ")} wins`);
-        //     return;
-        // }
-
-        // // If the player faction is involved, determine if they are attacking or defending and initiate the battle
-        // shared.beginBattle(this.__ships, enemyFleets.map(fleet => fleet.__ships).flat(), this.faction !== playerFaction, this.planet.planetConfig);
-
-        // on(EVENTS.BATTLE_END, data => {
-        //     shared.state = STATE_TACTICAL_MAP;
-
-        //     const me = data[+(this.faction !== playerFaction)];
-        //     const enemy = data[+(this.faction === playerFaction)];
-
-        //     this.ships.clear();
-
-        //     const second = enemyFleets[0];
-        //     second.ships.clear();
-
-        //     for (const ship of me.survived) {
-        //         this.add(ship);
-        //     }
-
-        //     for (const ship of enemy.survived) {
-        //         second.add(ship);
-        //     }
-
-        //     // if (this.population <= 0) {
-        //     //     planet.fleets = [second];
-        //     // } else if (second.population <= 0) {
-        //     //     planet.fleets = planet.fleets.filter(fleet => !enemyFleets.includes(fleet));
-        //     //     planet.setControl(this.faction);
-        //     // }
-
-        //     enemyFleets.forEach(fleet => {
-        //         if (fleet === second) {
-        //             return;
-        //         }
-
-        //         fleet.planet.fleets = fleet.planet.fleets.filter(f => f !== fleet);
-        //     });
-
-        //     if (this.population > 0) {
-        //         planet.setControl(this.faction);
-        //         this.planet.fleets = this.planet.fleets.filter(fleet => fleet !== this);
-        //         this.planet = planet;
-        //         planet.fleets = [this];
-        //     } else {
-        //         second.planet.fleets = second.planet.fleets.filter(fleet => fleet !== second);
-        //         second.planet = planet;
-        //         second.planet.fleets = second.planet.fleets.filter(fleet => fleet !== this);
-        //         planet.fleets = [second];
-        //         planet.setControl(second.faction);
-        //     }
-        // }, true);
-
-
         const planet = this.planet;
         const enemyFleets = planet.fleets.filter(fleet => !fleet.inTransit && fleet.faction !== this.faction);
 
@@ -401,6 +322,21 @@ export default class Fleet {
         shared.beginBattle(this.__ships, enemyFleets.map(fleet => fleet.__ships).flat(), this.faction !== playerFaction, this.planet.planetConfig);
 
         on(EVENTS.BATTLE_END, data => {
+            // Remove all other fleets from the planet
+            enemyFleets.forEach(fleet => {
+                if (fleet.planet == null) {
+                    return;
+                }
+
+                fleet.planet.fleets = fleet.planet.fleets.filter(f => f !== fleet);
+                fleet.planet = null;
+            });
+
+            if (this.planet != null) {
+                this.planet.fleets = this.planet.fleets.filter(f => f !== this);
+                this.planet = null;
+            }
+
             shared.state = STATE_TACTICAL_MAP;
 
             const me = data[+(this.faction !== playerFaction)];
@@ -432,15 +368,6 @@ export default class Fleet {
                 planet.setControl(enemyFleet.faction);
                 enemyFleet.planet = planet;
             }
-
-            // Remove all other fleets from the planet
-            enemyFleets.forEach(fleet => {
-                fleet.planet.fleets = fleet.planet.fleets.filter(f => f !== fleet);
-                fleet.planet = null;
-            });
-
-            this.planet.fleets = this.planet.fleets.filter(f => f !== this);
-            this.planet = null;
         }, true);
     }
 
@@ -468,7 +395,7 @@ export default class Fleet {
 
         /** @type {Fleet} */
         const otherFleet = drop.object;
-        
+
         if (otherFleet === item.fleet) {
             return;
         }
