@@ -342,11 +342,101 @@
         "design": "256;0.78123;4.00;externalSandPlanet;8;staticQuickNoise",
         "connections": ["Kashyyyk", "Mimban", "Tatooine"]
     }, {
+        "name": "Proxima Secundus",
+        "x": 3960,
+        "y": 1440,
+        "color": "#994433",
+        "income": 144,
+        "shipyardLevel": 1,
+        "design": "256;0.8563;2.00;snowColors;14;staticQuickNoise",
+        "connections": ["Nal Hutta", "Proxima Centauri", "Neptune"]
+    }, {
+        "name": "Proxima Centauri",
+        "x": 4210,
+        "y": 1800,
+        "color": "#994433",
+        "income": 230,
+        "shipyardLevel": 4,
+        "design": "256;0.4320;2.00;externalLushPlanet;14;staticQuickNoise",
+        "connections": ["Proxima Secundus"]
+    }, {
+        "name": "Neptune",
+        "x": 9320,
+        "y": -1110,
+        "color": "#994433",
+        "income": 180,
+        "shipyardLevel": 1,
+        "design": "256;0.4572;0.75;externalBluePlanet;6;staticQuickNoise",
+        "connections": ["Proxima Secundus", "Uranus", "Saturn"]
+    }, {
+        "name": "Uranus",
+        "x": 9800,
+        "y": -750,
+        "color": "#994433",
+        "income": 125,
+        "shipyardLevel": 1,
+        "design": "256;0.2987;0.5;blueStarColors;14;staticQuickNoise",
+        "connections": ["Neptune", "Mercury"]
+    }, {
+        "name": "Saturn",
+        "x": 9650,
+        "y": -1450,
+        "color": "#994433",
+        "income": 400,
+        "shipyardLevel": 3,
+        "design": "256;2.50000;0.60;desertColors;16;simplex3",
+        "connections": ["Neptune", "Jupiter"]
+    }, {
+        "name": "Jupiter",
+        "x": 10200,
+        "y": -1650,
+        "color": "#994433",
+        "income": 300,
+        "shipyardLevel": 3,
+        "design": "256;0.69669;2.00;desertColors;32;perlin3",
+        "connections": ["Saturn", "Mars"]
+    }, {
+        "name": "Mars",
+        "x": 10680,
+        "y": -1320,
+        "color": "#994433",
+        "income": 300,
+        "shipyardLevel": 2,
+        "design": "256;0.00000;0.25;externalLavaPlanet;28;quickNoise",
+        "connections": ["Jupiter", "Venus"]
+    }, {
+        "name": "Venus",
+        "x": 11000,
+        "y": -980,
+        "color": "#994433",
+        "income": 75,
+        "shipyardLevel": 1,
+        "design": "256;0.30000;0.20;snowColors;32;simplex3",
+        "connections": ["Mars", "Earth"]
+    }, {
+        "name": "Earth",
+        "x": 10400,
+        "y": -860,
+        "color": "#994433",
+        "income": 600,
+        "shipyardLevel": 4,
+        "design": "256;0.25000;0.80;standardColors;128;simplex3",
+        "connections": ["Venus", "Mercury"]
+    }, {
+        "name": "Mercury",
+        "x": 10000,
+        "y": -630,
+        "color": "#994433",
+        "income": 100,
+        "shipyardLevel": 1,
+        "design": "256;0.63882;0.60;snowColors;128;perlin3",
+        "connections": ["Earth", "Uranus"]
+    }, {
         "name": "Test 1",
         "x": -1000,
         "y": 0,
         "color": "#572834",
-        "income": 1,
+        "income": 500,
         "shipyardLevel": 4,
         "design": "256;0.8753;1.00;snowColors;8;staticQuickNoise",
         "connections": ["Test 2"]
@@ -355,7 +445,7 @@
         "x": -500,
         "y": 0,
         "color": "#572834",
-        "income": 1,
+        "income": 1500,
         "shipyardLevel": 4,
         "design": "256;0.28409;4.00;desertColors;8;staticQuickNoise",
         "connections": ["Test 1", "Test 3"]
@@ -364,7 +454,7 @@
         "x": 500,
         "y": 0,
         "color": "#572834",
-        "income": 1,
+        "income": 500,
         "shipyardLevel": 4,
         "design": "256;0.78123;4.00;externalSandPlanet;8;staticQuickNoise",
         "connections": ["Test 2", "Test 4"]
@@ -373,7 +463,7 @@
         "x": 1000,
         "y": 0,
         "color": "#572834",
-        "income": 1,
+        "income": 500,
         "shipyardLevel": 4,
         "design": "256;0.94521;2.00;externalLushPlanet;8;staticQuickNoise",
         "connections": ["Test 3"]
@@ -525,6 +615,30 @@
                 "id": 4,
                 "ships": []
             }]
+        }, {
+            "id": 6,
+            "color": "#999999",
+            "name": "Aurum Foundaries",
+            "key": "AURUM",
+            "planets": ["Proxima Secundus", "Proxima Centauri", "Neptune", "Saturn", "Jupiter", "Uranus", "Mars", "Venus", "Mercury", "Earth"],
+            "capital": {
+                "name": "Earth",
+                "fleetPopulation": 75,
+                "baseIncome": 3230
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": []
+            }, {
+                "id": 2,
+                "ships": ["DIEMOSFRIGATE_AURUM"]
+            }, {
+                "id": 3,
+                "ships": ["CHIMERADESTROYER_AURUM", "ARGENTUMBATTLESHIP_AURUM"]
+            }, {
+                "id": 4,
+                "ships": []
+            }]
         }]
     }, {
         "id": 1,
@@ -589,7 +703,7 @@
             "planets": ["Test 1", "Test 2"],
             "capital": {
                 "name": "Test 1",
-                "fleetPopulation": 10,
+                "fleetPopulation": 25,
                 "baseIncome": 15000
             },
             "shipyards": [{
@@ -613,7 +727,7 @@
             "planets": ["Test 3", "Test 4"],
             "capital": {
                 "name": "Test 4",
-                "fleetPopulation": 10,
+                "fleetPopulation": 25,
                 "baseIncome": 15000
             },
             "shipyards": [{
@@ -621,7 +735,7 @@
                 "ships": []
             }, {
                 "id": 2,
-                "ships": []
+                "ships": ["DIEMOSFRIGATE_AURUM"]
             }, {
                 "id": 3,
                 "ships": ["CHIMERADESTROYER_AURUM", "ARGENTUMBATTLESHIP_AURUM"]

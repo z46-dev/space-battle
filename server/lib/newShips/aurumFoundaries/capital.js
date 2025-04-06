@@ -131,7 +131,6 @@ ships.CHIMERADESTROYER_AURUM = {
     }]
 };
 
-
 ships.ARGENTUMBATTLESHIP_AURUM = {
     name: "Argentum Battleship",
     asset: "ARGENTUM_BATTLESHIP.png",
