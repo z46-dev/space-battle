@@ -348,7 +348,7 @@
         "color": "#572834",
         "income": 1,
         "shipyardLevel": 4,
-        "design": "256;0.78123;4.00;externalSandPlanet;8;staticQuickNoise",
+        "design": "256;0.8753;1.00;snowColors;8;staticQuickNoise",
         "connections": ["Test 2"]
     }, {
         "name": "Test 2",
@@ -357,7 +357,7 @@
         "color": "#572834",
         "income": 1,
         "shipyardLevel": 4,
-        "design": "256;0.78123;4.00;externalSandPlanet;8;staticQuickNoise",
+        "design": "256;0.28409;4.00;desertColors;8;staticQuickNoise",
         "connections": ["Test 1", "Test 3"]
     }, {
         "name": "Test 3",
@@ -375,7 +375,7 @@
         "color": "#572834",
         "income": 1,
         "shipyardLevel": 4,
-        "design": "256;0.78123;4.00;externalSandPlanet;8;staticQuickNoise",
+        "design": "256;0.94521;2.00;externalLushPlanet;8;staticQuickNoise",
         "connections": ["Test 3"]
     }],
     "campaigns": [{
@@ -607,9 +607,9 @@
             }]
         }, {
             "id": 1,
-            "color": "#994433",
-            "name": "Hutt Cartel",
-            "key": "HUTT",
+            "color": "#999999",
+            "name": "Aurum Foundaries",
+            "key": "AURUM",
             "planets": ["Test 3", "Test 4"],
             "capital": {
                 "name": "Test 4",
@@ -618,16 +618,16 @@
             },
             "shipyards": [{
                 "id": 1,
-                "ships": ["ACTIONVITRANSPORT_HUTT", "CONSOLAR_HUTT", "CR90_HUTT", "LUPUSMISSILEFRIGATE_HUTT", "LIGHT_MINSTREL_HUTT", "HEAVY_MINSTREL_HUTT", "BRUTESUPPORTFRIGATE_HUTT", "JUVARD_HUTT", "BARABBULA_HUTT"]
+                "ships": []
             }, {
                 "id": 2,
-                "ships": ["SABOATHDESTROYER_HUTT", "UBRIKKIAN_HUTT", "TEMPEST_HUTT", "SZAJIN_HUTT"]
+                "ships": []
             }, {
                 "id": 3,
-                "ships": ["MC69NOIR_HUTT", "VENATOR_HUTT", "KARAGGA_HUTT", "VONTOR_HUTT"]
+                "ships": ["CHIMERADESTROYER_AURUM", "ARGENTUMBATTLESHIP_AURUM"]
             }, {
                 "id": 4,
-                "ships": ["DORBULLA_HUTT"]
+                "ships": []
             }]
         }]
     }]

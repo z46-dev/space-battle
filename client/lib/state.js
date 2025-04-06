@@ -585,6 +585,7 @@ worker.onmessage = event => {
 
             handlers[EVENTS.BATTLE_END]?.forEach(handler => handler(battleData));
             oneTimeHandlers[EVENTS.BATTLE_END]?.forEach(handler => handler(battleData));
+            oneTimeHandlers[EVENTS.BATTLE_END] = undefined;
 
             world.deathClones = [];
             explosions.clear();

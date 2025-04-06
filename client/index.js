@@ -988,7 +988,12 @@ export function initializeBattle(myShips, enemyShips, attacking, designConfig) {
 }
 
 if (!location.href.includes("complete")) {
-    draw();
+    function tick() {
+        requestAnimationFrame(tick);
+        draw();
+    }
+
+    tick();
 
     initializeBattle(["CR90_REBEL"], ["QUASAR_EMPIRE"], 0);
 }

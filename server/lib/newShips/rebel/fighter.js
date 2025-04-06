@@ -301,22 +301,22 @@ ships.FALCON_REBEL = {
     name: "Millenium Falcon",
     asset: "FALCON.png",
     classification: shipTypes.Corvette,
-    population: 3,
+    population: 8,
     size: 65,
     cost: 600,
-    speed: 20,
+    speed: 21,
     turnSpeed: .0667,
     shield: 2500,
-    shieldRegen: 2.5,
+    shieldRegen: 3,
     uniqueUnit: true,
     shieldRegenAbility: {
         duration: 1.2,
-        cooldown: 1.2,
-        regen: 2
+        cooldown: 2,
+        regen: 1.5
     },
     tenderAbility: {
         frequency: .8,
-        power: .5
+        power: .3
     },
     hardpoints: [{
         x: 0,

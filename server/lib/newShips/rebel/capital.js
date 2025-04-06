@@ -185,7 +185,8 @@ ships.MC80BLIBERTY_REBEL = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 3 | 0
+                health: e.weapon.health * 4 | 0,
+                reload: e.weapon.reload * .7 | 0
             }
         }));
     })(),
@@ -286,7 +287,7 @@ ships.MC80B_REBEL = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 4 | 0
+                health: e.weapon.health * 5 | 0
             }
         }));
     })(),

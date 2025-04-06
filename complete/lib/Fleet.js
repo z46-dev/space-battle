@@ -359,13 +359,21 @@ export default class Fleet {
 
             if (meFleet.population > 0) {
                 planet.fleets.push(meFleet);
-                planet.setControl(meFleet.faction);
+                
+                if (this.faction !== planet.controllingFaction) {
+                    planet.setControl(meFleet.faction);
+                }
+
                 meFleet.planet = planet;
             }
 
             if (enemyFleet.population > 0) {
                 planet.fleets.push(enemyFleet);
-                planet.setControl(enemyFleet.faction);
+
+                if (enemyFleet.faction !== playerFaction) {
+                    planet.setControl(enemyFleet.faction);
+                }
+
                 enemyFleet.planet = planet;
             }
         }, true);

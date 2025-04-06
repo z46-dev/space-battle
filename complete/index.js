@@ -151,7 +151,6 @@ buttonMaps[STATE_HOME] = [{
     }
 }];
 
-
 buttonMaps[STATE_SELECT_TIMEFRAME] = campaignConfig.map((campaign, i) => ({
     x: 0,
     y: i * 72,
