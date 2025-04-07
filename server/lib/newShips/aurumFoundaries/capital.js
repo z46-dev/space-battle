@@ -108,10 +108,9 @@ ships.CHIMERADESTROYER_AURUM = {
         ...e,
         weapon: {
             ...e.weapon,
-            health: e.weapon.health * 6.5 | 0,
-            range: e.weapon.range * 1.8 | 0,
-            speed: e.weapon.speed * 2 | 0,
-            damage: e.weapon.damage * 1.334 | 0
+            health: e.weapon.health * 4 | 0,
+            range: e.weapon.range * 2 | 0,
+            speed: e.weapon.speed * 2 | 0
         }
     })),
     hangars: [{

@@ -12,8 +12,8 @@ ships.DIEMOSFRIGATE_AURUM = {
     cost: 780,
     speed: 6,
     turnSpeed: .02,
-    shield: 3890,
-    shieldRegen: 6,
+    shield: 2950,
+    shieldRegen: 3,
     hardpoints: [{
         x: 0,
         y: .4,
