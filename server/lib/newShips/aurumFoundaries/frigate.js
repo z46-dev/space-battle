@@ -8,7 +8,7 @@ ships.DIEMOSFRIGATE_AURUM = {
     asset: "DIEMOS.png",
     classification: shipTypes.Frigate,
     population: 9,
-    size: 320,
+    size: 280,
     cost: 780,
     speed: 6,
     turnSpeed: .02,
