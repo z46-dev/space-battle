@@ -9,9 +9,9 @@ ships.DIEMOSFRIGATE_AURUM = {
     classification: shipTypes.Frigate,
     population: 9,
     size: 280,
-    cost: 780,
-    speed: 6,
-    turnSpeed: .02,
+    cost: 1200,
+    speed: 5,
+    turnSpeed: .009,
     shield: 2950,
     shieldRegen: 3,
     hardpoints: [{
