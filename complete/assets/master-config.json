@@ -54,6 +54,33 @@
         "design": "256;10.20000;0.23;externalRedPlanet;8;quickNoise",
         "connections": ["Coruscant", "Corellia", "Jakku", "Jedha"]
     }, {
+        "name": "Bilbringi",
+        "x": -800,
+        "y": -1000,
+        "color": "#FFE5B4",
+        "income": 250,
+        "shipyardLevel": 4,
+        "design": "256;0.80929;1.00;externalSandPlanet;8;staticQuickNoise",
+        "connections": ["Jedha", "Anaxes"]
+    }, {
+        "name": "Dorin",
+        "x": -1100,
+        "y": -1400,
+        "color": "#FFE5B4",
+        "income": 200,
+        "shipyardLevel": 2,
+        "design": "256;0.24347;1.80;desertColors;8;staticQuickNoise",
+        "connections": ["Bilbringi", "Ord Mantell"]
+    }, {
+        "name": "Ord Mantell",
+        "x": -300,
+        "y": -1800,
+        "color": "#FFE5B4",
+        "income": 200,
+        "shipyardLevel": 2,
+        "design": "256;0.35000;2.00;externalBrightPlanet;10;staticQuickNoise",
+        "connections": ["Bilbringi", "Alderaan"]
+    }, {
         "name": "Corellia",
         "x": 500,
         "y": 1100,
@@ -124,7 +151,25 @@
         "income": 400,
         "shipyardLevel": 3,
         "design": "256;0.52488;1.00;externalBluePlanet;32;staticQuickNoise",
-        "connections": ["Jedha"]
+        "connections": ["Jedha", "Illum"]
+    }, {
+        "name": "Illum",
+        "x": -1320,
+        "y": -1230,
+        "color": "#AAAACC",
+        "income": 600,
+        "shipyardLevel": 3,
+        "design": "256;0.94024;0.40;snowColors;4;simplex3",
+        "connections": ["Dorin"]
+    }, {
+        "name": "Rakata Prime",
+        "x": -2100,
+        "y": 0,
+        "color": "#AAAACC",
+        "income": 150,
+        "shipyardLevel": 2,
+        "design": "256;0.76980;0.40;externalRedPlanet;4;perlin3",
+        "connections": ["Exogol", "Ahch-To"]
     }, {
         "name": "Ahch-To",
         "x": -2300,
@@ -467,6 +512,42 @@
         "shipyardLevel": 4,
         "design": "256;0.94521;2.00;externalLushPlanet;8;staticQuickNoise",
         "connections": ["Test 3"]
+    }, {
+        "name": "Nirauan",
+        "x": -5000,
+        "y": -5000,
+        "color": "#572834",
+        "income": 500,
+        "shipyardLevel": 3,
+        "design": "256;0.94024;1.00;externalLushPlanet;4;staticQuickNoise",
+        "connections": ["Exogol"]
+    }, {
+        "name": "Nirauan",
+        "x": -5000,
+        "y": -5000,
+        "color": "#572834",
+        "income": 500,
+        "shipyardLevel": 3,
+        "design": "256;0.94024;1.00;externalLushPlanet;4;staticQuickNoise",
+        "connections": ["Exogol"]
+    }, {
+        "name": "Nirauan",
+        "x": -5000,
+        "y": -5000,
+        "color": "#572834",
+        "income": 500,
+        "shipyardLevel": 3,
+        "design": "256;0.94024;1.00;externalLushPlanet;4;staticQuickNoise",
+        "connections": ["Exogol"]
+    }, {
+        "name": "Nirauan",
+        "x": -5000,
+        "y": -5000,
+        "color": "#572834",
+        "income": 500,
+        "shipyardLevel": 3,
+        "design": "256;0.94024;1.00;externalLushPlanet;4;staticQuickNoise",
+        "connections": ["Exogol"]
     }],
     "campaigns": [{
         "id": 0,
@@ -476,7 +557,7 @@
             "color": "#EE5555",
             "name": "New Republic",
             "key": "REBEL",
-            "planets": ["Naboo", "Crait", "D'Qar", "Endor", "Takodana", "Malastare", "Ahch-To", "Hoth", "Dagobah"],
+            "planets": ["Naboo", "Crait", "D'Qar", "Endor", "Takodana", "Malastare", "Ahch-To", "Hoth", "Dagobah", "Rakata Prime"],
             "capital": {
                 "name": "Naboo",
                 "fleetPopulation": 135,
@@ -548,7 +629,7 @@
             "color": "#224488",
             "name": "Dark Empire",
             "key": "DARKEMPIRE",
-            "planets": ["Exogol", "Jedha", "Byss"],
+            "planets": ["Exogol", "Jedha", "Byss", "Dorin", "Ord Mantell", "Bilbringi", "Illum"],
             "capital": {
                 "name": "Exogol",
                 "fleetPopulation": 130,
@@ -638,6 +719,30 @@
             }, {
                 "id": 4,
                 "ships": []
+            }]
+        }, {
+            "id": 7,
+            "color": "#8899EF",
+            "name": "Empire of the Hand",
+            "key": "EOTH",
+            "planets": ["Nirauan"],
+            "capital": {
+                "name": "Nirauan",
+                "fleetPopulation": 120,
+                "baseIncome": 3230
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": ["ASDONI_EOTH", "KUURO_EOTH", "SYZYGOS_EOTH"]
+            }, {
+                "id": 2,
+                "ships": ["BAOMU_EOTH", "FRUORO_EOTH", "KYNIGOS_EOTH", "PROLIPSI_EOTH"]
+            }, {
+                "id": 3,
+                "ships": ["ORMOS_EOTH", "CHAF_EOTH", "EFODIO_EOTH"]
+            }, {
+                "id": 4,
+                "ships": ["ASCENDANCY_EOTH", "INTEGO_EOTH"]
             }]
         }]
     }, {

@@ -80,9 +80,9 @@ ships.INTEGO_EOTH = {
     name: "Intego Star Destroyer",
     asset: "INTEGO.png",
     classification: shipTypes.Capital,
-    population: 35,
+    population: 78,
     size: 1500,
-    cost: 14000,
+    cost: 23000,
     speed: 1.2,
     turnSpeed: .001,
     shield: 24000,
@@ -93,27 +93,27 @@ ships.INTEGO_EOTH = {
         const initial = [{
             x: -.15,
             y: .22,
-            weapon: weapons.BLACK_QUAD_TURBOLASER_CANNON_HEAVY,
+            weapon: weapons.BLACK_TURBOLASER_CANNON_ULTRAHEAVY,
             shotsAtOnce: 2,
-            shotDelay: 150
+            shotDelay: 500
         }, {
             x: -.22,
             y: .14,
-            weapon: weapons.BLACK_QUAD_TURBOLASER_CANNON_HEAVY,
+            weapon: weapons.BLACK_TURBOLASER_CANNON_ULTRAHEAVY,
             shotsAtOnce: 2,
-            shotDelay: 150
+            shotDelay: 500
         }, {
             x: -.29,
             y: .07,
-            weapon: weapons.BLACK_QUAD_TURBOLASER_CANNON_HEAVY,
+            weapon: weapons.BLACK_TURBOLASER_CANNON_ULTRAHEAVY,
             shotsAtOnce: 2,
-            shotDelay: 150
+            shotDelay: 500
         }, {
             x: -.35,
             y: -.01,
-            weapon: weapons.BLACK_QUAD_TURBOLASER_CANNON_HEAVY,
+            weapon: weapons.BLACK_TURBOLASER_CANNON_ULTRAHEAVY,
             shotsAtOnce: 2,
-            shotDelay: 150
+            shotDelay: 500
         }, {
             x: -.1,
             y: .01,
@@ -129,16 +129,44 @@ ships.INTEGO_EOTH = {
         }, {
             x: -.1,
             y: .657,
-            weapon: weapons.BLACK_DOUBLE_TURBOLASER_CANNON_HEAVY,
-            shotsAtOnce: 2,
-            shotDelay: 150
+            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+            shotsAtOnce: 4,
+            shotDelay: 250
         }, {
             x: -.1,
             y: .903,
-            weapon: weapons.BLACK_DOUBLE_TURBOLASER_CANNON_HEAVY,
-            shotsAtOnce: 2,
-            shotDelay: 150
+            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+            shotsAtOnce: 4,
+            shotDelay: 250
         }];
+
+        for (let i = 0; i < 8; i ++) {
+            output.push({
+                x: .12 + .05 * i,
+                y: .65 - .09 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.BLACK_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 3,
+                shotDelay: 60
+            }, {
+                x: -.12 - .05 * i,
+                y: .65 - .09 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.BLACK_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 3,
+                shotDelay: 60
+            }, {
+                x: .52 - .05 * i,
+                y: -.09 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.BLACK_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 3,
+                shotDelay: 60
+            }, {
+                x: -.52 + .05 * i,
+                y: -.09 * i,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.BLACK_DOUBLE_LASER_CANNON_HEAVY,
+                shotsAtOnce: 3,
+                shotDelay: 60
+            });
+        }
 
         for (const point of initial) {
             output.push(point, {

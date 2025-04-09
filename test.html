@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        html,
+        body,
+        canvas {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas></canvas>
+
+    <script>
+        const canvas = document.querySelector("canvas");
+        const ctx = canvas.getContext("2d");
+
+        function resize() {
+            canvas.width = window.innerWidth * window.devicePixelRatio;
+            canvas.height = window.innerHeight * window.devicePixelRatio;
+        }
+
+        window.addEventListener("resize", resize, false);
+        resize();
+
+        const newPlanets = [
+            "Coruscant",
+            "Anaxes",
+            "Brentaal",
+            "Empress Teta",
+            "N'Zoth",
+            "Tython"
+        ];
+
+        // fetch("/complete/assets/master-config.json").then(res => res.json()).then(master => {
+        fetch("/complete/assets/planets.json").then(res => res.json()).then(rawPlanets => {
+            const planets = rawPlanets.filter(p => newPlanets.includes(p.name));
+
+            for (const name of newPlanets) {
+                if (!planets.some(p => p.name === name)) {
+                    console.warn(`Planet ${name} not found in the data.`);
+                }
+            }
+
+            console.log(`Loaded ${planets.length} planets out of ${newPlanets.length}.`);
+
+            let minX = Infinity, maxX = -Infinity;
+            let minY = Infinity, maxY = -Infinity;
+
+            for (const planet of planets) {
+                minX = Math.min(minX, planet.x);
+                maxX = Math.max(maxX, planet.x);
+                minY = Math.min(minY, planet.y);
+                maxY = Math.max(maxY, planet.y);
+            }
+
+            const width = maxX - minX;
+            const height = maxY - minY;
+
+            const padding = .1; // 10% padding
+            const scale = Math.min(
+                canvas.width / (width * (1 + padding)),
+                canvas.height / (height * (1 + padding))
+            );
+
+            // Center the content in the canvas
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const contentCenterX = (minX + maxX) / 2;
+            const contentCenterY = (minY + maxY) / 2;
+
+            const offsetX = centerX - contentCenterX * scale;
+            const offsetY = centerY - contentCenterY * scale;
+
+            console.log(`Scale: ${scale}, OffsetX: ${offsetX}, OffsetY: ${offsetY}`);
+
+            // Background
+            ctx.fillStyle = "#000000";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Planets
+            ctx.fillStyle = "#FFFFFF";
+
+            for (const planet of planets) {
+                const x = planet.x * scale + offsetX;
+                const y = planet.y * scale + offsetY;
+
+                ctx.beginPath();
+                ctx.arc(x, y, 2 * scale, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+        });
+        // });
+    </script>
+
+</body>
+
+</html>
