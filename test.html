@@ -36,8 +36,131 @@
             "Brentaal",
             "Empress Teta",
             "N'Zoth",
-            "Tython"
+            "Tython",
+            "Prakith",
+            "Byss",
+            "Kuat",
+            "Corellia",
+            "Hosnian Prime",
+            "Jedha",
+            "Rakata Prime",
+            "Dorin",
+            "Bilbringi",
+            "Borleias",
+            "Carida",
+            "Alderaan",
+            "Kattada",
+            "Neimoidia",
+            "Commenor",
+            "Cato Neimoidia",
+            "Rendili",
+            "Mimban",
+            "Ruusan",
+            "Umbara",
+            "Colla IV",
+            "Hapes",
+            "Kashyyyk",
+            "Fornax",
+            "Keitum",
+            "Ansion",
+            "Ankus",
+            "Esfandia",
+            "Aeten",
+            "Comra",
+            "Orinda",
+            "Ord Cantrell",
+            "Ithor",
+            "Dathomir",
+            "Ord Cestus",
+            "Kalee",
+            "Ord Trasi",
+            "Muunilinst",
+            "Dantooine",
+            "Jaemus",
+            "Bastion",
+            "Entralla",
+            "Axxila",
+            "Serenno",
+            "Telos",
+            "Yavin",
+            "Felucia",
+            "Raxus",
+            "Desevro",
+            "Rhen Var",
+            "Columex",
+            "Mon Calamari",
+            "Lothal",
+            "Iego",
+            "Saleucami",
+            "Klatooine",
+            "Boz Pity",
+            "Kessel",
+            "The Maw",
+            "Nal Hutta & Nar Shaddaa",
+            "Du Hutta",
+            "Ylesia",
+            "Teth",
+            "Gos Hutta",
+            "Toydaria",
+            "Daalang",
+            "Dressel",
+            "Bothawui",
+            "Hypori",
+            "Tatooine",
+            "Geonosis",
+            "Ando",
+            "Ryloth",
+            "Drexel",
+            "Fondor",
+            "Devaron",
+            "New Cov",
+            "Christophsis",
+            "Rodia",
+            "Malastare",
+            "Woostri",
+            "Wroona",
+            "Thyferra",
+            "Sullust",
+            "Naboo",
+            "Polis Massa",
+            "Hoth",
+            "Bespin",
+            "Mustafar",
+            "Javin",
+            "Koda Station",
+            "Sluis Van",
+            "Endor",
+            "Bakura",
+            "Ilum",
+            "Codia",
+            "Ring of Kafrene",
+            "Csilla",
+            "Roxuli",
+            "Zakuul",
+            "Zonama Sekot",
+            "Zaddja"
         ];
+
+        let minX = Infinity, maxX = -Infinity;
+        let minY = Infinity, maxY = -Infinity;
+
+        let width = maxX - minX;
+        let height = maxY - minY;
+
+        let padding = .2; // 10% padding
+        let scale = Math.min(
+            canvas.width / (width * (1 + padding)),
+            canvas.height / (height * (1 + padding))
+        );
+
+        // Center the content in the canvas
+        let centerX = canvas.width / 2;
+        let centerY = canvas.height / 2;
+        let contentCenterX = (minX + maxX) / 2;
+        let contentCenterY = (minY + maxY) / 2;
+
+        let offsetX = centerX - contentCenterX * scale;
+        let offsetY = centerY - contentCenterY * scale;
 
         // fetch("/complete/assets/master-config.json").then(res => res.json()).then(master => {
         fetch("/complete/assets/planets.json").then(res => res.json()).then(rawPlanets => {
@@ -51,8 +174,8 @@
 
             console.log(`Loaded ${planets.length} planets out of ${newPlanets.length}.`);
 
-            let minX = Infinity, maxX = -Infinity;
-            let minY = Infinity, maxY = -Infinity;
+            minX = Infinity, maxX = -Infinity;
+            minY = Infinity, maxY = -Infinity;
 
             for (const planet of planets) {
                 minX = Math.min(minX, planet.x);
@@ -61,44 +184,197 @@
                 maxY = Math.max(maxY, planet.y);
             }
 
-            const width = maxX - minX;
-            const height = maxY - minY;
+            width = maxX - minX;
+            height = maxY - minY;
 
-            const padding = .1; // 10% padding
-            const scale = Math.min(
+            padding = .2; // 10% padding
+            scale = Math.min(
                 canvas.width / (width * (1 + padding)),
                 canvas.height / (height * (1 + padding))
             );
 
             // Center the content in the canvas
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            const contentCenterX = (minX + maxX) / 2;
-            const contentCenterY = (minY + maxY) / 2;
+            centerX = canvas.width / 2;
+            centerY = canvas.height / 2;
+            contentCenterX = (minX + maxX) / 2;
+            contentCenterY = (minY + maxY) / 2;
 
-            const offsetX = centerX - contentCenterX * scale;
-            const offsetY = centerY - contentCenterY * scale;
+            offsetX = centerX - contentCenterX * scale;
+            offsetY = centerY - contentCenterY * scale;
 
             console.log(`Scale: ${scale}, OffsetX: ${offsetX}, OffsetY: ${offsetY}`);
 
-            // Background
+            planetsToDraw.push(...planets);
+        });
+        // });
+
+        const planetsToDraw = [];
+        let safeLinks = [];
+
+        function draw() {
+            requestAnimationFrame(draw);
+
             ctx.fillStyle = "#000000";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (const link of safeLinks) {
+                const fromPlanet = planetsToDraw.find(p => p.name === link.from);
+                const toPlanet = planetsToDraw.find(p => p.name === link.to);
+
+                if (fromPlanet && toPlanet) {
+                    const x1 = fromPlanet.x * scale + offsetX;
+                    const y1 = fromPlanet.y * scale + offsetY;
+                    const x2 = toPlanet.x * scale + offsetX;
+                    const y2 = toPlanet.y * scale + offsetY;
+
+                    ctx.strokeStyle = "#00FF00";
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.stroke();
+                }
+            }
 
             // Planets
             ctx.fillStyle = "#FFFFFF";
 
-            for (const planet of planets) {
+            for (const planet of planetsToDraw) {
                 const x = planet.x * scale + offsetX;
                 const y = planet.y * scale + offsetY;
 
                 ctx.beginPath();
-                ctx.arc(x, y, 2 * scale, 0, Math.PI * 2);
+                ctx.arc(x, y, .5 * scale, 0, Math.PI * 2);
                 ctx.closePath();
                 ctx.fill();
             }
-        });
-        // });
+
+            ctx.fillStyle = "#FF0000";
+            ctx.font = `${Math.floor(2 * scale)}px sans-serif`;
+            ctx.textAlign = "center";
+
+            for (const planet of planetsToDraw) {
+                const x = planet.x * scale + offsetX;
+                const y = planet.y * scale + offsetY;
+
+                ctx.fillText(planet.name, x, y - .75 * scale);
+            }
+        }
+
+        draw();
+
+        function exportPlanets(galaxySize) {
+            const planets = planetsToDraw.map(planet => ({
+                name: planet.name,
+                x: Math.round((planet.x - minX) / (maxX - minX) * galaxySize),
+                y: Math.round((planet.y - minY) / (maxY - minY) * galaxySize)
+            }));
+
+            return planets;
+        }
+
+        function linesIntersect(x1, y1, x2, y2, x3, y3, x4, y4) {
+            const ccw = (xA, yA, xB, yB, xC, yC) => (yC - yA) * (xB - xA) > (yB - yA) * (xC - xA);
+            return (
+                ccw(x1, y1, x3, y3, x4, y4) !== ccw(x2, y2, x3, y3, x4, y4) &&
+                ccw(x1, y1, x2, y2, x3, y3) !== ccw(x1, y1, x2, y2, x4, y4)
+            );
+        }
+
+        function dist(x1, y1, x2, y2) {
+            return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+        }
+
+        function getClosestPlanets(base) {
+            return planetsToDraw.filter(p => p.name !== base.name).sort((a, b) => dist(base.x, base.y, a.x, a.y) - dist(base.x, base.y, b.x, b.y));
+        }
+
+
+        function createSafeLinks() {
+            const maxLinks = 4;
+            const linkCounts = new Map();
+            const links = [];
+            const planetMap = new Map(planetsToDraw.map(p => [p.name, p]));
+
+            function canLink(a, b) {
+                const aCount = linkCounts.get(a.name) || 0;
+                const bCount = linkCounts.get(b.name) || 0;
+                return aCount < maxLinks && bCount < maxLinks;
+            }
+
+            function linkExists(a, b) {
+                return links.some(l =>
+                    (l.from === a.name && l.to === b.name) ||
+                    (l.from === b.name && l.to === a.name)
+                );
+            }
+
+            function intersectsAny(a, b) {
+                return links.some(l => {
+                    const p1 = planetMap.get(l.from);
+                    const p2 = planetMap.get(l.to);
+                    return linesIntersect(a.x, a.y, b.x, b.y, p1.x, p1.y, p2.x, p2.y);
+                });
+            }
+
+            // Build all possible links, sort by distance
+            const candidates = [];
+            for (let i = 0; i < planetsToDraw.length; i++) {
+                for (let j = i + 1; j < planetsToDraw.length; j++) {
+                    const a = planetsToDraw[i];
+                    const b = planetsToDraw[j];
+                    candidates.push({ a, b, dist: dist(a.x, a.y, b.x, b.y) });
+                }
+            }
+
+            candidates.sort((l1, l2) => l1.dist - l2.dist);
+
+            // Phase 1 & 2: Add valid links
+            for (const { a, b } of candidates) {
+                if (!canLink(a, b)) continue;
+                if (linkExists(a, b)) continue;
+                if (intersectsAny(a, b)) continue;
+
+                links.push({ from: a.name, to: b.name });
+                linkCounts.set(a.name, (linkCounts.get(a.name) || 0) + 1);
+                linkCounts.set(b.name, (linkCounts.get(b.name) || 0) + 1);
+            }
+
+            // Phase 3: Ensure all planets have at least 1 link
+            for (const a of planetsToDraw) {
+                const count = linkCounts.get(a.name) || 0;
+                if (count > 0) continue;
+
+                // Find the closest planet we can safely link to
+                const sorted = getClosestPlanets(a);
+                for (const b of sorted) {
+                    if (linkExists(a, b)) continue;
+                    if (!intersectsAny(a, b)) {
+                        links.push({ from: a.name, to: b.name });
+                        linkCounts.set(a.name, 1);
+                        linkCounts.set(b.name, (linkCounts.get(b.name) || 0) + 1);
+                        break;
+                    }
+                }
+            }
+
+            return links;
+        }
+
+        function exportData(galaxySize) {
+            const output = [];
+
+            for (const planet of planetsToDraw) {
+                output.push({
+                    name: planet.name,
+                    x: Math.round((planet.x - minX) / (maxX - minX) * galaxySize),
+                    y: Math.round((planet.y - minY) / (maxY - minY) * galaxySize),
+                    connections: safeLinks.filter(link => link.from === planet.name || link.to === planet.name).map(link => link.from === planet.name ? link.to : link.from)
+                });
+            }
+
+            return output;
+        }
     </script>
 
 </body>

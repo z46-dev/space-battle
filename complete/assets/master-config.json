@@ -79,7 +79,7 @@
         "income": 200,
         "shipyardLevel": 2,
         "design": "256;0.35000;2.00;externalBrightPlanet;10;staticQuickNoise",
-        "connections": ["Bilbringi", "Alderaan"]
+        "connections": ["Bilbringi", "Anaxes"]
     }, {
         "name": "Corellia",
         "x": 500,
