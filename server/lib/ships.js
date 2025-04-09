@@ -99,6 +99,15 @@ export const aurumFoundaries = {
     ...(await import("./newShips/aurumFoundaries/spaceStation.js")).default
 };
 
+export const empireOfTheHand = {
+    ...(await import("./newShips/eoth/fighter.js")).default,
+    ...(await import("./newShips/eoth/corvette.js")).default,
+    ...(await import("./newShips/eoth/frigate.js")).default,
+    ...(await import("./newShips/eoth/heavyFrigate.js")).default,
+    ...(await import("./newShips/eoth/capital.js")).default,
+    ...(await import("./newShips/eoth/superCapital.js")).default
+};
+
 export const stations = {
     ...(await import("./newShips/stations/shipyards.js")).default
 };
@@ -113,6 +122,7 @@ const ships = {
     ...zann,
     ...hapan,
     ...aurumFoundaries,
+    ...empireOfTheHand,
     ...stations
 };
 

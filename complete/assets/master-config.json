@@ -721,9 +721,9 @@
             }]
         }, {
             "id": 1,
-            "color": "#999999",
-            "name": "Aurum Foundaries",
-            "key": "AURUM",
+            "color": "#AAAACC",
+            "name": "Empire of the Hand",
+            "key": "EOTH",
             "planets": ["Test 3", "Test 4"],
             "capital": {
                 "name": "Test 4",
@@ -732,16 +732,16 @@
             },
             "shipyards": [{
                 "id": 1,
-                "ships": []
+                "ships": ["ASDONI_EOTH", "KUURO_EOTH", "SYZYGOS_EOTH"]
             }, {
                 "id": 2,
-                "ships": ["DIEMOSFRIGATE_AURUM"]
+                "ships": ["BAOMU_EOTH", "FRUORO_EOTH", "KYNIGOS_EOTH", "PROLIPSI_EOTH"]
             }, {
                 "id": 3,
-                "ships": ["CHIMERADESTROYER_AURUM", "ARGENTUMBATTLESHIP_AURUM"]
+                "ships": ["ORMOS_EOTH", "CHAF_EOTH", "EFODIO_EOTH"]
             }, {
                 "id": 4,
-                "ships": []
+                "ships": ["ASCENDANCY_EOTH", "INTEGO_EOTH"]
             }]
         }]
     }]
