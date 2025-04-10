@@ -45,6 +45,7 @@
             "Jedha",
             "Rakata Prime",
             "Dorin",
+            "Nirauan",
             "Bilbringi",
             "Borleias",
             "Carida",
@@ -361,7 +362,8 @@
             return links;
         }
 
-        function exportData(galaxySize) {
+        async function exportData(galaxySize) {
+            const master = await (await fetch("/complete/assets/master-config.json")).json();
             const output = [];
 
             for (const planet of planetsToDraw) {
@@ -371,6 +373,39 @@
                     y: Math.round((planet.y - minY) / (maxY - minY) * galaxySize),
                     connections: safeLinks.filter(link => link.from === planet.name || link.to === planet.name).map(link => link.from === planet.name ? link.to : link.from)
                 });
+            }
+
+            // for (const og of master.planets) {
+            //     const planet = output.find(p => p.name === og.name);
+            //     if (planet) {
+            //         planet.color = og.color;
+            //         planet.income = og.income;
+            //         planet.shipyardLevel = og.shipyardLevel;
+            //         planet.design = og.design;
+            //     } else {
+            //         console.warn(`Planet ${og.name} not found in the data.`);
+            //         planet.color = "#FFFFFF";
+            //         planet.income = 0;
+            //         planet.shipyardLevel = 0;
+            //         planet.design = "128;1;1;standardColors;1;staticQuickNoise";
+            //     }
+            // }
+
+            for (const planet of output) {
+                const og = master.planets.find(p => p.name === planet.name);
+                if (og) {
+                    console.log(og);
+                    planet.color = og.color;
+                    planet.income = og.income;
+                    planet.shipyardLevel = og.shipyardLevel;
+                    planet.design = og.design;
+                } else {
+                    console.warn(`Planet ${planet.name} not found in the data.`);
+                    planet.color = "#FFFFFF";
+                    planet.income = 0;
+                    planet.shipyardLevel = 0;
+                    planet.design = "128;1;1;standardColors;1;staticQuickNoise";
+                }
             }
 
             return output;
