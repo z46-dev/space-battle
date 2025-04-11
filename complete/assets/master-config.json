@@ -410,72 +410,72 @@
         "y": 9151,
         "connections": ["Aeten", "Nirauan", "Kalee", "Orinda"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 80,
+        "shipyardLevel": 1,
+        "design": "256;3.75000;0.50;snowColors;32;staticQuickNoise"
     }, {
         "name": "Ord Cantrell",
         "x": 21521,
         "y": 10856,
         "connections": ["Orinda", "Ord Trasi", "Ithor"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 150,
+        "shipyardLevel": 2,
+        "design": "256;0.40000;1.00;standardColors;8;quickNoise"
     }, {
         "name": "Dantooine",
         "x": 24069,
         "y": 11097,
         "connections": ["Ord Trasi", "Orinda", "Ithor", "Serenno"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 120,
+        "shipyardLevel": 1,
+        "design": "256;0.56258;1.40;externalLushPlanet;8;simplex3"
     }, {
         "name": "Telos",
         "x": 24211,
         "y": 18645,
         "connections": ["Yavin"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 300,
+        "shipyardLevel": 3,
+        "design": "256;0.39906;2.00;externalRedPlanet;8;quickNoise"
     }, {
         "name": "Raxus",
         "x": 22094,
         "y": 22547,
         "connections": ["Desevro", "Columex", "Iego"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 400,
+        "shipyardLevel": 2,
+        "design": "256;0.21725;0.60;laxStandard;12;quickNoise"
     }, {
         "name": "Desevro",
         "x": 21899,
         "y": 21793,
         "connections": ["Felucia", "Raxus", "Columex"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 75,
+        "shipyardLevel": 1,
+        "design": "256;0.73782;1.00;externalBrightPlanet;16;simplex2"
     }, {
         "name": "Felucia",
         "x": 21604,
         "y": 21210,
         "connections": ["Rhen Var", "Columex", "Desevro", "Colla IV"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 50,
+        "shipyardLevel": 1,
+        "design": "256;0.32620;1.50;externalForestPlanet;8;perlin2"
     }, {
         "name": "Rhen Var",
         "x": 21162,
         "y": 20951,
         "connections": ["Columex", "Felucia", "Boz Pity"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 30,
+        "shipyardLevel": 2,
+        "design": "256;0.35000;1.00;snowColors;8;simplex2"
     }, {
         "name": "Columex",
         "x": 20725,
@@ -500,9 +500,9 @@
         "y": 24590,
         "connections": ["Lothal", "Iego"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 300,
+        "shipyardLevel": 4,
+        "design": "256;4.00000;8.00;externalBluePlanet;8;perlin3"
     }, {
         "name": "Iego",
         "x": 19271,
@@ -989,7 +989,7 @@
             "color": "#EE5555",
             "name": "New Republic",
             "key": "REBEL",
-            "planets": ["Naboo"],
+            "planets": ["Naboo", "Alderaan", "Borleias", "Dantooine", "Mon Calamari", "Ithor", "Bothawui", "Yavin", "Lothal", "Hosnian Prime"],
             "capital": {
                 "name": "Naboo",
                 "fleetPopulation": 135,
@@ -1013,7 +1013,7 @@
             "color": "#55EE55",
             "name": "Galactic Empire",
             "key": "EMPIRE",
-            "planets": ["Coruscant"],
+            "planets": ["Coruscant", "Anaxes", "Carida", "Brentaal", "Rendili", "Kuat", "Bilbringi", "Jaemus", "Bastion", "Ord Trasi", "Entralla", "Desevro"],
             "capital": {
                 "name": "Coruscant",
                 "fleetPopulation": 150,
@@ -1037,9 +1037,9 @@
             "color": "#994433",
             "name": "Hutt Cartel",
             "key": "HUTT",
-            "planets": ["Tatooine"],
+            "planets": ["Nal Hutta & Nar Shaddaa", "Du Hutta", "Gos Hutta", "Toydaria", "Klatooine", "Kessel"],
             "capital": {
-                "name": "Tatooine",
+                "name": "Nal Hutta & Nar Shaddaa",
                 "fleetPopulation": 75,
                 "baseIncome": 1300
             },
@@ -1061,9 +1061,9 @@
             "color": "#224488",
             "name": "Dark Empire",
             "key": "DARKEMPIRE",
-            "planets": ["Jedha"],
+            "planets": ["Empress Teta", "Raxus", "Zaddja", "Polis Massa", "Byss"],
             "capital": {
-                "name": "Jedha",
+                "name": "Byss",
                 "fleetPopulation": 130,
                 "baseIncome": 3000
             },
@@ -1085,7 +1085,7 @@
             "color": "#66AA66",
             "name": "Zann Consortium",
             "key": "ZANN",
-            "planets": ["Ring of Kafrene"],
+            "planets": ["Ring of Kafrene", "Koda Station", "Felucia", "Mustafar", "Christophsis", "Saleucami", "Rhen Var", "Umbara"],
             "capital": {
                 "name": "Ring of Kafrene",
                 "fleetPopulation": 75,
@@ -1109,7 +1109,7 @@
             "color": "#FF55EE",
             "name": "Hapes Consortium",
             "key": "HAPAN",
-            "planets": ["Hapes"],
+            "planets": ["Hapes", "Teth", "Keitum", "New Cov", "Ryloth", "Daalang", "Boz Pity"],
             "capital": {
                 "name": "Hapes",
                 "fleetPopulation": 90,
@@ -1133,7 +1133,7 @@
             "color": "#999999",
             "name": "Aurum Foundaries",
             "key": "AURUM",
-            "planets": ["Fondor"],
+            "planets": ["Endor"],
             "capital": {
                 "name": "Fondor",
                 "fleetPopulation": 75,
@@ -1157,9 +1157,33 @@
             "color": "#8899EF",
             "name": "Empire of the Hand",
             "key": "EOTH",
-            "planets": ["Nirauan", "Prakith","Byss","Tython","Empress Teta","N'Zoth","Brentaal","Anaxes","Alderaan","Kuat","Rendili","Corellia","Borleias","Carida","Kattada","Neimoidia","Devaron","Commenor","Cato Neimoidia","Zaddja","Endor","Polis Massa","Sluis Van","Mustafar","Koda Station","Sullust","Bespin","Hoth","Javin","Drexel","Christophsis","Rodia","Geonosis","Ryloth","Hypori","Yavin","Axxila","Ord Cestus","Serenno","Entralla","Muunilinst","Jaemus","Bastion","Comra","Ord Cantrell","Dantooine","Telos","Raxus","Desevro","Felucia","Rhen Var","Columex","Ord Trasi","Mon Calamari","Iego","Saleucami","Teth","Dathomir","Kessel","Woostri","Dorin","Mimban","Umbara","Roxuli","Bilbringi","Thyferra","Wroona","Colla IV","Toydaria","Klatooine","Du Hutta","Gos Hutta","Nal Hutta & Nar Shaddaa","Ylesia","Malastare","Ansion","Keitum","Fornax","Orinda","Ando","New Cov","Ithor","Bothawui","Boz Pity","Ruusan","Daalang","Kashyyyk","Dressel","Codia","Ankus","Zonama Sekot","Ilum","Rakata Prime","Csilla","Bakura","Esfandia","Kalee","Aeten","Hosnian Prime","Lothal","Zakuul","The Maw"],
+            "planets": ["Nirauan", "Csilla", "Zonama Sekot", "Ilum", "Rakata Prime", "Esfandia", "Axxila", "Fornax", "Orinda"],
             "capital": {
                 "name": "Nirauan",
+                "fleetPopulation": 120,
+                "baseIncome": 3230
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": ["ASDONI_EOTH", "KUURO_EOTH", "SYZYGOS_EOTH"]
+            }, {
+                "id": 2,
+                "ships": ["BAOMU_EOTH", "FRUORO_EOTH", "KYNIGOS_EOTH", "PROLIPSI_EOTH"]
+            }, {
+                "id": 3,
+                "ships": ["ORMOS_EOTH", "CHAF_EOTH", "EFODIO_EOTH"]
+            }, {
+                "id": 4,
+                "ships": ["ASCENDANCY_EOTH", "INTEGO_EOTH"]
+            }]
+        }, {
+            "id": 8,
+            "color": "#FFFFFF",
+            "name": "Neutral Planets",
+            "key": "",
+            "planets": ["Prakith","Tython","N'Zoth","Corellia","Fondor","Kattada","Neimoidia","Devaron","Commenor","Cato Neimoidia","Sluis Van","Sullust","Bespin","Hoth","Javin","Drexel","Rodia","Tatooine","Geonosis","Hypori","Ord Cestus","Serenno","Muunilinst","Comra","Ord Cantrell","Telos","Columex","Iego","Dathomir","Woostri","Dorin","Mimban","Roxuli","Thyferra","Wroona","Colla IV","Ylesia","Malastare","Ansion","Ando","Ruusan","Kashyyyk","Dressel","Codia","Ankus","Bakura","Kalee","Aeten","Jedha","Zakuul","The Maw"],
+            "capital": {
+                "name": "Prakith",
                 "fleetPopulation": 120,
                 "baseIncome": 3230
             },

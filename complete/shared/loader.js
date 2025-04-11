@@ -24,6 +24,8 @@ export class FactionConfig {
     name = "";
     key = "";
 
+    isNoop = false;
+
     /** @type {string[]} */
     planets = [];
 
@@ -94,6 +96,10 @@ export function loadCampaign(nameOrID) {
                 throw new Error(`Planet "${planetName}" is duplicated in the campaign`);
             }
 
+            if (planetConfig.findIndex(p => p.name === planetName) < 0) {
+                throw new Error(`Planet "${planetName}" not found in the config`);
+            }
+
             output.planets.push(planetConfig.find(p => p.name === planetName));
         }
 
@@ -120,6 +126,10 @@ export function loadCampaign(nameOrID) {
             }
         }
     }
+
+    // Planets not in use:
+    const unusedPlanets = planetConfig.filter(p => !output.planets.some(planet => planet.name === p.name));
+    console.log(JSON.stringify(unusedPlanets.map(p => p.name)));
 
     // Check if there are any planets that are not connected
     for (const planet of output.planets) {

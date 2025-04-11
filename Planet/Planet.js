@@ -208,6 +208,18 @@ export class PlanetColors {
         [.95, 1, "#b06b56"]
     ];
 
+    static laxStandard = [
+        [-1, -.75, Color.mix(Color.palette.water, Color.palette.black, .5)],
+        [-.75, -.5, Color.mix(Color.palette.water, Color.palette.black, .25)],
+        [-.5, .1, Color.palette.water],
+        [.1, .2, Color.mix(Color.palette.sand, Color.palette.black, .25)],
+        [.2, .25, Color.palette.sand],
+        [.25, .4, Color.mix(Color.palette.grass, Color.palette.black, .25)],
+        [.4, .55, Color.palette.grass],
+        [.55, .8, Color.mix(Color.palette.forest, Color.palette.black, .25)],
+        [.8, 1, Color.palette.ice]
+    ];
+
     static chooseForMe() {
         const list = Object.keys(PlanetColors).filter(key => key !== "chooseForMe");
         return PlanetColors[list[Math.floor(Math.random() * list.length)]];
