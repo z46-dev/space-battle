@@ -176,18 +176,18 @@
         "y": 14303,
         "connections": ["Commenor", "Rendili", "Corellia", "Kattada"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 650,
+        "shipyardLevel": 3,
+        "design": "256;5.00000;2.00;externalBluePlanet;4;quickNoise"
     }, {
         "name": "Zaddja",
         "x": 4107,
         "y": 5468,
         "connections": ["Codia", "Endor", "Bakura", "Jedha"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 50,
+        "shipyardLevel": 1,
+        "design": "256;1.30000;0.30;redStarColors;4;perlin3"
     }, {
         "name": "Endor",
         "x": 2313,
@@ -203,18 +203,18 @@
         "y": 10621,
         "connections": ["Mustafar", "Javin"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 75,
+        "shipyardLevel": 1,
+        "design": "256;1.55000;0.25;externalBluePlanet;8;staticQuickNoise"
     }, {
         "name": "Sluis Van",
         "x": 688,
         "y": 13476,
         "connections": ["Sullust", "Malastare", "Woostri", "Naboo"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 300,
+        "shipyardLevel": 4,
+        "design": "256;0.15000;0.20;standardColors;8;quickNoise"
     }, {
         "name": "Mustafar",
         "x": 360,
@@ -230,9 +230,9 @@
         "y": 6926,
         "connections": ["Endor", "Codia", "Hoth", "Ring of Kafrene"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 230,
+        "shipyardLevel": 3,
+        "design": "256;0.42462;3.00;yellowStarColors;4;quickNoise"
     }, {
         "name": "Sullust",
         "x": 1527,
@@ -266,41 +266,41 @@
         "y": 9857,
         "connections": ["Bespin", "Hoth", "Polis Massa", "Mustafar"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 100,
+        "shipyardLevel": 1,
+        "design": "256;0.89813;0.15;externalDarkPlanet;128;staticQuickNoise"
     }, {
         "name": "Drexel",
         "x": 1041,
         "y": 18958,
         "connections": ["Ando", "Rodia", "Ryloth", "New Cov"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 140,
+        "shipyardLevel": 1,
+        "design": "256;0.62576;2.00;snowColors;16;staticQuickNoise"
     }, {
         "name": "Christophsis",
         "x": 2375,
         "y": 19671,
         "connections": ["Rodia", "Ando"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 540,
+        "shipyardLevel": 2,
+        "design": "256;0.66584;1.00;externalLushPlanet;4;staticQuickNoise"
     }, {
         "name": "Rodia",
         "x": 2480,
         "y": 19976,
         "connections": ["Christophsis", "Ando", "Drexel", "Bothawui"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 450,
+        "shipyardLevel": 1,
+        "design": "256;0.65071;4.00;externalForestPlanet;4;perlin3"
     }, {
         "name": "Tatooine",
-        "x": 2600,
-        "y": 18677,
-        "connections": ["Geonosis", "Ryloth", "Hypori", "Bothawui"],
+        "x": 2750,
+        "y": 20500,
+        "connections": ["Geonosis", "Hypori", "Bothawui"],
         "color": "#FFDDAA",
         "income": 300,
         "shipyardLevel": 3,
@@ -318,92 +318,92 @@
         "name": "Ryloth",
         "x": 1668,
         "y": 21077,
-        "connections": ["Tatooine", "Hypori", "Drexel"],
+        "connections": ["Hypori", "Drexel"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 430,
+        "shipyardLevel": 2,
+        "design": "256;0.85000;1.00;externalRedPlanet;48;perlin3"
     }, {
         "name": "Hypori",
         "x": 2663,
         "y": 21870,
         "connections": ["Ryloth", "Geonosis", "Tatooine", "Daalang"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 540,
+        "shipyardLevel": 3,
+        "design": "256;0.52026;2.00;desertColors;16;quickNoise"
     }, {
         "name": "Yavin",
         "x": 21902,
         "y": 17907,
         "connections": ["Serenno", "Telos", "Dathomir", "Colla IV"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 200,
+        "shipyardLevel": 1,
+        "design": "256;0.96694;1.00;yellowStarColors;4;staticQuickNoise"
     }, {
         "name": "Axxila",
         "x": 22159,
         "y": 15743,
         "connections": ["Ord Cestus", "Dathomir", "Serenno", "Ithor"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 150,
+        "shipyardLevel": 1,
+        "design": "256;0.40684;1.00;blueStarColors;16;staticQuickNoise"
     }, {
         "name": "Ord Cestus",
         "x": 21777,
         "y": 15982,
         "connections": ["Axxila", "Serenno"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 430,
+        "shipyardLevel": 2,
+        "design": "256;0.69829;1.00;externalSandPlanet;4;staticQuickNoise"
     }, {
         "name": "Serenno",
         "x": 22854,
         "y": 17166,
         "connections": ["Yavin", "Ord Cestus", "Axxila", "Dantooine"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 760,
+        "shipyardLevel": 3,
+        "design": "256;0.06786;0.30;externalForestPlanet;4;perlin3"
     }, {
         "name": "Entralla",
         "x": 23617,
         "y": 9713,
         "connections": ["Muunilinst", "Jaemus", "Bastion", "Kalee"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 50,
+        "shipyardLevel": 2,
+        "design": "256;0.73753;1.00;externalBrightPlanet;4;staticQuickNoise"
     }, {
         "name": "Muunilinst",
         "x": 23973,
-        "y": 9884,
+        "y": 10000,
         "connections": ["Jaemus", "Entralla", "Bastion"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 500,
+        "shipyardLevel": 3,
+        "design": "256;0.50000;1.00;standardColors;116;simplex3"
     }, {
         "name": "Jaemus",
         "x": 24397,
         "y": 9801,
         "connections": ["Muunilinst", "Entralla"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 250,
+        "shipyardLevel": 4,
+        "design": "256;0.74249;1.00;externalBrightPlanet;4;simplex3"
     }, {
         "name": "Bastion",
         "x": 25000,
         "y": 9753,
         "connections": ["Muunilinst", "Entralla", "Kalee"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 100,
+        "shipyardLevel": 1,
+        "design": "256;0.75309;0.60;desertColors;48;perlin2"
     }, {
         "name": "Comra",
         "x": 22056,
@@ -541,8 +541,8 @@
         "design": "128;1;1;standardColors;1;staticQuickNoise"
     }, {
         "name": "Kessel",
-        "x": 13563,
-        "y": 23535,
+        "x": 13863,
+        "y": 23835,
         "connections": ["The Maw", "Klatooine", "Ylesia", "Teth"],
         "color": "#FFFFFF",
         "income": 0,
