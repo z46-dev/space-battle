@@ -229,6 +229,12 @@ export class PlanetColors {
         [.75, 1, "#EE94FF"]
     ];
 
+    static blackHole = [
+        [-1, -.01, "#000000"],
+        [-.01, .01, "#111111"],
+        [.01, 1, "#000000"]
+    ];
+
     static chooseForMe() {
         const list = Object.keys(PlanetColors).filter(key => key !== "chooseForMe");
         return PlanetColors[list[Math.floor(Math.random() * list.length)]];

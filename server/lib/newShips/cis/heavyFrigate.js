@@ -9,10 +9,10 @@ ships.RECUSANT_CIS = {
     classification: shipTypes.HeavyFrigate,
     population: 14,
     size: 500,
-    cost: 3000,
+    cost: 2400,
     speed: 3.4,
     turnSpeed: .01,
-    shield: 1900,
+    shield: 3200,
     shieldRegen: 1.9,
     hardpoints: [{
         x: 0,
@@ -80,7 +80,7 @@ ships.RECUSANT_CIS = {
         weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
         shotsAtOnce: 2,
         shotDelay: 80
-    }],
+    }].map(hp => ({ ...hp, weapon: { ...hp.weapon, health: hp.weapon.health * 2 | 0 } })),
     hangars: [{
         x: 0,
         y: 0,

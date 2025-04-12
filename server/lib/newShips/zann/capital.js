@@ -322,7 +322,7 @@ ships.VENATOR_ZANN = {
             });
         }
 
-        return output;
+        return output
     })(),
     hangars: [{
         x: 0,
@@ -347,11 +347,11 @@ ships.PROVIDENCEDESTROYER_ZANN = {
     classification: shipTypes.Capital,
     population: 18,
     size: 600,
-    cost: 4000,
+    cost: 3100,
     speed: 4.5,
     turnSpeed: .0334,
-    shield: 4100,
-    shieldRegen: 3,
+    shield: 4700,
+    shieldRegen: 4,
     hardpoints: (function() {
         const output = [];
 
@@ -391,7 +391,7 @@ ships.PROVIDENCEDESTROYER_ZANN = {
             });
         }
 
-        return output;
+        return output.map(hp => ({ ...hp, weapon: { ...hp.weapon, health: hp.weapon.health * 2.2 | 0 } }));
     })(),
     hangars: [{
         x: 0,

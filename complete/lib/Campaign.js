@@ -255,7 +255,7 @@ export default class Campaign {
                     return;
                 }
 
-                faction.ai.think();
+                faction.ai?.think();
             });
 
             console.timeEnd(timer);

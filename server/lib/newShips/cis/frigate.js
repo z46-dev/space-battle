@@ -61,10 +61,10 @@ ships.MUNIFICENT_CIS = {
     classification: shipTypes.Frigate,
     population: 10,
     size: 300,
-    cost: 2200,
+    cost: 1700,
     speed: 3.5,
     turnSpeed: .009,
-    shield: 2000,
+    shield: 2200,
     shieldRegen: 2,
     hardpoints: [{
         x: 0,
@@ -130,7 +130,7 @@ ships.MUNIFICENT_CIS = {
         weapon: weapons.DOUBLE_ION_CANNON,
         shotsAtOnce: 2,
         shotDelay: 45
-    }],
+    }].map(hp => ({ ...hp, weapon: { ...hp.weapon, health: hp.weapon.health * 1.3 | 0 } })),
     hangars: [{
         x: 0,
         y: 0,

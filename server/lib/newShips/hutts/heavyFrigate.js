@@ -9,10 +9,10 @@ ships.MUNIFICENT_HUTT = {
     classification: shipTypes.HeavyFrigate,
     population: 8,
     size: 300,
-    cost: 2700,
+    cost: 1800,
     speed: 4,
     turnSpeed: .02,
-    shield: 2400,
+    shield: 2650,
     shieldRegen: 2,
     hardpoints: [{
         x: 0,
@@ -58,7 +58,7 @@ ships.MUNIFICENT_HUTT = {
         x: .15,
         y: -.45,
         weapon: weapons.DOUBLE_ION_CANNON
-    }],
+    }].map(hp => ({ ...hp, weapon: { ...hp.weapon, health: hp.weapon.health * 2 } })),
     hangars: [{
         x: 0,
         y: 0,
@@ -75,10 +75,10 @@ ships.RECUSANT_HUTT = {
     classification: shipTypes.HeavyFrigate,
     population: 9,
     size: 500,
-    cost: 3000,
+    cost: 2500,
     speed: 3.5,
     turnSpeed: .01,
-    shield: 2600,
+    shield: 3500,
     shieldRegen: 2,
     hardpoints: [{
         x: 0,
@@ -126,7 +126,7 @@ ships.RECUSANT_HUTT = {
         x: .06,
         y: 0,
         weapon: weapons.PURPLE_QUAD_LASER_CANNON
-    }]
+    }].map(hp => ({ ...hp, weapon: { ...hp.weapon, health: hp.weapon.health * 2 } }))
 };
 
 ships.ACCLIMATOR_HUTT = {
@@ -135,10 +135,10 @@ ships.ACCLIMATOR_HUTT = {
     classification: shipTypes.HeavyFrigate,
     population: 14,
     size: 300,
-    cost: 2500,
+    cost: 2200,
     speed: 3,
     turnSpeed: .01,
-    shield: 2780,
+    shield: 4000,
     shieldRegen: 1.5,
     hardpoints: (function() {
         const output = [{
@@ -177,7 +177,7 @@ ships.ACCLIMATOR_HUTT = {
             });
         }
 
-        return output;
+        return output.map(hp => ({ ...hp, weapon: { ...hp.weapon, health: hp.weapon.health * 2 } }));
     })(),
     hangars: [{
         x: 0,
@@ -581,7 +581,7 @@ ships.SZAJIN_HUTT = {
         ...hp,
         weapon: {
             ...hp.weapon,
-            health: hp.weapon.health * 3
+            health: hp.weapon.health * 2.5 | 0
         }
     })),
     hangars: [{

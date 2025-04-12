@@ -63,7 +63,7 @@ ships.PROVIDENCEDESTROYER_CIS = {
             });
         }
 
-        return output;
+        return output.map(hp => ({ ...hp, weapon: { ...hp.weapon, health: hp.weapon.health * 2.2 | 0 } }));
     })(),
     hangars: [{
         x: 0,

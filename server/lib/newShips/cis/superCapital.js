@@ -87,7 +87,7 @@ ships.PROVIDENCEDREADNOUGHT_CIS = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 4.25 | 0
+                health: e.weapon.health * 4.4 | 0
             }
         }));
     })(),
@@ -204,7 +204,7 @@ ships.RECUSANTDREADNOUGHT_CIS = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 2 | 0
+                health: e.weapon.health * 3.7 | 0
             }
         }));
     })(),

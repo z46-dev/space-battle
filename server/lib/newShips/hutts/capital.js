@@ -200,10 +200,10 @@ ships.KARAGGA_HUTT = {
     classification: shipTypes.Capital,
     population: 22,
     size: 675,
-    cost: 6000,
+    cost: 4000,
     speed: 1.3,
     turnSpeed: .01,
-    shield: 9500,
+    shield: 7400,
     shieldRegen: 95,
     hardpoints: (function() {
         const output = [];
@@ -213,13 +213,13 @@ ships.KARAGGA_HUTT = {
                 x: -.15,
                 y: .7 - .3 * i,
                 weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-                shotsAtOnce: 4,
+                shotsAtOnce: 3,
                 shotDelay: 75
             }, {
                 x: .15,
                 y: .7 - .3 * i,
                 weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-                shotsAtOnce: 4,
+                shotsAtOnce: 3,
                 shotDelay: 75
             }, {
                 x: -.075,
@@ -280,10 +280,10 @@ ships.VONTOR_HUTT = {
     classification: shipTypes.Capital,
     population: 30,
     size: 1000,
-    cost: 9990,
+    cost: 8000,
     speed: 1.5,
     turnSpeed: .008,
-    shield: 12330,
+    shield: 10300,
     shieldRegen: 100,
     hardpoints: (function() {
         const output = [];
@@ -292,13 +292,13 @@ ships.VONTOR_HUTT = {
             output.push({
                 x: -.075 - .01 * i,
                 y: .925 - .225 * i,
-                weapon: i === 0 ? weapons.PURPLE_OCTUPLE_TURBOLASER_CANNON_HEAVY : weapons.PURPLE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                weapon: i === 0 ? weapons.PURPLE_QUAD_TURBOLASER_CANNON_HEAVY : weapons.PURPLE_QUAD_LASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 75
             }, {
                 x: .075 + .01 * i,
                 y: .925 - .225 * i,
-                weapon: i === 0 ? weapons.PURPLE_OCTUPLE_TURBOLASER_CANNON_HEAVY : weapons.PURPLE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                weapon: i === 0 ? weapons.PURPLE_QUAD_TURBOLASER_CANNON_HEAVY : weapons.PURPLE_QUAD_LASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 225
             }, {
