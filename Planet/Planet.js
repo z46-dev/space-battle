@@ -220,6 +220,15 @@ export class PlanetColors {
         [.8, 1, Color.palette.ice]
     ];
 
+    static pinkFlourish = [
+        [-1, -.8, Color.mix(Color.palette.water, Color.palette.black, .5)],
+        [-.8, -.6, Color.mix(Color.palette.water, Color.palette.black, .25)],
+        [-.6, -.4, Color.palette.water],
+        [-.4, 0, Color.palette.grass],
+        [0, .25, Color.mix(Color.palette.grass, "#EE94FF", .25)],
+        [.75, 1, "#EE94FF"]
+    ];
+
     static chooseForMe() {
         const list = Object.keys(PlanetColors).filter(key => key !== "chooseForMe");
         return PlanetColors[list[Math.floor(Math.random() * list.length)]];

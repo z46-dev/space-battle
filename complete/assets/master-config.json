@@ -482,18 +482,18 @@
         "y": 21139,
         "connections": ["Rhen Var", "Felucia", "Desevro", "Raxus"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 200,
+        "shipyardLevel": 3,
+        "design": "256;0.52083;1.00;desertColors;4;staticQuickNoise"
     }, {
         "name": "Ord Trasi",
         "x": 23497,
         "y": 11305,
         "connections": ["Dantooine", "Ord Cantrell"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 50,
+        "shipyardLevel": 4,
+        "design": "256;2.40000;2.00;laxStandard;4;perlin3"
     }, {
         "name": "Mon Calamari",
         "x": 20766,
@@ -509,63 +509,63 @@
         "y": 23405,
         "connections": ["Mon Calamari", "Lothal", "Raxus"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 10,
+        "shipyardLevel": 1,
+        "design": "256;0.47032;2.00;externalDarkPlanet;16;staticQuickNoise"
     }, {
         "name": "Saleucami",
         "x": 17603,
         "y": 21998,
         "connections": ["Boz Pity", "Lothal"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 60,
+        "shipyardLevel": 1,
+        "design": "256;0.21140;2.00;externalLushPlanet;4;perlin3"
     }, {
         "name": "Teth",
         "x": 9167,
         "y": 24659,
         "connections": ["Ylesia", "Kessel", "Lothal"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 30,
+        "shipyardLevel": 1,
+        "design": "256;0.25233;3.00;externalBrightPlanet;4;staticQuickNoise"
     }, {
         "name": "Dathomir",
         "x": 21318,
         "y": 15764,
         "connections": ["Axxila", "Yavin", "Kattada"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 120,
+        "shipyardLevel": 1,
+        "design": "256;0.55000;0.60;externalLavaPlanet;32;quickNoise"
     }, {
         "name": "Kessel",
         "x": 13863,
         "y": 23835,
         "connections": ["The Maw", "Klatooine", "Ylesia", "Teth"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 800,
+        "shipyardLevel": 2,
+        "design": "256;0.53257;4.00;externalSandPlanet;4;staticQuickNoise"
     }, {
         "name": "Woostri",
         "x": 2960,
         "y": 13014,
         "connections": ["Wroona", "Sullust", "Sluis Van", "Mustafar"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 150,
+        "shipyardLevel": 1,
+        "design": "256;1.80000;1.00;standardColors;9;quickNoise"
     }, {
         "name": "Dorin",
         "x": 18121,
         "y": 8973,
         "connections": ["Bilbringi", "Fornax", "Roxuli", "Ankus"],
         "color": "#FFE5B4",
-        "income": 200,
-        "shipyardLevel": 2,
-        "design": "256;0.24347;1.80;desertColors;8;staticQuickNoise"
+        "income": 120,
+        "shipyardLevel": 1,
+        "design": "256;0.50617;3.00;externalLavaPlanet;9;staticQuickNoise"
     }, {
         "name": "Mimban",
         "x": 9363,
@@ -574,25 +574,25 @@
         "color": "#AA5555",
         "income": 150,
         "shipyardLevel": 2,
-        "design": "256;19.00000;0.30;externalSandPlanet;64;perlin3"
+        "design": "256;0.23098;1.00;externalRedPlanet;4;staticQuickNoise"
     }, {
         "name": "Umbara",
         "x": 13399,
         "y": 17150,
         "connections": ["Kashyyyk", "Hapes", "Ruusan"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 400,
+        "shipyardLevel": 3,
+        "design": "256;0.45000;2.00;redStarColors;48;staticQuickNoise"
     }, {
         "name": "Roxuli",
         "x": 17429,
         "y": 7697,
         "connections": ["Dorin", "Bilbringi"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 75,
+        "shipyardLevel": 1,
+        "design": "256;6643.00000;1.00;externalForestPlanet;4;staticQuickNoise"
     }, {
         "name": "Bilbringi",
         "x": 17455,
@@ -608,27 +608,27 @@
         "y": 12064,
         "connections": ["Wroona", "Devaron"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 120,
+        "shipyardLevel": 2,
+        "design": "256;5.90000;1.00;standardColors;8;simplex3"
     }, {
         "name": "Wroona",
         "x": 4074,
         "y": 12531,
         "connections": ["Thyferra", "Woostri", "Devaron", "Fondor"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 230,
+        "shipyardLevel": 3,
+        "design": "256;0.01530;1.00;externalLushPlanet;48;quickNoise"
     }, {
         "name": "Colla IV",
         "x": 15952,
         "y": 14691,
         "connections": ["Hapes", "Kashyyyk", "Yavin", "Felucia"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 200,
+        "shipyardLevel": 3,
+        "design": "256;0.49270;1.00;externalSandPlanet;4;simplex3"
     }, {
         "name": "Hapes",
         "x": 15051,
@@ -637,61 +637,61 @@
         "color": "#BBAADC",
         "income": 400,
         "shipyardLevel": 3,
-        "design": "256;0.37696;1.00;standardColors;4;staticQuickNoise"
+        "design": "256;0.18979;1.00;laxStandard;4;staticQuickNoise"
     }, {
         "name": "Toydaria",
         "x": 9990,
         "y": 21078,
         "connections": ["Nal Hutta & Nar Shaddaa", "Gos Hutta", "Daalang", "Kashyyyk"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 400,
+        "shipyardLevel": 2,
+        "design": "256;0.34198;1.00;externalLushPlanet;4;quickNoise"
     }, {
         "name": "Klatooine",
         "x": 16024,
         "y": 22612,
         "connections": ["Boz Pity", "The Maw", "Kessel"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 200,
+        "shipyardLevel": 3,
+        "design": "256;0.77936;1.00;externalBrightPlanet;4;staticQuickNoise"
     }, {
         "name": "Du Hutta",
         "x": 9968,
         "y": 21700,
         "connections": ["Nal Hutta & Nar Shaddaa", "Gos Hutta", "Ylesia"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 550,
+        "shipyardLevel": 3,
+        "design": "256;0.29561;1.00;externalRedPlanet;8;perlin3"
     }, {
         "name": "Gos Hutta",
         "x": 11152,
         "y": 22376,
         "connections": ["Du Hutta", "Toydaria", "The Maw"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 450,
+        "shipyardLevel": 4,
+        "design": "256;0.14085;1.00;externalRedPlanet;16;perlin2"
     }, {
         "name": "Nal Hutta & Nar Shaddaa",
         "x": 9257,
         "y": 21564,
         "connections": ["Du Hutta", "Toydaria", "Ylesia"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 750,
+        "shipyardLevel": 3,
+        "design": "256;0.18773;1.00;externalBrightPlanet;4;simplex3"
     }, {
         "name": "Ylesia",
         "x": 9090,
         "y": 23667,
         "connections": ["Teth", "Du Hutta", "Nal Hutta & Nar Shaddaa", "Kessel"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 340,
+        "shipyardLevel": 2,
+        "design": "256;0.69305;1.00;externalForestPlanet;4;staticQuickNoise"
     }, {
         "name": "Malastare",
         "x": 2308,
@@ -716,81 +716,81 @@
         "y": 8006,
         "connections": ["Keitum", "Ankus", "Aeten", "Esfandia"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 140,
+        "shipyardLevel": 2,
+        "design": "256;0.95000;1.00;laxStandard;4;simplex2"
     }, {
         "name": "Keitum",
         "x": 20575,
         "y": 8647,
         "connections": ["Ansion", "Aeten"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 230,
+        "shipyardLevel": 3,
+        "design": "256;0.21256;1.00;externalDarkPlanet;4;staticQuickNoise"
     }, {
         "name": "Fornax",
         "x": 19540,
         "y": 9591,
         "connections": ["Dorin", "Bilbringi", "Ankus", "Carida"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 400,
+        "shipyardLevel": 3,
+        "design": "256;0.40503;0.10;externalSandPlanet;4;staticQuickNoise"
     }, {
         "name": "Orinda",
         "x": 21097,
         "y": 10692,
         "connections": ["Ord Cantrell", "Comra", "Dantooine", "Ithor"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 400,
+        "shipyardLevel": 3,
+        "design": "256;0.23333;1.00;externalLushPlanet;4;quickNoise"
     }, {
         "name": "Ando",
         "x": 3146,
         "y": 18912,
         "connections": ["Christophsis", "Rodia", "Drexel"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 50,
+        "shipyardLevel": 1,
+        "design": "256;1.55000;1.00;pinkFlourish;4;simplex3"
     }, {
         "name": "New Cov",
         "x": 4350,
         "y": 17102,
         "connections": ["Naboo", "Drexel"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 300,
+        "shipyardLevel": 3,
+        "design": "256;0.63222;1.00;externalLushPlanet;4;staticQuickNoise"
     }, {
         "name": "Ithor",
         "x": 20617,
         "y": 12733,
         "connections": ["Ord Cantrell", "Orinda", "Dantooine", "Axxila"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 180,
+        "shipyardLevel": 1,
+        "design": "256;1.35000;1.00;laxStandard;4;staticQuickNoise"
     }, {
         "name": "Bothawui",
         "x": 5211,
         "y": 20347,
         "connections": ["Dressel", "Rodia", "Tatooine", "Daalang"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 300,
+        "shipyardLevel": 3,
+        "design": "256;0.20586;1.00;externalForestPlanet;4;staticQuickNoise"
     }, {
         "name": "Boz Pity",
         "x": 15198,
         "y": 21568,
         "connections": ["Klatooine", "Saleucami", "The Maw", "Rhen Var"],
         "color": "#FFFFFF",
-        "income": 0,
-        "shipyardLevel": 0,
-        "design": "128;1;1;standardColors;1;staticQuickNoise"
+        "income": 140,
+        "shipyardLevel": 2,
+        "design": "256;0.65000;1.00;standardColors;4;quickNoise"
     }, {
         "name": "Ruusan",
         "x": 11519,
@@ -1189,16 +1189,16 @@
             },
             "shipyards": [{
                 "id": 1,
-                "ships": ["ASDONI_EOTH", "KUURO_EOTH", "SYZYGOS_EOTH"]
+                "ships": []
             }, {
                 "id": 2,
-                "ships": ["BAOMU_EOTH", "FRUORO_EOTH", "KYNIGOS_EOTH", "PROLIPSI_EOTH"]
+                "ships": []
             }, {
                 "id": 3,
-                "ships": ["ORMOS_EOTH", "CHAF_EOTH", "EFODIO_EOTH"]
+                "ships": []
             }, {
                 "id": 4,
-                "ships": ["ASCENDANCY_EOTH", "INTEGO_EOTH"]
+                "ships": []
             }]
         }]
     }, {
@@ -1209,10 +1209,10 @@
             "color": "#EE3333",
             "name": "Republic",
             "key": "REPUBLIC",
-            "planets": ["Coruscant"],
+            "planets": ["Coruscant","Alderaan","Corellia","Kuat","Rendili","Anaxes","Borleias","Carida","Fondor","Ord Trasi"],
             "capital": {
                 "name": "Coruscant",
-                "fleetPopulation": 105,
+                "fleetPopulation": 100,
                 "baseIncome": 3000
             },
             "shipyards": [{
@@ -1233,10 +1233,10 @@
             "color": "#3333EE",
             "name": "CIS",
             "key": "CIS",
-            "planets": ["Geonosis"],
+            "planets": ["Geonosis","Ryloth","Raxus","Muunilinst","Hypori","Umbara","Christophsis","Saleucami","Rodia","Cato Neimoidia"],
             "capital": {
                 "name": "Geonosis",
-                "fleetPopulation": 85,
+                "fleetPopulation": 100,
                 "baseIncome": 3000
             },
             "shipyards": [{
@@ -1251,6 +1251,54 @@
             }, {
                 "id": 4,
                 "ships": ["PROVIDENCEDREADNOUGHT_CIS", "RECUSANTDREADNOUGHT_CIS", "BULWARKII_CIS", "SUBJUGATOR_CIS"]
+            }]
+        }, {
+            "id": 9,
+            "color": "#994433",
+            "name": "Hutt Cartel",
+            "key": "HUTT",
+            "planets": ["Nal Hutta & Nar Shaddaa","Du Hutta","Gos Hutta","Ylesia","Toydaria","Klatooine"],
+            "capital": {
+                "name": "Nal Hutta & Nar Shaddaa",
+                "fleetPopulation": 75,
+                "baseIncome": 1300
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": ["ACTIONVITRANSPORT_HUTT", "CONSOLAR_HUTT", "CR90_HUTT", "LUPUSMISSILEFRIGATE_HUTT", "LIGHT_MINSTREL_HUTT", "HEAVY_MINSTREL_HUTT", "BRUTESUPPORTFRIGATE_HUTT", "JUVARD_HUTT", "BARABBULA_HUTT"]
+            }, {
+                "id": 2,
+                "ships": ["SABOATHDESTROYER_HUTT", "UBRIKKIAN_HUTT", "TEMPEST_HUTT", "SZAJIN_HUTT"]
+            }, {
+                "id": 3,
+                "ships": ["MC69NOIR_HUTT", "VENATOR_HUTT", "KARAGGA_HUTT", "VONTOR_HUTT"]
+            }, {
+                "id": 4,
+                "ships": ["DORBULLA_HUTT"]
+            }]
+        }, {
+            "id": 10,
+            "color": "#FFFFFF",
+            "name": "Neutral Planets",
+            "key": "",
+            "planets": ["Prakith","Byss","Tython","Empress Teta","N'Zoth","Brentaal","Kattada","Neimoidia","Devaron","Commenor","Zaddja","Endor","Polis Massa","Sluis Van","Mustafar","Koda Station","Sullust","Bespin","Hoth","Javin","Drexel","Tatooine","Yavin","Axxila","Ord Cestus","Serenno","Entralla","Jaemus","Bastion","Comra","Ord Cantrell","Dantooine","Telos","Desevro","Felucia","Rhen Var","Columex","Mon Calamari","Iego","Teth","Dathomir","Kessel","Woostri","Dorin","Mimban","Roxuli","Bilbringi","Thyferra","Wroona","Colla IV","Hapes","Malastare","Naboo","Ansion","Keitum","Fornax","Orinda","Ando","New Cov","Ithor","Bothawui","Boz Pity","Ruusan","Daalang","Kashyyyk","Dressel","Codia","Ankus","Zonama Sekot","Ilum","Rakata Prime","Csilla","Bakura","Nirauan","Esfandia","Kalee","Aeten","Hosnian Prime","Jedha","Lothal","Zakuul","The Maw","Ring of Kafrene"],
+            "capital": {
+                "name": "Prakith",
+                "fleetPopulation": 30,
+                "baseIncome": 1
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": []
+            }, {
+                "id": 2,
+                "ships": []
+            }, {
+                "id": 3,
+                "ships": []
+            }, {
+                "id": 4,
+                "ships": []
             }]
         }]
     }]

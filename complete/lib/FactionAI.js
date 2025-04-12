@@ -161,7 +161,7 @@ export default class FactionAI {
 
         const bestChoice = choices[0];
 
-        if (Math.random() > .4) {
+        if (Math.random() > .25) {
             let buildableName = null;
 
             const buildables = Array.from(bestChoice.shipyard.buildables.entries()).filter(([_, cost]) => this.faction.money >= cost).sort((a, b) => a[1] - b[1]);
@@ -169,7 +169,7 @@ export default class FactionAI {
                 buildableName = buildables[0][0];
 
                 for (let i = 1; i < buildables.length; i++) {
-                    if (Math.random() < .15) {
+                    if (Math.random() < .135) {
                         break;
                     }
 
@@ -208,7 +208,7 @@ export default class FactionAI {
                     choices.push({
                         attackWith: other,
                         attacking: planet,
-                        score: planet.fleets.reduce((a, b) => a + b.population, 0) / other.fleets.reduce((a, b) => a + b.population, 0)
+                        score: other.fleets.reduce((a, b) => a + b.population, 0) / planet.fleets.reduce((a, b) => a + b.population, 0)
                     });
                 });
             });
@@ -239,7 +239,7 @@ export default class FactionAI {
             }
         }
 
-        if (Math.random() > .94) {
+        if (Math.random() > .8) {
             fleets[0].transitTo(this.campaign.findRoute(choice.attackWith, choice.attacking));
             console.log(`Faction ${this.faction.name} is attacking faction ${choice.attacking.controllingFaction.name} on planet ${choice.attacking.name}`);
         }

@@ -54,6 +54,8 @@ for (let i = 0; i < planetConfig.length; i++) {
     planetConfig[i].id = i;
 }
 
+console.log(JSON.stringify(planetConfig.map(p => p.name)));
+
 /** @type {CampaignConfig[]} */
 export const campaignConfig = data.campaigns;
 

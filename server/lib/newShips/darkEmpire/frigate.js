@@ -78,11 +78,11 @@ ships.MTFCRUISER_DARKEMPIRE = {
     classification: shipTypes.Frigate,
     population: 9,
     size: 400,
-    cost: 5000,
+    cost: 850,
     speed: 3.9,
     turnSpeed: .015,
-    shield: 4000,
-    shieldRegen: 10,
+    shield: 5400,
+    shieldRegen: 5.4,
     hardpoints: [{
         x: 0,
         y: .95,
@@ -137,7 +137,7 @@ ships.MTFCRUISER_DARKEMPIRE = {
         weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 100
-    }],
+    }].map(h => ({ ...h, weapon: { ...h.weapon, health: h.weapon.health * 3 } })),
     hangars: [{
         x: 0,
         y: -.8,

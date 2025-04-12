@@ -171,7 +171,7 @@ export default class Campaign {
                 this.getPlanet(planetName).setControl(faction, true);
             });
 
-            if (faction !== this.playerFaction) {
+            if (faction !== this.playerFaction && faction.key !== "") {
                 faction.ai = new FactionAI(faction, this);
             }
         });
