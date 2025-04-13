@@ -104,6 +104,17 @@ function changeState(newState) {
                     changeState(STATE_TACTICAL_MAP);
                     shared.campaign.init();
 
+                    // Find the capital planet for the faction and set the camera to it
+                    const capital = faction.capitalPlanet;
+                    if (capital) {
+                        const planet = shared.campaign.getPlanet(capital.name);
+                        if (planet) {
+                            shared.campaign.camera.realX = planet.x;
+                            shared.campaign.camera.realY = planet.y;
+                            shared.campaign.camera.zoom = 2;
+                        }
+                    }
+
                     window.campaign = shared.campaign;
                 }
             });
