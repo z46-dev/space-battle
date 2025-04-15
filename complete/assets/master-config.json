@@ -1130,30 +1130,6 @@
             }]
         }, {
             "id": 6,
-            "color": "#999999",
-            "name": "Aurum Foundaries",
-            "key": "AURUM",
-            "planets": ["Endor"],
-            "capital": {
-                "name": "Fondor",
-                "fleetPopulation": 75,
-                "baseIncome": 3230
-            },
-            "shipyards": [{
-                "id": 1,
-                "ships": []
-            }, {
-                "id": 2,
-                "ships": ["DIEMOSFRIGATE_AURUM"]
-            }, {
-                "id": 3,
-                "ships": ["CHIMERADESTROYER_AURUM", "ARGENTUMBATTLESHIP_AURUM"]
-            }, {
-                "id": 4,
-                "ships": []
-            }]
-        }, {
-            "id": 7,
             "color": "#8899EF",
             "name": "Empire of the Hand",
             "key": "EOTH",
@@ -1177,7 +1153,7 @@
                 "ships": ["ASCENDANCY_EOTH", "INTEGO_EOTH"]
             }]
         }, {
-            "id": 8,
+            "id": 7,
             "color": "#FFFFFF",
             "name": "Neutral Planets",
             "key": "",
