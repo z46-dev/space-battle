@@ -4,7 +4,7 @@ import ships from "../../server/lib/ships.js";
 import { ctx } from "../shared/canvas.js";
 import { Color, assets, drawText, loadAsset } from "../shared/render.js";
 import shared, { STATE_TACTICAL_MAP } from "../shared/shared.js";
-import { Faction } from "./Factions.js";
+import factions, { Faction } from "./Factions.js";
 import UIElement from "./UIElement.js";
 
 export class FleetItem {
@@ -415,5 +415,46 @@ export default class Fleet {
         }
 
         otherFleet.add(item.name);
+    }
+
+    save() {
+        return {
+            ships: Array.from(this.ships.entries()).map(([name, count]) => ({ name, count })),
+            planetID:  this.planet.id,
+            factionID: this.faction.id,
+            transit: this.inTransit ? {
+                path: this.transitPath.map(n => ({ id: n.planet.id, distance: n.distance })),
+                progress: this.transitProgress
+            } : null
+        };
+    }
+
+    /**
+     * @param {Object} saved
+     * @param {import("./Planet.js").default} planet 
+     * @returns {Fleet}
+     */
+    static fromSaved(saved, planet) {
+        const fleet = new Fleet();
+        fleet.planet = planet;
+        fleet.faction = factions.find(faction => faction.id === saved.factionID) ?? null;
+
+        saved.ships.forEach(({ name, count }) => {
+            for (let i = 0; i < count; i++) {
+                fleet.add(name);
+            }
+        });
+
+        if (saved.transit) {
+            fleet.inTransit = true;
+            fleet.transitProgress = saved.transit.progress;
+
+            saved.transit.path.forEach(node => {
+                const planet = fleet.planet.campaign.getPlanet(node.id);
+                fleet.transitPath.push(new TransitNode(planet, node.distance));
+            });
+        }
+
+        return fleet;
     }
 }

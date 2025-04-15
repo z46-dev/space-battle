@@ -8,12 +8,12 @@ ships.ORMOS_EOTH = {
     asset: "ORMOS.png",
     classification: shipTypes.HeavyFrigate,
     population: 16,
-    size: 500,
-    cost: 3400,
+    size: 450,
+    cost: 3200,
     speed: 5,
     turnSpeed: .015,
-    shield: 5400,
-    shieldRegen: 5,
+    shield: 4300,
+    shieldRegen: 4,
     hardpoints: [{
         x: -.125,
         y: -.045,
@@ -77,7 +77,7 @@ ships.ORMOS_EOTH = {
     }].map(hp => ({
         ...hp, weapon: {
             ...hp.weapon,
-            health: hp.weapon.health * 2.75 | 0
+            health: hp.weapon.health * 1.8 | 0
         }
     })),
     hangars: [{
@@ -102,12 +102,12 @@ ships.CHAF_EOTH = {
     asset: "CHAF.png",
     classification: shipTypes.HeavyFrigate,
     population: 19,
-    size: 575,
-    cost: 3990,
+    size: 520,
+    cost: 3500,
     speed: 4,
     turnSpeed: .01,
-    shield: 7530,
-    shieldRegen: 7,
+    shield: 5400,
+    shieldRegen: 5,
     hardpoints: [{
         x: 0,
         y: .73,
@@ -201,7 +201,7 @@ ships.CHAF_EOTH = {
     }].map(hp => ({
         ...hp, weapon: {
             ...hp.weapon,
-            health: hp.weapon.health * 2.75 | 0
+            health: hp.weapon.health * 2.3 | 0
         }
     })),
     hangars: [{

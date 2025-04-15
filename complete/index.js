@@ -148,7 +148,29 @@ buttonMaps[STATE_HOME] = [{
     text: "Load Campaign",
     color: "#C8C8C8",
     action: () => {
-        console.log("Load Campaign");
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".json";
+
+        input.addEventListener("change", event => {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener("load", event => {
+                try {
+                    const campaignData = JSON.parse(event.target.result);
+                    shared.campaign = Campaign.fromSaved(campaignData);
+                    changeState(STATE_TACTICAL_MAP);
+                    window.campaign = shared.campaign;
+                } catch (error) {
+                    console.error("Failed to load campaign:", error);
+                }
+            });
+
+            reader.readAsText(file);
+        });
+
+        input.click();
     }
 }, {
     x: 0,

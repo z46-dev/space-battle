@@ -52,4 +52,16 @@ export default class Shipyard {
             fleet.add(item.name);
         }
     }
+
+    save() {
+        return {
+            planetID: this.planet.id,
+            level: this.level,
+            queue: this.queue.map(item => ({
+                name: item.name,
+                time: item.time,
+                complete: item.complete
+            }))
+        };
+    }
 }

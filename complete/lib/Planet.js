@@ -210,4 +210,15 @@ export default class Planet {
         ctx.closePath();
         ctx.stroke();
     }
+
+    save() {
+        return {
+            id: this.id,
+            name: this.name,
+            income: this.income,
+            controllingFactionID: this.controllingFaction?.id,
+            fleets: this.fleets.map(fleet => fleet.save()),
+            shipyard: this.shipyard?.save()
+        };
+    }
 }

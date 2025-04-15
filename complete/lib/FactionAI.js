@@ -233,7 +233,7 @@ export default class FactionAI {
                     const keys = Array.from(fleets[i].ships.keys());
                     const key = keys[Math.random() * keys.length | 0];
 
-                    fleets[i].removeShip(key);
+                    fleets[i].remove(key);
                     fleets[0].addShip(key);
                 }
             }

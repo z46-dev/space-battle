@@ -1,12 +1,14 @@
 import { canvas, ctx, uiScale } from "../shared/canvas.js";
 import { assets, drawText, loadAsset } from "../shared/render.js";
 import shared, { STATE_TACTICAL_MAP, lerp } from "../shared/shared.js";
-import factions, { Faction } from "./Factions.js";
+import factions, { CapitalInfo, Faction } from "./Factions.js";
 import Fleet from "./Fleet.js";
 import Planet from "./Planet.js";
 import UIElement from "./UIElement.js";
 import shipConfigs from "../../server/lib/ships.js";
 import FactionAI from "./FactionAI.js";
+import Shipyard from "./Shipyard.js";
+import { loadCampaign } from "../shared/loader.js";
 
 export class Camera {
     realX = 0;
@@ -538,5 +540,93 @@ export default class Campaign {
         }
 
         return null;
+    }
+
+    save() {
+        const save = {
+            campaignType: shared.campaignType,
+            date: Date.now(),
+            planets: [],
+            factions: [],
+            playerFactionID: this.playerFaction.id
+        };
+
+        this.planets.forEach(planet => save.planets.push(planet.save()));
+        factions.forEach(faction => save.factions.push(faction.save()));
+        
+        return save;
+    }
+
+    downloadSave() {
+        const save = JSON.stringify(this.save());
+        const blob = new Blob([save], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "campaign.json";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        URL.revokeObjectURL(url);
+    }
+
+    /**
+     * @param {Object} saved
+     * @returns {Campaign}
+     */
+    static fromSaved(saved) {
+        shared.campaignType = saved.campaignType;
+        shared.campaignConfig = loadCampaign(saved.campaignType);
+
+        factions.length = 0;
+
+        shared.campaignConfig.campaign.factions.forEach(conf => {
+            const faction = new Faction();
+            faction.id = conf.id;
+            faction.color = conf.color;
+            faction.name = conf.name;
+            faction.key = conf.key;
+
+            if (conf.planets && conf.planets.length > 0) {
+                faction.defaultStartingPlanets = conf.planets;
+            }
+
+            if (conf.capital) {
+                faction.capitalPlanet = new CapitalInfo();
+                faction.capitalPlanet.name = conf.capital.name;
+                faction.capitalPlanet.fleetPopulation = conf.capital.fleetPopulation;
+                faction.capitalPlanet.baseIncome = conf.capital.baseIncome;
+            }
+
+            faction.shipyardConfigs = conf.shipyards;
+
+            factions.push(faction);
+        });
+
+        const campaign = new Campaign(factions.find(f => f.id === saved.playerFactionID));
+        campaign.init();
+
+        saved.planets.forEach(planet => {
+            const p = campaign.getPlanet(planet.name);
+            p.id = planet.id;
+            p.income = planet.income;
+
+            p.setControl(factions.find(f => f.id === planet.controllingFactionID), false);
+            p.fleets = planet.fleets.map(f => Fleet.fromSaved(f, p));
+
+            if (planet.shipyard != null && p.shipyard != null) {
+                p.shipyard.queue = planet.shipyard.queue;
+            }
+        });
+
+        saved.factions.forEach(faction => {
+            const f = factions.find(f2 => f2.id === faction.id);
+            f.money = faction.money;
+            f.income = faction.income;
+        });
+
+        return campaign;
     }
 }

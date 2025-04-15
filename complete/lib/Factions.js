@@ -54,6 +54,15 @@ export class Faction {
             sourcePlanet.fleets[0].transitTo(campaign.findRoute(sourcePlanet, targetPlanet));
         }
     }
+
+    save() {
+        return {
+            id: this.id,
+            income: this.income,
+            money: this.money,
+            name: this.name
+        };
+    }
 }
 
 /**
