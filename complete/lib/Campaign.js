@@ -544,6 +544,11 @@ export default class Campaign {
 
     save() {
         const save = {
+            camera: {
+                x: this.camera.realX,
+                y: this.camera.realY,
+                zoom: this.camera.realZoom
+            },
             campaignType: shared.campaignType,
             date: Date.now(),
             planets: [],
@@ -607,6 +612,10 @@ export default class Campaign {
 
         const campaign = new Campaign(factions.find(f => f.id === saved.playerFactionID));
         campaign.init();
+
+        campaign.camera.realX = saved.camera.x;
+        campaign.camera.realY = saved.camera.y;
+        campaign.camera.realZoom = saved.camera.zoom;
 
         saved.planets.forEach(planet => {
             const p = campaign.getPlanet(planet.name);

@@ -423,7 +423,7 @@ export default class Fleet {
             planetID:  this.planet.id,
             factionID: this.faction.id,
             transit: this.inTransit ? {
-                path: this.transitPath.map(n => ({ id: n.planet.id, distance: n.distance })),
+                path: this.transitPath.map(n => ({ name: n.planet.name, distance: n.distance })),
                 progress: this.transitProgress
             } : null
         };
@@ -450,7 +450,7 @@ export default class Fleet {
             fleet.transitProgress = saved.transit.progress;
 
             saved.transit.path.forEach(node => {
-                const planet = fleet.planet.campaign.getPlanet(node.id);
+                const planet = fleet.planet.campaign.getPlanet(node.name);
                 fleet.transitPath.push(new TransitNode(planet, node.distance));
             });
         }
