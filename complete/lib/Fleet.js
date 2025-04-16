@@ -376,6 +376,8 @@ export default class Fleet {
 
                 enemyFleet.planet = planet;
             }
+
+            planet.campaign.autosaveTick();
         }, true);
     }
 

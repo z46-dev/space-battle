@@ -1,4 +1,3 @@
-// gameSaves.js
 const DB_NAME = "GameSavesDB";
 const DB_VERSION = 1;
 const STORE_NAME = "saves";

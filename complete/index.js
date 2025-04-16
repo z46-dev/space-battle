@@ -205,15 +205,27 @@ buttonMaps[STATE_LOAD_CAMPAIGN] = [{
 
             keys.sort().reverse().forEach((key, i) => {
                 buttonMaps[STATE_SELECT_AUTOSAVE].push({
-                    x: 0,
-                    y: i * 72,
+                    x: keys.length > 3 ? (-200 + (i % 2) * 400) : 0,
+                    y: keys.length > 3 ? ((i / 2 | 0) * 72) : (i * 72),
                     width: 384,
                     height: 64,
                     text: key,
                     color: "#C8C8C8",
                     action: async () => {
                         const value = await autosave.loadSave(key);
-                        console.log(value);
+                        if (value) {
+                            try {
+                                shared.campaign = Campaign.fromSaved(value);
+                                changeState(STATE_TACTICAL_MAP);
+                                window.campaign = shared.campaign;
+                            } catch (error) {
+                                console.error("Failed to load campaign:", error);
+                                changeState(STATE_HOME);
+                            }
+                        } else {
+                            console.error("Failed to load save:", key);
+                            changeState(STATE_HOME);
+                        }
                     }
                 });
             });

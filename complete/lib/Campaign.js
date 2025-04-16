@@ -154,6 +154,8 @@ export default class Campaign {
 
         /** @type {UIElement[]} */
         this.shipyardButtonsElements = [];
+
+        this.nextAutosave = setTimeout(() => this.autosaveTick(), 1000 * 60 * 5);
     }
 
     init() {
@@ -503,8 +505,6 @@ export default class Campaign {
                 planet.shipyard.tick();
             }
         });
-
-        this.autosaveTick();
     }
 
     /**
@@ -580,6 +580,8 @@ export default class Campaign {
     }
 
     async autosaveTick() {
+        clearTimeout(this.nextAutosave);
+
         const currentKey = (new Date).toLocaleString("en-US", {
             year: "2-digit",
             month: "2-digit",
@@ -599,6 +601,8 @@ export default class Campaign {
 
         await autosave.insertSave(currentKey, this.save());
         console.log("Autosaved", currentKey);
+
+        this.nextAutosave = setTimeout(() => this.autosaveTick(), 1000 * 60 * 5);
     }
 
     /**
