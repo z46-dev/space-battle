@@ -319,7 +319,7 @@ export default class Fleet {
         }
 
         // If the player faction is involved, determine if they are attacking or defending and initiate the battle
-        shared.beginBattle(this.__ships, enemyFleets.map(fleet => fleet.__ships).flat(), this.faction !== playerFaction, this.planet.planetConfig);
+        shared.beginBattle(this.__ships, enemyFleets.map(fleet => fleet.__ships).flat(), this.faction !== playerFaction, this.planet.planetConfig, this.faction.color, enemyFleets[0].faction.color, planet.name);
 
         on(EVENTS.BATTLE_END, data => {
             // Remove all other fleets from the planet

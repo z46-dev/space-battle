@@ -21,15 +21,16 @@ export const camera = {
 };
 
 export const world = {
-    width: 64_000,
-    height: 64_000,
+    width: 24_000,
+    height: 24_000,
     minimapData: [],
     starCounter: 0,
     starGrid: new SpatialHashGrid(),
     deathClones: [],
     text: [],
     commanders: [],
-    snapshotMode: false
+    snapshotMode: false,
+    acceptDeathClones: false
 };
 
 export const ships = new Map();
@@ -365,7 +366,9 @@ worker.onmessage = event => {
                 explosion.angle = data.shift();
                 explosion.sprite = new Sprite(data.shift(), false);
 
-                explosions.add(explosion);
+                if (world.acceptDeathClones) {
+                    explosions.add(explosion);
+                }
             }
 
             for (let i = 0; i < deathsSize; i++) {
@@ -379,16 +382,18 @@ worker.onmessage = event => {
                     return;
                 }
 
-                world.deathClones.push(...assetsLib.turnImageIntoShards(assetsLib.assets.get(asset)).map(shard => ({
-                    x: x,
-                    y: y,
-                    size: size,
-                    forcedAngle: angle,
-                    angle: angle,
-                    angleSpeed: Math.random() * .0025 - .00125,
-                    image: shard,
-                    timer: 250 + Math.random() * 500
-                }))); // TODO: Consider making this use the ship's last x and y to determine velocity to make the split more interesting
+                if (world.acceptDeathClones) {
+                    world.deathClones.push(...assetsLib.turnImageIntoShards(assetsLib.assets.get(asset)).map(shard => ({
+                        x: x,
+                        y: y,
+                        size: size,
+                        forcedAngle: angle,
+                        angle: angle,
+                        angleSpeed: Math.random() * .0025 - .00125,
+                        image: shard,
+                        timer: 250 + Math.random() * 500
+                    }))); // TODO: Consider making this use the ship's last x and y to determine velocity to make the split more interesting
+                }
             }
 
             const commandersSize = data.shift();
@@ -592,6 +597,8 @@ worker.onmessage = event => {
             ships.clear();
             projectiles.clear();
             squadrons.clear();
+
+            world.acceptDeathClones = false;
         } break;
     }
 }

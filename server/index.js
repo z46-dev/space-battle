@@ -1400,7 +1400,7 @@ function getRandomPointInEllipse(x, y, w, h, angle) {
     return { x: rotatedX, y: rotatedY };
 }
 
-const size = 64_000;
+const size = 24_000;
 const battle = new Battle(size, size, 2);
 
 class Fleet {
@@ -2300,13 +2300,13 @@ onmessage = function (e) {
         case 1: { // Broad commandings
             switch (e.data.shift()) {
                 case 0: { // Initialize battle
-                    battle.ships.forEach(ship => {
-                        ship.shield = 0;
-                        ship.lastHit = Infinity;
-                        ship.hardpoints.forEach(hardpoint => {
-                            hardpoint.health = 0;
-                        });
-                    });
+                    // battle.ships.forEach(ship => {
+                    //     ship.shield = 0;
+                    //     ship.lastHit = Infinity;
+                    //     ship.hardpoints.forEach(hardpoint => {
+                    //         hardpoint.health = 0;
+                    //     });
+                    // });
 
                     battle.ships.clear();
                     battle.squadrons.clear();

@@ -10,6 +10,19 @@ import { ships, projectiles, explosions, squadrons } from "./lib/state.js";
 import * as state from "./lib/state.js";
 import { uiScale, lerp, lerpAngle } from "./lib/util.js";
 
+function hextoRGB(hex) {
+    const bigint = parseInt(hex.slice(1), 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+
+    return [r, g, b];
+}
+
+const teamColors = ["#0000FF", "#FF0000"];
+const teamColorRGBs = teamColors.map(color => hextoRGB(color));
+let planetName = "Wild Space";
+
 state.initWorld();
 
 function drawBar(cx, cy, width, height, pct, color) {
@@ -592,7 +605,8 @@ export default function draw() {
         ctx.save();
         ctx.translate(squadron.x, squadron.y);
 
-        ctx.fillStyle = squadron.team === 0 ? "#FF0000" : "#0000FF";
+        // ctx.fillStyle = squadron.team === 0 ? "#FF0000" : "#0000FF";
+        ctx.fillStyle = teamColors[squadron.team];
         ctx.strokeStyle = mixColors(ctx.fillStyle, "#000000", .5);
         ctx.beginPath();
         ctx.roundRect(-40, -40, 80, 80, 17.5);
@@ -676,7 +690,8 @@ export default function draw() {
         const y = data.y * 115 + 115;
         const size = data.size * 115;
 
-        ctx.fillStyle = data.team === 0 ? "#FF0000" : "#0000FF";
+        // ctx.fillStyle = data.team === 0 ? "#FF0000" : "#0000FF";
+        ctx.fillStyle = teamColors[data.team];
 
         if (data.type === 0) {
             if (!assetsLib.assets.has(data.asset)) {
@@ -691,7 +706,7 @@ export default function draw() {
             const silhouetteKey = `${data.asset}${data.team}`;
             if (!assetsLib.silhouettes.has(silhouetteKey)) {
                 assetsLib.silhouettes.set(silhouetteKey, false);
-                assetsLib.generateSilhouette(assetsLib.assets.get(data.asset), silhouetteKey, data.team === 0 ? 255 : 0, data.team === 2 ? 255 : 0, data.team === 1 ? 255 : 0);
+                assetsLib.generateSilhouette(assetsLib.assets.get(data.asset), silhouetteKey, ...teamColorRGBs[data.team]);
             }
 
             const silhouette = assetsLib.silhouettes.get(silhouetteKey);
@@ -740,6 +755,9 @@ export default function draw() {
     ctx.strokeRect(0, 0, 230, 230);
 
     ctx.restore();
+
+    // Draw planet name above the minimap
+    drawText(planetName, 15, canvas.height / uScale - 10 - 230 - 20, 28, "#C8C8C8", "left");
 
     if (state.inputs.hardpointOver !== null) {
         const str = state.inputs.hardpointOver.data.weapon.name + " - " + Math.round(state.inputs.hardpointOver.data.weapon.damage) + "dmg";
@@ -976,8 +994,18 @@ export default function draw() {
     ctx.restore();
 }
 
-export function initializeBattle(myShips, enemyShips, attacking, designConfig) {
+export function initializeBattle(myShips, enemyShips, attacking, designConfig, myColor, enemyColor, currPlanet) {
     state.worker.postMessage([1, 0, JSON.stringify(myShips), JSON.stringify(enemyShips), attacking]);
+
+    teamColors.length = 0;
+    teamColors.push(...(!attacking ? [myColor, enemyColor] : [enemyColor, myColor]));
+
+    teamColorRGBs.length = 0;
+    teamColorRGBs.push(...(!attacking ? [hextoRGB(myColor), hextoRGB(enemyColor)] : [hextoRGB(enemyColor), hextoRGB(myColor)]));
+
+    console.log("Team colors: " + teamColors);
+
+    planetName = currPlanet;
 
     if (designConfig != null && "design" in designConfig && typeof designConfig.design === "string") {
         console.log("Regenerating planet with design: " + designConfig.design);
@@ -985,6 +1013,8 @@ export function initializeBattle(myShips, enemyShips, attacking, designConfig) {
 
         planet.generate();
     }
+
+    setTimeout(() => state.world.acceptDeathClones = true, 5000);
 }
 
 if (!location.href.includes("complete")) {

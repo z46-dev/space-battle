@@ -28,15 +28,19 @@ const shared = {
     /** @type {LoadedCampaign} */
     campaignConfig: null,
 
-    beginBattle(myShips, enemyShips, attacking = false, designConfig = null) {
+    acceptingDeathClones: false,
+
+    beginBattle(myShips, enemyShips, attacking = false, designConfig = null, myColor = "#FF0000", enemyColor = "#0000FF", planetName = "Wild Space") {
         let fleets = [myShips, enemyShips];
 
         if (attacking) {
             fleets = fleets.reverse();
         }
 
-        initializeBattle(...fleets, attacking, designConfig);
+        initializeBattle(...fleets, attacking, designConfig, myColor, enemyColor, planetName);
         shared.state = STATE_BATTLE;
+
+        setTimeout(() => shared.acceptingDeathClones = true, 5000);
     }
 };
 
