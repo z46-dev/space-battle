@@ -1,14 +1,15 @@
-import Planet, { NoiseOptions, PlanetOptions } from "../Planet/Planet.js";
+import Planet, { NoiseOptions, PlanetColors, PlanetOptions } from "../Planet/Planet.js";
 import UIButton from "./shared/Button.js";
 import { canvas, ctx, uiScale } from "./shared/canvas.js";
 import { drawText } from "./shared/render.js";
-import shared, { STATE_BATTLE, STATE_HOME, STATE_INIT_CAMPAIGN, STATE_INIT_SURVIVAL, STATE_SELECT_TIMEFRAME, STATE_TACTICAL_MAP } from "./shared/shared.js";
+import shared, { STATE_BATTLE, STATE_HOME, STATE_INIT_CAMPAIGN, STATE_INIT_SURVIVAL, STATE_LOAD_CAMPAIGN, STATE_SELECT_AUTOSAVE, STATE_SELECT_TIMEFRAME, STATE_TACTICAL_MAP } from "./shared/shared.js";
 
 import factions, { CapitalInfo, Faction } from "./lib/Factions.js";
 import curtains, { curtainState, drawCurtains } from "./lib/curtains.js";
 import Campaign from "./lib/Campaign.js";
 import drawBattle from "../client/index.js";
 import { loadCampaign, campaignConfig } from "./shared/loader.js";
+import * as autosave from "./shared/autosave.js";
 
 // Do a UI all split up in canvas.
 // Add a home menu and an option for saves and an option for
@@ -36,6 +37,19 @@ planetOptions.NoiseFunction = NoiseOptions.staticQuickNoise;
 
 const planet = new Planet(planetOptions);
 planet.generate();
+
+const secondPlanetOptions = new PlanetOptions();
+secondPlanetOptions.Radius = 512;
+secondPlanetOptions.Detail = 1;
+secondPlanetOptions.Seed = 4.2321;
+secondPlanetOptions.Clouds.Seed = 8.12342;
+secondPlanetOptions.NoiseFunction = NoiseOptions.perlin3;
+secondPlanetOptions.Colors = PlanetColors.desertColors;
+
+const secondPlanet = new Planet(secondPlanetOptions);
+secondPlanet.generate();
+
+autosave.initDB().then(() => console.log("Database initialized successfully.")).catch(error => console.error("Database initialization failed:", error));
 
 class Star {
     constructor(x, y, size) {
@@ -119,7 +133,7 @@ function changeState(newState) {
                 }
             });
 
-            x ++;
+            x++;
         }
     }
 
@@ -148,6 +162,73 @@ buttonMaps[STATE_HOME] = [{
     text: "Load Campaign",
     color: "#C8C8C8",
     action: () => {
+        changeState(STATE_LOAD_CAMPAIGN);
+    }
+}, {
+    x: 0,
+    y: 144,
+    width: 256,
+    height: 64,
+    text: "Survival Mode",
+    color: "#C8C8C8",
+    action: () => {
+        changeState(STATE_INIT_SURVIVAL);
+    }
+}];
+
+buttonMaps[STATE_LOAD_CAMPAIGN] = [{
+    x: 0,
+    y: 0,
+    width: 256,
+    height: 64,
+    text: "Load Auto-Save",
+    color: "#C8C8C8",
+    action: () => {
+        buttonMaps[STATE_SELECT_AUTOSAVE] = [];
+
+        autosave.saveKeys().then(keys => {
+            if (keys.length === 0) {
+                buttonMaps[STATE_SELECT_AUTOSAVE].push({
+                    x: 0,
+                    y: 0,
+                    width: 256,
+                    height: 64,
+                    text: "No Saves Found",
+                    color: "#C8C8C8",
+                    action: () => {
+                        changeState(STATE_HOME);
+                    }
+                });
+
+                return;
+            }
+
+            keys.sort().reverse().forEach((key, i) => {
+                buttonMaps[STATE_SELECT_AUTOSAVE].push({
+                    x: 0,
+                    y: i * 72,
+                    width: 384,
+                    height: 64,
+                    text: key,
+                    color: "#C8C8C8",
+                    action: async () => {
+                        const value = await autosave.loadSave(key);
+                        console.log(value);
+                    }
+                });
+            });
+        });
+
+        changeState(STATE_SELECT_AUTOSAVE);
+    }
+}, {
+    x: 0,
+    y: 72,
+    width: 256,
+    height: 64,
+    text: "Load Save File",
+    color: "#C8C8C8",
+    action: () => {
         const input = document.createElement("input");
         input.type = "file";
         input.accept = ".json";
@@ -171,16 +252,6 @@ buttonMaps[STATE_HOME] = [{
         });
 
         input.click();
-    }
-}, {
-    x: 0,
-    y: 144,
-    width: 256,
-    height: 64,
-    text: "Survival Mode",
-    color: "#C8C8C8",
-    action: () => {
-        changeState(STATE_INIT_SURVIVAL);
     }
 }];
 
@@ -275,6 +346,30 @@ function draw() {
 
             drawText("Conquest", width / 2, height / 2 - 96, 75, "#FFFFFF");
         } break;
+        case STATE_LOAD_CAMPAIGN: {
+            for (const star of stars) {
+                star.draw();
+            }
+
+            ctx.shadowColor = secondPlanetOptions.Colors[4][2];
+            ctx.shadowBlur = 25;
+            ctx.drawImage(secondPlanet.canvas, 300, 200);
+            ctx.shadowBlur = 0;
+
+            drawText("Load Campaign", width / 2, height / 2 - 96, 75, "#FFFFFF");
+        } break;
+        case STATE_SELECT_AUTOSAVE: {
+            for (const star of stars) {
+                star.draw();
+            }
+
+            ctx.shadowColor = secondPlanetOptions.Colors[4][2];
+            ctx.shadowBlur = 25;
+            ctx.drawImage(secondPlanet.canvas, 300, 200);
+            ctx.shadowBlur = 0;
+
+            drawText("Select Auto-Save", width / 2, height / 2 - 96, 75, "#FFFFFF");
+        } break;
         case STATE_INIT_CAMPAIGN: {
             for (const star of stars) {
                 star.draw();
@@ -329,7 +424,7 @@ function draw() {
             button.color = map.color;
             button.nowDrawMe = () => {
                 drawText(map.text, 0, 0, 1, "#FFFFFF");
-            };
+            }
             button.clickEvent = map.action;
             button.draw();
         }
@@ -378,3 +473,5 @@ window.addEventListener("click", event => {
 curtains().then(() => shared.buttonsEnabled = true);
 curtainState.value = 1;
 draw();
+
+window.autosave = autosave;

@@ -7,8 +7,8 @@ import Planet from "./Planet.js";
 import UIElement from "./UIElement.js";
 import shipConfigs from "../../server/lib/ships.js";
 import FactionAI from "./FactionAI.js";
-import Shipyard from "./Shipyard.js";
 import { loadCampaign } from "../shared/loader.js";
+import * as autosave from "../shared/autosave.js";
 
 export class Camera {
     realX = 0;
@@ -503,6 +503,8 @@ export default class Campaign {
                 planet.shipyard.tick();
             }
         });
+
+        this.autosaveTick();
     }
 
     /**
@@ -575,6 +577,28 @@ export default class Campaign {
         document.body.removeChild(a);
 
         URL.revokeObjectURL(url);
+    }
+
+    async autosaveTick() {
+        const currentKey = (new Date).toLocaleString("en-US", {
+            year: "2-digit",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false
+        });
+
+        const keys = await autosave.saveKeys();
+
+        // Keep the last 8 autosaves
+        if (keys.length >= 8) {
+            await autosave.deleteSave(keys.sort()[0]);
+        }
+
+        await autosave.insertSave(currentKey, this.save());
+        console.log("Autosaved", currentKey);
     }
 
     /**

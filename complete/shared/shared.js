@@ -13,6 +13,7 @@ export const STATE_BATTLE = 4;
 export const STATE_RESULTS = 5;
 export const STATE_INIT_SURVIVAL = 6;
 export const STATE_SELECT_TIMEFRAME = 7;
+export const STATE_SELECT_AUTOSAVE = 8;
 
 const shared = {
     state: STATE_HOME,
