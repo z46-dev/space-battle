@@ -7,13 +7,13 @@ ships.ASCENDANCY_EOTH = {
     name: "Ascendancy Star Destroyer",
     asset: "ASCENDANCY.png",
     classification: shipTypes.Capital,
-    population: 25,
+    population: 28,
     size: 850,
-    cost: 5600,
+    cost: 7000,
     speed: 2.5,
     turnSpeed: .01,
-    shield: 15000,
-    shieldRegen: 10,
+    shield: 11000,
+    shieldRegen: 11,
     hardpoints: (function() {
         const output = [];
 
@@ -22,13 +22,13 @@ ships.ASCENDANCY_EOTH = {
                 x: -.175,
                 y: -.1 - .06 * i,
                 weapon: weapons.BLACK_DOUBLE_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 3,
+                shotsAtOnce: 2,
                 shotDelay: 60
             }, {
                 x: .175,
                 y: -.1 - .06 * i,
                 weapon: weapons.BLACK_DOUBLE_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 3,
+                shotsAtOnce: 2,
                 shotDelay: 60
             });
         }
@@ -38,13 +38,13 @@ ships.ASCENDANCY_EOTH = {
                 x: -.075 - .02 * i,
                 y: .7 - .1 * i,
                 weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.BLACK_DOUBLE_LASER_CANNON_HEAVY,
-                shotsAtOnce: i % 2 ? 3 : 2,
+                shotsAtOnce: 2,
                 shotDelay: 60
             }, {
                 x: .075 + .02 * i,
                 y: .7 - .1 * i,
                 weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.BLACK_DOUBLE_LASER_CANNON_HEAVY,
-                shotsAtOnce: i % 2 ? 3 : 2,
+                shotsAtOnce: 2,
                 shotDelay: 60
             });
         }
@@ -63,14 +63,14 @@ ships.ASCENDANCY_EOTH = {
         x: 0,
         y: 0,
         maxSquadrons: 2,
-        squadronSize: 8,
+        squadronSize: 4,
         reserveSize: 5,
         squadronKey: "NSSIS_EOTH"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 2,
-        squadronSize: 8,
+        squadronSize: 4,
         reserveSize: 5,
         squadronKey: "SYCA_EOTH"
     }]
@@ -80,13 +80,13 @@ ships.INTEGO_EOTH = {
     name: "Intego Star Destroyer",
     asset: "INTEGO.png",
     classification: shipTypes.Capital,
-    population: 78,
+    population: 68,
     size: 1500,
     cost: 23000,
     speed: 1.2,
     turnSpeed: .001,
-    shield: 24000,
-    shieldRegen: 24,
+    shield: 18000,
+    shieldRegen: 18,
     hardpoints: (function() {
         const output = [];
 
@@ -145,25 +145,25 @@ ships.INTEGO_EOTH = {
                 x: .12 + .05 * i,
                 y: .65 - .09 * i,
                 weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.BLACK_DOUBLE_LASER_CANNON_HEAVY,
-                shotsAtOnce: 3,
+                shotsAtOnce: 2,
                 shotDelay: 60
             }, {
                 x: -.12 - .05 * i,
                 y: .65 - .09 * i,
                 weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.BLACK_DOUBLE_LASER_CANNON_HEAVY,
-                shotsAtOnce: 3,
+                shotsAtOnce: 2,
                 shotDelay: 60
             }, {
                 x: .52 - .05 * i,
                 y: -.09 * i,
                 weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.BLACK_DOUBLE_LASER_CANNON_HEAVY,
-                shotsAtOnce: 3,
+                shotsAtOnce: 2,
                 shotDelay: 60
             }, {
                 x: -.52 + .05 * i,
                 y: -.09 * i,
                 weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.BLACK_DOUBLE_LASER_CANNON_HEAVY,
-                shotsAtOnce: 3,
+                shotsAtOnce: 2,
                 shotDelay: 60
             });
         }
@@ -189,14 +189,14 @@ ships.INTEGO_EOTH = {
         x: 0,
         y: 0,
         maxSquadrons: 2,
-        squadronSize: 8,
+        squadronSize: 4,
         reserveSize: 5,
         squadronKey: "NSSIS_EOTH"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 2,
-        squadronSize: 8,
+        squadronSize: 4,
         reserveSize: 5,
         squadronKey: "SYCA_EOTH"
     }]

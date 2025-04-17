@@ -8,12 +8,12 @@ ships.CONSOLAR_REPUBLIC = {
     asset: "CONSOLARHUTT.png",
     classification: shipTypes.Corvette,
     population: 1,
-    size: 60,
+    size: 70,
     cost: 100,
     speed: 11,
     turnSpeed: .04,
-    shield: 500,
-    shieldRegen: 5,
+    shield: 250,
+    shieldRegen: .25,
     hardpoints: [{
         x: 0,
         y: 0,
@@ -45,13 +45,13 @@ ships.CR90_REPUBLIC = {
     name: "CR-90",
     asset: "CR90.png",
     classification: shipTypes.Corvette,
-    population: 1,
+    population: 2,
     size: 95,
-    cost: 200,
+    cost: 230,
     speed: 12,
     turnSpeed: .045,
-    shield: 1000,
-    shieldRegen: 1,
+    shield: 540,
+    shieldRegen: .54,
     hardpoints: [{
         x: 0,
         y: .6,
@@ -81,7 +81,7 @@ ships.CR90_REPUBLIC = {
         weapon: weapons.BLUE_ANTI_FIGHTER_LASER_CANNON,
         shotsAtOnce: 3,
         shotDelay: 80
-    }].map(hp => ({ ...hp, weapon: { ...hp.weapon, health: 380 } }))
+    }].map(hp => ({ ...hp, weapon: { ...hp.weapon, health: hp.weapon.health * 1.15 | 0 } }))
 };
 
 export default ships;

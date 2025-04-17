@@ -15,8 +15,13 @@ export const STATE_INIT_SURVIVAL = 6;
 export const STATE_SELECT_TIMEFRAME = 7;
 export const STATE_SELECT_AUTOSAVE = 8;
 
+export const AUTOSAVE_MODE_NONE = 0;
+export const AUTOSAVE_MODE_LOAD = 1;
+export const AUTOSAVE_MODE_SAVE = 2;
+
 const shared = {
     state: STATE_HOME,
+    autosaveSelectMode: AUTOSAVE_MODE_NONE,
     buttonsEnabled: false,
 
     /**

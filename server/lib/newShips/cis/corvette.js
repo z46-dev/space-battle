@@ -9,11 +9,11 @@ ships.LUPUSMISSILEFRIGATE_CIS = {
     classification: shipTypes.Corvette,
     population: 2,
     size: 85,
-    cost: 400,
+    cost: 380,
     speed: 9,
     turnSpeed: .045,
-    shield: 1000,
-    shieldRegen: 1,
+    shield: 350,
+    shieldRegen: .35,
     hardpoints: [{
         x: 0,
         y: 0,
@@ -54,10 +54,10 @@ ships.DIAMOND_CIS = {
     population: 2,
     size: 100,
     cost: 350,
-    speed: 5.6,
+    speed: 7,
     turnSpeed: .015,
-    shield: 1200,
-    shieldRegen: 2,
+    shield: 300,
+    shieldRegen: .3,
     hardpoints: [{
         x: 0,
         y: .85,
@@ -91,17 +91,17 @@ ships.HARDCELL_CIS = {
     classification: shipTypes.Corvette,
     population: 1,
     size: 76,
-    cost: 350,
-    speed: 5,
+    cost: 180,
+    speed: 8,
     turnSpeed: .0275,
-    shield: 2000,
-    shieldRegen: 2,
+    shield: 200,
+    shieldRegen: .2,
     hardpoints: [{
         x: 0,
         y: 0,
         weapon: {
             ...weapons.RED_ANTI_FIGHTER_LASER_CANNON,
-            health: weapons.RED_ANTI_FIGHTER_LASER_CANNON.health * 3,
+            health: weapons.RED_ANTI_FIGHTER_LASER_CANNON.health * .5,
             reload: weapons.RED_ANTI_FIGHTER_LASER_CANNON.reload * .6
         },
         shotsAtOnce: 2,
@@ -111,7 +111,7 @@ ships.HARDCELL_CIS = {
         y: 0,
         weapon: {
             ...weapons.RED_LASER_CANNON,
-            health: weapons.RED_LASER_CANNON.health * 3,
+            health: weapons.RED_LASER_CANNON.health * .5,
             reload: weapons.RED_LASER_CANNON.reload * .6
         },
         shotsAtOnce: 2,
@@ -121,7 +121,7 @@ ships.HARDCELL_CIS = {
         y: 0,
         weapon: {
             ...weapons.ASSAULT_CONCUSSION_MISSILE,
-            health: weapons.ASSAULT_CONCUSSION_MISSILE.health * 3,
+            health: weapons.ASSAULT_CONCUSSION_MISSILE.health * .5,
             reload: weapons.ASSAULT_CONCUSSION_MISSILE.reload * .8
         },
         shotsAtOnce: 5,
@@ -131,7 +131,7 @@ ships.HARDCELL_CIS = {
         y: 0,
         weapon: {
             ...weapons.RED_LASER_CANNON,
-            health: weapons.RED_LASER_CANNON.health * 3,
+            health: weapons.RED_LASER_CANNON.health * .5,
             reload: weapons.RED_LASER_CANNON.reload * .6
         },
         shotsAtOnce: 2,

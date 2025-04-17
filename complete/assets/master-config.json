@@ -73,8 +73,8 @@
         "design": "256;1.00000;0.60;externalLushPlanet;6;perlin3"
     }, {
         "name": "Kuat",
-        "x": 12447,
-        "y": 13864,
+        "x": 12407,
+        "y": 13664,
         "connections": ["Neimoidia", "Alderaan"],
         "color": "#AAEF55",
         "income": 300,
@@ -235,8 +235,8 @@
         "design": "256;0.42462;3.00;yellowStarColors;4;quickNoise"
     }, {
         "name": "Sullust",
-        "x": 1527,
-        "y": 13406,
+        "x": 1627,
+        "y": 13476,
         "connections": ["Sluis Van", "Woostri"],
         "color": "#FFAA55",
         "income": 300,
@@ -253,9 +253,9 @@
         "design": "256;64.00000;0.30;desertColors;3;quickNoise"
     }, {
         "name": "Hoth",
-        "x": 1019,
-        "y": 9672,
-        "connections": ["Bespin", "Javin", "Koda Station"],
+        "x": 1209,
+        "y": 9642,
+        "connections": ["Bespin", "Koda Station"],
         "color": "#DDDDFF",
         "income": 150,
         "shipyardLevel": 1,
@@ -263,8 +263,8 @@
     }, {
         "name": "Javin",
         "x": 1318,
-        "y": 9857,
-        "connections": ["Bespin", "Hoth", "Polis Massa", "Mustafar"],
+        "y": 10057,
+        "connections": ["Bespin", "Polis Massa", "Mustafar"],
         "color": "#FFFFFF",
         "income": 100,
         "shipyardLevel": 1,
@@ -487,8 +487,8 @@
         "design": "256;0.52083;1.00;desertColors;4;staticQuickNoise"
     }, {
         "name": "Ord Trasi",
-        "x": 23497,
-        "y": 11305,
+        "x": 23397,
+        "y": 11255,
         "connections": ["Dantooine", "Ord Cantrell"],
         "color": "#FFFFFF",
         "income": 50,
@@ -604,8 +604,8 @@
         "design": "256;0.80929;1.00;externalSandPlanet;8;staticQuickNoise"
     }, {
         "name": "Thyferra",
-        "x": 5091,
-        "y": 12064,
+        "x": 5291,
+        "y": 12104,
         "connections": ["Wroona", "Devaron"],
         "color": "#FFFFFF",
         "income": 120,
@@ -624,7 +624,7 @@
         "name": "Colla IV",
         "x": 15952,
         "y": 14691,
-        "connections": ["Hapes", "Kashyyyk", "Yavin", "Felucia"],
+        "connections": ["Hapes", "Yavin", "Felucia"],
         "color": "#FFFFFF",
         "income": 200,
         "shipyardLevel": 3,
@@ -813,7 +813,7 @@
         "name": "Kashyyyk",
         "x": 14082,
         "y": 18118,
-        "connections": ["Umbara", "Ruusan", "Colla IV", "Toydaria"],
+        "connections": ["Umbara", "Ruusan", "Toydaria"],
         "color": "#11CC44",
         "income": 200,
         "shipyardLevel": 1,

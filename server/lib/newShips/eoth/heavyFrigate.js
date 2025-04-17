@@ -7,12 +7,12 @@ ships.ORMOS_EOTH = {
     name: "Ormos Frigate",
     asset: "ORMOS.png",
     classification: shipTypes.HeavyFrigate,
-    population: 16,
-    size: 450,
-    cost: 3200,
-    speed: 5,
+    population: 15,
+    size: 400,
+    cost: 3300,
+    speed: 4,
     turnSpeed: .015,
-    shield: 4300,
+    shield: 4000,
     shieldRegen: 4,
     hardpoints: [{
         x: -.125,
@@ -77,20 +77,20 @@ ships.ORMOS_EOTH = {
     }].map(hp => ({
         ...hp, weapon: {
             ...hp.weapon,
-            health: hp.weapon.health * 1.8 | 0
+            health: hp.weapon.health * 1.6 | 0
         }
     })),
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 1,
         squadronSize: 4,
         reserveSize: 4,
         squadronKey: "NSSIS_EOTH"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 1,
         squadronSize: 4,
         reserveSize: 4,
         squadronKey: "SYCA_EOTH"
@@ -102,12 +102,12 @@ ships.CHAF_EOTH = {
     asset: "CHAF.png",
     classification: shipTypes.HeavyFrigate,
     population: 19,
-    size: 520,
-    cost: 3500,
-    speed: 4,
+    size: 460,
+    cost: 3600,
+    speed: 3.5,
     turnSpeed: .01,
-    shield: 5400,
-    shieldRegen: 5,
+    shield: 4600,
+    shieldRegen: 4.6,
     hardpoints: [{
         x: 0,
         y: .73,
@@ -201,20 +201,20 @@ ships.CHAF_EOTH = {
     }].map(hp => ({
         ...hp, weapon: {
             ...hp.weapon,
-            health: hp.weapon.health * 2.3 | 0
+            health: hp.weapon.health * 2.1 | 0
         }
     })),
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 1,
         squadronSize: 4,
         reserveSize: 4,
         squadronKey: "NSSIS_EOTH"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 1,
         squadronSize: 4,
         reserveSize: 4,
         squadronKey: "SYCA_EOTH"
@@ -226,12 +226,12 @@ ships.EFODIO_EOTH = {
     asset: "EFODIO.png",
     classification: shipTypes.HeavyFrigate,
     population: 25,
-    size: 750,
+    size: 600,
     cost: 5400,
-    speed: 1,
+    speed: 2.5,
     turnSpeed: .001,
-    shield: 13000,
-    shieldRegen: 1,
+    shield: 6000,
+    shieldRegen: 6,
     hardpoints: (function() {
         const output = [];
 
@@ -261,23 +261,23 @@ ships.EFODIO_EOTH = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 3,
-        squadronSize: 8,
-        reserveSize: 12,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 6,
         squadronKey: "NSSIS_EOTH"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 3,
-        squadronSize: 8,
-        reserveSize: 12,
+        maxSquadrons: 2,
+        squadronSize: 4,
+        reserveSize: 6,
         squadronKey: "KRSSIS_EOTH"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 3,
-        squadronSize: 8,
-        reserveSize: 12,
+        maxSquadrons: 2,
+        squadronSize: 4,
+        reserveSize: 6,
         squadronKey: "SYCA_EOTH"
     }]
 };

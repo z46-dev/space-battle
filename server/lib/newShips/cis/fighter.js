@@ -19,10 +19,10 @@ ships.VULTUREDROID_CIS = {
         y: 0,
         weapon: {
             ...weapons.RED_FIGHTER_LASER_CANNON,
-            health: 100
+            health: 30
         },
-        shotsAtOnce: 3,
-        shotDelay: 100
+        shotsAtOnce: 2,
+        shotDelay: 30
     }]
 };
 
@@ -35,14 +35,12 @@ ships.HYENABOMBER_CIS = {
     cost: 5,
     speed: 14,
     turnSpeed: .07,
-    shield: 15,
-    shieldRegen: 1,
     hardpoints: [{
         x: 0,
         y: 0,
         weapon: {
             ...weapons.RED_FIGHTER_LASER_CANNON,
-            health: 100
+            health: 30
         },
         shotsAtOnce: 2,
         shotDelay: 100
@@ -51,20 +49,20 @@ ships.HYENABOMBER_CIS = {
         y: 0,
         weapon: weapons.FIGHTER_PROTON_BOMB,
         shotsAtOnce: 3,
-        shotDelay: 200
+        shotDelay: 350
     }, {
         x: 0,
         y: 0,
         weapon: weapons.FIGHTER_PROTON_ROCKET,
-        shotsAtOnce: 3,
-        shotDelay: 75,
+        shotsAtOnce: 2,
+        shotDelay: 120,
         launchAngle: Math.PI / 2
     }, {
         x: 0,
         y: 0,
         weapon: weapons.FIGHTER_PROTON_ROCKET,
-        shotsAtOnce: 3,
-        shotDelay: 75,
+        shotsAtOnce: 2,
+        shotDelay: 120,
         launchAngle: -Math.PI / 2
     }]
 };
@@ -78,26 +76,26 @@ ships.DROIDTRIFIGHTER_CIS = {
     cost: 6,
     speed: 21,
     turnSpeed: .08,
-    shield: 75,
+    shield: 30,
     shieldRegen: 1,
     hardpoints: [{
         x: 0,
         y: 0,
         weapon: {
             ...weapons.RED_RAPID_FIGHTER_LASER_CANNON,
-            health: 100
+            health: 25
         },
-        shotsAtOnce: 3,
-        shotDelay: 100
+        shotsAtOnce: 2,
+        shotDelay: 50
     }, {
         x: 0,
         y: 0,
         weapon: {
             ...weapons.FIGHTER_PROTON_ROCKET,
-            health: 100
+            health: 15
         },
         shotsAtOnce: 3,
-        shotDelay: 100
+        shotDelay: 256
     }]
 };
 

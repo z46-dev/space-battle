@@ -594,8 +594,7 @@ export default class Campaign {
 
         const keys = await autosave.saveKeys();
 
-        // Keep the last 8 autosaves
-        if (keys.length >= 8) {
+        if (keys.length >= 10) {
             await autosave.deleteSave(keys.sort()[0]);
         }
 

@@ -19,10 +19,8 @@ ships.NSSIS_EOTH = {
         y: 0,
         weapon: {
             ...weapons.BLACK_FIGHTER_LASER_CANNON,
-            health: 100
-        },
-        shotsAtOnce: 3,
-        shotDelay: 50
+            health: 32
+        }
     }]
 };
 
@@ -35,20 +33,22 @@ ships.KRSSIS_EOTH = {
     cost: 8,
     speed: 22,
     turnSpeed: .1,
-    shield: 30,
-    shieldRegen: .3,
+    shield: 15,
+    shieldRegen: .2,
     hardpoints: [{
         x: 0,
         y: 0,
-        weapon: weapons.BLACK_ANTI_FIGHTER_LASER_CANNON,
-        shotsAtOnce: 3,
-        shotDelay: 15
+        weapon: {
+            ...weapons.BLACK_FIGHTER_LASER_CANNON,
+            health: 8
+        }
     }, {
         x: 0,
         y: 0,
-        weapon: weapons.BLACK_LASER_CANNON_HEAVY,
-        shotsAtOnce: 3,
-        shotDelay: 75
+        weapon: {
+            ...weapons.BLACK_LASER_CANNON_HEAVY,
+            health: 16
+        }
     }]
 };
 
@@ -61,24 +61,22 @@ ships.SYCA_EOTH = {
     cost: 7,
     speed: 16,
     turnSpeed: .05,
-    shield: 60,
-    shieldRegen: .6,
+    shield: 40,
+    shieldRegen: .4,
     hardpoints: [{
         x: 0,
         y: 0,
-        weapon: weapons.BLACK_RAPID_FIGHTER_LASER_CANNON,
-        shotsAtOnce: 3,
-        shotDelay: 50
+        weapon: weapons.BLACK_RAPID_FIGHTER_LASER_CANNON
     }, {
         x: .5,
         y: 0,
         weapon: {
             ...weapons.FIGHTER_PROTON_BOMB,
-            range: weapons.FIGHTER_PROTON_BOMB.range * 1.5,
+            range: weapons.FIGHTER_PROTON_BOMB.range * 1.2,
             speed: weapons.FIGHTER_PROTON_BOMB.speed * 1.5
         },
-        shotsAtOnce: 8,
-        shotDelay: 140
+        shotsAtOnce: 4,
+        shotDelay: 250
     }]
 };
 

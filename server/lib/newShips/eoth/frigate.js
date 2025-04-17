@@ -7,16 +7,16 @@ ships.BAOMU_EOTH = {
     name: "Baomu Tender",
     asset: "BAOMU.png",
     classification: shipTypes.Frigate,
-    population: 11,
-    size: 360,
-    cost: 2300,
-    speed: 5,
+    population: 14,
+    size: 320,
+    cost: 2400,
+    speed: 3,
     turnSpeed: .01,
-    shield: 3220,
-    shieldRegen: 3,
+    shield: 2500,
+    shieldRegen: 2.5,
     tenderAbility: {
-        frequency: 1.6,
-        power: .6
+        frequency: 1.2,
+        power: 1
     },
     hardpoints: [{
         x: -.35,
@@ -58,20 +58,20 @@ ships.BAOMU_EOTH = {
         ...h,
         weapon: {
             ...h.weapon,
-            health: h.weapon.health * 1.5 | 0
+            health: h.weapon.health * 1.185 | 0
         }
     })),
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 1,
         squadronSize: 4,
         reserveSize: 4,
         squadronKey: "NSSIS_EOTH"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 1,
         squadronSize: 4,
         reserveSize: 4,
         squadronKey: "SYCA_EOTH"
@@ -81,14 +81,14 @@ ships.BAOMU_EOTH = {
 ships.FRUORO_EOTH = {
     name: "Fruoro",
     asset: "FRUORO.png",
-    classification: shipTypes.HeavyFrigate,
-    population: 10,
-    size: 340,
-    cost: 1800,
+    classification: shipTypes.Frigate,
+    population: 12,
+    size: 330,
+    cost: 850,
     speed: 5,
     turnSpeed: .02,
-    shield: 3230,
-    shieldRegen: 3.23,
+    shield: 1950,
+    shieldRegen: 1.95,
     hardpoints: [{
         x: -.07,
         y: -.35,
@@ -135,7 +135,7 @@ ships.FRUORO_EOTH = {
         ...hp,
         weapon: {
             ...hp.weapon,
-            health: hp.weapon.health * 2 | 0
+            health: hp.weapon.health * 1.25 | 0
         }
     }))
 };
@@ -144,13 +144,13 @@ ships.KYNIGOS_EOTH = {
     name: "Kynigos Frigate",
     asset: "KYNIGOS.png",
     classification: shipTypes.HeavyFrigate,
-    population: 12,
-    size: 420,
-    cost: 2450,
-    speed: 5,
+    population: 15,
+    size: 400,
+    cost: 2300,
+    speed: 4,
     turnSpeed: .02,
-    shield: 4340,
-    shieldRegen: 4,
+    shield: 3200,
+    shieldRegen: 3.2,
     hardpoints: [{
         x: -.19,
         y: .11,
@@ -215,13 +215,13 @@ ships.KYNIGOS_EOTH = {
         ...hp,
         weapon: {
             ...hp.weapon,
-            health: hp.weapon.health * 2 | 0
+            health: hp.weapon.health * 1.45 | 0
         }
     })),
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 1,
         squadronSize: 4,
         reserveSize: 4,
         squadronKey: "KRSSIS_EOTH"
@@ -231,14 +231,14 @@ ships.KYNIGOS_EOTH = {
 ships.PROLIPSI_EOTH = {
     name: "Prolipsi Interdictor",
     asset: "PROLIPSI.png",
-    classification: shipTypes.HeavyFrigate,
+    classification: shipTypes.Frigate,
     population: 13,
-    size: 420,
+    size: 400,
     cost: 2400,
-    speed: 3,
+    speed: 4,
     turnSpeed: .01,
-    shield: 5000,
-    shieldRegen: 1,
+    shield: 3000,
+    shieldRegen: 3,
     hardpoints: [{
         x: -.007,
         y: .629,
@@ -291,21 +291,21 @@ ships.PROLIPSI_EOTH = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 1,
         squadronSize: 4,
         reserveSize: 4,
         squadronKey: "NSSIS_EOTH"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 1,
         squadronSize: 4,
         reserveSize: 4,
         squadronKey: "KRSSIS_EOTH"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
+        maxSquadrons: 1,
         squadronSize: 4,
         reserveSize: 4,
         squadronKey: "SYCA_EOTH"

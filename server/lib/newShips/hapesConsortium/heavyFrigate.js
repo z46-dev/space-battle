@@ -78,10 +78,6 @@ ships.CORONAL_HAPAN = {
     turnSpeed: .008,
     shield: 7673,
     shieldRegen: 8,
-    shieldRegenAbility: {
-        cooldown: .55,
-        regen: 1.25
-    },
     tenderAbility: {
         frequency: 1,
         power: 1

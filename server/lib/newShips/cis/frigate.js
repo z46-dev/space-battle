@@ -9,41 +9,27 @@ ships.C9979_CIS = {
     classification: shipTypes.Frigate,
     population: 4,
     size: 149,
-    cost: 600,
-    speed: 3,
+    cost: 650,
+    speed: 4,
     turnSpeed: .008,
-    shield: 1800,
-    shieldRegen: 1.8,
+    shield: 850,
+    shieldRegen: .85,
     hardpoints: [{
         x: -.8,
         y: .25,
-        weapon: {
-            ...weapons.RED_DOUBLE_LASER_CANNON,
-            health: weapons.RED_DOUBLE_LASER_CANNON.health * 3,
-            reload: weapons.RED_DOUBLE_LASER_CANNON.reload * .3
-        }
+        weapon: weapons.RED_RAPID_LASER_CANNON
     }, {
         x: .8,
         y: .25,
-        weapon: {
-            ...weapons.RED_DOUBLE_LASER_CANNON,
-            health: weapons.RED_DOUBLE_LASER_CANNON.health * 3,
-            reload: weapons.RED_DOUBLE_LASER_CANNON.reload * .3
-        }
+        weapon: weapons.RED_RAPID_LASER_CANNON
     }, {
         x: -.8,
         y: -.25,
-        weapon: {
-            ...weapons.DOUBLE_ION_CANNON,
-            health: weapons.DOUBLE_ION_CANNON.health * 3
-        }
+        weapon: weapons.DOUBLE_ION_CANNON
     }, {
         x: .8,
         y: -.25,
-        weapon: {
-            ...weapons.DOUBLE_ION_CANNON,
-            health: weapons.DOUBLE_ION_CANNON.health * 3
-        }
+        weapon: weapons.DOUBLE_ION_CANNON
     }],
     hangars: [{
         x: 0,
@@ -61,11 +47,11 @@ ships.MUNIFICENT_CIS = {
     classification: shipTypes.Frigate,
     population: 10,
     size: 300,
-    cost: 1700,
+    cost: 1300,
     speed: 3.5,
     turnSpeed: .009,
     shield: 2200,
-    shieldRegen: 2,
+    shieldRegen: 2.2,
     hardpoints: [{
         x: 0,
         y: .8,

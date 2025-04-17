@@ -34,7 +34,7 @@ export default class Shipyard {
             return;
         }
 
-        this.queue[0].complete += 2;
+        this.queue[0].complete ++;
 
         if (this.queue[0].complete >= this.queue[0].time) {
             const item = this.queue.shift();

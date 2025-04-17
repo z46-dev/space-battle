@@ -2,7 +2,7 @@ import Planet, { NoiseOptions, PlanetColors, PlanetOptions } from "../Planet/Pla
 import UIButton from "./shared/Button.js";
 import { canvas, ctx, uiScale } from "./shared/canvas.js";
 import { drawText } from "./shared/render.js";
-import shared, { STATE_BATTLE, STATE_HOME, STATE_INIT_CAMPAIGN, STATE_INIT_SURVIVAL, STATE_LOAD_CAMPAIGN, STATE_SELECT_AUTOSAVE, STATE_SELECT_TIMEFRAME, STATE_TACTICAL_MAP } from "./shared/shared.js";
+import shared, { AUTOSAVE_MODE_LOAD, AUTOSAVE_MODE_SAVE, STATE_BATTLE, STATE_HOME, STATE_INIT_CAMPAIGN, STATE_INIT_SURVIVAL, STATE_LOAD_CAMPAIGN as STATE_MANAGE_SAVES, STATE_SELECT_AUTOSAVE, STATE_SELECT_TIMEFRAME, STATE_TACTICAL_MAP } from "./shared/shared.js";
 
 import factions, { CapitalInfo, Faction } from "./lib/Factions.js";
 import curtains, { curtainState, drawCurtains } from "./lib/curtains.js";
@@ -159,10 +159,10 @@ buttonMaps[STATE_HOME] = [{
     y: 72,
     width: 256,
     height: 64,
-    text: "Load Campaign",
+    text: "Manage Saves",
     color: "#C8C8C8",
     action: () => {
-        changeState(STATE_LOAD_CAMPAIGN);
+        changeState(STATE_MANAGE_SAVES);
     }
 }, {
     x: 0,
@@ -176,12 +176,12 @@ buttonMaps[STATE_HOME] = [{
     }
 }];
 
-buttonMaps[STATE_LOAD_CAMPAIGN] = [{
+buttonMaps[STATE_MANAGE_SAVES] = [{
     x: 0,
     y: 0,
     width: 256,
     height: 64,
-    text: "Load Auto-Save",
+    text: "Load Save",
     color: "#C8C8C8",
     action: () => {
         buttonMaps[STATE_SELECT_AUTOSAVE] = [];
@@ -231,6 +231,7 @@ buttonMaps[STATE_LOAD_CAMPAIGN] = [{
             });
         });
 
+        shared.autosaveSelectMode = AUTOSAVE_MODE_LOAD;
         changeState(STATE_SELECT_AUTOSAVE);
     }
 }, {
@@ -238,7 +239,7 @@ buttonMaps[STATE_LOAD_CAMPAIGN] = [{
     y: 72,
     width: 256,
     height: 64,
-    text: "Load Save File",
+    text: "Load Local File",
     color: "#C8C8C8",
     action: () => {
         const input = document.createElement("input");
@@ -264,6 +265,67 @@ buttonMaps[STATE_LOAD_CAMPAIGN] = [{
         });
 
         input.click();
+    }
+}, {
+    x: 0,
+    y: 144,
+    width: 256,
+    height: 64,
+    text: "Download Save",
+    color: "#C8C8C8",
+    action: () => {
+        buttonMaps[STATE_SELECT_AUTOSAVE] = [];
+
+        autosave.saveKeys().then(keys => {
+            if (keys.length === 0) {
+                buttonMaps[STATE_SELECT_AUTOSAVE].push({
+                    x: 0,
+                    y: 0,
+                    width: 256,
+                    height: 64,
+                    text: "No Saves Found",
+                    color: "#C8C8C8",
+                    action: () => {
+                        changeState(STATE_HOME);
+                    }
+                });
+
+                return;
+            }
+
+            keys.sort().reverse().forEach((key, i) => {
+                buttonMaps[STATE_SELECT_AUTOSAVE].push({
+                    x: keys.length > 3 ? (-200 + (i % 2) * 400) : 0,
+                    y: keys.length > 3 ? ((i / 2 | 0) * 72) : (i * 72),
+                    width: 384,
+                    height: 64,
+                    text: key,
+                    color: "#C8C8C8",
+                    action: async () => {
+                        const value = await autosave.loadSave(key);
+                        if (value) {
+                            const blob = new Blob([JSON.stringify(value)], { type: "application/json" });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement("a");
+                            a.href = url;
+                            a.download = `${key}.json`;
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                            URL.revokeObjectURL(url);
+
+                            changeState(STATE_HOME);
+                        } else {
+                            console.error("Failed to download save:", key);
+                            changeState(STATE_HOME);
+                        }
+                    }
+                });
+            });
+        });
+
+        shared.autosaveSelectMode = AUTOSAVE_MODE_SAVE;
+        changeState(STATE_SELECT_AUTOSAVE);
     }
 }];
 
@@ -358,7 +420,7 @@ function draw() {
 
             drawText("Conquest", width / 2, height / 2 - 96, 75, "#FFFFFF");
         } break;
-        case STATE_LOAD_CAMPAIGN: {
+        case STATE_MANAGE_SAVES: {
             for (const star of stars) {
                 star.draw();
             }
@@ -368,7 +430,7 @@ function draw() {
             ctx.drawImage(secondPlanet.canvas, 300, 200);
             ctx.shadowBlur = 0;
 
-            drawText("Load Campaign", width / 2, height / 2 - 96, 75, "#FFFFFF");
+            drawText("Manage Saves", width / 2, height / 2 - 96, 75, "#FFFFFF");
         } break;
         case STATE_SELECT_AUTOSAVE: {
             for (const star of stars) {
@@ -380,7 +442,7 @@ function draw() {
             ctx.drawImage(secondPlanet.canvas, 300, 200);
             ctx.shadowBlur = 0;
 
-            drawText("Select Auto-Save", width / 2, height / 2 - 96, 75, "#FFFFFF");
+            drawText(shared.autosaveSelectMode === AUTOSAVE_MODE_LOAD ? "Select Save" : "Download Save", width / 2, height / 2 - 96, 75, "#FFFFFF");
         } break;
         case STATE_INIT_CAMPAIGN: {
             for (const star of stars) {
