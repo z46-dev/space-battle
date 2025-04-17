@@ -205,7 +205,7 @@ function drawCommander(commander) {
     const img = assetsLib.assets.get(hero.image);
 
     if (!img || !img.ready) {
-        loadAsset(`./assets/portraits/${hero.image}`, hero.image);
+        assetsLib.loadAsset(`./assets/portraits/${hero.image}`, hero.image);
         return;
     }
 
