@@ -1150,7 +1150,7 @@
                 "ships": ["ORMOS_EOTH", "CHAF_EOTH", "EFODIO_EOTH"]
             }, {
                 "id": 4,
-                "ships": ["ASCENDANCY_EOTH", "INTEGO_EOTH"]
+                "ships": ["ASCENDANCY_EOTH", "SYNDIC_EOTH", "INTEGO_EOTH"]
             }]
         }, {
             "id": 7,

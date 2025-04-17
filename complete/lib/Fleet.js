@@ -7,6 +7,17 @@ import shared, { STATE_TACTICAL_MAP } from "../shared/shared.js";
 import factions, { Faction } from "./Factions.js";
 import UIElement from "./UIElement.js";
 
+export class FleetShip {
+    /**
+     * @param {string} key The ship key
+     * @param {string} heroKey The hero key
+     */
+    constructor(key, heroKey = null) {
+        this.shipKey = key;
+        this.heroKey = heroKey;
+    }
+}
+
 export class FleetItem {
     /**
      * @param {Fleet} fleet

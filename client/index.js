@@ -205,7 +205,7 @@ function drawCommander(commander) {
     const img = assetsLib.assets.get(hero.image);
 
     if (!img || !img.ready) {
-        assetsLib.loadAsset(`./assets/portraits/${hero.image}`, hero.image);
+        assetsLib.loadAsset(`/assets/portraits/${hero.image}`, hero.image);
         return;
     }
 
@@ -695,7 +695,7 @@ export default function draw() {
 
         if (data.type === 0) {
             if (!assetsLib.assets.has(data.asset)) {
-                assetsLib.loadAsset(`./assets/ships/${data.asset}`, data.asset);
+                assetsLib.loadAsset(`/assets/ships/${data.asset}`, data.asset);
                 return;
             }
 
