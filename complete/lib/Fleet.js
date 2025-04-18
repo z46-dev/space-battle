@@ -1,5 +1,6 @@
 import { EVENTS, on } from "../../client/lib/state.js";
 import { shipTypes } from "../../server/lib/constants.js";
+import heroes from "../../server/lib/heroes.js";
 import ships from "../../server/lib/ships.js";
 import { ctx } from "../shared/canvas.js";
 import { Color, assets, drawText, loadAsset } from "../shared/render.js";
@@ -105,6 +106,9 @@ export default class Fleet {
         // Name -> Count
         this.ships = new Map();
 
+        // Hero Key -> Ship Key
+        this.heroUnits = new Map();
+
         // Prevent clicking off of the planet when touching this
         this.element = new UIElement(false);
         this.element.canBeDropedInto = true;
@@ -134,6 +138,9 @@ export default class Fleet {
 
         /** @type {UIElement[]} */
         this.shipElements = [];
+
+        /** @type {UIElement[]} */
+        this.heroElements = [];
     }
 
     /**
@@ -171,6 +178,22 @@ export default class Fleet {
         }
     }
 
+    addHero(hero, ship) {
+        if (this.heroUnits.has(hero)) {
+            return;
+        }
+
+        this.heroUnits.set(hero, ship);
+
+        if (this.heroUnits.size !== this.heroElements.length) {
+            this.heroElements = [];
+
+            for (let i = 0; i < this.heroUnits.size; i++) {
+                this.heroElements.push(new UIElement(true, true, false));
+            }
+        }
+    }
+
     remove(name) {
         if (!this.ships.has(name)) {
             return;
@@ -183,6 +206,19 @@ export default class Fleet {
         }
     }
 
+    removeHero(hero) {
+        if (!this.heroUnits.has(hero)) {
+            return;
+        }
+
+        this.heroUnits.delete(hero);
+
+        this.heroElements = [];
+        for (let i = 0; i < this.heroUnits.size; i++) {
+            this.heroElements.push(new UIElement(true, true, false));
+        }
+    }
+
     get population() {
         let total = 0;
 
@@ -190,11 +226,22 @@ export default class Fleet {
             total += ships[key].population * count;
         });
 
+        this.heroUnits.forEach(key => {
+            const ship = ships[key];
+
+            if (ship == null) {
+                return;
+            }
+
+            total += ship.population;
+        });
+
         return total;
     }
 
     getHeight() {
-        return Math.ceil((new Set(this.ships)).size / Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SPACING;
+        const num = this.ships.size + this.heroUnits.size;
+        return Math.ceil(num / Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SPACING;
     }
 
     draw(scale, isMultiple) {
@@ -252,6 +299,52 @@ export default class Fleet {
             }
 
             drawText("x" + count, x, y + Fleet.ICON_SPACING, Fleet.ICON_SIZE / 3, "#FFFFFF");
+
+            i++;
+        });
+
+        this.heroUnits.forEach((ship, hero) => {
+            let x, y;
+
+            if (isMultiple && this.heroElements[i].isDragging) {
+                x = this.heroElements[i].x - this.element.x;
+                y = this.heroElements[i].y - this.element.y;
+            } else {
+                x = (i % Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SIZE / 2 + Fleet.ICON_SPACING;
+                y = Math.floor(i / Fleet.ICONS_PER_ROW) * (Fleet.ICON_SIZE + Fleet.ICON_SPACING) + Fleet.ICON_SIZE / 2 + Fleet.ICON_SPACING;
+            }
+
+            ctx.fillStyle = "#555555";
+            ctx.beginPath();
+            ctx.arc(x, y, Fleet.ICON_SIZE / 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (!assets.has(hero)) {
+                loadAsset("/assets/portraits/" + heroes[hero].image, hero);
+            } else if (!assets.has(ship)) {
+                loadAsset("/assets/ships/" + ships[ship].asset, ship);
+            } else {
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(Math.PI / 4);
+                ctx.scale(.8, .8);
+                ctx.drawImage(assets.get(hero), -Fleet.ICON_SIZE / 2, -Fleet.ICON_SIZE / 2, Fleet.ICON_SIZE, Fleet.ICON_SIZE);
+                ctx.restore();
+            }
+
+            if (isMultiple) {
+                this.heroElements[i].x = x + this.element.x;
+                this.heroElements[i].y = y + this.element.y;
+                this.heroElements[i].radius = Fleet.ICON_SIZE / 2;
+                this.heroElements[i].object = new FleetItem(this, hero, ship);
+                this.heroElements[i].scaleAtRender = 1 / scale;
+                this.planet.campaign.UIElements.push(this.heroElements[i]);
+
+                const elem = this.heroElements[i];
+                elem.onDrop = drop => this.dropItemIntoOtherFleet(elem.object, drop);
+            }
+
+            drawText("x" + shipTypes[ship].population, x, y + Fleet.ICON_SPACING, Fleet.ICON_SIZE / 3, "#FFFFFF");
 
             i++;
         });
