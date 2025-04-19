@@ -10,6 +10,8 @@ import Campaign from "./lib/Campaign.js";
 import drawBattle from "../client/index.js";
 import { loadCampaign, campaignConfig } from "./shared/loader.js";
 import * as autosave from "./shared/autosave.js";
+import Fleet from "./lib/Fleet.js";
+import { EVENTS, on } from "../client/lib/state.js";
 
 // Do a UI all split up in canvas.
 // Add a home menu and an option for saves and an option for
@@ -169,10 +171,13 @@ buttonMaps[STATE_HOME] = [{
     y: 144,
     width: 256,
     height: 64,
-    text: "Survival Mode",
+    text: "Sandbox Mode",
     color: "#C8C8C8",
     action: () => {
-        changeState(STATE_INIT_SURVIVAL);
+        // changeState(STATE_INIT_SURVIVAL);
+        shared.beginBattle(Fleet.random(100, "REBEL").__ships, Fleet.random(100, "EMPIRE").__ships, false, null, "#000000", "#FFFFFF", "Sandbox");
+
+        on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
     }
 }];
 
@@ -373,6 +378,7 @@ buttonMaps[STATE_SELECT_TIMEFRAME] = campaignConfig.map((campaign, i) => ({
 buttonMaps[STATE_INIT_CAMPAIGN] = [];
 buttonMaps[STATE_INIT_SURVIVAL] = [];
 
+console.log("Factions", factions);
 for (let i = 0; i < factions.length - 1; i++) {
     const faction = factions[i + 1]; // Skip Neutral Systems
 

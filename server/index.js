@@ -1598,7 +1598,7 @@ function randomFaction() {
 const spawnDistance = 4000;
 // const fleetFactions = ["AURUM", "EMPIRE", "REBEL", "REPUBLIC", "CIS", "DARKEMPIRE", "HUTT", "ZANN", "HAPAN"].sort(() => .5 - Math.random()).slice(0, 2);
 // const pop = 128;
-const allowHeroes = true;
+const allowHeroes = false;
 // const fleetOverrides = [null, null];
 // for (let i = 0; i < 2; i++) {
 //     const ships = fleetOverrides[i] ?? Fleet.random(pop, fleetFactions[i]);
