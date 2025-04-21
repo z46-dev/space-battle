@@ -403,11 +403,11 @@ ships.VALORCRUISER_REBEL = {
     classification: shipTypes.HeavyFrigate,
     population: 28,
     size: 600,
-    cost: 3600,
+    cost: 3890,
     speed: 2,
     turnSpeed: .01,
-    shield: 8000,
-    shieldRegen: 8,
+    shield: 6800,
+    shieldRegen: 6.8,
     hardpoints: (function() {
         const output = [];
 
@@ -452,14 +452,14 @@ ships.VALORCRUISER_REBEL = {
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 6,
+        squadronSize: 3,
         reserveSize: 2,
         squadronKey: "MG100STARFORTRESS_REBEL"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 6,
+        squadronSize: 5,
         reserveSize: 4,
         squadronKey: "XWING_REBEL"
     }]
