@@ -402,7 +402,7 @@ ships.VALORCRUISER_REBEL = {
     asset: "VALORCRUISER.png",
     classification: shipTypes.HeavyFrigate,
     population: 28,
-    size: 600,
+    size: 580,
     cost: 3890,
     speed: 2,
     turnSpeed: .01,

@@ -313,7 +313,7 @@ ships.STARHAWK_REBEL = {
     asset: "STARHAWK.png",
     classification: shipTypes.Capital,
     population: 32,
-    size: 1000,
+    size: 900,
     cost: 8000,
     speed: 2,
     turnSpeed: .001,
