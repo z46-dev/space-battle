@@ -427,13 +427,13 @@ ships.VALORCRUISER_REBEL = {
             }, {
                 x: -.05 - .05 * Math.pow(i, 1.05),
                 y: -.9 + .25 * i,
-                weapon: i % 2 === 0 ? weapons.DOUBLE_ION_CANNON : weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                weapon: i % 2 === 0 ? weapons.DOUBLE_ION_CANNON : weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 150
             }, {
                 x: .05 + .05 * Math.pow(i, 1.05),
                 y: -.9 + .25 * i,
-                weapon: i % 2 === 0 ? weapons.DOUBLE_ION_CANNON : weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                weapon: i % 2 === 0 ? weapons.DOUBLE_ION_CANNON : weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 150
             });
