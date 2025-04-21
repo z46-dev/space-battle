@@ -1,4 +1,4 @@
-import Planet, { NoiseOptions, PlanetColors, PlanetOptions } from "../Planet/Planet.js";
+import Planet, { NoiseOptions, PlanetColors, PlanetOptions } from "./Planet/Planet.js";
 import UIButton from "./shared/Button.js";
 import { canvas, ctx, uiScale } from "./shared/canvas.js";
 import { drawText } from "./shared/render.js";
@@ -7,11 +7,11 @@ import shared, { AUTOSAVE_MODE_LOAD, AUTOSAVE_MODE_SAVE, STATE_BATTLE, STATE_HOM
 import factions, { CapitalInfo, Faction } from "./lib/Factions.js";
 import curtains, { curtainState, drawCurtains } from "./lib/curtains.js";
 import Campaign from "./lib/Campaign.js";
-import drawBattle from "../client/index.js";
+import drawBattle from "./client/index.js";
 import { loadCampaign, campaignConfig } from "./shared/loader.js";
 import * as autosave from "./shared/autosave.js";
 import Fleet from "./lib/Fleet.js";
-import { EVENTS, on } from "../client/lib/state.js";
+import { EVENTS, on } from "./client/lib/state.js";
 
 // Do a UI all split up in canvas.
 // Add a home menu and an option for saves and an option for
