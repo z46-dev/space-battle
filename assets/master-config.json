@@ -997,16 +997,16 @@
             },
             "shipyards": [{
                 "id": 1,
-                "ships": ["CR90_REBEL", "DP20_REBEL", "MARAUDERMISSILECRUISER_REBEL", "MC30C_REBEL", "NEBULONB_REBEL", "PELTA_REBEL", "QUASAR_REBEL"]
+                "ships": ["CR90_REBEL", "DP20_REBEL", "MARAUDERMISSILECRUISER_REBEL", "MC30C_REBEL", "NEBULONB_REBEL", "QUASAR_REBEL"]
             }, {
                 "id": 2,
-                "ships": ["MC50_REBEL", "NEBULONB2_REBEL", "FREEVIRGILLIABUNKERBUSTER_REBEL", "MC75_REBEL"]
+                "ships": ["MC50_REBEL", "NEBULONB2_REBEL", "FREEVIRGILLIABUNKERBUSTER_REBEL", "MC75_REBEL", "PELTA_REBEL"]
             }, {
                 "id": 3,
-                "ships": ["MC80A_REBEL", "MC80BLIBERTY_REBEL", "MC80B_REBEL", "STARHAWK_REBEL", "MC90_REBEL", "ENDURANCE_REBEL", "NEBULA_REBEL"]
+                "ships": ["VALORCRUISER_REBEL", "MC80A_REBEL", "MC80BLIBERTY_REBEL", "MC80B_REBEL", "STARHAWK_REBEL", "MC90_REBEL", "ENDURANCE_REBEL", "LUCREHULKAUXILIARYWARSHIP_REBEL", "NEBULA_REBEL"]
             }, {
                 "id": 4,
-                "ships": ["MC85_REBEL", "BLUEDIVER_REBEL", "MEDIATOR_REBEL", "VISCOUNT_PROTOTYPE_REBEL"]
+                "ships": ["INEXPUGNABLECOMMANDSHIP_REBEL", "MC85_REBEL", "BLUEDIVER_REBEL", "MEDIATOR_REBEL", "VISCOUNT_PROTOTYPE_REBEL"]
             }]
         }, {
             "id": 1,
