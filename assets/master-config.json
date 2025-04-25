@@ -1277,6 +1277,82 @@
                 "ships": []
             }]
         }]
+    }, {
+        "id": 2,
+        "name": "Reborn Emperor",
+        "factions": [{
+            "id": 0,
+            "color": "#EE5555",
+            "name": "New Republic",
+            "key": "REBEL",
+            "planets": ["Coruscant", "Naboo", "Alderaan", "Borleias", "Dantooine", "Mon Calamari", "Ithor", "Bothawui", "Yavin", "Lothal", "Hosnian Prime"],
+            "capital": {
+                "name": "Coruscant",
+                "fleetPopulation": 100,
+                "baseIncome": 2300
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": ["CR90_REBEL", "DP20_REBEL", "MARAUDERMISSILECRUISER_REBEL", "MC30C_REBEL", "NEBULONB_REBEL", "QUASAR_REBEL"]
+            }, {
+                "id": 2,
+                "ships": ["MC50_REBEL", "NEBULONB2_REBEL", "FREEVIRGILLIABUNKERBUSTER_REBEL", "MC75_REBEL", "PELTA_REBEL", "ZENITHCRUISER_REBEL"]
+            }, {
+                "id": 3,
+                "ships": ["VALORCRUISER_REBEL", "MC80A_REBEL", "MC80BLIBERTY_REBEL", "MC80B_REBEL", "STARHAWK_REBEL", "MC90_REBEL", "ENDURANCE_REBEL", "LUCREHULKAUXILIARYWARSHIP_REBEL", "NEBULA_REBEL"]
+            }, {
+                "id": 4,
+                "ships": ["INEXPUGNABLECOMMANDSHIP_REBEL", "MC85_REBEL", "BLUEDIVER_REBEL", "MEDIATOR_REBEL", "VISCOUNT_PROTOTYPE_REBEL"]
+            }]
+        }, {
+            "id": 3,
+            "color": "#224488",
+            "name": "Dark Empire",
+            "key": "DARKEMPIRE",
+            "planets": ["Empress Teta", "Raxus", "Zaddja", "Polis Massa", "Byss", "Kuat"],
+            "capital": {
+                "name": "Byss",
+                "fleetPopulation": 150,
+                "baseIncome": 5000
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": ["IPV1_DARKEMPIRE", "VIGILCORVETTE_DARKEMPIRE", "TONFALKCARRIER_DARKEMPIRE", "MTFCRUISER_DARKEMPIRE", "CARRACK_DARKEMPIRE", "LANCERFRIGATE_DARKEMPIRE"]
+            }, {
+                "id": 2,
+                "ships": ["WORLDDEVASTATORFG_DARKEMPIRE", "DREADNOUGHTHEAVYCRUISER_DARKEMPIRE"]
+            }, {
+                "id": 3,
+                "ships": ["IMPERIALSTARDESTROYER_DARKEMPIRE", "INTERDICTORSTARDESTROYER_DARKEMPIRE", "RESURGENT_DARKEMPIRE", "ALLEGIANCE_DARKEMPIRE", "SORONNAN_DARKEMPIRE"]
+            }, {
+                "id": 4,
+                "ships": ["ONAGER_DARKEMPIRE", "XYSTON_DARKEMPIRE", "WORLDDEVASTATORBC_DARKEMPIRE", "BELLATOR_DARKEMPIRE", "ASSERTOR_DARKEMPIRE", "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE", "IMPELLORFLEETCARRIER_DARKEMPIRE"]
+            }]
+        }, {
+            "id": 7,
+            "color": "#FFFFFF",
+            "name": "Neutral Planets",
+            "key": "",
+            "planets": ["Prakith","Tython","N'Zoth","Corellia","Fondor","Kattada","Neimoidia","Devaron","Commenor","Cato Neimoidia","Sluis Van","Sullust","Bespin","Hoth","Javin","Drexel","Rodia","Tatooine","Geonosis","Hypori","Ord Cestus","Serenno","Muunilinst","Comra","Ord Cantrell","Telos","Columex","Iego","Dathomir","Woostri","Dorin","Mimban","Roxuli","Thyferra","Wroona","Colla IV","Ylesia","Malastare","Ansion","Ando","Ruusan","Kashyyyk","Dressel","Codia","Ankus","Bakura","Kalee","Aeten","Jedha","Zakuul","The Maw", "Brentaal","Anaxes","Kuat","Rendili","Carida","Endor","Mustafar","Koda Station","Christophsis","Ryloth","Axxila","Entralla","Jaemus","Bastion","Desevro","Felucia","Rhen Var","Ord Trasi","Saleucami","Teth","Kessel","Umbara","Bilbringi","Hapes","Toydaria","Klatooine","Du Hutta","Gos Hutta","Nal Hutta & Nar Shaddaa","Keitum","Fornax","Orinda","New Cov","Boz Pity","Daalang","Zonama Sekot","Ilum","Rakata Prime","Csilla","Nirauan","Esfandia","Ring of Kafrene"],
+            "capital": {
+                "name": "Prakith",
+                "fleetPopulation": 120,
+                "baseIncome": 3230
+            },
+            "shipyards": [{
+                "id": 1,
+                "ships": []
+            }, {
+                "id": 2,
+                "ships": []
+            }, {
+                "id": 3,
+                "ships": []
+            }, {
+                "id": 4,
+                "ships": []
+            }]
+        }]
     }],
     "survivalFactions": [{
         "id": 0,

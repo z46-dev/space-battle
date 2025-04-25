@@ -793,17 +793,40 @@ ships.SORONNAN_DARKEMPIRE = {
         ...e,
         weapon: {
             ...e.weapon,
-            health: e.weapon.health * 4 | 0,
-            reload: e.weapon.reload * .9 | 0,
-            range: e.weapon.range * 1.5 | 0
+            health: e.weapon.health * 5 | 0,
+            reload: e.weapon.reload * 2 | 0,
+            range: e.weapon.range * 2 | 0,
+            speed: e.weapon.speed * 1.5 | 0,
+            damage: e.weapon.damage * 1.5 | 0
         }
     })),
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 4,
+        maxSquadrons: 3,
+        squadronSize: 3,
+        reserveSize: 12,
+        squadronKey: "TIEREAPER_EMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 3,
+        squadronSize: 3,
+        reserveSize: 12,
+        squadronKey: "TIEPUNISHER_EMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 3,
+        squadronSize: 3,
+        reserveSize: 12,
+        squadronKey: "TIEDEFENDER_DARKEMPIRE"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 6,
         squadronSize: 6,
-        reserveSize: 8,
+        reserveSize: 24,
         squadronKey: "TIEDRONE_DARKEMPIRE"
     }]
 };
