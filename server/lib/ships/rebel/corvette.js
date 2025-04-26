@@ -9,11 +9,11 @@ ships.CR90_REBEL = {
     classification: shipTypes.Corvette,
     population: 1,
     size: 95,
-    cost: 200,
-    speed: 12,
-    turnSpeed: .045,
-    shield: 1000,
-    shieldRegen: 1,
+    cost: 220,
+    speed: 14,
+    turnSpeed: .06,
+    shield: 430,
+    shieldRegen: .43,
     hardpoints: [{
         x: 0,
         y: .6,
@@ -133,11 +133,11 @@ ships.FORRAYBLOCKADERUNNER_REBEL = {
     asset: "FORRAYBLOCKADERUNNER.png",
     classification: shipTypes.Corvette,
     population: 2,
-    size: 210,
-    cost: 210,
+    size: 100,
+    cost: 310,
     speed: 9.5,
     turnSpeed: .02,
-    shield: 1500,
+    shield: 350,
     shieldRegen: 1.5,
     hardpoints: [{
         x: 0,
@@ -150,12 +150,6 @@ ships.FORRAYBLOCKADERUNNER_REBEL = {
         y: .425,
         weapon: weapons.ION_CANNON,
         shotsAtOnce: 4,
-        shotDelay: 75
-    }, {
-        x: 0,
-        y: 0,
-        weapon: weapons.ASSAULT_PROTON_TORPEDO,
-        shotsAtOnce: 6,
         shotDelay: 75
     }, {
         x: 0,

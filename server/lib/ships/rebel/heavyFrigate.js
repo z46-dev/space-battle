@@ -9,7 +9,7 @@ ships.MC50_REBEL = {
     classification: shipTypes.HeavyFrigate,
     population: 16,
     size: 600,
-    cost: 1000,
+    cost: 2800,
     speed: 4,
     turnSpeed: .008,
     shield: 6000,
@@ -107,7 +107,7 @@ ships.NEBULONB2_REBEL = {
     classification: shipTypes.HeavyFrigate,
     population: 15,
     size: 350,
-    cost: 1500,
+    cost: 2950,
     speed: 3,
     turnSpeed: .008,
     shield: 4000,
@@ -196,7 +196,7 @@ ships.FREEVIRGILLIABUNKERBUSTER_REBEL = {
     classification: shipTypes.HeavyFrigate,
     population: 16,
     size: 300,
-    cost: 6000,
+    cost: 3100,
     speed: 2.25,
     turnSpeed: .01,
     shield: 6000,
@@ -256,7 +256,7 @@ ships.MC75_REBEL = {
     classification: shipTypes.HeavyFrigate,
     population: 24,
     size: 500,
-    cost: 2400,
+    cost: 3400,
     speed: 3,
     turnSpeed: .006,
     shield: 9800,
@@ -402,12 +402,12 @@ ships.VALORCRUISER_REBEL = {
     asset: "VALORCRUISER.png",
     classification: shipTypes.HeavyFrigate,
     population: 28,
-    size: 600,
-    cost: 2950,
+    size: 580,
+    cost: 3890,
     speed: 2,
     turnSpeed: .01,
-    shield: 8000,
-    shieldRegen: 8,
+    shield: 6800,
+    shieldRegen: 6.8,
     hardpoints: (function() {
         const output = [];
 
@@ -427,13 +427,13 @@ ships.VALORCRUISER_REBEL = {
             }, {
                 x: -.05 - .05 * Math.pow(i, 1.05),
                 y: -.9 + .25 * i,
-                weapon: i % 2 === 0 ? weapons.DOUBLE_ION_CANNON : weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                weapon: i % 2 === 0 ? weapons.DOUBLE_ION_CANNON : weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 150
             }, {
                 x: .05 + .05 * Math.pow(i, 1.05),
                 y: -.9 + .25 * i,
-                weapon: i % 2 === 0 ? weapons.DOUBLE_ION_CANNON : weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                weapon: i % 2 === 0 ? weapons.DOUBLE_ION_CANNON : weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
                 shotDelay: 150
             });
@@ -452,14 +452,14 @@ ships.VALORCRUISER_REBEL = {
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 6,
+        squadronSize: 3,
         reserveSize: 2,
         squadronKey: "MG100STARFORTRESS_REBEL"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 6,
+        squadronSize: 5,
         reserveSize: 4,
         squadronKey: "XWING_REBEL"
     }]

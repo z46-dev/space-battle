@@ -17,99 +17,99 @@ class Vector {
 }
 
 export const empire = {
-    ...(await import("./newShips/empire/fighter.js")).default,
-    ...(await import("./newShips/empire/corvette.js")).default,
-    ...(await import("./newShips/empire/frigate.js")).default,
-    ...(await import("./newShips/empire/heavyFrigate.js")).default,
-    ...(await import("./newShips/empire/capital.js")).default,
-    ...(await import("./newShips/empire/superCapital.js")).default
+    ...(await import("./ships/empire/fighter.js")).default,
+    ...(await import("./ships/empire/corvette.js")).default,
+    ...(await import("./ships/empire/frigate.js")).default,
+    ...(await import("./ships/empire/heavyFrigate.js")).default,
+    ...(await import("./ships/empire/capital.js")).default,
+    ...(await import("./ships/empire/superCapital.js")).default
 };
 
 export const darkEmpire = {
-    ...(await import("./newShips/darkEmpire/fighter.js")).default,
-    ...(await import("./newShips/darkEmpire/corvette.js")).default,
-    ...(await import("./newShips/darkEmpire/frigate.js")).default,
-    ...(await import("./newShips/darkEmpire/heavyFrigate.js")).default,
-    ...(await import("./newShips/darkEmpire/capital.js")).default,
-    ...(await import("./newShips/darkEmpire/superCapital.js")).default
+    ...(await import("./ships/darkEmpire/fighter.js")).default,
+    ...(await import("./ships/darkEmpire/corvette.js")).default,
+    ...(await import("./ships/darkEmpire/frigate.js")).default,
+    ...(await import("./ships/darkEmpire/heavyFrigate.js")).default,
+    ...(await import("./ships/darkEmpire/capital.js")).default,
+    ...(await import("./ships/darkEmpire/superCapital.js")).default
 };
 
 export const rebel = {
-    ...(await import("./newShips/rebel/fighter.js")).default,
-    ...(await import("./newShips/rebel/corvette.js")).default,
-    ...(await import("./newShips/rebel/frigate.js")).default,
-    ...(await import("./newShips/rebel/heavyFrigate.js")).default,
-    ...(await import("./newShips/rebel/capital.js")).default,
-    ...(await import("./newShips/rebel/superCapital.js")).default
+    ...(await import("./ships/rebel/fighter.js")).default,
+    ...(await import("./ships/rebel/corvette.js")).default,
+    ...(await import("./ships/rebel/frigate.js")).default,
+    ...(await import("./ships/rebel/heavyFrigate.js")).default,
+    ...(await import("./ships/rebel/capital.js")).default,
+    ...(await import("./ships/rebel/superCapital.js")).default
 };
 
 export const republic = {
-    ...(await import("./newShips/republic/fighter.js")).default,
-    ...(await import("./newShips/republic/corvette.js")).default,
-    ...(await import("./newShips/republic/frigate.js")).default,
-    ...(await import("./newShips/republic/heavyFrigate.js")).default,
-    ...(await import("./newShips/republic/capital.js")).default,
-    ...(await import("./newShips/republic/superCapital.js")).default
+    ...(await import("./ships/republic/fighter.js")).default,
+    ...(await import("./ships/republic/corvette.js")).default,
+    ...(await import("./ships/republic/frigate.js")).default,
+    ...(await import("./ships/republic/heavyFrigate.js")).default,
+    ...(await import("./ships/republic/capital.js")).default,
+    ...(await import("./ships/republic/superCapital.js")).default
 };
 
 export const cis = {
-    ...(await import("./newShips/cis/fighter.js")).default,
-    ...(await import("./newShips/cis/corvette.js")).default,
-    ...(await import("./newShips/cis/frigate.js")).default,
-    ...(await import("./newShips/cis/heavyFrigate.js")).default,
-    ...(await import("./newShips/cis/capital.js")).default,
-    ...(await import("./newShips/cis/superCapital.js")).default
+    ...(await import("./ships/cis/fighter.js")).default,
+    ...(await import("./ships/cis/corvette.js")).default,
+    ...(await import("./ships/cis/frigate.js")).default,
+    ...(await import("./ships/cis/heavyFrigate.js")).default,
+    ...(await import("./ships/cis/capital.js")).default,
+    ...(await import("./ships/cis/superCapital.js")).default
 };
 
 export const hutts = {
-    ...(await import("./newShips/hutts/fighter.js")).default,
-    ...(await import("./newShips/hutts/corvette.js")).default,
-    ...(await import("./newShips/hutts/frigate.js")).default,
-    ...(await import("./newShips/hutts/heavyFrigate.js")).default,
-    ...(await import("./newShips/hutts/capital.js")).default,
-    ...(await import("./newShips/hutts/superCapital.js")).default
+    ...(await import("./ships/hutts/fighter.js")).default,
+    ...(await import("./ships/hutts/corvette.js")).default,
+    ...(await import("./ships/hutts/frigate.js")).default,
+    ...(await import("./ships/hutts/heavyFrigate.js")).default,
+    ...(await import("./ships/hutts/capital.js")).default,
+    ...(await import("./ships/hutts/superCapital.js")).default
 };
 
 export const zann = {
-    ...(await import("./newShips/zann/fighter.js")).default,
-    ...(await import("./newShips/zann/corvette.js")).default,
-    ...(await import("./newShips/zann/frigate.js")).default,
-    ...(await import("./newShips/zann/heavyFrigate.js")).default,
-    ...(await import("./newShips/zann/capital.js")).default,
-    ...(await import("./newShips/zann/superCapital.js")).default
+    ...(await import("./ships/zann/fighter.js")).default,
+    ...(await import("./ships/zann/corvette.js")).default,
+    ...(await import("./ships/zann/frigate.js")).default,
+    ...(await import("./ships/zann/heavyFrigate.js")).default,
+    ...(await import("./ships/zann/capital.js")).default,
+    ...(await import("./ships/zann/superCapital.js")).default
 };
 
 export const hapan = {
-    ...(await import("./newShips/hapesConsortium/fighter.js")).default,
-    ...(await import("./newShips/hapesConsortium/corvette.js")).default,
-    ...(await import("./newShips/hapesConsortium/frigate.js")).default,
-    ...(await import("./newShips/hapesConsortium/heavyFrigate.js")).default,
-    ...(await import("./newShips/hapesConsortium/capital.js")).default,
-    ...(await import("./newShips/hapesConsortium/superCapital.js")).default,
-    ...(await import("./newShips/hapesConsortium/spaceStation.js")).default
+    ...(await import("./ships/hapesConsortium/fighter.js")).default,
+    ...(await import("./ships/hapesConsortium/corvette.js")).default,
+    ...(await import("./ships/hapesConsortium/frigate.js")).default,
+    ...(await import("./ships/hapesConsortium/heavyFrigate.js")).default,
+    ...(await import("./ships/hapesConsortium/capital.js")).default,
+    ...(await import("./ships/hapesConsortium/superCapital.js")).default,
+    ...(await import("./ships/hapesConsortium/spaceStation.js")).default
 };
 
 export const aurumFoundaries = {
-    ...(await import("./newShips/aurumFoundaries/fighter.js")).default,
-    ...(await import("./newShips/aurumFoundaries/corvette.js")).default,
-    ...(await import("./newShips/aurumFoundaries/frigate.js")).default,
-    ...(await import("./newShips/aurumFoundaries/heavyFrigate.js")).default,
-    ...(await import("./newShips/aurumFoundaries/capital.js")).default,
-    ...(await import("./newShips/aurumFoundaries/superCapital.js")).default,
-    ...(await import("./newShips/aurumFoundaries/spaceStation.js")).default
+    ...(await import("./ships/aurumFoundaries/fighter.js")).default,
+    ...(await import("./ships/aurumFoundaries/corvette.js")).default,
+    ...(await import("./ships/aurumFoundaries/frigate.js")).default,
+    ...(await import("./ships/aurumFoundaries/heavyFrigate.js")).default,
+    ...(await import("./ships/aurumFoundaries/capital.js")).default,
+    ...(await import("./ships/aurumFoundaries/superCapital.js")).default,
+    ...(await import("./ships/aurumFoundaries/spaceStation.js")).default
 };
 
 export const empireOfTheHand = {
-    ...(await import("./newShips/eoth/fighter.js")).default,
-    ...(await import("./newShips/eoth/corvette.js")).default,
-    ...(await import("./newShips/eoth/frigate.js")).default,
-    ...(await import("./newShips/eoth/heavyFrigate.js")).default,
-    ...(await import("./newShips/eoth/capital.js")).default,
-    ...(await import("./newShips/eoth/superCapital.js")).default
+    ...(await import("./ships/eoth/fighter.js")).default,
+    ...(await import("./ships/eoth/corvette.js")).default,
+    ...(await import("./ships/eoth/frigate.js")).default,
+    ...(await import("./ships/eoth/heavyFrigate.js")).default,
+    ...(await import("./ships/eoth/capital.js")).default,
+    ...(await import("./ships/eoth/superCapital.js")).default
 };
 
 export const stations = {
-    ...(await import("./newShips/stations/shipyards.js")).default
+    ...(await import("./ships/stations/shipyards.js")).default
 };
 
 const ships = {

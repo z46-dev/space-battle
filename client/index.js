@@ -1016,14 +1016,3 @@ export function initializeBattle(myShips, enemyShips, attacking, designConfig, m
 
     setTimeout(() => state.world.acceptDeathClones = true, 5000);
 }
-
-if (!location.href.includes("complete")) {
-    function tick() {
-        requestAnimationFrame(tick);
-        draw();
-    }
-
-    tick();
-
-    initializeBattle(["CR90_REBEL"], ["QUASAR_EMPIRE"], 0);
-}

@@ -12,16 +12,16 @@ ships.XWING_REBEL = {
     cost: 5,
     speed: 20,
     turnSpeed: .085,
-    shield: 25,
-    shieldRegen: 1,
+    shield: 22,
+    shieldRegen: .02,
     hardpoints: [{
         x: 0,
         y: 0,
         weapon: {
             ...weapons.RED_FIGHTER_LASER_CANNON,
-            health: weapons.RED_FIGHTER_LASER_CANNON.health * 4
+            health: weapons.RED_FIGHTER_LASER_CANNON.health * 2
         },
-        shotsAtOnce: 8,
+        shotsAtOnce: 4,
         shotDelay: 50
     }, {
         x: 0,
@@ -53,7 +53,7 @@ ships.YWING_REBEL = {
             ...weapons.RED_FIGHTER_LASER_CANNON,
             health: weapons.RED_FIGHTER_LASER_CANNON.health * 2
         },
-        shotsAtOnce: 4,
+        shotsAtOnce: 2,
         shotDelay: 75
     }, {
         x: 0,
@@ -99,7 +99,7 @@ ships.AWING_REBEL = {
             damage: weapons.RED_FIGHTER_LASER_CANNON.damage * 1.5,
             health: weapons.RED_FIGHTER_LASER_CANNON.health * 1.5
         },
-        shotsAtOnce: 4,
+        shotsAtOnce: 2,
         shotDelay: 50
     }, {
         x: .5,

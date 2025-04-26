@@ -122,21 +122,21 @@ ships.TIEREAPER_EMPIRE = {
     asset: "TIEREAPER.png",
     classification: shipTypes.Fighter,
     population: 0,
-    size: 25,
+    size: 21,
     cost: 6,
     speed: 16,
-    turnSpeed: .12,
+    turnSpeed: .1,
     shield: 50,
     shieldRegen: .05,
     hardpoints: [{
         x: 0,
         y: 0,
         weapon: {
-            ...weapons.GREEN_RAPID_FIGHTER_LASER_CANNON,
-            health: 250
-        },
-        shotsAtOnce: 2,
-        shotDelay: 50
+            ...weapons.GREEN_LASER_CANNON,
+            health: 250,
+            reload: weapons.GREEN_LASER_CANNON.reload * .075 | 0,
+            range: weapons.GREEN_LASER_CANNON.range * .2 | 0
+        }
     }]
 };
 
