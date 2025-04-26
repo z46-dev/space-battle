@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #fileInput {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="file" id="fileInput" accept=".alo" />
+
+    <script src="https://unpkg.com/three@0.156.1/build/three.min.js" type="module"></script>
+
+    <script type="module">
+
+        // 1) Boilerplate: scene, camera, renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);                     // :contentReference[oaicite:3]{index=3}
+        document.body.appendChild(renderer.domElement);
+
+        // 2) Orbit controls
+        camera.position.set(0, 5, 10);
+
+        // 3) Lights
+        const hemi = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
+        scene.add(hemi);
+        const dir = new THREE.DirectionalLight(0xffffff, 0.8);
+        dir.position.set(5, 10, 7.5);
+        scene.add(dir);
+
+        // 4) File input → load & parse .alo
+        document.getElementById('fileInput').addEventListener('change', evt => {
+            const file = evt.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.readAsArrayBuffer(file);                                          // :contentReference[oaicite:5]{index=5}
+            reader.onload = () => {
+                const { vertices, indices, vcount } = parseALO(reader.result);
+                const mesh = buildMesh(vertices, indices, vcount);
+                scene.add(mesh);
+            };
+        });
+
+        // 5) Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        /** Parses header + one mesh: magic 'ALO\0', version, meshCount.
+         *  Then vcount:uint32, vertices:Float32 * (vcount×8), icount:uint32, indices:uint32*icount.
+         */
+        function parseALO(buffer) {
+            const dv = new DataView(buffer);
+            let off = 0;
+            // // magic
+            // const magic = String.fromCharCode(
+            //     dv.getUint8(off), dv.getUint8(off + 1),
+            //     dv.getUint8(off + 2), dv.getUint8(off + 3)
+            // ); off += 4;
+            // console.log(magic);
+            // if (magic !== 'ALO\u0000') throw new Error('Not an ALO file');
+
+            const version = dv.getUint32(off, true); off += 4;
+            const meshCount = dv.getUint32(off, true); off += 4;
+            // assume first mesh only
+            const vcount = dv.getUint32(off, true); off += 4;
+            const floats = new Float32Array(buffer, off, vcount * 8);             // x,y,z,nx,ny,nz,u,v :contentReference[oaicite:6]{index=6}
+            off += vcount * 8 * 4;
+            const icount = dv.getUint32(off, true); off += 4;
+            const ids = new Uint32Array(buffer, off, icount);
+            return { vertices: floats, indices: ids, vcount };
+        }
+
+        /** Builds a Three.js mesh from interleaved floats + indices */
+        function buildMesh(floats, ids, vcount) {
+            // de-interleave
+            const pos = new Float32Array(vcount * 3),
+                nor = new Float32Array(vcount * 3),
+                uv = new Float32Array(vcount * 2);
+            for (let i = 0; i < vcount; i++) {
+                pos.set(floats.subarray(i * 8, i * 8 + 3), i * 3);
+                nor.set(floats.subarray(i * 8 + 3, i * 8 + 6), i * 3);
+                uv.set(floats.subarray(i * 8 + 6, i * 8 + 8), i * 2);
+            }
+
+            const geom = new THREE.BufferGeometry();                              // :contentReference[oaicite:7]{index=7}
+            geom.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            geom.setAttribute('normal', new THREE.BufferAttribute(nor, 3));
+            geom.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
+            geom.setIndex(new THREE.BufferAttribute(ids, 1));
+
+            const mat = new THREE.MeshStandardMaterial({ color: 0xaaaaaa });
+            return new THREE.Mesh(geom, mat);
+        }
+
+    </script>
+</body>
+
+</html>
