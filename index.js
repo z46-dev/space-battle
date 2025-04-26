@@ -177,7 +177,7 @@ buttonMaps[STATE_HOME] = [{
         // changeState(STATE_INIT_SURVIVAL);
         shared.beginBattle(
             ["VALORCRUISER_REBEL", "VALORCRUISER_REBEL", "VALORCRUISER_REBEL", "VALORCRUISER_REBEL", "VALORCRUISER_REBEL", "VALORCRUISER_REBEL"], 
-            ["SORONNAN_DARKEMPIRE", "SORONNAN_DARKEMPIRE", "SORONNAN_DARKEMPIRE"], false, null, "#EF6655", "#55EF66", "Sandbox");
+            ["VENGEANCE_EMPIRE"], false, null, "#EF6655", "#55EF66", "Sandbox");
 
         on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
     }
