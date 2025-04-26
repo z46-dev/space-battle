@@ -731,7 +731,7 @@ templates.VENGEANCE = function (options = {}) {
     options.cost ??= 53000;
     options.speed ??= 2;
     options.turnSpeed ??= .00015;
-    options.shield ??= 86000;
+    options.shield ??= 95000;
     options.shieldRegen ??= options.shield / 1000;
     options.color ??= "GREEN";
     options.hangars ??= [{
@@ -762,7 +762,7 @@ templates.VENGEANCE = function (options = {}) {
         asset: "VENGEANCE.png",
         classification: shipTypes.SuperCapital,
         population: options.population,
-        size: 8000,
+        size: 6575,
         cost: options.cost,
         speed: options.speed,
         turnSpeed: options.turnSpeed,
@@ -773,41 +773,41 @@ templates.VENGEANCE = function (options = {}) {
 
             for (let i = 0; i < 13; i++) {
                 output.push({
-                    x: -.02 - .0225 * i,
+                    x: -.02 - .02 * i,
                     y: .8 - .1 * i,
-                    weapon: weapons[options.color + "_QUAD_LASER_CANNON_HEAVY"],
-                    shotsAtOnce: 3,
-                    shotDelay: 250
+                    weapon: weapons[options.color + "_RAPID_LASER_CANNON"],
+                    shotsAtOnce: 2,
+                    shotDelay: 50
                 }, {
                     x: .04 + .02 * i,
                     y: .8 - .1 * i,
-                    weapon: weapons[options.color + "_QUAD_LASER_CANNON_HEAVY"],
-                    shotsAtOnce: 3,
-                    shotDelay: 250
+                    weapon: weapons[options.color + "_RAPID_LASER_CANNON"],
+                    shotsAtOnce: 2,
+                    shotDelay: 50
                 }, {
-                    x: -.01 - .0225 * i,
+                    x: -.01 - .02 * i,
                     y: .85 - .1 * i,
                     weapon: weapons.QUAD_ION_CANNON,
-                    shotsAtOnce: 3,
+                    shotsAtOnce: 2,
                     shotDelay: 250
                 }, {
                     x: .03 + .02 * i,
                     y: .85 - .1 * i,
                     weapon: weapons.QUAD_ION_CANNON,
-                    shotsAtOnce: 3,
+                    shotsAtOnce: 2,
                     shotDelay: 250
                 }, {
-                    x: -.025 - .0225 * i,
+                    x: -.025 - .02 * i,
                     y: .8 - .1 * i,
                     weapon: i % 2 ? weapons[options.color + "_DOUBLE_TURBOLASER_CANNON_HEAVY"] : weapons.ASSAULT_CONCUSSION_MISSILE,
-                    shotsAtOnce: 3,
-                    shotDelay: 250
+                    shotsAtOnce: 2,
+                    shotDelay: 120
                 }, {
                     x: .025 + .02 * i,
                     y: .8 - .1 * i,
                     weapon: i % 2 ? weapons[options.color + "_DOUBLE_TURBOLASER_CANNON_HEAVY"] : weapons.ASSAULT_CONCUSSION_MISSILE,
-                    shotsAtOnce: 3,
-                    shotDelay: 250
+                    shotsAtOnce: 2,
+                    shotDelay: 120
                 });
             }
 
@@ -815,27 +815,27 @@ templates.VENGEANCE = function (options = {}) {
                 output.push({
                     x: -.055 - .01 * i,
                     y: .4 - .075 * i,
-                    weapon: weapons[options.color + "_QUAD_TURBOLASER_CANNON_HEAVY"],
+                    weapon: weapons[options.color + "_RAPID_LASER_CANNON"],
                     shotsAtOnce: 2,
-                    shotDelay: 500
+                    shotDelay: 50
                 }, {
                     x: .075 + .00825 * i,
                     y: .4 - .075 * i,
-                    weapon: weapons[options.color + "_QUAD_TURBOLASER_CANNON_HEAVY"],
+                    weapon: weapons[options.color + "_RAPID_LASER_CANNON"],
                     shotsAtOnce: 2,
-                    shotDelay: 500
+                    shotDelay: 50
                 }, {
                     x: -.08 - .015 * i,
                     y: .4 - .075 * i,
-                    weapon: weapons[options.color + "_OCTUPLE_TURBOLASER_CANNON_HEAVY"],
+                    weapon: weapons[options.color + "_DOUBLE_TURBOLASER_CANNON_HEAVY"],
                     shotsAtOnce: 2,
-                    shotDelay: 500
+                    shotDelay: 100
                 }, {
                     x: .09 + .0125 * i,
                     y: .4 - .075 * i,
-                    weapon: weapons[options.color + "_OCTUPLE_TURBOLASER_CANNON_HEAVY"],
+                    weapon: weapons[options.color + "_DOUBLE_TURBOLASER_CANNON_HEAVY"],
                     shotsAtOnce: 2,
-                    shotDelay: 500
+                    shotDelay: 100
                 });
 
                 i += .5;
@@ -901,7 +901,7 @@ templates.VENGEANCE = function (options = {}) {
                 ...e,
                 weapon: {
                     ...e.weapon,
-                    health: e.weapon.health * 3 | 0,
+                    health: e.weapon.health * 3.56 | 0,
                     range: e.weapon.range * 1.334 | 0,
                     reload: e.weapon.reload * 1.5 | 0,
                     damage: e.weapon.damage * .9 | 0
