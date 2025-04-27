@@ -59,27 +59,55 @@ ships.PROVIDENCEDREADNOUGHT_CIS = {
             }, {
                 x: -.12,
                 y: -.1 - .16 * i,
-                weapon: weapons.RED_DOUBLE_LASER_CANNON
+                weapon: weapons.RED_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 80
             }, {
                 x: .12,
                 y: -.1 - .16 * i,
-                weapon: weapons.RED_DOUBLE_LASER_CANNON
+                weapon: weapons.RED_DOUBLE_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 80
             }, {
                 x: -.085,
                 y: -.175 - .16 * i,
-                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM
+                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 80
             }, {
                 x: .085,
                 y: -.175 - .16 * i,
-                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM
+                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 80
             }, {
                 x: -.06,
                 y: -.1 - .16 * i,
-                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM
+                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 80
             }, {
                 x: .06,
                 y: -.1 - .16 * i,
-                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM
+                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 80
+            });
+        }
+
+        for (let i = 0; i < 6; i ++) {
+            output.push({
+                x: -.01,
+                y: .1 - .05 * i,
+                weapon: weapons.RED_QUAD_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 120
+            }, {
+                x: .05,
+                y: .1 - .05 * i,
+                weapon: weapons.RED_QUAD_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 120
             });
         }
 

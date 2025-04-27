@@ -17,19 +17,27 @@ ships.C9979_CIS = {
     hardpoints: [{
         x: -.8,
         y: .25,
-        weapon: weapons.RED_RAPID_LASER_CANNON
+        weapon: weapons.RED_RAPID_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 90
     }, {
         x: .8,
         y: .25,
-        weapon: weapons.RED_RAPID_LASER_CANNON
+        weapon: weapons.RED_RAPID_LASER_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 90
     }, {
         x: -.8,
         y: -.25,
-        weapon: weapons.DOUBLE_ION_CANNON
+        weapon: weapons.DOUBLE_ION_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 90
     }, {
         x: .8,
         y: -.25,
-        weapon: weapons.DOUBLE_ION_CANNON
+        weapon: weapons.DOUBLE_ION_CANNON,
+        shotsAtOnce: 3,
+        shotDelay: 90
     }],
     hangars: [{
         x: 0,

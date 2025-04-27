@@ -300,7 +300,7 @@ ships.DHOMNI_CIS = {
     cost: 3000,
     speed: 1.2,
     turnSpeed: .0075,
-    shield: 6000,
+    shield: 14300,
     shieldRegen: 6,
     tenderAbility: {
         frequency: 2,
@@ -367,7 +367,7 @@ ships.DHOMNI_CIS = {
             ...hardpoint,
             weapon: {
                 ...hardpoint.weapon,
-                health: hardpoint.weapon.health * 4
+                health: hardpoint.weapon.health * 6
             }
         }));
     })(),
