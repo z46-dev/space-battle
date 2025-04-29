@@ -1357,11 +1357,11 @@
             "color": "#FFFFFF",
             "name": "Neutral Planets",
             "key": "",
-            "planets": ["Prakith","Tython","N'Zoth","Corellia","Fondor","Kattada","Neimoidia","Devaron","Commenor","Cato Neimoidia","Sluis Van","Sullust","Bespin","Hoth","Javin","Drexel","Rodia","Tatooine","Geonosis","Hypori","Ord Cestus","Serenno","Muunilinst","Comra","Ord Cantrell","Telos","Columex","Iego","Dathomir","Woostri","Dorin","Mimban","Roxuli","Thyferra","Wroona","Colla IV","Ylesia","Malastare","Ansion","Ando","Ruusan","Kashyyyk","Dressel","Codia","Ankus","Bakura","Kalee","Aeten","Jedha","Zakuul","The Maw", "Brentaal","Anaxes","Kuat","Rendili","Carida","Endor","Mustafar","Koda Station","Christophsis","Ryloth","Axxila","Entralla","Jaemus","Bastion","Desevro","Felucia","Rhen Var","Ord Trasi","Saleucami","Teth","Kessel","Umbara","Bilbringi","Hapes","Toydaria","Klatooine","Du Hutta","Gos Hutta","Nal Hutta & Nar Shaddaa","Keitum","Fornax","Orinda","New Cov","Boz Pity","Daalang","Zonama Sekot","Ilum","Rakata Prime","Csilla","Nirauan","Esfandia","Ring of Kafrene"],
+            "planets": ["Prakith","Tython","N'Zoth","Corellia","Fondor","Kattada","Neimoidia","Devaron","Commenor","Cato Neimoidia","Sluis Van","Sullust","Bespin","Hoth","Javin","Drexel","Rodia","Tatooine","Geonosis","Hypori","Ord Cestus","Serenno","Muunilinst","Comra","Ord Cantrell","Telos","Columex","Iego","Dathomir","Woostri","Dorin","Mimban","Roxuli","Thyferra","Wroona","Colla IV","Ylesia","Malastare","Ansion","Ando","Ruusan","Kashyyyk","Dressel","Codia","Ankus","Bakura","Kalee","Aeten","Jedha","Zakuul","The Maw", "Brentaal","Anaxes","Rendili","Carida","Endor","Mustafar","Koda Station","Christophsis","Ryloth","Axxila","Entralla","Jaemus","Bastion","Desevro","Felucia","Rhen Var","Ord Trasi","Saleucami","Teth","Kessel","Umbara","Bilbringi","Hapes","Toydaria","Klatooine","Du Hutta","Gos Hutta","Nal Hutta & Nar Shaddaa","Keitum","Fornax","Orinda","New Cov","Boz Pity","Daalang","Zonama Sekot","Ilum","Rakata Prime","Csilla","Nirauan","Esfandia","Ring of Kafrene"],
             "capital": {
                 "name": "Prakith",
-                "fleetPopulation": 120,
-                "baseIncome": 3230
+                "fleetPopulation": 60,
+                "baseIncome": 100
             },
             "shipyards": [{
                 "id": 1,
