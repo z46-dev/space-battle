@@ -1288,7 +1288,7 @@
             "planets": ["Coruscant", "Naboo", "Alderaan", "Borleias", "Dantooine", "Mon Calamari", "Ithor", "Bothawui", "Yavin", "Lothal", "Hosnian Prime"],
             "capital": {
                 "name": "Coruscant",
-                "fleetPopulation": 100,
+                "fleetPopulation": 150,
                 "baseIncome": 2300
             },
             "shipyards": [{
@@ -1303,6 +1303,18 @@
             }, {
                 "id": 4,
                 "ships": ["INEXPUGNABLECOMMANDSHIP_REBEL", "MC85_REBEL", "BLUEDIVER_REBEL", "MEDIATOR_REBEL", "VISCOUNT_PROTOTYPE_REBEL"]
+            }],
+            "aiOptions": {
+                "aggression": 0.5,
+                "defense": 1.5,
+                "construction": 0.5
+            },
+            "additionalStartingUnits": [{
+                "planet": "Coruscant",
+                "name": "MC85_REBEL"
+            }, {
+                "planet": "Mon Calamari",
+                "name": "MEDIATOR_REBEL"
             }]
         }, {
             "id": 3,
@@ -1313,7 +1325,7 @@
             "capital": {
                 "name": "Byss",
                 "fleetPopulation": 150,
-                "baseIncome": 5000
+                "baseIncome": 2500
             },
             "shipyards": [{
                 "id": 1,
@@ -1327,6 +1339,18 @@
             }, {
                 "id": 4,
                 "ships": ["ONAGER_DARKEMPIRE", "XYSTON_DARKEMPIRE", "WORLDDEVASTATORBC_DARKEMPIRE", "BELLATOR_DARKEMPIRE", "ASSERTOR_DARKEMPIRE", "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE", "IMPELLORFLEETCARRIER_DARKEMPIRE"]
+            }],
+            "aiOptions": {
+                "aggression": 2,
+                "defense": 0.5,
+                "construction": 1.5
+            },
+            "additionalStartingUnits": [{
+                "planet": "Byss",
+                "name": "VENGEANCE_DARKEMPIRE"
+            }, {
+                "planet": "Kuat",
+                "name": "IMPELLORFLEETCARRIER_DARKEMPIRE"
             }]
         }, {
             "id": 7,

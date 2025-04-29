@@ -12,6 +12,7 @@ import { loadCampaign, campaignConfig } from "./shared/loader.js";
 import * as autosave from "./shared/autosave.js";
 import Fleet from "./lib/Fleet.js";
 import { EVENTS, on } from "./client/lib/state.js";
+import ships from "./server/lib/ships.js";
 
 // Do a UI all split up in canvas.
 // Add a home menu and an option for saves and an option for
@@ -176,8 +177,10 @@ buttonMaps[STATE_HOME] = [{
     action: () => {
         // changeState(STATE_INIT_SURVIVAL);
         shared.beginBattle(
-            ["VALORCRUISER_REBEL", "VALORCRUISER_REBEL", "VALORCRUISER_REBEL", "VALORCRUISER_REBEL", "VALORCRUISER_REBEL", "VALORCRUISER_REBEL"], 
-            ["VENGEANCE_EMPIRE"], false, null, "#EF6655", "#55EF66", "Sandbox");
+            ["INTERDICTORCRUISER_DARKEMPIRE", "INTERDICTORCRUISER_DARKEMPIRE", "INTERDICTORCRUISER_DARKEMPIRE", "INTERDICTORCRUISER_DARKEMPIRE", "INTERDICTORCRUISER_DARKEMPIRE", "INTERDICTORCRUISER_DARKEMPIRE"], 
+            ["VENGEANCE_EMPIRE"],
+            false, null, "#EF6655", "#55EF66", "Sandbox"
+        );
 
         on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
     }
@@ -354,6 +357,7 @@ buttonMaps[STATE_SELECT_TIMEFRAME] = campaignConfig.map((campaign, i) => ({
             faction.color = conf.color;
             faction.name = conf.name;
             faction.key = conf.key;
+            faction.additionalStartingUnits = conf.additionalStartingUnits;
 
             if (conf.planets && conf.planets.length > 0) {
                 faction.defaultStartingPlanets = conf.planets;

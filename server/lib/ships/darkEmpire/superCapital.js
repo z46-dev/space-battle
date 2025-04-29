@@ -601,4 +601,6 @@ ships.IMPELLORFLEETCARRIER_DARKEMPIRE = {
     }]
 };
 
+ships.VENGEANCE_DARKEMPIRE = templates.VENGEANCE();
+
 export default ships;

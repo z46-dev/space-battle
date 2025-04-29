@@ -37,6 +37,15 @@ export class FactionConfig {
 
     /** @type {{id:number,ships:string[]}[]} */
     shipyards = [];
+
+    aiOptions = {
+        aggression: 1,
+        defense: 1,
+        construction: 1
+    };
+
+    /** @type {{planet:string,name:string}[]|null} */
+    additionalStartingUnits = null;
 }
 
 export class CampaignConfig {

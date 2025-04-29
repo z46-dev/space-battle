@@ -2321,7 +2321,36 @@ onmessage = function (e) {
 
                     for (let i = 0; i < 2; i++) {
                         const ships = JSON.parse(e.data.shift()) ?? Fleet.random(128, randomFaction());
-                        const spawned = ships.map(ship => spawn(ship, i)).sort(() => .5 - Math.random());
+                        const spawned = ships.map(ship => {
+                            if (ship === "MEGASTARDESTROYER_DARKEMPIRE") {
+                                const s = spawn(ship, i);
+
+                                switch (i) {
+                                    case 0:
+                                        s.x = -spawnDistance * 5;
+                                        s.y = 0;
+                                        s.angle = 0;
+                                        break;
+                                    case 1:
+                                        s.x = spawnDistance * 5;
+                                        s.y = 0;
+                                        s.angle = Math.PI;
+                                        break;
+                                }
+
+                                if (e.data[e.data.length - 1]) {
+                                    s.x *= -1;
+                                    s.angle += Math.PI;
+                                }
+
+                                s.x *= -1;
+                                s.angle += Math.PI;
+
+                                return null;
+                            }
+
+                            return spawn(ship, i)
+                        }).filter(a => !!a).sort(() => .5 - Math.random());
         
                         let x, y, angle;
         

@@ -451,7 +451,7 @@ templates.MEGASTARDESTROYER = function (options = {}) {
     options.population ??= 800;
     options.cost ??= 150000;
     options.speed ??= 1;
-    options.turnSpeed ??= .0005;
+    options.turnSpeed ??= .00001;
     options.shield ??= 600000;
     options.shieldRegen ??= options.shield / 1000;
     options.color ??= "GREEN";
@@ -487,6 +487,12 @@ templates.MEGASTARDESTROYER = function (options = {}) {
             const types = [options.color + "_TURBOLASER_CANNON_ULTRAHEAVY", options.color + "_OCTUPLE_TURBOLASER_CANNON_HEAVY", "ION_CANNON_ULTRA"];
             const types2 = [options.color + "_DOUBLE_LASER_CANNON", "DOUBLE_ION_CANNON_MEDIUM", options.color + "_DOUBLE_LASER_CANNON", "DOUBLE_ION_CANNON_MEDIUM", options.color + "_DOUBLE_TURBOLASER_CANNON_HEAVY"];
             const types3 = ["ASSAULT_CONCUSSION_MISSILE", "ASSAULT_PROTON_ROCKET", "ASSAULT_PROTON_TORPEDO"];
+
+            for (const type of [types, types2, types3].flat()) {
+                if (!weapons[type]) {
+                    console.warn(`Weapon ${type} not found`);
+                }
+            }
 
             for (let i = 0; i < 64; i++) {
                 output.push({
@@ -731,7 +737,7 @@ templates.VENGEANCE = function (options = {}) {
     options.cost ??= 53000;
     options.speed ??= 2;
     options.turnSpeed ??= .00015;
-    options.shield ??= 95000;
+    options.shield ??= 83200;
     options.shieldRegen ??= options.shield / 1000;
     options.color ??= "GREEN";
     options.hangars ??= [{
@@ -740,21 +746,21 @@ templates.VENGEANCE = function (options = {}) {
         maxSquadrons: 2,
         squadronSize: 6,
         reserveSize: 8,
-        squadronKey: "TIEFIGHTER_EMPIRE"
+        squadronKey: "TIEREAPER_EMPIRE"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 2,
         squadronSize: 6,
-        reserveSize: 6,
-        squadronKey: "TIEBOMBER_EMPIRE"
+        reserveSize: 8,
+        squadronKey: "TIEPUNISHER_EMPIRE"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 2,
         squadronSize: 6,
-        reserveSize: 6,
-        squadronKey: "TIEINTERCEPTOR_EMPIRE"
+        reserveSize: 8,
+        squadronKey: "TIEDEFENDER_EMPIRE"
     }];
 
     return {
@@ -771,129 +777,106 @@ templates.VENGEANCE = function (options = {}) {
         hardpoints: (function () {
             const output = [];
 
-            for (let i = 0; i < 13; i++) {
+            for (let i = 0; i < 16; i++) {
                 output.push({
-                    x: -.02 - .02 * i,
-                    y: .8 - .1 * i,
-                    weapon: weapons[options.color + "_RAPID_LASER_CANNON"],
-                    shotsAtOnce: 2,
-                    shotDelay: 50
-                }, {
-                    x: .04 + .02 * i,
-                    y: .8 - .1 * i,
-                    weapon: weapons[options.color + "_RAPID_LASER_CANNON"],
-                    shotsAtOnce: 2,
-                    shotDelay: 50
-                }, {
-                    x: -.01 - .02 * i,
-                    y: .85 - .1 * i,
-                    weapon: weapons.QUAD_ION_CANNON,
+                    x: -.01 - .0125 * i,
+                    y: .9 - .08 * i,
+                    weapon: weapons[options.color + "_QUAD_TURBOLASER_CANNON"],
                     shotsAtOnce: 2,
                     shotDelay: 250
                 }, {
-                    x: .03 + .02 * i,
-                    y: .85 - .1 * i,
-                    weapon: weapons.QUAD_ION_CANNON,
+                    x: .01 + .0125 * i,
+                    y: .9 - .08 * i,
+                    weapon: weapons[options.color + "_QUAD_TURBOLASER_CANNON"],
                     shotsAtOnce: 2,
                     shotDelay: 250
                 }, {
-                    x: -.025 - .02 * i,
-                    y: .8 - .1 * i,
-                    weapon: i % 2 ? weapons[options.color + "_DOUBLE_TURBOLASER_CANNON_HEAVY"] : weapons.ASSAULT_CONCUSSION_MISSILE,
+                    x: -.005 - .0125 * i,
+                    y: .95 - .08 * i,
+                    weapon: weapons.QUAD_ION_CANNON_HEAVY,
                     shotsAtOnce: 2,
-                    shotDelay: 120
+                    shotDelay: 250
                 }, {
-                    x: .025 + .02 * i,
-                    y: .8 - .1 * i,
-                    weapon: i % 2 ? weapons[options.color + "_DOUBLE_TURBOLASER_CANNON_HEAVY"] : weapons.ASSAULT_CONCUSSION_MISSILE,
+                    x: .005 + .0125 * i,
+                    y: .95 - .08 * i,
+                    weapon: weapons.QUAD_ION_CANNON_HEAVY,
                     shotsAtOnce: 2,
-                    shotDelay: 120
+                    shotDelay: 250
+                }, {
+                    x: -.02 - .0125 * i,
+                    y: .9 - .08 * i,
+                    weapon: weapons[options.color + "_QUAD_TURBOLASER_CANNON_HEAVY"],
+                    shotsAtOnce: 2,
+                    shotDelay: 250
+                }, {
+                    x: .02 + .0125 * i,
+                    y: .9 - .08 * i,
+                    weapon: weapons[options.color + "_QUAD_TURBOLASER_CANNON_HEAVY"],
+                    shotsAtOnce: 2,
+                    shotDelay: 250
                 });
             }
+
+            const concussionMissile = {
+                weapon: {
+                    ...weapons.ASSAULT_CONCUSSION_MISSILE,
+                    range: weapons.ASSAULT_CONCUSSION_MISSILE.range * 2 | 0,
+                    speed: weapons.ASSAULT_CONCUSSION_MISSILE.speed * 1.5 | 0,
+                    reload: weapons.ASSAULT_CONCUSSION_MISSILE.reload * 3 | 0,
+                    explosionRadius: weapons.ASSAULT_CONCUSSION_MISSILE.explosionRadius * 5 | 0,
+                    maneuverability: 1
+                },
+                shotsAtOnce: 5,
+                shotDelay: 1000
+            };
+
+            const laserCannon = {
+                weapon: weapons[options.color + "_DOUBLE_LASER_CANNON"],
+                shotsAtOnce: 2,
+                shotDelay: 75
+            };
+
+            const ionCannon = {
+                weapon: weapons.DOUBLE_ION_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            };
 
             for (let i = -4; i < 12; i++) {
                 output.push({
-                    x: -.055 - .01 * i,
-                    y: .4 - .075 * i,
-                    weapon: weapons[options.color + "_RAPID_LASER_CANNON"],
-                    shotsAtOnce: 2,
-                    shotDelay: 50
+                    x: -.055 - .0075 * i,
+                    y: .4 - .07 * i,
+                    ...concussionMissile
                 }, {
-                    x: .075 + .00825 * i,
-                    y: .4 - .075 * i,
-                    weapon: weapons[options.color + "_RAPID_LASER_CANNON"],
-                    shotsAtOnce: 2,
-                    shotDelay: 50
+                    x: .055 + .0075 * i,
+                    y: .4 - .07 * i,
+                    ...concussionMissile
                 }, {
-                    x: -.08 - .015 * i,
-                    y: .4 - .075 * i,
-                    weapon: weapons[options.color + "_DOUBLE_TURBOLASER_CANNON_HEAVY"],
-                    shotsAtOnce: 2,
-                    shotDelay: 100
+                    x: -.08 - .0075 * i,
+                    y: .4 - .07 * i,
+                    ...concussionMissile
                 }, {
-                    x: .09 + .0125 * i,
-                    y: .4 - .075 * i,
-                    weapon: weapons[options.color + "_DOUBLE_TURBOLASER_CANNON_HEAVY"],
-                    shotsAtOnce: 2,
-                    shotDelay: 100
+                    x: .08 + .0075 * i,
+                    y: .4 - .07 * i,
+                    ...concussionMissile
                 });
 
-                i += .5;
-
                 output.push({
-                    x: -.055 - .01 * i,
-                    y: .4 - .075 * i,
-                    weapon: (i | 0) % 2 ? weapons[options.color + "_DOUBLE_LASER_CANNON"] : weapons.DOUBLE_ION_CANNON_MEDIUM,
-                    shotsAtOnce: 2,
-                    shotDelay: 500
+                    x: -.03,
+                    y: .4 - .1 * i,
+                    ...ionCannon
                 }, {
-                    x: .075 + .00825 * i,
-                    y: .4 - .075 * i,
-                    weapon: (i | 0) % 2 ? weapons[options.color + "_DOUBLE_LASER_CANNON"] : weapons.DOUBLE_ION_CANNON_MEDIUM,
-                    shotsAtOnce: 2,
-                    shotDelay: 500
+                    x: .03,
+                    y: .4 - .1 * i,
+                    ...ionCannon
                 }, {
-                    x: -.08 - .01 * i,
-                    y: .4 - .075 * i,
-                    weapon: (i | 0) % 2 ? weapons[options.color + "_DOUBLE_TURBOLASER_CANNON"] : weapons[options.color + "_OCTUPLE_TURBOLASER_CANNON_HEAVY"],
-                    shotsAtOnce: 2,
-                    shotDelay: 500
+                    x: -.02,
+                    y: .45 - .1 * i,
+                    ...laserCannon
                 }, {
-                    x: .09 + .00825 * i,
-                    y: .4 - .075 * i,
-                    weapon: (i | 0) % 2 ? weapons[options.color + "_DOUBLE_TURBOLASER_CANNON"] : weapons[options.color + "_OCTUPLE_TURBOLASER_CANNON_HEAVY"],
-                    shotsAtOnce: 2,
-                    shotDelay: 500
-                });
-
-                i |= 0;
-            }
-
-            for (let i = 0; i < 8; i++) {
-                output.push({
-                    x: -.13 + .0075 * i,
-                    y: -.475 - .0667 * i,
-                    weapon: weapons[options.color + "_OCTUPLE_TURBOLASER_CANNON_HEAVY"],
-                    shotsAtOnce: 2,
-                    shotDelay: 300
-                }, {
-                    x: -.1 + .0075 * i,
-                    y: -.5 - .0667 * i,
-                    weapon: weapons.OCTUPLE_ION_CANNON_HEAVY,
-                    shotsAtOnce: 2,
-                    shotDelay: 300
-                }, {
-                    x: .13 - .0075 * i,
-                    y: -.475 - .0667 * i,
-                    weapon: weapons[options.color + "_OCTUPLE_TURBOLASER_CANNON_HEAVY"],
-                    shotsAtOnce: 2,
-                    shotDelay: 300
-                }, {
-                    x: .1 - .0075 * i,
-                    y: -.5 - .0667 * i,
-                    weapon: weapons.OCTUPLE_ION_CANNON_HEAVY,
-                    shotsAtOnce: 2,
-                    shotDelay: 300
+                    x: .02,
+                    y: .45 - .1 * i,
+                    ...laserCannon
                 });
             }
 
@@ -901,10 +884,9 @@ templates.VENGEANCE = function (options = {}) {
                 ...e,
                 weapon: {
                     ...e.weapon,
-                    health: e.weapon.health * 3.56 | 0,
-                    range: e.weapon.range * 1.334 | 0,
-                    reload: e.weapon.reload * 1.5 | 0,
-                    damage: e.weapon.damage * .9 | 0
+                    range: e.weapon.range * 2 | 0,
+                    health: e.weapon.health * 3 | 0,
+                    reload: e.weapon.reload * .8 | 0
                 }
             }));
         })(),

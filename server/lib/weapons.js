@@ -198,8 +198,8 @@ export const ION_CANNON_ULTRA = {
 export const SUBJUGATOR_ION_BLAST = {
     reload: 1000,
     damage: 25000,
-    speed: 25,
-    range: 7500,
+    speed: 35,
+    range: 15000,
     type: weaponTypes.SubjugatorIonBlast,
     health: 1000,
     targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
@@ -646,7 +646,8 @@ export const RED_LIGHT_SUPERLASER2 = {
     targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     explosionRange: 1e4,
     bypassShield: false,
-    name: "Light Superlaser"
+    name: "Light Superlaser",
+    maneuverability: 1
 };
 
 export const RED_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD = {
