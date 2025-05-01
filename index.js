@@ -332,6 +332,12 @@ buttonMaps[STATE_MANAGE_SAVES] = [{
                     }
                 });
             });
+
+            if (buttons.length < buttonMaps[STATE_SELECT_AUTOSAVE].length + 10) {
+                for (let i = buttons.length; i < buttonMaps[STATE_SELECT_AUTOSAVE].length + 10; i++) {
+                    buttons.push(new UIButton(0, 0, 0, 0));
+                }
+            }
         });
 
         shared.autosaveSelectMode = AUTOSAVE_MODE_SAVE;
@@ -500,6 +506,10 @@ function draw() {
 
     if (shared.state in buttonMaps) {
         for (let i = 0; i < buttonMaps[shared.state].length; i++) {
+            if (i >= buttons.length) {
+                buttons.push(new UIButton(0, 0, 0, 0));
+            }
+
             const button = buttons[i];
             const map = buttonMaps[shared.state][i];
 
