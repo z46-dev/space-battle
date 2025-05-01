@@ -736,7 +736,7 @@ ships.VESPER_REBEL = {
         maxSquadrons: 2,
         squadronSize: 3,
         reserveSize: 4,
-        squadronKey: "XWING_REBEL"
+        squadronKey: "YWING_REBEL"
     }]
 };
 
