@@ -62,26 +62,26 @@ ships.DIAMOND_CIS = {
         x: 0,
         y: .85,
         weapon: weapons.RED_TURBOLASER_CANNON,
-        shotsAtOnce: 2,
+        shotsAtOnce: 4,
         shotDelay: 100
     }, {
         x: -.8,
         y: -.5,
         weapon: weapons.RED_DOUBLE_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 30
+        shotsAtOnce: 4,
+        shotDelay: 100
     }, {
         x: .8,
         y: -.5,
         weapon: weapons.RED_DOUBLE_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 30
+        shotsAtOnce: 4,
+        shotDelay: 100
     }, {
         x: 0,
         y: 0,
         weapon: weapons.DOUBLE_ION_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 30
+        shotsAtOnce: 4,
+        shotDelay: 100
     }]
 };
 
@@ -124,18 +124,8 @@ ships.HARDCELL_CIS = {
             health: weapons.ASSAULT_CONCUSSION_MISSILE.health * .5,
             reload: weapons.ASSAULT_CONCUSSION_MISSILE.reload * .8
         },
-        shotsAtOnce: 5,
-        shotDelay: 120
-    }, {
-        x: .5,
-        y: 0,
-        weapon: {
-            ...weapons.RED_LASER_CANNON,
-            health: weapons.RED_LASER_CANNON.health * .5,
-            reload: weapons.RED_LASER_CANNON.reload * .6
-        },
-        shotsAtOnce: 2,
-        shotDelay: 45
+        shotsAtOnce: 3,
+        shotDelay: 200
     }]
 };
 

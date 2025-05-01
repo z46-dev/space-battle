@@ -151,6 +151,29 @@
             ctx.putImageData(imageData, 0, 0);
         }
 
+        function reColorCertainColor(sR, sG, sB, tolerance, tR, tG, tB) {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                const r = imageData.data[i];
+                const g = imageData.data[i + 1];
+                const b = imageData.data[i + 2];
+                const a = imageData.data[i + 3];
+
+                if (a === 0) {
+                    continue;
+                }
+
+                if (colorDistance(r, g, b, sR, sG, sB) <= tolerance) {
+                    imageData.data[i] = tR;
+                    imageData.data[i + 1] = tG;
+                    imageData.data[i + 2] = tB;
+                }
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+        }
+
         function smoothlyScale(scale) {
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
@@ -331,6 +354,29 @@
             ctx.drawImage(newCanvas, 0, 0);
         }
 
+        function stretch(widthRatio, heightRatio) {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const newWidth = Math.floor(canvas.width * widthRatio);
+            const newHeight = Math.floor(canvas.height * heightRatio);
+            const newImageData = ctx.createImageData(newWidth, newHeight);
+
+            for (let y = 0; y < newHeight; y++) {
+                for (let x = 0; x < newWidth; x++) {
+                    const oldX = Math.floor(x / widthRatio);
+                    const oldY = Math.floor(y / heightRatio);
+                    const oldPos = (oldY * canvas.width + oldX) * 4;
+                    const newPos = (y * newWidth + x) * 4;
+
+                    newImageData.data[newPos] = imageData.data[oldPos];
+                    newImageData.data[newPos + 1] = imageData.data[oldPos + 1];
+                    newImageData.data[newPos + 2] = imageData.data[oldPos + 2];
+                    newImageData.data[newPos + 3] = imageData.data[oldPos + 3];
+                }
+            }
+
+            ctx.putImageData(newImageData, 0, 0);
+        }
+
         image.onload = function () {
             const size = Math.max(image.width, image.height);
 
@@ -350,10 +396,10 @@
             removeBackground(255, 0, 255, 96);
             secondRemoveBackground(255, 0, 255, 128);
             center();
-            smoothlyScale(3);
-            fuzzBorders();
-            fuzzBorders();
-            fuzzBorders();
+            reColor(255, 255, 255, .2);
+            smoothlyScale(2);
+            stretch(1, 1.175);
+            center();
 
             document.body.appendChild(canvas);
         }

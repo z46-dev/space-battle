@@ -161,47 +161,61 @@ ships.LUCREHULKBATTLESHIP_CIS = {
     hangars: [{
         x: -.25,
         y: .85,
-        maxSquadrons: 3,
-        squadronSize: 10,
-        reserveSize: 6,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
         squadronKey: "VULTUREDROID_CIS"
     }, {
         x: .25,
         y: .85,
-        maxSquadrons: 3,
-        squadronSize: 10,
-        reserveSize: 6,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
         squadronKey: "VULTUREDROID_CIS"
     }, {
         x: -.25,
         y: .85,
-        maxSquadrons: 6,
-        squadronSize: 1,
-        reserveSize: 12,
+        maxSquadrons: 2,
+        squadronSize: 3,
+        reserveSize: 4,
         squadronKey: "DROIDGUNSHIP_CIS",
         reload: 90
     }, {
         x: .25,
         y: .85,
-        maxSquadrons: 6,
-        squadronSize: 1,
-        reserveSize: 12,
+        maxSquadrons: 2,
+        squadronSize: 3,
+        reserveSize: 4,
         squadronKey: "DROIDGUNSHIP_CIS",
         reload: 90
     }, {
         x: -.25,
         y: .85,
-        maxSquadrons: 1,
-        squadronSize: 8,
-        reserveSize: 2,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
         squadronKey: "DROIDTRIFIGHTER_CIS"
     }, {
         x: .25,
         y: .85,
-        maxSquadrons: 1,
-        squadronSize: 8,
-        reserveSize: 2,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
         squadronKey: "DROIDTRIFIGHTER_CIS"
+    }, {
+        x: -.25,
+        y: .85,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "HYENABOMBER_CIS"
+    }, {
+        x: .25,
+        y: .85,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "HYENABOMBER_CIS"
     }]
 };
 
@@ -389,23 +403,30 @@ ships.DHOMNI_CIS = {
         x: -.35,
         y: .5,
         maxSquadrons: 1,
-        squadronSize: 1,
+        squadronSize: 3,
         reserveSize: 4,
         squadronKey: "DROIDGUNSHIP_CIS"
     }, {
         x: .35,
         y: .5,
         maxSquadrons: 1,
-        squadronSize: 1,
+        squadronSize: 3,
         reserveSize: 4,
         squadronKey: "DROIDGUNSHIP_CIS"
     }],
     production: [{
         x: 0,
         y: 0,
-        maxAlive: 1,
-        reserve: 2,
+        maxAlive: 2,
+        reserve: 4,
         key: "C9979_CIS",
+        cooldown: 250
+    }, {
+        x: 0,
+        y: 0,
+        maxAlive: 2,
+        reserve: 4,
+        key: "HARDCELL_CIS",
         cooldown: 250
     }]
 };

@@ -106,26 +106,20 @@ ships.DROIDGUNSHIP_CIS = {
     population: 0,
     size: 40,
     cost: 20,
-    speed: 7,
+    speed: 15,
     turnSpeed: .04,
     shield: 75,
     shieldRegen: .5,
     hardpoints: [{
         x: 0,
         y: 0,
-        weapon: {
-            ...weapons.RED_DOUBLE_LASER_CANNON,
-            health: 100
-        },
+        weapon: weapons.RED_RAPID_LASER_CANNON,
         shotsAtOnce: 2,
-        shotDelay: 100
+        shotDelay: 50
     }, {
         x: 0,
         y: 0,
-        weapon: {
-            ...weapons.RED_ANTI_FIGHTER_LASER_CANNON,
-            health: 100
-        },
+        weapon: weapons.RED_RAPID_LASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 50
     }, {
@@ -156,9 +150,15 @@ ships.DROIDGUNSHIP_CIS = {
         x: 0,
         y: 0,
         weapon: weapons.FIGHTER_PROTON_BOMB,
-        shotsAtOnce: 2,
+        shotsAtOnce: 4,
         shotDelay: 100
-    }]
+    }].map(hardpoint => ({
+        ...hardpoint,
+        weapon: {
+            ...hardpoint.weapon,
+            health: hardpoint.weapon.health * .4
+        }
+    }))
 };
 
 export default ships;

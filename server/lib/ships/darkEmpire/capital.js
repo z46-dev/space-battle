@@ -12,12 +12,12 @@ ships.IMPERIALSTARDESTROYER_DARKEMPIRE = {
     cost: 3200,
     speed: 2.5,
     turnSpeed: .01,
-    shield: 8000,
-    shieldRegen: 8,
-    hardpoints: (function() {
+    shield: 8500,
+    shieldRegen: 8.5,
+    hardpoints: (function () {
         const output = [];
 
-        for (let i = 0; i < 4; i ++) {
+        for (let i = 0; i < 4; i++) {
             output.push({
                 x: -.3,
                 y: -.4 - .075 * i,
@@ -34,31 +34,32 @@ ships.IMPERIALSTARDESTROYER_DARKEMPIRE = {
                 x: 0,
                 y: .3 - .1 * i,
                 weapon: weapons.GREEN_ANTI_FIGHTER_LASER_CANNON,
-                shotsAtOnce: 1,
+                shotsAtOnce: 2,
                 shotDelay: 50
             });
         }
 
-        for (let i = 0; i < 8; i ++) {
+        for (let i = 0; i < 8; i++) {
             output.push({
                 x: -.075 - .07 * i,
                 y: .7 - .2 * i,
                 weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
-                shotsAtOnce: i % 2 ? 3 : 2,
+                shotsAtOnce: 3,
                 shotDelay: 60
             }, {
                 x: .075 + .07 * i,
                 y: .7 - .2 * i,
                 weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
-                shotsAtOnce: i % 2 ? 3 : 2,
+                shotsAtOnce: 3,
                 shotDelay: 60
             });
         }
 
-        for (let i = 0; i < output.length; i ++) {
+        for (let i = 0; i < output.length; i++) {
             output[i].weapon = {
                 ...output[i].weapon,
-                health: output[i].weapon.health * 2.5 | 0
+                health: output[i].weapon.health * 3 | 0,
+                reload: output[i].weapon.reload * .65 | 0
             };
         }
 
@@ -99,7 +100,7 @@ ships.ALLEGIANCE_DARKEMPIRE = {
     turnSpeed: .01,
     shield: 11000,
     shieldRegen: 4,
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [{
             x: 0,
             y: .975,
@@ -108,7 +109,7 @@ ships.ALLEGIANCE_DARKEMPIRE = {
             shotDelay: 80
         }];
 
-        for (let i = 0; i < 6; i ++) {
+        for (let i = 0; i < 6; i++) {
             output.push({
                 x: -.37 - .02 * i,
                 y: -.37 - .07 * i,
@@ -124,7 +125,7 @@ ships.ALLEGIANCE_DARKEMPIRE = {
             });
         }
 
-        for (let i = 0; i < 16; i ++) {
+        for (let i = 0; i < 16; i++) {
             output.push({
                 x: -.075 - .0325 * i,
                 y: .75 - .1 * i,
@@ -140,7 +141,7 @@ ships.ALLEGIANCE_DARKEMPIRE = {
             });
         }
 
-        for (let i = 0; i < 4; i ++) {
+        for (let i = 0; i < 4; i++) {
             output.push({
                 x: 0,
                 y: .25 - .05 * i,
@@ -169,7 +170,7 @@ ships.INTERDICTORSTARDESTROYER_DARKEMPIRE = {
     turnSpeed: ships.IMPERIALSTARDESTROYER_DARKEMPIRE.turnSpeed * .99,
     shield: ships.IMPERIALSTARDESTROYER_DARKEMPIRE.shield * 1.1 | 0,
     shieldRegen: ships.IMPERIALSTARDESTROYER_DARKEMPIRE.shieldRegen * 1.1 | 0,
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [{
             x: -.3,
             y: -.55,
@@ -196,7 +197,7 @@ ships.INTERDICTORSTARDESTROYER_DARKEMPIRE = {
             shotDelay: 100
         }];
 
-        for (let i = 0; i < 6; i ++) {
+        for (let i = 0; i < 6; i++) {
             output.push({
                 x: -.075 - .06 * i,
                 y: .7 - .25 * i,
@@ -225,21 +226,14 @@ ships.INTERDICTORSTARDESTROYER_DARKEMPIRE = {
         y: 0,
         maxSquadrons: 2,
         squadronSize: 6,
-        reserveSize: 2,
-        squadronKey: "TIEDEFENDER_DARKEMPIRE"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 2,
-        squadronSize: 6,
-        reserveSize: 2,
+        reserveSize: 4,
         squadronKey: "TIEBOMBER_DARKEMPIRE"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 4,
         squadronSize: 4,
-        reserveSize: 8,
+        reserveSize: 4,
         squadronKey: "TIEDRONE_DARKEMPIRE"
     }]
 };
@@ -255,7 +249,7 @@ ships.ONAGER_DARKEMPIRE = {
     turnSpeed: .001,
     shield: 9580,
     shieldRegen: 9,
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [{
             x: 0,
             y: -.05,
@@ -276,7 +270,7 @@ ships.ONAGER_DARKEMPIRE = {
             shotDelay: 80
         }];
 
-        for (let i = 0; i < 3; i ++) {
+        for (let i = 0; i < 3; i++) {
             output.push({
                 x: -.175,
                 y: -.12 - .04 * i,
@@ -288,7 +282,7 @@ ships.ONAGER_DARKEMPIRE = {
             });
         }
 
-        for (let i = 0; i < 6; i ++) {
+        for (let i = 0; i < 6; i++) {
             output.push({
                 x: -.075,
                 y: .85 - .15 * i,
@@ -316,7 +310,7 @@ ships.ONAGER_DARKEMPIRE = {
             });
         }
 
-        for (let i = 0; i < 8; i ++) {
+        for (let i = 0; i < 8; i++) {
             output.push({
                 x: -.2 - .015 * i,
                 y: .6 - .15 * i,
@@ -332,7 +326,7 @@ ships.ONAGER_DARKEMPIRE = {
             });
         }
 
-        for (let i = 0; i < 3; i ++) {
+        for (let i = 0; i < 3; i++) {
             output.push({
                 x: -.1 - .2 * i,
                 y: .9334 - .025 * i,
@@ -377,16 +371,16 @@ ships.XYSTON_DARKEMPIRE = {
     turnSpeed: .005,
     shield: 16000, // * 2 star destroyer
     shieldRegen: 16, // * 2 star destroyer
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [{
             x: 0,
             y: 0,
             weapon: weapons.RED_LIGHT_SUPERLASER2,
-            shotsAtOnce: 1000,
+            shotsAtOnce: 333,
             shotDelay: 5
         }];
 
-        for (let i = 0; i < 4; i ++) {
+        for (let i = 0; i < 4; i++) {
             output.push({
                 x: -.3,
                 y: -.325 - .08 * i,
@@ -406,7 +400,7 @@ ships.XYSTON_DARKEMPIRE = {
             });
         }
 
-        for (let i = 0; i < 8; i ++) {
+        for (let i = 0; i < 8; i++) {
             output.push({
                 x: -.075 - .07 * i,
                 y: .7 - .2 * i,
@@ -422,7 +416,7 @@ ships.XYSTON_DARKEMPIRE = {
             });
         }
 
-        for (let i = 0; i < output.length; i ++) {
+        for (let i = 0; i < output.length; i++) {
             output[i].weapon = {
                 ...output[i].weapon,
                 health: output[i].weapon.health * 2
@@ -452,11 +446,11 @@ ships.RESURGENT_DARKEMPIRE = {
     turnSpeed: .005,
     shield: 23400,
     shieldRegen: 23.4,
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [];
         const types = ["GREEN_ANTI_FIGHTER_LASER_CANNON", "DOUBLE_ION_CANNON_MEDIUM", "GREEN_LASER_CANNON", "ASSAULT_CONCUSSION_MISSILE"];
 
-        for (let i = 0; i < 16; i ++) {
+        for (let i = 0; i < 16; i++) {
             output.push({
                 x: -.03 - .031 * i,
                 y: .85 - .1 * i,
@@ -472,7 +466,7 @@ ships.RESURGENT_DARKEMPIRE = {
             });
         }
 
-        for (let i = 0; i < 6; i ++) {
+        for (let i = 0; i < 6; i++) {
             output.push({
                 x: -.1 - .015 * i,
                 y: -.05 * i,
@@ -500,7 +494,7 @@ ships.RESURGENT_DARKEMPIRE = {
             });
         }
 
-        for (let i = 0; i < output.length; i ++) {
+        for (let i = 0; i < output.length; i++) {
             output[i].weapon = {
                 ...output[i].weapon,
                 health: output[i].weapon.health * 4

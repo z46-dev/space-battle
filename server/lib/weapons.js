@@ -473,10 +473,10 @@ export const GREEN_WEAK_SUPERLASER = {
     damage: 100,
     type: weaponTypes.GreenWeakSuperlaser,
     health: 500,
-    speed: 230,
+    speed: 150,
     range: 9000,
     explosionRange: 1e10,
-    explosionDamage: 100,
+    explosionDamage: 250,
     bypassShield: true,
     targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     name: "Light Superlaser"

@@ -1162,7 +1162,7 @@ class Ship {
                 const radius = this.size * 5.5;
 
                 this.battle.ships.forEach(ship => {
-                    if (ship.team === this.team && distance(this.x, this.y, ship.x, ship.y) <= radius) {
+                    if (ship.team === this.team && ship.classification >= shipTypes.Corvette && distance(this.x, this.y, ship.x, ship.y) <= radius) {
                         for (let i = 0; i < ship.hardpoints.length; i++) {
                             if (ship.hardpoints[i].health > 0) {
                                 ship.hardpoints[i].health = Math.min(ship.hardpoints[i].maxHealth, Math.max(0, ship.hardpoints[i].health + TENDER_HEAL_PULSE_AMOUNT * this.tenderAbility.power));

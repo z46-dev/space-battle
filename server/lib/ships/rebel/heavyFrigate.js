@@ -255,7 +255,7 @@ ships.MC75_REBEL = {
     asset: "MC75.png",
     classification: shipTypes.HeavyFrigate,
     population: 24,
-    size: 500,
+    size: 560,
     cost: 3400,
     speed: 3,
     turnSpeed: .006,
@@ -402,12 +402,12 @@ ships.VALORCRUISER_REBEL = {
     asset: "VALORCRUISER.png",
     classification: shipTypes.HeavyFrigate,
     population: 28,
-    size: 580,
+    size: 500,
     cost: 3890,
     speed: 2,
     turnSpeed: .01,
-    shield: 6800,
-    shieldRegen: 6.8,
+    shield: 6200,
+    shieldRegen: 6.2,
     hardpoints: (function() {
         const output = [];
 
@@ -442,7 +442,7 @@ ships.VALORCRUISER_REBEL = {
         for (let i = 0; i < output.length; i ++) {
             output[i].weapon = {
                 ...output[i].weapon,
-                health: output[i].weapon.health * 2.5
+                health: output[i].weapon.health * 2
             };
         }
 
@@ -557,6 +557,186 @@ ships.DREADNOUGHTHEAVYCRUISER_REBEL = {
         squadronSize: 6,
         reserveSize: 2,
         squadronKey: "AWING_REBEL"
+    }]
+};
+
+ships.VESPER_REBEL = {
+    name: "Vesper-Class Heavy Frigate",
+    asset: "VESPER.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 27,
+    size: 700,
+    cost: 6500,
+    speed: 4,
+    turnSpeed: .003,
+    shield: 11100,
+    shieldRegen: 11.1,
+    hardpoints: (function() {
+        const output = [{
+            x: -.03,
+            y: .97,
+            weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.1,
+            y: .9,
+            weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.14,
+            y: .74,
+            weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.16,
+            y: .62,
+            weapon: weapons.DOUBLE_ION_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.17,
+            y: .4,
+            weapon: weapons.RED_DOUBLE_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.16,
+            y: .22,
+            weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.15,
+            y: .06,
+            weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.125,
+            y: -.125,
+            weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.075,
+            y: -.23,
+            weapon: weapons.RED_DOUBLE_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.07,
+            y: -.31,
+            weapon: weapons.RED_DOUBLE_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.07,
+            y: -.39,
+            weapon: weapons.RED_DOUBLE_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.15,
+            y: -.61,
+            weapon: weapons.RED_DOUBLE_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.075,
+            y: -.51,
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.12,
+            y: -.74,
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.085,
+            y: -.85,
+            weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.03,
+            y: -.95,
+            weapon: weapons.DOUBLE_ION_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.09,
+            y: .37,
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.09,
+            y: .47,
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.09,
+            y: .57,
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.09,
+            y: .67,
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }, {
+            x: -.09,
+            y: -.06,
+            weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 200
+        }];
+
+        for (let i = 0, n = output.length; i < n; i ++) {
+            output.push({
+                ...output[i],
+                x: -output[i].x
+            });
+        }
+
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2.34 | 0,
+                reload: e.weapon.reload * .75 | 0
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 3,
+        reserveSize: 4,
+        squadronKey: "AWING_REBEL"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 3,
+        reserveSize: 4,
+        squadronKey: "XWING_REBEL"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 3,
+        reserveSize: 4,
+        squadronKey: "XWING_REBEL"
     }]
 };
 

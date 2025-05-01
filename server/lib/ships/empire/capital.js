@@ -12,8 +12,8 @@ ships.IMPERIALSTARDESTROYER_EMPIRE = {
     cost: 3200,
     speed: 2.5,
     turnSpeed: .01,
-    shield: 8000,
-    shieldRegen: 8,
+    shield: 8500,
+    shieldRegen: 8.5,
     hardpoints: (function() {
         const output = [];
 
@@ -34,7 +34,7 @@ ships.IMPERIALSTARDESTROYER_EMPIRE = {
                 x: 0,
                 y: .3 - .1 * i,
                 weapon: weapons.GREEN_ANTI_FIGHTER_LASER_CANNON,
-                shotsAtOnce: 1,
+                shotsAtOnce: 2,
                 shotDelay: 50
             });
         }
@@ -44,13 +44,13 @@ ships.IMPERIALSTARDESTROYER_EMPIRE = {
                 x: -.075 - .07 * i,
                 y: .7 - .2 * i,
                 weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
-                shotsAtOnce: i % 2 ? 3 : 2,
+                shotsAtOnce: 3,
                 shotDelay: 60
             }, {
                 x: .075 + .07 * i,
                 y: .7 - .2 * i,
                 weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_HEAVY : weapons.GREEN_DOUBLE_LASER_CANNON,
-                shotsAtOnce: i % 2 ? 3 : 2,
+                shotsAtOnce: 3,
                 shotDelay: 60
             });
         }
@@ -58,8 +58,8 @@ ships.IMPERIALSTARDESTROYER_EMPIRE = {
         for (let i = 0; i < output.length; i ++) {
             output[i].weapon = {
                 ...output[i].weapon,
-                health: output[i].weapon.health * 2.5 | 0,
-                reload: output[i].weapon.reload * .8 | 0
+                health: output[i].weapon.health * 3 | 0,
+                reload: output[i].weapon.reload * .65 | 0
             };
         }
 
@@ -69,21 +69,21 @@ ships.IMPERIALSTARDESTROYER_EMPIRE = {
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 8,
+        squadronSize: 10,
         reserveSize: 3,
         squadronKey: "TIEFIGHTER_EMPIRE"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 8,
+        squadronSize: 10,
         reserveSize: 3,
         squadronKey: "TIEINTERCEPTOR_EMPIRE"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 8,
+        squadronSize: 10,
         reserveSize: 3,
         squadronKey: "TIEBOMBER_EMPIRE"
     }]
