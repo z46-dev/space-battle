@@ -1341,7 +1341,7 @@
                 "ships": ["ONAGER_DARKEMPIRE", "XYSTON_DARKEMPIRE", "WORLDDEVASTATORBC_DARKEMPIRE", "BELLATOR_DARKEMPIRE", "ASSERTOR_DARKEMPIRE", "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE", "IMPELLORFLEETCARRIER_DARKEMPIRE"]
             }],
             "aiOptions": {
-                "aggression": 2,
+                "aggression": 1.25,
                 "defense": 0.5,
                 "construction": 1.5
             },
