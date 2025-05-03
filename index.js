@@ -177,8 +177,8 @@ buttonMaps[STATE_HOME] = [{
     action: () => {
         // changeState(STATE_INIT_SURVIVAL);
         shared.beginBattle(
-            ["VESPER_REBEL", "VESPER_REBEL", "VESPER_REBEL", "MC80A_REBEL"], 
-            ["IMPERIALSTARDESTROYER_EMPIRE", "IMPERIALSTARDESTROYER_EMPIRE", "IMPERIALSTARDESTROYER_EMPIRE", "IMPERIALSTARDESTROYER_EMPIRE"],
+            ["VISCOUNT_PROTOTYPE_REBEL"], 
+            ["VENGEANCE_EMPIRE"],
             false, null, "#EF6655", "#55EF66", "Sandbox"
         );
 

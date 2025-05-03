@@ -351,16 +351,16 @@ ships.VISCOUNT_PROTOTYPE_REBEL = {
     name: "Viscount Prototype",
     asset: "VISCOUNT_PROTOTYPE.png",
     classification: shipTypes.SuperCapital,
-    population: 58,
-    size: 2400,
+    population: 125,
+    size: 4500,
     cost: 25000,
-    speed: 2,
-    turnSpeed: .005,
-    shield: 27000,
-    shieldRegen: 27,
+    speed: 4,
+    turnSpeed: .0001,
+    shield: 75000,
+    shieldRegen: 75,
     shieldRegenAbility: {
-        cooldown: 1,
-        regen: 1
+        cooldown: .75,
+        regen: .75
     },
     hardpoints: (function() {
         const output = [];
@@ -437,12 +437,16 @@ ships.VISCOUNT_PROTOTYPE_REBEL = {
             x: -.15,
             y: -.3,
             weapons: [weapons.QUAD_ION_CANNON_MEDIUM, weapons.RED_QUAD_TURBOLASER_CANNON, weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY]
+        }, {
+            x: 0,
+            y: 0,
+            weapons: [weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY, weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY, weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY, weapons.ION_CANNON_ULTRA, weapons.ION_CANNON_ULTRA, weapons.ION_CANNON_ULTRA]
         }];
 
         for (const { x, y, weapons } of positions) {
             for (let i = 0; i < weapons.length; i ++) {
                 const ang = Math.PI * 2 * i / weapons.length;
-                const d = .03;
+                const d = .035;
 
                 output.push({
                     x: x + d * Math.cos(ang),
@@ -458,8 +462,8 @@ ships.VISCOUNT_PROTOTYPE_REBEL = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 6 | 0,
-                reload: e.weapon.reload * .7 | 0
+                health: e.weapon.health * 11.5 | 0,
+                reload: e.weapon.reload * .5 | 0
             }
         }));
     })(),
