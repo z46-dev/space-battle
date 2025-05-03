@@ -458,7 +458,8 @@ ships.VISCOUNT_PROTOTYPE_REBEL = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 6 | 0
+                health: e.weapon.health * 6 | 0,
+                reload: e.weapon.reload * .7 | 0
             }
         }));
     })(),
