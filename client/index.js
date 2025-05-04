@@ -593,45 +593,45 @@ export default function draw() {
     });
 
     // Draw squadrons
-    squadrons.forEach(squadron => {
-        squadron.x = lerp(squadron.x, squadron.realX, .2);
-        squadron.y = lerp(squadron.y, squadron.realY, .2);
-        squadron.health = lerp(squadron.health, squadron.realHealth, .2);
+        squadrons.forEach(squadron => {
+            squadron.x = lerp(squadron.x, squadron.realX, .2);
+            squadron.y = lerp(squadron.y, squadron.realY, .2);
+            squadron.health = lerp(squadron.health, squadron.realHealth, .2);
 
-        if (scale > .6) {
-            return;
-        }
+            if (scale > .6 || state.world.snapshotMode) {
+                return;
+            }
 
-        ctx.save();
-        ctx.translate(squadron.x, squadron.y);
+            ctx.save();
+            ctx.translate(squadron.x, squadron.y);
 
-        // ctx.fillStyle = squadron.team === 0 ? "#FF0000" : "#0000FF";
-        ctx.fillStyle = teamColors[squadron.team];
-        ctx.strokeStyle = mixColors(ctx.fillStyle, "#000000", .5);
-        ctx.beginPath();
-        ctx.roundRect(-40, -40, 80, 80, 17.5);
+            // ctx.fillStyle = squadron.team === 0 ? "#FF0000" : "#0000FF";
+            ctx.fillStyle = teamColors[squadron.team];
+            ctx.strokeStyle = mixColors(ctx.fillStyle, "#000000", .5);
+            ctx.beginPath();
+            ctx.roundRect(-40, -40, 80, 80, 17.5);
 
-        ctx.globalAlpha = .125;
-        ctx.fill();
+            ctx.globalAlpha = .125;
+            ctx.fill();
 
-        ctx.globalAlpha = 1;
-        ctx.lineWidth = 5;
-        ctx.stroke();
+            ctx.globalAlpha = 1;
+            ctx.lineWidth = 5;
+            ctx.stroke();
 
-        ctx.globalAlpha = .5;
-        ctx.drawImage(assetsLib.assets.get(squadron.asset), -30, -30, 60, 60);
+            ctx.globalAlpha = .5;
+            ctx.drawImage(assetsLib.assets.get(squadron.asset), -30, -30, 60, 60);
 
-        ctx.globalAlpha = 1;
-        drawBar(0, 55, 80, 10, squadron.health, "#00FFC8");
+            ctx.globalAlpha = 1;
+            drawBar(0, 55, 80, 10, squadron.health, "#00FFC8");
 
-        ctx.restore();
+            ctx.restore();
 
-        const mouseOverSquadron = Math.abs(realMouseX - squadron.x) < 30 && Math.abs(realMouseY - squadron.y) < 30;
+            const mouseOverSquadron = Math.abs(realMouseX - squadron.x) < 30 && Math.abs(realMouseY - squadron.y) < 30;
 
-        if (mouseOverSquadron) {
-            state.inputs.shipOver = squadron;
-        }
-    });
+            if (mouseOverSquadron) {
+                state.inputs.shipOver = squadron;
+            }
+        });
 
     // Draw explosions
     explosions.forEach(explosion => {
@@ -660,104 +660,107 @@ export default function draw() {
     ctx.save();
     ctx.scale(uScale, uScale);
 
-    ctx.globalAlpha = .5;
+    if (!state.world.snapshotMode) {
 
-    // Minimap
-    ctx.save();
-    ctx.translate(10, canvas.height / uScale - 10 - 230);
+        ctx.globalAlpha = .5;
 
-    ctx.fillStyle = "#111111";
-    ctx.fillRect(0, 0, 230, 230);
+        // Minimap
+        ctx.save();
+        ctx.translate(10, canvas.height / uScale - 10 - 230);
 
-    ctx.globalAlpha = 1;
+        ctx.fillStyle = "#111111";
+        ctx.fillRect(0, 0, 230, 230);
 
-    ctx.strokeStyle = "#000000";
-    ctx.lineWidth = 1;
+        ctx.globalAlpha = 1;
 
-    // Clip
-    ctx.save();
-    ctx.beginPath();
-    ctx.rect(0, 0, 230, 230);
-    ctx.clip();
-    ctx.closePath();
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = 1;
 
-    state.world.minimapData.forEach(data => {
-        // The center of the map is (0, 0)
-        // Top left corner is (-w, -h)
-        // Bottom right corner is (w, h)
+        // Clip
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(0, 0, 230, 230);
+        ctx.clip();
+        ctx.closePath();
 
-        const x = data.x * 115 + 115;
-        const y = data.y * 115 + 115;
-        const size = data.size * 115;
+        state.world.minimapData.forEach(data => {
+            // The center of the map is (0, 0)
+            // Top left corner is (-w, -h)
+            // Bottom right corner is (w, h)
 
-        // ctx.fillStyle = data.team === 0 ? "#FF0000" : "#0000FF";
-        ctx.fillStyle = teamColors[data.team];
+            const x = data.x * 115 + 115;
+            const y = data.y * 115 + 115;
+            const size = data.size * 115;
 
-        if (data.type === 0) {
-            if (!assetsLib.assets.has(data.asset)) {
-                assetsLib.loadAsset(`/assets/ships/${data.asset}`, data.asset);
-                return;
+            // ctx.fillStyle = data.team === 0 ? "#FF0000" : "#0000FF";
+            ctx.fillStyle = teamColors[data.team];
+
+            if (data.type === 0) {
+                if (!assetsLib.assets.has(data.asset)) {
+                    assetsLib.loadAsset(`/assets/ships/${data.asset}`, data.asset);
+                    return;
+                }
+
+                if (!assetsLib.assets.get(data.asset).ready) {
+                    return;
+                }
+
+                const silhouetteKey = `${data.asset}${data.team}`;
+                if (!assetsLib.silhouettes.has(silhouetteKey)) {
+                    assetsLib.silhouettes.set(silhouetteKey, false);
+                    assetsLib.generateSilhouette(assetsLib.assets.get(data.asset), silhouetteKey, ...teamColorRGBs[data.team]);
+                }
+
+                const silhouette = assetsLib.silhouettes.get(silhouetteKey);
+
+                if (silhouette === false) {
+                    return;
+                }
+
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(data.angle);
+                ctx.drawImage(silhouette, -size / 2, -size / 2, size, size);
+                ctx.restore();
             }
 
-            if (!assetsLib.assets.get(data.asset).ready) {
-                return;
+            if (data.type === 1) {
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
             }
+        });
 
-            const silhouetteKey = `${data.asset}${data.team}`;
-            if (!assetsLib.silhouettes.has(silhouetteKey)) {
-                assetsLib.silhouettes.set(silhouetteKey, false);
-                assetsLib.generateSilhouette(assetsLib.assets.get(data.asset), silhouetteKey, ...teamColorRGBs[data.team]);
-            }
+        // Draw a viewbox
+        ctx.save();
+        ctx.translate(115, 115);
+        ctx.scale(1 / state.camera.zoom * 115, 1 / state.camera.zoom * 115);
+        ctx.translate(-state.camera.x, -state.camera.y);
 
-            const silhouette = assetsLib.silhouettes.get(silhouetteKey);
+        ctx.fillStyle = "#000000";
+        ctx.globalAlpha = .25;
+        ctx.strokeStyle = "#FFFFFF";
+        ctx.lineWidth = .1 * state.camera.zoom;
 
-            if (silhouette === false) {
-                return;
-            }
+        const width = Math.sqrt(canvas.width) / state.camera.zoom;
+        const height = Math.sqrt(canvas.height) / state.camera.zoom;
 
-            ctx.save();
-            ctx.translate(x, y);
-            ctx.rotate(data.angle);
-            ctx.drawImage(silhouette, -size / 2, -size / 2, size, size);
-            ctx.restore();
-        }
+        ctx.fillRect(-width / 2, -height / 2, width, height);
+        ctx.strokeRect(-width / 2, -height / 2, width, height);
 
-        if (data.type === 1) {
-            ctx.beginPath();
-            ctx.arc(x, y, size, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-        }
-    });
+        ctx.restore();
+        ctx.restore();
 
-    // Draw a viewbox
-    ctx.save();
-    ctx.translate(115, 115);
-    ctx.scale(1 / state.camera.zoom * 115, 1 / state.camera.zoom * 115);
-    ctx.translate(-state.camera.x, -state.camera.y);
+        ctx.strokeStyle = "#AAAAAA";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(0, 0, 230, 230);
 
-    ctx.fillStyle = "#000000";
-    ctx.globalAlpha = .25;
-    ctx.strokeStyle = "#FFFFFF";
-    ctx.lineWidth = .1 * state.camera.zoom;
+        ctx.restore();
 
-    const width = Math.sqrt(canvas.width) / state.camera.zoom;
-    const height = Math.sqrt(canvas.height) / state.camera.zoom;
-
-    ctx.fillRect(-width / 2, -height / 2, width, height);
-    ctx.strokeRect(-width / 2, -height / 2, width, height);
-
-    ctx.restore();
-    ctx.restore();
-
-    ctx.strokeStyle = "#AAAAAA";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(0, 0, 230, 230);
-
-    ctx.restore();
-
-    // Draw planet name above the minimap
-    drawText(planetName, 15, canvas.height / uScale - 10 - 230 - 20, 28, "#C8C8C8", "left");
+        // Draw planet name above the minimap
+        drawText(planetName, 15, canvas.height / uScale - 10 - 230 - 20, 28, "#C8C8C8", "left");
+    }
 
     if (state.inputs.hardpointOver !== null) {
         const str = state.inputs.hardpointOver.data.weapon.name + " - " + Math.round(state.inputs.hardpointOver.data.weapon.damage) + "dmg";
@@ -771,7 +774,7 @@ export default function draw() {
         drawText(str, state.inputs.mouseX / uScale + 15, state.inputs.mouseY / uScale + 25, 18);
     }
 
-    if (state.inputs.shipOver !== null && shipConfig[state.inputs.shipOver.key]) {
+    if (!state.world.snapshotMode && state.inputs.shipOver !== null && shipConfig[state.inputs.shipOver.key]) {
         ctx.save();
         const cfg = shipConfig[state.inputs.shipOver.key];
         const str = cfg.name + " - " + shipTypeNames[cfg.classification];

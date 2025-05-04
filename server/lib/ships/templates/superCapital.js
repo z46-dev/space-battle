@@ -316,11 +316,11 @@ templates.BELLATORSUPERSTARDESTROYER = function (options = {}) {
 
 templates.ASSERTORSTARDREADNOUGHT = function (options = {}) {
     options.name ??= "Assertor-Class Star Dreadnought";
-    options.population ??= 190;
-    options.cost ??= 63000;
-    options.speed ??= 2.5;
-    options.turnSpeed ??= .0002;
-    options.shield ??= 110000;
+    options.population ??= 250;
+    options.cost ??= 70000;
+    options.speed ??= 1.5;
+    options.turnSpeed ??= .0001;
+    options.shield ??= 175000;
     options.shieldRegen ??= options.shield / 1000;
     options.color ??= "GREEN";
     options.hangars ??= [{
@@ -437,8 +437,9 @@ templates.ASSERTORSTARDREADNOUGHT = function (options = {}) {
                 ...e,
                 weapon: {
                     ...e.weapon,
-                    health: e.weapon.health * 3 | 0,
-                    range: e.weapon.range * 1.334 | 0
+                    health: e.weapon.health * 3.5 | 0,
+                    range: e.weapon.range * 1.334 | 0,
+                    reload: e.weapon.reload * .65 | 0,
                 }
             }));
         })(),

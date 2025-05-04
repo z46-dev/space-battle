@@ -177,8 +177,8 @@ buttonMaps[STATE_HOME] = [{
     action: () => {
         // changeState(STATE_INIT_SURVIVAL);
         shared.beginBattle(
-            ["VISCOUNT_PROTOTYPE_REBEL"], 
-            ["VENGEANCE_EMPIRE"],
+            Fleet.random(300, "REBEL").__ships, 
+            Fleet.random(300, "EMPIRE").__ships,
             false, null, "#EF6655", "#55EF66", "Sandbox"
         );
 

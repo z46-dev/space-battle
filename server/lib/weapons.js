@@ -625,7 +625,7 @@ export const RED_WEAK_SUPERLASER = {
 
 export const RED_LIGHT_SUPERLASER = {
     reload: 400,
-    damage: 1500,
+    damage: 100,
     type: weaponTypes.RedLightSuperlaser,
     health: 800,
     speed: 80,

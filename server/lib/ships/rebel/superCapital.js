@@ -352,9 +352,9 @@ ships.VISCOUNT_PROTOTYPE_REBEL = {
     asset: "VISCOUNT_PROTOTYPE.png",
     classification: shipTypes.SuperCapital,
     population: 125,
-    size: 4500,
+    size: 4800,
     cost: 25000,
-    speed: 4,
+    speed: 3,
     turnSpeed: .0001,
     shield: 75000,
     shieldRegen: 75,
@@ -441,12 +441,20 @@ ships.VISCOUNT_PROTOTYPE_REBEL = {
             x: 0,
             y: 0,
             weapons: [weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY, weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY, weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY, weapons.ION_CANNON_ULTRA, weapons.ION_CANNON_ULTRA, weapons.ION_CANNON_ULTRA]
+        }, {
+            x: 0,
+            y: .3,
+            weapons: [weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY, weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY, weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY, weapons.ION_CANNON_ULTRA, weapons.ION_CANNON_ULTRA, weapons.ION_CANNON_ULTRA]
+        }, {
+            x: 0,
+            y: -.3,
+            weapons: [weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY, weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY, weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY, weapons.ION_CANNON_ULTRA, weapons.ION_CANNON_ULTRA, weapons.ION_CANNON_ULTRA]
         }];
 
         for (const { x, y, weapons } of positions) {
             for (let i = 0; i < weapons.length; i ++) {
                 const ang = Math.PI * 2 * i / weapons.length;
-                const d = .035;
+                const d = .025;
 
                 output.push({
                     x: x + d * Math.cos(ang),
