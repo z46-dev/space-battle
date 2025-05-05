@@ -9,7 +9,7 @@ templates.EXECUTORSUPERSTARDESTROYER = function (options = {}) {
     options.cost ??= 53000;
     options.speed ??= 2;
     options.turnSpeed ??= .00015;
-    options.shield ??= 86000;
+    options.shield ??= 87500;
     options.shieldRegen ??= options.shield / 1000;
     options.color ??= "GREEN";
     options.hangars ??= [{
@@ -179,10 +179,9 @@ templates.EXECUTORSUPERSTARDESTROYER = function (options = {}) {
                 ...e,
                 weapon: {
                     ...e.weapon,
-                    health: e.weapon.health * 3 | 0,
+                    health: e.weapon.health * 5 | 0,
                     range: e.weapon.range * 1.334 | 0,
-                    reload: e.weapon.reload * 1.5 | 0,
-                    damage: e.weapon.damage * .9 | 0
+                    reload: e.weapon.reload * .85 | 0
                 }
             }));
         })(),
@@ -196,7 +195,7 @@ templates.BELLATORSUPERSTARDESTROYER = function (options = {}) {
     options.cost ??= 37500;
     options.speed ??= 3;
     options.turnSpeed ??= .0005;
-    options.shield ??= 52300;
+    options.shield ??= 65750;
     options.shieldRegen ??= options.shield / 1000;
     options.color ??= "GREEN";
     options.hangars ??= [{
@@ -305,8 +304,9 @@ templates.BELLATORSUPERSTARDESTROYER = function (options = {}) {
                 ...e,
                 weapon: {
                     ...e.weapon,
-                    health: e.weapon.health * 3 | 0,
-                    range: e.weapon.range * 1.45 | 0
+                    health: e.weapon.health * 4.5 | 0,
+                    range: e.weapon.range * 1.45 | 0,
+                    reload: e.weapon.reload * .85 | 0,
                 }
             }));
         })(),
@@ -596,7 +596,7 @@ templates.LEGATORSTARDREADNOUGHT = function (options = {}) {
     options.cost ??= 33000;
     options.speed ??= 1.8;
     options.turnSpeed ??= .00045;
-    options.shield ??= 54000;
+    options.shield ??= 60000;
     options.shieldRegen ??= options.shield / 1000;
     options.color ??= "GREEN";
     options.hangars ??= [{
@@ -723,8 +723,9 @@ templates.LEGATORSTARDREADNOUGHT = function (options = {}) {
                 ...e,
                 weapon: {
                     ...e.weapon,
-                    health: e.weapon.health * 1.5 | 0,
-                    range: e.weapon.range * 1.334 | 0
+                    health: e.weapon.health * 2.4 | 0,
+                    range: e.weapon.range * 1.334 | 0,
+                    reload: e.weapon.reload * .85 | 0,
                 }
             }));
         })(),
@@ -886,8 +887,8 @@ templates.VENGEANCE = function (options = {}) {
                 weapon: {
                     ...e.weapon,
                     range: e.weapon.range * 2 | 0,
-                    health: e.weapon.health * 3 | 0,
-                    reload: e.weapon.reload * .8 | 0
+                    health: e.weapon.health * 3.5 | 0,
+                    reload: e.weapon.reload * .9 | 0
                 }
             }));
         })(),

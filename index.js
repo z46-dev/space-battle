@@ -8,7 +8,7 @@ import factions, { CapitalInfo, Faction } from "./lib/Factions.js";
 import curtains, { curtainState, drawCurtains } from "./lib/curtains.js";
 import Campaign from "./lib/Campaign.js";
 import drawBattle from "./client/index.js";
-import { loadCampaign, campaignConfig } from "./shared/loader.js";
+import { loadCampaign, campaignConfig, survivalFactions } from "./shared/loader.js";
 import * as autosave from "./shared/autosave.js";
 import Fleet from "./lib/Fleet.js";
 import { EVENTS, on } from "./client/lib/state.js";
@@ -176,11 +176,48 @@ buttonMaps[STATE_HOME] = [{
     color: "#C8C8C8",
     action: () => {
         // changeState(STATE_INIT_SURVIVAL);
-        shared.beginBattle(
-            Fleet.random(300, "REBEL").__ships, 
-            Fleet.random(300, "EMPIRE").__ships,
-            false, null, "#EF6655", "#55EF66", "Sandbox"
-        );
+        const selections = [];
+        const choose = () => {
+            let faction;
+
+            do {
+                faction = prompt("Enter a faction: \n One of: " + survivalFactions.map(e => e.name).join(", "));
+
+                if (faction === null) {
+                    return;
+                }
+
+                faction = faction.trim();
+            } while (!survivalFactions.some(r => r.name === faction));
+
+            const factionObj = survivalFactions.find(r => r.name === faction);
+            let pop = 0;
+            // while (pop = +prompt("Enter a fleet population (10 - 500):"), !Number.isFinite(pop) || pop < 10 || pop > 500) {
+            //     alert("Invalid fleet population. Please try again.");
+            // }
+
+            do {
+                pop = prompt("Enter a fleet population (10 - 500):", 100);
+                if (pop === null) {
+                    return;
+                }
+
+                pop = +pop.trim();
+            } while (!Number.isFinite(pop) || pop < 10 || pop > 500);
+
+            selections.push({
+                fleet: Fleet.random(pop, factionObj.key).__ships,
+                color: factionObj.color
+            });
+        }
+
+        alert("Select attacking faction:");
+        choose();
+
+        alert("Select defending faction:");
+        choose();
+
+        shared.beginBattle(...selections.map(e => e.fleet), false, null, ...selections.map(e => e.color), "Sandbox");
 
         on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
     }

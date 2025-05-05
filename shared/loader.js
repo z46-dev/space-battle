@@ -77,6 +77,8 @@ export class LoadedCampaign {
     connections = [];
 }
 
+export const survivalFactions = data.survivalFactions;
+
 /**
  * Load a campaign by name or ID
  * @param {number | string} nameOrID 
