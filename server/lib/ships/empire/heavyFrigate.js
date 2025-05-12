@@ -128,12 +128,12 @@ ships.DREADNOUGHTHEAVYCRUISER_EMPIRE = {
     asset: "DREADNOUGHTHEAVYCRUISER.png",
     classification: shipTypes.HeavyFrigate,
     population: 14,
-    size: 290,
-    cost: 2900,
+    size: 340,
+    cost: 3000,
     speed: 3,
     turnSpeed: .015,
-    shield: 4000,
-    shieldRegen: 4,
+    shield: 6500,
+    shieldRegen: 6.5,
     hardpoints: [{
         x: -.075,
         y: .8,
@@ -194,7 +194,14 @@ ships.DREADNOUGHTHEAVYCRUISER_EMPIRE = {
         weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 200
-    }],
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 3 | 0,
+            reload: e.weapon.reload * .6 | 0
+        }
+    })),
     hangars: [{
         x: 0,
         y: -.8,
@@ -216,7 +223,7 @@ ships.ACCLIMATOR_EMPIRE = {
     turnSpeed: .01,
     shield: 6500,
     shieldRegen: 1.5,
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [{
             x: 0,
             y: .85,
@@ -237,7 +244,7 @@ ships.ACCLIMATOR_EMPIRE = {
             shotDelay: 100
         }];
 
-        for (let i = 0; i < 4; i ++) {
+        for (let i = 0; i < 4; i++) {
             output.push({
                 x: -.2 - .1 * i,
                 y: .6 - .225 * i,
@@ -270,6 +277,93 @@ ships.ACCLIMATOR_EMPIRE = {
         reserveSize: 2,
         squadronKey: "TIEFIGHTER_EMPIRE"
     }]
+};
+
+ships.IMPERIAL_II_EMPIRE = {
+    name: "Imperial II Frigate",
+    asset: "IMPERIAL_II_FRIGATE.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 18,
+    size: 400,
+    cost: 2500,
+    speed: 3,
+    turnSpeed: .006,
+    shield: 5500,
+    shieldRegen: 5.5,
+    hardpoints: (() => {
+        const points = [{
+            x: -.035,
+            y: .839
+        }, {
+            x: -.089,
+            y: .666
+        }, {
+            x: -.137,
+            y: .535
+        }, {
+            x: -.216,
+            y: .322
+        }, {
+            x: -.245,
+            y: .243
+        }, {
+            x: -.333,
+            y: -.016
+        }, {
+            x: -.367,
+            y: -.084
+        }, {
+            x: -.498,
+            y: -.446
+        }, {
+            x: -.224,
+            y: -.445
+        }, {
+            x: -.225,
+            y: -.343
+        }, {
+            x: -.186,
+            y: -.015
+        }, {
+            x: -.111,
+            y: .098
+        }, {
+            x: -.102,
+            y: .301
+        }];
+
+        for (let i = 0, n = points.length; i < n; i++) {
+            points.push({
+                x: -points[i].x,
+                y: points[i].y
+            });
+        }
+
+        const output = [];
+        const selection = [
+            weapons.GREEN_DOUBLE_LASER_CANNON, weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
+            weapons.GREEN_DOUBLE_TURBOLASER_CANNON, weapons.DOUBLE_ION_CANNON,
+            weapons.DOUBLE_ION_CANNON_MEDIUM, weapons.GREEN_RAPID_LASER_CANNON,
+            weapons.GREEN_DOUBLE_LASER_CANNON, weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
+            weapons.GREEN_DOUBLE_TURBOLASER_CANNON, weapons.DOUBLE_ION_CANNON,
+            weapons.DOUBLE_ION_CANNON_MEDIUM, weapons.GREEN_RAPID_LASER_CANNON
+        ];
+
+        for (let i = 0, n = points.length; i < n; i++) {
+            const weapon = selection[i % selection.length];
+            output.push({
+                ...points[i],
+                weapon: {
+                    ...weapon,
+                    health: weapon.health * 3.5 | 0
+                },
+                shotsAtOnce: 2,
+                shotDelay: 75
+            });
+        }
+        
+        return output;
+    })()
 };
 
 export default ships;

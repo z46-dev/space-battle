@@ -46,6 +46,19 @@ const shared = {
         shared.state = STATE_BATTLE;
 
         setTimeout(() => shared.acceptingDeathClones = true, 5000);
+    },
+
+    /**
+     * @param {{name:string,color:string,fleet:{ship:string,hero:string|null}[]}} attackingFaction
+     * @param {{name:string,color:string,fleet:{ship:string,hero:string|null}[]}} defendingFaction
+     * @param {boolean} attacking
+     * @param {string} designConfig
+     * @param {string} planetName
+     */
+    newBeginBattle(attackingFaction, defendingFaction, attacking = false, designConfig = null, planetName = "Wild Space") {
+        initializeBattle(attackingFaction, defendingFaction, attacking, designConfig, planetName);
+
+        shared.state = STATE_BATTLE;
     }
 };
 

@@ -14,7 +14,7 @@ ships.ACCLIMATOR_REPUBLIC = {
     turnSpeed: .01,
     shield: 5000,
     shieldRegen: 5,
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [{
             x: 0,
             y: .85,
@@ -35,7 +35,7 @@ ships.ACCLIMATOR_REPUBLIC = {
             shotDelay: 75
         }];
 
-        for (let i = 0; i < 4; i ++) {
+        for (let i = 0; i < 4; i++) {
             output.push({
                 x: -.2 - .1 * i,
                 y: .6 - .225 * i,
@@ -81,12 +81,12 @@ ships.DREADNOUGHTHEAVYCRUISER_REPUBLIC = {
     asset: "DREADNOUGHTHEAVYCRUISER.png",
     classification: shipTypes.HeavyFrigate,
     population: 12,
-    size: 290,
-    cost: 2850,
+    size: 340,
+    cost: 3000,
     speed: 3,
     turnSpeed: .015,
-    shield: 3500,
-    shieldRegen: 3.5,
+    shield: 6500,
+    shieldRegen: 6.5,
     hardpoints: [{
         x: -.075,
         y: .8,
@@ -151,7 +151,8 @@ ships.DREADNOUGHTHEAVYCRUISER_REPUBLIC = {
         ...e,
         weapon: {
             ...e.weapon,
-            health: e.weapon.health * 2 | 0
+            health: e.weapon.health * 3 | 0,
+            reload: e.weapon.reload * .6 | 0
         }
     })),
     hangars: [{

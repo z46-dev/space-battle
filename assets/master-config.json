@@ -1007,6 +1007,37 @@
             }, {
                 "id": 4,
                 "ships": ["INEXPUGNABLECOMMANDSHIP_REBEL", "MC85_REBEL", "BLUEDIVER_REBEL", "MEDIATOR_REBEL", "VISCOUNT_PROTOTYPE_REBEL"]
+            }],
+            "heroUnits": [{
+                "key": "AdmiralRaddus",
+                "planet": "Mon Calamari"
+            }, {
+                "key": "AdmiralAckbar",
+                "planet": "Mon Calamari"
+            }, {
+                "key": "GarmBelIblis",
+                "planet": "Bothawui"
+            }, {
+                "key": "GeneralDodonna",
+                "planet": "Dantooine"
+            }, {
+                "key": "WedgeAntilles",
+                "planet": "Naboo"
+            }, {
+                "key": "HanAndChewie",
+                "planet": "Naboo"
+            }, {
+                "key": "JunSato",
+                "planet": "Lothal"
+            }, {
+                "key": "GeneralLeiaOrganaSolo",
+                "planet": "Yavin"
+            }, {
+                "key": "AdmriralTallon",
+                "planet": "Ithor"
+            }, {
+                "key": "IdenVersio",
+                "planet": "Hosnian Prime"
             }]
         }, {
             "id": 1,
@@ -1031,6 +1062,34 @@
             }, {
                 "id": 4,
                 "ships": ["CONSOLIDATORASSAULTSHIP_EMPIRE", "ARCHAMMER_EMPIRE", "EXECUTORSUPERSTARDESTROYER_EMPIRE", "BELLATORSUPERSTARDESTROYER_EMPIRE", "ASSERTORSTARDREADNOUGHT_EMPIRE", "LEGATORSTARDREADNOUGHT_EMPIRE"]
+            }],
+            "heroUnits": [{
+                "key": "AdmiralPellaeon",
+                "planet": "Coruscant"
+            }, {
+                "key": "AdmiralPiett",
+                "planet": "Kuat"
+            }, {
+                "key": "GrandAdmiralThrawn",
+                "planet": "Coruscant"
+            }, {
+                "key": "GeneralDelvarus",
+                "planet": "Bilbringi"
+            }, {
+                "key": "CapBrandei",
+                "planet": "Anaxes"
+            }, {
+                "key": "AdmiralCorburn",
+                "planet": "Entralla"
+            }, {
+                "key": "Konstantine",
+                "planet": "Bilbringi"
+            }, {
+                "key": "TerisaKerrill",
+                "planet": "Coruscant"
+            }, {
+                "key": "RaeSloane",
+                "planet": "Bastion"
             }]
         }, {
             "id": 2,
@@ -1055,6 +1114,10 @@
             }, {
                 "id": 4,
                 "ships": ["DORBULLA_HUTT"]
+            }],
+            "heroUnits": [{
+                "key": "Jabba The Hutt",
+                "planet": "Nal Hutta & Nar Shaddaa"
             }]
         }, {
             "id": 3,
@@ -1127,6 +1190,13 @@
             }, {
                 "id": 4,
                 "ships": []
+            }],
+            "heroUnits": [{
+                "key": "Ereneda",
+                "planet": "Hapes"
+            }, {
+                "key": "TenelKaDjo",
+                "planet": "Hapes"
             }]
         }, {
             "id": 6,
@@ -1151,6 +1221,10 @@
             }, {
                 "id": 4,
                 "ships": ["ASCENDANCY_EOTH", "SYNDIC_EOTH", "INTEGO_EOTH"]
+            }],
+            "heroUnits": [{
+                "key": "JaggedFel",
+                "planet": "Nirauan"
             }]
         }, {
             "id": 7,
@@ -1203,6 +1277,25 @@
             }, {
                 "id": 4,
                 "ships": ["PROCURATOR_REPUBLIC", "SECUTOR_REPUBLIC", "PRAETOR_REPUBLIC"]
+            }],
+            "heroUnits": [{
+                "key": "Yularen",
+                "planet": "Coruscant"
+            }, {
+                "key": "CapPellaeon",
+                "planet": "Alderaan"
+            }, {
+                "key": "AdarTallon",
+                "planet": "Kuat"
+            }, {
+                "key": "AdmiralWieler",
+                "planet": "Anaxes"
+            }, {
+                "key": "AdmiralCorburn",
+                "planet": "Carida"
+            }, {
+                "key": "CWTarkin",
+                "planet": "Fondor"
             }]
         }, {
             "id": 8,
@@ -1227,6 +1320,28 @@
             }, {
                 "id": 4,
                 "ships": ["PROVIDENCEDREADNOUGHT_CIS", "RECUSANTDREADNOUGHT_CIS", "BULWARKII_CIS", "SUBJUGATOR_CIS"]
+            }],
+            "heroUnits": [{
+                "key": "Dooku",
+                "planet": "Raxus"
+            }, {
+                "key": "Grievous",
+                "planet": "Ryloth"
+            }, {
+                "key": "AdmiralTrench",
+                "planet": "Christophsis"
+            }, {
+                "key": "NuteGunray",
+                "planet": "Cato Neimoidia"
+            }, {
+                "key": "General Kalani",
+                "planet": "Geonosis"
+            }, {
+                "key": "Aut-0",
+                "planet": "Muunilinst"
+            }, {
+                "key": "TI-99",
+                "planet": "Umbara"
             }]
         }, {
             "id": 9,
@@ -1251,6 +1366,10 @@
             }, {
                 "id": 4,
                 "ships": ["DORBULLA_HUTT"]
+            }],
+            "heroUnits": [{
+                "key": "Jabba The Hutt",
+                "planet": "Nal Hutta & Nar Shaddaa"
             }]
         }, {
             "id": 10,

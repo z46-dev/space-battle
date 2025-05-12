@@ -168,4 +168,41 @@ ships.TIEPUNISHER_EMPIRE = {
     }].map(hp => ({ ...hp, weapon: { ...hp.weapon, health: hp.weapon.health * 30 | 0 } }))
 };
 
+ships.TITAN_SQUADRON_EMPIRE = {
+    name: "Titan Squadron",
+    asset: "TIEFIGHTER.png",
+    classification: shipTypes.Fighter,
+    population: 0,
+    size: 15,
+    cost: 4,
+    speed: 23,
+    turnSpeed: .05,
+    shield: 500,
+    shieldRegen: 5,
+    tenderAbility: {
+        frequency: 1,
+        power: 1
+    },
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.GREEN_FIGHTER_LASER_CANNON,
+            health: 200,
+            reload: weapons.GREEN_FIGHTER_LASER_CANNON.reload * .5 | 0,
+            range: weapons.GREEN_FIGHTER_LASER_CANNON.range * 1.5 | 0,
+            speed: weapons.GREEN_FIGHTER_LASER_CANNON.speed * 1.5 | 0,
+            damage: weapons.GREEN_FIGHTER_LASER_CANNON.damage * 2 | 0
+        },
+        shotsAtOnce: 4,
+        shotDelay: 30
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.FIGHTER_ION_CANNON,
+        shotsAtOnce: 4,
+        shotDelay: 30
+    }]
+};
+
 export default ships;

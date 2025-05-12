@@ -15,7 +15,7 @@ ships.MC50_REBEL = {
     shield: 6000,
     shieldRegen: 2,
     shieldRegenAbility: {},
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [{
             x: 0,
             y: .85,
@@ -60,7 +60,7 @@ ships.MC50_REBEL = {
             shotDelay: 100
         }];
 
-        for (let i = 0; i < 4; i ++) {
+        for (let i = 0; i < 4; i++) {
             output.push({
                 x: -.2,
                 y: .3 - .2 * i,
@@ -117,7 +117,7 @@ ships.NEBULONB2_REBEL = {
         cooldown: 2,
         regen: .7
     },
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [{
             x: 0,
             y: .85,
@@ -162,7 +162,7 @@ ships.NEBULONB2_REBEL = {
             shotDelay: 60
         }];
 
-        for (let i = 0; i < 3; i ++) {
+        for (let i = 0; i < 3; i++) {
             output.push({
                 x: 0,
                 y: .4 - .3 * i,
@@ -201,10 +201,10 @@ ships.FREEVIRGILLIABUNKERBUSTER_REBEL = {
     turnSpeed: .01,
     shield: 6000,
     shieldRegen: 8,
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [];
 
-        for (let i = 0; i < 4; i ++) {
+        for (let i = 0; i < 4; i++) {
             output.push({
                 x: -.2 - .15 * i,
                 y: .875 - .075 * i,
@@ -408,10 +408,10 @@ ships.VALORCRUISER_REBEL = {
     turnSpeed: .01,
     shield: 6200,
     shieldRegen: 6.2,
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [];
 
-        for (let i = 0; i < 5; i ++) {
+        for (let i = 0; i < 5; i++) {
             output.push({
                 x: -.1 - .05 * Math.pow(i, 1.035),
                 y: .9 - .25 * i,
@@ -439,7 +439,7 @@ ships.VALORCRUISER_REBEL = {
             });
         }
 
-        for (let i = 0; i < output.length; i ++) {
+        for (let i = 0; i < output.length; i++) {
             output[i].weapon = {
                 ...output[i].weapon,
                 health: output[i].weapon.health * 2
@@ -470,77 +470,78 @@ ships.DREADNOUGHTHEAVYCRUISER_REBEL = {
     asset: "DREADNOUGHTHEAVYCRUISER.png",
     classification: shipTypes.HeavyFrigate,
     population: 16,
-    size: 290,
-    cost: 3300,
-    speed: 3.5,
-    turnSpeed: .02,
-    shield: 5230,
-    shieldRegen: 5,
+    size: 340,
+    cost: 3000,
+    speed: 3,
+    turnSpeed: .015,
+    shield: 6500,
+    shieldRegen: 6.5,
     hardpoints: [{
         x: -.075,
         y: .8,
-        weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
         shotsAtOnce: 2,
         shotDelay: 200
     }, {
         x: .075,
         y: .8,
-        weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
         shotsAtOnce: 2,
         shotDelay: 200
     }, {
         x: -.2,
         y: -.8,
-        weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
         shotsAtOnce: 2,
         shotDelay: 200
     }, {
         x: .2,
         y: -.8,
-        weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
         shotsAtOnce: 2,
         shotDelay: 200
     }, {
         x: -.125,
         y: .4,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 200
     }, {
         x: .125,
         y: .4,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 200
     }, {
         x: -.15,
         y: -.4,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON,
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 200
     }, {
         x: .15,
         y: -.4,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON,
+        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 200
     }, {
         x: -.175,
         y: 0,
-        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+        weapon: weapons.RED_DOUBLE_LASER_CANNON,
         shotsAtOnce: 2,
-        shotDelay: 50
+        shotDelay: 200
     }, {
         x: .175,
         y: 0,
-        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+        weapon: weapons.RED_DOUBLE_LASER_CANNON,
         shotsAtOnce: 2,
-        shotDelay: 50
+        shotDelay: 200
     }].map(e => ({
         ...e,
         weapon: {
             ...e.weapon,
-            health: e.weapon.health * 2.5 | 0
+            health: e.weapon.health * 3 | 0,
+            reload: e.weapon.reload * .6 | 0
         }
     })),
     hangars: [{
@@ -571,7 +572,7 @@ ships.VESPER_REBEL = {
     turnSpeed: .003,
     shield: 11100,
     shieldRegen: 11.1,
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [{
             x: -.03,
             y: .97,
@@ -700,7 +701,7 @@ ships.VESPER_REBEL = {
             shotDelay: 200
         }];
 
-        for (let i = 0, n = output.length; i < n; i ++) {
+        for (let i = 0, n = output.length; i < n; i++) {
             output.push({
                 ...output[i],
                 x: -output[i].x

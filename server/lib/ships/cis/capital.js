@@ -8,7 +8,7 @@ ships.PROVIDENCEDESTROYER_CIS = {
     asset: "PROVIDENCE.png",
     classification: shipTypes.Capital,
     population: 24,
-    size: 600,
+    size: 650,
     cost: 4250,
     speed: 4.5,
     turnSpeed: .006,
@@ -314,7 +314,7 @@ ships.DHOMNI_CIS = {
     cost: 3000,
     speed: 1.2,
     turnSpeed: .0075,
-    shield: 14300,
+    shield: 12300,
     shieldRegen: 6,
     tenderAbility: {
         frequency: 2,
@@ -381,7 +381,7 @@ ships.DHOMNI_CIS = {
             ...hardpoint,
             weapon: {
                 ...hardpoint.weapon,
-                health: hardpoint.weapon.health * 6
+                health: hardpoint.weapon.health * 4.5 | 0
             }
         }));
     })(),

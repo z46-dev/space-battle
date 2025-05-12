@@ -249,7 +249,7 @@ heroes["WedgeAntilles"] = {
     name: "Wedge Antilles",
     tooltip: "A Corellian pilot and leader of Rogue Squadron, Wedge Antilles was a key figure in the Alliance's victory at Endor. He was known for his ability to inspire his pilots to become the best fighter pilots in the galaxy, and his tactical prowess. He commanded a modified Executor-class Star Dreadnought, the Lusankya, and was a prominent figure in the New Republic's fight against the Empire.",
     image: "WedgeAntilles.webp",
-    ships: ["LUSANKYA_REBEL", "MC85_REBEL", "MC80BLIBERTY_REBEL"],
+    ships: ["MC85_REBEL", "MC80BLIBERTY_REBEL"],
     modifications: function(ship) {
         ship.shield *= 1.6;
         ship.maxShield *= 1.6;
@@ -271,7 +271,16 @@ heroes["HanAndChewie"] = {
     tooltip: "A Corellian smuggler and his Wookiee co-pilot, Han Solo and Chewbacca were key figures in the Alliance's victory at Endor. They were known for their ability to inspire their troops to fight against tyranny, and their piloting skills.",
     image: "HanChewie.webp",
     ships: ["FALCON_REBEL", "MC80B_REBEL"],
-    modifications: () => {}
+    modifications: function(ship) {
+        ship.shield *= 2;
+        ship.maxShield *= 2;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+            hp.reload *= .75;
+        });
+    }
 };
 
 heroes["JunSato"] = {
@@ -388,6 +397,27 @@ heroes["AdmriralTallon"] = {
                 }
             });
         }
+    }
+};
+
+heroes["IdenVersio"] = {
+    name: "Iden Versio",
+    tooltip: "Iden Versio was a former Imperial commander who defected to the Rebellion after witnessing the horrors of the Empire. She ended up commanding a group, Inferno Squadron, which went on often unsanctioned missions to support the Rebellion, and later the Resistance.",
+    image: "IdenVersio.png",
+    ships: ["CR90_REBEL"],
+    modifications: function(ship) {
+        ship.shield *= 5;
+        ship.maxShield *= 5;
+        ship.speed *= 1.25;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 3;
+            hp.maxHealth *= 3;
+            hp.reload *= .5;
+            hp.damage *= 2;
+            hp.speed *= 1.2;
+            hp.range *= 1.5;
+        });
     }
 };
 

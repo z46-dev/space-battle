@@ -169,8 +169,8 @@ function drawWrappedText(text, x, y, size, maxWidth = 200, fill = "#FFFFFF", ali
         if (measurement.width > maxWidth && i > 0) {
             ctx.fillText(line, x, y);
             line = words[i] + " ";
-            y += measurement.height * 1.1;
-            height += measurement.height * 1.1;
+            y += measurement.height * 1.2;
+            height += measurement.height * 1.2;
         } else {
             line = testLine;
         }
@@ -593,45 +593,45 @@ export default function draw() {
     });
 
     // Draw squadrons
-        squadrons.forEach(squadron => {
-            squadron.x = lerp(squadron.x, squadron.realX, .2);
-            squadron.y = lerp(squadron.y, squadron.realY, .2);
-            squadron.health = lerp(squadron.health, squadron.realHealth, .2);
+    squadrons.forEach(squadron => {
+        squadron.x = lerp(squadron.x, squadron.realX, .2);
+        squadron.y = lerp(squadron.y, squadron.realY, .2);
+        squadron.health = lerp(squadron.health, squadron.realHealth, .2);
 
-            if (scale > .6 || state.world.snapshotMode) {
-                return;
-            }
+        if (scale > .6 || state.world.snapshotMode) {
+            return;
+        }
 
-            ctx.save();
-            ctx.translate(squadron.x, squadron.y);
+        ctx.save();
+        ctx.translate(squadron.x, squadron.y);
 
-            // ctx.fillStyle = squadron.team === 0 ? "#FF0000" : "#0000FF";
-            ctx.fillStyle = teamColors[squadron.team];
-            ctx.strokeStyle = mixColors(ctx.fillStyle, "#000000", .5);
-            ctx.beginPath();
-            ctx.roundRect(-40, -40, 80, 80, 17.5);
+        // ctx.fillStyle = squadron.team === 0 ? "#FF0000" : "#0000FF";
+        ctx.fillStyle = teamColors[squadron.team];
+        ctx.strokeStyle = mixColors(ctx.fillStyle, "#000000", .5);
+        ctx.beginPath();
+        ctx.roundRect(-40, -40, 80, 80, 17.5);
 
-            ctx.globalAlpha = .125;
-            ctx.fill();
+        ctx.globalAlpha = .125;
+        ctx.fill();
 
-            ctx.globalAlpha = 1;
-            ctx.lineWidth = 5;
-            ctx.stroke();
+        ctx.globalAlpha = 1;
+        ctx.lineWidth = 5;
+        ctx.stroke();
 
-            ctx.globalAlpha = .5;
-            ctx.drawImage(assetsLib.assets.get(squadron.asset), -30, -30, 60, 60);
+        ctx.globalAlpha = .5;
+        ctx.drawImage(assetsLib.assets.get(squadron.asset), -30, -30, 60, 60);
 
-            ctx.globalAlpha = 1;
-            drawBar(0, 55, 80, 10, squadron.health, "#00FFC8");
+        ctx.globalAlpha = 1;
+        drawBar(0, 55, 80, 10, squadron.health, "#00FFC8");
 
-            ctx.restore();
+        ctx.restore();
 
-            const mouseOverSquadron = Math.abs(realMouseX - squadron.x) < 30 && Math.abs(realMouseY - squadron.y) < 30;
+        const mouseOverSquadron = Math.abs(realMouseX - squadron.x) < 30 && Math.abs(realMouseY - squadron.y) < 30;
 
-            if (mouseOverSquadron) {
-                state.inputs.shipOver = squadron;
-            }
-        });
+        if (mouseOverSquadron) {
+            state.inputs.shipOver = squadron;
+        }
+    });
 
     // Draw explosions
     explosions.forEach(explosion => {
@@ -847,7 +847,7 @@ export default function draw() {
 
             bigWidth = Math.max(bigWidth, m1.width + 5);
             bigHeight += m1.height + 5;
-            bigHeight += (m2.height + 5) * m2.width / (bigWidth - 10);
+            bigHeight += (m2.height + 10) * m2.width / (bigWidth - 10);
             bigHeight += 10;
         }
 
@@ -997,23 +997,24 @@ export default function draw() {
     ctx.restore();
 }
 
-export function initializeBattle(myShips, enemyShips, attacking, designConfig, myColor, enemyColor, currPlanet) {
-    state.worker.postMessage([1, 0, JSON.stringify(myShips), JSON.stringify(enemyShips), attacking]);
+/**
+ * @param {{name:string,color:string,fleet:{ship:string,hero:string|null}[]}} attackingFaction
+ * @param {{name:string,color:string,fleet:{ship:string,hero:string|null}[]}} defendingFaction
+ * @param {boolean} attacking
+ * @param {string} designConfig
+ * @param {string} currPlanet
+ */
+export function initializeBattle(attackingFaction, defendingFaction, attacking = false, designConfig = null, currPlanet = "Wild Space") {
+    state.worker.postMessage([1, 0, attacking === true ? 1 : 0, JSON.stringify(attackingFaction), JSON.stringify(defendingFaction)]);
 
     teamColors.length = 0;
-    teamColors.push(...(!attacking ? [myColor, enemyColor] : [enemyColor, myColor]));
-
     teamColorRGBs.length = 0;
-    teamColorRGBs.push(...(!attacking ? [hextoRGB(myColor), hextoRGB(enemyColor)] : [hextoRGB(enemyColor), hextoRGB(myColor)]));
-
-    console.log("Team colors: " + teamColors);
-
+    teamColors.push(attackingFaction.color, defendingFaction.color);
+    teamColorRGBs.push(hextoRGB(attackingFaction.color), hextoRGB(defendingFaction.color));
     planetName = currPlanet;
 
     if (designConfig != null && "design" in designConfig && typeof designConfig.design === "string") {
-        console.log("Regenerating planet with design: " + designConfig.design);
         regeneratePlanet(designConfig.design);
-
         planet.generate();
     }
 

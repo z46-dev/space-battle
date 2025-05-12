@@ -13,6 +13,7 @@ import * as autosave from "./shared/autosave.js";
 import Fleet from "./lib/Fleet.js";
 import { EVENTS, on } from "./client/lib/state.js";
 import ships from "./server/lib/ships.js";
+import heroes from "./server/lib/heroes.js";
 
 // Do a UI all split up in canvas.
 // Add a home menu and an option for saves and an option for
@@ -192,9 +193,6 @@ buttonMaps[STATE_HOME] = [{
 
             const factionObj = survivalFactions.find(r => r.name === faction);
             let pop = 0;
-            // while (pop = +prompt("Enter a fleet population (10 - 500):"), !Number.isFinite(pop) || pop < 10 || pop > 500) {
-            //     alert("Invalid fleet population. Please try again.");
-            // }
 
             do {
                 pop = prompt("Enter a fleet population (10 - 500):", 100);
@@ -205,10 +203,28 @@ buttonMaps[STATE_HOME] = [{
                 pop = +pop.trim();
             } while (!Number.isFinite(pop) || pop < 10 || pop > 500);
 
-            selections.push({
-                fleet: Fleet.random(pop, factionObj.key).__ships,
+            const selection = {
+                name: factionObj.name,
+                fleet: Fleet.random(pop, factionObj.key).__ships.map(e => ({
+                    ship: e,
+                    hero: null
+                })),
                 color: factionObj.color
-            });
+            };
+
+            if (prompt("Allow heroes? (y/n)", "y").toLowerCase() === "y") {
+                for (const heroKey of Object.keys(heroes).sort(() => .5 - Math.random())) {
+                    const hero = heroes[heroKey];
+                    const union = hero.ships.filter(s => selection.fleet.some(f => f.ship === s && f.hero === null));
+
+                    if (union.length > 0) {
+                        const shipSelection = union[Math.random() * union.length | 0];
+                        selection.fleet.find(f => f.ship === shipSelection && f.hero === null).hero = heroKey;
+                    }
+                }
+            }
+
+            selections.push(selection);
         }
 
         alert("Select attacking faction:");
@@ -217,8 +233,102 @@ buttonMaps[STATE_HOME] = [{
         alert("Select defending faction:");
         choose();
 
-        shared.beginBattle(...selections.map(e => e.fleet), false, null, ...selections.map(e => e.color), "Sandbox");
+        // shared.beginBattle(...selections.map(e => e.fleet), false, null, ...selections.map(e => e.color), "Sandbox");
+        shared.newBeginBattle(selections[0], selections[1], true, null, "Sandbox");
+        on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
+    }
+}, {
+    x: 0,
+    y: 144,
+    width: 256,
+    height: 64,
+    text: "Sandbox Mode",
+    color: "#C8C8C8",
+    action: () => {
+        // changeState(STATE_INIT_SURVIVAL);
+        const selections = [];
+        const choose = () => {
+            let faction;
 
+            do {
+                faction = prompt("Enter a faction: \n One of: " + survivalFactions.map(e => e.name).join(", "));
+
+                if (faction === null) {
+                    return;
+                }
+
+                faction = faction.trim();
+            } while (!survivalFactions.some(r => r.name === faction));
+
+            const factionObj = survivalFactions.find(r => r.name === faction);
+            let pop = 0;
+
+            do {
+                pop = prompt("Enter a fleet population (10 - 500):", 100);
+                if (pop === null) {
+                    return;
+                }
+
+                pop = +pop.trim();
+            } while (!Number.isFinite(pop) || pop < 10 || pop > 500);
+
+            const selection = {
+                name: factionObj.name,
+                fleet: Fleet.random(pop, factionObj.key).__ships.map(e => ({
+                    ship: e,
+                    hero: null
+                })),
+                color: factionObj.color
+            };
+
+            if (prompt("Allow heroes? (y/n)", "y").toLowerCase() === "y") {
+                for (const heroKey of Object.keys(heroes).sort(() => .5 - Math.random())) {
+                    const hero = heroes[heroKey];
+                    const union = hero.ships.filter(s => selection.fleet.some(f => f.ship === s && f.hero === null));
+
+                    if (union.length > 0) {
+                        const shipSelection = union[Math.random() * union.length | 0];
+                        selection.fleet.find(f => f.ship === shipSelection && f.hero === null).hero = heroKey;
+                    }
+                }
+            }
+
+            selections.push(selection);
+        }
+
+        alert("Select attacking faction:");
+        choose();
+
+        alert("Select defending faction:");
+        choose();
+
+        shared.newBeginBattle(selections[0], selections[1], true, null, "Sandbox");
+        on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
+    }
+}, {
+    x: 0,
+    y: 216,
+    width: 256,
+    height: 64,
+    text: "Testing",
+    color: "#C8C8C8",
+    action: () => {
+        const pop = 250;
+        shared.newBeginBattle({
+            name: "CIS",
+            fleet: Fleet.random(pop, "CIS").__ships.map(e => ({
+                ship: e,
+                hero: null
+            })),
+            color: survivalFactions.find(e => e.name === "CIS").color
+        }, {
+            name: "Republic",
+            fleet: Fleet.random(pop, "EMPIRE").__ships.map(e => ({
+                ship: e,
+                hero: null
+            })),
+            color: survivalFactions.find(e => e.name === "Republic").color
+        }, true, null, "Sandbox");
         on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
     }
 }];
@@ -401,6 +511,7 @@ buttonMaps[STATE_SELECT_TIMEFRAME] = campaignConfig.map((campaign, i) => ({
             faction.name = conf.name;
             faction.key = conf.key;
             faction.additionalStartingUnits = conf.additionalStartingUnits;
+            faction.heroUnits = conf.heroUnits;
 
             if (conf.planets && conf.planets.length > 0) {
                 faction.defaultStartingPlanets = conf.planets;
@@ -575,7 +686,7 @@ window.addEventListener("mousemove", event => {
     const x = event.offsetX / scale * window.devicePixelRatio;
     const y = event.offsetY / scale * window.devicePixelRatio;
 
-    if (shared.state in buttonMaps) {
+    if (shared.state in buttonMaps && buttonMaps[shared.state] != null) {
         for (let i = 0; i < buttonMaps[shared.state].length; i++) {
             const button = buttons[i];
             button.mouseIsOver = button.contains(x, y);
@@ -592,7 +703,7 @@ window.addEventListener("click", event => {
     const x = event.offsetX / scale * window.devicePixelRatio;
     const y = event.offsetY / scale * window.devicePixelRatio;
 
-    if (shared.state in buttonMaps) {
+    if (shared.state in buttonMaps && buttonMaps[shared.state] != null) {
         for (let i = 0; i < buttonMaps[shared.state].length; i++) {
             const button = buttons[i];
 

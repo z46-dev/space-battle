@@ -650,6 +650,19 @@ export const RED_LIGHT_SUPERLASER2 = {
     maneuverability: 1
 };
 
+export const DEVASTATION_SUPERLASER = {
+    reload: 300,
+    damage: 20,
+    type: weaponTypes.RedLightSuperlaser2,
+    health: 1000,
+    speed: 75,
+    range: 9000,
+    targetOverride: [shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
+    explosionRange: 1e10,
+    name: "Axial Superlaser",
+    maneuverability: 1
+};
+
 export const RED_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD = {
     ...GREEN_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD,
     type: weaponTypes.RedUltraTurbolaserBypassShield

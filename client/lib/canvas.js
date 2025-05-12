@@ -55,7 +55,12 @@ export class Sprite {
         blueExplosion3: [16, 8, .35],
         blueExplosion4: [5, 5, .2],
         blueExplosion5: [4, 4, .2],
-        fireSprite: [3, 3]
+        fireSprite: [3, 3],
+        ionPulse1: [4, 4, .4],
+        ionPulse2: [4, 4, .125],
+        ionPulse3: [5, 5],
+        ionPulse4: [5, 4],
+        ionPulse5: [6, 6]
     };
 
     constructor(name, loop = true) {

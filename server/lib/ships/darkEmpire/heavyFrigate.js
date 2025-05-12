@@ -159,12 +159,12 @@ ships.DREADNOUGHTHEAVYCRUISER_DARKEMPIRE = {
     asset: "DREADNOUGHTHEAVYCRUISER.png",
     classification: shipTypes.HeavyFrigate,
     population: 14,
-    size: 290,
-    cost: 2900,
+    size: 340,
+    cost: 3000,
     speed: 3,
     turnSpeed: .015,
-    shield: 4000,
-    shieldRegen: 4,
+    shield: 6500,
+    shieldRegen: 6.5,
     hardpoints: [{
         x: -.075,
         y: .8,
@@ -229,7 +229,8 @@ ships.DREADNOUGHTHEAVYCRUISER_DARKEMPIRE = {
         ...e,
         weapon: {
             ...e.weapon,
-            health: e.weapon.health * 2 | 0
+            health: e.weapon.health * 3 | 0,
+            reload: e.weapon.reload * .6 | 0
         }
     })),
     hangars: [{

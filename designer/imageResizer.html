@@ -395,11 +395,10 @@
 
             removeBackground(255, 0, 255, 96);
             secondRemoveBackground(255, 0, 255, 128);
+            fuzzBorders();
             center();
-            reColor(255, 255, 255, .2);
-            smoothlyScale(2);
-            stretch(1, 1.175);
-            center();
+            // smoothlyScale(1.5);
+            fuzzBorders();
 
             document.body.appendChild(canvas);
         }

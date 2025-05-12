@@ -148,4 +148,8 @@ for (let i = 1; i <= 5; i++) {
     loadAsset(`/assets/explosions/blueExplosion${i}.png`, `blueExplosion${i}`);
 }
 
+for (let i = 1; i <= 5; i++) {
+    loadAsset(`/assets/explosions/ionPulse${i}.png`, `ionPulse${i}`);
+}
+
 loadAsset("/assets/explosions/fire.png", "fireSprite");

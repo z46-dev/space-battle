@@ -90,6 +90,8 @@ class Projectile {
                 if (this.target.ship.shield > 0) {
                     this.target.ship.shield -= this.hardpoint.damage * 1.25;
                     this.target.ship.lastHit = performance.now();
+
+                    this.battle.explode(this.target.x, this.target.y, 50, Math.random() * Math.PI * 2, "ionPulse1");
                 } else {
                     this.target.tick -= Math.random() * 3 | 0;
                 }
@@ -100,6 +102,8 @@ class Projectile {
 
                     if (Math.random() > .9 && this.explosionRange <= 1000) {
                         this.battle.explode(this.target.x, this.target.y, this.explosionRange * .667, this.angle, Math.random() > .3 ? "explosion" + (Math.random() * 10 | 0 + 1) : ("blueExplosion" + (Math.random() * 5 | 0 + 1)));
+                    } else {
+                        this.battle.explode(this.target.x, this.target.y, 25, Math.random() * Math.PI * 2, "ionPulse1");
                     }
                 } else {
                     this.target.ship.lastHit = performance.now();
@@ -129,6 +133,8 @@ class Projectile {
                 if (this.target.ship.shield > 0 && !this.hardpoint.bypassShield) {
                     this.target.ship.shield -= this.hardpoint.damage * (this.classification === weaponClassifications.Guided ? 1 : .45); // Nuh uh
                     this.target.ship.lastHit = performance.now();
+                    this.battle.explode(this.target.x, this.target.y, 25, Math.random() * Math.PI * 2, "ionPulse1");
+
                 } else {
                     this.target.health -= this.hardpoint.damage;
                     this.target.ship.lastHit = performance.now();
@@ -1253,7 +1259,7 @@ class Battle {
 
         this.updateInterval = setInterval(this.update.bind(this), 1000 / 22.5);
 
-        const performanceMetrics = {};
+        const performanceMetrics = {}; // TODO: implement
 
         setInterval(() => {
             if (this.frames > 0) {
@@ -1295,9 +1301,13 @@ class Battle {
 
             const packet = {};
 
-            for (const team of this.teams) {    
+            for (const team of this.teams) {
                 packet[team.i] = {
-                    survived: this.shipsStartedWith[team.i].filter(ship => this.ships.has(ship.id)).map(ship => ship.key),
+                    survived: this.shipsStartedWith[team.i].filter(ship => ship.commander == null && this.ships.has(ship.id)).map(ship => ship.key),
+                    survivedHeroes: this.shipsStartedWith[team.i].filter(ship => ship.commander != null && this.ships.has(ship.id)).map(ship => ({
+                        ship: ship.key,
+                        hero: ship.commander.config.key
+                    })),
                     died: this.shipsStartedWith[team.i].filter(ship => !this.ships.has(ship.id)).map(ship => ship.key)
                 };
             }
@@ -2319,62 +2329,37 @@ onmessage = function (e) {
                         projectile.battle.projectiles.delete(projectile.id);
                     });
 
+                    const playerFactionIsAttacking = e.data.shift() === 1;
+
+                    // Expect: <faction> { name: "str", color: "str", fleet: [{ ship: "ship key", hero: "ship key" | null }] }
+
                     for (let i = 0; i < 2; i++) {
-                        const ships = JSON.parse(e.data.shift()) ?? Fleet.random(128, randomFaction());
-                        const spawned = ships.map(ship => {
-                            if (ship === "MEGASTARDESTROYER_DARKEMPIRE") {
-                                const s = spawn(ship, i);
+                        const faction = JSON.parse(e.data.shift());
+                        const spawnedShips = faction.fleet.map(shipConf => {
+                            const ship = spawn(shipConf.ship, i);
 
-                                switch (i) {
-                                    case 0:
-                                        s.x = -spawnDistance * 5;
-                                        s.y = 0;
-                                        s.angle = 0;
-                                        break;
-                                    case 1:
-                                        s.x = spawnDistance * 5;
-                                        s.y = 0;
-                                        s.angle = Math.PI;
-                                        break;
+                            if (shipConf.hero) {
+                                ship.commander = new Commander(heroes[shipConf.hero], ship);
+                                ship.commander.ship = ship;
+                            }
+
+                            if (["MEGASTARDESTROYER_DARKEMPIRE", "MEGASTARDESTROYER_EMPIRE"].includes(shipConf.ship)) {
+                                ship.x = spawnDistance * (i === 0 ? 5 : -5);
+                                ship.y = 0;
+                                ship.angle = i === 0 ? Math.PI : 0;
+
+                                if (!playerFactionIsAttacking) {
+                                    ship.x *= -1;
+                                    ship.angle += Math.PI;
                                 }
-
-                                if (e.data[e.data.length - 1]) {
-                                    s.x *= -1;
-                                    s.angle += Math.PI;
-                                }
-
-                                s.x *= -1;
-                                s.angle += Math.PI;
-
                                 return null;
                             }
 
-                            return spawn(ship, i)
+                            return ship;
                         }).filter(a => !!a).sort(() => .5 - Math.random());
-        
-                        let x, y, angle;
-        
-                        switch (i) {
-                            case 1:
-                                x = -spawnDistance;
-                                y = 0;
-                                angle = 0;
-                                break;
-                            case 0:
-                                x = spawnDistance;
-                                y = 0;
-                                angle = Math.PI;
-                                break;
-                        }
 
-                        if (e.data[e.data.length - 1]) {
-                            x *= -1;
-                            angle += Math.PI;
-                        }
-        
-                        scatterFormation(spawned, x, y, angle);
-
-                        battle.shipsStartedWith.push(spawned);
+                        scatterFormation(spawnedShips, spawnDistance * (i === 0 ? 1 : -1) * (playerFactionIsAttacking ? 1 : -1), 0, (i === 0 ? Math.PI : 0) + (playerFactionIsAttacking ? 0 : Math.PI));
+                        battle.shipsStartedWith.push(spawnedShips);
                     }
                 } break;
                 case 1: {

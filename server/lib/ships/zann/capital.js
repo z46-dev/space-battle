@@ -346,7 +346,7 @@ ships.PROVIDENCEDESTROYER_ZANN = {
     asset: "PROVIDENCE.png",
     classification: shipTypes.Capital,
     population: 18,
-    size: 600,
+    size: 650,
     cost: 3100,
     speed: 4.5,
     turnSpeed: .0334,

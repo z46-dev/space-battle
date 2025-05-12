@@ -46,6 +46,9 @@ export class FactionConfig {
 
     /** @type {{planet:string,name:string}[]|null} */
     additionalStartingUnits = null;
+
+    /** @type {[{ key: string, planet: string, shipOverride: string | null }] | null} */
+    heroUnits = null;
 }
 
 export class CampaignConfig {

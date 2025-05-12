@@ -253,4 +253,61 @@ heroes["Konstantine"] = {
     }
 };
 
+heroes["TerisaKerrill"] = {
+    name: "Terisa Kerill",
+    tooltip: "Terisa Kerrill was a competent captain of the ISD Retribution. She commanded Titan Squadron, which was a squadron of TIE fighters that were quite effective.",
+    image: "Terisa_Kerrill.png",
+    ships: ["IMPERIALSTARDESTROYER_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 1.5;
+        ship.maxShield *= 1.5;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.2;
+            hp.maxHealth *= 1.2;
+            hp.range *= 1.5;
+        });
+
+        ship.addHangar({
+            x: 0,
+            y: 0,
+            offset: 0,
+            direction: 0,
+            maxSquadrons: 1,
+            squadronSize: 5,
+            reserveSize: 0,
+            squadronKey: "TITAN_SQUADRON_EMPIRE"
+        });
+    }
+};
+
+heroes["RaeSloane"] = {
+    name: "Rae Sloane",
+    tooltip: "Rae Sloane was a Grand Admiral of the Empire after the fall of the Empire. She lead the Imperial Remnant and lead the Empire to its defeat at the Battle of Jakku to support the birth of the First Order.",
+    image: "RaeSloane.png",
+    ships: ["IMPERIALSTARDESTROYER_EMPIRE", "EXECUTORSUPERSTARDESTROYER_EMPIRE", "BELLATORSUPERSTARDESTROYER_EMPIRE", "LEGATORSTARDREADNOUGHT_EMPIRE", "VENGEANCE_EMPIRE", "ASSERTORSTARDREADNOUGHT_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 1.5;
+        ship.maxShield *= 1.5;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.5;
+            hp.maxHealth *= 1.5;
+            hp.range *= 2;
+            hp.reload *= .75;
+        });
+
+        ship.addHangar({
+            x: 0,
+            y: 0,
+            offset: 0,
+            direction: 0,
+            maxSquadrons: 2,
+            squadronSize: 6,
+            reserveSize: 8,
+            squadronKey: "TIEREAPER_EMPIRE"
+        });
+    }
+};
+
 export default heroes;

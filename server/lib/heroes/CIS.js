@@ -4,7 +4,7 @@ heroes["TI-99"] = {
     name: "TI-99",
     tooltip: "The tactical droid TI-99 was a tactical droid in service of the Confederacy of Independent Systems during the Clone Wars. TI-99 was the tactical droid on board Trench's flagship, the Invincible, during the Battle of Christophsis. TI-99 was destroyed when the Invincible was destroyed by Anakin Skywalker and Ahsoka Tano.",
     image: "TI-99.webp",
-    ships: ["PROVIDENCEDESTROYER_CIS"],
+    ships: ["PROVIDENCEDESTROYER_CIS", "MUNIFICENT_HEAVY_CIS"],
     modifications: function(ship) {
         ship.shield *= 1.15;
         ship.maxShield *= 1.15;
@@ -103,7 +103,7 @@ heroes["NuteGunray"] = {
     name: "Nute Gunray",
     tooltip: "The Vicerory of the Trade Federation wasn't a great tactician, however what was lacking in the tactics department was more than made up with in resources and riches.",
     image: "Nute.png",
-    ships: ["LUCREHULKBATTLESHIP_CIS"],
+    ships: ["LUCREHULKBATTLESHIP_CIS", "MUNIFICENT_HEAVY_CIS"],
     modifications: function(ship) {
         ship.shield *= 1.1;
         ship.maxShield *= 1.1;
@@ -124,7 +124,7 @@ heroes["Aut-0"] = {
     name: "Aut-0",
     tooltip: "Aut-0 was a Super Tactical Droid in service of the Confederacy of Independent Systems during the Clone Wars. Aut-0 was the admiral of a deep space fleet that was tasked with destroying the Republic's supply lines. Aut-0 commanded a Providence-class dreadnought.",
     image: "Aut0.webp",
-    ships: ["PROVIDENCEDESTROYER_CIS", "PROVIDENCEDREADNOUGHT_CIS"],
+    ships: ["PROVIDENCEDESTROYER_CIS", "PROVIDENCEDREADNOUGHT_CIS", "MUNIFICENT_HEAVY_CIS"],
     modifications: function(ship) {
         ship.shield *= 1.5;
         ship.maxShield *= 1.5;
@@ -267,7 +267,7 @@ heroes["Grievous"] = {
     name: "General Grievous",
     tooltip: "Grievous was a Kaleesh cyborg general who held the title of Supreme Commander of the Droid Army during the Clone Wars. Known for his ruthlessness and combat prowess, Grievous was feared throughout the galaxy.",
     image: "Grievous.png",
-    ships: ["PROVIDENCEDREADNOUGHT_CIS", "MUNIFICENT_CIS", "RECUSANTDREADNOUGHT_CIS", "SUBJUGATOR_CIS"],
+    ships: ["PROVIDENCEDREADNOUGHT_CIS", "MUNIFICENT_HEAVY_CIS", "MUNIFICENT_CIS", "RECUSANTDREADNOUGHT_CIS", "SUBJUGATOR_CIS"],
     modifications: function(ship) {
         ship.shield *= 2;
         ship.maxShield *= 2;

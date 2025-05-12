@@ -12,12 +12,12 @@ ships.PROVIDENCEDREADNOUGHT_CIS = {
     cost: 14000,
     speed: 2.25,
     turnSpeed: .003,
-    shield: 14500,
-    shieldRegen: 11,
-    hardpoints: (function() {
+    shield: 18300,
+    shieldRegen: 18.3,
+    hardpoints: (function () {
         const output = [];
 
-        for (let i = 0; i < 4; i ++) {
+        for (let i = 0; i < 4; i++) {
             output.push({
                 x: -.1,
                 y: .55 - .08 * i,
@@ -95,7 +95,7 @@ ships.PROVIDENCEDREADNOUGHT_CIS = {
             });
         }
 
-        for (let i = 0; i < 6; i ++) {
+        for (let i = 0; i < 6; i++) {
             output.push({
                 x: -.01,
                 y: .1 - .05 * i,
@@ -152,9 +152,9 @@ ships.RECUSANTDREADNOUGHT_CIS = {
     cost: 11000,
     speed: 3,
     turnSpeed: .01,
-    shield: 8500,
-    shieldRegen: 8.5,
-    hardpoints: (function() {
+    shield: 16500,
+    shieldRegen: 16.5,
+    hardpoints: (function () {
         const output = [{
             x: 0,
             y: .95,
@@ -172,59 +172,121 @@ ships.RECUSANTDREADNOUGHT_CIS = {
             }
         }];
 
-        for (let i = 0; i < 5; i ++) {
-            output.push({
-                x: -.05 - .0075 * i,
-                y: .85 - .1 * i,
-                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 120
-            }, {
-                x: .05 + .0075 * i,
-                y: .85 - .1 * i,
-                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 120
-            }, {
-                x: -.025 - .0075 * i,
-                y: .3 - .075 * i,
-                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 120
-            }, {
-                x: .025 + .0075 * i,
-                y: .3 - .075 * i,
-                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 120
+        const points = [{
+            x: -.014,
+            y: .934
+        }, {
+            x: -.035,
+            y: .871
+        }, {
+            x: -.056,
+            y: .769
+        }, {
+            x: -.058,
+            y: .674
+        }, {
+            x: -.062,
+            y: .593
+        }, {
+            x: -.080,
+            y: .533
+        }, {
+            x: -.090,
+            y: .493
+        }, {
+            x: -.090,
+            y: .441
+        }, {
+            x: -.100,
+            y: .379
+        }, {
+            x: -.113,
+            y: .303
+        }, {
+            x: -.110,
+            y: .223
+        }, {
+            x: -.106,
+            y: .148
+        }, {
+            x: -.087,
+            y: .072
+        }, {
+            x: -.071,
+            y: -.014
+        }, {
+            x: -.053,
+            y: -.099
+        }, {
+            x: -.035,
+            y: -.175
+        }, {
+            x: -.034,
+            y: -.235
+        }, {
+            x: -.030,
+            y: -.402
+        }, {
+            x: -.027,
+            y: -.513
+        }, {
+            x: -.035,
+            y: -.779
+        }, {
+            x: -.027,
+            y: .324
+        }, {
+            x: -.042,
+            y: .280
+        }, {
+            x: -.041,
+            y: .210
+        }, {
+            x: -.031,
+            y: .167
+        }, {
+            x: -.030,
+            y: .092
+        }, {
+            x: -.027,
+            y: .014
+        }, {
+            x: -.023,
+            y: -.053
+        }, {
+            x: -.049,
+            y: .445
+        }, {
+            x: -.045,
+            y: .558
+        }, {
+            x: -.041,
+            y: .691
+        }];
+
+        for (let i = 0, n = points.length; i < n; i++) {
+            points.push({
+                x: -points[i].x,
+                y: points[i].y
             });
         }
 
-        for (let i = 0; i < 4; i ++) {
+        const selections = [
+            weapons.RED_DOUBLE_LASER_CANNON,
+            weapons.RED_DOUBLE_LASER_CANNON_HEAVY,
+            weapons.DOUBLE_ION_CANNON_MEDIUM,
+            weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            weapons.RED_DOUBLE_TURBOLASER_CANNON,
+            weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY,
+            weapons.QUAD_ION_CANNON_HEAVY
+        ];
+
+        for (let i = 0; i < points.length; i++) {
             output.push({
-                x: -.03 - .0075 * i,
-                y: .9 - .125 * i,
-                weapon: i % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY : weapons.DOUBLE_ION_CANNON_HEAVY,
+                ...points[i],
+                weapon: selections[i % selections.length],
                 shotsAtOnce: 2,
-                shotDelay: 120
-            }, {
-                x: .03 + .0075 * i,
-                y: .9 - .125 * i,
-                weapon: i % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY : weapons.DOUBLE_ION_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 120
-            }, {
-                x: -.03 - .0075 * i,
-                y: .35 - .075 * i,
-                weapon: i % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY : weapons.DOUBLE_ION_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 120
-            }, {
-                x: .03 + .0075 * i,
-                y: .35 - .075 * i,
-                weapon: i % 2 ? weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY : weapons.DOUBLE_ION_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 120
+                shotDelay: 100
             });
         }
 
@@ -232,7 +294,7 @@ ships.RECUSANTDREADNOUGHT_CIS = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 3.7 | 0
+                health: e.weapon.health * 2.95 | 0
             }
         }));
     })(),
@@ -264,10 +326,10 @@ ships.BULWARKII_CIS = {
     turnSpeed: .0025,
     shield: 18000,
     shieldRegen: 18,
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [];
 
-        for (let i = 0; i < 16; i ++) {
+        for (let i = 0; i < 16; i++) {
             const x = Math.sin(i / 4) * .075 + .1;
             const y = .85 - (i / 16) * 1.7;
 
@@ -293,11 +355,11 @@ ships.BULWARKII_CIS = {
             });
         }
 
-        for (let i = 0; i < 7; i ++) {
+        for (let i = 0; i < 7; i++) {
             const x = Math.sin(i) * .075 + .05;
             const y = .667 - .2 * i;
 
-            for (let j = 0; j < 3; j ++) {
+            for (let j = 0; j < 3; j++) {
                 const angle = Math.PI * 2 / 3 * j;
                 const d = .02;
                 const x2 = x + Math.cos(angle) * d;
@@ -361,7 +423,7 @@ ships.SUBJUGATOR_CIS = {
     turnSpeed: .0005,
     shield: 52300,
     shieldRegen: 52,
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [];
 
         const points = [{
@@ -507,7 +569,7 @@ ships.SUBJUGATOR_CIS = {
         const weaps = [weapons.RED_DOUBLE_LASER_CANNON_HEAVY, weapons.RED_DOUBLE_LASER_CANNON_HEAVY, weapons.DOUBLE_ION_CANNON_MEDIUM, weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY];
 
         for (const point of points) {
-            for (let j = 0; j < 4; j ++) {
+            for (let j = 0; j < 4; j++) {
                 const angle = Math.PI * 2 / 4 * j;
                 const d = .005;
 
@@ -537,7 +599,249 @@ ships.SUBJUGATOR_CIS = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 3 | 0
+                health: e.weapon.health * 3 | 0,
+                range: e.weapon.range * 2 | 0
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 4,
+        reserveSize: 12,
+        squadronKey: "HYENABOMBER_CIS"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 5,
+        squadronSize: 3,
+        reserveSize: 24,
+        squadronKey: "DROIDTRIFIGHTER_CIS"
+    }]
+};
+
+ships.DEVASTATION_CIS = {
+    name: "Devastation-Class Battlecruiser",
+    asset: "DEVASTATION.png",
+    classification: shipTypes.SuperCapital,
+    population: 80,
+    size: 3230,
+    cost: 45000,
+    speed: 1,
+    turnSpeed: .0005,
+    shield: 52300,
+    shieldRegen: 52,
+    hardpoints: (function () {
+        const output = [];
+
+        const points = [{
+            x: -.011,
+            y: .961
+        }, {
+            x: -.028,
+            y: .917
+        }, {
+            x: -.053,
+            y: .853
+        }, {
+            x: -.075,
+            y: .778
+        }, {
+            x: -.097,
+            y: .698
+        }, {
+            x: -.109,
+            y: .635
+        }, {
+            x: -.153,
+            y: .617
+        }, {
+            x: -.191,
+            y: .496
+        }, {
+            x: -.207,
+            y: .401
+        }, {
+            x: -.217,
+            y: .305
+        }, {
+            x: -.214,
+            y: .199
+        }, {
+            x: -.212,
+            y: .087
+        }, {
+            x: -.144,
+            y: .546
+        }, {
+            x: -.146,
+            y: .438
+        }, {
+            x: -.149,
+            y: .340
+        }, {
+            x: -.146,
+            y: .261
+        }, {
+            x: -.127,
+            y: .159
+        }, {
+            x: -.032,
+            y: .618
+        }, {
+            x: -.045,
+            y: .498
+        }, {
+            x: -.052,
+            y: .393
+        }, {
+            x: -.055,
+            y: .301
+        }, {
+            x: -.058,
+            y: .199
+        }, {
+            x: -.058,
+            y: .099
+        }, {
+            x: -.132,
+            y: .064
+        }, {
+            x: -.129,
+            y: -.043
+        }, {
+            x: -.130,
+            y: -.224
+        }, {
+            x: -.128,
+            y: -.376
+        }, {
+            x: -.044,
+            y: -.006
+        }, {
+            x: -.035,
+            y: -.114
+        }, {
+            x: -.032,
+            y: -.229
+        }, {
+            x: -.026,
+            y: -.308
+        }, {
+            x: -.028,
+            y: -.381
+        }, {
+            x: -.035,
+            y: -.451
+        }, {
+            x: -.035,
+            y: -.537
+        }, {
+            x: -.030,
+            y: -.590
+        }, {
+            x: -.172,
+            y: -.358
+        }, {
+            x: -.206,
+            y: -.439
+        }, {
+            x: -.210,
+            y: -.555
+        }, {
+            x: -.195,
+            y: -.699
+        }, {
+            x: -.059,
+            y: -.744
+        }, {
+            x: -.100,
+            y: -.707
+        }, {
+            x: -.121,
+            y: -.656
+        }, {
+            x: -.125,
+            y: -.591
+        }, {
+            x: -.073,
+            y: -.640
+        }, {
+            x: -.121,
+            y: -.502
+        }, {
+            x: -.084,
+            y: -.383
+        }, {
+            x: -.092,
+            y: -.180
+        }, {
+            x: -.095,
+            y: .510
+        }, {
+            x: -.097,
+            y: .341
+        }, {
+            x: -.084,
+            y: -.021
+        }, {
+            x: -.081,
+            y: -.279
+        }, {
+            x: -.023,
+            y: -.673
+        }, {
+            x: -.029,
+            y: -.747
+        }, {
+            x: -.017,
+            y: -.808
+        }];
+
+        for (let i = 0, n = points.length; i < n; i++) {
+            points.push({
+                x: -points[i].x,
+                y: points[i].y
+            });
+        }
+
+        const weaps = [
+            weapons.RED_DOUBLE_LASER_CANNON_HEAVY, weapons.RED_DOUBLE_LASER_CANNON_HEAVY,
+            weapons.DOUBLE_ION_CANNON_MEDIUM, weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            weapons.RED_DOUBLE_LASER_CANNON_HEAVY, weapons.RED_DOUBLE_LASER_CANNON_HEAVY,
+            weapons.DOUBLE_ION_CANNON_MEDIUM, weapons.RED_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            weapons.ASSAULT_CONCUSSION_MISSILE
+        ];
+
+        let k = 0;
+        for (const point of points) {
+            for (let j = 0; j < 2; j++) {
+                const angle = Math.PI * j;
+                const d = .005;
+
+                output.push({
+                    x: point.x + Math.cos(angle) * d,
+                    y: point.y + Math.sin(angle) * d,
+                    weapon: weaps[k++ % weaps.length]
+                });
+            }
+        }
+
+        output.push({
+            x: 0,
+            y: .6,
+            weapon: weapons.DEVASTATION_SUPERLASER,
+            shotsAtOnce: 1000,
+            shotDelay: 2
+        });
+
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2.5 | 0,
+                range: e.weapon.range * 2 | 0
             }
         }));
     })(),

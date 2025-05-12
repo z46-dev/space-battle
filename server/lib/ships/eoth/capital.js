@@ -381,4 +381,90 @@ ships.INTEGO_EOTH = {
     }]
 };
 
+ships.IMPERIALSTARDESTROYER_EOTH = {
+    name: "Imperial Star Destroyer",
+    asset: "ISD.png",
+    classification: shipTypes.Capital,
+    population: 20,
+    size: 600,
+    cost: 3200,
+    speed: 2.5,
+    turnSpeed: .01,
+    shield: 8500,
+    shieldRegen: 8.5,
+    hardpoints: (function() {
+        const output = [];
+
+        for (let i = 0; i < 4; i ++) {
+            output.push({
+                x: -.3,
+                y: -.4 - .075 * i,
+                weapon: i % 2 ? weapons.BLACK_OCTUPLE_TURBOLASER_CANNON_HEAVY : weapons.BLACK_QUAD_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 150
+            }, {
+                x: .3,
+                y: -.4 - .075 * i,
+                weapon: i % 2 ? weapons.BLACK_OCTUPLE_TURBOLASER_CANNON_HEAVY : weapons.BLACK_QUAD_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 150
+            }, {
+                x: 0,
+                y: .3 - .1 * i,
+                weapon: weapons.BLACK_ANTI_FIGHTER_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 50
+            });
+        }
+
+        for (let i = 0; i < 8; i ++) {
+            output.push({
+                x: -.075 - .07 * i,
+                y: .7 - .2 * i,
+                weapon: i % 2 ? weapons.QUAD_ION_CANNON_MEDIUM : weapons.BLACK_QUAD_LASER_CANNON,
+                shotsAtOnce: 3,
+                shotDelay: 60
+            }, {
+                x: .075 + .07 * i,
+                y: .7 - .2 * i,
+                weapon: i % 2 ? weapons.QUAD_ION_CANNON_MEDIUM : weapons.BLACK_QUAD_LASER_CANNON,
+                shotsAtOnce: 3,
+                shotDelay: 60
+            });
+        }
+
+        for (let i = 0; i < output.length; i ++) {
+            output[i].weapon = {
+                ...output[i].weapon,
+                health: output[i].weapon.health * 3 | 0,
+                reload: output[i].weapon.reload * .65 | 0
+            };
+        }
+
+        return output;
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 10,
+        reserveSize: 3,
+        squadronKey: "NSSIS_EOTH"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 10,
+        reserveSize: 3,
+        squadronKey: "SYCA_EOTH"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 10,
+        reserveSize: 3,
+        squadronKey: "KRSSIS_EOTH"
+    }]
+};
+
 export default ships;
