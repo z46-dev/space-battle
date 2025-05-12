@@ -1291,7 +1291,7 @@
                 "key": "AdmiralWieler",
                 "planet": "Anaxes"
             }, {
-                "key": "AdmiralCorburn",
+                "key": "AdmiralCorburnCW",
                 "planet": "Carida"
             }, {
                 "key": "CWTarkin",
@@ -1340,8 +1340,23 @@
                 "key": "Aut-0",
                 "planet": "Muunilinst"
             }, {
+                "key": "Ventress",
+                "planet": "Raxus"
+            }, {
+                "key": "TF-1726",
+                "planet": "Saleucami"
+            }, {
                 "key": "TI-99",
                 "planet": "Umbara"
+            }, {
+                "key": "WatTambor",
+                "planet": "Hypori"
+            }, {
+                "key": "LokDurd",
+                "planet": "Cato Neimoidia"
+            }, {
+                "key": "MarTuuk",
+                "planet": "Cato Neimoidia"
             }]
         }, {
             "id": 9,

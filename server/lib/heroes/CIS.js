@@ -40,6 +40,46 @@ heroes["TI-99"] = {
     }
 };
 
+heroes["TF-1726"] = {
+    name: "TF-1726",
+    tooltip: "The tactical droid TF-1726 was a tactical droid in service of the Confederacy of Independent Systems during the Clone Wars. TF-1726 was the droid that lead to the defeat of Generals Anakin Skywalker and Aayla Secura.",
+    image: "tf-1726.png",
+    ships: ["PROVIDENCEDESTROYER_CIS", "MUNIFICENT_HEAVY_CIS"],
+    modifications: function(ship) {
+        ship.shield *= 1.15;
+        ship.maxShield *= 1.15;
+        ship.shieldRegen *= 1.15;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.15;
+            hp.maxHealth *= 1.15;
+            hp.range *= 1.25;
+        });
+
+        if (ship.ti99RegenAbility === undefined) {
+            ship.ti99RegenAbility = 0;
+        }
+
+        ship.ti99RegenAbility++;
+
+        if (ship.ti99RegenAbility >= 15) {
+            ship.ti99RegenAbility = 0;
+
+            ship.battle.ships.forEach(s => {
+                if (s.team === ship.team && s.classification >= shipTypes.Corvette) {
+                    if (s.shield > 0) {
+                        s.shield = Math.min(s.maxShield, s.shield + s.maxShield * .00175);
+                    }
+
+                    s.hardpoints.forEach(hp => {
+                        hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00075);
+                    });
+                }
+            });
+        }
+    }
+};
+
 heroes["AdmiralTrench"] = {
     name: "Admiral Trench",
     tooltip: "A fearsome Harch admiral of the CIS who prided himself on many victories against the Republic's best commanders and tacticians. Trench Commanded Providence-Class Dreadnoughts Invincible and Invulnerable, both which in the end proved to be anything but their names.",
@@ -103,7 +143,7 @@ heroes["NuteGunray"] = {
     name: "Nute Gunray",
     tooltip: "The Vicerory of the Trade Federation wasn't a great tactician, however what was lacking in the tactics department was more than made up with in resources and riches.",
     image: "Nute.png",
-    ships: ["LUCREHULKBATTLESHIP_CIS", "MUNIFICENT_HEAVY_CIS"],
+    ships: ["LUCREHULKBATTLESHIP_CIS", "MUNIFICENT_HEAVY_CIS", "LUCREHULK_CONTROL_CIS"],
     modifications: function(ship) {
         ship.shield *= 1.1;
         ship.maxShield *= 1.1;
@@ -286,7 +326,7 @@ heroes["Dooku"] = {
     name: "Count Dooku",
     tooltip: "Count Dooku, also known as Darth Tyranus, was a Sith Lord who played a key role in the Confederacy of Independent Systems during the Clone Wars. Dooku was a master of the dark side of the Force and a skilled duelist.",
     image: "Dooku.png",
-    ships: ["PROVIDENCEDREADNOUGHT_CIS", "DHOMNI_CIS", "SUBJUGATOR_CIS"],
+    ships: ["PROVIDENCEDREADNOUGHT_CIS", "DHOMNI_CIS", "LUCREHULK_CONTROL_CIS"],
     modifications: function(ship) {
         ship.shield *= 2;
         ship.maxShield *= 2;
@@ -297,6 +337,123 @@ heroes["Dooku"] = {
             hp.maxHealth *= 1.5;
             hp.range *= 2;
             hp.reload *= .85;
+        });
+    }
+};
+
+heroes["Ventress"] = {
+    name: "Asajj Ventress",
+    tooltip: "Asajj Ventress is a Dathomirian Night Sister and the Sith apprentice of Count Dooku. She's a skilled warrior and assassin, known for her combat skills with dual red lightsabers. She commanded variety of vessels during the Clone Wars.",
+    image: "ventress.png",
+    ships: ["PROVIDENCEDESTROYER_CIS", "MUNIFICENT_HEAVY_CIS"],
+    modifications: function(ship) {
+        ship.shield *= 5;
+        ship.maxShield *= 5;
+        ship.shieldRegen *= 5;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 3;
+            hp.maxHealth *= 3;
+            hp.reload *= 1.5;
+        });
+    }
+};
+
+heroes["WatTambor"] = {
+    name: "Wat Tambor",
+    tooltip: "Wat Tambor was a Techno Union leader and a member of the Separatist Council during the Clone Wars. He was known for his expertise in technology and engineering, and he played a key role in the development of advanced droid armies.",
+    image: "watTambor.png",
+    ships: ["LUCREHULK_CONTROL_CIS"],
+    modifications: function(ship) {
+        ship.shield *= 1.25;
+        ship.maxShield *= 1.25;
+        ship.shieldRegen *= 1.25;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.25;
+            hp.maxHealth *= 1.25;
+        });
+    },
+    onTick: function(ship) {
+        ship.hardpoints.forEach(hp => {
+            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .0001);
+        });
+
+        if (ship.trenchBurst === undefined) {
+            ship.trenchBurst = {
+                active: false,
+                ticker: 0
+            };
+        }
+
+        if (ship.trenchBurst.active) {
+            ship.trenchBurst.ticker--;
+
+            if (ship.trenchBurst.ticker <= 0) {
+                ship.trenchBurst.active = false;
+                ship.trenchBurst.ticker = 0;
+
+                ship.hardpoints.forEach(hp => {
+                    hp.damage /= 1.05;
+                    hp.reload /= .15;
+                    hp.tick = .5 * hp.reload * Math.random();
+                });
+            }
+        } else {
+            ship.trenchBurst.ticker++;
+
+            if (ship.trenchBurst.ticker >= 1000) {
+                ship.trenchBurst.active = true;
+                ship.trenchBurst.ticker = 1000;
+
+                ship.hardpoints.forEach(hp => {
+                    hp.damage *= .65;
+                    hp.reload *= .55;
+                    hp.tick = .5 * hp.reload * Math.random();
+                });
+            }
+        }
+    }
+};
+
+heroes["LokDurd"] = {
+    name: "Lok Durd",
+    tooltip: "Lok Durd was a Neimoidian general in the Separatist Droid Army during the Clone Wars. He was a leader of the Separatist speacial weapons project, and was known to utilize heavy missile loadouts on his ships.",
+    image: "lokDurd.png",
+    ships: ["LUCREHULKBATTLESHIP_CIS", "LUCREHULK_CONTROL_CIS"],
+    modifications: function(ship) {
+        ship.shield *= 1.1;
+        ship.maxShield *= 1.1;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.1;
+            hp.maxHealth *= 1.1;
+        });
+    },
+    onTick: function(ship) {
+        ship.hardpoints.forEach(hp => {
+            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00005);
+        });
+    }
+};
+
+heroes["MarTuuk"] = {
+    name: "Mar Tuuk",
+    tooltip: "Mar Tuuk was a Neimoidian commander in the Separatist Navy during the Clone Wars. He was known for his defense of Ryloth against General Anakin Skywalker.",
+    image: "marTuuk.png",
+    ships: ["LUCREHULKBATTLESHIP_CIS", "LUCREHULK_CONTROL_CIS"],
+    modifications: function(ship) {
+        ship.shield *= 1.1;
+        ship.maxShield *= 1.1;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.1;
+            hp.maxHealth *= 1.1;
+        });
+    },
+    onTick: function(ship) {
+        ship.hardpoints.forEach(hp => {
+            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00005);
         });
     }
 };

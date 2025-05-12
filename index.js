@@ -237,101 +237,40 @@ buttonMaps[STATE_HOME] = [{
         shared.newBeginBattle(selections[0], selections[1], true, null, "Sandbox");
         on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
     }
-}, {
-    x: 0,
-    y: 144,
-    width: 256,
-    height: 64,
-    text: "Sandbox Mode",
-    color: "#C8C8C8",
-    action: () => {
-        // changeState(STATE_INIT_SURVIVAL);
-        const selections = [];
-        const choose = () => {
-            let faction;
+}];
 
-            do {
-                faction = prompt("Enter a faction: \n One of: " + survivalFactions.map(e => e.name).join(", "));
-
-                if (faction === null) {
-                    return;
-                }
-
-                faction = faction.trim();
-            } while (!survivalFactions.some(r => r.name === faction));
-
-            const factionObj = survivalFactions.find(r => r.name === faction);
-            let pop = 0;
-
-            do {
-                pop = prompt("Enter a fleet population (10 - 500):", 100);
-                if (pop === null) {
-                    return;
-                }
-
-                pop = +pop.trim();
-            } while (!Number.isFinite(pop) || pop < 10 || pop > 500);
-
-            const selection = {
-                name: factionObj.name,
-                fleet: Fleet.random(pop, factionObj.key).__ships.map(e => ({
+if (location.search.includes("debug")) {
+    buttonMaps[STATE_HOME].push({
+        x: 0,
+        y: 216,
+        width: 256,
+        height: 64,
+        text: "Testing",
+        color: "#C8C8C8",
+        action: () => {
+            const pop = 150;
+            shared.newBeginBattle({
+                name: "CIS",
+                fleet: [{
+                    ship: "LUCREHULKBATTLESHIP_CIS",
+                    hero: "LokDurd"
+                }, {
+                    ship: "LUCREHULK_CONTROL_CIS",
+                    hero: "MarTuuk"
+                }],
+                color: survivalFactions.find(e => e.name === "CIS").color
+            }, {
+                name: "Republic",
+                fleet: Fleet.random(pop, "REPUBLIC").__ships.map(e => ({
                     ship: e,
                     hero: null
                 })),
-                color: factionObj.color
-            };
-
-            if (prompt("Allow heroes? (y/n)", "y").toLowerCase() === "y") {
-                for (const heroKey of Object.keys(heroes).sort(() => .5 - Math.random())) {
-                    const hero = heroes[heroKey];
-                    const union = hero.ships.filter(s => selection.fleet.some(f => f.ship === s && f.hero === null));
-
-                    if (union.length > 0) {
-                        const shipSelection = union[Math.random() * union.length | 0];
-                        selection.fleet.find(f => f.ship === shipSelection && f.hero === null).hero = heroKey;
-                    }
-                }
-            }
-
-            selections.push(selection);
+                color: survivalFactions.find(e => e.name === "Republic").color
+            }, true, null, "Sandbox");
+            on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
         }
-
-        alert("Select attacking faction:");
-        choose();
-
-        alert("Select defending faction:");
-        choose();
-
-        shared.newBeginBattle(selections[0], selections[1], true, null, "Sandbox");
-        on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
-    }
-}, {
-    x: 0,
-    y: 216,
-    width: 256,
-    height: 64,
-    text: "Testing",
-    color: "#C8C8C8",
-    action: () => {
-        const pop = 250;
-        shared.newBeginBattle({
-            name: "CIS",
-            fleet: Fleet.random(pop, "CIS").__ships.map(e => ({
-                ship: e,
-                hero: null
-            })),
-            color: survivalFactions.find(e => e.name === "CIS").color
-        }, {
-            name: "Republic",
-            fleet: Fleet.random(pop, "EMPIRE").__ships.map(e => ({
-                ship: e,
-                hero: null
-            })),
-            color: survivalFactions.find(e => e.name === "Republic").color
-        }, true, null, "Sandbox");
-        on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
-    }
-}];
+    });
+}
 
 buttonMaps[STATE_MANAGE_SAVES] = [{
     x: 0,

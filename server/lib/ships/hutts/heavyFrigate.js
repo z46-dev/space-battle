@@ -71,7 +71,7 @@ ships.MUNIFICENT_HUTT = {
 
 ships.RECUSANT_HUTT = {
     name: "Recusant Light Destroyer",
-    asset: "RECUSANTDREADNOUGHT.png",
+    asset: "RECUSANT.png",
     classification: shipTypes.HeavyFrigate,
     population: 9,
     size: 500,

@@ -173,13 +173,13 @@ heroes["AdmiralWieler"] = {
     }
 };
 
-heroes["AdmiralCorburn"] = {
+heroes["AdmiralCorburnCW"] = {
     name: "Admiral Corburn",
     tooltip: "Admiral Wieler served with Jedi General Plo Koon and Commander Ahsoka Tano during the Clone Wars. he cared about the individuals serving under him and displayed a remarkable amount of calm collectedness in battle.",
     image: "Corburn.png",
     ships: ["ARQUITENS_REPUBLIC"],
     modifications: function (ship) {
-        ship.shield *= 2;
+        ship.shield *= 3;
         ship.maxShield *= 3;
         ship.shieldRegen *= 3;
         ship.maxSpeed *= 1.5;
@@ -189,7 +189,7 @@ heroes["AdmiralCorburn"] = {
             hp.maxHealth *= 3;
             hp.range *= 2;
             hp.damage *= 2;
-            hp.reload *= .667;
+            hp.reload *= .334;
         });
 
         ship.classification = shipTypes.Corvette;

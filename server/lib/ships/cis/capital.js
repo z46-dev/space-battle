@@ -305,6 +305,113 @@ ships.LUCREHULKAUXILIARYWARSHIP_CIS = {
     }]
 };
 
+ships.LUCREHULK_CONTROL_CIS = {
+    name: "Lucrehulk Control Ship",
+    asset: "LUCREHULK_CONTROL.png",
+    classification: shipTypes.Capital,
+    population: 55,
+    size: 1500,
+    cost: 14500,
+    speed: .75,
+    turnSpeed: .005,
+    shield: 25000,
+    shieldRegen: 25,
+    hardpoints: (function() {
+        const output = [{
+            x: -.1,
+            y: .1,
+            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+            shotsAtOnce: 5,
+            shotDelay: 250
+        }, {
+            x: .1,
+            y: .1,
+            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+            shotsAtOnce: 5,
+            shotDelay: 250
+        }];
+
+        for (let i = 3; i <= 33; i ++) {
+            const angle = Math.PI * 2 / 36 * i + Math.PI / 2;
+
+            output.push({
+                x: Math.cos(angle) * .725,
+                y: Math.sin(angle) * .725 + .1,
+                weapon: weapons.RED_QUAD_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            }, {
+                x: Math.cos(angle) * .625,
+                y: Math.sin(angle) * .625 + .1,
+                weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            });
+        }
+
+        for (let i = 3; i <= 33; i += 2) {
+            const angle = Math.PI * 2 / 36 * i + Math.PI / 2;
+
+            output.push({
+                x: Math.cos(angle) * .68,
+                y: Math.sin(angle) * .68 + .1,
+                weapon:  weapons.QUAD_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            });
+        }
+
+        for (let i = 0; i < 8; i ++) {
+            const angle = Math.PI * 2 / 8 * i - Math.PI / 2;
+
+            output.push({
+                x: Math.cos(angle) * .125,
+                y: Math.sin(angle) * .125 + .1,
+                weapon: [weapons.RED_QUAD_LASER_CANNON, weapons.QUAD_ION_CANNON][i % 2],
+                shotsAtOnce: 2,
+                shotDelay: 75
+            });
+        }
+
+        return output.map(hardpoint => ({
+            ...hardpoint,
+            weapon: {
+                ...hardpoint.weapon,
+                health: hardpoint.weapon.health * 2.25 | 0
+            }
+        }));
+    })(),
+    hangars: [{
+        x: -.25,
+        y: .85,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "DROIDTRIFIGHTER_CIS"
+    }, {
+        x: .25,
+        y: .85,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "DROIDTRIFIGHTER_CIS"
+    }, {
+        x: -.25,
+        y: .85,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "HYENABOMBER_CIS"
+    }, {
+        x: .25,
+        y: .85,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: "HYENABOMBER_CIS"
+    }]
+};
+
 ships.DHOMNI_CIS = {
     name: "DH-Omni Support Vessel",
     asset: "DHOMNI.png",
