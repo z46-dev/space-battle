@@ -5,6 +5,7 @@ const heroes = {
     ...(await import("./heroes/Rebel.js")).default,
     ...(await import("./heroes/Hutts.js")).default,
     ...(await import("./heroes/EmpireOfTheHand.js")).default,
+    ...(await import("./heroes/Hapes.js")).default,
 };
 
 for (const key in heroes) {
