@@ -12,8 +12,8 @@ ships.BAIDAM_HAPAN = {
     cost: 360,
     speed: 11.2,
     turnSpeed: .03,
-    shield: 1675,
-    shieldRegen: 2,
+    shield: 540,
+    shieldRegen: .54,
     hardpoints: [{
         x: 0,
         y: 0,
@@ -30,13 +30,13 @@ ships.BAIDAM_HAPAN = {
         x: 0,
         y: 0,
         weapon: weapons.ION_CANNON_HEAVY,
-        shotsAtOnce: 3,
-        shotDelay: 60
+        shotsAtOnce: 6,
+        shotDelay: 45
     }].map(e => ({
         ...e,
         weapon: {
             ...e.weapon,
-            health: e.weapon.health * 2.5 | 0
+            health: e.weapon.health * 2 | 0
         }
     }))
 };
@@ -50,25 +50,25 @@ ships.FLARE_HAPAN = {
     cost: 490,
     speed: 8,
     turnSpeed: .02,
-    shield: 2000,
-    shieldRegen: 2,
+    shield: 550,
+    shieldRegen: .55,
     hardpoints: [{
         x: 0,
         y: 0,
-        weapon: weapons.BLUE_TURBOLASER_CANNON,
-        shotsAtOnce: 3,
+        weapon: weapons.BLUE_RAPID_LASER_CANNON,
+        shotsAtOnce: 4,
         shotDelay: 60
     }, {
         x: 0,
         y: 0,
         weapon: weapons.BLUE_ANTI_FIGHTER_LASER_CANNON,
-        shotsAtOnce: 3,
+        shotsAtOnce: 4,
         shotDelay: 60
     }, {
         x: 0,
         y: 0,
         weapon: weapons.BLUE_ANTI_FIGHTER_LASER_CANNON,
-        shotsAtOnce: 3,
+        shotsAtOnce: 4,
         shotDelay: 60
     }].map(e => ({
         ...e,

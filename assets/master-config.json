@@ -1090,6 +1090,9 @@
             }, {
                 "key": "RaeSloane",
                 "planet": "Bastion"
+            }, {
+                "key": "GMTarkin",
+                "planet": "Coruscant"
             }]
         }, {
             "id": 2,
@@ -1142,6 +1145,25 @@
             }, {
                 "id": 4,
                 "ships": ["ONAGER_DARKEMPIRE", "XYSTON_DARKEMPIRE", "WORLDDEVASTATORBC_DARKEMPIRE", "BELLATOR_DARKEMPIRE", "ASSERTOR_DARKEMPIRE", "MANDATORSIEGEDREADNOUGHT_DARKEMPIRE", "IMPELLORFLEETCARRIER_DARKEMPIRE"]
+            }],
+            "heroUnits": [{
+                "key": "ArdusKaine",
+                "planet": "Polis Massa"
+            }, {
+                "key": "Cronal",
+                "planet": "Byss"
+            }, {
+                "key": "NatasiDaala",
+                "planet": "Byss"
+            }, {
+                "key": "SatePestage",
+                "planet": "Byss"
+            }, {
+                "key": "YsanneIsard",
+                "planet": "Raxus"
+            }, {
+                "key": "Zsinj",
+                "planet": "Zaddja"
             }]
         }, {
             "id": 4,
@@ -1175,8 +1197,8 @@
             "planets": ["Hapes", "Teth", "Keitum", "New Cov", "Ryloth", "Daalang", "Boz Pity"],
             "capital": {
                 "name": "Hapes",
-                "fleetPopulation": 90,
-                "baseIncome": 1500
+                "fleetPopulation": 120,
+                "baseIncome": 5400
             },
             "shipyards": [{
                 "id": 1,
@@ -1449,6 +1471,37 @@
             }, {
                 "planet": "Mon Calamari",
                 "name": "MEDIATOR_REBEL"
+            }],
+            "heroUnits": [{
+                "key": "AdmiralRaddus",
+                "planet": "Mon Calamari"
+            }, {
+                "key": "AdmiralAckbar",
+                "planet": "Coruscant"
+            }, {
+                "key": "GarmBelIblis",
+                "planet": "Coruscant"
+            }, {
+                "key": "GeneralDodonna",
+                "planet": "Ithor"
+            }, {
+                "key": "WedgeAntilles",
+                "planet": "Borleias"
+            }, {
+                "key": "HanAndChewie",
+                "planet": "Ithor"
+            }, {
+                "key": "JunSato",
+                "planet": "Lothal"
+            }, {
+                "key": "GeneralLeiaOrganaSolo",
+                "planet": "Hosnian Prime"
+            }, {
+                "key": "AdmriralTallon",
+                "planet": "Lothal"
+            }, {
+                "key": "IdenVersio",
+                "planet": "Hosnian Prime"
             }]
         }, {
             "id": 3,
@@ -1485,6 +1538,25 @@
             }, {
                 "planet": "Kuat",
                 "name": "IMPELLORFLEETCARRIER_DARKEMPIRE"
+            }],
+            "heroUnits": [{
+                "key": "ArdusKaine",
+                "planet": "Polis Massa"
+            }, {
+                "key": "Cronal",
+                "planet": "Byss"
+            }, {
+                "key": "NatasiDaala",
+                "planet": "Byss"
+            }, {
+                "key": "SatePestage",
+                "planet": "Byss"
+            }, {
+                "key": "YsanneIsard",
+                "planet": "Raxus"
+            }, {
+                "key": "Zsinj",
+                "planet": "Zaddja"
             }]
         }, {
             "id": 7,

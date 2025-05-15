@@ -825,4 +825,151 @@ ships.SORONNAN_DARKEMPIRE = {
     }]
 };
 
+ships.TORPEDOSPHERE_DARKEMPIRE = {
+    name: "Torpedo Sphere",
+    asset: "TORPEDOSPHERE.png",
+    classification: shipTypes.Capital,
+    population: 26,
+    size: 1000,
+    cost: 6500,
+    speed: 1,
+    turnSpeed: .0025,
+    shield: 13000,
+    shieldRegen: 13,
+    hardpoints: (function () {
+        const output = [];
+
+        const points = [{
+            x: -.156,
+            y: .924
+        }, {
+            x: -.314,
+            y: .826
+        }, {
+            x: -.435,
+            y: .691
+        }, {
+            x: -.523,
+            y: .559
+        }, {
+            x: -.600,
+            y: .357
+        }, {
+            x: -.644,
+            y: .120
+        }, {
+            x: -.642,
+            y: -.094
+        }, {
+            x: -.600,
+            y: -.320
+        }, {
+            x: -.539,
+            y: -.494
+        }, {
+            x: -.468,
+            y: -.612
+        }, {
+            x: -.347,
+            y: -.759
+        }, {
+            x: -.087,
+            y: -.853
+        }, {
+            x: -.305,
+            y: -.600
+        }, {
+            x: -.424,
+            y: -.392
+        }, {
+            x: -.484,
+            y: -.115
+        }, {
+            x: -.467,
+            y: .229
+        }, {
+            x: -.416,
+            y: .391
+        }, {
+            x: -.279,
+            y: .654
+        }, {
+            x: -.122,
+            y: .707
+        }, {
+            x: -.168,
+            y: .213
+        }, {
+            x: -.154,
+            y: -.206
+        }, {
+            x: -.256,
+            y: -.136
+        }, {
+            x: -.263,
+            y: .110
+        }, {
+            x: -.296,
+            y: -.003
+        }];
+
+        for (let i = 0, n = points.length; i < n; i++) {
+            points.push({
+                x: -points[i].x,
+                y: points[i].y
+            });
+        }
+
+        const selections = [
+            weapons.DOUBLE_ION_CANNON, weapons.DOUBLE_ION_CANNON_MEDIUM,
+            weapons.GREEN_DOUBLE_LASER_CANNON, weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
+            weapons.DOUBLE_ION_CANNON, weapons.DOUBLE_ION_CANNON_MEDIUM,
+            weapons.GREEN_DOUBLE_LASER_CANNON, weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
+            weapons.GREEN_ANTI_FIGHTER_LASER_CANNON, weapons.GREEN_RAPID_LASER_CANNON
+        ];
+
+        for (let i = 0; i < points.length; i++) {
+            output.push({
+                ...points[i],
+                weapon: selections[i % selections.length],
+                shotsAtOnce: 2,
+                shotDelay: 75
+            });
+        }
+
+        for (let i = 0; i < 10; i ++) {
+            output.push({
+                x: Math.cos(i * Math.PI / 5) * .15,
+                y: .8 + Math.sin(i * Math.PI / 5) * .08,
+                weapon: {
+                    ...weapons.ASSAULT_PROTON_TORPEDO,
+                    explosionRange: 2000,
+                    explosionDamage: 6,
+                    speed: weapons.ASSAULT_PROTON_TORPEDO.speed * .9 | 0,
+                    range: weapons.ASSAULT_PROTON_TORPEDO.range * 3 | 0,
+                    reload: weapons.ASSAULT_PROTON_TORPEDO.reload * .75 | 0,
+                },
+                shotsAtOnce: 3,
+                shotDelay: 50
+            });
+        }
+
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 3 | 0
+            }
+        }))
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 4,
+        squadronSize: 6,
+        reserveSize: 8,
+        squadronKey: "TIEDRONE_DARKEMPIRE"
+    }]
+};
+
 export default ships;

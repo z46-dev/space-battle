@@ -248,24 +248,21 @@ if (location.search.includes("debug")) {
         text: "Testing",
         color: "#C8C8C8",
         action: () => {
-            const pop = 150;
+            const pop = 30;
             shared.newBeginBattle({
-                name: "CIS",
+                name: "DARKEMPIRE",
                 fleet: [{
-                    ship: "LUCREHULKBATTLESHIP_CIS",
-                    hero: "LokDurd"
-                }, {
-                    ship: "LUCREHULK_CONTROL_CIS",
-                    hero: "MarTuuk"
+                    ship: "TORPEDOSPHERE_DARKEMPIRE",
+                    hero: "SatePestage"
                 }],
-                color: survivalFactions.find(e => e.name === "CIS").color
+                color: survivalFactions.find(e => e.name === "Dark Empire").color
             }, {
-                name: "Republic",
-                fleet: Fleet.random(pop, "REPUBLIC").__ships.map(e => ({
+                name: "New Republic",
+                fleet: Fleet.random(pop, "REBEL").__ships.map(e => ({
                     ship: e,
                     hero: null
                 })),
-                color: survivalFactions.find(e => e.name === "Republic").color
+                color: survivalFactions.find(e => e.name === "New Republic").color
             }, true, null, "Sandbox");
             on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
         }
@@ -477,7 +474,6 @@ buttonMaps[STATE_SELECT_TIMEFRAME] = campaignConfig.map((campaign, i) => ({
 buttonMaps[STATE_INIT_CAMPAIGN] = [];
 buttonMaps[STATE_INIT_SURVIVAL] = [];
 
-console.log("Factions", factions);
 for (let i = 0; i < factions.length - 1; i++) {
     const faction = factions[i + 1]; // Skip Neutral Systems
 

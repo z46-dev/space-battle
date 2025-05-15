@@ -30,13 +30,13 @@ ships.MAGNETAR_HAPAN = {
         x: -.375,
         y: .2,
         weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-        shotsAtOnce: 4,
+        shotsAtOnce: 10,
         shotDelay: 100
     }, {
         x: .375,
         y: .2,
         weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-        shotsAtOnce: 4,
+        shotsAtOnce: 10,
         shotDelay: 100
     }, {
         x: -.5,
@@ -54,7 +54,8 @@ ships.MAGNETAR_HAPAN = {
         ...e,
         weapon: {
             ...e.weapon,
-            health: e.weapon.health * 4
+            health: e.weapon.health * 5,
+            reload: e.weapon.reload * .75
         }
     })),
     hangars: [{

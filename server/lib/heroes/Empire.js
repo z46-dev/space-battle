@@ -1,3 +1,5 @@
+import { shipTypes } from "../constants.js";
+
 const heroes = {};
 
 heroes["AdmiralPellaeon"] = {
@@ -88,7 +90,9 @@ heroes["AdmiralPiett"] = {
         }
 
         ship.hardpoints.forEach(hp => {
-            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00075);
+            if (hp.health > 0) {
+                hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00075);
+            }
 
             if (ship.piettAbility.active) {
                 hp.tick += 2.5;
@@ -307,6 +311,43 @@ heroes["RaeSloane"] = {
             reserveSize: 8,
             squadronKey: "TIEREAPER_EMPIRE"
         });
+    }
+};
+
+heroes["GMTarkin"] = {
+    name: "Grand Moff Tarkin",
+    tooltip: "Grand Moff Tarkin was a brilliant tactician and the commander of the Death Star. He was a ruthless leader who relied on fear to control the galaxy. He was killed by Luke Skywalker during the Battle of Yavin.",
+    image: "GMTarkin.png",
+    ships: ["IMPERIALSTARDESTROYER_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 1.6;
+        ship.maxShield *= 1.6;
+        ship.shieldRegen *= 1.6;
+        ship.maxSpeed *= 1.25;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.3;
+            hp.maxHealth *= 1.3;
+            hp.range *= 1.1;
+            hp.damage *= 1.05;
+            hp.reload *= .95;
+        });
+
+        ship.classification = shipTypes.Corvette;
+        ship.tarkinCallInTick = 0;
+    },
+    onTick: function (ship) {
+        ship.tarkinCallInTick++;
+
+        if (ship.tarkinCallInTick >= 1500) {
+            ship.tarkinCallInTick = -Infinity;
+
+            ship.battle.spawn("ARQUITENS_EMPIRE", ship.team, ship.x + Math.random() * ship.size * 2 - ship.size, ship.y + Math.random() * ship.size * 2 - ship.size).onDead = function () {
+                ship.tarkinCallInTick = 0;
+            }
+
+            ship.battle.displayText("Tarkin has called in reinforcements!");
+        }
     }
 };
 

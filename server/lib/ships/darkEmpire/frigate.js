@@ -215,7 +215,7 @@ ships.LANCERFRIGATE_DARKEMPIRE = {
     classification: shipTypes.Frigate,
     population: 8,
     size: 150,
-    cost: 3000,
+    cost: 2200,
     speed: 3.9,
     turnSpeed: .018,
     shield: 3000,
@@ -229,9 +229,9 @@ ships.LANCERFRIGATE_DARKEMPIRE = {
     }, {
         x: 0,
         y: .6,
-        weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
+        weapon: weapons.GREEN_RAPID_LASER_CANNON,
         shotsAtOnce: 2,
-        shotDelay: 100
+        shotDelay: 50
     }, {
         x: 0,
         y: .35,
@@ -247,11 +247,15 @@ ships.LANCERFRIGATE_DARKEMPIRE = {
     }, {
         x: -.15,
         y: -.5,
-        weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON
+        weapon: weapons.GREEN_RAPID_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 50
     }, {
         x: .15,
         y: -.5,
-        weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON
+        weapon: weapons.GREEN_RAPID_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 50
     }]
 };
 
