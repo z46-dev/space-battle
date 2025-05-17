@@ -1,298 +1,22 @@
 import { shipTypes } from "../../constants.js";
 import * as weapons from "../../weapons.js";
+import templates from "../../templates.js";
 
 const ships = {};
 
-ships.MUNIFICENT_HUTT = {
-    name: "Munificent Frigate",
-    asset: "MUNIFICENT2.png",
-    classification: shipTypes.HeavyFrigate,
-    population: 8,
-    size: 300,
-    cost: 1800,
-    speed: 4,
-    turnSpeed: .02,
-    shield: 2650,
-    shieldRegen: 2,
-    hardpoints: [{
-        x: 0,
-        y: .775,
-        weapon: weapons.PURPLE_TURBOLASER_CANNON_ULTRAHEAVY
-    }, {
-        x: -.475,
-        y: -.2,
-        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON
-    }, {
-        x: .475,
-        y: -.2,
-        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON
-    }, {
-        x: -.1,
-        y: 0,
-        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM
-    }, {
-        x: .1,
-        y: 0,
-        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM
-    }, {
-        x: -.225,
-        y: .3,
-        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON
-    }, {
-        x: .225,
-        y: .3,
-        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON
-    }, {
-        x: -.15,
-        y: .6,
-        weapon: weapons.PURPLE_DOUBLE_LASER_CANNON
-    }, {
-        x: .15,
-        y: .6,
-        weapon: weapons.PURPLE_DOUBLE_LASER_CANNON
-    }, {
-        x: -.15,
-        y: -.45,
-        weapon: weapons.DOUBLE_ION_CANNON
-    }, {
-        x: .15,
-        y: -.45,
-        weapon: weapons.DOUBLE_ION_CANNON
-    }].map(hp => ({ ...hp, weapon: { ...hp.weapon, health: hp.weapon.health * 2 } })),
-    hangars: [{
-        x: 0,
-        y: 0,
-        maxSquadrons: 1,
-        squadronSize: 6,
-        reserveSize: 2,
-        squadronKey: "SKIPRAYBLASTBOAT_HUTT"
-    }]
-};
+ships.RECUSANT_HUTT = templates.heavyFrigate.RECUSANT_DESTROYER({
+    color: "PURPLE"
+});
 
-ships.RECUSANT_HUTT = {
-    name: "Recusant Light Destroyer",
-    asset: "RECUSANT.png",
-    classification: shipTypes.HeavyFrigate,
-    population: 9,
-    size: 500,
-    cost: 2500,
-    speed: 3.5,
-    turnSpeed: .01,
-    shield: 3500,
-    shieldRegen: 2,
-    hardpoints: [{
-        x: 0,
-        y: .9,
-        weapon: weapons.PURPLE_TURBOLASER_CANNON_ULTRAHEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 250
-    }, {
-        x: -.03,
-        y: .825,
-        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON_HEAVY
-    }, {
-        x: .03,
-        y: .825,
-        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON_HEAVY
-    }, {
-        x: -.06,
-        y: .7,
-        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON_HEAVY
-    }, {
-        x: .06,
-        y: .7,
-        weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON_HEAVY
-    }, {
-        x: -.075,
-        y: .55,
-        weapon: weapons.ION_CANNON_HEAVY
-    }, {
-        x: .075,
-        y: .55,
-        weapon: weapons.ION_CANNON_HEAVY
-    }, {
-        x: -.075,
-        y: .35,
-        weapon: weapons.PURPLE_QUAD_LASER_CANNON
-    }, {
-        x: .075,
-        y: .35,
-        weapon: weapons.PURPLE_QUAD_LASER_CANNON
-    }, {
-        x: -.06,
-        y: 0,
-        weapon: weapons.PURPLE_QUAD_LASER_CANNON
-    }, {
-        x: .06,
-        y: 0,
-        weapon: weapons.PURPLE_QUAD_LASER_CANNON
-    }].map(hp => ({ ...hp, weapon: { ...hp.weapon, health: hp.weapon.health * 2 } }))
-};
+ships.ACCLIMATOR_HUTT = templates.heavyFrigate.ACCLIMATOR({
+    color: "PURPLE",
+    fighter: "A9VIGILANCE_HUTT"
+});
 
-ships.ACCLIMATOR_HUTT = {
-    name: "Acclimator Assault Cruiser",
-    asset: "ACCLIMATOR.png",
-    classification: shipTypes.HeavyFrigate,
-    population: 14,
-    size: 300,
-    cost: 2200,
-    speed: 3,
-    turnSpeed: .01,
-    shield: 4000,
-    shieldRegen: 1.5,
-    hardpoints: (function() {
-        const output = [{
-            x: 0,
-            y: .85,
-            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-            shotsAtOnce: 5,
-            shotDelay: 100
-        }, {
-            x: -.55,
-            y: -.35,
-            weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON,
-            shotsAtOnce: 2,
-            shotDelay: 75
-        }, {
-            x: .55,
-            y: -.35,
-            weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON,
-            shotsAtOnce: 2,
-            shotDelay: 75
-        }];
-
-        for (let i = 0; i < 4; i ++) {
-            output.push({
-                x: -.2 - .1 * i,
-                y: .6 - .225 * i,
-                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.PURPLE_QUAD_LASER_CANNON,
-                shotsAtOnce: 2,
-                shotDelay: 75
-            }, {
-                x: .2 + .1 * i,
-                y: .6 - .225 * i,
-                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.PURPLE_QUAD_LASER_CANNON,
-                shotsAtOnce: 2,
-                shotDelay: 75
-            });
-        }
-
-        return output.map(hp => ({ ...hp, weapon: { ...hp.weapon, health: hp.weapon.health * 2 } }));
-    })(),
-    hangars: [{
-        x: 0,
-        y: 0,
-        maxSquadrons: 1,
-        squadronSize: 6,
-        reserveSize: 3,
-        squadronKey: "A9VIGILANCE_HUTT"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 1,
-        squadronSize: 6,
-        reserveSize: 2,
-        squadronKey: "SKIPRAYBLASTBOAT_HUTT"
-    }]
-};
-
-ships.SABOATHDESTROYER_HUTT = {
-    name: "Saboath Destroyer",
-    asset: "SABOATHDESTROYER.png",
-    classification: shipTypes.HeavyFrigate,
-    population: 14,
-    size: 335,
-    cost: 2670,
-    speed: 3,
-    turnSpeed: .015,
-    shield: 3500,
-    shieldRegen: 3.5,
-    hardpoints: [{
-        x: -.1125,
-        y: .875,
-        weapon: weapons.QUAD_ION_CANNON_MEDIUM,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: .1125,
-        y: .875,
-        weapon: weapons.QUAD_ION_CANNON_MEDIUM,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: -.1125,
-        y: .675,
-        weapon: weapons.QUAD_ION_CANNON_MEDIUM,
-        shotsAtOnce: 3,
-        shotDelay: 65
-    }, {
-        x: .1125,
-        y: .675,
-        weapon: weapons.QUAD_ION_CANNON_HEAVY,
-        shotsAtOnce: 3,
-        shotDelay: 65
-    }, {
-        x: -.1125,
-        y: .475,
-        weapon: weapons.QUAD_ION_CANNON_MEDIUM,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: .1125,
-        y: .475,
-        weapon: weapons.QUAD_ION_CANNON_HEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: -.3125,
-        y: -.675,
-        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
-        shotsAtOnce: 4,
-        shotDelay: 50
-    }, {
-        x: .3,
-        y: -.675,
-        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
-        shotsAtOnce: 4,
-        shotDelay: 50
-    }, {
-        x: -.25,
-        y: .3,
-        weapon: weapons.ASSAULT_PROTON_TORPEDO,
-        shotsAtOnce: 3,
-        shotDelay: 250
-    }, {
-        x: -.3,
-        y: .1,
-        weapon: weapons.ASSAULT_PROTON_TORPEDO,
-        shotsAtOnce: 3,
-        shotDelay: 250
-    }, {
-        x: -.35,
-        y: -.1,
-        weapon: weapons.ASSAULT_PROTON_TORPEDO,
-        shotsAtOnce: 3,
-        shotDelay: 250
-    }, {
-        x: .25,
-        y: .3,
-        weapon: weapons.ASSAULT_PROTON_TORPEDO,
-        shotsAtOnce: 3,
-        shotDelay: 250
-    }, {
-        x: .3,
-        y: .1,
-        weapon: weapons.ASSAULT_PROTON_TORPEDO,
-        shotsAtOnce: 3,
-        shotDelay: 250
-    }, {
-        x: .35,
-        y: -.1,
-        weapon: weapons.ASSAULT_PROTON_TORPEDO,
-        shotsAtOnce: 3,
-        shotDelay: 250
-    }]
-};
+ships.SABOATHDESTROYER_HUTT = templates.heavyFrigate.SABOATH_DESTROYER({
+    color: "PURPLE",
+    fighter: "A9VIGILANCE_HUTT"
+});
 
 ships.UBRIKKIAN_HUTT = {
     name: "Ubrikkian Frigate",
@@ -303,8 +27,8 @@ ships.UBRIKKIAN_HUTT = {
     cost: 2900,
     speed: 3,
     turnSpeed: .015,
-    shield: 4000,
-    shieldRegen: 4,
+    shield: 2800,
+    shieldRegen: 2.8,
     hardpoints: [{
         x: -.075,
         y: .8,
@@ -369,7 +93,7 @@ ships.UBRIKKIAN_HUTT = {
         ...hp,
         weapon: {
             ...hp.weapon,
-            health: hp.weapon.health * 2
+            health: hp.weapon.health * 3 | 0
         }
     })),
     hangars: [{
@@ -391,8 +115,8 @@ ships.TEMPEST_HUTT = {
     cost: 4000,
     speed: 2.5,
     turnSpeed: .01,
-    shield: 6500,
-    shieldRegen: 20,
+    shield: 5000,
+    shieldRegen: 5,
     hardpoints: [{
         x: -.1,
         y: .95,
@@ -481,7 +205,7 @@ ships.TEMPEST_HUTT = {
         ...hp,
         weapon: {
             ...hp.weapon,
-            health: hp.weapon.health * 3.5 | 0
+            health: hp.weapon.health * 4.5 | 0
         }
     })),
     hangars: [{
@@ -503,8 +227,8 @@ ships.SZAJIN_HUTT = {
     cost: 4000,
     speed: 1.9,
     turnSpeed: .005,
-    shield: 8800,
-    shieldRegen: 88,
+    shield: 6500,
+    shieldRegen: 6.5,
     hardpoints: [{
         x: -.075,
         y: .915,
@@ -581,7 +305,7 @@ ships.SZAJIN_HUTT = {
         ...hp,
         weapon: {
             ...hp.weapon,
-            health: hp.weapon.health * 2.5 | 0
+            health: hp.weapon.health * 4 | 0
         }
     })),
     hangars: [{
@@ -591,13 +315,89 @@ ships.SZAJIN_HUTT = {
         squadronSize: 6,
         reserveSize: 4,
         squadronKey: "A9VIGILANCE_HUTT"
-    }, {
+    }]
+};
+
+ships.KARABOS_HUTT = {
+    name: "Karabos Destroyer",
+    asset: "KARABOS.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 20,
+    size: 600,
+    cost: 5400,
+    speed: 4,
+    turnSpeed: .01,
+    shield: 3500,
+    shieldRegen: 3.5,
+    hardpoints: (function () {
+        const points = [{
+            x: -.189,
+            y: .436
+        }, {
+            x: -.191,
+            y: .347
+        }, {
+            x: -.191,
+            y: .252
+        }, {
+            x: -.194,
+            y: .169
+        }, {
+            x: -.191,
+            y: .083
+        }, {
+            x: -.190,
+            y: .005
+        }, {
+            x: -.195,
+            y: -.090
+        }, {
+            x: -.108,
+            y: -.530
+        }, {
+            x: -.095,
+            y: -.090
+        }, {
+            x: -.091,
+            y: .288
+        }, {
+            x: -.075,
+            y: .491
+        }];
+
+        for (let i = 0, n = points.length; i < n; i++) {
+            points.push({
+                x: -points[i].x,
+                y: points[i].y
+            });
+        }
+
+        const output = [];
+
+        for (let i = 0; i < points.length; i++) {
+            output.push({
+                ...points[i],
+                weapon: i % 2 ? weapons.PURPLE_DOUBLE_TURBOLASER_CANNON : weapons.DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 150
+            });
+        }
+
+        return output.map(hp => ({
+            ...hp,
+            weapon: {
+                ...hp.weapon,
+                health: hp.weapon.health * 3.25 | 0
+            }
+        }));
+    })(),
+    hangars: [{
         x: 0,
         y: -.8,
         maxSquadrons: 1,
         squadronSize: 6,
-        reserveSize: 2,
-        squadronKey: "SKIPRAYBLASTBOAT_HUTT"
+        reserveSize: 4,
+        squadronKey: "A9VIGILANCE_HUTT"
     }]
 };
 

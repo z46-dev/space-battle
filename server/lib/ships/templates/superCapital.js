@@ -825,10 +825,9 @@ templates.VENGEANCE = function (options = {}) {
                     range: weapons.ASSAULT_CONCUSSION_MISSILE.range * 2 | 0,
                     speed: weapons.ASSAULT_CONCUSSION_MISSILE.speed * 1.5 | 0,
                     reload: weapons.ASSAULT_CONCUSSION_MISSILE.reload * 3 | 0,
-                    explosionRadius: weapons.ASSAULT_CONCUSSION_MISSILE.explosionRadius * 5 | 0,
                     maneuverability: 1
                 },
-                shotsAtOnce: 5,
+                shotsAtOnce: 3,
                 shotDelay: 1000
             };
 
@@ -886,10 +885,8 @@ templates.VENGEANCE = function (options = {}) {
                 ...e,
                 weapon: {
                     ...e.weapon,
-                    range: e.weapon.range * 2 | 0,
-                    health: e.weapon.health * 3.5 | 0,
-                    reload: e.weapon.reload * .9 | 0
-                }
+                    range: e.weapon.range * 1.5 | 0,
+                    health: e.weapon.health * 3.5 | 0                }
             }));
         })(),
         hangars: options.hangars
@@ -1079,7 +1076,7 @@ templates.COMPELLOR = function (options = {}) {
 
             const protonRocket = {
                 weapon: weapons.ASSAULT_PROTON_ROCKET,
-                shotsAtOnce: 2,
+                shotsAtOnce: 8,
                 shotDelay: 75
             };
 
@@ -1118,7 +1115,7 @@ templates.COMPELLOR = function (options = {}) {
                 weapon: {
                     ...e.weapon,
                     health: e.weapon.health * 5.5 | 0,
-                    reload: e.weapon.reload * .55 | 0
+                    reload: e.weapon.reload * .45 | 0
                 }
             }));
         })(),

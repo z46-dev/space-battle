@@ -389,12 +389,13 @@
             ctx.scale(ratio, ratio);
 
             ctx.translate(size / 2, size / 2);
-            // ctx.rotate(Math.PI);
+            // ctx.rotate(Math.PI / 2);
 
             ctx.drawImage(image, -image.width / 2, -image.height / 2, image.width, image.height);
 
             removeBackground(255, 0, 255, 128);
             // secondRemoveBackground(255, 0, 255, 128);
+            fuzzBorders();
             center();
             // smoothlyScale(1.5);
             

@@ -1,4 +1,5 @@
 import { shipTypes } from "../../constants.js";
+import templates from "../../templates.js";
 import * as weapons from "../../weapons.js";
 
 const ships = {};
@@ -81,7 +82,7 @@ ships.JUVARD_HUTT = {
     speed: 5.5,
     turnSpeed: .02,
     shield: 1300,
-    shieldRegen: 13,
+    shieldRegen: 1.3,
     hardpoints: [{
         x: -.1,
         y: .7,
@@ -122,7 +123,7 @@ ships.JUVARD_HUTT = {
         ...hp,
         weapon: {
             ...hp.weapon,
-            health: hp.weapon.health * 2
+            health: hp.weapon.health * 2.25 | 0
         }
     }))
 };
@@ -137,7 +138,7 @@ ships.BARABBULA_HUTT = {
     speed: 4.8,
     turnSpeed: .015,
     shield: 1950,
-    shieldRegen: 19,
+    shieldRegen: 1.9,
     hardpoints: [{
         x: 0,
         y: .85,
@@ -196,7 +197,7 @@ ships.BARABBULA_HUTT = {
         ...hp,
         weapon: {
             ...hp.weapon,
-            health: hp.weapon.health * 2
+            health: hp.weapon.health * 2.334 | 0
         }
     })),
     hangars: [{
@@ -208,5 +209,11 @@ ships.BARABBULA_HUTT = {
         squadronKey: "SKIPRAYBLASTBOAT_HUTT"
     }]
 };
+
+ships.MUNIFICENT_HUTT = templates.frigate.MUNIFICENT({
+    color: "PURPLE",
+    asset: "MUNIFICENT2.png",
+    fighter: "A9VIGILANCE_HUTT"
+});
 
 export default ships;

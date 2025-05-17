@@ -233,4 +233,13 @@ ships.HARROWERDREADNOUGHT_DARKEMPIRE = {
     }]
 };
 
+ships.VINDICATOR_DARKEMPIRE = templates.heavyFrigate.VINDICATOR({
+    fighter: "TIEDRONE_DARKEMPIRE"
+});
+
+ships.PURSUIT_DARKEMPIRE = templates.heavyFrigate.PURSUIT_DESTROYER({
+    fighter: "TIEDRONE_DARKEMPIRE",
+    bomber: "TIEBOMBER_DARKEMPIRE"
+});
+
 export default ships;

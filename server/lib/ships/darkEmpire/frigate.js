@@ -157,4 +157,13 @@ ships.INTERDICTORCRUISER_DARKEMPIRE = {
     }]
 };
 
+ships.STARGALLEON_DARKEMPIRE = templates.frigate.STAR_GALLEON({
+    fighter: "TIEREAPER_DARKEMPIRE"
+});
+
+ships.VICTORYFRIGATE_DARKEMPIRE = templates.frigate.VICTORY_FRIGATE();
+ships.STRIKECRUISER_DARKEMPIRE = templates.frigate.STRIKECRUISER({
+    fighter: "TIEINTERCEPTOR_DARKEMPIRE"
+});
+
 export default ships;

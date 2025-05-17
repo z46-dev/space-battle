@@ -250,7 +250,7 @@ templates.STRIKECRUISER = function (options = {}) {
         size: 250,
         cost: 1500,
         speed: 4.25,
-        turnSpeed: .0025,
+        turnSpeed: .01,
         shield: 1600,
         shieldRegen: 1.6,
         hardpoints: (function () {
@@ -321,15 +321,15 @@ templates.TONFALKCARRIER = function (options = {}) {
         asset: "TONFALKESCORTCARRIER.png",
         classification: shipTypes.Frigate,
         population: 10,
-        size: 350,
+        size: 300,
         cost: 1600,
         speed: 2.5,
-        turnSpeed: .0015,
+        turnSpeed: .01,
         shield: 2000,
         shieldRegen: 2,
         tenderAbility: {
-            frequency: 1.2,
-            power: .8
+            frequency: .5,
+            power: .5
         },
         hardpoints: [{
             x: -.130,
@@ -412,6 +412,246 @@ templates.TONFALKCARRIER = function (options = {}) {
             squadronSize: 6,
             reserveSize: 2,
             squadronKey: options.bomber
+        }]
+    };
+}
+
+templates.STAR_GALLEON = function (options = {}) {
+    options.color ??= "GREEN";
+    options.fighter ??= "TIEREAPER_EMPIRE";
+
+    return {
+        name: "Star Galleon",
+        asset: "STARGALLEON.png",
+        classification: shipTypes.Frigate,
+        population: 10,
+        size: 280,
+        cost: 1400,
+        speed: 3,
+        turnSpeed: .02,
+        shield: 2000,
+        shieldRegen: 2,
+        tenderAbility: {
+            frequency: .5,
+            power: .5
+        },
+        hardpoints: (function () {
+            const points = [{
+                x: -.362,
+                y: .084
+            }, {
+                x: -.370,
+                y: -.060
+            }, {
+                x: -.374,
+                y: -.204
+            }, {
+                x: -.139,
+                y: .268
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const selections = [
+                weapons[options.color + "_DOUBLE_LASER_CANNON"],
+                weapons[options.color + "_ANTI_FIGHTER_LASER_CANNON"],
+                weapons[options.color + "_ANTI_FIGHTER_LASER_CANNON"],
+                weapons.DOUBLE_ION_CANNON_MEDIUM
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 75
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 1.5 | 0
+                }
+            }));
+        })(),
+        hangars: [{
+            x: 0,
+            y: 0,
+            maxSquadrons: 2,
+            squadronSize: 4,
+            reserveSize: 4,
+            squadronKey: options.fighter
+        }]
+    };
+}
+
+templates.VICTORY_FRIGATE = function (options = {}) {
+    options.color ??= "GREEN";
+
+    return {
+        name: "Victory II Frigate",
+        asset: "VICTORYFRIGATE.png",
+        classification: shipTypes.Frigate,
+        population: 9,
+        size: 300,
+        cost: 1300,
+        speed: 5,
+        turnSpeed: .02,
+        shield: 1600,
+        shieldRegen: 1.6,
+        hardpoints: (function () {
+            const points = [{
+                x: -.082,
+                y: .745
+            }, {
+                x: -.224,
+                y: -.023
+            }, {
+                x: -.520,
+                y: -.671
+            }, {
+                x: -.114,
+                y: -.352
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const selections = [
+                weapons[options.color + "_QUAD_LASER_CANNON"],
+                weapons.QUAD_ION_CANNON
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 150
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 1.5 | 0
+                }
+            }));
+        })()
+    };
+}
+
+templates.MUNIFICENT = function (options = {}) {
+    options.color ??= "RED";
+    options.asset ??= "MUNIFICENT.png";
+
+    options.fighter ??= "VULTUREDROID_CIS";
+
+    return {
+        name: "Munificent-class Star Frigate",
+        asset: options.asset,
+        classification: shipTypes.Frigate,
+        population: 10,
+        size: 300,
+        cost: 1300,
+        speed: 3.5,
+        turnSpeed: .01,
+        shield: 2200,
+        shieldRegen: 2.2,
+        hardpoints: [{
+            x: 0,
+            y: .8,
+            weapon: weapons[`${options.color}_TURBOLASER_CANNON_ULTRAHEAVY`]
+        }, {
+            x: -.5,
+            y: -.05,
+            weapon: weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 90
+        }, {
+            x: .5,
+            y: -.05,
+            weapon: weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 90
+        }, {
+            x: -.1,
+            y: 0,
+            weapon: weapons.TRIPLE_ION_CANNON_MEDIUM,
+            shotsAtOnce: 2,
+            shotDelay: 90
+        }, {
+            x: .1,
+            y: 0,
+            weapon: weapons.TRIPLE_ION_CANNON_MEDIUM,
+            shotsAtOnce: 2,
+            shotDelay: 90
+        }, {
+            x: -.225,
+            y: .25,
+            weapon: weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 90
+        }, {
+            x: .225,
+            y: .25,
+            weapon: weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 90
+        }, {
+            x: -.15,
+            y: .6,
+            weapon: weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 45
+        }, {
+            x: .15,
+            y: .6,
+            weapon: weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 45
+        }, {
+            x: -.15,
+            y: -.4,
+            weapon: weapons.DOUBLE_ION_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 45
+        }, {
+            x: .15,
+            y: -.4,
+            weapon: weapons.DOUBLE_ION_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 45
+        }].map(hp => ({
+            ...hp,
+            weapon: {
+                ...hp.weapon,
+                health: hp.weapon.health * 1.3 | 0
+            }
+        })),
+        hangars: [{
+            x: 0,
+            y: 0,
+            maxSquadrons: 1,
+            squadronSize: 5,
+            reserveSize: 1,
+            squadronKey: options.fighter
         }]
     };
 }

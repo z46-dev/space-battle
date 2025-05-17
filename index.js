@@ -233,7 +233,6 @@ buttonMaps[STATE_HOME] = [{
         alert("Select defending faction:");
         choose();
 
-        // shared.beginBattle(...selections.map(e => e.fleet), false, null, ...selections.map(e => e.color), "Sandbox");
         shared.newBeginBattle(selections[0], selections[1], true, null, "Sandbox");
         on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
     }
@@ -248,21 +247,21 @@ if (location.search.includes("debug")) {
         text: "Testing",
         color: "#C8C8C8",
         action: () => {
-            const pop = 300;
+            const pop = 200;
             shared.newBeginBattle({
-                name: "EMPIRE",
+                name: "Hutt Cartel",
+                fleet: Fleet.random(pop, "HUTT").__ships.map(e => ({
+                    ship: e,
+                    hero: null
+                })),
+                color: survivalFactions.find(e => e.name === "Hutt Cartel").color
+            }, {
+                name: "Galactic Empire",
                 fleet: Fleet.random(pop, "EMPIRE").__ships.map(e => ({
                     ship: e,
                     hero: null
                 })),
                 color: survivalFactions.find(e => e.name === "Galactic Empire").color
-            }, {
-                name: "Dark Empire",
-                fleet: Fleet.random(pop, "DARKEMPIRE").__ships.map(e => ({
-                    ship: e,
-                    hero: null
-                })),
-                color: survivalFactions.find(e => e.name === "Dark Empire").color
             }, true, null, "Sandbox");
             on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
         }

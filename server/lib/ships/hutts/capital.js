@@ -86,14 +86,6 @@ ships.MC69NOIR_HUTT = {
         weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
         shotsAtOnce: 2,
         shotDelay: 130
-    }],
-    hangars: [{
-        x: 0,
-        y: 0,
-        maxSquadrons: 1,
-        squadronSize: 6,
-        reserveSize: 2,
-        squadronKey: "SKIPRAYBLASTBOAT_HUTT"
     }]
 };
 
@@ -108,7 +100,7 @@ ships.VENATOR_HUTT = {
     turnSpeed: .01,
     shield: 9500,
     shieldRegen: 20,
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [{
             x: -.4,
             y: -.55,
@@ -147,7 +139,7 @@ ships.VENATOR_HUTT = {
             shotDelay: 350
         }];
 
-        for (let i = 0; i < 4; i ++) {
+        for (let i = 0; i < 4; i++) {
             output.push({
                 x: -.1 - .025 * i,
                 y: .7 - .1 * i,
@@ -205,10 +197,10 @@ ships.KARAGGA_HUTT = {
     turnSpeed: .01,
     shield: 7400,
     shieldRegen: 95,
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [];
 
-        for (let i = 0; i < 4; i ++) {
+        for (let i = 0; i < 4; i++) {
             output.push({
                 x: -.15,
                 y: .7 - .3 * i,
@@ -236,7 +228,7 @@ ships.KARAGGA_HUTT = {
             });
         }
 
-        for (let i = 0; i < 6; i ++) {
+        for (let i = 0; i < 6; i++) {
             const a = Math.PI * 2 / 6 * i;
             const x = Math.cos(a) * .1;
             const y = Math.sin(a) * .05 - .8;
@@ -283,12 +275,12 @@ ships.VONTOR_HUTT = {
     cost: 8000,
     speed: 1.5,
     turnSpeed: .008,
-    shield: 10300,
-    shieldRegen: 100,
-    hardpoints: (function() {
+    shield: 5500,
+    shieldRegen: 5.5,
+    hardpoints: (function () {
         const output = [];
 
-        for (let i = 0; i < 7; i ++) {
+        for (let i = 0; i < 7; i++) {
             output.push({
                 x: -.075 - .01 * i,
                 y: .925 - .225 * i,
@@ -314,7 +306,7 @@ ships.VONTOR_HUTT = {
             ...hp,
             weapon: {
                 ...hp.weapon,
-                health: hp.weapon.health * 2
+                health: hp.weapon.health * 4.5 | 0
             }
         }));
     })(),
@@ -332,6 +324,93 @@ ships.VONTOR_HUTT = {
         squadronSize: 8,
         reserveSize: 2,
         squadronKey: "SKIPRAYBLASTBOAT_HUTT"
+    }]
+};
+
+ships.CHELANDION_HUTT = {
+    name: "Chelandion Cruiser",
+    asset: "CHELANDION.png",
+    classification: shipTypes.Capital,
+    population: 28,
+    size: 680,
+    cost: 6000,
+    speed: 2,
+    turnSpeed: .008,
+    shield: 4200,
+    shieldRegen: 4.2,
+    hardpoints: (function () {
+        const points = [{
+            x: -.063,
+            y: .837
+        }, {
+            x: -.145,
+            y: .684
+        }, {
+            x: -.189,
+            y: .463
+        }, {
+            x: -.212,
+            y: .180
+        }, {
+            x: -.093,
+            y: .034
+        }, {
+            x: -.176,
+            y: -.195
+        }, {
+            x: -.183,
+            y: -.579
+        }, {
+            x: -.355,
+            y: -.772
+        }, {
+            x: -.136,
+            y: -.866
+        }];
+
+        for (let i = 0, n = points.length; i < n; i ++) {
+            points.push({
+                x: -points[i].x,
+                y: points[i].y
+            });
+        }
+
+        const output = [];
+
+        const selections = [
+            weapons.PURPLE_QUAD_TURBOLASER_CANNON,
+            weapons.PURPLE_QUAD_LASER_CANNON,
+            weapons.PURPLE_QUAD_TURBOLASER_CANNON_HEAVY,
+            weapons.PURPLE_QUAD_LASER_CANNON_HEAVY,
+            weapons.QUAD_ION_CANNON,
+            weapons.QUAD_ION_CANNON_HEAVY,
+            weapons.ASSAULT_CONCUSSION_MISSILE
+        ];
+        
+        for (let i = 0; i < points.length; i++) {
+            output.push({
+                ...points[i],
+                weapon: selections[i % selections.length],
+                shotsAtOnce: 2,
+                shotDelay: 150
+            });
+        }
+
+        return output.map(hp => ({
+            ...hp,
+            weapon: {
+                ...hp.weapon,
+                health: hp.weapon.health * 4 | 0
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 8,
+        reserveSize: 4,
+        squadronKey: "A9VIGILANCE_HUTT"
     }]
 };
 

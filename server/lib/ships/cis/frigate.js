@@ -1,5 +1,6 @@
 import { shipTypes } from "../../constants.js";
 import * as weapons from "../../weapons.js";
+import templates from "../../templates.js";
 
 const ships = {};
 
@@ -49,90 +50,6 @@ ships.C9979_CIS = {
     }]
 };
 
-ships.MUNIFICENT_CIS = {
-    name: "Munificent Frigate",
-    asset: "MUNIFICENT.png", // do another with MUNIFICENT2.png
-    classification: shipTypes.Frigate,
-    population: 10,
-    size: 300,
-    cost: 1300,
-    speed: 3.5,
-    turnSpeed: .009,
-    shield: 2200,
-    shieldRegen: 2.2,
-    hardpoints: [{
-        x: 0,
-        y: .8,
-        weapon: weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY
-    }, {
-        x: -.5,
-        y: -.05,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 90
-    }, {
-        x: .5,
-        y: -.05,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 90
-    }, {
-        x: -.1,
-        y: 0,
-        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM,
-        shotsAtOnce: 2,
-        shotDelay: 90
-    }, {
-        x: .1,
-        y: 0,
-        weapon: weapons.TRIPLE_ION_CANNON_MEDIUM,
-        shotsAtOnce: 2,
-        shotDelay: 90
-    }, {
-        x: -.225,
-        y: .25,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 90
-    }, {
-        x: .225,
-        y: .25,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 90
-    }, {
-        x: -.15,
-        y: .6,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 45
-    }, {
-        x: .15,
-        y: .6,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 45
-    }, {
-        x: -.15,
-        y: -.4,
-        weapon: weapons.DOUBLE_ION_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 45
-    }, {
-        x: .15,
-        y: -.4,
-        weapon: weapons.DOUBLE_ION_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 45
-    }].map(hp => ({ ...hp, weapon: { ...hp.weapon, health: hp.weapon.health * 1.3 | 0 } })),
-    hangars: [{
-        x: 0,
-        y: 0,
-        maxSquadrons: 1,
-        squadronSize: 5,
-        reserveSize: 1,
-        squadronKey: "VULTUREDROID_CIS"
-    }]
-};
+ships.MUNIFICENT_CIS = templates.frigate.MUNIFICENT();
 
 export default ships;
