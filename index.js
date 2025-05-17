@@ -248,21 +248,21 @@ if (location.search.includes("debug")) {
         text: "Testing",
         color: "#C8C8C8",
         action: () => {
-            const pop = 30;
+            const pop = 300;
             shared.newBeginBattle({
-                name: "DARKEMPIRE",
-                fleet: [{
-                    ship: "TORPEDOSPHERE_DARKEMPIRE",
-                    hero: "SatePestage"
-                }],
-                color: survivalFactions.find(e => e.name === "Dark Empire").color
-            }, {
-                name: "New Republic",
-                fleet: Fleet.random(pop, "REBEL").__ships.map(e => ({
+                name: "EMPIRE",
+                fleet: Fleet.random(pop, "EMPIRE").__ships.map(e => ({
                     ship: e,
                     hero: null
                 })),
-                color: survivalFactions.find(e => e.name === "New Republic").color
+                color: survivalFactions.find(e => e.name === "Galactic Empire").color
+            }, {
+                name: "Dark Empire",
+                fleet: Fleet.random(pop, "DARKEMPIRE").__ships.map(e => ({
+                    ship: e,
+                    hero: null
+                })),
+                color: survivalFactions.find(e => e.name === "Dark Empire").color
             }, true, null, "Sandbox");
             on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
         }

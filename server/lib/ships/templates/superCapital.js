@@ -629,7 +629,7 @@ templates.LEGATORSTARDREADNOUGHT = function (options = {}) {
         hardpoints: (function () {
             const output = [];
 
-            for (let i = 0; i < 19; i ++) {
+            for (let i = 0; i < 19; i++) {
                 output.push({
                     x: -.025 - .02 * i,
                     y: .9 - .07 * i,
@@ -656,8 +656,8 @@ templates.LEGATORSTARDREADNOUGHT = function (options = {}) {
                     shotDelay: 150
                 });
             }
-    
-            for (let i = 0; i < 12; i ++) {
+
+            for (let i = 0; i < 12; i++) {
                 output.push({
                     x: -.385 + .0225 * i,
                     y: -.385 - .0475 * i,
@@ -684,7 +684,7 @@ templates.LEGATORSTARDREADNOUGHT = function (options = {}) {
                     shotDelay: 150
                 });
             }
-            
+
             function quadBattery(x, y, r, w) {
                 const distance = .005;
 
@@ -699,7 +699,7 @@ templates.LEGATORSTARDREADNOUGHT = function (options = {}) {
                 }
             }
 
-            for (let i = 0; i < 20; i ++) {
+            for (let i = 0; i < 20; i++) {
                 const x = .01 + .0125 * i;
                 const y = .875 - .0725 * i;
 
@@ -889,6 +889,236 @@ templates.VENGEANCE = function (options = {}) {
                     range: e.weapon.range * 2 | 0,
                     health: e.weapon.health * 3.5 | 0,
                     reload: e.weapon.reload * .9 | 0
+                }
+            }));
+        })(),
+        hangars: options.hangars
+    };
+}
+
+templates.COMPELLOR = function (options = {}) {
+    options.name ??= "Compellor-Class Battlecruiser";
+    options.population ??= 85;
+    options.cost ??= 29500;
+    options.speed ??= 3;
+    options.turnSpeed ??= .00015;
+    options.shield ??= 35000;
+    options.shieldRegen ??= options.shield / 1000;
+    options.color ??= "GREEN";
+    options.fighter ??= "TIEFIGHTER_EMPIRE";
+    options.bomber ??= "TIEBOMBER_EMPIRE";
+    options.interceptor ??= "TIEINTERCEPTOR_EMPIRE";
+
+    options.hangars ??= [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: options.fighter
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: options.interceptor
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: options.bomber
+    }];
+
+    return {
+        name: options.name,
+        asset: "COMPELLOR.png",
+        classification: shipTypes.SuperCapital,
+        population: options.population,
+        size: 2800,
+        cost: options.cost,
+        speed: options.speed,
+        turnSpeed: options.turnSpeed,
+        shield: options.shield,
+        shieldRegen: options.shieldRegen,
+        hardpoints: (function () {
+            const points = [{
+                x: -.094,
+                y: .632
+            }, {
+                x: -.103,
+                y: .598
+            }, {
+                x: -.110,
+                y: .566
+            }, {
+                x: -.117,
+                y: .533
+            }, {
+                x: -.169,
+                y: .336
+            }, {
+                x: -.176,
+                y: .300
+            }, {
+                x: -.186,
+                y: .268
+            }, {
+                x: -.193,
+                y: .238
+            }, {
+                x: -.244,
+                y: .016
+            }, {
+                x: -.294,
+                y: -.169
+            }, {
+                x: -.367,
+                y: -.438
+            }, {
+                x: -.241,
+                y: -.438
+            }, {
+                x: -.217,
+                y: -.361
+            }, {
+                x: -.166,
+                y: -.315
+            }, {
+                x: -.163,
+                y: -.156
+            }, {
+                x: -.294,
+                y: -.135
+            }, {
+                x: -.279,
+                y: -.077
+            }, {
+                x: -.160,
+                y: .401
+            }, {
+                x: -.145,
+                y: .462
+            }, {
+                x: -.166,
+                y: -.069
+            }, {
+                x: -.156,
+                y: -.037
+            }, {
+                x: -.152,
+                y: -.003
+            }, {
+                x: -.139,
+                y: .032
+            }, {
+                x: -.268,
+                y: -.332
+            }, {
+                x: -.280,
+                y: -.364
+            }, {
+                x: -.288,
+                y: -.397
+            }, {
+                x: -.295,
+                y: -.428
+            }, /*{
+                x: .058,
+                y: -.484
+            }, */];
+
+            for (let i = 0, n = points.length; i < n; i ++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            points.push({
+                x: .000,
+                y: .453
+            }, {
+                x: .000,
+                y: .422
+            }, {
+                x: .000,
+                y: .396
+            }, {
+                x: -.002,
+                y: .366
+            }, {
+                x: -.002,
+                y: -.659
+            }, {
+                x: -.001,
+                y: -.900
+            }, {
+                x: -.001,
+                y: -.923
+            }, {
+                x: .003,
+                y: -.969
+            });
+
+            const output = [];
+
+            const laserCannon = {
+                weapon: weapons[options.color + "_DOUBLE_LASER_CANNON"],
+                shotsAtOnce: 2,
+                shotDelay: 75
+            };
+
+            const ionCannon = {
+                weapon: weapons.DOUBLE_ION_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            };
+
+            const protonRocket = {
+                weapon: weapons.ASSAULT_PROTON_ROCKET,
+                shotsAtOnce: 2,
+                shotDelay: 75
+            };
+
+            const turbolaser = {
+                weapon: weapons[options.color + "_DOUBLE_TURBOLASER_CANNON"],
+                shotsAtOnce: 2,
+                shotDelay: 150
+            };
+
+            const heavyTurbolaser = {
+                weapon: weapons[options.color + "_QUAD_TURBOLASER_CANNON_HEAVY"],
+                shotsAtOnce: 2,
+                shotDelay: 300
+            };
+
+            const heavyIonCannon = {
+                weapon: weapons.QUAD_ION_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 300
+            };
+
+            const selections = [
+                laserCannon, protonRocket, ionCannon,
+                turbolaser, heavyTurbolaser, heavyIonCannon
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    ...selections[i % selections.length]
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 5.5 | 0,
+                    reload: e.weapon.reload * .55 | 0
                 }
             }));
         })(),

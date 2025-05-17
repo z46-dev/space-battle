@@ -1,6 +1,6 @@
 import { shipTypes } from "../../constants.js";
 import * as weapons from "../../weapons.js";
-import templates from "../templates/superCapital.js";
+import templates from "../../templates.js";
 
 const ships = {};
 
@@ -492,7 +492,7 @@ ships.VISCOUNT_PROTOTYPE_REBEL = {
     }]
 };
 
-ships.LUSANKYA_REBEL = templates.EXECUTORSUPERSTARDESTROYER({
+ships.LUSANKYA_REBEL = templates.superCapital.EXECUTORSUPERSTARDESTROYER({
     name: "Lusankya",
     color: "RED",
     hangars: [{

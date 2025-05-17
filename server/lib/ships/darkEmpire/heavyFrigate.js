@@ -1,4 +1,5 @@
 import { shipTypes } from "../../constants.js";
+import templates from "../../templates.js";
 import * as weapons from "../../weapons.js";
 
 const ships = {};
@@ -154,94 +155,9 @@ ships.WORLDDEVASTATORFG_DARKEMPIRE = {
     }
 };
 
-ships.DREADNOUGHTHEAVYCRUISER_DARKEMPIRE = {
-    name: "Dreadnought Heavy Cruiser",
-    asset: "DREADNOUGHTHEAVYCRUISER.png",
-    classification: shipTypes.HeavyFrigate,
-    population: 14,
-    size: 340,
-    cost: 3000,
-    speed: 3,
-    turnSpeed: .015,
-    shield: 6500,
-    shieldRegen: 6.5,
-    hardpoints: [{
-        x: -.075,
-        y: .8,
-        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
-        shotsAtOnce: 2,
-        shotDelay: 200
-    }, {
-        x: .075,
-        y: .8,
-        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
-        shotsAtOnce: 2,
-        shotDelay: 200
-    }, {
-        x: -.2,
-        y: -.8,
-        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
-        shotsAtOnce: 2,
-        shotDelay: 200
-    }, {
-        x: .2,
-        y: -.8,
-        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
-        shotsAtOnce: 2,
-        shotDelay: 200
-    }, {
-        x: -.125,
-        y: .4,
-        weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 200
-    }, {
-        x: .125,
-        y: .4,
-        weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 200
-    }, {
-        x: -.15,
-        y: -.4,
-        weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 200
-    }, {
-        x: .15,
-        y: -.4,
-        weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 200
-    }, {
-        x: -.175,
-        y: 0,
-        weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 200
-    }, {
-        x: .175,
-        y: 0,
-        weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 200
-    }].map(e => ({
-        ...e,
-        weapon: {
-            ...e.weapon,
-            health: e.weapon.health * 3 | 0,
-            reload: e.weapon.reload * .6 | 0
-        }
-    })),
-    hangars: [{
-        x: 0,
-        y: -.8,
-        maxSquadrons: 1,
-        squadronSize: 8,
-        reserveSize: 2,
-        squadronKey: "TIEINTERCEPTOR_DARKEMPIRE"
-    }]
-};
+ships.DREADNOUGHTHEAVYCRUISER_DARKEMPIRE = templates.heavyFrigate.DREADNOUGHTHEAVYCRUISER({
+    fighter: "TIEINTERCEPTOR_DARKEMPIRE"
+});
 
 ships.HARROWERDREADNOUGHT_DARKEMPIRE = {
     name: "Harrower Dreadnought",

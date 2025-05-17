@@ -1,6 +1,6 @@
 import { shipTypes } from "../../constants.js";
 import * as weapons from "../../weapons.js";
-import templates from "../templates/superCapital.js";
+import templates from "../../templates.js";
 
 const ships = {};
 
@@ -228,7 +228,7 @@ ships.WORLDDEVASTATORBC_DARKEMPIRE = {
     }
 };
 
-ships.EXECUTORSUPERSTARDESTROYER_DARKEMPIRE = templates.EXECUTORSUPERSTARDESTROYER({
+ships.EXECUTORSUPERSTARDESTROYER_DARKEMPIRE = templates.superCapital.EXECUTORSUPERSTARDESTROYER({
     hangars: [{
         x: 0,
         y: 0,
@@ -246,7 +246,7 @@ ships.EXECUTORSUPERSTARDESTROYER_DARKEMPIRE = templates.EXECUTORSUPERSTARDESTROY
     }]
 });
 
-ships.BELLATOR_DARKEMPIRE = templates.BELLATORSUPERSTARDESTROYER({
+ships.BELLATOR_DARKEMPIRE = templates.superCapital.BELLATORSUPERSTARDESTROYER({
     hangars: [{
         x: 0,
         y: 0,
@@ -264,7 +264,7 @@ ships.BELLATOR_DARKEMPIRE = templates.BELLATORSUPERSTARDESTROYER({
     }]
 });
 
-ships.ASSERTOR_DARKEMPIRE = templates.ASSERTORSTARDREADNOUGHT({
+ships.ASSERTOR_DARKEMPIRE = templates.superCapital.ASSERTORSTARDREADNOUGHT({
     hangars: [{
         x: 0,
         y: 0,
@@ -373,7 +373,7 @@ ships.MANDATORSIEGEDREADNOUGHT_DARKEMPIRE = {
     }]
 };
 
-ships.MEGASTARDESTROYER_DARKEMPIRE = templates.MEGASTARDESTROYER({
+ships.MEGASTARDESTROYER_DARKEMPIRE = templates.superCapital.MEGASTARDESTROYER({
     hangars: [{
         x: 0,
         y: 0,
@@ -601,6 +601,6 @@ ships.IMPELLORFLEETCARRIER_DARKEMPIRE = {
     }]
 };
 
-ships.VENGEANCE_DARKEMPIRE = templates.VENGEANCE();
+ships.VENGEANCE_DARKEMPIRE = templates.superCapital.VENGEANCE();
 
 export default ships;

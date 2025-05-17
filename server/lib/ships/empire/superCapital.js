@@ -1,14 +1,14 @@
 import { shipTypes } from "../../constants.js";
 import * as weapons from "../../weapons.js";
-import templates from "../templates/superCapital.js";
+import templates from "../../templates.js";
 
 const ships = {};
 
-ships.EXECUTORSUPERSTARDESTROYER_EMPIRE = templates.EXECUTORSUPERSTARDESTROYER();
-ships.BELLATORSUPERSTARDESTROYER_EMPIRE = templates.BELLATORSUPERSTARDESTROYER();
-ships.ASSERTORSTARDREADNOUGHT_EMPIRE = templates.ASSERTORSTARDREADNOUGHT();
+ships.EXECUTORSUPERSTARDESTROYER_EMPIRE = templates.superCapital.EXECUTORSUPERSTARDESTROYER();
+ships.BELLATORSUPERSTARDESTROYER_EMPIRE = templates.superCapital.BELLATORSUPERSTARDESTROYER();
+ships.ASSERTORSTARDREADNOUGHT_EMPIRE = templates.superCapital.ASSERTORSTARDREADNOUGHT();
 
-ships.MEGASTARDESTROYER_EMPIRE = templates.MEGASTARDESTROYER();
+ships.MEGASTARDESTROYER_EMPIRE = templates.superCapital.MEGASTARDESTROYER();
 
 ships.ARCHAMMER_EMPIRE = {
     name: "Arch Hammer",
@@ -198,9 +198,9 @@ ships.DEATHSTAR_EMPIRE = {
     }]
 };
 
-ships.LEGATORSTARDREADNOUGHT_EMPIRE = templates.LEGATORSTARDREADNOUGHT();
+ships.LEGATORSTARDREADNOUGHT_EMPIRE = templates.superCapital.LEGATORSTARDREADNOUGHT();
 
-ships.VENGEANCE_EMPIRE = templates.VENGEANCE();
+ships.VENGEANCE_EMPIRE = templates.superCapital.VENGEANCE();
 
 ships.CONSOLIDATORASSAULTSHIP_EMPIRE = {
     name: "Consolidator Assault Ship",
@@ -310,5 +310,7 @@ ships.CONSOLIDATORASSAULTSHIP_EMPIRE = {
         squadronKey: "TIEDEFENDER_EMPIRE"
     }]
 };
+
+ships.COMPELLOR_EMPIRE = templates.superCapital.COMPELLOR();
 
 export default ships;

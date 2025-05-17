@@ -1,4 +1,5 @@
 import { shipTypes } from "../../constants.js";
+import templates from "../../templates.js";
 import * as weapons from "../../weapons.js";
 
 const ships = {};
@@ -248,66 +249,12 @@ ships.PELTA_REBEL = {
     }]
 };
 
-ships.QUASAR_REBEL = {
-    name: "Quasar",
-    asset: "QUASAR.png",
-    classification: shipTypes.Frigate,
-    population: 12,
-    size: 175,
-    cost: 2000,
-    speed: 3,
-    turnSpeed: .01,
-    shield: 3500,
-    shieldRegen: 2.5,
-    hardpoints: [{
-        x: -.05,
-        y: .95,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON
-    }, {
-        x: .05,
-        y: .95,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON
-    }, {
-        x: -.175,
-        y: .6,
-        weapon: weapons.DOUBLE_ION_CANNON
-    }, {
-        x: .175,
-        y: .6,
-        weapon: weapons.DOUBLE_ION_CANNON
-    }, {
-        x: -.325,
-        y: .15,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON
-    }, {
-        x: .325,
-        y: .15,
-        weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON
-    }, {
-        x: -.55,
-        y: -.3,
-        weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY
-    }, {
-        x: .55,
-        y: -.3,
-        weapon: weapons.RED_QUAD_LASER_CANNON_HEAVY
-    }],
-    hangars: [{
-        x: 0,
-        y: 0,
-        maxSquadrons: 2,
-        squadronSize: 6,
-        reserveSize: 6,
-        squadronKey: "AWING_REBEL"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 2,
-        squadronSize: 7,
-        reserveSize: 4,
-        squadronKey: "YWING_REBEL"
-    }]
-};
+ships.QUASAR_REBEL = templates.frigate.QUASAR({
+    color: "RED",
+    fighter: "XWING_REBEL",
+    interceptor: "AWING_REBEL",
+    bomber: "YWING_REBEL"
+});
 
 ships.ZENITHCRUISER_REBEL = {
     name: "Zenith Cruiser",

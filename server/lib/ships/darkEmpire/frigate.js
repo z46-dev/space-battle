@@ -1,76 +1,13 @@
 import { shipTypes } from "../../constants.js";
+import templates from "../../templates.js";
 import * as weapons from "../../weapons.js";
 
 const ships = {};
 
-ships.TONFALKCARRIER_DARKEMPIRE = {
-    name: "Ton Falk Carrier",
-    asset: "TONFALKESCORTCARRIER.png",
-    classification: shipTypes.Frigate,
-    population: 6,
-    size: 200,
-    cost: 1650,
-    speed: 3,
-    turnSpeed: .025,
-    shield: 2000,
-    shieldRegen: 5,
-    tenderAbility: {
-        frequency: 1.334,
-        power: 1.334
-    },
-    hardpoints: [{
-        x: -.1,
-        y: .6,
-        weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 80
-    }, {
-        x: .1,
-        y: .6,
-        weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 80
-    }, {
-        x: -.3,
-        y: 0,
-        weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 80
-    }, {
-        x: .3,
-        y: 0,
-        weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 80
-    }, {
-        x: -.2,
-        y: -.4,
-        weapon: weapons.DOUBLE_ION_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 80
-    }, {
-        x: .2,
-        y: -.4,
-        weapon: weapons.DOUBLE_ION_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 80
-    }],
-    hangars: [{
-        x: 0,
-        y: 0,
-        maxSquadrons: 2,
-        squadronSize: 6,
-        reserveSize: 4,
-        squadronKey: "TIEDRONE_DARKEMPIRE"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 2,
-        squadronSize: 6,
-        reserveSize: 4,
-        squadronKey: "TIEBOMBER_DARKEMPIRE"
-    }]
-};
+ships.TONFALKCARRIER_DARKEMPIRE = templates.frigate.TONFALKCARRIER({
+    fighter: "TIEDRONE_DARKEMPIRE",
+    bomber: "TIEBOMBER_DARKEMPIRE"
+});
 
 ships.MTFCRUISER_DARKEMPIRE = {
     name: "Modular Task Force Cruiser",
@@ -155,109 +92,9 @@ ships.MTFCRUISER_DARKEMPIRE = {
     }]
 };
 
-ships.CARRACK_DARKEMPIRE = {
-    name: "Carrack Cruiser",
-    asset: "CARRACK.png",
-    classification: shipTypes.Frigate,
-    population: 6,
-    size: 170,
-    cost: 1900,
-    speed: 4.5,
-    turnSpeed: .02,
-    shield: 2100,
-    shieldRegen: 2,
-    hardpoints: [{
-        x: 0,
-        y: .9,
-        weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: -.15,
-        y: .5,
-        weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: .15,
-        y: .5,
-        weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: -.125,
-        y: .2,
-        weapon: weapons.ION_CANNON
-    }, {
-        x: .125,
-        y: .2,
-        weapon: weapons.ION_CANNON
-    }, {
-        x: -.1,
-        y: -.4,
-        weapon: weapons.GREEN_TURBOLASER_CANNON
-    }, {
-        x: .1,
-        y: -.4,
-        weapon: weapons.GREEN_TURBOLASER_CANNON
-    }, {
-        x: 0,
-        y: -.6,
-        weapon: weapons.GREEN_ANTI_FIGHTER_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 80
-    }]
-};
+ships.CARRACK_DARKEMPIRE = templates.frigate.CARRACK();
 
-ships.LANCERFRIGATE_DARKEMPIRE = {
-    name: "Lancer Frigate",
-    asset: "LANCERFRIGATE.png",
-    classification: shipTypes.Frigate,
-    population: 8,
-    size: 150,
-    cost: 2200,
-    speed: 3.9,
-    turnSpeed: .018,
-    shield: 3000,
-    shieldRegen: 3,
-    hardpoints: [{
-        x: 0,
-        y: .95,
-        weapon: weapons.ASSAULT_PROTON_ROCKET,
-        shotsAtOnce: 4,
-        shotDelay: 80
-    }, {
-        x: 0,
-        y: .6,
-        weapon: weapons.GREEN_RAPID_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 50
-    }, {
-        x: 0,
-        y: .35,
-        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: 0,
-        y: 0,
-        weapon: weapons.GREEN_ANTI_FIGHTER_LASER_CANNON,
-        shotsAtOnce: 4,
-        shotDelay: 60
-    }, {
-        x: -.15,
-        y: -.5,
-        weapon: weapons.GREEN_RAPID_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 50
-    }, {
-        x: .15,
-        y: -.5,
-        weapon: weapons.GREEN_RAPID_LASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 50
-    }]
-};
+ships.LANCERFRIGATE_DARKEMPIRE = templates.frigate.LANCER();
 
 ships.INTERDICTORCRUISER_DARKEMPIRE = {
     name: "Interdictor Cruiser",

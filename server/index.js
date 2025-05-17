@@ -1308,7 +1308,11 @@ class Battle {
                         ship: ship.key,
                         hero: ship.commander.config.key
                     })),
-                    died: this.shipsStartedWith[team.i].filter(ship => !this.ships.has(ship.id)).map(ship => ship.key)
+                    died: this.shipsStartedWith[team.i].filter(ship => !this.ships.has(ship.id)).map(ship => ship.key),
+                    diedHeroes: this.shipsStartedWith[team.i].filter(ship => ship.commander != null && !this.ships.has(ship.id)).map(ship => ({
+                        ship: ship.key,
+                        hero: ship.commander.config.key
+                    }))
                 };
             }
 
