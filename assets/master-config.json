@@ -1110,13 +1110,13 @@
                 "ships": ["ACTIONVITRANSPORT_HUTT", "CONSOLAR_HUTT", "CR90_HUTT", "LUPUSMISSILEFRIGATE_HUTT", "LIGHT_MINSTREL_HUTT", "HEAVY_MINSTREL_HUTT", "BRUTESUPPORTFRIGATE_HUTT", "JUVARD_HUTT", "BARABBULA_HUTT"]
             }, {
                 "id": 2,
-                "ships": ["SABOATHDESTROYER_HUTT", "UBRIKKIAN_HUTT", "TEMPEST_HUTT", "SZAJIN_HUTT"]
+                "ships": ["SABOATHDESTROYER_HUTT", "UBRIKKIAN_HUTT", "TEMPEST_HUTT", "SZAJIN_HUTT", "KARABOS_HUTT"]
             }, {
                 "id": 3,
-                "ships": ["MC69NOIR_HUTT", "VENATOR_HUTT", "KARAGGA_HUTT", "VONTOR_HUTT"]
+                "ships": ["MC69NOIR_HUTT", "VENATOR_HUTT", "KARAGGA_HUTT", "VONTOR_HUTT", "CHELANDION_HUTT"]
             }, {
                 "id": 4,
-                "ships": ["DORBULLA_HUTT"]
+                "ships": ["VORACIOUS_HUTT", "DORBULLA_HUTT"]
             }],
             "heroUnits": [{
                 "key": "Jabba The Hutt",
@@ -1396,13 +1396,13 @@
                 "ships": ["ACTIONVITRANSPORT_HUTT", "CONSOLAR_HUTT", "CR90_HUTT", "LUPUSMISSILEFRIGATE_HUTT", "LIGHT_MINSTREL_HUTT", "HEAVY_MINSTREL_HUTT", "BRUTESUPPORTFRIGATE_HUTT", "JUVARD_HUTT", "BARABBULA_HUTT"]
             }, {
                 "id": 2,
-                "ships": ["SABOATHDESTROYER_HUTT", "UBRIKKIAN_HUTT", "TEMPEST_HUTT", "SZAJIN_HUTT"]
+                "ships": ["SABOATHDESTROYER_HUTT", "UBRIKKIAN_HUTT", "TEMPEST_HUTT", "SZAJIN_HUTT", "KARABOS_HUTT"]
             }, {
                 "id": 3,
-                "ships": ["MC69NOIR_HUTT", "VENATOR_HUTT", "KARAGGA_HUTT", "VONTOR_HUTT"]
+                "ships": ["MC69NOIR_HUTT", "VENATOR_HUTT", "KARAGGA_HUTT", "VONTOR_HUTT", "CHELANDION_HUTT"]
             }, {
                 "id": 4,
-                "ships": ["DORBULLA_HUTT"]
+                "ships": ["VORACIOUS_HUTT", "DORBULLA_HUTT"]
             }],
             "heroUnits": [{
                 "key": "Jabba The Hutt",
@@ -1633,13 +1633,13 @@
             "ships": ["ACTIONVITRANSPORT_HUTT", "CONSOLAR_HUTT", "CR90_HUTT", "LUPUSMISSILEFRIGATE_HUTT", "LIGHT_MINSTREL_HUTT", "HEAVY_MINSTREL_HUTT", "BRUTESUPPORTFRIGATE_HUTT", "JUVARD_HUTT", "BARABBULA_HUTT"]
         }, {
             "id": 2,
-            "ships": ["SABOATHDESTROYER_HUTT", "UBRIKKIAN_HUTT", "TEMPEST_HUTT", "SZAJIN_HUTT"]
+            "ships": ["SABOATHDESTROYER_HUTT", "UBRIKKIAN_HUTT", "TEMPEST_HUTT", "SZAJIN_HUTT", "KARABOS_HUTT"]
         }, {
             "id": 3,
-            "ships": ["MC69NOIR_HUTT", "VENATOR_HUTT", "KARAGGA_HUTT", "VONTOR_HUTT"]
+            "ships": ["MC69NOIR_HUTT", "VENATOR_HUTT", "KARAGGA_HUTT", "VONTOR_HUTT", "CHELANDION_HUTT"]
         }, {
             "id": 4,
-            "ships": ["DORBULLA_HUTT"]
+            "ships": ["VORACIOUS_HUTT", "DORBULLA_HUTT"]
         }]
     }, {
         "id": 3,

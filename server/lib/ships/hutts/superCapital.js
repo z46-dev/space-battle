@@ -8,12 +8,12 @@ ships.DORBULLA_HUTT = {
     asset: "dorbulla.png",
     classification: shipTypes.SuperCapital,
     population: 140,
-    size: 3540,
-    cost: 19920,
+    size: 3000,
+    cost: 26000,
     speed: 1.25,
     turnSpeed: .003,
-    shield: 42500,
-    shieldRegen: 500,
+    shield: 38900,
+    shieldRegen: 38.9,
     hardpoints: (function () {
         const output = [];
         const myWeapons = [
@@ -76,7 +76,7 @@ ships.DORBULLA_HUTT = {
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 3,
+        maxSquadrons: 2,
         squadronSize: 6,
         reserveSize: 7,
         squadronKey: "SKIPRAYBLASTBOAT_HUTT"
