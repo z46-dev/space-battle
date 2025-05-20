@@ -64,7 +64,9 @@ heroes["AdmiralRaddus"] = {
         }
 
         ship.hardpoints.forEach(hp => {
-            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00075);
+            if (hp.tick % 25 === 0 || hp.health > 0) {
+                hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .0001);
+            }
 
             if (ship.raddusAbility.active) {
                 const selfDmg = hp.maxHealth * .001;

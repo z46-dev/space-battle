@@ -46,16 +46,16 @@ heroes["Jabba The Hutt"] = {
         }
 
         ship.hardpoints.forEach(hp => {
-            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00001);
+            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .000025);
 
             if (ship.jabbaAbility.active) {
-                const selfDmg = hp.maxHealth * .001;
+                const selfDmg = hp.maxHealth * .0005;
 
                 if (hp.health - selfDmg >= hp.maxHealth * .2) {
                     hp.health -= selfDmg;
                 }
 
-                hp.tick += 5;
+                hp.tick += 10;
             }
         });
     }

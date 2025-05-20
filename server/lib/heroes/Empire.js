@@ -91,7 +91,7 @@ heroes["AdmiralPiett"] = {
 
         ship.hardpoints.forEach(hp => {
             if (hp.health > 0) {
-                hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00075);
+                hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00025);
             }
 
             if (ship.piettAbility.active) {
