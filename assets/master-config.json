@@ -1121,6 +1121,18 @@
             "heroUnits": [{
                 "key": "Jabba The Hutt",
                 "planet": "Nal Hutta & Nar Shaddaa"
+            }, {
+                "key": "Gorga The Hutt",
+                "planet": "Gos Hutta"
+            }, {
+                "key": "Marlo The Hutt",
+                "planet": "Du Hutta"
+            }, {
+                "key": "Oruba The Hutt",
+                "planet": "Nal Hutta & Nar Shaddaa"
+            }, {
+                "key": "Ziro The Hutt",
+                "planet": "Nal Hutta & Nar Shaddaa"
             }]
         }, {
             "id": 3,
@@ -1406,6 +1418,18 @@
             }],
             "heroUnits": [{
                 "key": "Jabba The Hutt",
+                "planet": "Nal Hutta & Nar Shaddaa"
+            }, {
+                "key": "Gorga The Hutt",
+                "planet": "Gos Hutta"
+            }, {
+                "key": "Marlo The Hutt",
+                "planet": "Du Hutta"
+            }, {
+                "key": "Oruba The Hutt",
+                "planet": "Nal Hutta & Nar Shaddaa"
+            }, {
+                "key": "Ziro The Hutt",
                 "planet": "Nal Hutta & Nar Shaddaa"
             }]
         }, {
