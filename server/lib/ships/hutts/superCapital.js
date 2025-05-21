@@ -11,7 +11,7 @@ ships.DORBULLA_HUTT = {
     size: 3000,
     cost: 26000,
     speed: 1.25,
-    turnSpeed: .003,
+    turnSpeed: .00025,
     shield: 38900,
     shieldRegen: 38.9,
     hardpoints: (function () {
