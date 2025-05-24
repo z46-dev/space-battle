@@ -163,7 +163,7 @@ heroes["GeneralDelvarus"] = {
     },
     onTick: function (ship) {
         ship.hardpoints.forEach(hp => {
-            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .001);
+            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00001);
         });
     }
 };
