@@ -248,6 +248,9 @@ function drawCommanders(uScale) {
 }
 
 export default function draw() {
+    state.camera.realX = Math.max(-state.world.width, Math.min(state.camera.realX, state.world.width));
+    state.camera.realY = Math.max(-state.world.height, Math.min(state.camera.realY, state.world.height));
+
     state.camera.x = lerp(state.camera.x, state.camera.realX, .2);
     state.camera.y = lerp(state.camera.y, state.camera.realY, .2);
     state.camera.zoom = lerp(state.camera.zoom, state.camera.realZoom, .2);
@@ -259,7 +262,7 @@ export default function draw() {
     state.inputs.hardpointOver = null;
     state.inputs.shipOver = null;
 
-    ctx.fillStyle = "#893135";
+    ctx.fillStyle = "#1B1B25";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.save();
@@ -269,10 +272,6 @@ export default function draw() {
 
     const realMouseX = (state.inputs.mouseX - canvas.width / 2) / scale + state.camera.x;
     const realMouseY = (state.inputs.mouseY - canvas.height / 2) / scale + state.camera.y;
-
-    // Draw world width/height
-    ctx.fillStyle = "#1B1B25";
-    ctx.fillRect(-state.world.width, -state.world.height, state.world.width * 2, state.world.height * 2);
 
     ctx.fillStyle = "#DEDEDE";
     ctx.shadowColor = "#FFFFFF";
@@ -289,12 +288,42 @@ export default function draw() {
         ctx.fill();
     });
 
-    const planetSize = planetOptions.Radius * 32;
+    const planetSize = planetOptions.Radius * (4 + planetOptions.SizeScalar * 6);
+    const planetDist = state.world.width - 250;
     ctx.shadowBlur = planetOptions.Radius * 2;
     ctx.shadowColor = planetOptions.Colors[3][2];
-    ctx.drawImage(planet.canvas, -planetSize / 1.125, -planetSize / 1.125, planetSize, planetSize);
+    ctx.drawImage(planet.canvas, -planetDist, -planetDist, planetSize, planetSize);
 
     ctx.shadowBlur = 0;
+
+    state.world.asteroids.forEach(asteroid => {
+        const size = asteroid.size;
+
+        ctx.save();
+        ctx.translate(asteroid.x, asteroid.y);
+        ctx.rotate(asteroid.angle + performance.now() / (size * size / 1.5) * (asteroid.id % 2 ? -1 : 1));
+        ctx.scale(size, size);
+
+        const assetName = asteroid.type + ".png";
+
+        if (assetsLib.assets.has(assetName)) {
+            const asset = assetsLib.assets.get(assetName);
+            if (asset.ready) {
+                ctx.drawImage(asset, -1, -1, 2, 2);
+            } else {
+                assetsLib.loadAsset(`/assets/asteroids/${assetName}`, assetName);
+            }
+        } else {
+            assetsLib.loadAsset(`/assets/asteroids/${assetName}`, assetName);
+        }
+
+        ctx.restore();
+    });
+
+    // Draw world width/height
+    ctx.strokeStyle = "#C8C8C8";
+    ctx.lineWidth = 5 / scale;
+    ctx.strokeRect(-state.world.width, -state.world.height, state.world.width * 2, state.world.height * 2);
 
     const drawObjects = [];
 
@@ -392,7 +421,7 @@ export default function draw() {
                         }
                     }
 
-                    if (ship.size >= 150) {
+                    if (ship.size >= 250) {
                         ship.hardpoints.forEach((hardpoint, index) => {
                             if (hardpoint.health <= 0) {
                                 if (ship.hardpointSprites[index] === undefined) {

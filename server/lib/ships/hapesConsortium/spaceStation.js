@@ -95,6 +95,7 @@ ships.STARBASE02_HAPAN = {
         return output.map(e => ({
             ...e,
             weapon: {
+                x: e.weapon.x - .15,
                 ...e.weapon,
                 health: e.weapon.health * 9
             }

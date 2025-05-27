@@ -79,7 +79,7 @@ ships.CENTURION_ZANN = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 1.5
+                health: e.weapon.health * 2
             }
         }))
     })(),

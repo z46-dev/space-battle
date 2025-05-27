@@ -1,4 +1,5 @@
 import { shipTypes } from "../../constants.js";
+import templates from "../../templates.js";
 import * as weapons from "../../weapons.js";
 
 const ships = {};
@@ -740,5 +741,9 @@ ships.VESPER_REBEL = {
         squadronKey: "YWING_REBEL"
     }]
 };
+
+ships.ASSAULT_FRIGATE_MK2_REBEL = templates.heavyFrigate.ASSAULT_FRIGATE_MK2();
+
+ships.DAUNTLESS_REBEL = templates.heavyFrigate.DAUNTLESS_CRUISER();
 
 export default ships;

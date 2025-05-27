@@ -1,4 +1,5 @@
 import { shipTypes } from "../../constants.js";
+import templates from "../../templates.js";
 import * as weapons from "../../weapons.js";
 
 const ships = {};
@@ -923,5 +924,9 @@ ships.LUCREHULKAUXILIARYWARSHIP_REBEL = {
         cooldown: 250
     }]
 };
+
+ships.DEFENDER_ASSAULT_CARRIER_REBEL = templates.capital.DEFENDER_ASSAULT_CARRIER();
+
+ships.MAJESTIC_REBEL = templates.capital.MAJESTIC_STAR_CRUISER();
 
 export default ships;

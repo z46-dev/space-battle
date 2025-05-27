@@ -270,6 +270,7 @@ export class PlanetOptions {
     Radius = 256;
     Detail = 1;
     Seed = 0;
+    SizeScalar = 1;
     NoiseFunction = NoiseOptions.simplex3;
 
     Colors = PlanetColors.standardColors;
@@ -316,6 +317,8 @@ export class PlanetOptions {
         } else {
             options.Clouds.NoiseFunction = NoiseOptions[Object.keys(NoiseOptions)[Math.random() * Object.keys(NoiseOptions).length | 0]];
         }
+
+        options.SizeScalar = Math.abs(options.Seed) * .75 + .25;
 
         return options;
     }

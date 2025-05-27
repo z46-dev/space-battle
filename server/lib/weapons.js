@@ -18,7 +18,7 @@ export const FIGHTER_ION_CANNON = {
     speed: 45,
     range: 600,
     type: weaponTypes.IonCannon,
-    health: 5,
+    health: 50,
     name: "Light Ion Cannon",
     collisionRange: 20
 };
@@ -217,7 +217,7 @@ export const GREEN_FIGHTER_LASER_CANNON = {
     speed: 75,
     range: 1200,
     type: weaponTypes.GreenLaserCannon,
-    health: 2,
+    health: 75,
     name: "Light Laser Cannon",
     collisionRange: 40
 };
@@ -228,7 +228,7 @@ export const GREEN_RAPID_FIGHTER_LASER_CANNON = {
     speed: 75,
     range: 700,
     type: weaponTypes.GreenLaserCannon,
-    health: 30,
+    health: 60,
     name: "Rapid Light Laser Cannon",
     collisionRange: 30
 };

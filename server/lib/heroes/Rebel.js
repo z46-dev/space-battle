@@ -6,7 +6,7 @@ heroes["AdmiralRaddus"] = {
     name: "Admiral Raddus",
     tooltip: "A Mon Calamari Admiral who led the Rebel fleet at the Battle of Scarif, Raddus was a tactician and a fighter for what he believed was good for all people of the galaxy. He commanded a modified MC-75 Cruiser, the Profundity, and was known for his ability to inspire his troops to fight against tyranny.",
     image: "AdmiralRaddus.webp",
-    ships: ["MC75_REBEL", "MC90_REBEL"],
+    ships: ["MC75_REBEL"],
     modifications: function (ship) {
         ship.shield *= 1.3;
         ship.maxShield *= 1.3;
@@ -85,7 +85,7 @@ heroes["AdmiralAckbar"] = {
     name: "Admiral Ackbar",
     tooltip: "The Supreme Commander of the Rebel Alliance Fleet, Ackbar was a Mon Calamari Admiral who led the Rebel fleet at the Battle of Endor. He was known for his tactical genius and his ability to inspire his troops to fight against tyranny. He commanded a modified MC-80 Cruiser, the Home One, and was a key figure in the Alliance's victory at Endor.",
     image: "AdmiralAckbar.webp",
-    ships: ["MC80A_REBEL", "MC85_REBEL", "MC90_REBEL"],
+    ships: ["MC80A_REBEL"],
     modifications: function(ship) {
         ship.shield *= 2;
         ship.maxShield *= 2;
@@ -128,7 +128,7 @@ heroes["GarmBelIblis"] = {
     name: "Garm Bel Iblis",
     tooltip: "A Corellian Senator and leader of the Corellian Resistance, Garm Bel Iblis was a key figure in the early days of the Rebel Alliance. His tactical prowess and ability to work well with others made him a valuable asset to the Alliance, and later the New Republic. He commanded a modified Nebulon-B Escort Frigate, the Thunderstrike, and could draw a winning strategy from even the most dire of situations.",
     image: "GarmBelIblis.webp",
-    ships: ["NEBULONB_REBEL", "DREADNOUGHTHEAVYCRUISER_REBEL", "MC85_REBEL"],	
+    ships: ["DAUNTLESS_REBEL", "DREADNOUGHTHEAVYCRUISER_REBEL"],	
     modifications: function(ship) {
         ship.shield *= 3;
         ship.maxShield *= 3;
@@ -186,7 +186,7 @@ heroes["GeneralDodonna"] = {
     name: "General Dodonna",
     tooltip: "A defector from the Imperial Navy, General Dodonna was a great part of the Alliance intelligence network. His command was designated over a modified Starhawk-class Battleship, the Amity, and he was known for his ability to inspire his troops to fight against tyranny. He was a key figure in the Alliance's victory at Yavin.",
     image: "GeneralDodonna.webp",
-    ships: ["STARHAWK_REBEL", "MC80A_REBEL"],
+    ships: ["STARHAWK_REBEL"],
     modifications: function(ship) {
         ship.shield *= 1.6;
         ship.maxShield *= 1.6;
@@ -251,7 +251,7 @@ heroes["WedgeAntilles"] = {
     name: "Wedge Antilles",
     tooltip: "A Corellian pilot and leader of Rogue Squadron, Wedge Antilles was a key figure in the Alliance's victory at Endor. He was known for his ability to inspire his pilots to become the best fighter pilots in the galaxy, and his tactical prowess. He commanded a modified Executor-class Star Dreadnought, the Lusankya, and was a prominent figure in the New Republic's fight against the Empire.",
     image: "WedgeAntilles.webp",
-    ships: ["MC85_REBEL", "MC80BLIBERTY_REBEL"],
+    ships: ["MC80BLIBERTY_REBEL"],
     modifications: function(ship) {
         ship.shield *= 1.6;
         ship.maxShield *= 1.6;
@@ -272,15 +272,21 @@ heroes["HanAndChewie"] = {
     name: "Han and Chewie",
     tooltip: "A Corellian smuggler and his Wookiee co-pilot, Han Solo and Chewbacca were key figures in the Alliance's victory at Endor. They were known for their ability to inspire their troops to fight against tyranny, and their piloting skills.",
     image: "HanChewie.webp",
-    ships: ["FALCON_REBEL", "MC80B_REBEL"],
+    ships: ["FALCON_REBEL"],
     modifications: function(ship) {
         ship.shield *= 2;
         ship.maxShield *= 2;
+        ship.speed *= 1.15;
 
         ship.hardpoints.forEach(hp => {
             hp.health *= 2;
             hp.maxHealth *= 2;
-            hp.reload *= .75;
+            hp.reload *= .25;
+        });
+    },
+    onTick: function(ship) {
+        ship.hardpoints.forEach(hp => {
+            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .0001);
         });
     }
 };
@@ -289,7 +295,7 @@ heroes["JunSato"] = {
     name: "Commander Jun Sato",
     tooltip: "The compassionate rebel leader of the Phoenix Squadron, Sato was a well loved leader who commanded a modified Quasar-Class Fire Carrier the Phoenix Nest. He lost his life at the battle of Atollon when going up against Grand Admiral Thrawn, heroically sacrificing himself so the Rebellion would go on.",
     image: "CommanderSato.webp",
-    ships: ["QUASAR_REBEL", "MC50_REBEL", "MC80BLIBERTY_REBEL", "PELTA_REBEL"],
+    ships: ["QUASAR_REBEL", "DEFENDER_ASSAULT_CARRIER_REBEL"],
     modifications: function(ship) {
         ship.shield *= 4;
         ship.maxShield *= 4;
@@ -327,7 +333,7 @@ heroes["GeneralLeiaOrganaSolo"] = {
     name: "General Leia Organa Solo",
     tooltip: "The Princess of Alderaan and leader of the Resistance, Leia Organa Solo was a key figure in the Rebel Alliance's victory at Endor. She was known for her ability to inspire her troops to fight against tyranny, and her leadership skills. She commanded a modified MC-90 Cruiser, the Hope, and was a prominent figure in the New Republic's fight against the Empire.",
     image: "leia.png",
-    ships: ["MC85_REBEL", "MC80BLIBERTY_REBEL", "MC90_REBEL"],
+    ships: ["ASSAULT_FRIGATE_MK2_REBEL"],
     modifications: function(ship) {
         ship.shield *= 4;
         ship.maxShield *= 4;
@@ -372,7 +378,7 @@ heroes["AdmriralTallon"] = {
     name: "Admiral Adar Tallon",
     tooltip: "Adar Tallon made a name for himself during the Clone Wars due to his tactical exploits. He had a good moral compass and was a strong leader. He would go on to serve as a major tactician in the Rebel Alliance.",
     image: "AdarTallon.webp",
-    ships: ["MC90_REBEL", "BLUEDIVER_REBEL"],
+    ships: ["NEUTRON_STAR_REBEL"],
     modifications: function (ship) {
         ship.shield *= 1.3;
         ship.maxShield *= 1.3;
@@ -381,6 +387,9 @@ heroes["AdmriralTallon"] = {
         ship.hardpoints.forEach(hp => {
             hp.health *= 1.3;
             hp.maxHealth *= 1.3;
+            hp.reload *= .5;
+            hp.range *= 2;
+            hp.damage *= 1.2;
         });
     },
     onTick: function (ship) {

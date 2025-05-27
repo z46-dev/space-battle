@@ -1414,7 +1414,7 @@ function getRandomPointInEllipse(x, y, w, h, angle) {
     return { x: rotatedX, y: rotatedY };
 }
 
-const size = 24_000;
+const size = 10_000;
 const battle = new Battle(size, size, 2);
 
 function spawn(ship, team) {
@@ -1440,7 +1440,7 @@ function spawn(ship, team) {
     return newShip;
 }
 
-const spawnDistance = 4000;
+const spawnDistance = 7_000;
 
 function scatterFormation(ships, x, y, angle) {
     // Biggest ship to smallest ship
@@ -1455,17 +1455,20 @@ function scatterFormation(ships, x, y, angle) {
         };
 
         let valid = false,
-            radius = ships[i].size * 2.5,
+            radius = ships[i].size * 5,
             iterations = 0;
 
         if (i === 0) {
             radius = 0;
         }
 
-        while (!valid && iterations++ < 1000) {
+        while (!valid && iterations++ < 512) {
+            let a = Math.random() * Math.PI * 2,
+                r = radius * (Math.random() * .9 + .1);
+
             position = {
-                x: x + Math.random() * radius - radius / 2,
-                y: y + Math.random() * radius - radius / 2
+                x: x + Math.cos(a) * r,
+                y: y + Math.sin(a) * r
             };
 
             valid = true;
@@ -1473,8 +1476,9 @@ function scatterFormation(ships, x, y, angle) {
                 if (distance(position.x, position.y, positions[j].x, positions[j].y) < ships[i].size) {
                     valid = false;
                     if (iterations % 10 === 0) {
-                        radius += ships[i].size * .5;
+                        radius += ships[i].size * .1;
                     }
+
                     break;
                 }
             }

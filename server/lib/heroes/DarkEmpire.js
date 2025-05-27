@@ -112,7 +112,7 @@ heroes["NatasiDaala"] = {
     name: "Natasi Daala",
     tooltip: "Natasi Daala was the first female to ever reach the rank of Admiral in the Imperial Navy. She eventually was crowned Chief of State of the Galactic Alliance, far after the fall of the Empire. She was a brilliant tactician, and was known for her loyalty to allies.",
     image: "natasiDaala.png",
-    ships: ["IMPELLORFLEETCARRIER_DARKEMPIRE", "VENGEANCE_DARKEMPIRE"],
+    ships: ["IMPELLORFLEETCARRIER_DARKEMPIRE"],
     modifications: function (ship) {
         ship.shield *= 2;
         ship.maxShield *= 2;
@@ -164,17 +164,17 @@ heroes["YsanneIsard"] = {
     name: "Ysanne Isard",
     tooltip: "Ysanne Isard was a master of the art of war, and was known for her position as the Director of Imperial Intelligence.",
     image: "ysanneIsard.png",
-    ships: ["EXECUTORSUPERSTARDESTROYER_DARKEMPIRE"],
+    ships: ["INTERDICTORSTARDESTROYER_DARKEMPIRE"],
     modifications: function (ship) {
-        ship.shield *= 1.2;
-        ship.maxShield *= 1.2;
-        ship.shieldRegen *= 1.1;
-        ship.maxSpeed *= 1.15;
+        ship.shield *= 2;
+        ship.maxShield *= 2;
+        ship.shieldRegen *= 2;
 
         ship.hardpoints.forEach(hp => {
-            hp.health *= 1.1;
-            hp.maxHealth *= 1.1;
-            hp.range *= 1.2;
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+            hp.range *= 2;
+            hp.damage *= 1.5;
         });
     },
     onTick: function (ship) {
@@ -187,6 +187,8 @@ heroes["YsanneIsard"] = {
                 }
             });
         }
+
+        ship.repelMissiles();
     }
 };
 
@@ -194,7 +196,7 @@ heroes["Zsinj"] = {
     name: "Warlord Zsinj",
     tooltip: "Zsinj was a warlord of the Empire who commanded the Iron Fist, an exclusive dreadnought. He was the leader of the Zsinj Empire, a splinter faction of the Imperial Remnant.",
     image: "zsinj.png",
-    ships: ["ASSERTOR_DARKEMPIRE"],
+    ships: ["EXECUTORSUPERSTARDESTROYER_DARKEMPIRE"],
     modifications: function (ship) {
         ship.shield *= .8;
         ship.maxShield *= .8;

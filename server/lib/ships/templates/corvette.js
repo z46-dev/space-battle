@@ -184,7 +184,7 @@ templates.CR90 = function (options = {}) {
             ...hp,
             weapon: {
                 ...hp.weapon,
-                health: 380
+                health: 210
             }
         }))
     };
@@ -238,7 +238,7 @@ templates.CONSOLAR = function (options = {}) {
             ...hp,
             weapon: {
                 ...hp.weapon,
-                health: 230
+                health: 150
             }
         }))
     };
@@ -293,7 +293,7 @@ templates.DP20 = function (options = {}) {
             ...hp,
             weapon: {
                 ...hp.weapon,
-                health: 400
+                health: 140
             }
         }))
     };
@@ -396,5 +396,48 @@ templates.LUPUS_MISSILE_FRIGATE = function (options = {}) {
         }))
     };
 }
+
+templates.AGAVE_CORVETTE = function (options = {}) {
+    options.color ??= "RED";
+
+    return {
+        name: "Agave Corvette",
+        asset: "AGAVE_CORVETTE.png",
+        classification: shipTypes.Corvette,
+        population: 1,
+        size: 100,
+        cost: 100,
+        speed: 7,
+        turnSpeed: .01,
+        shield: 300,
+        shieldRegen: .3,
+        hardpoints: [{
+            x: -.4,
+            y: .4,
+            weapon: weapons[`${options.color}_RAPID_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            x: .4,
+            y: .4,
+            weapon: weapons[`${options.color}_RAPID_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            x: 0,
+            y: 0,
+            weapon: weapons[`${options.color}_ANTI_FIGHTER_LASER_CANNON`],
+            shotsAtOnce: 3,
+            shotDelay: 50
+        }].map(hp => ({
+            ...hp,
+            weapon: {
+                ...hp.weapon,
+                health: 195
+            }
+        }))
+    };
+}
+
 
 export default templates;

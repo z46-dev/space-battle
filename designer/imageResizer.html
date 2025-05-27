@@ -394,11 +394,9 @@
             ctx.drawImage(image, -image.width / 2, -image.height / 2, image.width, image.height);
 
             removeBackground(255, 0, 255, 128);
-            // secondRemoveBackground(255, 0, 255, 128);
-            fuzzBorders();
+            // secondRemoveBackground(255, 0, 255, 64);
             center();
-            // smoothlyScale(1.5);
-            
+            // fuzzBorders();
 
             document.body.appendChild(canvas);
         }

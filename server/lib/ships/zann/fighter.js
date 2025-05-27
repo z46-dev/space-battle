@@ -13,7 +13,7 @@ ships.STARVIPERATTACKCRAFT_ZANN = {
     speed: 18,
     turnSpeed: .02,
     shield: 50,
-    shieldRegen: .1,
+    shieldRegen: .01,
     hardpoints: [{
         x: 0,
         y: 0,
@@ -32,7 +32,7 @@ ships.AUZITUCKGUNSHIP_ZANN = {
     cost: 0,
     speed: 15,
     turnSpeed: .02,
-    shield: 60,
+    shield: 120,
     shieldRegen: .2,
     hardpoints: [{
         x: 0,

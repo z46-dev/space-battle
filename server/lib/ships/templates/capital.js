@@ -164,7 +164,8 @@ templates.ALLEGIANCE_BATTLECRUISER = function (options = {}) {
                 weapon: {
                     ...e.weapon,
                     health: e.weapon.health * 3.25 | 0,
-                    reload: e.weapon.reload * .8 | 0
+                    reload: e.weapon.reload * .6 | 0,
+                    range: e.weapon.range * 2 | 0
                 }
             }));
         })()
@@ -915,7 +916,7 @@ templates.IMPERIAL_CARGO_SHIP = function (options = {}) {
         asset: "IMPERIALCARGOSHIP.png",
         classification: shipTypes.Capital,
         population: 22,
-        size: 600,
+        size: 550,
         cost: 5000,
         speed: 2.5,
         turnSpeed: .01,
@@ -991,5 +992,228 @@ templates.IMPERIAL_CARGO_SHIP = function (options = {}) {
         }]
     };
 }
+
+templates.DEFENDER_ASSAULT_CARRIER = function (options = {}) {
+    options.color ??= "RED";
+
+    options.fighter = "XWING_REBEL";
+    options.interceptor = "AWING_REBEL";
+    options.bomber = "YWING_REBEL";
+
+    return {
+        name: "Defender Assault Carrier",
+        asset: "DEFENDER_ASSAULT_CARRIER.png",
+        classification: shipTypes.Capital,
+        population: 24,
+        size: 500,
+        cost: 7000,
+        speed: 3,
+        turnSpeed: .005,
+        shield: 6700,
+        shieldRegen: 6.7,
+        hardpoints: (function () {
+            const output = [];
+
+            const points = [{
+                x: -.092,
+                y: .794
+            }, {
+                x: -.120,
+                y: .669
+            }, {
+                x: -.147,
+                y: .549
+            }, {
+                x: -.266,
+                y: -.195
+            }, {
+                x: -.375,
+                y: -.198
+            }, {
+                x: -.190,
+                y: -.338
+            }, {
+                x: -.301,
+                y: -.759
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const selections = [
+                weapons[`${options.color}_DOUBLE_LASER_CANNON`], weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON`], weapons.DOUBLE_ION_CANNON_MEDIUM,
+                weapons[`${options.color}_RAPID_LASER_CANNON`], weapons[`${options.color}_ANTI_FIGHTER_LASER_CANNON`],
+                weapons[`${options.color}_DOUBLE_LASER_CANNON`], weapons.DOUBLE_ION_CANNON
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 75
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 4 | 0
+                }
+            }))
+        })(),
+        hangars: [{
+            x: -.5,
+            y: 0,
+            maxSquadrons: 1,
+            squadronSize: 4,
+            reserveSize: 2,
+            squadronKey: options.fighter
+        }, {
+            x: -.5,
+            y: 0,
+            maxSquadrons: 1,
+            squadronSize: 4,
+            reserveSize: 2,
+            squadronKey: options.interceptor
+        }, {
+            x: -.5,
+            y: 0,
+            maxSquadrons: 1,
+            squadronSize: 4,
+            reserveSize: 2,
+            squadronKey: options.bomber
+        }, {
+            x: .5,
+            y: 0,
+            maxSquadrons: 1,
+            squadronSize: 4,
+            reserveSize: 2,
+            squadronKey: options.fighter
+        }, {
+            x: .5,
+            y: 0,
+            maxSquadrons: 1,
+            squadronSize: 4,
+            reserveSize: 2,
+            squadronKey: options.interceptor
+        }, {
+            x: .5,
+            y: 0,
+            maxSquadrons: 1,
+            squadronSize: 4,
+            reserveSize: 2,
+            squadronKey: options.bomber
+        }]
+    };
+}
+
+templates.MAJESTIC_STAR_CRUISER = function (options = {}) {
+    options.color ??= "RED";
+
+    options.interceptor = "AWING_REBEL";
+
+    return {
+        name: "Majestic Star Cruiser",
+        asset: "MAJESTIC_CRUISER.png",
+        classification: shipTypes.Capital,
+        population: 24,
+        size: 500,
+        cost: 7000,
+        speed: 3,
+        turnSpeed: .005,
+        shield: 6700,
+        shieldRegen: 6.7,
+        hardpoints: (function () {
+            const output = [];
+
+            const points = [{
+                x: -.069,
+                y: .811
+            }, {
+                x: -.088,
+                y: .714
+            }, {
+                x: -.112,
+                y: .601
+            }, {
+                x: -.115,
+                y: .492
+            }, {
+                x: -.173,
+                y: .404
+            }, {
+                x: -.044,
+                y: .146
+            }, {
+                x: -.077,
+                y: -.296
+            }, {
+                x: -.097,
+                y: -.634
+            }, {
+                x: -.033,
+                y: -.642
+            }, {
+                x: -.586,
+                y: -.530
+            }, {
+                x: -.371,
+                y: -.583
+            }, {
+                x: -.242,
+                y: -.608
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const selections = [
+                weapons[`${options.color}_DOUBLE_LASER_CANNON`], weapons.DOUBLE_ION_CANNON_MEDIUM,
+                weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON`], weapons.DOUBLE_ION_CANNON_MEDIUM,
+                weapons.ASSAULT_CONCUSSION_MISSILE,
+                weapons[`${options.color}_DOUBLE_LASER_CANNON`], weapons.DOUBLE_ION_CANNON_MEDIUM,
+                weapons.DOUBLE_ION_CANNON_HEAVY,
+                weapons.ASSAULT_CONCUSSION_MISSILE, weapons.ASSAULT_CONCUSSION_MISSILE,
+                weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON`], weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON`]
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 150
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 2.8 | 0
+                }
+            }))
+        })(),
+        hangars: [{
+            x: -.5,
+            y: 0,
+            maxSquadrons: 1,
+            squadronSize: 12,
+            reserveSize: 2,
+            squadronKey: options.interceptor
+        }]
+    };
+}
+
 
 export default templates;

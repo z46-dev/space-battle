@@ -1,4 +1,5 @@
 import { initializeBattle } from "../../client/index.js";
+import { generateAsteroids } from "../client/lib/state.js";
 import { LoadedCampaign } from "./loader.js";
 
 export function lerp(a, b, t) {
@@ -46,6 +47,8 @@ const shared = {
         shared.state = STATE_BATTLE;
 
         setTimeout(() => shared.acceptingDeathClones = true, 5000);
+
+        generateAsteroids();
     },
 
     /**
@@ -59,6 +62,8 @@ const shared = {
         initializeBattle(attackingFaction, defendingFaction, attacking, designConfig, planetName);
 
         shared.state = STATE_BATTLE;
+
+        generateAsteroids();
     }
 };
 

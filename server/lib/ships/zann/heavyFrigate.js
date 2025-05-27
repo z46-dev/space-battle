@@ -131,7 +131,7 @@ ships.FREEVIRGILLIABUNKERBUSTER_ZANN = {
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 8,
+        squadronSize: 5,
         reserveSize: 2,
         squadronKey: "STARVIPERATTACKCRAFT_ZANN"
     }]

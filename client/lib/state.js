@@ -21,11 +21,12 @@ export const camera = {
 };
 
 export const world = {
-    width: 24_000,
-    height: 24_000,
+    width: 10_000,
+    height: 10_000,
     minimapData: [],
     starCounter: 0,
     starGrid: new SpatialHashGrid(),
+    asteroids: [],
     deathClones: [],
     text: [],
     commanders: [],
@@ -40,8 +41,8 @@ export const explosions = new Set();
 
 window.addEventListener("wheel", event => {
     camera.cZoom += event.deltaY / 3000;
-    camera.cZoom = Math.max(camera.cZoom, .01);
-    camera.cZoom = Math.min(camera.cZoom, 2.75);
+    camera.cZoom = Math.max(camera.cZoom, .1);
+    camera.cZoom = Math.min(camera.cZoom, 3);
     worker.postMessage([0, 0, 0, camera.cZoom]);
 });
 
@@ -603,6 +604,58 @@ worker.onmessage = event => {
     }
 }
 
+export async function generateAsteroids() {
+    world.asteroids = [];
+
+    const MAX_ASTEROID_ID = 7;
+    for (let i = 0, n = Math.random() * 33 | 0, k = 0; i < n && k++ < 512; i++) {
+        if (!placeAsteroid(-world.width * 5, -world.height * 5, world.width * 5, world.height * 5)) {
+            i--;
+        }
+    }
+
+    for (let i = 0, n = Math.random() * 3 | 0; i < n; i++) {
+        const clusterX = Math.random() * world.width * 2 - world.width;
+        const clusterY = Math.random() * world.height * 2 - world.height;
+        const clusterSize = 1000 + Math.random() * 2000 | 0;
+        const cluster = [];
+        for (let j = 0, m = (Math.random() * 32 | 0) + 4, k = 0; j < m && k++ < 512; j++) {
+            if (!placeAsteroid(clusterX - clusterSize, clusterY - clusterSize, clusterX + clusterSize, clusterY + clusterSize, 75, cluster)) {
+                j--;
+            }
+        }
+
+        if (cluster.length > 0) {
+            world.asteroids.push(...cluster);
+        }
+    }
+
+    function placeAsteroid(minX, minY, maxX, maxY, clusterBuffer = 250, collection = world.asteroids) {
+        const x = Math.random() * (maxX - minX) + minX;
+        const y = Math.random() * (maxY - minY) + minY;
+        const size = 200 + Math.random() * 800 | 0;
+
+        const closeBy = collection.filter(asteroid => {
+            return Math.hypot(asteroid.x - x, asteroid.y - y) < (size + asteroid.size) + clusterBuffer;
+        });
+
+        if (closeBy.length > 0) {
+            return false;
+        }
+
+        collection.push({
+            x: x | 0,
+            y: y | 0,
+            size: size | 0,
+            id: collection.length,
+            type: Math.floor(Math.random() * MAX_ASTEROID_ID),
+            angle: Math.random() * Math.PI * 2
+        });
+
+        return true;
+    }
+}
+
 export async function initWorld() {
     return await Promise.all([
         (async () => {
@@ -610,15 +663,18 @@ export async function initWorld() {
             return 1;
         })(),
         (async () => {
+            world.starCounter = 0;
+            world.starGrid = new SpatialHashGrid();
+
             while (true) {
                 let i = 0;
                 findPos: while (i < 96) {
-                    const x = Math.random() * world.width * 2 - world.width;
-                    const y = Math.random() * world.width * 2 - world.width;
+                    const x = Math.random() * world.width * 10 - world.width * 5;
+                    const y = Math.random() * world.width * 10 - world.width * 5;
 
                     const AABB = world.starGrid.getAABB({
-                        x: x,
-                        y: y,
+                        x: x | 0,
+                        y: y | 0,
                         size: 300 + Math.random() * 1000,
                         width: 1,
                         height: 1
@@ -635,8 +691,8 @@ export async function initWorld() {
                     }
 
                     world.starGrid.insert({
-                        x: x,
-                        y: y,
+                        x: x | 0,
+                        y: y | 0,
                         _AABB: AABB,
                         id: world.starCounter
                     });
@@ -646,7 +702,7 @@ export async function initWorld() {
                     break findPos;
                 }
 
-                if (i === 10) {
+                if (i > 10) {
                     break;
                 }
             }

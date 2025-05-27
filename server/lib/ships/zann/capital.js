@@ -157,14 +157,14 @@ ships.KELDABEBATTLESHIP_ZANN = {
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 8,
+        squadronSize: 4,
         reserveSize: 2,
         squadronKey: "STARVIPERATTACKCRAFT_ZANN"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 8,
+        squadronSize: 4,
         reserveSize: 2,
         squadronKey: "AUZITUCKGUNSHIP_ZANN"
     }]
@@ -231,14 +231,14 @@ ships.AGGRESSORSTARDESTROYER_ZANN = {
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 6,
+        squadronSize: 4,
         reserveSize: 2,
         squadronKey: "STARVIPERATTACKCRAFT_ZANN"
     }, {
         x: 0,
         y: 0,
         maxSquadrons: 1,
-        squadronSize: 6,
+        squadronSize: 4,
         reserveSize: 2,
         squadronKey: "AUZITUCKGUNSHIP_ZANN"
     }]
@@ -327,15 +327,15 @@ ships.VENATOR_ZANN = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 3,
-        squadronSize: 8,
+        maxSquadrons: 2,
+        squadronSize: 6,
         reserveSize: 6,
         squadronKey: "STARVIPERATTACKCRAFT_ZANN"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 2,
-        squadronSize: 8,
+        maxSquadrons: 1,
+        squadronSize: 6,
         reserveSize: 4,
         squadronKey: "AUZITUCKGUNSHIP_ZANN"
     }]
@@ -396,17 +396,17 @@ ships.PROVIDENCEDESTROYER_ZANN = {
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 1,
-        squadronSize: 6,
+        maxSquadrons: 2,
+        squadronSize: 3,
         reserveSize: 6,
-        squadronKey: "VULTUREDROID_CIS"
+        squadronKey: "STARVIPERATTACKCRAFT_ZANN"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 1,
-        squadronSize: 8,
+        maxSquadrons: 2,
+        squadronSize: 3,
         reserveSize: 4,
-        squadronKey: "HYENABOMBER_CIS"
+        squadronKey: "AUZITUCKGUNSHIP_ZANN"
     }]
 };
 

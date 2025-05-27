@@ -93,4 +93,6 @@ ships.FORRAYBLOCKADERUNNER_REBEL = {
     }]
 };
 
+ships.AGAVE_CORVETTE_REBEL = templates.corvette.AGAVE_CORVETTE();
+
 export default ships;

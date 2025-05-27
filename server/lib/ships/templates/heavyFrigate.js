@@ -1,4 +1,4 @@
-import { shipTypes } from "../../constants.js";
+import { shipTypes, weaponTypes } from "../../constants.js";
 import * as weapons from "../../weapons.js";
 
 const templates = {};
@@ -908,6 +908,196 @@ templates.SABOATH_DESTROYER = function (options = {}) {
             maxSquadrons: 1,
             squadronSize: 5,
             reserveSize: 2,
+            squadronKey: options.fighter
+        }]
+    };
+}
+
+templates.ASSAULT_FRIGATE_MK2 = function (options = {}) {
+    options.color ??= "RED";
+
+    options.fighter ??= "XWING_REBEL";
+
+    return {
+        name: "Assault Frigate Mk. II",
+        asset: "ASSAULT_FRIGATE_MK2.png",
+        classification: shipTypes.HeavyFrigate,
+        population: 16,
+        size: 400,
+        cost: 4000,
+        speed: 4,
+        turnSpeed: .02,
+        shield: 3000,
+        shieldRegen: 3,
+        hardpoints: (function () {
+            const points = [{
+                x: -.104,
+                y: .839
+            }, {
+                x: -.166,
+                y: .522
+            }, {
+                x: -.170,
+                y: -.022
+            }, {
+                x: -.278,
+                y: .281
+            }, {
+                x: -.352,
+                y: -.112
+            }, {
+                x: -.316,
+                y: -.444
+            }, {
+                x: -.571,
+                y: -.092
+            }, {
+                x: -.151,
+                y: -.378
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const selections = [
+                weapons[`${options.color}_DOUBLE_LASER_CANNON`], weapons[`${options.color}_DOUBLE_LASER_CANNON_HEAVY`],
+                weapons.DOUBLE_ION_CANNON, weapons.DOUBLE_ION_CANNON_HEAVY,
+                weapons.ASSAULT_CONCUSSION_MISSILE, weapons.ASSAULT_PROTON_TORPEDO
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: (() => {
+                        switch (selections[i % selections.length].type) {
+                            case weaponTypes.AssaultProtonTorpedo:
+                                return 8;
+                            case weaponTypes.ConcussionMissile:
+                                return 6;
+                        }
+
+                        return 2;
+                    })(),
+                    shotDelay: 225
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 3 | 0
+                }
+            }));
+        })(),
+        hangars: [{
+            x: 0,
+            y: 0,
+            maxSquadrons: 2,
+            squadronSize: 4,
+            reserveSize: 4,
+            squadronKey: options.fighter
+        }]
+    };
+}
+
+templates.DAUNTLESS_CRUISER = function (options = {}) {
+    options.color ??= "RED";
+
+    options.fighter ??= "AWING_REBEL";
+
+    return {
+        name: "Dauntless-class Heavy Cruiser",
+        asset: "DAUNTLESS.png",
+        classification: shipTypes.HeavyFrigate,
+        population: 20,
+        size: 550,
+        cost: 6000,
+        speed: 3,
+        turnSpeed: .01,
+        shield: 4000,
+        shieldRegen: 4,
+        hardpoints: (function () {
+            const points = [{
+                x: -.066,
+                y: .871
+            }, {
+                x: -.062,
+                y: .561
+            }, {
+                x: -.182,
+                y: .351
+            }, {
+                x: -.187,
+                y: .336
+            }, {
+                x: -.188,
+                y: .319
+            }, {
+                x: -.186,
+                y: .000
+            }, {
+                x: -.151,
+                y: -.410
+            }, {
+                x: -.092,
+                y: -.875
+            }, {
+                x: -.113,
+                y: -.235
+            }, {
+                x: -.044,
+                y: .021
+            }, {
+                x: -.047,
+                y: .121
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const selections = [
+                weapons[`${options.color}_QUAD_LASER_CANNON_HEAVY`], weapons[`${options.color}_QUAD_TURBOLASER_CANNON_HEAVY`],
+                weapons[`${options.color}_QUAD_LASER_CANNON_HEAVY`], weapons[`${options.color}_QUAD_TURBOLASER_CANNON_HEAVY`],
+                weapons.QUAD_ION_CANNON_MEDIUM, weapons.QUAD_ION_CANNON_HEAVY
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 200
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 3 | 0
+                }
+            }));
+        })(),
+        hangars: [{
+            x: 0,
+            y: 0,
+            maxSquadrons: 2,
+            squadronSize: 4,
+            reserveSize: 4,
             squadronKey: options.fighter
         }]
     };

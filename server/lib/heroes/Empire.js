@@ -6,7 +6,7 @@ heroes["AdmiralPellaeon"] = {
     name: "Admiral Gillad Pellaeon",
     tooltip: "Admiral Gillad Pellaeon is a veteran of the Clone Wars and the Galactic Civil War. He is a strong leader and served under Grand Admiral Thrawn, which aided him in his tactical growth. He eventually became the leader of the Imperial Remnant, and ended up signing the treaty that ended the Galactic Civil War.",
     image: "Pellaeon.png",
-    ships: ["EXECUTORSUPERSTARDESTROYER_EMPIRE", "IMPERIALSTARDESTROYER_EMPIRE"],
+    ships: ["IMPERIALSTARDESTROYER_EMPIRE", "GLADIATOR_EMPIRE"],
     modifications: function (ship) {
         ship.shield *= 1.5;
         ship.maxShield *= 1.5;
@@ -172,7 +172,7 @@ heroes["CapBrandei"] = {
     name: "Captain Brandei",
     tooltip: "Captain Brandei was a force-attuned Imperial officer who served under Grand Admiral Thrawn's command during the superior's campaign. He commands the Imperial Star Destroyer Judicator, and the Bellator-class Star Destroyer Dominion.",
     image: "Brandei.webp",
-    ships: ["BELLATORSUPERSTARDESTROYER_EMPIRE", "IMPERIALSTARDESTROYER_EMPIRE"],
+    ships: ["IMPERIALSTARDESTROYER_EMPIRE"],
     modifications: function (ship) {
         ship.shield *= 1.2;
         ship.maxShield *= 1.2;
@@ -196,46 +196,28 @@ heroes["AdmiralCorburn"] = {
     name: "Admiral Corburn",
     tooltip: "Admiral Corburn was a veteran of the Clone Wars and knew how to utilize smaller ship types to their fullest potential. He commanded a modified Imobilizer-418 cruiser, the Constrainer, and the Legator-class Star Dreadnought Intimidator.",
     image: "Corburn.png",
-    ships: ["IMOBILIZER_EMPIRE", "LEGATORSTARDREADNOUGHT_EMPIRE"],
+    ships: ["VINDICATOR_EMPIRE"],
     modifications: function (ship) {
-        switch (ship.key) {
-            case "IMOBILIZER_EMPIRE":
-                ship.shield *= 4;
-                ship.maxShield *= 4;
-                ship.shieldRegen *= 2;
-                ship.maxSpeed *= 1.25;
+        ship.shield *= 4;
+        ship.maxShield *= 4;
+        ship.shieldRegen *= 2;
+        ship.maxSpeed *= 1.25;
 
-                ship.hardpoints.forEach(hp => {
-                    hp.health *= 2;
-                    hp.maxHealth *= 2;
-                    hp.range *= 2;
-                    hp.damage *= 2;
-                    hp.range *= 2;
-                    hp.reload *= .667;
-                });
-                break;
-            case "LEGATORSTARDREADNOUGHT_EMPIRE":
-                ship.shield *= 1.2;
-                ship.maxShield *= 1.2;
-                ship.shieldRegen *= 1.1;
-                ship.maxSpeed *= 1.15;
-
-                ship.hardpoints.forEach(hp => {
-                    hp.health *= 1.1;
-                    hp.maxHealth *= 1.1;
-                    hp.range *= 1.2;
-                });
-                break;
-        }
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+            hp.range *= 2;
+            hp.damage *= 2;
+            hp.range *= 2;
+            hp.reload *= .667;
+        });
     },
     onTick: function (ship) {
         if (ship.shield > 0 && ship.shield < ship.maxShield) {
             ship.shield = Math.min(ship.maxShield, ship.shield + ship.maxShield * .00025);
         }
 
-        if (ship.key === "IMOBILIZER_EMPIRE") {
-            ship.repelMissiles();
-        }
+        ship.repelMissiles();
     }
 };
 
@@ -289,7 +271,7 @@ heroes["RaeSloane"] = {
     name: "Rae Sloane",
     tooltip: "Rae Sloane was a Grand Admiral of the Empire after the fall of the Empire. She lead the Imperial Remnant and lead the Empire to its defeat at the Battle of Jakku to support the birth of the First Order.",
     image: "RaeSloane.png",
-    ships: ["IMPERIALSTARDESTROYER_EMPIRE", "EXECUTORSUPERSTARDESTROYER_EMPIRE", "BELLATORSUPERSTARDESTROYER_EMPIRE", "LEGATORSTARDREADNOUGHT_EMPIRE", "VENGEANCE_EMPIRE", "ASSERTORSTARDREADNOUGHT_EMPIRE"],
+    ships: ["IMPERIALSTARDESTROYER_EMPIRE"],
     modifications: function (ship) {
         ship.shield *= 1.5;
         ship.maxShield *= 1.5;

@@ -17,12 +17,9 @@ ships.A9VIGILANCE_HUTT = {
     hardpoints: [{
         x: 0,
         y: 0,
-        weapon: {
-            ...weapons.PURPLE_LASER_CANNON,
-            health: weapons.PURPLE_LASER_CANNON.health * 5
-        },
-        shotsAtOnce: 2,
-        shotDelay: 80
+        weapon: weapons.PURPLE_RAPID_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 4,
+        shotDelay: 50
     }]
 };
 
@@ -33,31 +30,29 @@ ships.SKIPRAYBLASTBOAT_HUTT = {
     population: 0,
     size: 45,
     cost: 0,
-    speed: 15,
+    speed: 16,
     turnSpeed: .04,
-    shield: 200,
-    shieldRegen: 1,
+    shield: 150,
+    shieldRegen: .15,
     hardpoints: [{
         x: 0,
         y: 0,
+        weapon: weapons.PURPLE_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.FIGHTER_ION_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: 0,
         weapon: {
-            ...weapons.PURPLE_LASER_CANNON,
-            health: weapons.PURPLE_LASER_CANNON.health * 2
-        },
-        shotsAtOnce: 2,
-        shotDelay: 80
-    }, {
-        x: 0,
-        y: 0,
-        weapon: weapons.FIGHTER_PROTON_BOMB,
-        shotsAtOnce: 3,
-        shotDelay: 80
-    }, {
-        x: 0,
-        y: 0,
-        weapon: weapons.FIGHTER_PROTON_TORPEDO,
-        shotsAtOnce: 2,
-        shotDelay: 80
+            ...weapons.FIGHTER_PROTON_BOMB,
+            reload: weapons.FIGHTER_PROTON_BOMB.reload * .05
+        }
     }]
 };
 

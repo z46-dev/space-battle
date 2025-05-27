@@ -656,4 +656,152 @@ templates.MUNIFICENT = function (options = {}) {
     };
 }
 
+templates.LIBERATOR = function (options = {}) {
+    options.color ??= "RED";
+
+    return {
+        name: "Liberator-class Star Frigate",
+        asset: "LIBERATOR.png",
+        classification: shipTypes.Frigate,
+        population: 12,
+        size: 350,
+        cost: 2350,
+        speed: 4,
+        turnSpeed: .02,
+        shield: 2300,
+        shieldRegen: 2.3,
+        hardpoints: (function () {
+            const points = [{
+                x: -.289,
+                y: .842
+            }, {
+                x: -.367,
+                y: .277
+            }, {
+                x: -.500,
+                y: -.296
+            }, {
+                x: -.424,
+                y: -.689
+            }, {
+                x: -.305,
+                y: -.270
+            }, {
+                x: -.151,
+                y: -.793
+            }, {
+                x: -.159,
+                y: .160
+            }, {
+                x: -.075,
+                y: -.469
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const selections = [
+                weapons[options.color + "_LASER_CANNON"],
+                weapons.ION_CANNON
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 150
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 1.5 | 0
+                }
+            }));
+        })()
+    };
+}
+
+templates.NEUTRON_STAR = function (options = {}) {
+    options.color ??= "RED";
+
+    return {
+        name: "Neutron-Star Bulk Cruiser",
+        asset: "NEUTRON_STAR.png",
+        classification: shipTypes.Frigate,
+        population: 14,
+        size: 400,
+        cost: 3000,
+        speed: 2,
+        turnSpeed: .01,
+        shield: 3000,
+        shieldRegen: 3,
+        hardpoints: (function () {
+            const points = [{
+                x: -.120,
+                y: .942
+            }, {
+                x: -.163,
+                y: .671
+            }, {
+                x: -.147,
+                y: .554
+            }, {
+                x: -.117,
+                y: .300
+            }, {
+                x: -.157,
+                y: -.048
+            }, {
+                x: -.205,
+                y: -.502
+            }, {
+                x: -.252,
+                y: -.878
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const selections = [
+                weapons[options.color + "_DOUBLE_LASER_CANNON"],
+                weapons[options.color + "_RAPID_LASER_CANNON"],
+                weapons.DOUBLE_ION_CANNON
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 150
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 3 | 0
+                }
+            }));
+        })()
+    };
+}
+
 export default templates;
