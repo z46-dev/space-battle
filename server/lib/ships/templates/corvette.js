@@ -20,13 +20,55 @@ templates.RAIDER = function (options = {}) {
         hardpoints: [{
             x: -.15,
             y: .075,
-            weapon: weapons[`${options.color}_TURBOLASER_CANNON`],
+            weapon: weapons[`${options.color}_LASER_CANNON_HEAVY`],
             shotsAtOnce: 2,
             shotDelay: 50
         }, {
             x: .15,
             y: .075,
-            weapon: weapons[`${options.color}_TURBOLASER_CANNON`],
+            weapon: weapons[`${options.color}_LASER_CANNON_HEAVY`],
+            shotsAtOnce: 2,
+            shotDelay: 50
+        }, {
+            x: 0,
+            y: -.4,
+            weapon: weapons[`${options.color}_RAPID_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 50
+        }, {
+            x: 0,
+            y: .4,
+            weapon: weapons.DOUBLE_ION_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 50
+        }]
+    };
+}
+
+templates.RAIDER_II = function (options = {}) {
+    options.color ??= "GREEN";
+
+    return {
+        name: "Raider-II Corvette",
+        asset: "RAIDER_II.png",
+        classification: shipTypes.Corvette,
+        population: 1,
+        size: 85,
+        cost: 300,
+        speed: 10,
+        turnSpeed: .035,
+        shield: 475,
+        shieldRegen: .475,
+        hardpoints: [{
+            x: -.15,
+            y: .075,
+            weapon: weapons[`${options.color}_TURBOLASER_CANNON_HEAVY`],
+            shotsAtOnce: 2,
+            shotDelay: 50
+        }, {
+            x: .15,
+            y: .075,
+            weapon: weapons[`${options.color}_TURBOLASER_CANNON_HEAVY`],
             shotsAtOnce: 2,
             shotDelay: 50
         }, {
@@ -439,5 +481,167 @@ templates.AGAVE_CORVETTE = function (options = {}) {
     };
 }
 
+templates.BUCCANEER = function (options = {}) {
+    options.color ??= "RED";
+
+    const turbo = weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON`];
+
+    const turboWeapon = {
+        weapon: {
+            ...turbo,
+            speed: turbo.speed * 1.25,
+            damage: turbo.damage * 1.5,
+            range: turbo.range * 1.1
+        },
+        shotsAtOnce: 2,
+        shotDelay: 300
+    };
+
+    return {
+        name: "Buccaneer Corvette",
+        asset: "BUCCANEER.png",
+        classification: shipTypes.Corvette,
+        population: 1,
+        size: 100,
+        cost: 300,
+        speed: 12,
+        turnSpeed: .05,
+        shield: 520,
+        shieldRegen: .52,
+        hardpoints: [{
+            x: 0,
+            y: 0,
+            weapon: weapons[`${options.color}_DOUBLE_LASER_CANNON_HEAVY`],
+            shotsAtOnce: 2,
+            shotDelay: 80
+        }, {
+            x: 0,
+            y: 0,
+            ...turboWeapon
+        }, {
+            x: 0,
+            y: 0,
+            ...turboWeapon
+        }, {
+            x: 0,
+            y: 0,
+            ...turboWeapon
+        }].map(hp => ({
+            ...hp,
+            weapon: {
+                ...hp.weapon,
+                health: 220
+            }
+        }))
+    };
+}
+
+templates.CR92A = function (options = {}) {
+    options.color ??= "RED";
+
+    return {
+        name: "CR92a Corvette",
+        asset: "CR92A.png",
+        classification: shipTypes.Corvette,
+        population: 1,
+        size: 100,
+        cost: 300,
+        speed: 16,
+        turnSpeed: .05,
+        shield: 520,
+        shieldRegen: .52,
+        hardpoints: [{
+            x: 0,
+            y: 0,
+            weapon: weapons[`${options.color}_DOUBLE_LASER_CANNON_HEAVY`],
+            shotsAtOnce: 2,
+            shotDelay: 80
+        }, {
+            x: 0,
+            y: 0,
+            weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+            shotsAtOnce: 2,
+            shotDelay: 80
+        }, {
+            x: 0,
+            y: 0,
+            weapon: weapons[`${options.color}_DOUBLE_LASER_CANNON_HEAVY`],
+            shotsAtOnce: 2,
+            shotDelay: 80
+        }, {
+            x: 0,
+            y: 0,
+            weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+            shotsAtOnce: 2,
+            shotDelay: 80
+        }].map(hp => ({
+            ...hp,
+            weapon: {
+                ...hp.weapon,
+                health: 220
+            }
+        }))
+    };
+}
+
+templates.CUSTOMS_LIGHT_CORVETTE = function (options = {}) {
+    options.color ??= "GREEN";
+
+    return {
+        name: "Customs Light Corvette",
+        asset: "CUSTOMS_LIGHT_CORVETTE.png",
+        classification: shipTypes.Corvette,
+        population: 1,
+        size: 110,
+        cost: 150,
+        speed: 9,
+        turnSpeed: .03,
+        shield: 660,
+        shieldRegen: .66,
+        hardpoints: [{
+            x: 0,
+            y: 0,
+            weapon: weapons[`${options.color}_ANTI_FIGHTER_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 55
+        }, {
+            x: 0,
+            y: 0,
+            weapon: weapons[`${options.color}_ANTI_FIGHTER_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 55
+        }, {
+            x: 0,
+            y: 0,
+            weapon: weapons[`${options.color}_RAPID_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 55
+        }, {
+            x: 0,
+            y: 0,
+            weapon: weapons[`${options.color}_RAPID_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 55
+        }, {
+            x: 0,
+            y: 0,
+            weapon: weapons.DOUBLE_ION_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 55
+        }, {
+            x: 0,
+            y: 0,
+            weapon: weapons.DOUBLE_ION_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 55
+        }].map(hp => ({
+            ...hp,
+            weapon: {
+                ...hp.weapon,
+                health: 110
+            }
+        }))
+    };
+}
 
 export default templates;

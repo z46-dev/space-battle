@@ -714,18 +714,12 @@ ships.VESPER_REBEL = {
             weapon: {
                 ...e.weapon,
                 health: e.weapon.health * 2.34 | 0,
-                reload: e.weapon.reload * .75 | 0
+                reload: e.weapon.reload * .8 | 0,
+                damage: e.weapon.damage * .8 | 0
             }
         }));
     })(),
     hangars: [{
-        x: 0,
-        y: 0,
-        maxSquadrons: 2,
-        squadronSize: 3,
-        reserveSize: 4,
-        squadronKey: "AWING_REBEL"
-    }, {
         x: 0,
         y: 0,
         maxSquadrons: 2,

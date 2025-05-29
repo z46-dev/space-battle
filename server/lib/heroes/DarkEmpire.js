@@ -11,19 +11,13 @@ heroes["ArdusKaine"] = {
         ship.shield *= 1.5;
         ship.maxShield *= 1.5;
         ship.shieldRegen *= 1.5;
-        ship.maxSpeed *= 1.15;
-
-        ship.hardpoints.forEach(hp => {
-            hp.health *= 1.3;
-            hp.maxHealth *= 1.3;
-            hp.damage *= 1.3;
-            hp.range *= 1.3;
-            hp.reload *= .85;
-        });
+        ship.maxSpeed *= 2;
     },
     onTick: function (ship) {
         ship.hardpoints.forEach(hp => {
-            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00025);
+            if (hp.health > 0) {
+                hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00025);
+            }
         });
     }
 };
@@ -198,15 +192,12 @@ heroes["Zsinj"] = {
     image: "zsinj.png",
     ships: ["EXECUTORSUPERSTARDESTROYER_DARKEMPIRE"],
     modifications: function (ship) {
-        ship.shield *= .8;
-        ship.maxShield *= .8;
+        ship.shield *= 1.5;
+        ship.maxShield *= 1.5;
 
         ship.hardpoints.forEach(hp => {
-            hp.health *= 2;
-            hp.maxHealth *= 2;
-            hp.range *= 2;
-            hp.speed *= 1.15;
-            hp.reload *= .95;
+            hp.health *= 1.5;
+            hp.maxHealth *= 1.5;
         });
     },
     onTick: function (ship) {
@@ -229,19 +220,19 @@ heroes["Zsinj"] = {
                 ship.zsinjBurst.ticker = 0;
 
                 ship.hardpoints.forEach(hp => {
-                    hp.reload /= .25;
+                    hp.reload /= .6;
                     hp.tick = .5 * hp.reload * Math.random();
                 });
             }
         } else {
             ship.zsinjBurst.ticker++;
 
-            if (ship.zsinjBurst.ticker >= 1500) {
+            if (ship.zsinjBurst.ticker >= 3000) {
                 ship.zsinjBurst.active = true;
-                ship.zsinjBurst.ticker = 500;
+                ship.zsinjBurst.ticker = 250;
 
                 ship.hardpoints.forEach(hp => {
-                    hp.reload *= .25;
+                    hp.reload *= .6;
                     hp.tick = hp.reload * Math.random();
                 });
             }

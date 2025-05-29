@@ -1,0 +1,6623 @@
+[
+    {
+        "name": "Aargau",
+        "x": 120,
+        "y": -42,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Aargonar",
+        "x": 952,
+        "y": 425,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Abeloth World",
+        "x": 1310,
+        "y": 25,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Forest",
+        "income": 0,
+        "pass": true
+    },
+    {
+        "name": "Abhean",
+        "x": 1018,
+        "y": 414,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Abregado Rae",
+        "x": -23,
+        "y": -408,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Abridon",
+        "x": -250,
+        "y": -1159,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Adumar",
+        "x": -339,
+        "y": 591,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Aeten",
+        "x": -297,
+        "y": 647,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Volcanic",
+        "income": 50
+    },
+    {
+        "name": "Agamar",
+        "x": 253,
+        "y": 701,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Agomar",
+        "x": 221,
+        "y": -1066,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Aguarl",
+        "x": 453,
+        "y": -679,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Ahch To",
+        "x": -951,
+        "y": -480,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Ailon",
+        "x": 438,
+        "y": -340,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Ajan Kloss",
+        "x": 108,
+        "y": 678,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Forest",
+        "income": 50
+    },
+    {
+        "name": "Akuria",
+        "x": 234,
+        "y": 813,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 150
+    },
+    {
+        "name": "Alagon",
+        "x": 798,
+        "y": 405,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Alaris",
+        "x": 730,
+        "y": 33,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 50
+    },
+    {
+        "name": "Alashan",
+        "x": -256,
+        "y": 705,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Alderaan",
+        "x": 236,
+        "y": -14,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Alderaan Graveyard",
+        "x": 236,
+        "y": -14,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 0,
+        "pass": true
+    },
+    {
+        "name": "Allyuen",
+        "x": -95,
+        "y": -1095,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Arctic",
+        "income": 50
+    },
+    {
+        "name": "Almania",
+        "x": 1187,
+        "y": 823,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Arctic",
+        "income": 100
+    },
+    {
+        "name": "Alsakan",
+        "x": 43,
+        "y": 73,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 500
+    },
+    {
+        "name": "Althir",
+        "x": 908,
+        "y": 475,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Alzoc",
+        "x": 770,
+        "y": -1245,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Arctic",
+        "income": 250
+    },
+    {
+        "name": "Ambria",
+        "x": 581,
+        "y": -25,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Anaxes",
+        "x": 81,
+        "y": 156,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 250
+    },
+    {
+        "name": "Ando",
+        "x": 820,
+        "y": -815,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Swamp",
+        "income": 100
+    },
+    {
+        "name": "Ando Prime",
+        "x": 874,
+        "y": -783,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Arctic",
+        "income": 100
+    },
+    {
+        "name": "Annaj",
+        "x": -565,
+        "y": -947,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 250
+    },
+    {
+        "name": "Anoat",
+        "x": -210,
+        "y": -1106,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 50
+    },
+    {
+        "name": "Ansion",
+        "x": -359,
+        "y": 506,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Antemeridias",
+        "x": 1068,
+        "y": 500,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Anx Minor",
+        "x": 62,
+        "y": 899,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 50
+    },
+    {
+        "name": "Ardis",
+        "x": -690,
+        "y": 975,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Arized",
+        "x": 1999,
+        "y": 1999,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 100,
+        "pass": true
+    },
+    {
+        "name": "Arkania",
+        "x": 163,
+        "y": 179,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Arctic",
+        "income": 250
+    },
+    {
+        "name": "Aruza",
+        "x": -388,
+        "y": -625,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Atchorb",
+        "x": 1265,
+        "y": 1055,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Arctic",
+        "income": 200
+    },
+    {
+        "name": "Athiss",
+        "x": 1024,
+        "y": 955,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Atravis",
+        "x": 132,
+        "y": -1248,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Attahox",
+        "x": 790,
+        "y": -277,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Aturi",
+        "x": 675,
+        "y": -1025,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Atzerri",
+        "x": 324,
+        "y": -512,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 300
+    },
+    {
+        "name": "AX456",
+        "x": 320,
+        "y": 75,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Axxila",
+        "x": 526,
+        "y": 703,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Azure",
+        "x": 748,
+        "y": 297,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Bajic",
+        "x": 717,
+        "y": -1069,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Bakura",
+        "x": -746,
+        "y": -881,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Balamak",
+        "x": 933,
+        "y": 84,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Balmorra",
+        "x": 380,
+        "y": -63,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Bandomeer",
+        "x": 536,
+        "y": 541,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Bannistar",
+        "x": 682,
+        "y": -760,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Barab",
+        "x": 1494,
+        "y": -381,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Swamp",
+        "income": 300
+    },
+    {
+        "name": "Bardram Scoft",
+        "x": -1090,
+        "y": -5,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Barkhesh",
+        "x": -100,
+        "y": -1291,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Barlok",
+        "x": 69,
+        "y": 231,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 200
+    },
+    {
+        "name": "Basilisk",
+        "x": 144,
+        "y": -2,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 400
+    },
+    {
+        "name": "Bassadro",
+        "x": 116,
+        "y": -485,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Volcanic",
+        "income": 250
+    },
+    {
+        "name": "Bastion",
+        "x": -163,
+        "y": 1071,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Batuu",
+        "x": -691,
+        "y": -728,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Bazaar",
+        "x": 95,
+        "y": 555,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 100
+    },
+    {
+        "name": "Begeren",
+        "x": 1030,
+        "y": 839,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Belderone",
+        "x": 1153,
+        "y": 500,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Belgaroth",
+        "x": -135,
+        "y": -432,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Volcanic",
+        "income": 200
+    },
+    {
+        "name": "Belkadan",
+        "x": 116,
+        "y": 1218,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Swamp",
+        "income": 0
+    },
+    {
+        "name": "Belsavis",
+        "x": 70,
+        "y": -1076,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Arctic",
+        "income": 150
+    },
+    {
+        "name": "Belsmuth",
+        "x": 590,
+        "y": 545,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Berrols Donn",
+        "x": -148,
+        "y": -1234,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Volcanic",
+        "income": 50
+    },
+    {
+        "name": "Bescane",
+        "x": -212,
+        "y": 1010,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Bespin",
+        "x": -173,
+        "y": -1070,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Bestine",
+        "x": 187,
+        "y": -534,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "Bilbringi",
+        "x": -218,
+        "y": 278,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Bimmiel",
+        "x": 395,
+        "y": 933,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Bimmisaari",
+        "x": 1124,
+        "y": 154,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 200
+    },
+    {
+        "name": "Bknos",
+        "x": -870,
+        "y": -825,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Black Bantha Nebula",
+        "x": -240,
+        "y": 325,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Bogo Rai",
+        "x": -1133,
+        "y": 182,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Bomis Koori",
+        "x": -116,
+        "y": -904,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 250
+    },
+    {
+        "name": "Bompreil",
+        "x": 750,
+        "y": 495,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 150
+    },
+    {
+        "name": "Bonadan",
+        "x": 1324,
+        "y": 998,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Boonta",
+        "x": 1264,
+        "y": 259,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 300
+    },
+    {
+        "name": "Borleias",
+        "x": -84,
+        "y": 137,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Bormter",
+        "x": -644,
+        "y": -618,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Bormus",
+        "x": 330,
+        "y": -825,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Borosk",
+        "x": -172,
+        "y": 740,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 250
+    },
+    {
+        "name": "Botajef",
+        "x": 639,
+        "y": 590,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Bothawui",
+        "x": 1032,
+        "y": -564,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Boz Pity",
+        "x": 1166,
+        "y": 112,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Bpfassh",
+        "x": 211,
+        "y": -1221,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Brentaal",
+        "x": 143,
+        "y": 106,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Bresnia",
+        "x": 923,
+        "y": -530,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Brigia",
+        "x": 1281,
+        "y": 575,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Burnin Konn",
+        "x": -133,
+        "y": -1123,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Volcanic",
+        "income": 0
+    },
+    {
+        "name": "Byblos",
+        "x": 328,
+        "y": -368,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 500
+    },
+    {
+        "name": "Byss",
+        "x": -81,
+        "y": -229,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Caamas",
+        "x": 185,
+        "y": 61,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Swamp",
+        "income": 400
+    },
+    {
+        "name": "Cal Seti",
+        "x": -138,
+        "y": -31,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Calonica",
+        "x": -29,
+        "y": -861,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Cantonica",
+        "x": 1121,
+        "y": 972,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 400
+    },
+    {
+        "name": "Carida",
+        "x": 283,
+        "y": 111,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Carosi",
+        "x": 779,
+        "y": 918,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Arctic",
+        "income": 150
+    },
+    {
+        "name": "Carrivar",
+        "x": -500,
+        "y": 65,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Casfield",
+        "x": 868,
+        "y": 378,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Castell",
+        "x": 243,
+        "y": 146,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "Cathar",
+        "x": 480,
+        "y": 627,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Catlia",
+        "x": -750,
+        "y": 240,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 150
+    },
+    {
+        "name": "Cato Neimoidia",
+        "x": 358,
+        "y": -166,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Cattamascar",
+        "x": -820,
+        "y": -895,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Cauldron Nebula",
+        "x": 680,
+        "y": 935,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Cejansij",
+        "x": 1090,
+        "y": 45,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Celanon",
+        "x": 617,
+        "y": 650,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Celwis",
+        "x": -798,
+        "y": 189,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Urban",
+        "income": 150
+    },
+    {
+        "name": "Centares",
+        "x": 1058,
+        "y": 449,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Cerea",
+        "x": -419,
+        "y": -872,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Chalcedon",
+        "x": -368,
+        "y": -838,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Volcanic",
+        "income": 100
+    },
+    {
+        "name": "Champala",
+        "x": 132,
+        "y": 225,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Chandrila",
+        "x": 93,
+        "y": 48,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Chardaan",
+        "x": 397,
+        "y": -518,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Charros",
+        "x": 1018,
+        "y": 132,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 300
+    },
+    {
+        "name": "Charubah",
+        "x": 510,
+        "y": 128,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Chasin",
+        "x": 204,
+        "y": -328,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Chazwa",
+        "x": 351,
+        "y": 188,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 300
+    },
+    {
+        "name": "Chorax",
+        "x": 386,
+        "y": -120,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 400
+    },
+    {
+        "name": "Christophsis",
+        "x": 958,
+        "y": -888,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Chrondre",
+        "x": 1010,
+        "y": -755,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Arctic",
+        "income": 0
+    },
+    {
+        "name": "Circumtore",
+        "x": 1173,
+        "y": -311,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Ciutric",
+        "x": 426,
+        "y": 791,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Clakdor",
+        "x": 272,
+        "y": -1156,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 300
+    },
+    {
+        "name": "Codian Moon",
+        "x": -583,
+        "y": -680,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Colla",
+        "x": 410,
+        "y": 167,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 250
+    },
+    {
+        "name": "Columex",
+        "x": 1119,
+        "y": 550,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Columus",
+        "x": 232,
+        "y": -158,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Swamp",
+        "income": 250
+    },
+    {
+        "name": "Comkin",
+        "x": 362,
+        "y": 370,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Commenor",
+        "x": 453,
+        "y": -117,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Comra",
+        "x": -202,
+        "y": 682,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Swamp",
+        "income": 200
+    },
+    {
+        "name": "Concord Dawn",
+        "x": 606,
+        "y": 411,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Contruum",
+        "x": 664,
+        "y": 242,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Copero",
+        "x": -968,
+        "y": 167,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Arctic",
+        "income": 200
+    },
+    {
+        "name": "Cophrigin",
+        "x": 1376,
+        "y": 455,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Forest",
+        "income": 50
+    },
+    {
+        "name": "Corellia",
+        "x": 273,
+        "y": -234,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Cormit",
+        "x": -854,
+        "y": 197,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "Corsin",
+        "x": 314,
+        "y": 397,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Corthenia",
+        "x": -79,
+        "y": 505,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Corulag",
+        "x": 95,
+        "y": 103,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Coruscant",
+        "x": 0,
+        "y": 0,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 500
+    },
+    {
+        "name": "Corvis Minor",
+        "x": 366,
+        "y": 821,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Crait",
+        "x": 450,
+        "y": -979,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Crakull",
+        "x": -812,
+        "y": -74,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Cron Drift",
+        "x": 1209,
+        "y": 476,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Crustai",
+        "x": -660,
+        "y": 220,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Csaus",
+        "x": -1024,
+        "y": 160,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 200
+    },
+    {
+        "name": "Csilla",
+        "x": -1003,
+        "y": 214,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Arctic",
+        "income": 300
+    },
+    {
+        "name": "Cularin",
+        "x": 684,
+        "y": -588,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Da Soocha",
+        "x": 1304,
+        "y": -176,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 150
+    },
+    {
+        "name": "Daalang",
+        "x": 942,
+        "y": -348,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Arctic",
+        "income": 250
+    },
+    {
+        "name": "Dagary Minor",
+        "x": 316,
+        "y": 313,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 150
+    },
+    {
+        "name": "Dagobah",
+        "x": 284,
+        "y": -1265,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Swamp",
+        "income": 0
+    },
+    {
+        "name": "Dalicron",
+        "x": -45,
+        "y": -1165,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Dalron",
+        "x": -272,
+        "y": 557,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 100
+    },
+    {
+        "name": "Daluuj",
+        "x": 1540,
+        "y": -405,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Swamp",
+        "income": 50
+    },
+    {
+        "name": "Dantooine",
+        "x": 16,
+        "y": 928,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Danuta",
+        "x": 1171,
+        "y": 166,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Darkon",
+        "x": -250,
+        "y": 385,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Datar",
+        "x": 125,
+        "y": 280,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Forest",
+        "income": 20
+    },
+    {
+        "name": "Dathomir",
+        "x": 528,
+        "y": 607,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Forest",
+        "income": 50
+    },
+    {
+        "name": "Deko Neimoidia",
+        "x": 470,
+        "y": -183,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 150
+    },
+    {
+        "name": "Delacrix",
+        "x": 1409,
+        "y": 155,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Arctic",
+        "income": 300
+    },
+    {
+        "name": "Dellalt",
+        "x": 1368,
+        "y": 538,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Denon",
+        "x": 387,
+        "y": -407,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 500
+    },
+    {
+        "name": "Dentaal",
+        "x": -83,
+        "y": -440,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 20
+    },
+    {
+        "name": "Derra",
+        "x": 350,
+        "y": -678,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 150
+    },
+    {
+        "name": "Desevro",
+        "x": 1211,
+        "y": 666,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Despayre",
+        "x": 111,
+        "y": 782,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Devaron",
+        "x": 251,
+        "y": -483,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Dioya",
+        "x": -820,
+        "y": 375,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Dkee",
+        "x": -1070,
+        "y": -725,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 200
+    },
+    {
+        "name": "Dolla",
+        "x": 45,
+        "y": -1136,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Dolomar",
+        "x": -17,
+        "y": 155,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 300
+    },
+    {
+        "name": "Doniphon",
+        "x": 897,
+        "y": 962,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Doornik",
+        "x": -224,
+        "y": -25,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "DQar",
+        "x": 567,
+        "y": -1033,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 0
+    },
+    {
+        "name": "Dravian Starport",
+        "x": 403,
+        "y": -1235,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Dressel",
+        "x": 962,
+        "y": -488,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Dromund",
+        "x": 1073,
+        "y": 806,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Swamp",
+        "income": 50
+    },
+    {
+        "name": "Druckenwell",
+        "x": 729,
+        "y": -698,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Dubrillion",
+        "x": -71,
+        "y": 1036,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Durace",
+        "x": -540,
+        "y": 645,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Duro",
+        "x": 252,
+        "y": -295,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 400
+    },
+    {
+        "name": "Durren",
+        "x": 1064,
+        "y": 547,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Dxun",
+        "x": 620,
+        "y": 14,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 50
+    },
+    {
+        "name": "Eadu",
+        "x": 1511,
+        "y": -54,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Ebaq",
+        "x": 148,
+        "y": -156,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Eiattu",
+        "x": 160,
+        "y": -992,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 200
+    },
+    {
+        "name": "Ejolus",
+        "x": 266,
+        "y": 322,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 20
+    },
+    {
+        "name": "Elom",
+        "x": 1048,
+        "y": 705,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Elrood",
+        "x": 270,
+        "y": -1387,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Emberlene",
+        "x": 771,
+        "y": -327,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Emmer",
+        "x": 1243,
+        "y": 825,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Urban",
+        "income": 250
+    },
+    {
+        "name": "Empress Teta",
+        "x": 27,
+        "y": -95,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Enarc",
+        "x": 572,
+        "y": -941,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Endor",
+        "x": -587,
+        "y": -897,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 200
+    },
+    {
+        "name": "Entralla",
+        "x": -169,
+        "y": 866,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "EolSha",
+        "x": 687,
+        "y": 1008,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Volcanic",
+        "income": 0
+    },
+    {
+        "name": "Eredenn",
+        "x": 1325,
+        "y": 606,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Arctic",
+        "income": 0
+    },
+    {
+        "name": "Eres",
+        "x": 790,
+        "y": 460,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 200
+    },
+    {
+        "name": "Eriadu",
+        "x": 269,
+        "y": -1093,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Esfandia",
+        "x": -482,
+        "y": 590,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Essien",
+        "x": 150,
+        "y": 595,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Swamp",
+        "income": 100
+    },
+    {
+        "name": "Ession",
+        "x": 1209,
+        "y": 944,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Etti",
+        "x": 1259,
+        "y": 993,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 400
+    },
+    {
+        "name": "Euceron",
+        "x": 1026,
+        "y": 359,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Exegol",
+        "x": -1011,
+        "y": 402,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Exocron",
+        "x": 340,
+        "y": -1425,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Exodeen",
+        "x": 370,
+        "y": -293,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Exodo",
+        "x": 1025,
+        "y": 630,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Volcanic",
+        "income": 100
+    },
+    {
+        "name": "Explume Minor",
+        "x": -870,
+        "y": -145,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Falleen",
+        "x": 795,
+        "y": -726,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Faras Belt",
+        "x": 890,
+        "y": 635,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Farrfin",
+        "x": -27,
+        "y": 100,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Felucia",
+        "x": 1127,
+        "y": 675,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 150
+    },
+    {
+        "name": "Fenel",
+        "x": 670,
+        "y": 465,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Feriae Junction",
+        "x": 642,
+        "y": 709,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Forest",
+        "income": 150
+    },
+    {
+        "name": "Feswe Prime",
+        "x": 688,
+        "y": 677,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Filve",
+        "x": 1040,
+        "y": -705,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 300
+    },
+    {
+        "name": "Flashpoint",
+        "x": 500,
+        "y": 445,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Florn",
+        "x": 1342,
+        "y": 734,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Florrum",
+        "x": 1094,
+        "y": 733,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Foerost",
+        "x": -10,
+        "y": -55,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 500
+    },
+    {
+        "name": "Foless",
+        "x": 195,
+        "y": -475,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 400
+    },
+    {
+        "name": "Fondor",
+        "x": 56,
+        "y": -478,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Formos",
+        "x": 1476,
+        "y": -19,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Fresia",
+        "x": -113,
+        "y": 15,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Swamp",
+        "income": 150
+    },
+    {
+        "name": "Frunchettan",
+        "x": -420,
+        "y": 580,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Swamp",
+        "income": 50
+    },
+    {
+        "name": "Fwsen",
+        "x": -990,
+        "y": -790,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Gabredor",
+        "x": -90,
+        "y": 944,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 150
+    },
+    {
+        "name": "Galantos",
+        "x": -172,
+        "y": -60,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Galidraan",
+        "x": 1130,
+        "y": 602,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Arctic",
+        "income": 200
+    },
+    {
+        "name": "Gallinore",
+        "x": 541,
+        "y": 175,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Gamorr",
+        "x": 1397,
+        "y": -562,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Ganath",
+        "x": 1107,
+        "y": -279,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "Gannaria",
+        "x": -641,
+        "y": -728,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Garos",
+        "x": 746,
+        "y": 413,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Garqi",
+        "x": -81,
+        "y": 744,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Gavryn",
+        "x": 804,
+        "y": 247,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Volcanic",
+        "income": 250
+    },
+    {
+        "name": "Gelgelar",
+        "x": 210,
+        "y": -1315,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Swamp",
+        "income": 50
+    },
+    {
+        "name": "Gendrah Narvin",
+        "x": 444,
+        "y": -390,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Generis",
+        "x": 156,
+        "y": 753,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 50
+    },
+    {
+        "name": "Genon",
+        "x": 422,
+        "y": -465,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Geonosis",
+        "x": 1069,
+        "y": -944,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Desert",
+        "income": 500
+    },
+    {
+        "name": "Geroon",
+        "x": -512,
+        "y": 256,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Gerrard",
+        "x": -72,
+        "y": -380,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 20
+    },
+    {
+        "name": "Gestrex",
+        "x": 1424,
+        "y": 100,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Swamp",
+        "income": 100
+    },
+    {
+        "name": "Gestron",
+        "x": 898,
+        "y": 428,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Ghorman",
+        "x": 49,
+        "y": -576,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 300
+    },
+    {
+        "name": "Gizer",
+        "x": 679,
+        "y": 192,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 400
+    },
+    {
+        "name": "Glee Anselm",
+        "x": -316,
+        "y": 405,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Glom Tho",
+        "x": 618,
+        "y": -749,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Glova",
+        "x": 280,
+        "y": -1325,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Gobindi",
+        "x": 250,
+        "y": 545,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 150
+    },
+    {
+        "name": "Gravan",
+        "x": 570,
+        "y": 308,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Volcanic",
+        "income": 250
+    },
+    {
+        "name": "Gravlex Med",
+        "x": 126,
+        "y": 932,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Gree",
+        "x": 24,
+        "y": 1074,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 150
+    },
+    {
+        "name": "Grho",
+        "x": -900,
+        "y": -945,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Gymelo",
+        "x": -720,
+        "y": -955,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Arctic",
+        "income": 100
+    },
+    {
+        "name": "Gyndine",
+        "x": 526,
+        "y": -284,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Forest",
+        "income": 300
+    },
+    {
+        "name": "Had Abbadon",
+        "x": 106,
+        "y": -161,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Hakassi",
+        "x": 169,
+        "y": -200,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Halanit",
+        "x": 470,
+        "y": -265,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Arctic",
+        "income": 50
+    },
+    {
+        "name": "Halmad",
+        "x": 488,
+        "y": 560,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Halthor",
+        "x": 55,
+        "y": 595,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Handooine",
+        "x": 1218,
+        "y": 421,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "Hapes",
+        "x": 588,
+        "y": 102,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Haruun Kal",
+        "x": 308,
+        "y": -929,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Hast",
+        "x": 1530,
+        "y": 636,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Helska",
+        "x": 97,
+        "y": 1090,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Arctic",
+        "income": 0
+    },
+    {
+        "name": "Herdessa",
+        "x": 897,
+        "y": -836,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Hewett",
+        "x": 276,
+        "y": 499,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Hijarna",
+        "x": 296,
+        "y": 185,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Hollastin",
+        "x": 1256,
+        "y": -345,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 250
+    },
+    {
+        "name": "Honoghr",
+        "x": 1400,
+        "y": -25,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Hosnian Prime",
+        "x": 259,
+        "y": -386,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 500
+    },
+    {
+        "name": "Hoth",
+        "x": -172,
+        "y": -1135,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Arctic",
+        "income": 0
+    },
+    {
+        "name": "Hoxim",
+        "x": -780,
+        "y": 55,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Forest",
+        "income": 50
+    },
+    {
+        "name": "Huk",
+        "x": -345,
+        "y": 931,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Forest",
+        "income": 50
+    },
+    {
+        "name": "Humbarine",
+        "x": 322,
+        "y": -118,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 250
+    },
+    {
+        "name": "Hypori",
+        "x": 1199,
+        "y": -846,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Iego",
+        "x": 1368,
+        "y": 402,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Ilum",
+        "x": -703,
+        "y": 416,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Arctic",
+        "income": 0
+    },
+    {
+        "name": "Iokath",
+        "x": 1999,
+        "y": 1999,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 100,
+        "pass": true
+    },
+    {
+        "name": "Iol",
+        "x": -480,
+        "y": -55,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Iphigin",
+        "x": 88,
+        "y": -423,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Iridonia",
+        "x": -208,
+        "y": 495,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 400
+    },
+    {
+        "name": "Iskadrell",
+        "x": -570,
+        "y": -515,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Ithor",
+        "x": 196,
+        "y": 540,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Forest",
+        "income": 300
+    },
+    {
+        "name": "Ixtlar",
+        "x": 75,
+        "y": 9,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 500
+    },
+    {
+        "name": "Jabiim",
+        "x": 1249,
+        "y": 377,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 250
+    },
+    {
+        "name": "Jaemus",
+        "x": -159,
+        "y": 975,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Jagas Cluster",
+        "x": 940,
+        "y": 725,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Jakku",
+        "x": -474,
+        "y": -408,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Jaminere",
+        "x": 1264,
+        "y": 623,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Jardeen",
+        "x": -102,
+        "y": -746,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 50
+    },
+    {
+        "name": "Jazbina",
+        "x": 265,
+        "y": 375,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Jebble",
+        "x": 390,
+        "y": 485,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 100
+    },
+    {
+        "name": "Jedha",
+        "x": -574,
+        "y": 5,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Jestan",
+        "x": 212,
+        "y": 352,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Arctic",
+        "income": 150
+    },
+    {
+        "name": "Jomark",
+        "x": 1109,
+        "y": 461,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Jtptan",
+        "x": -216,
+        "y": -80,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Kaal",
+        "x": -137,
+        "y": -977,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Kabal",
+        "x": 397,
+        "y": -1122,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Kafrene",
+        "x": 90,
+        "y": -725,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Kaikielius",
+        "x": 53,
+        "y": -39,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Kalaan",
+        "x": -335,
+        "y": 460,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Kalarba",
+        "x": 626,
+        "y": -675,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Kalee",
+        "x": -289,
+        "y": 941,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 300
+    },
+    {
+        "name": "Kaliida Nebula",
+        "x": 680,
+        "y": -885,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Kalist",
+        "x": -38,
+        "y": -256,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Kalla",
+        "x": 1265,
+        "y": 938,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 400
+    },
+    {
+        "name": "Kamino",
+        "x": 1176,
+        "y": -694,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Kammia",
+        "x": -800,
+        "y": -965,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Kampe",
+        "x": 60,
+        "y": -210,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Kariek",
+        "x": -475,
+        "y": 735,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Kashyyyk",
+        "x": 787,
+        "y": 33,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Forest",
+        "income": 200
+    },
+    {
+        "name": "Katana Space",
+        "x": -305,
+        "y": -867,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Kattada",
+        "x": 327,
+        "y": -9,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Kauron",
+        "x": 610,
+        "y": 955,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Kayri",
+        "x": -361,
+        "y": -672,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Kem Stor Ai",
+        "x": 840,
+        "y": 435,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Kesh",
+        "x": 1592,
+        "y": -29,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Keskin",
+        "x": -298,
+        "y": -1168,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Kessel",
+        "x": 1351,
+        "y": -1,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Ketal",
+        "x": 27,
+        "y": -630,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Ketaris",
+        "x": 174,
+        "y": 682,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Khar Delba",
+        "x": 1094,
+        "y": 852,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 150
+    },
+    {
+        "name": "Khomm",
+        "x": 20,
+        "y": -326,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 250
+    },
+    {
+        "name": "Kile",
+        "x": 1173,
+        "y": 367,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Kilji",
+        "x": -1090,
+        "y": -125,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Kinoss",
+        "x": -1100,
+        "y": 224,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "Kinyen",
+        "x": 33,
+        "y": -778,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Forest",
+        "income": 500
+    },
+    {
+        "name": "Kira",
+        "x": 427,
+        "y": -785,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Kirdo",
+        "x": 453,
+        "y": -1265,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Kirima",
+        "x": 545,
+        "y": -817,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Klatooine",
+        "x": 1280,
+        "y": 172,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Koda Station",
+        "x": -480,
+        "y": -1067,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Kooriva",
+        "x": 274,
+        "y": -552,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 200
+    },
+    {
+        "name": "Korda",
+        "x": 550,
+        "y": 253,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Korriban",
+        "x": 1024,
+        "y": 777,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Koru Neimoidia",
+        "x": 505,
+        "y": -95,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 150
+    },
+    {
+        "name": "Kostra",
+        "x": 864,
+        "y": 275,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 150
+    },
+    {
+        "name": "Kothlis",
+        "x": 1036,
+        "y": -627,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Krant",
+        "x": 1094,
+        "y": -582,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Kriselist",
+        "x": -179,
+        "y": -917,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "Kuar",
+        "x": -68,
+        "y": -60,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Kuat",
+        "x": 318,
+        "y": -65,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Kwenn",
+        "x": 1081,
+        "y": -96,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 150
+    },
+    {
+        "name": "Laakteen",
+        "x": -1,
+        "y": -492,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Lakra",
+        "x": -620,
+        "y": 795,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Lannik",
+        "x": 1013,
+        "y": -426,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Lantillies",
+        "x": 720,
+        "y": 213,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Latharra",
+        "x": 1261,
+        "y": -580,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Levian",
+        "x": 437,
+        "y": 330,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Lianna",
+        "x": 1176,
+        "y": 621,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Liinade",
+        "x": 426,
+        "y": 725,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Lioan",
+        "x": -1110,
+        "y": 535,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Lizil",
+        "x": -740,
+        "y": 575,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Llanic",
+        "x": 857,
+        "y": -915,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Loedorvia",
+        "x": -161,
+        "y": -309,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Lok",
+        "x": 916,
+        "y": -948,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Lola Sayu",
+        "x": 1077,
+        "y": 652,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Volcanic",
+        "income": 0
+    },
+    {
+        "name": "Lonnaw",
+        "x": -119,
+        "y": 563,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Loronar",
+        "x": 316,
+        "y": -316,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 500
+    },
+    {
+        "name": "Lothal",
+        "x": 1543,
+        "y": 453,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Lown",
+        "x": 824,
+        "y": 311,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Lucazec",
+        "x": 937,
+        "y": 582,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Lwhekk",
+        "x": -1122,
+        "y": -833,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Forest",
+        "income": 400
+    },
+    {
+        "name": "Lyran",
+        "x": 1308,
+        "y": -671,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Swamp",
+        "income": 50
+    },
+    {
+        "name": "M293",
+        "x": 340,
+        "y": 715,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Makatak",
+        "x": -540,
+        "y": -285,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Makeb",
+        "x": 932,
+        "y": -414,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Makem Te",
+        "x": 1200,
+        "y": 716,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 300
+    },
+    {
+        "name": "Malachor",
+        "x": 1192,
+        "y": 872,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Malastare",
+        "x": 355,
+        "y": -898,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Maldra",
+        "x": 1539,
+        "y": 326,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Volcanic",
+        "income": 50
+    },
+    {
+        "name": "Manaan",
+        "x": 534,
+        "y": -178,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Manda",
+        "x": 1130,
+        "y": -658,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Mandallia",
+        "x": 660,
+        "y": 415,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Mandalore",
+        "x": 610,
+        "y": 460,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Maridun",
+        "x": 853,
+        "y": 596,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 200
+    },
+    {
+        "name": "Maryo",
+        "x": 1181,
+        "y": 991,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Massoss",
+        "x": -675,
+        "y": 280,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Mataou",
+        "x": -155,
+        "y": -1183,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Mechis",
+        "x": 167,
+        "y": -608,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Volcanic",
+        "income": 250
+    },
+    {
+        "name": "Mendig",
+        "x": 830,
+        "y": 525,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Volcanic",
+        "income": 50
+    },
+    {
+        "name": "Mephout",
+        "x": -629,
+        "y": -1302,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Metalorn",
+        "x": 1013,
+        "y": 275,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 250
+    },
+    {
+        "name": "Metellos",
+        "x": -53,
+        "y": 1,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 500
+    },
+    {
+        "name": "Mhaeli",
+        "x": 367,
+        "y": -756,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Mimban",
+        "x": 623,
+        "y": -256,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 300
+    },
+    {
+        "name": "Mindor",
+        "x": 234,
+        "y": 255,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Minntooine",
+        "x": 1483,
+        "y": 491,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Miztoc",
+        "x": -39,
+        "y": -959,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 150
+    },
+    {
+        "name": "Mon Calamari",
+        "x": 1497,
+        "y": 555,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 400
+    },
+    {
+        "name": "Mon Gazza",
+        "x": 805,
+        "y": -885,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Moonus Mandel",
+        "x": 1030,
+        "y": -505,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Moorja",
+        "x": 88,
+        "y": -674,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Morishim",
+        "x": -67,
+        "y": 814,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Movris",
+        "x": 315,
+        "y": 600,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Mrisst",
+        "x": -144,
+        "y": 123,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Mrlsst",
+        "x": 62,
+        "y": -528,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 400
+    },
+    {
+        "name": "Mugg Fallow",
+        "x": 1999,
+        "y": 1999,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 0,
+        "pass": true
+    },
+    {
+        "name": "Mulatan",
+        "x": 1256,
+        "y": -98,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Mullan",
+        "x": 1375,
+        "y": 592,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Munlali Mafir",
+        "x": -740,
+        "y": 675,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Murgo",
+        "x": -447,
+        "y": 397,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Murkhana",
+        "x": 1222,
+        "y": 589,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Mustafar",
+        "x": 44,
+        "y": -1300,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Volcanic",
+        "income": 50
+    },
+    {
+        "name": "Muunilinst",
+        "x": -149,
+        "y": 915,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Mygeeto",
+        "x": -101,
+        "y": 862,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "Myrkr",
+        "x": 413,
+        "y": 389,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Mytus",
+        "x": 1214,
+        "y": 1108,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Naboo",
+        "x": 561,
+        "y": -889,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Nadiri",
+        "x": 180,
+        "y": 125,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Nal Hutta",
+        "x": 1165,
+        "y": -260,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Swamp",
+        "income": 300
+    },
+    {
+        "name": "Nam Chorios",
+        "x": 1014,
+        "y": 512,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Naporar",
+        "x": -984,
+        "y": 271,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Nar Haaska",
+        "x": 1455,
+        "y": -185,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Nar Hekka",
+        "x": 1225,
+        "y": -250,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 100
+    },
+    {
+        "name": "Nar Shaddaa",
+        "x": 1185,
+        "y": -205,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Nath Goordi",
+        "x": 810,
+        "y": 355,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Arctic",
+        "income": 250
+    },
+    {
+        "name": "Nazzri",
+        "x": 744,
+        "y": 110,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Nelvaan",
+        "x": 971,
+        "y": -979,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Arctic",
+        "income": 200
+    },
+    {
+        "name": "Nentan",
+        "x": -132,
+        "y": 395,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Nespis",
+        "x": 1243,
+        "y": 535,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Nettehi",
+        "x": -740,
+        "y": -5,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "New Alderaan",
+        "x": 1435,
+        "y": 515,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "New Bornalex",
+        "x": 680,
+        "y": 555,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "New Cov",
+        "x": 676,
+        "y": -648,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 200
+    },
+    {
+        "name": "New Plympto",
+        "x": 192,
+        "y": -260,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Swamp",
+        "income": 200
+    },
+    {
+        "name": "Nez Peron",
+        "x": 580,
+        "y": 702,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Nihil",
+        "x": -940,
+        "y": -325,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Nimban",
+        "x": 1196,
+        "y": -30,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Nirauan",
+        "x": -381,
+        "y": 675,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Nixor",
+        "x": 882,
+        "y": -306,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Nkllon",
+        "x": 110,
+        "y": -807,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Volcanic",
+        "income": 0
+    },
+    {
+        "name": "Nocto",
+        "x": 160,
+        "y": -1365,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Noonar",
+        "x": 208,
+        "y": 592,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 50
+    },
+    {
+        "name": "Noquivzor",
+        "x": -93,
+        "y": 218,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Nouane",
+        "x": 376,
+        "y": 321,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Nubia",
+        "x": 313,
+        "y": -265,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Nulan",
+        "x": 612,
+        "y": -1065,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Swamp",
+        "income": 100
+    },
+    {
+        "name": "Null Zone",
+        "x": 714,
+        "y": -335,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Nzoth",
+        "x": -214,
+        "y": -138,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Oba Diah",
+        "x": 1462,
+        "y": 35,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Obredaan",
+        "x": -37,
+        "y": 539,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 150
+    },
+    {
+        "name": "Obroa Skai",
+        "x": 492,
+        "y": 300,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Odik",
+        "x": -119,
+        "y": -151,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Ojom",
+        "x": 120,
+        "y": -218,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 250
+    },
+    {
+        "name": "Omonoth",
+        "x": 222,
+        "y": 188,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Onderon",
+        "x": 540,
+        "y": 24,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 150
+    },
+    {
+        "name": "Ord Biniir",
+        "x": 16,
+        "y": 777,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 150
+    },
+    {
+        "name": "Ord Cantrell",
+        "x": -20,
+        "y": 627,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Ord Cestus",
+        "x": 552,
+        "y": 654,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Ord Mantell",
+        "x": 33,
+        "y": 431,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 300
+    },
+    {
+        "name": "Ord Pardron",
+        "x": 1080,
+        "y": -786,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Ord Radama",
+        "x": 838,
+        "y": 818,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Swamp",
+        "income": 250
+    },
+    {
+        "name": "Ord Tiddell",
+        "x": 921,
+        "y": 365,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Ord Trasi",
+        "x": 39,
+        "y": 850,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Arctic",
+        "income": 150
+    },
+    {
+        "name": "Ord Vaug",
+        "x": 152,
+        "y": -770,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 250
+    },
+    {
+        "name": "Ordo",
+        "x": 559,
+        "y": 432,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Oreen",
+        "x": -790,
+        "y": -425,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Swamp",
+        "income": 200
+    },
+    {
+        "name": "Orinda",
+        "x": -59,
+        "y": 585,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Orion",
+        "x": 1310,
+        "y": 525,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Oristrom",
+        "x": -440,
+        "y": 805,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Orleon",
+        "x": 938,
+        "y": 275,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Orocco",
+        "x": 200,
+        "y": 485,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Orron",
+        "x": 1387,
+        "y": 876,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Oslumpex",
+        "x": 1323,
+        "y": 884,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Osseriton",
+        "x": -530,
+        "y": 175,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Ossus",
+        "x": 1189,
+        "y": 536,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Paarin Minor",
+        "x": 225,
+        "y": 655,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Pako Ramoon",
+        "x": -273,
+        "y": -1220,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 150
+    },
+    {
+        "name": "Pakrik Minor",
+        "x": -180,
+        "y": 25,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Palanhi",
+        "x": -126,
+        "y": 175,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Pallaxides",
+        "x": 344,
+        "y": 494,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Pammant",
+        "x": 1563,
+        "y": 547,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Desert",
+        "income": 300
+    },
+    {
+        "name": "Pantolomin",
+        "x": -78,
+        "y": 87,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Pantora",
+        "x": 714,
+        "y": -1235,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Swamp",
+        "income": 250
+    },
+    {
+        "name": "Parnassos",
+        "x": -595,
+        "y": 565,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Pashvi",
+        "x": -360,
+        "y": 735,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Perann Nebula",
+        "x": -940,
+        "y": -395,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Peregrine",
+        "x": 740,
+        "y": -625,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 0
+    },
+    {
+        "name": "Pesfavri",
+        "x": -721,
+        "y": 323,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Pesitiin",
+        "x": -340,
+        "y": 255,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Phaeda",
+        "x": 105,
+        "y": 615,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Phindar",
+        "x": 705,
+        "y": 507,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 250
+    },
+    {
+        "name": "Pleknok",
+        "x": -690,
+        "y": 105,
+        "mass": 1,
+        "shipyardLevel": 0,
+        "terrain": "Volcanic",
+        "income": 0
+    },
+    {
+        "name": "Poderis",
+        "x": 308,
+        "y": 237,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Polis Massa",
+        "x": -67,
+        "y": -1418,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Poln Major",
+        "x": -306,
+        "y": 765,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Polneye",
+        "x": -270,
+        "y": -65,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Polus",
+        "x": 256,
+        "y": 604,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Arctic",
+        "income": 50
+    },
+    {
+        "name": "Porchello",
+        "x": -260,
+        "y": -1008,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Porus Vida",
+        "x": 645,
+        "y": 55,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Praadost",
+        "x": 767,
+        "y": 858,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Praesitlyn",
+        "x": 339,
+        "y": -1204,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Prakith",
+        "x": -75,
+        "y": -120,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Volcanic",
+        "income": 300
+    },
+    {
+        "name": "Prefsbelt",
+        "x": -230,
+        "y": 775,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 100
+    },
+    {
+        "name": "Prildaz",
+        "x": -294,
+        "y": -125,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Primea",
+        "x": -1100,
+        "y": 365,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 300
+    },
+    {
+        "name": "Qat Chrystac",
+        "x": 166,
+        "y": -861,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Volcanic",
+        "income": 0
+    },
+    {
+        "name": "Qiilura",
+        "x": -23,
+        "y": 447,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Qoribu",
+        "x": -640,
+        "y": 475,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Forest",
+        "income": 50
+    },
+    {
+        "name": "Qretu",
+        "x": 30,
+        "y": -685,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "Quelii",
+        "x": 584,
+        "y": 603,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Quell",
+        "x": 973,
+        "y": 542,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Arctic",
+        "income": 100
+    },
+    {
+        "name": "Quellor",
+        "x": 428,
+        "y": -295,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Quermia",
+        "x": 1230,
+        "y": 771,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Quethold",
+        "x": -605,
+        "y": 720,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 150
+    },
+    {
+        "name": "Ragmar",
+        "x": 890,
+        "y": -1005,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Rago",
+        "x": -444,
+        "y": 450,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Rakata",
+        "x": -782,
+        "y": -233,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Ralltiir",
+        "x": 226,
+        "y": 86,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 400
+    },
+    {
+        "name": "Randon",
+        "x": 875,
+        "y": -32,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Rapacc",
+        "x": -930,
+        "y": 595,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "Rattatak",
+        "x": -633,
+        "y": -799,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Raxus",
+        "x": 1274,
+        "y": 687,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Raxus Second",
+        "x": 1280,
+        "y": 740,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Rduba",
+        "x": 1403,
+        "y": -681,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Reecee",
+        "x": -238,
+        "y": 185,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 300
+    },
+    {
+        "name": "Relephon",
+        "x": 538,
+        "y": 85,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 350
+    },
+    {
+        "name": "Rendili",
+        "x": 283,
+        "y": -174,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 500
+    },
+    {
+        "name": "Rennek",
+        "x": -1090,
+        "y": -575,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "Rhand",
+        "x": -1010,
+        "y": -355,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Swamp",
+        "income": 100
+    },
+    {
+        "name": "Rhelg",
+        "x": 1135,
+        "y": 801,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Rhen Var",
+        "x": 1073,
+        "y": 594,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 0
+    },
+    {
+        "name": "Rhigar",
+        "x": -1050,
+        "y": 83,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 150
+    },
+    {
+        "name": "Rhommamool",
+        "x": 502,
+        "y": -470,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 300
+    },
+    {
+        "name": "Riette",
+        "x": -1060,
+        "y": 635,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Riflor",
+        "x": -321,
+        "y": -918,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 300
+    },
+    {
+        "name": "Ringneldia",
+        "x": 1476,
+        "y": 269,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Urban",
+        "income": 150
+    },
+    {
+        "name": "Ringo Vinda",
+        "x": 1080,
+        "y": 356,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Rintonne",
+        "x": 758,
+        "y": -835,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Rion",
+        "x": 1340,
+        "y": -75,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Swamp",
+        "income": 100
+    },
+    {
+        "name": "Rishi",
+        "x": 1188,
+        "y": -631,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 300
+    },
+    {
+        "name": "Roche",
+        "x": 879,
+        "y": 219,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Rodia",
+        "x": 1017,
+        "y": -872,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 300
+    },
+    {
+        "name": "Romin",
+        "x": 877,
+        "y": 321,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "Ronyards",
+        "x": 373,
+        "y": -454,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Roqoo",
+        "x": 707,
+        "y": 146,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Rothana",
+        "x": 1418,
+        "y": -728,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Arctic",
+        "income": 300
+    },
+    {
+        "name": "Roxuli",
+        "x": -394,
+        "y": 277,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 200
+    },
+    {
+        "name": "Rudrig",
+        "x": 1318,
+        "y": 661,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Rugosa",
+        "x": 623,
+        "y": -996,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Forest",
+        "income": 0
+    },
+    {
+        "name": "Ruusan",
+        "x": 818,
+        "y": -120,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Ryloth",
+        "x": 1112,
+        "y": -1004,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 300
+    },
+    {
+        "name": "Ryndellia",
+        "x": 631,
+        "y": -928,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Ryvester",
+        "x": 960,
+        "y": 495,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "RZ7",
+        "x": 60,
+        "y": 975,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Volcanic",
+        "income": 0
+    },
+    {
+        "name": "Sacorria",
+        "x": 223,
+        "y": -211,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Saffalore",
+        "x": 1318,
+        "y": 936,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 400
+    },
+    {
+        "name": "Sagma",
+        "x": 932,
+        "y": 907,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Saijo",
+        "x": -178,
+        "y": -1393,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Saleucami",
+        "x": 1213,
+        "y": 289,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 300
+    },
+    {
+        "name": "Salvara",
+        "x": 976,
+        "y": 380,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Sanbra",
+        "x": 525,
+        "y": -997,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "Sanjin",
+        "x": 201,
+        "y": -401,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Sanrafsix",
+        "x": 379,
+        "y": -977,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Sarapin",
+        "x": 257,
+        "y": -106,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Volcanic",
+        "income": 400
+    },
+    {
+        "name": "Sarko",
+        "x": 511,
+        "y": -355,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Sarm",
+        "x": -515,
+        "y": 430,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Sarrish",
+        "x": -44,
+        "y": -805,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Sarvchi",
+        "x": -909,
+        "y": 176,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Scarif",
+        "x": 1245,
+        "y": -752,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Scarl",
+        "x": 140,
+        "y": -395,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Schesa",
+        "x": -857,
+        "y": 287,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 200
+    },
+    {
+        "name": "Scipio",
+        "x": -123,
+        "y": 802,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Arctic",
+        "income": 200
+    },
+    {
+        "name": "Selaggis",
+        "x": 425,
+        "y": 600,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Sellasas",
+        "x": 35,
+        "y": -1195,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Serenno",
+        "x": 682,
+        "y": 771,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Sernpidal",
+        "x": 130,
+        "y": 1028,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Serroco",
+        "x": 431,
+        "y": 449,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Swamp",
+        "income": 300
+    },
+    {
+        "name": "Seylott",
+        "x": 690,
+        "y": -1125,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 200
+    },
+    {
+        "name": "Shadren",
+        "x": 690,
+        "y": 605,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Swamp",
+        "income": 250
+    },
+    {
+        "name": "Shaylin",
+        "x": 1434,
+        "y": 634,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Shedu Maad",
+        "x": 651,
+        "y": 142,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Shner",
+        "x": -1130,
+        "y": -925,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Shogun",
+        "x": 666,
+        "y": -1187,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Arctic",
+        "income": 100
+    },
+    {
+        "name": "Shola",
+        "x": 1517,
+        "y": -548,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Volcanic",
+        "income": 0
+    },
+    {
+        "name": "Shree",
+        "x": -1200,
+        "y": -855,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 350
+    },
+    {
+        "name": "Sifkric",
+        "x": 370,
+        "y": 435,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 150
+    },
+    {
+        "name": "Siskeen",
+        "x": 1152,
+        "y": -923,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 200
+    },
+    {
+        "name": "Skako",
+        "x": 139,
+        "y": 51,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 500
+    },
+    {
+        "name": "Skye",
+        "x": -552,
+        "y": -1230,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Sleheyron",
+        "x": 1272,
+        "y": -16,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Sluis Van",
+        "x": 278,
+        "y": -1210,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Snevu",
+        "x": -570,
+        "y": 435,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Solaest",
+        "x": 760,
+        "y": 555,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Volcanic",
+        "income": 100
+    },
+    {
+        "name": "Solem",
+        "x": -211,
+        "y": -1298,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Solitair",
+        "x": -1240,
+        "y": 275,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 250
+    },
+    {
+        "name": "Sriluur",
+        "x": 1312,
+        "y": 199,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Stenos",
+        "x": 996,
+        "y": 681,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Stivic",
+        "x": -1190,
+        "y": 325,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Storinal",
+        "x": 360,
+        "y": 575,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Stratos",
+        "x": 1999,
+        "y": 1999,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 0,
+        "pass": true
+    },
+    {
+        "name": "Sullust",
+        "x": 270,
+        "y": -1028,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Volcanic",
+        "income": 400
+    },
+    {
+        "name": "Sunrise",
+        "x": -880,
+        "y": 475,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Suurja",
+        "x": 420,
+        "y": 525,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Svivren",
+        "x": 605,
+        "y": -1247,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 300
+    },
+    {
+        "name": "Sy Myrth",
+        "x": 1160,
+        "y": 425,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Syca",
+        "x": -640,
+        "y": 615,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Syned",
+        "x": 372,
+        "y": -1036,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Arctic",
+        "income": 200
+    },
+    {
+        "name": "Syni",
+        "x": 720,
+        "y": -1325,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Taanab",
+        "x": 593,
+        "y": 225,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Talasea",
+        "x": 402,
+        "y": -194,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 0
+    },
+    {
+        "name": "Talay",
+        "x": 983,
+        "y": -802,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Talcene",
+        "x": 960,
+        "y": 322,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Talfaglio",
+        "x": 390,
+        "y": -245,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Talhovi",
+        "x": -44,
+        "y": -1040,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Taloraan",
+        "x": -419,
+        "y": -665,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 100
+    },
+    {
+        "name": "Talus Tralus",
+        "x": 330,
+        "y": -210,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Tangrene",
+        "x": 589,
+        "y": 843,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Tar Morden",
+        "x": -82,
+        "y": -853,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Taris",
+        "x": 459,
+        "y": 490,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Tartaglia",
+        "x": 250,
+        "y": 453,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 150
+    },
+    {
+        "name": "Tatooine",
+        "x": 1068,
+        "y": -884,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Tellanroaeg",
+        "x": 1176,
+        "y": -1044,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Telos",
+        "x": 844,
+        "y": 948,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 250
+    },
+    {
+        "name": "Telti",
+        "x": 484,
+        "y": 5,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 150
+    },
+    {
+        "name": "Tenupe",
+        "x": -575,
+        "y": 235,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Swamp",
+        "income": 200
+    },
+    {
+        "name": "Tepasi",
+        "x": 187,
+        "y": 14,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 400
+    },
+    {
+        "name": "Teptixii",
+        "x": -385,
+        "y": 971,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Terephon",
+        "x": 596,
+        "y": 154,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Swamp",
+        "income": 200
+    },
+    {
+        "name": "Teth",
+        "x": 1505,
+        "y": -266,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 200
+    },
+    {
+        "name": "Thanos",
+        "x": 839,
+        "y": 164,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "The Maw",
+        "x": 1401,
+        "y": 42,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "The Redoubt",
+        "x": -552,
+        "y": 359,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "The Wheel",
+        "x": 1110,
+        "y": 405,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Thila",
+        "x": 874,
+        "y": 885,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 150
+    },
+    {
+        "name": "Thomork",
+        "x": -30,
+        "y": -341,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "ThonBoka",
+        "x": 1518,
+        "y": 226,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Thrago",
+        "x": -590,
+        "y": 300,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Thule",
+        "x": 958,
+        "y": 821,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Thustra",
+        "x": 519,
+        "y": 387,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 300
+    },
+    {
+        "name": "Thyferra",
+        "x": 122,
+        "y": -576,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Thyrsus",
+        "x": 387,
+        "y": 263,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Tibrin",
+        "x": 132,
+        "y": -1056,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Timora",
+        "x": -688,
+        "y": -902,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Tingel Deepspace Besh",
+        "x": 660,
+        "y": -425,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Togoria",
+        "x": 789,
+        "y": 134,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Ton Falk",
+        "x": 1380,
+        "y": 695,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Toola",
+        "x": 1289,
+        "y": 793,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Arctic",
+        "income": 100
+    },
+    {
+        "name": "Toprawa",
+        "x": 723,
+        "y": 738,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Forest",
+        "income": 200
+    },
+    {
+        "name": "Tosste",
+        "x": 74,
+        "y": -1360,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Toydaria",
+        "x": 1113,
+        "y": -213,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Forest",
+        "income": 200
+    },
+    {
+        "name": "Trandosha",
+        "x": 849,
+        "y": 56,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Transitory Mists I",
+        "x": 460,
+        "y": 105,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Transitory Mists II",
+        "x": 490,
+        "y": 225,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Transitory Mists III",
+        "x": 620,
+        "y": 275,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Traval Pacor",
+        "x": -139,
+        "y": 505,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 150
+    },
+    {
+        "name": "Trian",
+        "x": 1133,
+        "y": 1044,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Triton",
+        "x": 207,
+        "y": -1168,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Troukree",
+        "x": -540,
+        "y": 875,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Tsoss",
+        "x": 64,
+        "y": -150,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Tulpaa",
+        "x": -1020,
+        "y": -205,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Volcanic",
+        "income": 150
+    },
+    {
+        "name": "Tund",
+        "x": 1577,
+        "y": 253,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Forest",
+        "income": 50
+    },
+    {
+        "name": "Turak",
+        "x": 569,
+        "y": -1115,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Volcanic",
+        "income": 100
+    },
+    {
+        "name": "Turcan",
+        "x": 579,
+        "y": -1181,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Turkana",
+        "x": 1446,
+        "y": 583,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Tuskens Eye",
+        "x": -450,
+        "y": 285,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Twilight Void",
+        "x": -1170,
+        "y": 445,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Tyan",
+        "x": 10,
+        "y": 495,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 250
+    },
+    {
+        "name": "Tynna",
+        "x": 484,
+        "y": -526,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 250
+    },
+    {
+        "name": "Tythe",
+        "x": 1002,
+        "y": -929,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 400
+    },
+    {
+        "name": "Tython",
+        "x": 10,
+        "y": -150,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Forest",
+        "income": 100
+    },
+    {
+        "name": "Ubrikkia",
+        "x": 988,
+        "y": -72,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 250
+    },
+    {
+        "name": "Udray",
+        "x": 629,
+        "y": -1131,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Ukio",
+        "x": 1233,
+        "y": -698,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Ulda Frav",
+        "x": 734,
+        "y": -216,
+        "mass": 1,
+        "shipyardLevel": 0,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Ulicia",
+        "x": 1320,
+        "y": 1073,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "Umarenk",
+        "x": -590,
+        "y": 125,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Umbara",
+        "x": 681,
+        "y": -10,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Forest",
+        "income": 200
+    },
+    {
+        "name": "Urch",
+        "x": -820,
+        "y": 535,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 200
+    },
+    {
+        "name": "Utapau",
+        "x": 351,
+        "y": -1319,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Utegetu Nebula",
+        "x": -499,
+        "y": 323,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Vagar Praxut",
+        "x": -460,
+        "y": 125,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Vaklin",
+        "x": 326,
+        "y": -616,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Valahari",
+        "x": 470,
+        "y": 686,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Valc",
+        "x": -280,
+        "y": 860,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 500
+    },
+    {
+        "name": "Vanquo",
+        "x": 512,
+        "y": 493,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 50
+    },
+    {
+        "name": "Varada",
+        "x": -469,
+        "y": -1198,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Vassek",
+        "x": -361,
+        "y": -1021,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 0
+    },
+    {
+        "name": "Veccacopia",
+        "x": -386,
+        "y": -1232,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 0
+    },
+    {
+        "name": "Vena",
+        "x": 680,
+        "y": 90,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Verdanth",
+        "x": 485,
+        "y": -930,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Forest",
+        "income": 50
+    },
+    {
+        "name": "Vergesso",
+        "x": 769,
+        "y": -1055,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Veroleem",
+        "x": -425,
+        "y": 510,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Vjun",
+        "x": 908,
+        "y": 527,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Volik",
+        "x": -535,
+        "y": 555,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Vondarc",
+        "x": 255,
+        "y": -911,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 250
+    },
+    {
+        "name": "Vorpaya",
+        "x": 570,
+        "y": 495,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Vortex",
+        "x": -188,
+        "y": 376,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Vorzyd",
+        "x": 1020,
+        "y": 578,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Vrosynri",
+        "x": 486,
+        "y": 791,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Arctic",
+        "income": 150
+    },
+    {
+        "name": "Vulpter",
+        "x": 95,
+        "y": -101,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 250
+    },
+    {
+        "name": "VunHanna",
+        "x": -1000,
+        "y": 495,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Volcanic",
+        "income": 50
+    },
+    {
+        "name": "Wayland",
+        "x": 465,
+        "y": 405,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Wistril",
+        "x": -96,
+        "y": 639,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 200
+    },
+    {
+        "name": "Woostri",
+        "x": 226,
+        "y": -808,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 400
+    },
+    {
+        "name": "Woteba",
+        "x": -440,
+        "y": 335,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 100
+    },
+    {
+        "name": "Wroona",
+        "x": 174,
+        "y": -696,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Wurrif",
+        "x": -1160,
+        "y": -775,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 200
+    },
+    {
+        "name": "Xa Fel",
+        "x": -170,
+        "y": 69,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Urban",
+        "income": 400
+    },
+    {
+        "name": "Xagobah",
+        "x": 343,
+        "y": -1148,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Swamp",
+        "income": 200
+    },
+    {
+        "name": "Xeron",
+        "x": 233,
+        "y": -626,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 200
+    },
+    {
+        "name": "Xo",
+        "x": 353,
+        "y": 1081,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Swamp",
+        "income": 200
+    },
+    {
+        "name": "Xuaquarres",
+        "x": 1293,
+        "y": 449,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Yaga Minor",
+        "x": -176,
+        "y": 799,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "YagDhul",
+        "x": 126,
+        "y": -639,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Desert",
+        "income": 250
+    },
+    {
+        "name": "Yashuvhu",
+        "x": -830,
+        "y": 123,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Swamp",
+        "income": 200
+    },
+    {
+        "name": "Yavin",
+        "x": 764,
+        "y": 667,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 0
+    },
+    {
+        "name": "Yinchorr",
+        "x": 69,
+        "y": 307,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 100
+    },
+    {
+        "name": "Ylesia",
+        "x": 1396,
+        "y": -271,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 250
+    },
+    {
+        "name": "Yoggoy",
+        "x": -520,
+        "y": 495,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 150
+    },
+    {
+        "name": "Zaddja",
+        "x": -644,
+        "y": -673,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Desert",
+        "income": 50
+    },
+    {
+        "name": "Zakuul",
+        "x": -1105,
+        "y": -447,
+        "mass": 1,
+        "shipyardLevel": 5,
+        "terrain": "Urban",
+        "income": 300
+    },
+    {
+        "name": "Zanbar",
+        "x": 635,
+        "y": 505,
+        "mass": 1,
+        "shipyardLevel": 2,
+        "terrain": "Swamp",
+        "income": 50
+    },
+    {
+        "name": "Zeltros",
+        "x": 592,
+        "y": -78,
+        "mass": 1,
+        "shipyardLevel": 4,
+        "terrain": "Temperate",
+        "income": 300
+    },
+    {
+        "name": "Zfell",
+        "x": -274,
+        "y": -175,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 150
+    },
+    {
+        "name": "Ziost",
+        "x": 1025,
+        "y": 902,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 150
+    },
+    {
+        "name": "Zolan",
+        "x": 745,
+        "y": -765,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 300
+    },
+    {
+        "name": "Zonama",
+        "x": -868,
+        "y": 56,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 0
+    },
+    {
+        "name": "Zongorlu",
+        "x": 320,
+        "y": 545,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Arctic",
+        "income": 100
+    },
+    {
+        "name": "Zosha",
+        "x": -870,
+        "y": 645,
+        "mass": 1,
+        "shipyardLevel": 1,
+        "terrain": "Temperate",
+        "income": 50
+    },
+    {
+        "name": "Zygerria",
+        "x": 1169,
+        "y": 910,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Desert",
+        "income": 200
+    },
+    {
+        "name": "Zyzek",
+        "x": -940,
+        "y": -25,
+        "mass": 1,
+        "shipyardLevel": 3,
+        "terrain": "Forest",
+        "income": 300
+    }
+]

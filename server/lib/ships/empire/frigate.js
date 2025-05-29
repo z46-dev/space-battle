@@ -9,5 +9,9 @@ ships.LANCERFRIGATE_EMPIRE = templates.frigate.LANCER();
 ships.STRIKECRUISER_EMPIRE = templates.frigate.STRIKECRUISER();
 ships.STARGALLEON_EMPIRE = templates.frigate.STAR_GALLEON();
 ships.VICTORYFRIGATE_EMPIRE = templates.frigate.VICTORY_FRIGATE();
+ships.SUPER_TRANSPORT_XI_EMPIRE = templates.frigate.SUPER_TRANSPORT_XI();
+ships.TARTAN_PATROL_CRUISER_EMPIRE = templates.frigate.TARTAN_PATROL_CRUISER();
+ships.TRENCHANT_CRUISER_EMPIRE = templates.frigate.TRENCHANT_CRUISER();
+ships.VENGEANCE_FRIGATE_EMPIRE = templates.frigate.VENGEANCE_FRIGATE();
 
 export default ships;

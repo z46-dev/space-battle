@@ -1,0 +1,165 @@
+import ships from "../server/lib/ships.js";
+
+export class CapitalConfig {
+    /**
+     * @param {string} name
+     * @param {number} fleetPopulation
+     * @param {number} baseIncome
+     */
+    constructor(name, fleetPopulation, baseIncome) {
+        this.name = name;
+        this.fleetPopulation = fleetPopulation;
+        this.baseIncome = baseIncome;
+    }
+}
+
+export class HeroConfig {
+    /**
+     * @param {string} key
+     * @param {string} planet
+     */
+    constructor(key, planet) {
+        this.key = key;
+        this.planet = planet;
+    }
+}
+
+export class FactionConfig {
+    static id = 0;
+
+    /**
+     * @param {string} name
+     * @param {string} color
+     * @param {string} key
+     */
+    constructor(name, color, key) {
+        this.id = FactionConfig.id++;
+        this.name = name;
+        this.color = color;
+        this.key = key;
+        this.planets = [];
+
+        /** @type {CapitalConfig} */
+        this.capital = null;
+
+        this.shipyardConfigs = [{
+            id: 1,
+            ships: []
+        }, {
+            id: 2,
+            ships: []
+        }, {
+            id: 3,
+            ships: []
+        }, {
+            id: 4,
+            ships: []
+        }];
+
+        /** @type {HeroConfig[]} */
+        this.heroes = [];
+    }
+
+    addPlanets(...planets) {
+        for (const planet of planets) {
+            if (!this.planets.includes(planet)) {
+                this.planets.push(planet);
+            }
+        }
+
+        return this;
+    }
+
+    setCapital(name, fleetPopulation, baseIncome) {
+        this.capital = new CapitalConfig(name, fleetPopulation, baseIncome);
+        return this;
+    }
+
+    addBuildableShips(shipyardLevel, ...ships) {
+        if (shipyardLevel < 1 || shipyardLevel > 4) {
+            throw new Error("Shipyard level must be between 1 and 4.");
+        }
+
+        const shipyard = this.shipyardConfigs[shipyardLevel - 1];
+        for (const ship of ships) {
+            if (!shipyard.ships.includes(ship)) {
+                shipyard.ships.push(ship);
+            }
+        }
+
+        return this;
+    }
+
+    addHero(key, planet) {
+        if (!this.heroes.some(hero => hero.key === key)) {
+            this.heroes.push(new HeroConfig(key, planet));
+        } else {
+            throw new Error(`Hero with key ${key} already exists in faction ${this.name}.`);
+        }
+
+        return this;
+    }
+
+    addHeroes(...heroes) {
+        for (const hero of heroes) {
+            if (!this.heroes.some(existingHero => existingHero.key === hero.key)) {
+                this.heroes.push(new HeroConfig(hero.key, hero.planet));
+            } else {
+                throw new Error(`Hero with key ${hero.key} already exists in faction ${this.name}.`);
+            }
+        }
+
+        return this;
+    }
+
+    validate() {
+        if (!this.name || !this.color || !this.key) {
+            throw new Error("FactionConfig is missing required properties: name, color, or key.");
+        }
+
+        if (this.capital == null) {
+            throw new Error("FactionConfig is missing a capital configuration.");
+        }
+
+        if (this.planets.length === 0) {
+            throw new Error("FactionConfig must have at least one planet.");
+        }
+
+        if (!this.planets.includes(this.capital.name)) {
+            throw new Error(`Capital ${this.capital.name} must be included in the planets list.`);
+        }
+
+        const shipyardShips = new Set();
+        for (const shipyard of this.shipyardConfigs) {
+            for (const ship of shipyard.ships) {
+                if (shipyardShips.has(ship)) {
+                    throw new Error(`Ship ${ship} is duplicated in shipyard level ${shipyard.id}.`);
+                }
+                shipyardShips.add(ship);
+            }
+
+            shipyard.ships.sort((a, b) => ships[a].cost - ships[b].cost);
+        }
+
+        for (const hero of this.heroes) {
+            if (!this.planets.includes(hero.planet)) {
+                throw new Error(`Hero ${hero.key} is assigned to an invalid planet: ${hero.planet}.`);
+            }
+        }
+
+        return this;
+    }
+
+    clone() {
+        return Object.assign(new FactionConfig(this.name, this.color, this.key), {
+            id: this.id,
+            planets: [...this.planets],
+            capital: this.capital ? new CapitalConfig(this.capital.name, this.capital.fleetPopulation, this.capital.baseIncome) : null,
+            shipyardConfigs: this.shipyardConfigs.map(shipyard => ({
+                id: shipyard.id,
+                ships: [...shipyard.ships]
+            })),
+            heroes: this.heroes.map(hero => new HeroConfig(hero.key, hero.planet))
+        });
+    }
+}

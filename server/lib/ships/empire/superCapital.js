@@ -207,7 +207,7 @@ ships.CONSOLIDATORASSAULTSHIP_EMPIRE = {
     asset: "CONSOLIDATORASSAULTSHIP.png",
     classification: shipTypes.SuperCapital,
     population: 85,
-    size: 1900,
+    size: 2150,
     cost: 28570,
     speed: 1.2,
     turnSpeed: .00025,
@@ -276,7 +276,7 @@ ships.CONSOLIDATORASSAULTSHIP_EMPIRE = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 2.5 | 0
+                health: e.weapon.health * 3 | 0
             }
         }));
     })(),
@@ -312,5 +312,13 @@ ships.CONSOLIDATORASSAULTSHIP_EMPIRE = {
 };
 
 ships.COMPELLOR_EMPIRE = templates.superCapital.COMPELLOR();
+
+ships.COMMUNICATIONS_BATTLECRUISER_EMPIRE = templates.superCapital.COMMUNICATIONS_BATTLECRUISER();
+
+ships.PRAETOR_II_EMPIRE = templates.superCapital.PRAETOR_II();
+
+ships.PRAETOR_CARRIER_EMPIRE = templates.superCapital.PRAETOR_CARRIER();
+
+ships.TAGGE_BATTLECRUISER_EMPIRE = templates.superCapital.TAGGE_BATTLECRUISER();
 
 export default ships;

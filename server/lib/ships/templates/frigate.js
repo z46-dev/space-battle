@@ -804,4 +804,264 @@ templates.NEUTRON_STAR = function (options = {}) {
     };
 }
 
+templates.SUPER_TRANSPORT_XI = function (options = {}) {
+    options.color ??= "GREEN";
+    options.fighter ??= "TIEINTERCEPTOR_EMPIRE";
+    options.bomber ??= "TIEBOMBER_EMPIRE";
+
+    return {
+        name: "Super Transport XI",
+        asset: "SUPER_TRANSPORT_XI.png",
+        classification: shipTypes.Frigate,
+        population: 14,
+        size: 300,
+        cost: 1850,
+        speed: 2,
+        turnSpeed: .005,
+        shield: 3000,
+        shieldRegen: 3,
+        hardpoints: (function () {
+            const points = [{
+                x: -.200,
+                y: .790
+            }, {
+                x: -.233,
+                y: -.818
+            }, {
+                x: -.335,
+                y: .321
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const selections = [
+                weapons[options.color + "_DOUBLE_LASER_CANNON"],
+                weapons[options.color + "_DOUBLE_LASER_CANNON"],
+                weapons.DOUBLE_ION_CANNON
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 150
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 3 | 0
+                }
+            }));
+        })(),
+        hangars: [{
+            x: 0,
+            y: 0,
+            maxSquadrons: 2,
+            squadronSize: 8,
+            reserveSize: 4,
+            squadronKey: options.fighter
+        }, {
+            x: 0,
+            y: 0,
+            maxSquadrons: 2,
+            squadronSize: 8,
+            reserveSize: 4,
+            squadronKey: options.bomber
+        }]
+    };
+}
+
+templates.TARTAN_PATROL_CRUISER = function (options = {}) {
+    options.color ??= "GREEN";
+
+    return {
+        name: "Tartan Patrol Cruiser",
+        asset: "TARTAN_PATROL_CRUISER.png",
+        classification: shipTypes.Frigate,
+        population: 8,
+        size: 220,
+        cost: 1750,
+        speed: 4,
+        turnSpeed: .01,
+        shield: 2300,
+        shieldRegen: 2.3,
+        hardpoints: [{
+            x: -.132,
+            y: .745,
+            weapon: weapons[options.color + "_ANTI_FIGHTER_LASER_CANNON"],
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            x: .337,
+            y: -.575,
+            weapon: weapons[options.color + "_RAPID_LASER_CANNON"],
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            x: -.331,
+            y: -.575,
+            weapon: weapons[options.color + "_RAPID_LASER_CANNON"],
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            x: .154,
+            y: .476,
+            weapon: weapons.ION_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            x: -.144,
+            y: .471,
+            weapon: weapons.ION_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }].map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 3.25 | 0
+            }
+        }))
+    };
+}
+
+templates.TRENCHANT_CRUISER = function (options = {}) {
+    options.color ??= "GREEN";
+
+    return {
+        name: "Trenchant Cruiser",
+        asset: "TRENCHANT_CRUISER.png",
+        classification: shipTypes.Frigate,
+        population: 8,
+        size: 250,
+        cost: 900,
+        speed: 4,
+        turnSpeed: .005,
+        shield: 2500,
+        shieldRegen: 2.5,
+        hardpoints: (function () {
+            const points = [{
+                x: -.094,
+                y: .757
+            }, {
+                x: -.312,
+                y: -.610
+            }, {
+                x: -.352,
+                y: -.590
+            }, {
+                x: -.281,
+                y: .287
+            }, {
+                x: -.610,
+                y: -.506
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const selections = [
+                weapons[options.color + "_DOUBLE_LASER_CANNON"],
+                weapons[options.color + "_DOUBLE_LASER_CANNON_HEAVY"],
+                weapons.DOUBLE_ION_CANNON
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 150
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 3 | 0
+                }
+            }));
+        })()
+    };
+}
+
+templates.VENGEANCE_FRIGATE = function (options = {}) {
+    options.color ??= "GREEN";
+
+    return {
+        name: "Vengeance Frigate",
+        asset: "VENGEANCE_FRIGATE.png",
+        classification: shipTypes.Frigate,
+        population: 8,
+        size: 400,
+        cost: 1100,
+        speed: 3,
+        turnSpeed: .005,
+        shield: 2500,
+        shieldRegen: 2.5,
+        hardpoints: (function () {
+            const points = [{
+                x: -.716,
+                y: .913
+            }, {
+                x: -.378,
+                y: .072
+            }, {
+                x: -.193,
+                y: -.012
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const selections = [
+                weapons[options.color + "_TURBOLASER_CANNON_ULTRAHEAVY"],
+                weapons[options.color + "_DOUBLE_LASER_CANNON"],
+                weapons.DOUBLE_ION_CANNON
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 150
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 3 | 0
+                }
+            }));
+        })()
+    };
+}
+
 export default templates;

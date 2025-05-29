@@ -612,6 +612,63 @@ templates.VINDICATOR = function (options = {}) {
     };
 }
 
+templates.SURVEYOR = function (options = {}) {
+    options.color ??= "GREEN";
+
+    return {
+        name: "Surveyor-class Frigate",
+        asset: "SURVEYOR.png",
+        classification: shipTypes.HeavyFrigate,
+        population: 10,
+        size: 325,
+        cost: 2700,
+        speed: 3,
+        turnSpeed: .015,
+        shield: 5000,
+        shieldRegen: 5,
+        hardpoints: (function () {
+            const points = [{
+                x: -.129,
+                y: .424
+            }, {
+                x: -.257,
+                y: -.186
+            }, {
+                x: -.372,
+                y: -.840
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const selections = [weapons[`${options.color}_DOUBLE_LASER_CANNON`], weapons[`${options.color}_DOUBLE_LASER_CANNON`], weapons.DOUBLE_ION_CANNON];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 75
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 2.75 | 0
+                }
+            }));
+        })()
+    };
+}
+
 templates.PURSUIT_DESTROYER = function (options = {}) {
     options.color ??= "GREEN";
 
@@ -993,7 +1050,8 @@ templates.ASSAULT_FRIGATE_MK2 = function (options = {}) {
                 ...e,
                 weapon: {
                     ...e.weapon,
-                    health: e.weapon.health * 3 | 0
+                    health: e.weapon.health * 3 | 0,
+                    reload: e.weapon.reload * 1.25 | 0
                 }
             }));
         })(),
@@ -1088,7 +1146,8 @@ templates.DAUNTLESS_CRUISER = function (options = {}) {
                 ...e,
                 weapon: {
                     ...e.weapon,
-                    health: e.weapon.health * 3 | 0
+                    health: e.weapon.health * 3 | 0,
+                    reload: e.weapon.reload * 1.334 | 0
                 }
             }));
         })(),
@@ -1100,6 +1159,182 @@ templates.DAUNTLESS_CRUISER = function (options = {}) {
             reserveSize: 4,
             squadronKey: options.fighter
         }]
+    };
+}
+
+templates.DRAGON_HEAVY_CRUISER = function (options = {}) {
+    options.color ??= "GREEN";
+
+    options.freighter ??= "GUARDIAN_FREIGHTER_EMPIRE";
+
+    return {
+        name: "Dragon Heavy Cruiser",
+        asset: "DRAGON_HEAVY_CRUISER.png",
+        classification: shipTypes.HeavyFrigate,
+        population: 16,
+        size: 400,
+        cost: 4000,
+        speed: 4,
+        turnSpeed: .01,
+        shield: 4500,
+        shieldRegen: 4.5,
+        hardpoints: (function () {
+            const points = [{
+                x: -.225,
+                y: .714
+            }, {
+                x: -.103,
+                y: .856
+            }, {
+                x: -.158,
+                y: .556
+            }, {
+                x: -.199,
+                y: .076
+            }, {
+                x: -.158,
+                y: -.480
+            }, {
+                x: -.078,
+                y: -.809
+            }, {
+                x: -.096,
+                y: -.155
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const selections = [
+                weapons[`${options.color}_DOUBLE_LASER_CANNON_HEAVY`], weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON_HEAVY`],
+                weapons[`${options.color}_DOUBLE_LASER_CANNON_HEAVY`], weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON_HEAVY`],
+                weapons.DOUBLE_ION_CANNON_MEDIUM, weapons.DOUBLE_ION_CANNON_HEAVY
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 200
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 3 | 0
+                }
+            }));
+        })(),
+        hangars: [{
+            x: 0,
+            y: 0,
+            maxSquadrons: 1,
+            squadronSize: 3,
+            reserveSize: 3,
+            squadronKey: options.freighter
+        }]
+    };
+}
+
+templates.PROCURSATOR = function (options = {}) {
+    options.color ??= "GREEN";
+
+    return {
+        name: "Procursator-class Star Destroyer",
+        asset: "PROCURSATOR.png",
+        classification: shipTypes.HeavyFrigate,
+        population: 17,
+        size: 550,
+        cost: 4500,
+        speed: 3,
+        turnSpeed: .01,
+        shield: 4500,
+        shieldRegen: 4.5,
+        hardpoints: (function () {
+            const points = [{
+                x: -.208,
+                y: .375
+            }, {
+                x: -.414,
+                y: -.451
+            }, {
+                x: -.302,
+                y: -.069
+            }, {
+                x: -.237,
+                y: .167
+            }, {
+                x: -.209,
+                y: -.178
+            }, {
+                x: -.064,
+                y: -.112
+            }, {
+                x: -.075,
+                y: .643
+            }, { //
+                x: -.242,
+                y: -.745
+            }, {
+                x: -.244,
+                y: -.672
+            }, {
+                x: -.255,
+                y: -.382
+            }, {
+                x: -.253,
+                y: -.194
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const selections = [
+                weapons[`${options.color}_DOUBLE_LASER_CANNON_HEAVY`],
+                weapons[`${options.color}_DOUBLE_LASER_CANNON_HEAVY`],
+                weapons.DOUBLE_ION_CANNON,
+                weapons.DOUBLE_ION_CANNON,
+                weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+                weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+                weapons.DOUBLE_ION_CANNON,
+                weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON_HEAVY`],
+                weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON_HEAVY`],
+                weapons.DOUBLE_ION_CANNON_HEAVY,
+                weapons.DOUBLE_ION_CANNON_HEAVY
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 150
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 2.25 | 0
+                }
+            }));
+        })()
     };
 }
 

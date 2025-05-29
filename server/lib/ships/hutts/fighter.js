@@ -51,7 +51,7 @@ ships.SKIPRAYBLASTBOAT_HUTT = {
         y: 0,
         weapon: {
             ...weapons.FIGHTER_PROTON_BOMB,
-            reload: weapons.FIGHTER_PROTON_BOMB.reload * .05
+            reload: weapons.FIGHTER_PROTON_BOMB.reload * .2
         }
     }]
 };

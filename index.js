@@ -253,7 +253,10 @@ if (location.search.includes("debug")) {
                 fleet: Fleet.random(pop, "EMPIRE").__ships.map(e => ({
                     ship: e,
                     hero: null
-                })),
+                })).concat([{
+                    ship: "TECTOR_STAR_DESTROYER_EMPIRE",
+                    hero: null
+                }]),
                 color: survivalFactions.find(e => e.name === "Galactic Empire").color
             }, {
                 name: "New Republic",

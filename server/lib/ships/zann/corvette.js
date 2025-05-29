@@ -96,4 +96,8 @@ ships.DP20_ZANN = templates.corvette.DP20({
     color: "YELLOW"
 });
 
+ships.BUCCANEER_ZANN = templates.corvette.BUCCANEER({
+    color: "YELLOW"
+});
+
 export default ships;

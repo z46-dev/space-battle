@@ -886,7 +886,8 @@ templates.VENGEANCE = function (options = {}) {
                 weapon: {
                     ...e.weapon,
                     range: e.weapon.range * 1.5 | 0,
-                    health: e.weapon.health * 3.5 | 0                }
+                    health: e.weapon.health * 3.5 | 0
+                }
             }));
         })(),
         hangars: options.hangars
@@ -1027,7 +1028,7 @@ templates.COMPELLOR = function (options = {}) {
                 y: -.484
             }, */];
 
-            for (let i = 0, n = points.length; i < n; i ++) {
+            for (let i = 0, n = points.length; i < n; i++) {
                 points.push({
                     x: -points[i].x,
                     y: points[i].y
@@ -1116,6 +1117,659 @@ templates.COMPELLOR = function (options = {}) {
                     ...e.weapon,
                     health: e.weapon.health * 5.5 | 0,
                     reload: e.weapon.reload * .45 | 0
+                }
+            }));
+        })(),
+        hangars: options.hangars
+    };
+}
+
+templates.COMMUNICATIONS_BATTLECRUISER = function (options = {}) {
+    options.name ??= "Communications Battlecruiser";
+    options.population ??= 50;
+    options.cost ??= 18500;
+    options.speed ??= 3;
+    options.turnSpeed ??= .0005;
+    options.shield ??= 35000;
+    options.shieldRegen ??= options.shield / 1000;
+    options.color ??= "GREEN";
+    options.fighter ??= "TIEFIGHTER_EMPIRE";
+    options.bomber ??= "TIEBOMBER_EMPIRE";
+
+    options.hangars ??= [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: options.fighter
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: options.bomber
+    }];
+
+    return {
+        name: options.name,
+        asset: "COMMUNICATIONS_BATTLECRUISER.png",
+        classification: shipTypes.SuperCapital,
+        population: options.population,
+        size: 1400,
+        cost: options.cost,
+        speed: options.speed,
+        turnSpeed: options.turnSpeed,
+        shield: options.shield,
+        shieldRegen: options.shieldRegen,
+        hardpoints: (function () {
+            const points = [{
+                x: -.063,
+                y: .717
+            }, {
+                x: -.076,
+                y: .676
+            }, {
+                x: -.146,
+                y: .513
+            }, {
+                x: -.161,
+                y: .468
+            }, {
+                x: -.196,
+                y: .327
+            }, {
+                x: -.213,
+                y: .276
+            }, {
+                x: -.252,
+                y: .131
+            }, {
+                x: -.266,
+                y: .085
+            }, {
+                x: -.385,
+                y: -.148
+            }, {
+                x: -.399,
+                y: -.196
+            }, {
+                x: -.135,
+                y: .357
+            }, {
+                x: -.168,
+                y: .269
+            }, {
+                x: -.111,
+                y: .304
+            }, {
+                x: -.311,
+                y: -.147
+            }, {
+                x: -.262,
+                y: -.116
+            }, {
+                x: -.283,
+                y: -.061
+            }, {
+                x: -.156,
+                y: -.142
+            }, {
+                x: -.153,
+                y: -.199
+            }, {
+                x: -.159,
+                y: -.416
+            }, {
+                x: -.159,
+                y: -.473
+            }, {
+                x: -.074,
+                y: -.713
+            }, {
+                x: -.076,
+                y: -.772
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const laserCannon = {
+                weapon: weapons[options.color + "_DOUBLE_LASER_CANNON"],
+                shotsAtOnce: 2,
+                shotDelay: 150
+            };
+
+            const ionCannon = {
+                weapon: weapons.DOUBLE_ION_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 150
+            };
+
+            const turbolaser = {
+                weapon: weapons[options.color + "_DOUBLE_TURBOLASER_CANNON"],
+                shotsAtOnce: 2,
+                shotDelay: 200
+            };
+
+            const heavyIonCannon = {
+                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 200
+            };
+
+            const selections = [laserCannon, ionCannon, turbolaser, heavyIonCannon];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    ...selections[i % selections.length]
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 5.5 | 0,
+                    reload: e.weapon.reload * .55 | 0
+                }
+            }));
+        })(),
+        hangars: options.hangars
+    };
+}
+
+templates.PRAETOR_II = function (options = {}) {
+    options.name ??= "Praetor Mark II";
+    options.population ??= 75;
+    options.cost ??= 28000;
+    options.speed ??= 2;
+    options.turnSpeed ??= .0005;
+    options.shield ??= 40000;
+    options.shieldRegen ??= options.shield / 1000;
+    options.color ??= "GREEN";
+
+    return {
+        name: options.name,
+        asset: "PRAETOR_II.png",
+        classification: shipTypes.SuperCapital,
+        population: options.population,
+        size: 3000,
+        cost: options.cost,
+        speed: options.speed,
+        turnSpeed: options.turnSpeed,
+        shield: options.shield,
+        shieldRegen: options.shieldRegen,
+        hardpoints: (function () {
+            const points = [{
+                x: -.120,
+                y: .659
+            }, {
+                x: -.142,
+                y: .635
+            }, {
+                x: -.145,
+                y: .599
+            }, {
+                x: -.192,
+                y: .507
+            }, {
+                x: -.213,
+                y: .483
+            }, {
+                x: -.215,
+                y: .447
+            }, {
+                x: -.359,
+                y: .097
+            }, {
+                x: -.380,
+                y: .069
+            }, {
+                x: -.383,
+                y: .034
+            }, {
+                x: -.468,
+                y: -.163
+            }, {
+                x: -.489,
+                y: -.189
+            }, {
+                x: -.491,
+                y: -.225
+            }, {
+                x: -.588,
+                y: -.457
+            }, {
+                x: -.609,
+                y: -.480
+            }, {
+                x: -.616,
+                y: -.517
+            }, {
+                x: -.260,
+                y: -.055
+            }, {
+                x: -.171,
+                y: .095
+            }, {
+                x: -.189,
+                y: .183
+            }, {
+                x: -.107,
+                y: .270
+            }, {
+                x: -.116,
+                y: .375
+            }, {
+                x: -.105,
+                y: -.039
+            }, {
+                x: -.120,
+                y: -.202
+            }, {
+                x: -.131,
+                y: -.233
+            }, {
+                x: -.120,
+                y: -.271
+            }, {
+                x: -.079,
+                y: -.397
+            }, {
+                x: -.076,
+                y: -.226
+            }, {
+                x: -.039,
+                y: -.036
+            }, {
+                x: -.019,
+                y: -.005
+            }, {
+                x: -.174,
+                y: -.546
+            }, {
+                x: -.457,
+                y: -.517
+            }, {
+                x: -.362,
+                y: -.158
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const selections = [
+                weapons.ION_CANNON_ULTRA, weapons.ION_CANNON_ULTRA,
+                weapons[options.color + "_TURBOLASER_CANNON_ULTRAHEAVY"], weapons[options.color + "_TURBOLASER_CANNON_ULTRAHEAVY"],
+                weapons[options.color + "_QUAD_LASER_CANNON"]
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 500
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 5.5 | 0,
+                    reload: e.weapon.reload * .75 | 0
+                }
+            }));
+        })()
+    };
+}
+
+templates.PRAETOR_CARRIER = function (options = {}) {
+    options.name ??= "Praetor Carrier";
+    options.population ??= 75;
+    options.cost ??= 28000;
+    options.speed ??= 2;
+    options.turnSpeed ??= .0005;
+    options.shield ??= 40000;
+    options.shieldRegen ??= options.shield / 1000;
+    options.color ??= "GREEN";
+    options.fighter ??= "TIEFIGHTER_EMPIRE";
+    options.bomber ??= "TIEBOMBER_EMPIRE";
+    options.interceptor ??= "TIEINTERCEPTOR_EMPIRE";
+    options.freighter ??= "GUARDIAN_FREIGHTER_EMPIRE";
+
+    options.hangars ??= [{
+        x: -.25,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 4,
+        reserveSize: 4,
+        squadronKey: options.fighter
+    }, {
+        x: -.25,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 4,
+        reserveSize: 4,
+        squadronKey: options.interceptor
+    }, {
+        x: -.25,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 4,
+        reserveSize: 4,
+        squadronKey: options.bomber
+    }, {
+        x: .25,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 4,
+        reserveSize: 4,
+        squadronKey: options.fighter
+    }, {
+        x: .25,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 4,
+        reserveSize: 4,
+        squadronKey: options.interceptor
+    }, {
+        x: .25,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 4,
+        reserveSize: 4,
+        squadronKey: options.bomber
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 3,
+        reserveSize: 4,
+        squadronKey: options.freighter
+    }];
+
+    return {
+        name: options.name,
+        asset: "PRAETOR_CARRIER.png",
+        classification: shipTypes.SuperCapital,
+        population: options.population,
+        size: 2500,
+        cost: options.cost,
+        speed: options.speed,
+        turnSpeed: options.turnSpeed,
+        shield: options.shield,
+        shieldRegen: options.shieldRegen,
+        hardpoints: (function () {
+            const points = [{
+                x: -.465,
+                y: .421
+            }, {
+                x: -.497,
+                y: .388
+            }, {
+                x: -.493,
+                y: .344
+            }, {
+                x: -.606,
+                y: .088
+            }, {
+                x: -.633,
+                y: .052
+            }, {
+                x: -.633,
+                y: .004
+            }, {
+                x: -.761,
+                y: -.298
+            }, {
+                x: -.792,
+                y: -.327
+            }, {
+                x: -.797,
+                y: -.375
+            }, {
+                x: -.247,
+                y: .535
+            }, {
+                x: -.291,
+                y: .751
+            }, {
+                x: -.220,
+                y: .421
+            }, {
+                x: -.340,
+                y: .222
+            }, {
+                x: -.428,
+                y: -.423
+            }, {
+                x: -.461,
+                y: -.031
+            }, {
+                x: -.132,
+                y: .243
+            }, {
+                x: -.155,
+                y: .042
+            }, {
+                x: -.168,
+                y: -.004
+            }, {
+                x: -.151,
+                y: -.055
+            }, {
+                x: -.101,
+                y: -.218
+            }, {
+                x: -.103,
+                y: .008
+            }, {
+                x: -.050,
+                y: .249
+            }, {
+                x: -.023,
+                y: .287
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const selections = [
+                weapons.ION_CANNON_ULTRA,
+                weapons[options.color + "_TURBOLASER_CANNON_ULTRAHEAVY"],
+                weapons.QUAD_ION_CANNON_MEDIUM,
+                weapons[options.color + "_QUAD_LASER_CANNON"]
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 500
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 7 | 0,
+                    reload: e.weapon.reload * .75 | 0
+                }
+            }));
+        })(),
+        hangars: options.hangars
+    };
+}
+
+templates.TAGGE_BATTLECRUISER = function (options = {}) {
+    options.name ??= "Tagge Battlecruiser";
+    options.population ??= 60;
+    options.cost ??= 22000;
+    options.speed ??= 1.5;
+    options.turnSpeed ??= .001;
+    options.shield ??= 25000;
+    options.shieldRegen ??= options.shield / 1000;
+    options.color ??= "GREEN";
+    options.fighter ??= "TIEFIGHTER_EMPIRE";
+    options.bomber ??= "TIEBOMBER_EMPIRE";
+    options.freighter ??= "GUARDIAN_FREIGHTER_EMPIRE";
+
+    options.hangars ??= [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: options.fighter
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 3,
+        reserveSize: 4,
+        squadronKey: options.freighter
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 6,
+        reserveSize: 4,
+        squadronKey: options.bomber
+    }];
+
+    return {
+        name: options.name,
+        asset: "TAGGE_BATTLECRUISER.png",
+        classification: shipTypes.SuperCapital,
+        population: options.population,
+        size: 1850,
+        cost: options.cost,
+        speed: options.speed,
+        turnSpeed: options.turnSpeed,
+        shield: options.shield,
+        shieldRegen: options.shieldRegen,
+        hardpoints: (function () {
+            const points = [{
+                x: -.030,
+                y: .846
+            }, {
+                x: -.097,
+                y: .611
+            }, {
+                x: -.100,
+                y: .551
+            }, {
+                x: -.177,
+                y: .312
+            }, {
+                x: -.228,
+                y: .229
+            }, {
+                x: -.275,
+                y: .086
+            }, {
+                x: -.337,
+                y: -.105
+            }, {
+                x: -.336,
+                y: -.170
+            }, {
+                x: -.403,
+                y: -.378
+            }, {
+                x: -.453,
+                y: -.551
+            }, {
+                x: -.501,
+                y: -.614
+            }, {
+                x: -.559,
+                y: -.803
+            }, {
+                x: -.344,
+                y: -.869
+            }, {
+                x: -.263,
+                y: -.639
+            }, {
+                x: -.119,
+                y: -.256
+            }, {
+                x: -.254,
+                y: -.305
+            }, {
+                x: -.151,
+                y: .017
+            }, {
+                x: -.060,
+                y: .126
+            }, {
+                x: -.043,
+                y: .450
+            }, {
+                x: -.144,
+                y: -.637
+            }, {
+                x: -.191,
+                y: -.899
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+
+            const selections = [
+                weapons.DOUBLE_ION_CANNON_HEAVY,
+                weapons[options.color + "_DOUBLE_TURBOLASER_CANNON_HEAVY"],
+                weapons[options.color + "_QUAD_LASER_CANNON"],
+                weapons.QUAD_ION_CANNON_MEDIUM
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 500
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 10 | 0,
+                    reload: e.weapon.reload * .8 | 0
                 }
             }));
         })(),

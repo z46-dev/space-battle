@@ -1,4 +1,5 @@
 import { shipTypes } from "../../constants.js";
+import templates from "../../templates.js";
 import * as weapons from "../../weapons.js";
 
 const ships = {};
@@ -204,5 +205,8 @@ ships.TITAN_SQUADRON_EMPIRE = {
         shotDelay: 30
     }]
 };
+
+ships.GUARDIAN_FREIGHTER_EMPIRE = templates.fighters.GUARDIAN_FREIGHTER();
+ships.YZ_755_EMPIRE = templates.fighters.YZ_755();
 
 export default ships;

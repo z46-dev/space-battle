@@ -6,7 +6,7 @@ heroes["AdmiralPellaeon"] = {
     name: "Admiral Gillad Pellaeon",
     tooltip: "Admiral Gillad Pellaeon is a veteran of the Clone Wars and the Galactic Civil War. He is a strong leader and served under Grand Admiral Thrawn, which aided him in his tactical growth. He eventually became the leader of the Imperial Remnant, and ended up signing the treaty that ended the Galactic Civil War.",
     image: "Pellaeon.png",
-    ships: ["IMPERIALSTARDESTROYER_EMPIRE", "GLADIATOR_EMPIRE"],
+    ships: ["GLADIATOR_EMPIRE"],
     modifications: function (ship) {
         ship.shield *= 1.5;
         ship.maxShield *= 1.5;
@@ -225,7 +225,7 @@ heroes["Konstantine"] = {
     name: "Admiral Konstantine",
     tooltip: "Admiral Konstantine was an admiral of the Empire who rose to power due to his political connections. He was a poor tactician, and was eventually killed by Commander Sato at the Battle of Atollon due to his greed and power-hungry nature.",
     image: "Konstantine.jfif",
-    ships: ["IMPERIALSTARDESTROYER_EMPIRE", "IMOBILIZER_EMPIRE"],
+    ships: ["IMOBILIZER_EMPIRE"],
     modifications: function (ship) {
         ship.shield *= 1.2;
         ship.maxShield *= 1.2;
@@ -271,16 +271,17 @@ heroes["RaeSloane"] = {
     name: "Rae Sloane",
     tooltip: "Rae Sloane was a Grand Admiral of the Empire after the fall of the Empire. She lead the Imperial Remnant and lead the Empire to its defeat at the Battle of Jakku to support the birth of the First Order.",
     image: "RaeSloane.png",
-    ships: ["IMPERIALSTARDESTROYER_EMPIRE"],
+    ships: ["IMPERIAL_CARGO_SHIP_EMPIRE"],
     modifications: function (ship) {
-        ship.shield *= 1.5;
-        ship.maxShield *= 1.5;
+        ship.shield *= 3;
+        ship.maxShield *= 3;
 
         ship.hardpoints.forEach(hp => {
-            hp.health *= 1.5;
-            hp.maxHealth *= 1.5;
+            hp.health *= 5;
+            hp.maxHealth *= 5;
             hp.range *= 2;
-            hp.reload *= .75;
+            hp.reload *= .45;
+            hp.damage *= 2;
         });
 
         ship.addHangar({
@@ -300,7 +301,7 @@ heroes["GMTarkin"] = {
     name: "Grand Moff Tarkin",
     tooltip: "Grand Moff Tarkin was a brilliant tactician and the commander of the Death Star. He was a ruthless leader who relied on fear to control the galaxy. He was killed by Luke Skywalker during the Battle of Yavin.",
     image: "GMTarkin.png",
-    ships: ["IMPERIALSTARDESTROYER_EMPIRE"],
+    ships: ["VICTORYSTARDESTROYER_EMPIRE"],
     modifications: function (ship) {
         ship.shield *= 1.6;
         ship.maxShield *= 1.6;
@@ -330,6 +331,98 @@ heroes["GMTarkin"] = {
 
             ship.battle.displayText("Tarkin has called in reinforcements!");
         }
+    }
+};
+
+heroes["TreutenTeradoc"] = {
+    name: "Treuten Teradoc",
+    tooltip: "Treuten Teradoc was a warlord who rose to power after the fall of the Empire. He was a brilliant tactician and was able to lead the Crimson Command, a fleet of modified Victory-II Class Star Destroyers.",
+    image: "TreutenTeradoc.png",
+    ships: ["CRIMSONCOMMAND_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 3;
+        ship.maxShield *= 3;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+            hp.range *= 1.5;
+            hp.reload *= .8;
+            hp.damage *= 1.2;
+        });
+
+        ship.addHangar({
+            x: 0,
+            y: 0,
+            offset: 0,
+            direction: 0,
+            maxSquadrons: 2,
+            squadronSize: 4,
+            reserveSize: 8,
+            squadronKey: "TIEDEFENDER_EMPIRE"
+        });
+    }
+};
+
+heroes["KoshTeradoc"] = {
+    name: "Kosh Teradoc",
+    tooltip: "Kosh Teradoc was a warlord who rose to power after the fall of the Empire. He was the brother of Treuten Teradoc and lead the Greater Maldrood.",
+    image: "KoshTeradoc.webp",
+    ships: ["CRIMSONCOMMAND_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 3;
+        ship.maxShield *= 3;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+            hp.range *= 1.5;
+            hp.reload *= .8;
+            hp.damage *= 1.2;
+        });
+
+        ship.addHangar({
+            x: 0,
+            y: 0,
+            offset: 0,
+            direction: 0,
+            maxSquadrons: 2,
+            squadronSize: 4,
+            reserveSize: 8,
+            squadronKey: "TIEDEFENDER_EMPIRE"
+        });
+    }
+};
+
+heroes["AdyePrittick"] = {
+    name: "Adye Prittick",
+    tooltip: "Adye Prittick was the ranking officer of Death Squadron after the death of Admiral Piett at Endor. He was a competent officer, but not a skilled politician, unable to unite Death Squadron to counterattack the Rebel fleet at Endor after their victory.",
+    image: "AdyePittrick.webp",
+    ships: ["TECTOR_STAR_DESTROYER_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 2;
+        ship.maxShield *= 2;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+        });
+    }
+};
+
+heroes["ApwarTrigit"] = {
+    name: "Apwar Trigit",
+    tooltip: "Trigit then hired himself and his Imperial-class Star Destroyer, Implacable, to Zsinj. There he bore the title of \"admiral\", although given the number of self-promoted warlords, his penchant for individualism and his command of a single starship, it is unlikely that this was the rank he held within the Imperial Starfleet.",
+    image: "Apwar Trigit.webp",
+    ships: ["IMPERIALSTARDESTROYER_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 2;
+        ship.maxShield *= 2;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+        });
     }
 };
 

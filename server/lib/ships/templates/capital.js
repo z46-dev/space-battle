@@ -96,6 +96,131 @@ templates.IMPERIAL_STAR_DESTROYER = function (options = {}) {
     };
 }
 
+templates.TECTOR_STAR_DESTROYER = function (options = {}) {
+    options.color ??= "GREEN";
+
+    return {
+        name: "Tector Star Destroyer",
+        asset: "TECTOR_STAR_DESTROYER.png",
+        classification: shipTypes.Capital,
+        population: 24,
+        size: 850,
+        cost: 6500,
+        speed: 2.5,
+        turnSpeed: .0075,
+        shield: 8250,
+        shieldRegen: 8.25,
+        hardpoints: (function () {
+            const points = [{
+                x: -.042,
+                y: .798
+            }, {
+                x: -.118,
+                y: .544
+            }, {
+                x: -.208,
+                y: .258
+            }, {
+                x: -.307,
+                y: -.046
+            }, {
+                x: -.341,
+                y: -.148
+            }, {
+                x: -.492,
+                y: -.642
+            }, {
+                x: -.442,
+                y: -.494
+            }, {
+                x: -.394,
+                y: -.325
+            }, {
+                x: -.266,
+                y: .097
+            }, {
+                x: -.082,
+                y: .678
+            }, { //
+                x: -.166,
+                y: .384
+            }, {
+                x: -.323,
+                y: -.097
+            }, { //
+                x: -.294,
+                y: -.484
+            }, {
+                x: -.294,
+                y: -.417
+            }, {
+                x: -.293,
+                y: -.368
+            }, {
+                x: -.293,
+                y: -.309
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const selections = [
+                weapons.DOUBLE_ION_CANNON, weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+                weapons.DOUBLE_ION_CANNON, weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+                weapons.DOUBLE_ION_CANNON, weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+                weapons.DOUBLE_ION_CANNON, weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+                weapons.DOUBLE_ION_CANNON, weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+                weapons.QUAD_ION_CANNON_MEDIUM, weapons[`${options.color}_QUAD_LASER_CANNON_HEAVY`],
+                weapons.QUAD_ION_CANNON_HEAVY, weapons[`${options.color}_QUAD_TURBOLASER_CANNON_HEAVY`],
+                weapons.QUAD_ION_CANNON_HEAVY, weapons[`${options.color}_QUAD_TURBOLASER_CANNON_HEAVY`]
+            ];
+
+            const output = [{
+                x: .001,
+                y: .055,
+                weapon: weapons[`${options.color}_TRIPLE_TURBOLASER_CANNON_HEAVY`],
+                shotsAtOnce: 2,
+                shotDelay: 200
+            }, {
+                x: .000,
+                y: .093,
+                weapon: weapons[`${options.color}_TRIPLE_TURBOLASER_CANNON_HEAVY`],
+                shotsAtOnce: 2,
+                shotDelay: 200
+            }, {
+                x: -.003,
+                y: .128,
+                weapon: weapons[`${options.color}_TRIPLE_TURBOLASER_CANNON_HEAVY`],
+                shotsAtOnce: 2,
+                shotDelay: 200
+            }];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 150
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 2.75 | 0,
+                    reload: e.weapon.reload * .85 | 0,
+                    range: e.weapon.range * 1.5 | 0
+                }
+            }));
+        })()
+    };
+}
+
 templates.ALLEGIANCE_BATTLECRUISER = function (options = {}) {
     options.color ??= "GREEN";
 
@@ -1215,5 +1340,116 @@ templates.MAJESTIC_STAR_CRUISER = function (options = {}) {
     };
 }
 
+templates.VENATOR = function (options = {}) {
+    options.color ??= "GREEN";
+    options.asset ??= "VENATOR.png";
+
+    options.fighter ??= "TIEFIGHTER_EMPIRE";
+    options.interceptor ??= "TIEINTERCEPTOR_EMPIRE";
+    options.bomber ??= "TIEBOMBER_EMPIRE";
+
+    return {
+        name: "Venator Star Destroyer",
+        asset: options.asset,
+        classification: shipTypes.Capital,
+        population: 18,
+        size: 625,
+        cost: 4000,
+        speed: 4,
+        turnSpeed: .0125,
+        shield: 6500,
+        shieldRegen: 6.5,
+        hardpoints: (function () {
+            const output = [];
+
+            const points = [{
+                x: -.132,
+                y: -.070
+            }, {
+                x: -.136,
+                y: -.214
+            }, {
+                x: -.143,
+                y: -.360
+            }, {
+                x: -.150,
+                y: -.509
+            }, {
+                x: -.170,
+                y: .511
+            }, {
+                x: -.222,
+                y: -.212
+            }, {
+                x: -.410,
+                y: -.573
+            }, {
+                x: -.281,
+                y: -.497
+            }, {
+                x: -.233,
+                y: .068
+            }, {
+                x: -.193,
+                y: .278
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const selections = [
+                weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON_HEAVY`], weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON_HEAVY`],
+                weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON_HEAVY`], weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON_HEAVY`],
+                weapons.DOUBLE_ION_CANNON_MEDIUM, weapons.DOUBLE_ION_CANNON_MEDIUM,
+                weapons[`${options.color}_DOUBLE_LASER_CANNON`], weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+                weapons[`${options.color}_DOUBLE_LASER_CANNON`], weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+                weapons.DOUBLE_ION_CANNON, weapons.DOUBLE_ION_CANNON
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 150
+                });
+            }
+
+            return output.map(e => ({
+                ...e,
+                weapon: {
+                    ...e.weapon,
+                    health: e.weapon.health * 2.4 | 0
+                }
+            }))
+        })(),
+        hangars: [{
+            x: 0,
+            y: 0,
+            maxSquadrons: 2,
+            squadronSize: 5,
+            reserveSize: 5,
+            squadronKey: options.fighter
+        }, {
+            x: 0,
+            y: 0,
+            maxSquadrons: 1,
+            squadronSize: 8,
+            reserveSize: 4,
+            squadronKey: options.interceptor
+        }, {
+            x: 0,
+            y: 0,
+            maxSquadrons: 2,
+            squadronSize: 5,
+            reserveSize: 5,
+            squadronKey: options.bomber
+        }]
+    };
+}
 
 export default templates;

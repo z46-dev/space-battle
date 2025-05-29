@@ -12,5 +12,7 @@ ships.IMPERIAL_II_EMPIRE = templates.heavyFrigate.IMPERIAL_II();
 ships.GLADIATOR_EMPIRE = templates.heavyFrigate.GLADIATOR();
 ships.VINDICATOR_EMPIRE = templates.heavyFrigate.VINDICATOR();
 ships.PURSUIT_EMPIRE = templates.heavyFrigate.PURSUIT_DESTROYER();
+ships.DRAGON_HEAVY_CRUISER_EMPIRE = templates.heavyFrigate.DRAGON_HEAVY_CRUISER();
+ships.SURVEYOR_EMPIRE = templates.heavyFrigate.SURVEYOR();
 
 export default ships;

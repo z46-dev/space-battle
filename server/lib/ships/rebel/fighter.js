@@ -12,8 +12,8 @@ ships.XWING_REBEL = {
     cost: 5,
     speed: 20,
     turnSpeed: .085,
-    shield: 22,
-    shieldRegen: .02,
+    shield: 15,
+    shieldRegen: .015,
     hardpoints: [{
         x: 0,
         y: 0,
@@ -44,8 +44,8 @@ ships.YWING_REBEL = {
     cost: 8,
     speed: 15,
     turnSpeed: .075,
-    shield: 65,
-    shieldRegen: 1.25,
+    shield: 20,
+    shieldRegen: .02,
     hardpoints: [{
         x: 0,
         y: 0,
@@ -88,8 +88,8 @@ ships.AWING_REBEL = {
     cost: 6,
     speed: 24,
     turnSpeed: .1,
-    shield: 15,
-    shieldRegen: .9,
+    shield: 10,
+    shieldRegen: .01,
     hardpoints: [{
         x: 0,
         y: 0,
@@ -298,77 +298,63 @@ ships.ROGUESQUADRON_REBEL = {
 };
 
 ships.FALCON_REBEL = {
-    name: "Millenium Falcon",
+    name: "YT-1300 Light Freighter",
     asset: "FALCON.png",
-    classification: shipTypes.Corvette,
-    population: 8,
-    size: 65,
+    classification: shipTypes.FighterBomber,
+    population: 5,
+    size: 50,
     cost: 600,
     speed: 21,
     turnSpeed: .0667,
-    shield: 2500,
-    shieldRegen: 3,
-    uniqueUnit: true,
-    shieldRegenAbility: {
-        duration: 1.2,
-        cooldown: 2,
-        regen: 1.5
-    },
+    shield: 500,
+    shieldRegen: .05,
     tenderAbility: {
-        frequency: .8,
-        power: .3
+        frequency: 1,
+        power: .15
     },
     hardpoints: [{
         x: 0,
         y: 0,
-        weapon: {
-            ...weapons.RED_QUAD_LASER_CANNON,
-            health: weapons.RED_QUAD_LASER_CANNON.health * 4
-        },
+        weapon: weapons.RED_QUAD_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.RED_QUAD_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 100
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.FIGHTER_PROTON_TORPEDO,
+        shotsAtOnce: 4,
+        shotDelay: 250
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.FIGHTER_CONCUSSION_MISSILE,
+        shotsAtOnce: 4,
+        shotDelay: 250
+    }, {
+        x: 0,
+        y: 0,
+        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 50
     }, {
         x: 0,
         y: 0,
-        weapon: {
-            ...weapons.RED_QUAD_LASER_CANNON_HEAVY,
-            health: weapons.RED_QUAD_LASER_CANNON_HEAVY.health * 4
-        },
+        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 50
-    }, {
-        x: 0,
-        y: 0,
+    }].map(e => ({
+        ...e,
         weapon: {
-            ...weapons.FIGHTER_PROTON_TORPEDO,
-            health: weapons.FIGHTER_PROTON_TORPEDO.health * 4,
-            damage: weapons.FIGHTER_PROTON_TORPEDO.damage * 1.25,
-            explosionDamage: weapons.FIGHTER_CONCUSSION_MISSILE.explosionDamage * 1.25,
-            explosionRange: weapons.FIGHTER_CONCUSSION_MISSILE.explosionRange * 1.25
-        },
-        shotsAtOnce: 3,
-        shotDelay: 75
-    }, {
-        x: 0,
-        y: 0,
-        weapon: {
-            ...weapons.FIGHTER_CONCUSSION_MISSILE,
-            health: weapons.FIGHTER_CONCUSSION_MISSILE.health * 4,
-            damage: weapons.FIGHTER_CONCUSSION_MISSILE.damage * 1.3,
-            explosionDamage: weapons.FIGHTER_CONCUSSION_MISSILE.explosionDamage * 1.3,
-            explosionRange: weapons.FIGHTER_CONCUSSION_MISSILE.explosionRange * 1.3,
-        },
-        shotsAtOnce: 3,
-        shotDelay: 75
-    }, {
-        x: 0,
-        y: 0,
-        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON
-    }, {
-        x: 0,
-        y: 0,
-        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON
-    }]
+            ...e.weapon,
+            health: e.weapon.health * 2
+        }
+    }))
 };
 
 export default ships;

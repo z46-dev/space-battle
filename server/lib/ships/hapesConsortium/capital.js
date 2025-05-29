@@ -9,7 +9,7 @@ ships.BATTLEDRAGON_HAPAN = {
     classification: shipTypes.Capital,
     population: 18,
     size: 300,
-    cost: 6580,
+    cost: 5700,
     speed: 3,
     turnSpeed: .0025,
     shield: 6780,
@@ -19,21 +19,21 @@ ships.BATTLEDRAGON_HAPAN = {
         y: 0,
         weapon: {
             ...weapons.BLUE_TURBOLASER_CANNON,
-            reload: 1.25
+            reload: 3
         }
     }, {
         x: 0,
         y: 0,
         weapon: {
             ...weapons.ION_CANNON_MEDIUM,
-            reload: 1.25
+            reload: 3
         }
     }, {
         x: 0,
         y: 0,
         weapon: {
             ...weapons.BLUE_LASER_CANNON,
-            reload: 1.25
+            reload: 2
         }
     }, {
         x: 0,

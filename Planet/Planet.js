@@ -249,18 +249,23 @@ export class NoiseOptions {
     static quickNoise = function quickNoise() {
         return quickNoiseTable2(...arguments);
     }
+
     static staticQuickNoise = function staticQuickNoise() {
         return staticQuickNoiseFunc(...arguments);
     }
+
     static perlin2 = function perlin2() {
         return perlinNoise.perlin2(...arguments);
     }
+
     static perlin3 = function perlin3() {
         return perlinNoise.perlin3(...arguments);
     }
+
     static simplex2 = function simplex2() {
         return perlinNoise.simplex2(...arguments);
     }
+
     static simplex3 = function simplex3() {
         return perlinNoise.simplex3(...arguments);
     }

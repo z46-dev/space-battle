@@ -274,19 +274,27 @@ heroes["HanAndChewie"] = {
     image: "HanChewie.webp",
     ships: ["FALCON_REBEL"],
     modifications: function(ship) {
-        ship.shield *= 2;
-        ship.maxShield *= 2;
-        ship.speed *= 1.15;
+        ship.shield *= 3;
+        ship.maxShield *= 3;
+        ship.speed *= 1.2;
 
         ship.hardpoints.forEach(hp => {
-            hp.health *= 2;
-            hp.maxHealth *= 2;
+            hp.health *= 2.5;
+            hp.maxHealth *= 2.5;
             hp.reload *= .25;
+            hp.oldReload = hp.reload;
         });
+
+        ship.hanAndChewieReloadMultiplier = 1;
     },
     onTick: function(ship) {
+        ship.hanAndChewieReloadMultiplier = Math.sin(performance.now() / 10000) * .25 + .75;
+
         ship.hardpoints.forEach(hp => {
-            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .0001);
+            if (hp.health > 0) {
+                hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .0001);
+                hp.reload = hp.oldReload * ship.hanAndChewieReloadMultiplier;
+            }
         });
     }
 };

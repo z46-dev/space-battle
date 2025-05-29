@@ -12,4 +12,8 @@ ships.NEUTRON_STAR_ZANN = templates.frigate.NEUTRON_STAR({
     color: "YELLOW"
 });
 
+ships.VENGEANCE_FRIGATE_ZANN = templates.frigate.VENGEANCE_FRIGATE({
+    color: "YELLOW"
+});
+
 export default ships;

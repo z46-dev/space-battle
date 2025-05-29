@@ -163,17 +163,16 @@
         let offsetX = centerX - contentCenterX * scale;
         let offsetY = centerY - contentCenterY * scale;
 
-        // fetch("/complete/assets/master-config.json").then(res => res.json()).then(master => {
-        fetch("/complete/assets/planets.json").then(res => res.json()).then(rawPlanets => {
-            const planets = rawPlanets.filter(p => newPlanets.includes(p.name));
+        fetch("/assets/newPlanets.json").then(res => res.json()).then(rawPlanets => {
+            const planets = rawPlanets.filter(p => p.pass == null);
 
-            for (const name of newPlanets) {
-                if (!planets.some(p => p.name === name)) {
-                    console.warn(`Planet ${name} not found in the data.`);
-                }
-            }
+            // for (const name of newPlanets) {
+            //     if (!planets.some(p => p.name === name)) {
+            //         console.warn(`Planet ${name} not found in the data.`);
+            //     }
+            // }
 
-            console.log(`Loaded ${planets.length} planets out of ${newPlanets.length}.`);
+            // console.log(`Loaded ${planets.length} planets out of ${newPlanets.length}.`);
 
             minX = Infinity, maxX = -Infinity;
             minY = Infinity, maxY = -Infinity;
@@ -184,6 +183,8 @@
                 minY = Math.min(minY, planet.y);
                 maxY = Math.max(maxY, planet.y);
             }
+
+            console.log(planets.find(p => p.x === maxX && p.y === maxY));
 
             width = maxX - minX;
             height = maxY - minY;
@@ -290,9 +291,8 @@
             return planetsToDraw.filter(p => p.name !== base.name).sort((a, b) => dist(base.x, base.y, a.x, a.y) - dist(base.x, base.y, b.x, b.y));
         }
 
-
         function createSafeLinks() {
-            const maxLinks = 4;
+            const maxLinks = 5;
             const linkCounts = new Map();
             const links = [];
             const planetMap = new Map(planetsToDraw.map(p => [p.name, p]));
@@ -363,7 +363,7 @@
         }
 
         async function exportData(galaxySize) {
-            const master = await (await fetch("/complete/assets/master-config.json")).json();
+            const master = await (await fetch("/assets/master-config.json")).json();
             const output = [];
 
             for (const planet of planetsToDraw) {
@@ -371,40 +371,76 @@
                     name: planet.name,
                     x: Math.round((planet.x - minX) / (maxX - minX) * galaxySize),
                     y: Math.round((planet.y - minY) / (maxY - minY) * galaxySize),
-                    connections: safeLinks.filter(link => link.from === planet.name || link.to === planet.name).map(link => link.from === planet.name ? link.to : link.from)
+                    connections: safeLinks.filter(link => link.from === planet.name || link.to === planet.name).map(link => link.from === planet.name ? link.to : link.from),
+                    shipyardLevel: planet.shipyardLevel,
+                    mass: planet.mass,
+                    income: planet.income,
+                    terrain: planet.terrain
                 });
             }
 
-            // for (const og of master.planets) {
-            //     const planet = output.find(p => p.name === og.name);
-            //     if (planet) {
-            //         planet.color = og.color;
-            //         planet.income = og.income;
-            //         planet.shipyardLevel = og.shipyardLevel;
-            //         planet.design = og.design;
-            //     } else {
-            //         console.warn(`Planet ${og.name} not found in the data.`);
-            //         planet.color = "#FFFFFF";
-            //         planet.income = 0;
-            //         planet.shipyardLevel = 0;
-            //         planet.design = "128;1;1;standardColors;1;staticQuickNoise";
-            //     }
-            // }
+            const warned = new Set();
 
             for (const planet of output) {
                 const og = master.planets.find(p => p.name === planet.name);
                 if (og) {
-                    console.log(og);
                     planet.color = og.color;
                     planet.income = og.income;
                     planet.shipyardLevel = og.shipyardLevel;
                     planet.design = og.design;
                 } else {
-                    console.warn(`Planet ${planet.name} not found in the data.`);
+                    // standardColors, desertColors, snowColors, yellowStarColors, blueStarColors
+                    // redStarColors, externalBluePlanet, externalRedPlane, externalDarkPlanet
+                    // externalSandPlanet, externalLavaPlanet, externalForestPlanet, externalLushPlanet
+                    // externalBrightPlanet, laxStandard, pinkFlourish, blackHole
+
+                    // quickNoise, staticQuickNoise, perlin2
+                    // perlin3, simplex2, simplex3
+
+                    // Size;Seed;Detail;Palette;ColorCount;NoiseType
+
+                    let palete, noise;
+                    switch (planet.terrain) {
+                        case "Urban":
+                            palete = ["externalBluePlanet", "externalDarkPlanet", "externalBrightPlanet"].sort(() => .5 - Math.random())[0];
+                            noise = ["quickNoise", "perlin3", "simplex3"].sort(() => .5 - Math.random())[0];
+                            planet.design = `192;${(Math.random() * 16).toFixed(4)};${4 + Math.random() * 4 | 0};${palete};${4 + Math.random() * 4 | 0};${noise}`;
+                            break;
+                        case "Desert":
+                            palete = ["desertColors", "externalSandPlanet", "externalLavaPlanet"].sort(() => .5 - Math.random())[0];
+                            noise = ["quickNoise", "staticQuickNoise"].sort(() => .5 - Math.random())[0];
+                            planet.design = `192;${(Math.random() * 16).toFixed(4)};${Math.random() * .5 + .25};${palete};${4 + Math.random() * 4 | 0};${noise}`;
+                            break;
+                        case "Temperate":
+                            palete = ["standardColors", "laxStandard", "pinkFlourish"].sort(() => .5 - Math.random())[0];
+                            noise = ["quickNoise", "staticQuickNoise", "simplex3"].sort(() => .5 - Math.random())[0];
+                            planet.design = `192;${(Math.random() * 16).toFixed(4)};${Math.random() + .25};${palete};${4 + Math.random() * 4 | 0};${noise}`;
+                            break;
+                        case "Forest":
+                        case "Swamp":
+                            palete = ["externalForestPlanet", "externalLushPlanet"].sort(() => .5 - Math.random())[0];
+                            noise = ["quickNoise", "perlin2", "simplex2"].sort(() => .5 - Math.random())[0];
+                            planet.design = `192;${(Math.random() * 16).toFixed(4)};${Math.random() * 2 + .5};${palete};${4 + Math.random() * 4 | 0};${noise}`;
+                            break;
+                        case "Arctic":
+                            palete = ["snowColors", "externalBluePlanet"].sort(() => .5 - Math.random())[0];
+                            noise = ["quickNoise", "perlin2", "simplex2"].sort(() => .5 - Math.random())[0];
+                            planet.design = `192;${(Math.random() * 16).toFixed(4)};${Math.random() * .5 + .25};${palete};${4 + Math.random() * 4 | 0};${noise}`;
+                            break;
+                        case "Volcanic":
+                            palete = ["externalLavaPlanet"].sort(() => .5 - Math.random())[0];
+                            noise = ["quickNoise", "staticQuickNoise"].sort(() => .5 - Math.random())[0];
+                            planet.design = `192;${(Math.random() * 16).toFixed(4)};${Math.random() * .5 + .25};${palete};${4 + Math.random() * 4 | 0};${noise}`;
+                            break;
+                        default:
+                            // throw new Error(`Unknown terrain type: ${planet.terrain}`);
+                            if (!warned.has(planet.terrain)) {
+                                console.warn(`Unknown terrain type: ${planet.terrain}`);
+                                warned.add(planet.terrain);
+                            }
+                    }
+
                     planet.color = "#FFFFFF";
-                    planet.income = 0;
-                    planet.shipyardLevel = 0;
-                    planet.design = "128;1;1;standardColors;1;staticQuickNoise";
                 }
             }
 

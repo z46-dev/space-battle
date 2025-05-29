@@ -1,4 +1,5 @@
 import { shipTypes } from "../../constants.js";
+import templates from "../../templates.js";
 import * as weapons from "../../weapons.js";
 
 const ships = {};
@@ -244,102 +245,13 @@ ships.AGGRESSORSTARDESTROYER_ZANN = {
     }]
 };
 
-ships.VENATOR_ZANN = {
-    name: "Venator-Class Star Destroyer",
-    asset: "VENATOR.png",
-    classification: shipTypes.Capital,
-    population: 20,
-    size: 500,
-    cost: 4250,
-    speed: 4,
-    turnSpeed: .01,
-    shield: 4500,
-    shieldRegen: 6,
-    hardpoints: (function() {
-        const output = [{
-            x: -.4,
-            y: -.55,
-            weapon: weapons.ASSAULT_PROTON_TORPEDO,
-            shotsAtOnce: 4,
-            shotDelay: 250
-        }, {
-            x: .4,
-            y: -.55,
-            weapon: weapons.ASSAULT_PROTON_TORPEDO,
-            shotsAtOnce: 3,
-            shotDelay: 250
-        }, {
-            x: -.275,
-            y: .05,
-            weapon: weapons.TRIPLE_ION_CANNON_HEAVY,
-            shotsAtOnce: 2,
-            shotDelay: 350
-        }, {
-            x: .275,
-            y: .05,
-            weapon: weapons.TRIPLE_ION_CANNON_HEAVY,
-            shotsAtOnce: 2,
-            shotDelay: 350
-        }, {
-            x: -.25,
-            y: .225,
-            weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
-            shotsAtOnce: 2,
-            shotDelay: 350
-        }, {
-            x: .25,
-            y: .225,
-            weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
-            shotsAtOnce: 2,
-            shotDelay: 350
-        }];
-
-        for (let i = 0; i < 4; i ++) {
-            output.push({
-                x: -.1 - .025 * i,
-                y: .7 - .1 * i,
-                weapon: weapons.YELLOW_DOUBLE_LASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 75
-            }, {
-                x: .1 + .025 * i,
-                y: .7 - .1 * i,
-                weapon: weapons.YELLOW_DOUBLE_LASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 75
-            }, {
-                x: -.175,
-                y: 0 - .155 * i,
-                weapon: weapons.YELLOW_TRIPLE_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 200
-            }, {
-                x: .15,
-                y: 0 - .155 * i,
-                weapon: weapons.YELLOW_TRIPLE_TURBOLASER_CANNON_HEAVY,
-                shotsAtOnce: 2,
-                shotDelay: 200
-            });
-        }
-
-        return output
-    })(),
-    hangars: [{
-        x: 0,
-        y: 0,
-        maxSquadrons: 2,
-        squadronSize: 6,
-        reserveSize: 6,
-        squadronKey: "STARVIPERATTACKCRAFT_ZANN"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 1,
-        squadronSize: 6,
-        reserveSize: 4,
-        squadronKey: "AUZITUCKGUNSHIP_ZANN"
-    }]
-};
+ships.VENATOR_ZANN = templates.capital.VENATOR({
+    color: "YELLOW",
+    asset: "VENATOR_ZANN.png",
+    fighter: "STARVIPERATTACKCRAFT_ZANN",
+    interceptor: "STARVIPERATTACKCRAFT_ZANN",
+    bomber: "AUZITUCKGUNSHIP_ZANN"
+});
 
 ships.PROVIDENCEDESTROYER_ZANN = {
     name: "Providence-Class Carrier/Destroyer",
