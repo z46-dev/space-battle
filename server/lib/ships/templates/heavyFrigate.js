@@ -8,7 +8,7 @@ templates.GLADIATOR = function (options = {}) {
     options.population ??= 20;
     options.cost ??= 3000;
     options.speed ??= 4;
-    options.turnSpeed ??= .001;
+    options.turnSpeed ??= .01;
     options.shield ??= 4650;
     options.shieldRegen ??= options.shield / 1000;
     options.color ??= "GREEN";

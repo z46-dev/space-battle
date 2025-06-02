@@ -1,4 +1,5 @@
 import { shipTypes } from "../../constants.js";
+import templates from "../../templates.js";
 import * as weapons from "../../weapons.js";
 
 const ships = {};

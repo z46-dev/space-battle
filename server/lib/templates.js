@@ -4,6 +4,7 @@ import frigate from "./ships/templates/frigate.js";
 import heavyFrigate from "./ships/templates/heavyFrigate.js";
 import capital from "./ships/templates/capital.js";
 import superCapital from "./ships/templates/superCapital.js";
+import stations from "./ships/templates/stations.js";
 
 export default {
     fighters: fighters,
@@ -11,5 +12,6 @@ export default {
     frigate: frigate,
     heavyFrigate: heavyFrigate,
     capital: capital,
-    superCapital: superCapital
+    superCapital: superCapital,
+    stations: stations
 };

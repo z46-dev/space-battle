@@ -1,4 +1,5 @@
 import { shipTypes } from "./constants.js";
+import templates from "./templates.js";
 import { DUMMY_BLANK } from "./weapons.js";
 
 class Vector {
@@ -22,7 +23,8 @@ export const empire = {
     ...(await import("./ships/empire/frigate.js")).default,
     ...(await import("./ships/empire/heavyFrigate.js")).default,
     ...(await import("./ships/empire/capital.js")).default,
-    ...(await import("./ships/empire/superCapital.js")).default
+    ...(await import("./ships/empire/superCapital.js")).default,
+    ...(await import("./ships/empire/stations.js")).default
 };
 
 export const darkEmpire = {
@@ -31,7 +33,8 @@ export const darkEmpire = {
     ...(await import("./ships/darkEmpire/frigate.js")).default,
     ...(await import("./ships/darkEmpire/heavyFrigate.js")).default,
     ...(await import("./ships/darkEmpire/capital.js")).default,
-    ...(await import("./ships/darkEmpire/superCapital.js")).default
+    ...(await import("./ships/darkEmpire/superCapital.js")).default,
+    ...(await import("./ships/darkEmpire/stations.js")).default
 };
 
 export const rebel = {
@@ -40,7 +43,8 @@ export const rebel = {
     ...(await import("./ships/rebel/frigate.js")).default,
     ...(await import("./ships/rebel/heavyFrigate.js")).default,
     ...(await import("./ships/rebel/capital.js")).default,
-    ...(await import("./ships/rebel/superCapital.js")).default
+    ...(await import("./ships/rebel/superCapital.js")).default,
+    ...(await import("./ships/rebel/stations.js")).default
 };
 
 export const republic = {
@@ -49,7 +53,8 @@ export const republic = {
     ...(await import("./ships/republic/frigate.js")).default,
     ...(await import("./ships/republic/heavyFrigate.js")).default,
     ...(await import("./ships/republic/capital.js")).default,
-    ...(await import("./ships/republic/superCapital.js")).default
+    ...(await import("./ships/republic/superCapital.js")).default,
+    ...(await import("./ships/republic/stations.js")).default
 };
 
 export const cis = {
@@ -58,7 +63,8 @@ export const cis = {
     ...(await import("./ships/cis/frigate.js")).default,
     ...(await import("./ships/cis/heavyFrigate.js")).default,
     ...(await import("./ships/cis/capital.js")).default,
-    ...(await import("./ships/cis/superCapital.js")).default
+    ...(await import("./ships/cis/superCapital.js")).default,
+    ...(await import("./ships/cis/stations.js")).default
 };
 
 export const hutts = {
@@ -67,7 +73,8 @@ export const hutts = {
     ...(await import("./ships/hutts/frigate.js")).default,
     ...(await import("./ships/hutts/heavyFrigate.js")).default,
     ...(await import("./ships/hutts/capital.js")).default,
-    ...(await import("./ships/hutts/superCapital.js")).default
+    ...(await import("./ships/hutts/superCapital.js")).default,
+    ...(await import("./ships/hutts/stations.js")).default
 };
 
 export const zann = {
@@ -76,7 +83,8 @@ export const zann = {
     ...(await import("./ships/zann/frigate.js")).default,
     ...(await import("./ships/zann/heavyFrigate.js")).default,
     ...(await import("./ships/zann/capital.js")).default,
-    ...(await import("./ships/zann/superCapital.js")).default
+    ...(await import("./ships/zann/superCapital.js")).default,
+    ...(await import("./ships/zann/stations.js")).default
 };
 
 export const hapan = {
@@ -86,7 +94,8 @@ export const hapan = {
     ...(await import("./ships/hapesConsortium/heavyFrigate.js")).default,
     ...(await import("./ships/hapesConsortium/capital.js")).default,
     ...(await import("./ships/hapesConsortium/superCapital.js")).default,
-    ...(await import("./ships/hapesConsortium/spaceStation.js")).default
+    ...(await import("./ships/hapesConsortium/spaceStation.js")).default,
+    ...(await import("./ships/hapesConsortium/stations.js")).default
 };
 
 export const aurumFoundaries = {
@@ -105,7 +114,8 @@ export const empireOfTheHand = {
     ...(await import("./ships/eoth/frigate.js")).default,
     ...(await import("./ships/eoth/heavyFrigate.js")).default,
     ...(await import("./ships/eoth/capital.js")).default,
-    ...(await import("./ships/eoth/superCapital.js")).default
+    ...(await import("./ships/eoth/superCapital.js")).default,
+    ...(await import("./ships/eoth/stations.js")).default
 };
 
 export const stations = {

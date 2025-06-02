@@ -4,7 +4,7 @@ import * as weapons from "../../weapons.js";
 const ships = {};
 
 ships.NSSIS_EOTH = {
-    name: "NSSIS",
+    name: "Nssis Starfighter",
     asset: "NSSIS.png",
     classification: shipTypes.Fighter,
     population: 0,
@@ -19,7 +19,7 @@ ships.NSSIS_EOTH = {
         y: 0,
         weapon: {
             ...weapons.BLACK_FIGHTER_LASER_CANNON,
-            health: 32
+            health: 40
         }
     }]
 };

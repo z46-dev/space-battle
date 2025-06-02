@@ -321,4 +321,8 @@ ships.PRAETOR_CARRIER_EMPIRE = templates.superCapital.PRAETOR_CARRIER();
 
 ships.TAGGE_BATTLECRUISER_EMPIRE = templates.superCapital.TAGGE_BATTLECRUISER();
 
+ships.SORONNAN_EMPIRE = templates.capital.SORONNAN_STAR_DESTROYER();
+
+ships.SECUTOR_EMPIRE = templates.superCapital.SECUTOR();
+
 export default ships;

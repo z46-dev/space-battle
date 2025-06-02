@@ -1777,4 +1777,94 @@ templates.TAGGE_BATTLECRUISER = function (options = {}) {
     };
 }
 
+templates.SECUTOR = function (options = {}) {
+    options.color ??= "GREEN";
+
+    options.fighter ??= "TIEFIGHTER_EMPIRE";
+    options.interceptor ??= "TIEINTERCEPTOR_EMPIRE";
+    options.bomber ??= "TIEBOMBER_EMPIRE";
+    options.heavyBomber ??= "TIEPUNISHER_EMPIRE";
+
+    return {
+        name: "Secutor-Class Star Destroyer",
+        asset: "SECUTOR.png",
+        classification: shipTypes.SuperCapital,
+        population: 65,
+        size: 1334,
+        cost: 14000,
+        speed: 2,
+        turnSpeed: .01,
+        shield: 18000,
+        shieldRegen: 18,
+        hardpoints: (function() {
+            const output = [];
+    
+            for (let i = 0; i < 20; i ++) {
+                output.push({
+                    x: -.025 - .01 * i,
+                    y: .7 - .075 * i,
+                    weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons[options.color + "_DOUBLE_LASER_CANNON"],
+                    shotsAtOnce: 2,
+                    shotDelay: 60
+                }, {
+                    x: .025 + .01 * i,
+                    y: .7 - .075 * i,
+                    weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons[options.color + "_DOUBLE_LASER_CANNON"],
+                    shotsAtOnce: 2,
+                    shotDelay: 60
+                }, {
+                    x: -.1 - .035 * i,
+                    y: .9 - .095 * i,
+                    weapon: i % 2 ? weapons.QUAD_ION_CANNON_HEAVY : weapons[options.color + "_DOUBLE_TURBOLASER_CANNON_HEAVY"],
+                    shotsAtOnce: 2,
+                    shotDelay: 120
+                }, {
+                    x: .1 + .035 * i,
+                    y: .9 - .095 * i,
+                    weapon: i % 2 ? weapons.QUAD_ION_CANNON_HEAVY : weapons[options.color + "_DOUBLE_TURBOLASER_CANNON_HEAVY"],
+                    shotsAtOnce: 2,
+                    shotDelay: 120
+                });
+            }
+    
+            return output.map(hardpoint => ({
+                ...hardpoint,
+                weapon: {
+                    ...hardpoint.weapon,
+                    health: hardpoint.weapon.health * 2.5 | 0
+                }
+            }));
+        })(),
+        hangars: [{
+            x: 0,
+            y: 0,
+            maxSquadrons: 3,
+            squadronSize: 3,
+            reserveSize: 6,
+            squadronKey: options.fighter
+        }, {
+            x: 0,
+            y: 0,
+            maxSquadrons: 3,
+            squadronSize: 3,
+            reserveSize: 6,
+            squadronKey: options.interceptor
+        }, {
+            x: 0,
+            y: 0,
+            maxSquadrons: 3,
+            squadronSize: 3,
+            reserveSize: 6,
+            squadronKey: options.bomber
+        }, {
+            x: 0,
+            y: 0,
+            maxSquadrons: 3,
+            squadronSize: 3,
+            reserveSize: 6,
+            squadronKey: options.heavyBomber
+        }]
+    };
+}
+
 export default templates;

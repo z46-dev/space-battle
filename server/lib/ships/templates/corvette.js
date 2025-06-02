@@ -516,7 +516,7 @@ templates.BUCCANEER = function (options = {}) {
             shotDelay: 80
         }, {
             x: 0,
-            y: 0,
+            y: -.1,
             ...turboWeapon
         }, {
             x: 0,
@@ -524,7 +524,7 @@ templates.BUCCANEER = function (options = {}) {
             ...turboWeapon
         }, {
             x: 0,
-            y: 0,
+            y: .1,
             ...turboWeapon
         }].map(hp => ({
             ...hp,

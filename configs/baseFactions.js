@@ -58,6 +58,12 @@ export class FactionConfig {
 
         /** @type {HeroConfig[]} */
         this.heroes = [];
+
+        /** @type {string[]} */
+        this.shipyardOptions = [];
+        
+        /** @type {string[]} */
+        this.stationOptions = [];
     }
 
     addPlanets(...planets) {
@@ -112,6 +118,43 @@ export class FactionConfig {
         return this;
     }
 
+    addHeroesToPlanets(...heroNames) {
+        if (this.planets.length === 0) {
+            throw new Error("Cannot add heroes to planets: no planets defined in faction.");
+        }
+
+        for (const heroName of heroNames) {
+            const planet = this.planets[Math.floor(Math.random() * this.planets.length)];
+            if (!this.heroes.some(hero => hero.key === heroName)) {
+                this.heroes.push(new HeroConfig(heroName, planet));
+            } else {
+                throw new Error(`Hero with key ${heroName} already exists in faction ${this.name}.`);
+            }
+        }
+
+        return this;
+    }
+
+    addShipyardOptions(...options) {
+        for (const option of options) {
+            if (!this.shipyardOptions.includes(option)) {
+                this.shipyardOptions.push(option);
+            }
+        }
+
+        return this;
+    }
+
+    addStationOptions(...options) {
+        for (const option of options) {
+            if (!this.stationOptions.includes(option)) {
+                this.stationOptions.push(option);
+            }
+        }
+
+        return this;
+    }
+
     validate() {
         if (!this.name || !this.color || !this.key) {
             throw new Error("FactionConfig is missing required properties: name, color, or key.");
@@ -159,7 +202,9 @@ export class FactionConfig {
                 id: shipyard.id,
                 ships: [...shipyard.ships]
             })),
-            heroes: this.heroes.map(hero => new HeroConfig(hero.key, hero.planet))
+            heroes: this.heroes.map(hero => new HeroConfig(hero.key, hero.planet)),
+            shipyardOptions: [...this.shipyardOptions],
+            stationOptions: [...this.stationOptions]
         });
     }
 }

@@ -25,6 +25,17 @@ Victory I
 Victory II
 ISD
 
+## Planets
+
+Centares**
+Ryvester
+Metalorn
+Belderone
+Roche Asteroids
+Lantillies
+Thanos
+Bimmisaari
+
 ## Heroes
 
 Barse Neomen - Strike Cruiser
@@ -55,6 +66,17 @@ Alliegence
 Torpedo Sphere
 Praetor-II
 Tagge Battlecruiser
+
+## Planets
+
+Eriadu**
+Sluis Van
+Belsavis
+Eiattu 6
+Sanrafsix
+Svivren
+Vondarc
+Yag'Dhul
 
 # Heroes
 
@@ -88,6 +110,18 @@ ISD
 Tector
 Preator Carrier
 Secutor
+
+## Planets
+
+Bastion
+Muunilinst
+Vall VII
+Entralla**
+Mygeeto
+Yaga Minor
+Borosk
+Anx Minor
+Generis
 
 ## Heroes
 
@@ -132,6 +166,24 @@ Victory II
 ISD
 Communications Battlecruiser
 Sorronan Star Destroyer
+
+## Planets
+
+Dathomir**
+Selaggis VI
+Taris
+Sif'Kric
+Axxila
+Celanon
+Feriae Junction
+Tangrene
+Serenno
+Yavin 4
+Maridun
+Stenos
+Elom
+Desevro
+Begeren
 
 ## Heroes
 

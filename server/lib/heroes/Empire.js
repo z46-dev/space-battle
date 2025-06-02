@@ -413,7 +413,7 @@ heroes["AdyePrittick"] = {
 heroes["ApwarTrigit"] = {
     name: "Apwar Trigit",
     tooltip: "Trigit then hired himself and his Imperial-class Star Destroyer, Implacable, to Zsinj. There he bore the title of \"admiral\", although given the number of self-promoted warlords, his penchant for individualism and his command of a single starship, it is unlikely that this was the rank he held within the Imperial Starfleet.",
-    image: "Apwar Trigit.webp",
+    image: "Apwar Trigit.png",
     ships: ["IMPERIALSTARDESTROYER_EMPIRE"],
     modifications: function (ship) {
         ship.shield *= 2;

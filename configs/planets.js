@@ -1,0 +1,7304 @@
+export class PlanetConfig {
+    name = "";
+    x = 0;
+    y = 0;
+    shipyardLevel = 1;
+    mass = 1;
+    income = 0;
+    terrain = "Temperate";
+    color = "#FFFFFF";
+    design = "192;10.0000;1.0000;standardColors;5;quickNoise";
+    connections = [];
+}
+
+export const planets = [{
+    "name": "Aargau",
+    "x": 19209,
+    "y": 20931,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;10.7016;7;externalBluePlanet;5;quickNoise"
+}, {
+    "name": "Aargonar",
+    "x": 30960,
+    "y": 27998,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;9.8348;0.4029408967400351;externalSandPlanet;4;staticQuickNoise"
+}, {
+    "name": "Abhean",
+    "x": 31893,
+    "y": 27832,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;12.9082;1.0171626743120261;standardColors;7;simplex3"
+}, {
+    "name": "Abregado Rae",
+    "x": 17189,
+    "y": 15392,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;12.9720;1.0075524344079203;standardColors;7;quickNoise"
+}, {
+    "name": "Abridon",
+    "x": 13983,
+    "y": 4026,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.4898;0.5292701125254009;pinkFlourish;5;simplex3"
+}, {
+    "name": "Adumar",
+    "x": 12726,
+    "y": 30511,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.0474;0.40773114337152894;standardColors;6;staticQuickNoise"
+}, {
+    "name": "Aeten",
+    "x": 13319,
+    "y": 31358,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "256;0.13139;3.00;externalLavaPlanet;8;quickNoise"
+}, {
+    "name": "Agamar",
+    "x": 21088,
+    "y": 32176,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;14.8926;0.3046573088983844;pinkFlourish;5;quickNoise"
+}, {
+    "name": "Agomar",
+    "x": 20636,
+    "y": 5433,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.2575;1.223665973594216;laxStandard;6;quickNoise"
+}, {
+    "name": "Aguarl",
+    "x": 23912,
+    "y": 11290,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;1.0819;0.5050144247654579;standardColors;4;quickNoise"
+}, {
+    "name": "Ahch To",
+    "x": 4082,
+    "y": 14302,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.7655;0.7179197849440937;standardColors;5;quickNoise"
+}, {
+    "name": "Ailon",
+    "x": 23701,
+    "y": 16421,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;11.1637;0.7013106519896606;laxStandard;4;simplex3"
+}, {
+    "name": "Ajan Kloss",
+    "x": 19040,
+    "y": 31827,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;11.2662;0.9000169661029012;externalForestPlanet;7;quickNoise"
+}, {
+    "name": "Akuria",
+    "x": 20819,
+    "y": 33871,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;12.3210;0.7150895294483449;externalBluePlanet;6;quickNoise"
+}, {
+    "name": "Alagon",
+    "x": 28785,
+    "y": 27696,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;12.7314;0.48447711087238543;desertColors;5;staticQuickNoise"
+}, {
+    "name": "Alaris",
+    "x": 27825,
+    "y": 22066,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;1.4066;0.9042887195041185;externalLushPlanet;7;simplex2"
+}, {
+    "name": "Alashan",
+    "x": 13898,
+    "y": 32236,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;15.5206;0.7074652583308396;desertColors;6;quickNoise"
+}, {
+    "name": "Alderaan",
+    "x": 20847,
+    "y": 21355,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 350,
+    "terrain": "Temperate",
+    "color": "#55CCEE",
+    "design": "256;1.00000;0.60;externalLushPlanet;6;perlin3"
+}, {
+    "name": "Allyuen",
+    "x": 16172,
+    "y": 4994,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;9.2024;0.5397841609014786;externalBluePlanet;7;quickNoise"
+}, {
+    "name": "Almania",
+    "x": 34280,
+    "y": 34022,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;7.2992;0.7116694143681571;externalBluePlanet;6;simplex2"
+}, {
+    "name": "Alsakan",
+    "x": 18121,
+    "y": 22671,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 500,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;5.9200;5;externalBluePlanet;7;quickNoise"
+}, {
+    "name": "Althir",
+    "x": 30339,
+    "y": 28755,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.3403;0.32021131224093335;standardColors;7;simplex3"
+}, {
+    "name": "Alzoc",
+    "x": 28390,
+    "y": 2724,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;10.1013;0.39034162397415567;snowColors;5;perlin2"
+}, {
+    "name": "Ambria",
+    "x": 25720,
+    "y": 21188,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;12.4934;0.33378079188895476;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Anaxes",
+    "x": 18658,
+    "y": 23927,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#CCD5FF",
+    "design": "256;3.00000;0.10;externalLavaPlanet;6;simplex3"
+}, {
+    "name": "Ando",
+    "x": 29096,
+    "y": 9232,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "256;1.55000;1.00;pinkFlourish;4;simplex3"
+}, {
+    "name": "Ando Prime",
+    "x": 29859,
+    "y": 9716,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;2.3237;0.6448946150328156;snowColors;4;simplex2"
+}, {
+    "name": "Annaj",
+    "x": 9534,
+    "y": 7234,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;12.4242;2.270144085576057;externalLushPlanet;7;quickNoise"
+}, {
+    "name": "Anoat",
+    "x": 14548,
+    "y": 4828,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;4.3542;6;externalDarkPlanet;6;perlin3"
+}, {
+    "name": "Ansion",
+    "x": 12444,
+    "y": 29224,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 140,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;0.95000;1.00;laxStandard;4;simplex2"
+}, {
+    "name": "Antemeridias",
+    "x": 32599,
+    "y": 29134,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;6.5994;6;externalBrightPlanet;7;perlin3"
+}, {
+    "name": "Anx Minor",
+    "x": 18390,
+    "y": 35172,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;7.4606;2.2075714901384647;externalLushPlanet;7;quickNoise"
+}, {
+    "name": "Ardis",
+    "x": 7768,
+    "y": 36322,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;12.7404;1.104095722483156;standardColors;6;quickNoise"
+}, {
+    "name": "Arkania",
+    "x": 19816,
+    "y": 24275,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;3.2557;0.5454463627141164;snowColors;6;simplex2"
+}, {
+    "name": "Aruza",
+    "x": 12034,
+    "y": 12107,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;11.3122;1.2282469715221178;pinkFlourish;4;quickNoise"
+}, {
+    "name": "Atchorb",
+    "x": 35381,
+    "y": 37533,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;5.5258;0.6339732348919144;snowColors;6;quickNoise"
+}, {
+    "name": "Athiss",
+    "x": 31977,
+    "y": 36020,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;13.5707;0.3255212890360013;desertColors;4;quickNoise"
+}, {
+    "name": "Atravis",
+    "x": 19379,
+    "y": 2679,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;14.0963;4;externalBluePlanet;7;quickNoise"
+}, {
+    "name": "Attahox",
+    "x": 28672,
+    "y": 17374,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;15.8668;0.6496187981537974;desertColors;6;staticQuickNoise"
+}, {
+    "name": "Aturi",
+    "x": 27048,
+    "y": 6054,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;12.1672;0.9579307336256477;laxStandard;7;quickNoise"
+}, {
+    "name": "Atzerri",
+    "x": 22090,
+    "y": 13818,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;10.2185;1.8879815591060254;externalForestPlanet;5;simplex2"
+}, {
+    "name": "AX456",
+    "x": 22034,
+    "y": 22701,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;0.3867;0.49009723226038476;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Axxila",
+    "x": 24944,
+    "y": 32206,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;0.40684;1.00;blueStarColors;16;staticQuickNoise"
+}, {
+    "name": "Azure",
+    "x": 28079,
+    "y": 26061,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;5.0066;0.7075595265895809;pinkFlourish;7;simplex3"
+}, {
+    "name": "Bajic",
+    "x": 27641,
+    "y": 5388,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;3.3100;0.711480967769166;standardColors;6;simplex3"
+}, {
+    "name": "Bakura",
+    "x": 6977,
+    "y": 8233,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;0.80000;2.00;laxStandard;5;perlin3"
+}, {
+    "name": "Balamak",
+    "x": 30692,
+    "y": 22838,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;1.5193;0.38392402759265565;standardColors;7;quickNoise"
+}, {
+    "name": "Balmorra",
+    "x": 22881,
+    "y": 20613,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;4.8893;4;externalBluePlanet;7;quickNoise"
+}, {
+    "name": "Bandomeer",
+    "x": 25085,
+    "y": 29754,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;9.5445;0.7274959643898806;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Bannistar",
+    "x": 27147,
+    "y": 10064,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;12.7450;5;externalBluePlanet;6;simplex3"
+}, {
+    "name": "Barab",
+    "x": 38616,
+    "y": 15800,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;15.7135;0.5265085706900745;externalLushPlanet;5;simplex2"
+}, {
+    "name": "Bardram Scoft",
+    "x": 2119,
+    "y": 21491,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;15.4198;0.3385116675908624;laxStandard;6;quickNoise"
+}, {
+    "name": "Barkhesh",
+    "x": 16102,
+    "y": 2028,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.6180;0.8919948957580245;standardColors;7;quickNoise"
+}, {
+    "name": "Barlok",
+    "x": 18489,
+    "y": 25062,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;11.5263;2.2357192444329845;externalLushPlanet;6;perlin2"
+}, {
+    "name": "Basilisk",
+    "x": 19548,
+    "y": 21536,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;15.5479;0.5785923232295677;externalLavaPlanet;7;quickNoise"
+}, {
+    "name": "Bassadro",
+    "x": 19153,
+    "y": 14226,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;14.2368;0.31568517615737707;externalLavaPlanet;6;staticQuickNoise"
+}, {
+    "name": "Bastion",
+    "x": 15212,
+    "y": 37775,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;0.75309;0.60;desertColors;48;perlin2"
+}, {
+    "name": "Batuu",
+    "x": 7754,
+    "y": 10549,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;11.8094;2.3280902343473775;externalForestPlanet;7;quickNoise"
+}, {
+    "name": "Bazaar",
+    "x": 18856,
+    "y": 29966,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;9.2259;7;externalBluePlanet;7;quickNoise"
+}, {
+    "name": "Begeren",
+    "x": 32062,
+    "y": 34264,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;8.0476;0.5769030156776698;externalSandPlanet;5;staticQuickNoise"
+}, {
+    "name": "Belderone",
+    "x": 33799,
+    "y": 29134,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.4699;0.4391983037892315;pinkFlourish;7;simplex3"
+}, {
+    "name": "Belgaroth",
+    "x": 15607,
+    "y": 15028,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;14.7188;0.5043770369484802;externalLavaPlanet;6;quickNoise"
+}, {
+    "name": "Belkadan",
+    "x": 19153,
+    "y": 40000,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;4.8421;1.5884375082789277;externalForestPlanet;5;perlin2"
+}, {
+    "name": "Belsavis",
+    "x": 18503,
+    "y": 5282,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;0.3214;0.7019397395722083;externalBluePlanet;4;quickNoise"
+}, {
+    "name": "Belsmuth",
+    "x": 25847,
+    "y": 29815,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;14.5518;0.8677545200625061;laxStandard;5;simplex3"
+}, {
+    "name": "Berrols Donn",
+    "x": 15424,
+    "y": 2891,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;6.1953;0.3152001823473084;externalLavaPlanet;7;staticQuickNoise"
+}, {
+    "name": "Bescane",
+    "x": 14520,
+    "y": 36852,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;10.7626;7;externalBrightPlanet;5;perlin3"
+}, {
+    "name": "Bespin",
+    "x": 15071,
+    "y": 5373,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFBBAA",
+    "design": "256;64.00000;0.30;desertColors;3;quickNoise"
+}, {
+    "name": "Bestine",
+    "x": 20155,
+    "y": 13485,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;14.0127;4;externalDarkPlanet;6;quickNoise"
+}, {
+    "name": "Bilbringi",
+    "x": 14435,
+    "y": 25774,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFE5B4",
+    "design": "256;0.80929;1.00;externalSandPlanet;8;staticQuickNoise"
+}, {
+    "name": "Bimmiel",
+    "x": 23093,
+    "y": 35687,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;11.9566;0.7029465790335998;externalLavaPlanet;7;staticQuickNoise"
+}, {
+    "name": "Bimmisaari",
+    "x": 33390,
+    "y": 23897,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;15.5397;1.5005102362831038;externalForestPlanet;6;perlin2"
+}, {
+    "name": "Bknos",
+    "x": 5226,
+    "y": 9081,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;2.3822;0.443020172197474;desertColors;7;quickNoise"
+}, {
+    "name": "Black Bantha Nebula",
+    "x": 14124,
+    "y": 26485,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;8.8292;1.172780615158927;pinkFlourish;5;simplex3"
+}, {
+    "name": "Bogo Rai",
+    "x": 1511,
+    "y": 24321,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.8736;1.1880145785559235;standardColors;7;simplex3"
+}, {
+    "name": "Bomis Koori",
+    "x": 15876,
+    "y": 7885,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;2.0083;4;externalBrightPlanet;4;quickNoise"
+}, {
+    "name": "Bompreil",
+    "x": 28107,
+    "y": 29058,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;6.9275;0.5231561240434244;externalForestPlanet;6;simplex2"
+}, {
+    "name": "Bonadan",
+    "x": 36215,
+    "y": 36670,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;11.5849;4;externalBrightPlanet;5;perlin3"
+}, {
+    "name": "Boonta",
+    "x": 35367,
+    "y": 25486,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;11.4624;0.2909135559034985;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Borleias",
+    "x": 16328,
+    "y": 23640,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "256;0.27812;6.00;externalLushPlanet;4;quickNoise"
+}, {
+    "name": "Bormter",
+    "x": 8418,
+    "y": 12213,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;5.6784;1.1776712738894495;standardColors;4;quickNoise"
+}, {
+    "name": "Bormus",
+    "x": 22175,
+    "y": 9081,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;6.3974;0.342983941771434;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Borosk",
+    "x": 15085,
+    "y": 32766,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;6.8054;6;externalBluePlanet;5;perlin3"
+}, {
+    "name": "Botajef",
+    "x": 26540,
+    "y": 30496,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;15.3696;6;externalDarkPlanet;6;quickNoise"
+}, {
+    "name": "Bothawui",
+    "x": 32090,
+    "y": 13031,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;0.20586;1.00;externalForestPlanet;4;staticQuickNoise"
+}, {
+    "name": "Boz Pity",
+    "x": 33983,
+    "y": 23261,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 140,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;0.65000;1.00;standardColors;4;quickNoise"
+}, {
+    "name": "Bpfassh",
+    "x": 20494,
+    "y": 3087,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;7.0369;0.6894666806605327;desertColors;7;staticQuickNoise"
+}, {
+    "name": "Brentaal",
+    "x": 19534,
+    "y": 23171,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 130,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;3.30000;0.60;desertColors;8;simplex3"
+}, {
+    "name": "Bresnia",
+    "x": 30551,
+    "y": 13545,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;7.6658;0.5418122671740018;standardColors;5;simplex3"
+}, {
+    "name": "Brigia",
+    "x": 35607,
+    "y": 30269,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.0341;0.7087755573013313;standardColors;4;quickNoise"
+}, {
+    "name": "Burnin Konn",
+    "x": 15636,
+    "y": 4571,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;4.7874;0.6103255591000804;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Byblos",
+    "x": 22147,
+    "y": 15997,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 500,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;3.7508;7;externalBluePlanet;6;perlin3"
+}, {
+    "name": "Byss",
+    "x": 16370,
+    "y": 18101,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#AADDBB",
+    "design": "256;10.20000;0.23;externalRedPlanet;8;quickNoise"
+}, {
+    "name": "Caamas",
+    "x": 20127,
+    "y": 22490,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;10.5692;1.7314524083072762;externalLushPlanet;4;simplex2"
+}, {
+    "name": "Cal Seti",
+    "x": 15565,
+    "y": 21097,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;12.5305;0.6117881220132044;externalLavaPlanet;6;quickNoise"
+}, {
+    "name": "Calonica",
+    "x": 17105,
+    "y": 8536,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;12.8366;0.33779867642919525;laxStandard;5;staticQuickNoise"
+}, {
+    "name": "Cantonica",
+    "x": 33347,
+    "y": 36277,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;4.5763;0.6786128311112792;desertColors;5;staticQuickNoise"
+}, {
+    "name": "Carida",
+    "x": 21511,
+    "y": 23246,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#C8C8AA",
+    "design": "256;0.62218;6.00;externalLushPlanet;4;quickNoise"
+}, {
+    "name": "Carosi",
+    "x": 28517,
+    "y": 35460,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;15.5990;0.37706327583907046;snowColors;6;simplex2"
+}, {
+    "name": "Carrivar",
+    "x": 10452,
+    "y": 22550,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;15.8445;0.42614172311718346;desertColors;4;quickNoise"
+}, {
+    "name": "Casfield",
+    "x": 29774,
+    "y": 27287,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;6.1125;0.5855405273789331;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Castell",
+    "x": 20946,
+    "y": 23776,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;12.8672;7;externalBrightPlanet;7;simplex3"
+}, {
+    "name": "Cathar",
+    "x": 24294,
+    "y": 31056,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.4572;0.8208565649086766;laxStandard;4;quickNoise"
+}, {
+    "name": "Catlia",
+    "x": 6921,
+    "y": 25199,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;13.6413;1.3173242285542957;externalLushPlanet;7;simplex2"
+}, {
+    "name": "Cato Neimoidia",
+    "x": 22571,
+    "y": 19054,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 650,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;5.00000;2.00;externalBluePlanet;4;quickNoise"
+}, {
+    "name": "Cattamascar",
+    "x": 5932,
+    "y": 8021,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;7.8565;0.3083965867353049;externalSandPlanet;7;quickNoise"
+}, {
+    "name": "Cauldron Nebula",
+    "x": 27119,
+    "y": 35717,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;13.3119;0.9870688950658125;pinkFlourish;5;quickNoise"
+}, {
+    "name": "Cejansij",
+    "x": 32910,
+    "y": 22247,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;7.6493;0.7473747718694552;externalLavaPlanet;6;quickNoise"
+}, {
+    "name": "Celanon",
+    "x": 26229,
+    "y": 31404,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.6127;0.7274830590761071;pinkFlourish;7;quickNoise"
+}, {
+    "name": "Celwis",
+    "x": 6243,
+    "y": 24427,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;6.8124;4;externalBluePlanet;7;quickNoise"
+}, {
+    "name": "Centares",
+    "x": 32458,
+    "y": 28362,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;7.7011;1.0332477028066474;pinkFlourish;5;staticQuickNoise"
+}, {
+    "name": "Cerea",
+    "x": 11596,
+    "y": 8369,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;7.9751;1.125791423815155;pinkFlourish;4;quickNoise"
+}, {
+    "name": "Chalcedon",
+    "x": 12316,
+    "y": 8884,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;11.2913;0.7085346633072571;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Champala",
+    "x": 19379,
+    "y": 24972,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;0.1023;0.9533325302396408;standardColors;5;quickNoise"
+}, {
+    "name": "Chandrila",
+    "x": 18828,
+    "y": 22293,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.4319;1.1349839249220692;standardColors;6;simplex3"
+}, {
+    "name": "Chardaan",
+    "x": 23121,
+    "y": 13727,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;15.2344;4;externalBluePlanet;4;simplex3"
+}, {
+    "name": "Charros",
+    "x": 31893,
+    "y": 23564,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;7.7299;0.48491914556054994;snowColors;5;quickNoise"
+}, {
+    "name": "Charubah",
+    "x": 24718,
+    "y": 23504,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;13.7527;1.2047609957829897;standardColors;4;simplex3"
+}, {
+    "name": "Chasin",
+    "x": 20395,
+    "y": 16602,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;9.3895;7;externalBluePlanet;4;quickNoise"
+}, {
+    "name": "Chazwa",
+    "x": 22472,
+    "y": 24412,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;1.8370;0.51044444237668;externalBluePlanet;5;quickNoise"
+}, {
+    "name": "Chorax",
+    "x": 22966,
+    "y": 19750,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;15.3643;0.6635412748637796;desertColors;5;quickNoise"
+}, {
+    "name": "Christophsis",
+    "x": 31045,
+    "y": 8127,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 540,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;0.66584;1.00;externalLushPlanet;4;staticQuickNoise"
+}, {
+    "name": "Chrondre",
+    "x": 31780,
+    "y": 10140,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;7.2402;0.731082651854186;externalBluePlanet;4;quickNoise"
+}, {
+    "name": "Circumtore",
+    "x": 34082,
+    "y": 16860,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;2.8562;0.609979574512298;externalLavaPlanet;4;staticQuickNoise"
+}, {
+    "name": "Ciutric",
+    "x": 23531,
+    "y": 33538,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;13.4179;0.7505483353407416;standardColors;5;simplex3"
+}, {
+    "name": "Clakdor",
+    "x": 21356,
+    "y": 4071,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;15.6580;0.6971010245592844;externalLushPlanet;4;quickNoise"
+}, {
+    "name": "Codian Moon",
+    "x": 9280,
+    "y": 11275,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.1998;0.9235022006490705;standardColors;6;staticQuickNoise"
+}, {
+    "name": "Colla",
+    "x": 23305,
+    "y": 24094,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;13.1486;1.6670554318142516;externalLushPlanet;5;quickNoise"
+}, {
+    "name": "Columex",
+    "x": 33319,
+    "y": 29890,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;0.52083;1.00;desertColors;4;staticQuickNoise"
+}, {
+    "name": "Columus",
+    "x": 20791,
+    "y": 19175,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;9.3395;2.20267992328296;externalLushPlanet;4;perlin2"
+}, {
+    "name": "Comkin",
+    "x": 22627,
+    "y": 27166,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;4.3133;1.1381311721203002;externalLushPlanet;5;perlin2"
+}, {
+    "name": "Commenor",
+    "x": 23912,
+    "y": 19796,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 320,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;3.20000;0.60;desertColors;4;staticQuickNoise"
+}, {
+    "name": "Comra",
+    "x": 14661,
+    "y": 31888,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 80,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "256;3.75000;0.50;snowColors;32;staticQuickNoise"
+}, {
+    "name": "Concord Dawn",
+    "x": 26073,
+    "y": 27787,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;11.3185;0.615596873790203;desertColors;5;staticQuickNoise"
+}, {
+    "name": "Contruum",
+    "x": 26893,
+    "y": 25229,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;7.1422;0.79791901053156;standardColors;4;quickNoise"
+}, {
+    "name": "Copero",
+    "x": 3842,
+    "y": 24094,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;0.3420;0.3386779106995682;externalBluePlanet;6;perlin2"
+}, {
+    "name": "Cophrigin",
+    "x": 36949,
+    "y": 28453,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;6.5538;1.460280080678984;externalLushPlanet;5;simplex2"
+}, {
+    "name": "Corellia",
+    "x": 21370,
+    "y": 18025,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFAA55",
+    "design": "256;1.00000;2.00;externalSandPlanet;4;quickNoise"
+}, {
+    "name": "Cormit",
+    "x": 5452,
+    "y": 24548,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;11.4610;6;externalDarkPlanet;7;simplex3"
+}, {
+    "name": "Corsin",
+    "x": 21949,
+    "y": 27575,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;5.6150;0.3109060662172376;pinkFlourish;4;staticQuickNoise"
+}, {
+    "name": "Corthenia",
+    "x": 16398,
+    "y": 29209,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;14.9993;1.0131869491329057;standardColors;6;quickNoise"
+}, {
+    "name": "Corulag",
+    "x": 18856,
+    "y": 23125,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;2.8168;7;externalBluePlanet;6;quickNoise"
+}, {
+    "name": "Coruscant",
+    "x": 17514,
+    "y": 21566,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFE5B4",
+    "design": "256;0.43185;5.00;externalBrightPlanet;4;simplex3"
+}, {
+    "name": "Corvis Minor",
+    "x": 22684,
+    "y": 33992,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;14.5110;0.7230529556360739;standardColors;5;quickNoise"
+}, {
+    "name": "Crait",
+    "x": 23870,
+    "y": 6750,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;15.3934;0.5343022779444733;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Crakull",
+    "x": 6045,
+    "y": 20446,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;10.7998;2.2453556455386865;externalLushPlanet;4;quickNoise"
+}, {
+    "name": "Cron Drift",
+    "x": 34590,
+    "y": 28770,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.6018;0.34137527407731316;standardColors;6;staticQuickNoise"
+}, {
+    "name": "Crustai",
+    "x": 8192,
+    "y": 24896,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;7.5733;1.11988602943865;externalForestPlanet;4;perlin2"
+}, {
+    "name": "Csaus",
+    "x": 3051,
+    "y": 23988,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;4.7634;0.7572559775893735;externalLushPlanet;6;simplex2"
+}, {
+    "name": "Csilla",
+    "x": 3347,
+    "y": 24805,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "256;4.75000;0.60;snowColors;16;quickNoise"
+}, {
+    "name": "Cularin",
+    "x": 27175,
+    "y": 12667,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;4.2963;0.8818032773233357;externalLushPlanet;7;perlin2"
+}, {
+    "name": "Da Soocha",
+    "x": 35932,
+    "y": 18903,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;4.1676;2.477691996568578;externalForestPlanet;4;quickNoise"
+}, {
+    "name": "Daalang",
+    "x": 30819,
+    "y": 16300,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 80,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "256;0.21642;1.00;standardColors;4;staticQuickNoise"
+}, {
+    "name": "Dagary Minor",
+    "x": 21977,
+    "y": 26303,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;7.4976;7;externalBluePlanet;5;simplex3"
+}, {
+    "name": "Dagobah",
+    "x": 21525,
+    "y": 2421,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;10.2881;0.86261437300718;externalForestPlanet;5;quickNoise"
+}, {
+    "name": "Dalicron",
+    "x": 16879,
+    "y": 3935,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;3.3036;0.5315175342727644;pinkFlourish;4;quickNoise"
+}, {
+    "name": "Dalron",
+    "x": 13672,
+    "y": 29996,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;4.0682;0.6731448130706041;snowColors;6;quickNoise"
+}, {
+    "name": "Daluuj",
+    "x": 39266,
+    "y": 15437,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;3.5358;1.734508498987273;externalForestPlanet;4;quickNoise"
+}, {
+    "name": "Dantooine",
+    "x": 17740,
+    "y": 35611,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 120,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;0.56258;1.40;externalLushPlanet;8;simplex3"
+}, {
+    "name": "Danuta",
+    "x": 34054,
+    "y": 24079,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;15.7739;0.5080598216376428;externalLavaPlanet;7;quickNoise"
+}, {
+    "name": "Darkon",
+    "x": 13983,
+    "y": 27393,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.5005;0.3310542470405843;pinkFlourish;6;quickNoise"
+}, {
+    "name": "Datar",
+    "x": 19280,
+    "y": 25804,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 20,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;12.2239;2.0243132490280233;externalForestPlanet;6;quickNoise"
+}, {
+    "name": "Dathomir",
+    "x": 24972,
+    "y": 30753,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 120,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "256;0.55000;0.60;externalLavaPlanet;32;quickNoise"
+}, {
+    "name": "Deko Neimoidia",
+    "x": 24153,
+    "y": 18797,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;11.5838;4;externalBluePlanet;6;simplex3"
+}, {
+    "name": "Delacrix",
+    "x": 37415,
+    "y": 23912,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;12.9608;0.44811533434545503;snowColors;6;quickNoise"
+}, {
+    "name": "Dellalt",
+    "x": 36836,
+    "y": 29709,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;13.6439;1.1039271027664475;standardColors;7;simplex3"
+}, {
+    "name": "Denon",
+    "x": 22980,
+    "y": 15407,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 500,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;13.7779;4;externalBluePlanet;6;perlin3"
+}, {
+    "name": "Dentaal",
+    "x": 16342,
+    "y": 14907,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 20,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;14.9388;0.577492071309837;externalForestPlanet;6;simplex2"
+}, {
+    "name": "Derra",
+    "x": 22458,
+    "y": 11305,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;10.2657;2.3533426499207106;externalLushPlanet;4;quickNoise"
+}, {
+    "name": "Desevro",
+    "x": 34619,
+    "y": 31646,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 75,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;0.73782;1.00;externalBrightPlanet;16;simplex2"
+}, {
+    "name": "Despayre",
+    "x": 19082,
+    "y": 33401,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;2.9857;2.4154896011386096;externalForestPlanet;4;perlin2"
+}, {
+    "name": "Devaron",
+    "x": 21059,
+    "y": 14257,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 140,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "256;0.97446;1.00;externalForestPlanet;4;simplex3"
+}, {
+    "name": "Dioya",
+    "x": 5932,
+    "y": 27242,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;10.8173;0.5871997674163377;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Dkee",
+    "x": 2401,
+    "y": 10594,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;3.3548;0.6030414386168783;externalLushPlanet;5;perlin2"
+}, {
+    "name": "Dolla",
+    "x": 18150,
+    "y": 4374,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.7237;0.5932697968814601;standardColors;6;quickNoise"
+}, {
+    "name": "Dolomar",
+    "x": 17274,
+    "y": 23912,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;0.1320;0.2828174610906254;snowColors;7;simplex2"
+}, {
+    "name": "Doniphon",
+    "x": 30184,
+    "y": 36126,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.9975;0.9933510894116959;pinkFlourish;5;simplex3"
+}, {
+    "name": "Doornik",
+    "x": 14350,
+    "y": 21188,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;13.3702;0.5293754187631162;desertColors;6;staticQuickNoise"
+}, {
+    "name": "DQar",
+    "x": 25523,
+    "y": 5933,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;15.9587;0.9214767777787902;externalLushPlanet;6;perlin2"
+}, {
+    "name": "Dravian Starport",
+    "x": 23206,
+    "y": 2876,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;11.9288;1.241533633109536;laxStandard;7;simplex3"
+}, {
+    "name": "Dressel",
+    "x": 31102,
+    "y": 14181,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 80,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;0.10718;1.00;externalLavaPlanet;4;staticQuickNoise"
+}, {
+    "name": "Dromund",
+    "x": 32669,
+    "y": 33765,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;8.0190;0.9387678984338481;externalForestPlanet;7;perlin2"
+}, {
+    "name": "Druckenwell",
+    "x": 27811,
+    "y": 11003,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;15.4554;4;externalBrightPlanet;6;perlin3"
+}, {
+    "name": "Dubrillion",
+    "x": 16511,
+    "y": 37246,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.1745;0.9235699232909884;pinkFlourish;4;quickNoise"
+}, {
+    "name": "Durace",
+    "x": 9887,
+    "y": 31328,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;2.5613;0.6801682494041565;desertColors;5;quickNoise"
+}, {
+    "name": "Duro",
+    "x": 21073,
+    "y": 17102,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;15.6753;0.6462724899911751;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Durren",
+    "x": 32542,
+    "y": 29845,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;5.5235;0.9679645916531451;laxStandard;7;quickNoise"
+}, {
+    "name": "Dxun",
+    "x": 26271,
+    "y": 21778,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;5.2102;0.748878019195591;externalForestPlanet;7;quickNoise"
+}, {
+    "name": "Eadu",
+    "x": 38856,
+    "y": 20749,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;2.0728;0.41024704596019257;desertColors;5;quickNoise"
+}, {
+    "name": "Ebaq",
+    "x": 19605,
+    "y": 19205,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;12.2828;0.4545665306759983;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Eiattu",
+    "x": 19774,
+    "y": 6553,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;13.8078;1.4009250735260446;externalLushPlanet;6;quickNoise"
+}, {
+    "name": "Ejolus",
+    "x": 21271,
+    "y": 26440,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 20,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.4726;1.195079198209394;pinkFlourish;5;staticQuickNoise"
+}, {
+    "name": "Elom",
+    "x": 32316,
+    "y": 32236,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.5781;0.616423401140634;standardColors;6;simplex3"
+}, {
+    "name": "Elrood",
+    "x": 21328,
+    "y": 575,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;12.3930;0.5752013871572522;pinkFlourish;4;quickNoise"
+}, {
+    "name": "Emberlene",
+    "x": 28404,
+    "y": 16617,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;8.1816;1.1133123593658547;pinkFlourish;4;simplex3"
+}, {
+    "name": "Emmer",
+    "x": 35071,
+    "y": 34052,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;8.9907;7;externalBrightPlanet;7;perlin3"
+}, {
+    "name": "Empress Teta",
+    "x": 17895,
+    "y": 20129,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 430,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;0.59232;6.00;externalDarkPlanet;4;simplex2"
+}, {
+    "name": "Enarc",
+    "x": 25593,
+    "y": 7325,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;9.7910;6;externalBrightPlanet;6;quickNoise"
+}, {
+    "name": "Endor",
+    "x": 9223,
+    "y": 7991,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Forest",
+    "color": "#AAFFAA",
+    "design": "256;0.25000;2.00;externalForestPlanet;4;perlin3"
+}, {
+    "name": "Entralla",
+    "x": 15127,
+    "y": 34673,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;0.73753;1.00;externalBrightPlanet;4;staticQuickNoise"
+}, {
+    "name": "EolSha",
+    "x": 27218,
+    "y": 36822,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;7.5269;0.47898057343249084;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Eredenn",
+    "x": 36229,
+    "y": 30738,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;3.7922;0.4510414118407294;externalBluePlanet;6;quickNoise"
+}, {
+    "name": "Eres",
+    "x": 28672,
+    "y": 28528,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;0.9798;1.2779846555911367;externalForestPlanet;5;quickNoise"
+}, {
+    "name": "Eriadu",
+    "x": 21314,
+    "y": 5025,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;13.8359;4;externalBluePlanet;5;simplex3"
+}, {
+    "name": "Esfandia",
+    "x": 10706,
+    "y": 30496,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 20,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "256;0.84193;1.00;externalBluePlanet;4;staticQuickNoise"
+}, {
+    "name": "Essien",
+    "x": 19633,
+    "y": 30571,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;4.1773;0.7319382861256083;externalForestPlanet;4;simplex2"
+}, {
+    "name": "Ession",
+    "x": 34590,
+    "y": 35853,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;8.8701;5;externalBluePlanet;7;quickNoise"
+}, {
+    "name": "Etti",
+    "x": 35297,
+    "y": 36595,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;11.9725;0.8526441761074955;standardColors;6;simplex3"
+}, {
+    "name": "Euceron",
+    "x": 32006,
+    "y": 27000,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;13.3086;4;externalBluePlanet;4;quickNoise"
+}, {
+    "name": "Exegol",
+    "x": 3234,
+    "y": 27650,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;8.5405;0.44644675707593734;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Exocron",
+    "x": 22316,
+    "y": 0,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;4.7092;0.7932071828381407;laxStandard;6;simplex3"
+}, {
+    "name": "Exodeen",
+    "x": 22740,
+    "y": 17132,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;7.2616;7;externalBrightPlanet;6;quickNoise"
+}, {
+    "name": "Exodo",
+    "x": 31992,
+    "y": 31101,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;14.4453;0.2976477023342252;externalLavaPlanet;7;quickNoise"
+}, {
+    "name": "Explume Minor",
+    "x": 5226,
+    "y": 19372,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;12.8359;0.7398217236071396;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Falleen",
+    "x": 28743,
+    "y": 10579,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;5.5914;1.4270286863137487;externalLushPlanet;4;perlin2"
+}, {
+    "name": "Faras Belt",
+    "x": 30085,
+    "y": 31177,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;11.8208;0.5677335613489201;desertColors;4;staticQuickNoise"
+}, {
+    "name": "Farrfin",
+    "x": 17133,
+    "y": 23080,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;11.5789;6;externalBluePlanet;5;quickNoise"
+}, {
+    "name": "Felucia",
+    "x": 33432,
+    "y": 31782,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "256;0.32620;1.50;externalForestPlanet;8;perlin2"
+}, {
+    "name": "Fenel",
+    "x": 26977,
+    "y": 28604,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;11.1950;0.2516622136583567;desertColors;7;staticQuickNoise"
+}, {
+    "name": "Feriae Junction",
+    "x": 26582,
+    "y": 32297,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;5.3415;1.1135964720533549;externalLushPlanet;5;quickNoise"
+}, {
+    "name": "Feswe Prime",
+    "x": 27232,
+    "y": 31812,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;5.0002;0.28634780236734025;laxStandard;7;quickNoise"
+}, {
+    "name": "Filve",
+    "x": 32203,
+    "y": 10897,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;13.1182;0.28125293054486045;desertColors;6;staticQuickNoise"
+}, {
+    "name": "Flashpoint",
+    "x": 24576,
+    "y": 28301,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;5.0693;0.4866767537805977;desertColors;7;quickNoise"
+}, {
+    "name": "Florn",
+    "x": 36469,
+    "y": 32675,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;14.9760;2.2526822390258747;externalForestPlanet;6;quickNoise"
+}, {
+    "name": "Florrum",
+    "x": 32966,
+    "y": 32660,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;14.4985;0.36183915709961206;desertColors;4;quickNoise"
+}, {
+    "name": "Foerost",
+    "x": 17373,
+    "y": 20734,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 500,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;8.7757;7;externalDarkPlanet;4;quickNoise"
+}, {
+    "name": "Foless",
+    "x": 20268,
+    "y": 14378,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;10.8049;2.26281147306247;externalForestPlanet;4;quickNoise"
+}, {
+    "name": "Fondor",
+    "x": 18305,
+    "y": 14332,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 550,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;0.84901;1.00;externalDarkPlanet;4;staticQuickNoise"
+}, {
+    "name": "Formos",
+    "x": 38362,
+    "y": 21279,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;11.4939;0.6252123684390096;desertColors;6;staticQuickNoise"
+}, {
+    "name": "Fresia",
+    "x": 15918,
+    "y": 21793,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;6.5745;2.0210924167852835;externalForestPlanet;4;simplex2"
+}, {
+    "name": "Frunchettan",
+    "x": 11582,
+    "y": 30344,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;0.4137;1.6557019470256955;externalForestPlanet;5;simplex2"
+}, {
+    "name": "Fwsen",
+    "x": 3531,
+    "y": 9610,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;15.7267;1.6102432122362091;externalLushPlanet;5;simplex2"
+}, {
+    "name": "Gabredor",
+    "x": 16243,
+    "y": 35853,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;6.4249;1.9211457245321495;externalForestPlanet;5;simplex2"
+}, {
+    "name": "Galantos",
+    "x": 15085,
+    "y": 20658,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.9188;1.2140411314841384;laxStandard;6;quickNoise"
+}, {
+    "name": "Galidraan",
+    "x": 33475,
+    "y": 30677,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;8.9091;0.6462110450892998;snowColors;7;perlin2"
+}, {
+    "name": "Gallinore",
+    "x": 25155,
+    "y": 24215,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;5.0898;0.9833744543941756;standardColors;5;staticQuickNoise"
+}, {
+    "name": "Gamorr",
+    "x": 37246,
+    "y": 13061,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;5.7836;1.7069799569698691;externalForestPlanet;4;quickNoise"
+}, {
+    "name": "Ganath",
+    "x": 33150,
+    "y": 17344,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;8.5279;4;externalBluePlanet;6;quickNoise"
+}, {
+    "name": "Gannaria",
+    "x": 8460,
+    "y": 10549,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;8.3363;0.6229570902039354;standardColors;7;quickNoise"
+}, {
+    "name": "Garos",
+    "x": 28051,
+    "y": 27817,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;7.3671;0.6351575916971528;laxStandard;5;quickNoise"
+}, {
+    "name": "Garqi",
+    "x": 16370,
+    "y": 32826,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;11.1423;0.9432954604231063;externalLushPlanet;4;perlin2"
+}, {
+    "name": "Gavryn",
+    "x": 28870,
+    "y": 25305,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;13.3102;0.7124357972420792;externalLavaPlanet;6;quickNoise"
+}, {
+    "name": "Gelgelar",
+    "x": 20480,
+    "y": 1665,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;9.5813;1.5799543924015917;externalForestPlanet;4;perlin2"
+}, {
+    "name": "Gendrah Narvin",
+    "x": 23785,
+    "y": 15664,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;1.6158;0.7577933775701297;standardColors;5;quickNoise"
+}, {
+    "name": "Generis",
+    "x": 19718,
+    "y": 32963,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;7.4754;1.9504283517807965;externalLushPlanet;7;simplex2"
+}, {
+    "name": "Genon",
+    "x": 23475,
+    "y": 14529,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;4.2350;0.6264045607209598;externalSandPlanet;4;quickNoise"
+}, {
+    "name": "Geonosis",
+    "x": 32613,
+    "y": 7280,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#CC4488",
+    "design": "256;467.65000;2.00;externalLavaPlanet;4;quickNoise"
+}, {
+    "name": "Geroon",
+    "x": 10282,
+    "y": 25441,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;11.9444;0.35249036504353115;standardColors;6;simplex3"
+}, {
+    "name": "Gerrard",
+    "x": 16497,
+    "y": 15815,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 20,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;1.7510;1.211520357434094;pinkFlourish;5;simplex3"
+}, {
+    "name": "Gestrex",
+    "x": 37627,
+    "y": 23080,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;15.5376;1.0991091044705013;externalLushPlanet;5;quickNoise"
+}, {
+    "name": "Gestron",
+    "x": 30198,
+    "y": 28044,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.2911;0.6679194946974809;pinkFlourish;7;simplex3"
+}, {
+    "name": "Ghorman",
+    "x": 18206,
+    "y": 12849,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;0.4874;1.0603682024110903;externalForestPlanet;5;simplex2"
+}, {
+    "name": "Gizer",
+    "x": 27105,
+    "y": 24472,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.1599;0.4961217924457103;standardColors;6;simplex3"
+}, {
+    "name": "Glee Anselm",
+    "x": 13051,
+    "y": 27696,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.1557;0.3539339327617138;pinkFlourish;6;quickNoise"
+}, {
+    "name": "Glom Tho",
+    "x": 26243,
+    "y": 10231,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;0.2983;0.7683275064914599;pinkFlourish;5;simplex3"
+}, {
+    "name": "Glova",
+    "x": 21469,
+    "y": 1513,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;13.4131;0.9127220531538871;externalLushPlanet;7;quickNoise"
+}, {
+    "name": "Gobindi",
+    "x": 21045,
+    "y": 29815,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;1.4248;7;externalDarkPlanet;4;simplex3"
+}, {
+    "name": "Gravan",
+    "x": 25565,
+    "y": 26228,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;14.4839;0.3417961591129472;externalLavaPlanet;7;quickNoise"
+}, {
+    "name": "Gravlex Med",
+    "x": 19294,
+    "y": 35672,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;10.6583;0.3480137115609285;desertColors;5;staticQuickNoise"
+}, {
+    "name": "Gree",
+    "x": 17853,
+    "y": 37821,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;10.9343;0.6498211454754046;externalLushPlanet;5;simplex2"
+}, {
+    "name": "Grho",
+    "x": 4802,
+    "y": 7264,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;11.4653;1.4963704544885268;externalForestPlanet;6;quickNoise"
+}, {
+    "name": "Gymelo",
+    "x": 7345,
+    "y": 7113,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;1.1572;0.3798666723937223;snowColors;5;perlin2"
+}, {
+    "name": "Gyndine",
+    "x": 24944,
+    "y": 17268,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;12.4240;0.5639475520585331;externalLushPlanet;7;simplex2"
+}, {
+    "name": "Had Abbadon",
+    "x": 19011,
+    "y": 19130,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;7.1114;0.2579513620569099;desertColors;7;staticQuickNoise"
+}, {
+    "name": "Hakassi",
+    "x": 19901,
+    "y": 18540,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;8.9740;0.7313620975810031;externalLavaPlanet;6;staticQuickNoise"
+}, {
+    "name": "Halanit",
+    "x": 24153,
+    "y": 17556,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;2.4737;0.44832409769759124;externalBluePlanet;4;perlin2"
+}, {
+    "name": "Halmad",
+    "x": 24407,
+    "y": 30042,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;12.6255;1.7902804760481779;externalForestPlanet;5;simplex2"
+}, {
+    "name": "Halthor",
+    "x": 18291,
+    "y": 30571,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;11.7515;0.708269464009015;desertColors;4;staticQuickNoise"
+}, {
+    "name": "Handooine",
+    "x": 34718,
+    "y": 27938,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;0.2166;7;externalBluePlanet;4;simplex3"
+}, {
+    "name": "Hapes",
+    "x": 25819,
+    "y": 23110,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Temperate",
+    "color": "#BBAADC",
+    "design": "256;0.18979;1.00;laxStandard;4;staticQuickNoise"
+}, {
+    "name": "Haruun Kal",
+    "x": 21864,
+    "y": 7507,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;8.3785;1.797781876190463;externalLushPlanet;6;simplex2"
+}, {
+    "name": "Hast",
+    "x": 39124,
+    "y": 31192,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;6.0322;0.678470348796291;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Helska",
+    "x": 18884,
+    "y": 38063,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;10.8775;0.6663947472570462;externalBluePlanet;7;simplex2"
+}, {
+    "name": "Herdessa",
+    "x": 30184,
+    "y": 8914,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;0.2754;0.34464025231833656;desertColors;7;staticQuickNoise"
+}, {
+    "name": "Hewett",
+    "x": 21412,
+    "y": 29118,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;3.1760;0.3400903206133524;standardColors;6;staticQuickNoise"
+}, {
+    "name": "Hijarna",
+    "x": 21695,
+    "y": 24366,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;1.2429;0.7495074740691081;desertColors;5;quickNoise"
+}, {
+    "name": "Hollastin",
+    "x": 35254,
+    "y": 16345,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;13.1162;0.5668942703028799;externalForestPlanet;4;perlin2"
+}, {
+    "name": "Honoghr",
+    "x": 37288,
+    "y": 21188,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;9.4836;0.3391787330406262;desertColors;5;quickNoise"
+}, {
+    "name": "Hosnian Prime",
+    "x": 21172,
+    "y": 15725,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 350,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;0.81206;12.00;externalBluePlanet;8;quickNoise"
+}, {
+    "name": "Hoth",
+    "x": 15085,
+    "y": 4389,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Arctic",
+    "color": "#DDDDFF",
+    "design": "256;4.40000;1.00;snowColors;6;quickNoise"
+}, {
+    "name": "Hoxim",
+    "x": 6497,
+    "y": 22399,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;3.2738;0.9814688301861567;externalForestPlanet;4;simplex2"
+}, {
+    "name": "Huk",
+    "x": 12641,
+    "y": 35656,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;10.9790;1.8927836862521004;externalForestPlanet;7;perlin2"
+}, {
+    "name": "Humbarine",
+    "x": 22062,
+    "y": 19781,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;11.8938;6;externalBluePlanet;7;simplex3"
+}, {
+    "name": "Hypori",
+    "x": 34449,
+    "y": 8763,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 540,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "256;0.52026;2.00;desertColors;16;quickNoise"
+}, {
+    "name": "Iego",
+    "x": 36836,
+    "y": 27650,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 10,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;0.47032;2.00;externalDarkPlanet;16;staticQuickNoise"
+}, {
+    "name": "Ilum",
+    "x": 7585,
+    "y": 27862,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "256;0.77173;0.60;externalBluePlanet;16;quickNoise"
+}, {
+    "name": "Iol",
+    "x": 10734,
+    "y": 20734,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;2.0858;0.7319767725925646;externalLavaPlanet;6;staticQuickNoise"
+}, {
+    "name": "Iphigin",
+    "x": 18757,
+    "y": 15165,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;2.7617;1.6936005711006286;externalLushPlanet;7;perlin2"
+}, {
+    "name": "Iridonia",
+    "x": 14576,
+    "y": 29058,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;6.2508;0.5617335945090347;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Iskadrell",
+    "x": 9463,
+    "y": 13772,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;14.8433;0.5521322414579217;desertColors;6;staticQuickNoise"
+}, {
+    "name": "Ithor",
+    "x": 20282,
+    "y": 29739,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 180,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "256;1.35000;1.00;laxStandard;4;staticQuickNoise"
+}, {
+    "name": "Ixtlar",
+    "x": 18573,
+    "y": 21703,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 500,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;4.7709;4;externalBluePlanet;4;simplex3"
+}, {
+    "name": "Jabiim",
+    "x": 35155,
+    "y": 27272,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;1.8717;1.3319960010497494;externalLushPlanet;7;quickNoise"
+}, {
+    "name": "Jaemus",
+    "x": 15268,
+    "y": 36322,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;0.74249;1.00;externalBrightPlanet;4;simplex3"
+}, {
+    "name": "Jagas Cluster",
+    "x": 30791,
+    "y": 32539,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;0.6411;0.8171517099984341;pinkFlourish;4;simplex3"
+}, {
+    "name": "Jakku",
+    "x": 10819,
+    "y": 15392,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;8.8226;0.721798779842397;desertColors;6;quickNoise"
+}, {
+    "name": "Jaminere",
+    "x": 35367,
+    "y": 30995,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;0.4692;0.8098445756035926;pinkFlourish;7;quickNoise"
+}, {
+    "name": "Jardeen",
+    "x": 16073,
+    "y": 10276,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;12.4266;0.41995405014136544;snowColors;4;quickNoise"
+}, {
+    "name": "Jazbina",
+    "x": 21257,
+    "y": 27242,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;3.9466;0.25082263480973044;externalLavaPlanet;6;staticQuickNoise"
+}, {
+    "name": "Jebble",
+    "x": 23023,
+    "y": 28907,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;8.9683;0.38209003766537464;externalBluePlanet;5;simplex2"
+}, {
+    "name": "Jedha",
+    "x": 9407,
+    "y": 21642,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFDDAA",
+    "design": "256;19.00000;0.30;externalBrightPlanet;64;simplex3"
+}, {
+    "name": "Jestan",
+    "x": 20508,
+    "y": 26894,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;9.3065;0.2616441005801512;externalBluePlanet;7;quickNoise"
+}, {
+    "name": "Jomark",
+    "x": 33178,
+    "y": 28543,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;1.6740;0.4387316199535958;pinkFlourish;7;simplex3"
+}, {
+    "name": "Jtptan",
+    "x": 14463,
+    "y": 20356,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;1.6411;0.3874557334914204;pinkFlourish;6;quickNoise"
+}, {
+    "name": "Kaal",
+    "x": 15579,
+    "y": 6780,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;13.7272;0.5880671964870063;standardColors;7;simplex3"
+}, {
+    "name": "Kabal",
+    "x": 23121,
+    "y": 4586,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;1.6450;2.0950325670074648;externalLushPlanet;7;simplex2"
+}, {
+    "name": "Kafrene",
+    "x": 18785,
+    "y": 10594,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;10.8689;0.2598808866512554;desertColors;6;quickNoise"
+}, {
+    "name": "Kaikielius",
+    "x": 18263,
+    "y": 20976,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;12.8259;7;externalBrightPlanet;4;quickNoise"
+}, {
+    "name": "Kalaan",
+    "x": 12782,
+    "y": 28528,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;10.6151;0.31911039504933875;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Kalarba",
+    "x": 26356,
+    "y": 11351,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;4.1624;1.0058883168932842;pinkFlourish;7;staticQuickNoise"
+}, {
+    "name": "Kalee",
+    "x": 13432,
+    "y": 35808,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 20,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "256;0.39772;1.00;externalLushPlanet;4;staticQuickNoise"
+}, {
+    "name": "Kaliida Nebula",
+    "x": 27119,
+    "y": 8173,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;4.1847;0.37807870005334554;standardColors;4;quickNoise"
+}, {
+    "name": "Kalist",
+    "x": 16977,
+    "y": 17692,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;8.2903;0.3453707799074852;desertColors;7;staticQuickNoise"
+}, {
+    "name": "Kalla",
+    "x": 35381,
+    "y": 35762,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;15.6123;0.2653209445817732;externalBluePlanet;5;perlin2"
+}, {
+    "name": "Kamino",
+    "x": 34124,
+    "y": 11063,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;13.0127;5;externalBrightPlanet;5;simplex3"
+}, {
+    "name": "Kammia",
+    "x": 6215,
+    "y": 6962,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.0828;1.0365789261274128;pinkFlourish;5;quickNoise"
+}, {
+    "name": "Kampe",
+    "x": 18362,
+    "y": 18388,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;1.7501;0.7243516418538831;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Kariek",
+    "x": 10805,
+    "y": 32690,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;6.0396;2.10252420941941;externalLushPlanet;6;quickNoise"
+}, {
+    "name": "Kashyyyk",
+    "x": 28630,
+    "y": 22066,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Forest",
+    "color": "#11CC44",
+    "design": "256;1.76500;7.00;externalForestPlanet;32;quickNoise"
+}, {
+    "name": "Katana Space",
+    "x": 13206,
+    "y": 8445,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;8.5411;0.9656891658165637;laxStandard;7;simplex3"
+}, {
+    "name": "Kattada",
+    "x": 22133,
+    "y": 21430,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 70,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;0.04113;0.50;blueStarColors;4;quickNoise"
+}, {
+    "name": "Kauron",
+    "x": 26130,
+    "y": 36020,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;4.9936;0.26043206428175864;desertColors;6;staticQuickNoise"
+}, {
+    "name": "Kayri",
+    "x": 12415,
+    "y": 11396,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.1557;0.8602715864524813;pinkFlourish;7;simplex3"
+}, {
+    "name": "Kem Stor Ai",
+    "x": 29379,
+    "y": 28150,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;4.2215;2.3904952608242462;externalForestPlanet;5;quickNoise"
+}, {
+    "name": "Kesh",
+    "x": 40000,
+    "y": 21128,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;4.9606;0.7931741251391553;standardColors;4;quickNoise"
+}, {
+    "name": "Keskin",
+    "x": 13305,
+    "y": 3890,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;10.5888;1.0022236541130876;externalForestPlanet;7;quickNoise"
+}, {
+    "name": "Kessel",
+    "x": 36596,
+    "y": 21551,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 800,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "256;0.53257;4.00;externalSandPlanet;4;staticQuickNoise"
+}, {
+    "name": "Ketal",
+    "x": 17895,
+    "y": 12032,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.4291;0.49808933126943944;laxStandard;5;staticQuickNoise"
+}, {
+    "name": "Ketaris",
+    "x": 19972,
+    "y": 31888,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;3.1890;0.6682732386221159;pinkFlourish;7;quickNoise"
+}, {
+    "name": "Khar Delba",
+    "x": 32966,
+    "y": 34461,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;9.8904;0.6879896928125502;snowColors;6;simplex2"
+}, {
+    "name": "Khomm",
+    "x": 17797,
+    "y": 16633,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;11.5480;5;externalBrightPlanet;6;simplex3"
+}, {
+    "name": "Kile",
+    "x": 34082,
+    "y": 27121,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;12.7352;0.6995190959657984;externalLavaPlanet;7;staticQuickNoise"
+}, {
+    "name": "Kilji",
+    "x": 2119,
+    "y": 19675,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;12.7024;0.2521815033263297;desertColors;5;quickNoise"
+}, {
+    "name": "Kinoss",
+    "x": 1977,
+    "y": 24956,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;8.8096;5;externalBrightPlanet;7;simplex3"
+}, {
+    "name": "Kinyen",
+    "x": 17980,
+    "y": 9792,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 500,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;7.6460;1.3544412560778822;externalForestPlanet;6;quickNoise"
+}, {
+    "name": "Kira",
+    "x": 23545,
+    "y": 9686,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;13.9583;0.953184300797476;standardColors;4;quickNoise"
+}, {
+    "name": "Kirdo",
+    "x": 23912,
+    "y": 2421,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;2.8794;0.6851355992023178;desertColors;6;quickNoise"
+}, {
+    "name": "Kirima",
+    "x": 25212,
+    "y": 9202,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;5.6327;0.2769535916217577;standardColors;4;quickNoise"
+}, {
+    "name": "Klatooine",
+    "x": 35593,
+    "y": 24170,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "256;0.77936;1.00;externalBrightPlanet;4;staticQuickNoise"
+}, {
+    "name": "Koda Station",
+    "x": 10734,
+    "y": 5418,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 230,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;0.42462;3.00;yellowStarColors;4;quickNoise"
+}, {
+    "name": "Kooriva",
+    "x": 21384,
+    "y": 13212,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;5.0690;0.5072039210404085;externalForestPlanet;5;quickNoise"
+}, {
+    "name": "Korda",
+    "x": 25282,
+    "y": 25395,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;4.8201;1.119905766778757;pinkFlourish;4;simplex3"
+}, {
+    "name": "Korriban",
+    "x": 31977,
+    "y": 33326,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;6.6744;0.37004540001541186;desertColors;4;staticQuickNoise"
+}, {
+    "name": "Koru Neimoidia",
+    "x": 24647,
+    "y": 20129,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;10.7212;6;externalDarkPlanet;4;simplex3"
+}, {
+    "name": "Kostra",
+    "x": 29718,
+    "y": 25728,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;4.2117;4;externalBluePlanet;5;quickNoise"
+}, {
+    "name": "Kothlis",
+    "x": 32147,
+    "y": 12077,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;13.7695;1.0356672195077454;standardColors;6;quickNoise"
+}, {
+    "name": "Krant",
+    "x": 32966,
+    "y": 12758,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;11.9613;1.5633216277611628;externalLushPlanet;7;quickNoise"
+}, {
+    "name": "Kriselist",
+    "x": 14986,
+    "y": 7688,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;15.9786;6;externalBrightPlanet;5;simplex3"
+}, {
+    "name": "Kuar",
+    "x": 16554,
+    "y": 20658,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;2.1374;0.4946334655300429;externalLavaPlanet;7;quickNoise"
+}, {
+    "name": "Kuat",
+    "x": 22006,
+    "y": 20583,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#AAEF55",
+    "design": "256;4.00000;0.15;externalForestPlanet;6;simplex3"
+}, {
+    "name": "Kwenn",
+    "x": 32782,
+    "y": 20114,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;6.2622;0.4546997178485958;externalBluePlanet;7;quickNoise"
+}, {
+    "name": "Laakteen",
+    "x": 17500,
+    "y": 14120,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;1.4246;0.5773011355646525;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Lakra",
+    "x": 8757,
+    "y": 33598,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;7.9034;1.2059250423573364;laxStandard;5;simplex3"
+}, {
+    "name": "Lannik",
+    "x": 31822,
+    "y": 15119,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;4.1095;0.40717503562098595;externalSandPlanet;4;staticQuickNoise"
+}, {
+    "name": "Lantillies",
+    "x": 27684,
+    "y": 24790,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;15.3880;5;externalBrightPlanet;5;simplex3"
+}, {
+    "name": "Latharra",
+    "x": 35325,
+    "y": 12788,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;8.9668;1.1535593362392471;standardColors;7;staticQuickNoise"
+}, {
+    "name": "Levian",
+    "x": 23686,
+    "y": 26561,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;3.1146;0.5154621673383832;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Lianna",
+    "x": 34124,
+    "y": 30965,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;6.3099;6;externalBluePlanet;4;quickNoise"
+}, {
+    "name": "Liinade",
+    "x": 23531,
+    "y": 32539,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;5.6384;0.5172764772099444;pinkFlourish;5;simplex3"
+}, {
+    "name": "Lioan",
+    "x": 1836,
+    "y": 29663,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.3060;0.6292709984674576;laxStandard;4;simplex3"
+}, {
+    "name": "Lizil",
+    "x": 7062,
+    "y": 30269,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;12.3388;0.5630377080698966;desertColors;6;quickNoise"
+}, {
+    "name": "Llanic",
+    "x": 29619,
+    "y": 7719,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;8.3663;1.0899771869227322;standardColors;6;staticQuickNoise"
+}, {
+    "name": "Loedorvia",
+    "x": 15240,
+    "y": 16890,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;11.5004;0.4042361869576274;standardColors;7;quickNoise"
+}, {
+    "name": "Lok",
+    "x": 30452,
+    "y": 7219,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;5.2490;0.48667717515335;externalSandPlanet;4;quickNoise"
+}, {
+    "name": "Lola Sayu",
+    "x": 32726,
+    "y": 31434,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;13.9116;0.7100133217919741;externalLavaPlanet;6;staticQuickNoise"
+}, {
+    "name": "Lonnaw",
+    "x": 15833,
+    "y": 30087,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.0968;0.7789788696047228;laxStandard;4;simplex3"
+}, {
+    "name": "Loronar",
+    "x": 21977,
+    "y": 16784,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 500,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;14.3731;7;externalBrightPlanet;7;quickNoise"
+}, {
+    "name": "Lothal",
+    "x": 39308,
+    "y": 28422,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;0.84174;1.00;standardColors;4;quickNoise"
+}, {
+    "name": "Lown",
+    "x": 29153,
+    "y": 26273,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;15.9420;0.5986196738422935;pinkFlourish;7;quickNoise"
+}, {
+    "name": "Lucazec",
+    "x": 30749,
+    "y": 30375,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;1.1249;0.9950998208767874;standardColors;6;simplex3"
+}, {
+    "name": "Lwhekk",
+    "x": 1667,
+    "y": 8960,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;7.6661;2.4887370898638728;externalLushPlanet;6;quickNoise"
+}, {
+    "name": "Lyran",
+    "x": 35989,
+    "y": 11411,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;5.5507;2.4467890499235514;externalLushPlanet;5;quickNoise"
+}, {
+    "name": "M293",
+    "x": 22316,
+    "y": 32387,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;6.0708;0.7006987649919499;desertColors;5;quickNoise"
+}, {
+    "name": "Makatak",
+    "x": 9887,
+    "y": 17253,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;1.2620;1.1423022718210305;pinkFlourish;5;quickNoise"
+}, {
+    "name": "Makeb",
+    "x": 30678,
+    "y": 15301,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;5.9658;0.25974480968602875;standardColors;7;quickNoise"
+}, {
+    "name": "Makem Te",
+    "x": 34463,
+    "y": 32403,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;15.3249;0.4335845807505558;desertColors;7;staticQuickNoise"
+}, {
+    "name": "Malachor",
+    "x": 34350,
+    "y": 34764,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;5.1387;0.5898867172575466;externalSandPlanet;7;quickNoise"
+}, {
+    "name": "Malastare",
+    "x": 22528,
+    "y": 7976,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#DD3399",
+    "design": "256;5.00000;1.00;externalDarkPlanet;4;staticQuickNoise"
+}, {
+    "name": "Maldra",
+    "x": 39251,
+    "y": 26500,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;9.5564;0.534294706738585;externalLavaPlanet;7;staticQuickNoise"
+}, {
+    "name": "Manaan",
+    "x": 25056,
+    "y": 18872,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.6792;0.4954558868358665;pinkFlourish;4;quickNoise"
+}, {
+    "name": "Manda",
+    "x": 33475,
+    "y": 11608,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;15.6001;1.144141713920636;standardColors;5;staticQuickNoise"
+}, {
+    "name": "Mandallia",
+    "x": 26836,
+    "y": 27847,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;8.6012;1.219676963977243;externalForestPlanet;7;quickNoise"
+}, {
+    "name": "Mandalore",
+    "x": 26130,
+    "y": 28528,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.8177;0.626511729428526;pinkFlourish;7;staticQuickNoise"
+}, {
+    "name": "Maridun",
+    "x": 29562,
+    "y": 30586,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;12.3708;1.8313303138017232;externalLushPlanet;5;quickNoise"
+}, {
+    "name": "Maryo",
+    "x": 34195,
+    "y": 36565,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;14.3474;0.9388422097591497;pinkFlourish;6;quickNoise"
+}, {
+    "name": "Massoss",
+    "x": 7980,
+    "y": 25804,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;12.3489;0.7794398331175642;pinkFlourish;6;quickNoise"
+}, {
+    "name": "Mataou",
+    "x": 15325,
+    "y": 3663,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;6.7719;0.4720673546960228;desertColors;7;staticQuickNoise"
+}, {
+    "name": "Mechis",
+    "x": 19873,
+    "y": 12365,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;13.6643;0.3911057142951202;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Mendig",
+    "x": 29237,
+    "y": 29512,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;14.5558;0.2785918786437868;externalLavaPlanet;7;staticQuickNoise"
+}, {
+    "name": "Mephout",
+    "x": 8630,
+    "y": 1862,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;5.8877;2.2414097314468204;externalForestPlanet;6;perlin2"
+}, {
+    "name": "Metalorn",
+    "x": 31822,
+    "y": 25728,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;10.9583;6;externalDarkPlanet;7;simplex3"
+}, {
+    "name": "Metellos",
+    "x": 16766,
+    "y": 21582,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 500,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;11.1654;6;externalDarkPlanet;5;quickNoise"
+}, {
+    "name": "Mhaeli",
+    "x": 22698,
+    "y": 10125,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.3728;0.8590700305201971;standardColors;6;quickNoise"
+}, {
+    "name": "Mimban",
+    "x": 26314,
+    "y": 17692,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Swamp",
+    "color": "#AA5555",
+    "design": "256;0.23098;1.00;externalRedPlanet;4;staticQuickNoise"
+}, {
+    "name": "Mindor",
+    "x": 20819,
+    "y": 25426,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;11.8201;0.71722720232397;pinkFlourish;5;quickNoise"
+}, {
+    "name": "Minntooine",
+    "x": 38460,
+    "y": 28997,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.6501;0.33439102334420134;laxStandard;6;simplex3"
+}, {
+    "name": "Miztoc",
+    "x": 16963,
+    "y": 7053,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;10.0531;1.4388260278282046;externalLushPlanet;5;perlin2"
+}, {
+    "name": "Mon Calamari",
+    "x": 38658,
+    "y": 29966,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;4.00000;8.00;externalBluePlanet;8;perlin3"
+}, {
+    "name": "Mon Gazza",
+    "x": 28884,
+    "y": 8173,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;7.4941;0.2856629199346431;desertColors;7;staticQuickNoise"
+}, {
+    "name": "Moonus Mandel",
+    "x": 32062,
+    "y": 13924,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;8.7123;1.05496707003544;pinkFlourish;7;staticQuickNoise"
+}, {
+    "name": "Moorja",
+    "x": 18757,
+    "y": 11366,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;0.1729;0.5930293249766052;externalLavaPlanet;4;quickNoise"
+}, {
+    "name": "Morishim",
+    "x": 16568,
+    "y": 33886,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;11.2439;1.2044455403117333;pinkFlourish;7;staticQuickNoise"
+}, {
+    "name": "Movris",
+    "x": 21963,
+    "y": 30647,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;13.7645;0.47133824690343545;desertColors;5;quickNoise"
+}, {
+    "name": "Mrisst",
+    "x": 15480,
+    "y": 23428,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;14.5247;0.5508414349427168;laxStandard;7;staticQuickNoise"
+}, {
+    "name": "Mrlsst",
+    "x": 18390,
+    "y": 13575,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;11.3713;1.2259241393884037;externalLushPlanet;4;quickNoise"
+}, {
+    "name": "Mulatan",
+    "x": 35254,
+    "y": 20083,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;3.9878;0.4481276351638923;standardColors;6;quickNoise"
+}, {
+    "name": "Mullan",
+    "x": 36935,
+    "y": 30526,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;12.4968;0.4283247900480792;pinkFlourish;7;staticQuickNoise"
+}, {
+    "name": "Munlali Mafir",
+    "x": 7062,
+    "y": 31782,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;14.1576;0.5634903971618167;pinkFlourish;7;simplex3"
+}, {
+    "name": "Murgo",
+    "x": 11201,
+    "y": 27575,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;10.8395;0.38018418428961215;desertColors;7;quickNoise"
+}, {
+    "name": "Murkhana",
+    "x": 34774,
+    "y": 30481,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;2.5367;0.6255384158656343;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Mustafar",
+    "x": 18136,
+    "y": 1892,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Volcanic",
+    "color": "#CC3377",
+    "design": "256;7.00000;0.40;externalLavaPlanet;64;staticQuickNoise"
+}, {
+    "name": "Muunilinst",
+    "x": 15410,
+    "y": 35414,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 500,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;0.50000;1.00;standardColors;116;simplex3"
+}, {
+    "name": "Mygeeto",
+    "x": 16088,
+    "y": 34612,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;15.2127;4;externalDarkPlanet;5;quickNoise"
+}, {
+    "name": "Myrkr",
+    "x": 23347,
+    "y": 27454,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;6.3919;0.6242432803288869;externalForestPlanet;6;perlin2"
+}, {
+    "name": "Mytus",
+    "x": 34661,
+    "y": 38335,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;14.2273;0.49945705461351864;externalLavaPlanet;7;quickNoise"
+}, {
+    "name": "Naboo",
+    "x": 25438,
+    "y": 8112,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Temperate",
+    "color": "#55AAFF",
+    "design": "256;0.57940;1.00;externalLushPlanet;4;simplex2"
+}, {
+    "name": "Nadiri",
+    "x": 20056,
+    "y": 23458,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;11.4576;0.2723678056478195;externalLavaPlanet;6;quickNoise"
+}, {
+    "name": "Nal Hutta",
+    "x": 33969,
+    "y": 17631,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;10.6050;1.9911149253136684;externalLushPlanet;6;quickNoise"
+}, {
+    "name": "Nam Chorios",
+    "x": 31836,
+    "y": 29315,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;9.1508;0.29309808486331856;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Naporar",
+    "x": 3616,
+    "y": 25668,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;13.2197;0.4626199673931044;pinkFlourish;5;staticQuickNoise"
+}, {
+    "name": "Nar Haaska",
+    "x": 38065,
+    "y": 18767,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;11.5748;0.8283196033655408;standardColors;5;quickNoise"
+}, {
+    "name": "Nar Hekka",
+    "x": 34816,
+    "y": 17783,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;7.2085;0.49072462723550947;snowColors;4;perlin2"
+}, {
+    "name": "Nar Shaddaa",
+    "x": 34251,
+    "y": 18464,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;3.1067;7;externalBluePlanet;6;simplex3"
+}, {
+    "name": "Nath Goordi",
+    "x": 28955,
+    "y": 26939,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;6.7729;0.42234075406516236;externalBluePlanet;4;quickNoise"
+}, {
+    "name": "Nazzri",
+    "x": 28023,
+    "y": 23231,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.9969;0.8548128811914667;pinkFlourish;7;staticQuickNoise"
+}, {
+    "name": "Nelvaan",
+    "x": 31229,
+    "y": 6750,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;1.4875;0.6996286613129039;externalBluePlanet;6;simplex2"
+}, {
+    "name": "Nentan",
+    "x": 15650,
+    "y": 27544,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;1.5710;0.5360971153031673;desertColors;5;staticQuickNoise"
+}, {
+    "name": "Nespis",
+    "x": 35071,
+    "y": 29663,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.2770;0.785196751305014;pinkFlourish;6;simplex3"
+}, {
+    "name": "Nettehi",
+    "x": 7062,
+    "y": 21491,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;2.9755;5;externalDarkPlanet;5;quickNoise"
+}, {
+    "name": "New Alderaan",
+    "x": 37782,
+    "y": 29361,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;11.0144;0.7396077551537799;pinkFlourish;7;staticQuickNoise"
+}, {
+    "name": "New Bornalex",
+    "x": 27119,
+    "y": 29966,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;11.7161;0.3897062751605569;desertColors;4;staticQuickNoise"
+}, {
+    "name": "New Cov",
+    "x": 27062,
+    "y": 11759,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "256;0.63222;1.00;externalLushPlanet;4;staticQuickNoise"
+}, {
+    "name": "New Plympto",
+    "x": 20226,
+    "y": 17631,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;14.4620;1.8913078849083547;externalLushPlanet;7;quickNoise"
+}, {
+    "name": "Nez Peron",
+    "x": 25706,
+    "y": 32191,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.7247;1.2048641247861864;pinkFlourish;6;simplex3"
+}, {
+    "name": "Nihil",
+    "x": 4237,
+    "y": 16648,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;11.9658;1.2459658805569878;standardColors;6;quickNoise"
+}, {
+    "name": "Nimban",
+    "x": 34407,
+    "y": 21112,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.8784;1.1464269215501288;standardColors;7;simplex3"
+}, {
+    "name": "Nirauan",
+    "x": 12133,
+    "y": 31782,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 500,
+    "terrain": "Forest",
+    "color": "#572834",
+    "design": "256;0.94024;1.00;externalLushPlanet;4;staticQuickNoise"
+}, {
+    "name": "Nixor",
+    "x": 29972,
+    "y": 16935,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;12.8577;0.5702641667649361;pinkFlourish;6;quickNoise"
+}, {
+    "name": "Nkllon",
+    "x": 19068,
+    "y": 9353,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;1.6123;0.7386831965964302;externalLavaPlanet;7;quickNoise"
+}, {
+    "name": "Nocto",
+    "x": 19774,
+    "y": 908,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;8.5254;0.6860250932374307;standardColors;4;quickNoise"
+}, {
+    "name": "Noonar",
+    "x": 20452,
+    "y": 30526,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;2.1121;1.9205479611325613;externalLushPlanet;7;perlin2"
+}, {
+    "name": "Noquivzor",
+    "x": 16201,
+    "y": 24866,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.0244;1.1164134214016692;laxStandard;5;quickNoise"
+}, {
+    "name": "Nouane",
+    "x": 22825,
+    "y": 26425,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.4222;0.5326100379348342;laxStandard;6;simplex3"
+}, {
+    "name": "Nubia",
+    "x": 21935,
+    "y": 17556,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;0.5393;0.6005580991208411;pinkFlourish;4;quickNoise"
+}, {
+    "name": "Nulan",
+    "x": 26158,
+    "y": 5448,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;15.1194;1.8292250759077406;externalForestPlanet;5;quickNoise"
+}, {
+    "name": "Null Zone",
+    "x": 27599,
+    "y": 16496,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.5227;0.6481113770296381;standardColors;5;simplex3"
+}, {
+    "name": "Nzoth",
+    "x": 14492,
+    "y": 19478,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;15.4737;0.2948035164037553;externalSandPlanet;4;quickNoise"
+}, {
+    "name": "Oba Diah",
+    "x": 38164,
+    "y": 22096,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.4054;1.0460217801091858;pinkFlourish;6;staticQuickNoise"
+}, {
+    "name": "Obredaan",
+    "x": 16992,
+    "y": 29724,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;14.0112;1.5529348994197931;externalForestPlanet;5;quickNoise"
+}, {
+    "name": "Obroa Skai",
+    "x": 24463,
+    "y": 26107,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;14.5416;0.5796411944309027;laxStandard;6;quickNoise"
+}, {
+    "name": "Odik",
+    "x": 15833,
+    "y": 19281,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;15.9448;0.37386827710824755;externalSandPlanet;6;quickNoise"
+}, {
+    "name": "Ojom",
+    "x": 19209,
+    "y": 18267,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;2.6678;0.3431542610811796;snowColors;7;quickNoise"
+}, {
+    "name": "Omonoth",
+    "x": 20650,
+    "y": 24412,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;9.4307;0.34026966256641;desertColors;6;quickNoise"
+}, {
+    "name": "Onderon",
+    "x": 25141,
+    "y": 21930,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;13.8777;1.4358860445023909;externalLushPlanet;5;quickNoise"
+}, {
+    "name": "Ord Biniir",
+    "x": 17740,
+    "y": 33326,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;0.2434;1.0254728949021494;externalLushPlanet;6;quickNoise"
+}, {
+    "name": "Ord Cantrell",
+    "x": 17232,
+    "y": 31056,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;0.40000;1.00;standardColors;8;quickNoise"
+}, {
+    "name": "Ord Cestus",
+    "x": 25311,
+    "y": 31464,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 430,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "256;0.69829;1.00;externalSandPlanet;4;staticQuickNoise"
+}, {
+    "name": "Ord Mantell",
+    "x": 17980,
+    "y": 28089,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;4.8281;0.41552155720847384;desertColors;6;quickNoise"
+}, {
+    "name": "Ord Pardron",
+    "x": 32768,
+    "y": 9671,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;11.5479;0.5291721405640295;desertColors;7;quickNoise"
+}, {
+    "name": "Ord Radama",
+    "x": 29350,
+    "y": 33946,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;13.4930;2.335507340737616;externalForestPlanet;6;simplex2"
+}, {
+    "name": "Ord Tiddell",
+    "x": 30523,
+    "y": 27090,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;13.6876;0.6489234863961519;externalSandPlanet;6;quickNoise"
+}, {
+    "name": "Ord Trasi",
+    "x": 18065,
+    "y": 34431,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "256;2.40000;2.00;laxStandard;4;perlin3"
+}, {
+    "name": "Ord Vaug",
+    "x": 19661,
+    "y": 9913,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;6.3030;1.2578159278469914;externalLushPlanet;7;perlin2"
+}, {
+    "name": "Ordo",
+    "x": 25410,
+    "y": 28104,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;11.7699;0.6156856209867654;desertColors;4;staticQuickNoise"
+}, {
+    "name": "Oreen",
+    "x": 6356,
+    "y": 15134,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;3.0766;2.3239166747183115;externalForestPlanet;4;simplex2"
+}, {
+    "name": "Orinda",
+    "x": 16681,
+    "y": 30420,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;0.23333;1.00;externalLushPlanet;4;quickNoise"
+}, {
+    "name": "Orion",
+    "x": 36017,
+    "y": 29512,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;3.4897;0.6003353835594527;externalLavaPlanet;6;staticQuickNoise"
+}, {
+    "name": "Oristrom",
+    "x": 11299,
+    "y": 33750,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.9533;0.3048447862368229;standardColors;7;quickNoise"
+}, {
+    "name": "Orleon",
+    "x": 30763,
+    "y": 25728,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;4.4594;0.6392771366894824;laxStandard;5;quickNoise"
+}, {
+    "name": "Orocco",
+    "x": 20339,
+    "y": 28907,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.8409;0.9343337332679269;pinkFlourish;5;quickNoise"
+}, {
+    "name": "Orron",
+    "x": 37105,
+    "y": 34824,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.5270;0.46263038953446156;standardColors;4;staticQuickNoise"
+}, {
+    "name": "Oslumpex",
+    "x": 36201,
+    "y": 34945,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;4.3818;7;externalBluePlanet;6;perlin3"
+}, {
+    "name": "Osseriton",
+    "x": 10028,
+    "y": 24215,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;4.4505;0.4532937387242081;pinkFlourish;5;quickNoise"
+}, {
+    "name": "Ossus",
+    "x": 34308,
+    "y": 29678,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;3.2357;0.6256761043321488;externalLavaPlanet;7;staticQuickNoise"
+}, {
+    "name": "Paarin Minor",
+    "x": 20692,
+    "y": 31479,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;0.9132;0.9049910120270619;laxStandard;6;quickNoise"
+}, {
+    "name": "Pako Ramoon",
+    "x": 13658,
+    "y": 3103,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;13.9028;0.3516002351415171;externalBluePlanet;5;simplex2"
+}, {
+    "name": "Pakrik Minor",
+    "x": 14972,
+    "y": 21945,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;12.6229;1.0458560209893801;standardColors;7;quickNoise"
+}, {
+    "name": "Palanhi",
+    "x": 15734,
+    "y": 24215,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;7.8548;0.7888937299942723;standardColors;5;simplex3"
+}, {
+    "name": "Pallaxides",
+    "x": 22373,
+    "y": 29043,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;8.7484;0.6903124769817185;pinkFlourish;4;quickNoise"
+}, {
+    "name": "Pammant",
+    "x": 39590,
+    "y": 29845,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;1.9612;0.65817450199522;externalLavaPlanet;7;quickNoise"
+}, {
+    "name": "Pantolomin",
+    "x": 16412,
+    "y": 22883,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;14.6238;0.6315334280708149;pinkFlourish;4;simplex3"
+}, {
+    "name": "Pantora",
+    "x": 27599,
+    "y": 2876,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;0.3502;1.6769284120065069;externalLushPlanet;5;quickNoise"
+}, {
+    "name": "Parnassos",
+    "x": 9110,
+    "y": 30117,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;8.7951;0.2843544317666632;externalLavaPlanet;6;quickNoise"
+}, {
+    "name": "Pashvi",
+    "x": 12429,
+    "y": 32690,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;4.0653;0.334505067446462;pinkFlourish;7;simplex3"
+}, {
+    "name": "Perann Nebula",
+    "x": 4237,
+    "y": 15588,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.1457;0.773114968677371;standardColors;7;quickNoise"
+}, {
+    "name": "Peregrine",
+    "x": 27966,
+    "y": 12107,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;3.6082;2.0429897493654035;externalLushPlanet;7;quickNoise"
+}, {
+    "name": "Pesfavri",
+    "x": 7331,
+    "y": 26455,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;10.2816;2.30589683333746;externalForestPlanet;4;quickNoise"
+}, {
+    "name": "Pesitiin",
+    "x": 12712,
+    "y": 25426,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;7.8529;0.6733913752661992;pinkFlourish;6;quickNoise"
+}, {
+    "name": "Phaeda",
+    "x": 18997,
+    "y": 30874,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;1.4896;5;externalBluePlanet;5;perlin3"
+}, {
+    "name": "Phindar",
+    "x": 27472,
+    "y": 29240,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;5.0949;0.8619208219808807;externalLushPlanet;6;simplex2"
+}, {
+    "name": "Pleknok",
+    "x": 7768,
+    "y": 23156,
+    "shipyardLevel": 0,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;4.6718;0.5866749560259477;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Poderis",
+    "x": 21864,
+    "y": 25153,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.5695;1.0696113282082071;standardColors;4;quickNoise"
+}, {
+    "name": "Polis Massa",
+    "x": 16568,
+    "y": 106,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 75,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "256;1.55000;0.25;externalBluePlanet;8;staticQuickNoise"
+}, {
+    "name": "Poln Major",
+    "x": 13192,
+    "y": 33144,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;5.9126;0.5317590006540346;standardColors;4;simplex3"
+}, {
+    "name": "Polneye",
+    "x": 13701,
+    "y": 20583,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;5.7014;0.6294353577841136;desertColors;6;quickNoise"
+}, {
+    "name": "Polus",
+    "x": 21130,
+    "y": 30708,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;4.6498;0.7417288801979303;externalBluePlanet;5;perlin2"
+}, {
+    "name": "Porchello",
+    "x": 13842,
+    "y": 6311,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.3390;0.31346220038891925;pinkFlourish;4;staticQuickNoise"
+}, {
+    "name": "Porus Vida",
+    "x": 26624,
+    "y": 22399,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;7.5677;0.6780257447583065;standardColors;4;staticQuickNoise"
+}, {
+    "name": "Praadost",
+    "x": 28347,
+    "y": 34552,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;5.6261;0.5180418079109457;externalForestPlanet;4;simplex2"
+}, {
+    "name": "Praesitlyn",
+    "x": 22302,
+    "y": 3345,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;15.1669;0.5325343087733327;desertColors;5;quickNoise"
+}, {
+    "name": "Prakith",
+    "x": 16455,
+    "y": 19750,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 220,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "256;0.65723;2.00;externalForestPlanet;8;perlin2"
+}, {
+    "name": "Prefsbelt",
+    "x": 14266,
+    "y": 33295,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;2.6510;6;externalBluePlanet;7;simplex3"
+}, {
+    "name": "Prildaz",
+    "x": 13362,
+    "y": 19675,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.9720;0.6967167543249548;laxStandard;4;simplex3"
+}, {
+    "name": "Primea",
+    "x": 1977,
+    "y": 27090,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;12.2111;1.176148153965321;externalForestPlanet;4;quickNoise"
+}, {
+    "name": "Qat Chrystac",
+    "x": 19859,
+    "y": 8536,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;15.6676;0.5586146708966055;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Qiilura",
+    "x": 17189,
+    "y": 28331,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.4284;0.3161780800067642;standardColors;7;quickNoise"
+}, {
+    "name": "Qoribu",
+    "x": 8475,
+    "y": 28755,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;8.6354;1.6007451522952794;externalForestPlanet;4;simplex2"
+}, {
+    "name": "Qretu",
+    "x": 17938,
+    "y": 11199,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;13.8509;7;externalDarkPlanet;6;quickNoise"
+}, {
+    "name": "Quelii",
+    "x": 25763,
+    "y": 30692,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;8.3206;1.577900877709646;externalForestPlanet;4;simplex2"
+}, {
+    "name": "Quell",
+    "x": 31257,
+    "y": 29769,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;8.2285;0.7378213343063946;externalBluePlanet;7;simplex2"
+}, {
+    "name": "Quellor",
+    "x": 23559,
+    "y": 17102,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;1.9358;7;externalBluePlanet;6;quickNoise"
+}, {
+    "name": "Quermia",
+    "x": 34887,
+    "y": 33235,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;3.0402;1.044800004103588;externalLushPlanet;4;simplex2"
+}, {
+    "name": "Quethold",
+    "x": 8969,
+    "y": 32463,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;12.9929;0.7145320193831017;externalLushPlanet;7;perlin2"
+}, {
+    "name": "Ragmar",
+    "x": 30085,
+    "y": 6356,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;5.1972;0.3046106322477366;externalLavaPlanet;4;quickNoise"
+}, {
+    "name": "Rago",
+    "x": 11243,
+    "y": 28377,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;1.8811;0.5306861067536759;externalSandPlanet;5;staticQuickNoise"
+}, {
+    "name": "Rakata",
+    "x": 6469,
+    "y": 18040,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.2874;0.9043513291839347;pinkFlourish;7;simplex3"
+}, {
+    "name": "Ralltiir",
+    "x": 20706,
+    "y": 22868,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.5469;0.6050590831139852;standardColors;6;simplex3"
+}, {
+    "name": "Randon",
+    "x": 29873,
+    "y": 21082,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;11.9657;4;externalBrightPlanet;4;perlin3"
+}, {
+    "name": "Rapacc",
+    "x": 4379,
+    "y": 30571,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;10.5875;4;externalBrightPlanet;5;perlin3"
+}, {
+    "name": "Rattatak",
+    "x": 8573,
+    "y": 9474,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;14.1885;0.2677271006801144;desertColors;6;staticQuickNoise"
+}, {
+    "name": "Raxus",
+    "x": 35508,
+    "y": 31964,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "256;0.21725;0.60;laxStandard;12;quickNoise"
+}, {
+    "name": "Raxus Secundus",
+    "x": 35593,
+    "y": 32766,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;5.1984;0.8120716423610846;pinkFlourish;7;staticQuickNoise"
+}, {
+    "name": "Rduba",
+    "x": 37331,
+    "y": 11260,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;10.1339;0.5725015080168352;externalLavaPlanet;7;quickNoise"
+}, {
+    "name": "Reecee",
+    "x": 14153,
+    "y": 24366,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;9.5270;0.6684022876583979;externalSandPlanet;4;staticQuickNoise"
+}, {
+    "name": "Relephon",
+    "x": 25113,
+    "y": 22853,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 350,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;1.9640;4;externalBrightPlanet;5;quickNoise"
+}, {
+    "name": "Rendili",
+    "x": 21511,
+    "y": 18933,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 540,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;2.15000;0.50;standardColors;4;perlin2"
+}, {
+    "name": "Rennek",
+    "x": 2119,
+    "y": 12864,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;7.0858;7;externalBrightPlanet;5;simplex3"
+}, {
+    "name": "Rhand",
+    "x": 3249,
+    "y": 16194,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;6.1708;0.7126439212627025;externalForestPlanet;7;quickNoise"
+}, {
+    "name": "Rhelg",
+    "x": 33545,
+    "y": 33689,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;0.8378;0.9555156657905233;standardColors;4;simplex3"
+}, {
+    "name": "Rhen Var",
+    "x": 32669,
+    "y": 30556,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 30,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "256;0.35000;1.00;snowColors;8;simplex2"
+}, {
+    "name": "Rhigar",
+    "x": 2684,
+    "y": 22823,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;4.0351;0.35824116083974533;snowColors;4;perlin2"
+}, {
+    "name": "Rhommamool",
+    "x": 24605,
+    "y": 14453,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;1.5532;0.6009876366563316;desertColors;5;staticQuickNoise"
+}, {
+    "name": "Riette",
+    "x": 2542,
+    "y": 31177,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.5568;0.3103207830766146;pinkFlourish;4;staticQuickNoise"
+}, {
+    "name": "Riflor",
+    "x": 12980,
+    "y": 7673,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;1.7381;0.4035752327392792;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Ringneldia",
+    "x": 38362,
+    "y": 25638,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;8.8874;4;externalBluePlanet;7;quickNoise"
+}, {
+    "name": "Ringo Vinda",
+    "x": 32768,
+    "y": 26954,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;3.9036;0.2626638991835568;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Rintonne",
+    "x": 28220,
+    "y": 8929,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;9.8847;7;externalBluePlanet;5;simplex3"
+}, {
+    "name": "Rion",
+    "x": 36441,
+    "y": 20431,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;10.7311;0.9895965735033811;externalForestPlanet;5;perlin2"
+}, {
+    "name": "Rishi",
+    "x": 34294,
+    "y": 12017,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;2.0907;0.7427236261287489;externalForestPlanet;5;simplex2"
+}, {
+    "name": "Roche",
+    "x": 29929,
+    "y": 24881,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;13.8332;0.3299541989390265;externalLavaPlanet;4;quickNoise"
+}, {
+    "name": "Rodia",
+    "x": 31879,
+    "y": 8369,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 450,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "256;0.65071;4.00;externalForestPlanet;4;perlin3"
+}, {
+    "name": "Romin",
+    "x": 29901,
+    "y": 26425,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;1.9761;6;externalDarkPlanet;4;quickNoise"
+}, {
+    "name": "Ronyards",
+    "x": 22782,
+    "y": 14695,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;4.3433;0.6546349850475213;desertColors;6;quickNoise"
+}, {
+    "name": "Roqoo",
+    "x": 27500,
+    "y": 23776,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.0394;0.8339162254130964;laxStandard;6;simplex3"
+}, {
+    "name": "Rothana",
+    "x": 37542,
+    "y": 10549,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;8.7860;0.6302979218151206;snowColors;7;perlin2"
+}, {
+    "name": "Roxuli",
+    "x": 11949,
+    "y": 25759,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 75,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "256;6643.00000;1.00;externalForestPlanet;4;staticQuickNoise"
+}, {
+    "name": "Rudrig",
+    "x": 36130,
+    "y": 31570,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.9882;0.9933067105680787;standardColors;7;simplex3"
+}, {
+    "name": "Rugosa",
+    "x": 26314,
+    "y": 6493,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;9.0417;2.271922285996678;externalLushPlanet;6;simplex2"
+}, {
+    "name": "Ruusan",
+    "x": 29068,
+    "y": 19750,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 270,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "256;1.65000;1.50;snowColors;16;quickNoise"
+}, {
+    "name": "Ryloth",
+    "x": 33220,
+    "y": 6372,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 430,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "256;0.85000;1.00;externalRedPlanet;48;perlin3"
+}, {
+    "name": "Ryndellia",
+    "x": 26427,
+    "y": 7522,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;0.2883;0.986147231876106;standardColors;4;staticQuickNoise"
+}, {
+    "name": "Ryvester",
+    "x": 31073,
+    "y": 29058,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;14.3671;7;externalBrightPlanet;4;quickNoise"
+}, {
+    "name": "RZ7",
+    "x": 18362,
+    "y": 36322,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;14.4085;0.6208162813652214;externalLavaPlanet;7;staticQuickNoise"
+}, {
+    "name": "Sacorria",
+    "x": 20664,
+    "y": 18373,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;3.0078;0.567207590079481;standardColors;5;staticQuickNoise"
+}, {
+    "name": "Saffalore",
+    "x": 36130,
+    "y": 35732,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;3.4596;0.5913661275829674;externalLushPlanet;4;perlin2"
+}, {
+    "name": "Sagma",
+    "x": 30678,
+    "y": 35293,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;1.2864;0.33790545657433524;standardColors;5;quickNoise"
+}, {
+    "name": "Saijo",
+    "x": 15000,
+    "y": 484,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.0302;1.076924530718172;standardColors;4;quickNoise"
+}, {
+    "name": "Saleucami",
+    "x": 34647,
+    "y": 25940,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 60,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "256;0.21140;2.00;externalLushPlanet;4;perlin3"
+}, {
+    "name": "Salvara",
+    "x": 31299,
+    "y": 27317,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;5.8038;6;externalBluePlanet;6;simplex3"
+}, {
+    "name": "Sanbra",
+    "x": 24929,
+    "y": 6477,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;1.7477;4;externalDarkPlanet;5;simplex3"
+}, {
+    "name": "Sanjin",
+    "x": 20353,
+    "y": 15498,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;11.0110;0.2718138559411417;standardColors;4;quickNoise"
+}, {
+    "name": "Sanrafsix",
+    "x": 22867,
+    "y": 6780,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;9.6306;0.6755817444782091;externalLavaPlanet;6;staticQuickNoise"
+}, {
+    "name": "Sarapin",
+    "x": 21144,
+    "y": 19962,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;3.3940;0.4190108163429508;externalLavaPlanet;4;staticQuickNoise"
+}, {
+    "name": "Sarko",
+    "x": 24732,
+    "y": 16194,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;1.4908;0.5216396653784772;externalSandPlanet;4;quickNoise"
+}, {
+    "name": "Sarm",
+    "x": 10240,
+    "y": 28074,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;15.1212;0.6883208293146658;desertColors;5;quickNoise"
+}, {
+    "name": "Sarrish",
+    "x": 16893,
+    "y": 9383,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;8.8873;0.2757096823469164;desertColors;6;quickNoise"
+}, {
+    "name": "Sarvchi",
+    "x": 4675,
+    "y": 24230,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;12.0499;0.624799385313745;externalLavaPlanet;6;quickNoise"
+}, {
+    "name": "Scarif",
+    "x": 35099,
+    "y": 10185,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.4121;0.5180435825845707;standardColors;5;simplex3"
+}, {
+    "name": "Scarl",
+    "x": 19492,
+    "y": 15588,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;11.2595;1.1887875254841043;standardColors;4;simplex3"
+}, {
+    "name": "Schesa",
+    "x": 5410,
+    "y": 25910,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;11.2421;0.44116846219296385;snowColors;5;perlin2"
+}, {
+    "name": "Scipio",
+    "x": 15777,
+    "y": 33704,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;8.7838;0.7382624025142888;externalBluePlanet;5;simplex2"
+}, {
+    "name": "Selaggis",
+    "x": 23517,
+    "y": 30647,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;7.7011;1.1161418062223096;laxStandard;5;simplex3"
+}, {
+    "name": "Sellasas",
+    "x": 18008,
+    "y": 3481,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;2.2669;2.331818244481684;externalForestPlanet;4;quickNoise"
+}, {
+    "name": "Serenno",
+    "x": 27147,
+    "y": 33235,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 760,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;0.06786;0.30;externalForestPlanet;4;perlin3"
+}, {
+    "name": "Sernpidal",
+    "x": 19350,
+    "y": 37124,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;3.1293;0.6867116676920093;externalLavaPlanet;6;quickNoise"
+}, {
+    "name": "Serroco",
+    "x": 23602,
+    "y": 28362,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;1.4129;1.199028425369453;externalLushPlanet;4;simplex2"
+}, {
+    "name": "Seylott",
+    "x": 27260,
+    "y": 4540,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;5.1806;1.1067089334160658;externalLushPlanet;7;simplex2"
+}, {
+    "name": "Shadren",
+    "x": 27260,
+    "y": 30723,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;9.2879;1.8182563014914466;externalForestPlanet;5;simplex2"
+}, {
+    "name": "Shaylin",
+    "x": 37768,
+    "y": 31162,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;0.6788;0.27084230246604174;externalSandPlanet;5;staticQuickNoise"
+}, {
+    "name": "Shedu Maad",
+    "x": 26709,
+    "y": 23715,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;13.8984;0.9479639881517874;pinkFlourish;5;quickNoise"
+}, {
+    "name": "Shner",
+    "x": 1554,
+    "y": 7567,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.5674;0.9052961034176659;laxStandard;4;quickNoise"
+}, {
+    "name": "Shogun",
+    "x": 26921,
+    "y": 3602,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;10.9819;0.4910628510298233;snowColors;5;quickNoise"
+}, {
+    "name": "Shola",
+    "x": 38941,
+    "y": 13273,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;7.3693;0.581820446446751;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Shree",
+    "x": 565,
+    "y": 8627,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 350,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;10.2688;6;externalBluePlanet;4;quickNoise"
+}, {
+    "name": "Sifkric",
+    "x": 22740,
+    "y": 28150,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;12.3538;1.1132772198793592;externalLushPlanet;7;simplex2"
+}, {
+    "name": "Siskeen",
+    "x": 33785,
+    "y": 7597,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;0.5197;2.464524011057746;externalLushPlanet;4;quickNoise"
+}, {
+    "name": "Skako",
+    "x": 19477,
+    "y": 22338,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 500,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;3.3175;4;externalBrightPlanet;4;quickNoise"
+}, {
+    "name": "Skye",
+    "x": 9718,
+    "y": 2951,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.1012;0.32301968969347994;standardColors;7;quickNoise"
+}, {
+    "name": "Sleheyron",
+    "x": 35480,
+    "y": 21324,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;11.3415;6;externalBrightPlanet;6;quickNoise"
+}, {
+    "name": "Sluis Van",
+    "x": 21441,
+    "y": 3254,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "256;0.15000;0.20;standardColors;8;quickNoise"
+}, {
+    "name": "Snevu",
+    "x": 9463,
+    "y": 28150,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;14.6752;0.3725082438751577;externalLavaPlanet;7;staticQuickNoise"
+}, {
+    "name": "Solaest",
+    "x": 28249,
+    "y": 29966,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;6.9820;0.48151383049231694;externalLavaPlanet;7;staticQuickNoise"
+}, {
+    "name": "Solem",
+    "x": 14534,
+    "y": 1922,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;1.1636;0.5344473532318572;externalLavaPlanet;6;staticQuickNoise"
+}, {
+    "name": "Solitair",
+    "x": 0,
+    "y": 25728,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;11.4884;4;externalBrightPlanet;6;perlin3"
+}, {
+    "name": "Sriluur",
+    "x": 36045,
+    "y": 24578,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;10.3464;0.6167227195652102;externalSandPlanet;5;quickNoise"
+}, {
+    "name": "Stenos",
+    "x": 31582,
+    "y": 31873,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;7.7595;0.5478707421685931;externalLavaPlanet;6;quickNoise"
+}, {
+    "name": "Stivic",
+    "x": 706,
+    "y": 26485,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.4297;0.8674440512363348;pinkFlourish;7;quickNoise"
+}, {
+    "name": "Storinal",
+    "x": 22599,
+    "y": 30269,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;4.1867;1.1440585627701205;pinkFlourish;5;quickNoise"
+}, {
+    "name": "Sullust",
+    "x": 21328,
+    "y": 6008,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Volcanic",
+    "color": "#FFAA55",
+    "design": "256;0.91664;2.00;desertColors;8;perlin3"
+}, {
+    "name": "Sunrise",
+    "x": 5085,
+    "y": 28755,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;15.1557;0.4744315577169246;externalSandPlanet;4;quickNoise"
+}, {
+    "name": "Suurja",
+    "x": 23446,
+    "y": 29512,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.0195;0.7073503366018743;standardColors;4;staticQuickNoise"
+}, {
+    "name": "Svivren",
+    "x": 26059,
+    "y": 2694,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;13.4093;0.338188043530564;desertColors;5;quickNoise"
+}, {
+    "name": "Sy Myrth",
+    "x": 33898,
+    "y": 27998,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;7.4048;0.8124259004863172;pinkFlourish;4;quickNoise"
+}, {
+    "name": "Syca",
+    "x": 8475,
+    "y": 30874,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;3.9859;0.6645828732922985;laxStandard;6;quickNoise"
+}, {
+    "name": "Syned",
+    "x": 22768,
+    "y": 5887,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;9.1482;0.6676783219370619;externalBluePlanet;7;quickNoise"
+}, {
+    "name": "Syni",
+    "x": 27684,
+    "y": 1513,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;2.3374;0.30490518772822994;desertColors;6;quickNoise"
+}, {
+    "name": "Taanab",
+    "x": 25890,
+    "y": 24972,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.3389;0.32206643008834834;laxStandard;6;simplex3"
+}, {
+    "name": "Talasea",
+    "x": 23192,
+    "y": 18630,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;0.3829;0.9981168460695522;externalLushPlanet;5;perlin2"
+}, {
+    "name": "Talay",
+    "x": 31398,
+    "y": 9429,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;15.6817;0.47324593144912797;standardColors;7;quickNoise"
+}, {
+    "name": "Talcene",
+    "x": 31073,
+    "y": 26440,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;7.1373;0.6194090229610014;externalLavaPlanet;6;quickNoise"
+}, {
+    "name": "Talfaglio",
+    "x": 23023,
+    "y": 17858,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;11.0894;0.2880103566797551;externalLavaPlanet;4;quickNoise"
+}, {
+    "name": "Talhovi",
+    "x": 16893,
+    "y": 5827,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;12.2881;6;externalDarkPlanet;4;simplex3"
+}, {
+    "name": "Taloraan",
+    "x": 11596,
+    "y": 11502,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;1.3569;0.8720531728529565;standardColors;6;simplex3"
+}, {
+    "name": "Talus Tralus",
+    "x": 22175,
+    "y": 18388,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;14.9137;0.46246538184684893;laxStandard;4;quickNoise"
+}, {
+    "name": "Tangrene",
+    "x": 25833,
+    "y": 34325,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;7.1933;0.630701413415697;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Tar Morden",
+    "x": 16356,
+    "y": 8657,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;14.7917;0.5123916721662649;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Taris",
+    "x": 23997,
+    "y": 28982,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;15.9398;6;externalBluePlanet;6;quickNoise"
+}, {
+    "name": "Tartaglia",
+    "x": 21045,
+    "y": 28422,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;1.2175;2.3455964711926525;externalForestPlanet;6;quickNoise"
+}, {
+    "name": "Tatooine",
+    "x": 32599,
+    "y": 8188,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Desert",
+    "color": "#FFDDAA",
+    "design": "256;4.15000;0.25;desertColors;12;staticQuickNoise"
+}, {
+    "name": "Tellanroaeg",
+    "x": 34124,
+    "y": 5766,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;3.4994;0.2897355797331034;pinkFlourish;6;quickNoise"
+}, {
+    "name": "Telos",
+    "x": 29435,
+    "y": 35914,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;0.39906;2.00;externalRedPlanet;8;quickNoise"
+}, {
+    "name": "Telti",
+    "x": 24350,
+    "y": 21642,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;3.7463;6;externalBrightPlanet;6;quickNoise"
+}, {
+    "name": "Tenupe",
+    "x": 9393,
+    "y": 25123,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;9.5599;0.5390785250711561;externalForestPlanet;4;simplex2"
+}, {
+    "name": "Tepasi",
+    "x": 20155,
+    "y": 21778,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;3.0401;1.0055403216123162;laxStandard;6;quickNoise"
+}, {
+    "name": "Teptixii",
+    "x": 12076,
+    "y": 36262,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;3.7577;0.9027346223103623;pinkFlourish;6;quickNoise"
+}, {
+    "name": "Terephon",
+    "x": 25932,
+    "y": 23897,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;9.2715;1.720437207088197;externalForestPlanet;7;simplex2"
+}, {
+    "name": "Teth",
+    "x": 38771,
+    "y": 17541,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 30,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "256;0.25233;3.00;externalBrightPlanet;4;staticQuickNoise"
+}, {
+    "name": "Thanos",
+    "x": 29364,
+    "y": 24048,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;0.8620;0.8558099322357151;standardColors;7;simplex3"
+}, {
+    "name": "The Maw",
+    "x": 37302,
+    "y": 22202,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 500,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;0.00105;1.00;blackHole;4;staticQuickNoise"
+}, {
+    "name": "The Redoubt",
+    "x": 9718,
+    "y": 27000,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;12.2786;0.6985593629701671;standardColors;5;quickNoise"
+}, {
+    "name": "The Wheel",
+    "x": 33192,
+    "y": 27696,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;1.7105;0.5496452140318788;standardColors;4;staticQuickNoise"
+}, {
+    "name": "Thila",
+    "x": 29859,
+    "y": 34960,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;5.7959;1.3427345337330472;externalForestPlanet;7;simplex2"
+}, {
+    "name": "Thomork",
+    "x": 17090,
+    "y": 16406,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;0.9003;0.33586249054600653;desertColors;7;staticQuickNoise"
+}, {
+    "name": "ThonBoka",
+    "x": 38955,
+    "y": 24987,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.1623;0.28674170717453085;standardColors;4;staticQuickNoise"
+}, {
+    "name": "Thrago",
+    "x": 9181,
+    "y": 26107,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;11.2711;0.4590793614669263;externalLavaPlanet;7;quickNoise"
+}, {
+    "name": "Thule",
+    "x": 31045,
+    "y": 33992,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;0.1791;0.38355157037876414;desertColors;4;staticQuickNoise"
+}, {
+    "name": "Thustra",
+    "x": 24845,
+    "y": 27423,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;2.8223;0.827572479625446;externalLushPlanet;5;simplex2"
+}, {
+    "name": "Thyferra",
+    "x": 19237,
+    "y": 12849,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 120,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "256;5.90000;1.00;standardColors;8;simplex3"
+}, {
+    "name": "Thyrsus",
+    "x": 22980,
+    "y": 25547,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.0221;0.6590093671520688;pinkFlourish;7;quickNoise"
+}, {
+    "name": "Tibrin",
+    "x": 19379,
+    "y": 5585,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;0.6521;1.1821405038551307;standardColors;4;simplex3"
+}, {
+    "name": "Timora",
+    "x": 7797,
+    "y": 7915,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.4497;0.2556184646969303;standardColors;5;simplex3"
+}, {
+    "name": "Tingel Deepspace Besh",
+    "x": 26836,
+    "y": 15134,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;11.3342;0.481329339362387;pinkFlourish;5;simplex3"
+}, {
+    "name": "Togoria",
+    "x": 28658,
+    "y": 23594,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;6.7992;1.0461967597571753;laxStandard;5;staticQuickNoise"
+}, {
+    "name": "Ton Falk",
+    "x": 37006,
+    "y": 32085,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;0.6325;1.149225904695105;standardColors;4;quickNoise"
+}, {
+    "name": "Toola",
+    "x": 35720,
+    "y": 33568,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;5.4781;0.7406845365310892;snowColors;4;simplex2"
+}, {
+    "name": "Toprawa",
+    "x": 27726,
+    "y": 32736,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;3.2357;1.7064931877634015;externalLushPlanet;4;simplex2"
+}, {
+    "name": "Tosste",
+    "x": 18559,
+    "y": 984,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;6.7103;0.33087936268666085;desertColors;4;staticQuickNoise"
+}, {
+    "name": "Toydaria",
+    "x": 33234,
+    "y": 18343,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "256;0.34198;1.00;externalLushPlanet;4;quickNoise"
+}, {
+    "name": "Trandosha",
+    "x": 29506,
+    "y": 22414,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;3.6551;0.6352439126824125;desertColors;5;staticQuickNoise"
+}, {
+    "name": "Transitory Mists I",
+    "x": 24011,
+    "y": 23156,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;13.0602;0.940692695695071;laxStandard;6;quickNoise"
+}, {
+    "name": "Transitory Mists II",
+    "x": 24435,
+    "y": 24972,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;1.9154;0.6372622831950784;laxStandard;6;quickNoise"
+}, {
+    "name": "Transitory Mists III",
+    "x": 26271,
+    "y": 25728,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;12.0171;1.0622721359259;pinkFlourish;4;simplex3"
+}, {
+    "name": "Traval Pacor",
+    "x": 15551,
+    "y": 29209,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;15.1302;4;externalBrightPlanet;7;simplex3"
+}, {
+    "name": "Trian",
+    "x": 33517,
+    "y": 37367,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;0.9845;1.123505218441621;externalForestPlanet;4;quickNoise"
+}, {
+    "name": "Triton",
+    "x": 20438,
+    "y": 3890,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;8.2510;0.3296214948800556;desertColors;7;staticQuickNoise"
+}, {
+    "name": "Troukree",
+    "x": 9887,
+    "y": 34809,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;5.2091;0.6804914766594827;desertColors;5;staticQuickNoise"
+}, {
+    "name": "Tsoss",
+    "x": 18418,
+    "y": 19296,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;6.0439;0.37166689194891617;externalLavaPlanet;6;staticQuickNoise"
+}, {
+    "name": "Tulpaa",
+    "x": 3107,
+    "y": 18464,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;6.4851;0.6201013388972045;externalLavaPlanet;7;staticQuickNoise"
+}, {
+    "name": "Tund",
+    "x": 39788,
+    "y": 25395,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;9.1155;2.062388063304452;externalForestPlanet;6;simplex2"
+}, {
+    "name": "Turak",
+    "x": 25551,
+    "y": 4692,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;15.6936;0.5451262733232616;externalLavaPlanet;6;quickNoise"
+}, {
+    "name": "Turcan",
+    "x": 25692,
+    "y": 3693,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.6946;0.3491730160460258;pinkFlourish;4;quickNoise"
+}, {
+    "name": "Turkana",
+    "x": 37938,
+    "y": 30390,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.1038;0.9496092076620724;standardColors;4;simplex3"
+}, {
+    "name": "Tuskens Eye",
+    "x": 11158,
+    "y": 25880,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;8.1460;1.135398096935576;standardColors;6;simplex3"
+}, {
+    "name": "Twilight Void",
+    "x": 989,
+    "y": 28301,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.7560;0.8077230726884526;pinkFlourish;5;staticQuickNoise"
+}, {
+    "name": "Tyan",
+    "x": 17655,
+    "y": 29058,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;10.8454;6;externalBluePlanet;4;simplex3"
+}, {
+    "name": "Tynna",
+    "x": 24350,
+    "y": 13606,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;2.7147;0.49020397719332875;externalBluePlanet;6;perlin2"
+}, {
+    "name": "Tythe",
+    "x": 31667,
+    "y": 7507,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;5.5107;0.3150594751777112;externalLavaPlanet;5;staticQuickNoise"
+}, {
+    "name": "Tython",
+    "x": 17655,
+    "y": 19296,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "256;1.00000;0.50;externalLushPlanet;5;perlin3"
+}, {
+    "name": "Ubrikkia",
+    "x": 31469,
+    "y": 20477,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;8.0373;5;externalBrightPlanet;6;simplex3"
+}, {
+    "name": "Udray",
+    "x": 26398,
+    "y": 4449,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;7.5830;0.43546524018301613;externalLavaPlanet;7;quickNoise"
+}, {
+    "name": "Ukio",
+    "x": 34929,
+    "y": 11003,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;1.4363;1.1779649908340746;pinkFlourish;7;staticQuickNoise"
+}, {
+    "name": "Ulda Frav",
+    "x": 27881,
+    "y": 18297,
+    "shipyardLevel": 0,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;4.8050;0.6968899258699812;standardColors;7;quickNoise"
+}, {
+    "name": "Ulicia",
+    "x": 36158,
+    "y": 37806,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;14.7530;7;externalDarkPlanet;4;simplex3"
+}, {
+    "name": "Umarenk",
+    "x": 9181,
+    "y": 23458,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;9.9806;0.9614162584721463;standardColors;5;quickNoise"
+}, {
+    "name": "Umbara",
+    "x": 27133,
+    "y": 21415,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "256;0.45000;2.00;redStarColors;48;staticQuickNoise"
+}, {
+    "name": "Urch",
+    "x": 5932,
+    "y": 29663,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;8.9604;4;externalBrightPlanet;6;quickNoise"
+}, {
+    "name": "Utapau",
+    "x": 22472,
+    "y": 1604,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;3.2974;0.41314161368650426;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Utegetu Nebula",
+    "x": 10466,
+    "y": 26455,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;13.8514;0.9126413410153137;pinkFlourish;4;quickNoise"
+}, {
+    "name": "Vagar Praxut",
+    "x": 11017,
+    "y": 23458,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;4.1414;1.2305409226980009;externalLushPlanet;4;simplex2"
+}, {
+    "name": "Vaklin",
+    "x": 22119,
+    "y": 12244,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;6.8011;0.7260614203037072;desertColors;6;staticQuickNoise"
+}, {
+    "name": "Valahari",
+    "x": 24153,
+    "y": 31949,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;3.2758;0.4182488818246791;standardColors;4;simplex3"
+}, {
+    "name": "Valc",
+    "x": 13559,
+    "y": 34582,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 500,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;5.8485;6;externalDarkPlanet;7;quickNoise"
+}, {
+    "name": "Vanquo",
+    "x": 24746,
+    "y": 29028,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;0.6713;0.8213808993440954;externalForestPlanet;4;perlin2"
+}, {
+    "name": "Varada",
+    "x": 10890,
+    "y": 3435,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;1.3511;0.6787247211448593;externalSandPlanet;5;staticQuickNoise"
+}, {
+    "name": "Vassek",
+    "x": 12415,
+    "y": 6114,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;7.1334;0.42303009283052634;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Veccacopia",
+    "x": 12062,
+    "y": 2921,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;0.9891;1.029931949099587;pinkFlourish;5;simplex3"
+}, {
+    "name": "Vena",
+    "x": 27119,
+    "y": 22928,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;1.3709;0.5048588730253687;externalSandPlanet;4;staticQuickNoise"
+}, {
+    "name": "Verdanth",
+    "x": 24364,
+    "y": 7491,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;2.1012;1.0223303748098784;externalLushPlanet;5;perlin2"
+}, {
+    "name": "Vergesso",
+    "x": 28376,
+    "y": 5600,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;4.5325;0.708792429230999;externalLavaPlanet;5;quickNoise"
+}, {
+    "name": "Veroleem",
+    "x": 11511,
+    "y": 29285,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;6.2105;0.47610610720329755;desertColors;4;staticQuickNoise"
+}, {
+    "name": "Vjun",
+    "x": 30339,
+    "y": 29542,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;1.5768;0.5306701161245826;externalSandPlanet;6;staticQuickNoise"
+}, {
+    "name": "Volik",
+    "x": 9958,
+    "y": 29966,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;15.4989;0.7592857146525277;standardColors;4;staticQuickNoise"
+}, {
+    "name": "Vondarc",
+    "x": 21116,
+    "y": 7779,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;13.0600;1.232962495964451;standardColors;7;quickNoise"
+}, {
+    "name": "Vorpaya",
+    "x": 25565,
+    "y": 29058,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;3.1809;0.2935735771313661;pinkFlourish;6;simplex3"
+}, {
+    "name": "Vortex",
+    "x": 14859,
+    "y": 27257,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.2758;1.2302693369350017;standardColors;7;simplex3"
+}, {
+    "name": "Vorzyd",
+    "x": 31921,
+    "y": 30314,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;4.3174;5;externalBluePlanet;4;perlin3"
+}, {
+    "name": "Vrosynri",
+    "x": 24379,
+    "y": 33538,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;6.7400;0.7401706732822331;externalBluePlanet;5;simplex2"
+}, {
+    "name": "Vulpter",
+    "x": 18856,
+    "y": 20038,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;8.5101;5;externalDarkPlanet;5;quickNoise"
+}, {
+    "name": "VunHanna",
+    "x": 3390,
+    "y": 29058,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Volcanic",
+    "color": "#FFFFFF",
+    "design": "192;14.8975;0.4731531307924669;externalLavaPlanet;4;staticQuickNoise"
+}, {
+    "name": "Wayland",
+    "x": 24082,
+    "y": 27696,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.2062;0.7646236987371048;pinkFlourish;6;quickNoise"
+}, {
+    "name": "Wistril",
+    "x": 16158,
+    "y": 31237,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;8.7201;1.0453863679310773;pinkFlourish;5;staticQuickNoise"
+}, {
+    "name": "Woostri",
+    "x": 20706,
+    "y": 9338,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;1.80000;1.00;standardColors;9;quickNoise"
+}, {
+    "name": "Woteba",
+    "x": 11299,
+    "y": 26636,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;0.0540;1.6964024137095792;externalLushPlanet;6;simplex2"
+}, {
+    "name": "Wroona",
+    "x": 19972,
+    "y": 11033,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 230,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "256;0.01530;1.00;externalLushPlanet;48;quickNoise"
+}, {
+    "name": "Wurrif",
+    "x": 1130,
+    "y": 9837,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;5.8041;0.5757230608462267;externalBluePlanet;6;simplex2"
+}, {
+    "name": "Xa Fel",
+    "x": 15113,
+    "y": 22611,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "192;12.2643;6;externalBluePlanet;6;quickNoise"
+}, {
+    "name": "Xagobah",
+    "x": 22359,
+    "y": 4192,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;11.9702;1.2810699297806423;externalForestPlanet;6;quickNoise"
+}, {
+    "name": "Xeron",
+    "x": 20805,
+    "y": 12092,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;13.7549;0.4352092883626269;externalBluePlanet;5;simplex2"
+}, {
+    "name": "Xo",
+    "x": 22500,
+    "y": 37927,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;12.8786;2.0140145595657035;externalLushPlanet;6;quickNoise"
+}, {
+    "name": "Xuaquarres",
+    "x": 35777,
+    "y": 28362,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;10.4177;0.5030830572441659;laxStandard;4;staticQuickNoise"
+}, {
+    "name": "Yaga Minor",
+    "x": 15028,
+    "y": 33659,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;11.2297;0.34361323035105296;standardColors;4;quickNoise"
+}, {
+    "name": "YagDhul",
+    "x": 19294,
+    "y": 11896,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 250,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;3.1020;0.6309559141808563;desertColors;6;quickNoise"
+}, {
+    "name": "Yashuvhu",
+    "x": 5791,
+    "y": 23428,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;11.4103;0.8727089614846482;externalLushPlanet;6;quickNoise"
+}, {
+    "name": "Yavin",
+    "x": 28305,
+    "y": 31661,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "256;0.96694;1.00;yellowStarColors;4;staticQuickNoise"
+}, {
+    "name": "Yinchorr",
+    "x": 18489,
+    "y": 26213,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;6.4186;0.43942957840250674;desertColors;7;staticQuickNoise"
+}, {
+    "name": "Ylesia",
+    "x": 37232,
+    "y": 17465,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 340,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "256;0.69305;1.00;externalForestPlanet;4;staticQuickNoise"
+}, {
+    "name": "Yoggoy",
+    "x": 10169,
+    "y": 29058,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;2.9690;0.6718804499887562;standardColors;4;simplex3"
+}, {
+    "name": "Zaddja",
+    "x": 8418,
+    "y": 11381,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "256;1.30000;0.30;redStarColors;4;perlin3"
+}, {
+    "name": "Zakuul",
+    "x": 1907,
+    "y": 14801,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 400,
+    "terrain": "Urban",
+    "color": "#FFFFFF",
+    "design": "256;0.21672;1.00;externalLushPlanet;8;quickNoise"
+}, {
+    "name": "Zanbar",
+    "x": 26483,
+    "y": 29209,
+    "shipyardLevel": 2,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Swamp",
+    "color": "#FFFFFF",
+    "design": "192;9.6531;0.9951744190083953;externalForestPlanet;6;simplex2"
+}, {
+    "name": "Zeltros",
+    "x": 25876,
+    "y": 20386,
+    "shipyardLevel": 4,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;4.8346;0.8306409249609756;pinkFlourish;5;simplex3"
+}, {
+    "name": "Zfell",
+    "x": 13644,
+    "y": 18918,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;0.9109;0.426828605807742;desertColors;6;staticQuickNoise"
+}, {
+    "name": "Ziost",
+    "x": 31992,
+    "y": 35218,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 150,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;6.8526;0.6363618825300053;snowColors;6;quickNoise"
+}, {
+    "name": "Zolan",
+    "x": 28037,
+    "y": 9989,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;4.4966;0.5595607920184335;desertColors;6;staticQuickNoise"
+}, {
+    "name": "Zonama",
+    "x": 5254,
+    "y": 22414,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 0,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;14.4739;0.9769231078306724;externalForestPlanet;4;simplex2"
+}, {
+    "name": "Zongorlu",
+    "x": 22034,
+    "y": 29815,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 100,
+    "terrain": "Arctic",
+    "color": "#FFFFFF",
+    "design": "192;14.7575;0.6044946662978157;snowColors;4;simplex2"
+}, {
+    "name": "Zosha",
+    "x": 5226,
+    "y": 31328,
+    "shipyardLevel": 1,
+    "mass": 1,
+    "income": 50,
+    "terrain": "Temperate",
+    "color": "#FFFFFF",
+    "design": "192;5.3260;0.27918001740292064;laxStandard;5;simplex3"
+}, {
+    "name": "Zygerria",
+    "x": 34025,
+    "y": 35339,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 200,
+    "terrain": "Desert",
+    "color": "#FFFFFF",
+    "design": "192;12.2351;0.3039622041432583;desertColors;5;quickNoise"
+}, {
+    "name": "Zyzek",
+    "x": 4237,
+    "y": 21188,
+    "shipyardLevel": 3,
+    "mass": 1,
+    "income": 300,
+    "terrain": "Forest",
+    "color": "#FFFFFF",
+    "design": "192;10.1579;2.022980703406645;externalLushPlanet;7;quickNoise"
+}]

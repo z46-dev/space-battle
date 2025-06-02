@@ -223,103 +223,10 @@ ships.MC40A_REBEL = {
     })()
 };
 
-ships.NEBULONB_REBEL = {
-    name: "Nebulon-B",
-    asset: "NEBULONB.png",
-    classification: shipTypes.Frigate,
-    population: 10,
-    size: 250,
-    cost: 1200,
-    speed: 4.5,
-    turnSpeed: .0175,
-    shield: 1000,
-    shieldRegen: 1,
-    shieldRegenAbility: {
-        duration: .7,
-        cooldown: 2,
-        regen: .6
-    },
-    hardpoints: [{
-        x: 0,
-        y: .85,
-        weapon: weapons.RED_TURBOLASER_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: .1,
-        y: .5,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON_HEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: -.1,
-        y: .5,
-        weapon: weapons.RED_DOUBLE_LASER_CANNON_HEAVY,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: 0,
-        y: .3,
-        weapon: weapons.DOUBLE_ION_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: .125,
-        y: -.7,
-        weapon: {
-            ...weapons.RED_RAPID_LASER_CANNON,
-            speed: weapons.RED_RAPID_LASER_CANNON.speed * 1.25,
-            damage: weapons.RED_RAPID_LASER_CANNON.damage * 2,
-            range: weapons.RED_RAPID_LASER_CANNON.range * 1.1
-        },
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: -.125,
-        y: -.7,
-        weapon: {
-            ...weapons.RED_RAPID_LASER_CANNON,
-            speed: weapons.RED_RAPID_LASER_CANNON.speed * 1.25,
-            damage: weapons.RED_RAPID_LASER_CANNON.damage * 2,
-            range: weapons.RED_RAPID_LASER_CANNON.range * 1.1
-        },
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: 0,
-        y: -.85,
-        weapon: weapons.DOUBLE_ION_CANNON,
-        shotsAtOnce: 2,
-        shotDelay: 100
-    }, {
-        x: 0,
-        y: 0,
-        weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
-        shotsAtOnce: 4,
-        shotDelay: 60
-    }].map(e => ({
-        ...e,
-        weapon: {
-            ...e.weapon,
-            health: e.weapon.health * 1.75 | 0
-        }
-    })),
-    hangars: [{
-        x: 0,
-        y: 0,
-        maxSquadrons: 1,
-        squadronSize: 5,
-        reserveSize: 2,
-        squadronKey: "XWING_REBEL"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 1,
-        squadronSize: 5,
-        reserveSize: 2,
-        squadronKey: "YWING_REBEL"
-    }]
-};
+ships.NEBULONB_REBEL = templates.frigate.NEBULON_B({
+    color: "RED",
+    fighter: "XWING_REBEL"
+});
 
 ships.PELTA_REBEL = {
     name: "Pelta Medical Frigate",

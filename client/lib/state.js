@@ -3,6 +3,7 @@ import { default as shipConfig } from "../../server/lib/ships.js";
 import { uiScale } from "./util.js";
 import * as assetsLib from "./graphicalFuncs.js";
 import { planet, Sprite } from "./canvas.js";
+import { playSFX, playSong, SONG_TYPE_MAP, stopSong } from "../../shared/audio.js";
 
 export const worker = new Worker("../../server/index.js", {
     type: "module"
@@ -210,6 +211,32 @@ worker.onmessage = event => {
             const deathsSize = data[7];
 
             data = data.slice(8);
+
+            const scale = uiScale() * camera.realZoom;
+            const sounds = [];
+            for (let i = 0, n = data.shift(); i < n; i ++) {
+                const sound = {
+                    type: data.shift(),
+                    x: data.shift(),
+                    y: data.shift(),
+                };
+
+                // If it's in camera bounds, try to play it
+                
+                /* ctx.save();
+                    ctx.translate(canvas.width / 2, canvas.height / 2);
+                    ctx.scale(scale, scale);
+                    ctx.translate(-state.camera.x, -state.camera.y);*/
+
+                if (Math.abs(sound.x - camera.realX) < canvas.width / 2 / scale &&
+                    Math.abs(sound.y - camera.realY) < canvas.height / 2 / scale) {
+                    sounds.push(sound);
+                }
+            }
+
+            // Sort sounds, highest type first
+            sounds.sort((a, b) => b.type - a.type);
+            sounds.forEach(sound => playSFX(sound.type));
 
             for (let i = 0; i < shipsSize; i++) {
                 const ship = {};
@@ -593,6 +620,9 @@ worker.onmessage = event => {
             oneTimeHandlers[EVENTS.BATTLE_END]?.forEach(handler => handler(battleData));
             oneTimeHandlers[EVENTS.BATTLE_END] = undefined;
 
+            stopSong();
+            playSong(SONG_TYPE_MAP);
+
             world.deathClones = [];
             explosions.clear();
             ships.clear();
@@ -600,6 +630,9 @@ worker.onmessage = event => {
             squadrons.clear();
 
             world.acceptDeathClones = false;
+        } break;
+        case 4: { // Play SFX (type)
+            playSFX(data.shift());
         } break;
     }
 }

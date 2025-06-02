@@ -314,7 +314,11 @@ class Hardpoint {
                 this.hasExploded = true;
 
                 if ((this.ship.classification !== shipTypes.Fighter && this.ship.classification !== shipTypes.FighterBomber && this.ship.classification !== shipTypes.Bomber) || Math.random() > .5) {
-                    this.ship.battle.explode(this.x, this.y, Math.min(this.ship.size / 2, 80), this.angle);
+                    this.ship.battle.explode(this.x, this.y, Math.min(this.ship.size / 2, 80), this.ship.angle);
+                }
+
+                if (this.ship.classification >= shipTypes.Frigate || Math.random() > (.9 - this.ship.classification * .05)) {
+                    battle.playSound(2, this.x, this.y);
                 }
             }
 
@@ -357,6 +361,10 @@ class Hardpoint {
                 const angle = (this.launchAngle === 0 ? Math.atan2(predictedY - this.y, predictedX - this.x) : (this.launchAngle + this.ship.angle)) + inaccuracy;
 
                 new Projectile(this.x, this.y, angle, this.ship, this);
+            }
+
+            if (this.ship.classification >= shipTypes.HeavyFrigate || Math.random() > (.8 - this.ship.classification * .1)) {
+                battle.playSound(this.ship.classification > shipTypes.Frigate ? 1 : 0, this.x, this.y);
             }
         }
     }
@@ -643,18 +651,31 @@ class Production {
     }
 
     update() {
-        this.ticker++;
+        if (this.currAlive < this.maxAlive) {
+            this.ticker++;
+        }
 
         if (this.ticker >= this.cooldown && this.reserveSize > 0 && this.currAlive < this.maxAlive) {
             this.ticker = 0;
 
-            const ship = new Ship(this.ship.battle, this.key, this.ship.team);
-            ship.x = this.x + Math.random() * this.ship.size - this.ship.size / 2;
-            ship.y = this.y + Math.random() * this.ship.size - this.ship.size / 2;
-            ship.source = this.ship;
+            scene.hyperspaceIn(
+                this.key, this.ship.team,
+                this.x + Math.random() * this.ship.size - this.ship.size / 2,
+                this.y + Math.random() * this.ship.size - this.ship.size / 2,
+                this.ship.angle, Math.random() * 2000, ship => {
+                    ship.onDead = () => this.currAlive--;
+                }
+            );
 
-            ship.onDead = () => this.currAlive--;
             this.currAlive++;
+
+            // const ship = new Ship(this.ship.battle, this.key, this.ship.team);
+            // ship.x = this.x + Math.random() * this.ship.size - this.ship.size / 2;
+            // ship.y = this.y + Math.random() * this.ship.size - this.ship.size / 2;
+            // ship.source = this.ship;
+
+            // ship.onDead = () => this.currAlive--;
+            // this.currAlive++;
         }
     }
 }
@@ -1192,6 +1213,7 @@ class Ship {
                     }
 
                     this.battle.explode(this.x, this.y, this.size);
+                    this.battle.playSound(3, this.x, this.y);
                 } else {
                     this.battle.explode(this.x, this.y, this.size * 1.25);
                 }
@@ -1243,6 +1265,8 @@ class Battle {
         this.explosionsToRender = [];
         this.deathsToSend = [];
 
+        this.soundsToSend = [];
+
         this.teams = [];
         for (let i = 0; i < teams; i++) {
             this.teams.push({
@@ -1256,6 +1280,8 @@ class Battle {
 
         this.frames = 0;
         this.totalTime = 0;
+
+        this.soundsEnabled = false;
 
         this.updateInterval = setInterval(this.update.bind(this), 1000 / 22.5);
 
@@ -1289,6 +1315,8 @@ class Battle {
                 return;
             }
 
+            this.soundsEnabled = false;
+
             // Kill everything
             this.ships.forEach(ship => {
                 ship.shield = 0;
@@ -1308,11 +1336,15 @@ class Battle {
                         ship: ship.key,
                         hero: ship.commander.config.key
                     })),
+                    survivedShipyards: this.shipyardsStartedWith[team.i].filter(shipyard => this.ships.has(shipyard.id)).map(shipyard => shipyard.key),
+                    survivedStations: this.stationsStartedWith[team.i].filter(station => this.ships.has(station.id)).map(station => station.key),
                     died: this.shipsStartedWith[team.i].filter(ship => !this.ships.has(ship.id)).map(ship => ship.key),
                     diedHeroes: this.shipsStartedWith[team.i].filter(ship => ship.commander != null && !this.ships.has(ship.id)).map(ship => ({
                         ship: ship.key,
                         hero: ship.commander.config.key
-                    }))
+                    })),
+                    diedShipyards: this.shipyardsStartedWith[team.i].filter(shipyard => !this.ships.has(shipyard.id)).map(shipyard => shipyard.key),
+                    diedStations: this.stationsStartedWith[team.i].filter(station => !this.ships.has(station.id)).map(station => station.key),
                 };
             }
 
@@ -1324,6 +1356,8 @@ class Battle {
         }, 1E3);
 
         this.shipsStartedWith = [];
+        this.shipyardsStartedWith = [];
+        this.stationsStartedWith = [];
     }
 
     spawn(key, team, x, y) {
@@ -1332,6 +1366,19 @@ class Battle {
         newShip.y = y;
 
         return newShip;
+    }
+
+    playSound(soundType, x, y) {
+        if (!this.soundsEnabled) {
+            this.soundsToSend = [];
+            return;
+        }
+
+        this.soundsToSend.push({
+            type: soundType,
+            x: x,
+            y: y
+        });
     }
 
     update() {
@@ -1898,7 +1945,13 @@ class Camera {
             }
         });
 
-        const output = [0, this.x, this.y, this.zoom, shipsIDs.length, projectilesIDs.length, squadronsIDs.length, this.battle.explosionsToRender.length, this.battle.deathsToSend.length];
+        const output = [0, this.x, this.y, this.zoom, shipsIDs.length, projectilesIDs.length, squadronsIDs.length, this.battle.explosionsToRender.length, this.battle.deathsToSend.length, this.battle.soundsToSend.length];
+
+        this.battle.soundsToSend.forEach(sound => {
+            output.push(sound.type, sound.x, sound.y);
+        });
+
+        this.battle.soundsToSend = [];
 
         this.shipsCache.forEach(ship => {
             if (!shipsIDs.includes(ship.id)) {
@@ -2017,6 +2070,7 @@ onmessage = function (e) {
         case 1: { // Broad commandings
             switch (e.data.shift()) {
                 case 0: { // Initialize battle
+                    battle.soundsEnabled = true;
                     // battle.ships.forEach(ship => {
                     //     ship.shield = 0;
                     //     ship.lastHit = Infinity;
@@ -2038,7 +2092,7 @@ onmessage = function (e) {
 
                     const playerFactionIsAttacking = e.data.shift() === 1;
 
-                    // Expect: <faction> { name: "str", color: "str", fleet: [{ ship: "ship key", hero: "ship key" | null }] }
+                    // Expect: <faction> { name: "str", color: "str", fleet: [{ ship: "ship key", hero: "ship key" | null }], defenses: { shipyards: [], stations: [] } }
 
                     for (let i = 0; i < 2; i++) {
                         const faction = JSON.parse(e.data.shift());
@@ -2065,8 +2119,38 @@ onmessage = function (e) {
                             return ship;
                         }).filter(a => !!a).sort(() => .5 - Math.random());
 
+                        // if (faction.defense != null) {
+                        //     spawnedShips.push(...faction.defense.shipyards.map(shipKey => spawn(shipKey, i)), ...faction.defense.stations.map(shipKey => spawn(shipKey, i)));
+                        // }
+
                         scatterFormation(spawnedShips, spawnDistance * (i === 0 ? 1 : -1) * (playerFactionIsAttacking ? 1 : -1), 0, (i === 0 ? Math.PI : 0) + (playerFactionIsAttacking ? 0 : Math.PI));
                         battle.shipsStartedWith.push(spawnedShips);
+
+                        if (faction.defenses != null) {
+                            const shipyards = faction.defenses.shipyards.map(shipKey => {
+                                const ship = spawn(shipKey, i);
+                                ship.x = spawnDistance * (i === 0 ? 1 : -1) * (playerFactionIsAttacking ? 1 : -1);
+                                ship.y = 0;
+                                ship.angle = Math.atan2(ship.y, ship.x);
+                                return ship;
+                            });
+
+                            const stations = faction.defenses.stations.map(shipKey => {
+                                const ship = spawn(shipKey, i);
+                                ship.x = spawnDistance * (i === 0 ? 1 : -1) * (playerFactionIsAttacking ? 1 : -1);
+                                ship.y = 0;
+                                ship.angle = Math.atan2(ship.y, ship.x);
+                                return ship;
+                            });
+
+                            battle.shipyardsStartedWith.push(shipyards);
+                            battle.stationsStartedWith.push(stations);
+
+                            scatterFormation(stations.concat(shipyards), spawnDistance * (i === 0 ? 1 : -1) * (playerFactionIsAttacking ? 1 : -1), 0, (i === 0 ? Math.PI : 0) + (playerFactionIsAttacking ? 0 : Math.PI));
+                        } else {
+                            battle.shipyardsStartedWith.push([]);
+                            battle.stationsStartedWith.push([]);
+                        }
                     }
                 } break;
                 case 1: {

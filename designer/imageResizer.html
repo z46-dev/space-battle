@@ -22,15 +22,34 @@
             return Math.sqrt(Math.pow(r1 - r2, 2) + Math.pow(g1 - g2, 2) + Math.pow(b1 - b2, 2));
         }
 
-        function removeBackground(targetR, targetG, targetB, tolerance = 30, edgeCleanup = 1) {
+        function removeBackground(r, g, b, tolerance = 96, cleanEdges = true) {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+
+            for (let i = 0; i < data.length; i += 4) {
+                const r1 = data[i];
+                const g1 = data[i + 1];
+                const b1 = data[i + 2];
+
+                if (colorDistance(r1, g1, b1, r, g, b) <= tolerance) {
+                    data[i + 3] = 0; // make transparent
+                }
+            }
+
+            if (cleanEdges) {
+                fuzzBorders();
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function removeBackgroundIterative(targetR, targetG, targetB, tolerance = 30, edgeCleanup = 1) {
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const data = imageData.data;
             const width = imageData.width;
             const height = imageData.height;
 
             const visited = new Set();
-            const toProcess = [];
-            const borderPixels = new Set();
 
             function getPixelPos(x, y) {
                 return (y * width + x) * 4;
@@ -43,60 +62,54 @@
                 return colorDistance(r, g, b, targetR, targetG, targetB) <= tolerance;
             }
 
-            // Start flood fill from the edges
-            for (let x = 0; x < width; x++) {
-                if (isBackground(getPixelPos(x, 0))) toProcess.push([x, 0]);
-                if (isBackground(getPixelPos(x, height - 1))) toProcess.push([x, height - 1]);
-            }
-            for (let y = 0; y < height; y++) {
-                if (isBackground(getPixelPos(0, y))) toProcess.push([0, y]);
-                if (isBackground(getPixelPos(width - 1, y))) toProcess.push([width - 1, y]);
-            }
+            function floodFill(x, y) {
+                const toProcess = [[x, y]];
+                const localBorderPixels = new Set();
 
-            // Flood fill
-            while (toProcess.length > 0) {
-                const [x, y] = toProcess.pop();
-                const pos = getPixelPos(x, y);
-                const key = `${x},${y}`;
+                while (toProcess.length > 0) {
+                    const [cx, cy] = toProcess.pop();
+                    const pos = getPixelPos(cx, cy);
+                    const key = `${cx},${cy}`;
 
-                if (visited.has(key)) continue;
-                visited.add(key);
+                    if (visited.has(key)) continue;
+                    visited.add(key);
 
-                if (isBackground(pos)) {
-                    data[pos + 3] = 0; // Set alpha to 0
+                    if (isBackground(pos)) {
+                        data[pos + 3] = 0; // make transparent
 
-                    // Check neighbors
-                    const neighbors = [
-                        [x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1],
-                        [x - 1, y - 1], [x - 1, y + 1], [x + 1, y - 1], [x + 1, y + 1]
-                    ];
+                        const neighbors = [
+                            [cx - 1, cy], [cx + 1, cy], [cx, cy - 1], [cx, cy + 1],
+                            [cx - 1, cy - 1], [cx - 1, cy + 1], [cx + 1, cy - 1], [cx + 1, cy + 1]
+                        ];
 
-                    for (const [nx, ny] of neighbors) {
-                        if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-                            const npos = getPixelPos(nx, ny);
-                            if (!isBackground(npos)) {
-                                borderPixels.add(`${nx},${ny}`);
-                            } else {
-                                toProcess.push([nx, ny]);
+                        for (const [nx, ny] of neighbors) {
+                            if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                                const npos = getPixelPos(nx, ny);
+                                const nkey = `${nx},${ny}`;
+                                if (!isBackground(npos)) {
+                                    localBorderPixels.add(nkey);
+                                } else if (!visited.has(nkey)) {
+                                    toProcess.push([nx, ny]);
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            // Clean up edge pixels
-            for (const key of borderPixels) {
-                const [x, y] = key.split(',').map(Number);
-                for (let dx = -edgeCleanup; dx <= edgeCleanup; dx++) {
-                    for (let dy = -edgeCleanup; dy <= edgeCleanup; dy++) {
-                        const nx = x + dx;
-                        const ny = y + dy;
-                        if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-                            const pos = getPixelPos(nx, ny);
-                            if (data[pos + 3] !== 0) {  // If not already transparent
-                                const distance = colorDistance(data[pos], data[pos + 1], data[pos + 2], targetR, targetG, targetB);
-                                if (distance <= tolerance * 2) {
-                                    data[pos + 3] = 0;  // Make transparent
+                // Edge cleanup
+                for (const key of localBorderPixels) {
+                    const [x, y] = key.split(',').map(Number);
+                    for (let dx = -edgeCleanup; dx <= edgeCleanup; dx++) {
+                        for (let dy = -edgeCleanup; dy <= edgeCleanup; dy++) {
+                            const nx = x + dx;
+                            const ny = y + dy;
+                            if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                                const pos = getPixelPos(nx, ny);
+                                if (data[pos + 3] !== 0) {
+                                    const dist = colorDistance(data[pos], data[pos + 1], data[pos + 2], targetR, targetG, targetB);
+                                    if (dist <= tolerance * 2) {
+                                        data[pos + 3] = 0;
+                                    }
                                 }
                             }
                         }
@@ -104,27 +117,24 @@
                 }
             }
 
-            ctx.putImageData(imageData, 0, 0);
-        }
-
-        function secondRemoveBackground(r, g, b, tolerance = 30) {
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-            for (let i = 0; i < imageData.data.length; i += 4) {
-                const r1 = imageData.data[i];
-                const g1 = imageData.data[i + 1];
-                const b1 = imageData.data[i + 2];
-
-                const dr = Math.abs(r1 - r);
-                const dg = Math.abs(g1 - g);
-                const db = Math.abs(b1 - b);
-
-                // if (dr <= tolerance && dg <= tolerance && db <= tolerance) {
-                //     imageData.data[i + 3] = 0;
-                // }
-                if (colorDistance(r1, g1, b1, r, g, b) <= tolerance) {
-                    imageData.data[i + 3] = 0;
+            // Keep scanning for any unvisited target-colored pixels
+            let pass = 0;
+            while (true) {
+                let foundNew = false;
+                for (let y = 0; y < height; y++) {
+                    for (let x = 0; x < width; x++) {
+                        const key = `${x},${y}`;
+                        const pos = getPixelPos(x, y);
+                        if (!visited.has(key) && isBackground(pos)) {
+                            floodFill(x, y);
+                            foundNew = true;
+                            break; // one flood per pass is enough to avoid blocking UI
+                        }
+                    }
+                    if (foundNew) break;
                 }
+                if (!foundNew) break;
+                pass++;
             }
 
             ctx.putImageData(imageData, 0, 0);
@@ -146,29 +156,6 @@
                 imageData.data[i] = (r - tR) * (1 - str) + tR;
                 imageData.data[i + 1] = (g - tG) * (1 - str) + tG;
                 imageData.data[i + 2] = (b - tB) * (1 - str) + tB;
-            }
-
-            ctx.putImageData(imageData, 0, 0);
-        }
-
-        function reColorCertainColor(sR, sG, sB, tolerance, tR, tG, tB) {
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-            for (let i = 0; i < imageData.data.length; i += 4) {
-                const r = imageData.data[i];
-                const g = imageData.data[i + 1];
-                const b = imageData.data[i + 2];
-                const a = imageData.data[i + 3];
-
-                if (a === 0) {
-                    continue;
-                }
-
-                if (colorDistance(r, g, b, sR, sG, sB) <= tolerance) {
-                    imageData.data[i] = tR;
-                    imageData.data[i + 1] = tG;
-                    imageData.data[i + 2] = tB;
-                }
             }
 
             ctx.putImageData(imageData, 0, 0);
@@ -393,10 +380,11 @@
 
             ctx.drawImage(image, -image.width / 2, -image.height / 2, image.width, image.height);
 
-            removeBackground(255, 0, 255, 128);
-            secondRemoveBackground(255, 0, 255, 128);
+            // smoothlyScale(1);
+            // smoothlyScale(2);
+            removeBackgroundIterative(255, 0, 255, 148, 1);
+            removeBackground(255, 0, 255, 148, false);
             center();
-            fuzzBorders();
 
             document.body.appendChild(canvas);
         }

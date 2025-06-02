@@ -1,4 +1,5 @@
 import { shipTypes } from "../../constants.js";
+import templates from "../../templates.js";
 import * as weapons from "../../weapons.js";
 
 const ships = {};
@@ -83,6 +84,14 @@ ships.SECUTOR_REPUBLIC = {
         squadronKey: "V19TORRENT_REPUBLIC"
     }]
 };
+
+ships.SECUTOR_REPUBLIC = templates.superCapital.SECUTOR({
+    color: "BLUE",
+    fighter: "ARC170_REPUBLIC",
+    interceptor: "V19TORRENT_REPUBLIC",
+    bomber: "YWING_REPUBLIC",
+    heavyBomber: "NTB630_REPUBLIC"
+});
 
 ships.PRAETOR_REPUBLIC = {
     name: "Praetor Battlecruiser",

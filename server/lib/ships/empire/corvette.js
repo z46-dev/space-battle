@@ -13,4 +13,10 @@ ships.BUCCANEER_EMPIRE = templates.corvette.BUCCANEER({
 
 ships.CUSTOMS_EMPIRE = templates.corvette.CUSTOMS_LIGHT_CORVETTE();
 
+ships.IPV1_EMPIRE = templates.corvette.IPV1();
+
+ships.CR92A_EMPIRE = templates.corvette.CR92A({
+    color: "GREEN"
+});
+
 export default ships;

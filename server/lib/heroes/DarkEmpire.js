@@ -11,12 +11,12 @@ heroes["ArdusKaine"] = {
         ship.shield *= 1.5;
         ship.maxShield *= 1.5;
         ship.shieldRegen *= 1.5;
-        ship.maxSpeed *= 2;
+        ship.maxSpeed *= 1.5;
     },
     onTick: function (ship) {
         ship.hardpoints.forEach(hp => {
             if (hp.health > 0) {
-                hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00025);
+                hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .0001);
             }
         });
     }
@@ -199,44 +199,6 @@ heroes["Zsinj"] = {
             hp.health *= 1.5;
             hp.maxHealth *= 1.5;
         });
-    },
-    onTick: function (ship) {
-        if (ship.shield > 0 && ship.shield < ship.maxShield) {
-            ship.shield = Math.min(ship.maxShield, ship.shield + ship.maxShield * .00025);
-        }
-
-        if (ship.zsinjBurst === undefined) {
-            ship.zsinjBurst = {
-                active: false,
-                ticker: 0
-            };
-        }
-
-        if (ship.zsinjBurst.active) {
-            ship.zsinjBurst.ticker--;
-
-            if (ship.zsinjBurst.ticker <= 0) {
-                ship.zsinjBurst.active = false;
-                ship.zsinjBurst.ticker = 0;
-
-                ship.hardpoints.forEach(hp => {
-                    hp.reload /= .6;
-                    hp.tick = .5 * hp.reload * Math.random();
-                });
-            }
-        } else {
-            ship.zsinjBurst.ticker++;
-
-            if (ship.zsinjBurst.ticker >= 3000) {
-                ship.zsinjBurst.active = true;
-                ship.zsinjBurst.ticker = 250;
-
-                ship.hardpoints.forEach(hp => {
-                    hp.reload *= .6;
-                    hp.tick = hp.reload * Math.random();
-                });
-            }
-        }
     }
 };
 

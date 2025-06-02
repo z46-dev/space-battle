@@ -1,6 +1,8 @@
 import { initializeBattle } from "../../client/index.js";
 import { generateAsteroids } from "../client/lib/state.js";
 import { LoadedCampaign } from "./loader.js";
+import { playSong, SONG_TYPE_BATTLE, stopSong } from "./audio.js";
+import { CampaignConfig } from "../configs/campaigns.js";
 
 export function lerp(a, b, t) {
     return a + (b - a) * t;
@@ -31,7 +33,7 @@ const shared = {
     campaign: null,
     campaignType: -1,
 
-    /** @type {LoadedCampaign} */
+    /** @type {CampaignConfig} */
     campaignConfig: null,
 
     acceptingDeathClones: false,
@@ -52,8 +54,8 @@ const shared = {
     },
 
     /**
-     * @param {{name:string,color:string,fleet:{ship:string,hero:string|null}[]}} attackingFaction
-     * @param {{name:string,color:string,fleet:{ship:string,hero:string|null}[]}} defendingFaction
+     * @param {{name:string,color:string,fleet:{ship:string,hero:string|null}[],defenses:{shipyards:string[],stations:string[]}}} attackingFaction
+     * @param {{name:string,color:string,fleet:{ship:string,hero:string|null}[],defenses:{shipyards:string[],stations:string[]}}} defendingFaction
      * @param {boolean} attacking
      * @param {string} designConfig
      * @param {string} planetName
@@ -62,6 +64,8 @@ const shared = {
         initializeBattle(attackingFaction, defendingFaction, attacking, designConfig, planetName);
 
         shared.state = STATE_BATTLE;
+        stopSong();
+        playSong(SONG_TYPE_BATTLE);
 
         generateAsteroids();
     }

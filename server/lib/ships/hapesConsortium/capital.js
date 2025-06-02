@@ -19,14 +19,14 @@ ships.BATTLEDRAGON_HAPAN = {
         y: 0,
         weapon: {
             ...weapons.BLUE_TURBOLASER_CANNON,
-            reload: 3
+            reload: 2
         }
     }, {
         x: 0,
         y: 0,
         weapon: {
             ...weapons.ION_CANNON_MEDIUM,
-            reload: 3
+            reload: 2
         }
     }, {
         x: 0,
