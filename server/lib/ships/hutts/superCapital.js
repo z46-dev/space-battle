@@ -8,7 +8,7 @@ ships.DORBULLA_HUTT = {
     asset: "dorbulla.png",
     classification: shipTypes.SuperCapital,
     population: 140,
-    size: 3000,
+    size: 1750,
     cost: 26000,
     speed: 1.25,
     turnSpeed: .00025,

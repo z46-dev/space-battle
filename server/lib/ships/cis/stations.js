@@ -33,8 +33,8 @@ ships.SHIPYARD_LVL_2_CIS = templates.stations.SHIPYARD_LVL_2({
     fighter: "VULTUREDROID_CIS",
     bomber: "HYENABOMBER_CIS",
     corvette: ["DIAMOND_CIS", "HARDCELL_CIS", "LUPUSMISSILEFRIGATE_CIS"],
-    frigate: ["C9979_CIS", "MUNIFICENT_CIS", "RECUSANT_CIS", "SABOATHDESTROYER_CIS"],
-    heavyFrigate: ["MUNIFICENT_HEAVY_CIS", "DHOMNI_CIS"]
+    frigate: ["C9979_CIS", "MUNIFICENT_CIS", "RECUSANT_CIS"],
+    heavyFrigate: ["MUNIFICENT_CIS", "RECUSANT_CIS"]
 });
 
 ships.SHIPYARD_LVL_3_CIS = templates.stations.SHIPYARD_LVL_3({
@@ -42,9 +42,9 @@ ships.SHIPYARD_LVL_3_CIS = templates.stations.SHIPYARD_LVL_3({
     fighter: "VULTUREDROID_CIS",
     bomber: "HYENABOMBER_CIS",
     corvette: ["DIAMOND_CIS", "HARDCELL_CIS", "LUPUSMISSILEFRIGATE_CIS"],
-    frigate: ["C9979_CIS", "MUNIFICENT_CIS", "RECUSANT_CIS", "SABOATHDESTROYER_CIS"],
-    heavyFrigate: ["MUNIFICENT_HEAVY_CIS", "DHOMNI_CIS", "PROVIDENCEDESTROYER_CIS"],
-    capital: ["MAJESTIC_CIS"]
+    frigate: ["C9979_CIS", "MUNIFICENT_CIS", "RECUSANT_CIS"],
+    heavyFrigate: ["MUNIFICENT_CIS", "RECUSANT_CIS", "MUNIFICENT_HEAVY_CIS"],
+    capital: ["PROVIDENCEDESTROYER_CIS"]
 });
 
 ships.SHIPYARD_LVL_4_CIS = templates.stations.SHIPYARD_LVL_4({
@@ -52,9 +52,9 @@ ships.SHIPYARD_LVL_4_CIS = templates.stations.SHIPYARD_LVL_4({
     fighter: "VULTUREDROID_CIS",
     bomber: "HYENABOMBER_CIS",
     corvette: ["DIAMOND_CIS", "HARDCELL_CIS", "LUPUSMISSILEFRIGATE_CIS"],
-    frigate: ["C9979_CIS", "MUNIFICENT_CIS", "RECUSANT_CIS", "SABOATHDESTROYER_CIS"],
-    heavyFrigate: ["MUNIFICENT_HEAVY_CIS", "DHOMNI_CIS", "PROVIDENCEDESTROYER_CIS"],
-    capital: ["MAJESTIC_CIS", "LUCREHULKAUXILIARYWARSHIP_CIS"]
+    frigate: ["C9979_CIS", "MUNIFICENT_CIS", "RECUSANT_CIS"],
+    heavyFrigate: ["MUNIFICENT_CIS", "RECUSANT_CIS", "MUNIFICENT_HEAVY_CIS"],
+    capital: ["PROVIDENCEDESTROYER_CIS"]
 });
 
 export default ships;

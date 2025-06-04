@@ -488,7 +488,7 @@ templates.SHIPYARD_LVL_1 = function (options = {}) {
         production: (function () {
             const output = [];
 
-            const corvettesAlive = 3;
+            const corvettesAlive = 4;
             const frigatesAlive = 1;
 
             if (!(options.corvette instanceof Array)) {
@@ -661,7 +661,7 @@ templates.SHIPYARD_LVL_2 = function (options = {}) {
         production: (function () {
             const output = [];
 
-            const corvettesAlive = 5;
+            const corvettesAlive = 4;
             const frigatesAlive = 2;
             const heavyFrigatesAlive = 1;
 
@@ -891,7 +891,7 @@ templates.SHIPYARD_LVL_3 = function (options = {}) {
                 ...h,
                 weapon: {
                     ...h.weapon,
-                    health: Math.round(45000 / output.length)
+                    health: Math.round(35000 / output.length)
                 }
             }));
         })(),
@@ -1011,8 +1011,8 @@ templates.SHIPYARD_LVL_4 = function (options = {}) {
         cost: 10000,
         speed: 0,
         turnSpeed: 0,
-        shield: 40000,
-        shieldRegen: 40,
+        shield: 25000,
+        shieldRegen: 25,
         hardpoints: (function () {
             const points = [{
                 x: -.155,
@@ -1149,21 +1149,21 @@ templates.SHIPYARD_LVL_4 = function (options = {}) {
                 ...h,
                 weapon: {
                     ...h.weapon,
-                    health: Math.round(75000 / output.length)
+                    health: Math.round(45000 / output.length)
                 }
             }));
         })(),
         hangars: [{
             x: 0,
             y: 0,
-            maxSquadrons: 6,
+            maxSquadrons: 4,
             squadronSize: 6,
             reserveSize: 1024,
             squadronKey: options.fighter
         }, {
             x: 0,
             y: 0,
-            maxSquadrons: 6,
+            maxSquadrons: 4,
             squadronSize: 6,
             reserveSize: 1024,
             squadronKey: options.bomber
@@ -1171,9 +1171,9 @@ templates.SHIPYARD_LVL_4 = function (options = {}) {
         production: (function () {
             const output = [];
 
-            const corvettesAlive = 9;
-            const frigatesAlive = 6;
-            const heavyFrigatesAlive = 3;
+            const corvettesAlive = 8;
+            const frigatesAlive = 4;
+            const heavyFrigatesAlive = 2;
             const capitalShipsAlive = 2;
 
             if (!(options.corvette instanceof Array)) {

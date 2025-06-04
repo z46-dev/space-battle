@@ -8,22 +8,24 @@ heroes["Yularen"] = {
     image: "Yularen.png",
     ships: ["VENATOR_REPUBLIC"],
     modifications: function (ship) {
-        ship.shield *= 1.25;
-        ship.maxShield *= 1.25;
-        ship.shieldRegen *= 1.25;
-        ship.maxSpeed *= 1.15;
+        ship.shield *= 2.5;
+        ship.maxShield *= 2.5;
+        ship.shieldRegen *= 2.5;
+        ship.maxSpeed *= 1.5;
 
         ship.hardpoints.forEach(hp => {
-            hp.health *= 1.3;
-            hp.maxHealth *= 1.3;
-            hp.damage *= 1.3;
-            hp.range *= 1.3;
-            hp.reload *= .85;
+            hp.health *= 2.5;
+            hp.maxHealth *= 2.5;
+            hp.damage *= 2;
+            hp.range *= 1.5;
+            hp.reload *= .5;
         });
     },
     onTick: function (ship) {
         ship.hardpoints.forEach(hp => {
-            hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .0005);
+            if (hp.health > 0) {
+                hp.health = Math.min(hp.maxHealth, hp.health + hp.maxHealth * .00075);
+            }
         });
     }
 };

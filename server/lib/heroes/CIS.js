@@ -307,17 +307,15 @@ heroes["Grievous"] = {
     name: "General Grievous",
     tooltip: "Grievous was a Kaleesh cyborg general who held the title of Supreme Commander of the Droid Army during the Clone Wars. Known for his ruthlessness and combat prowess, Grievous was feared throughout the galaxy.",
     image: "Grievous.png",
-    ships: ["PROVIDENCEDREADNOUGHT_CIS", "MUNIFICENT_HEAVY_CIS", "MUNIFICENT_CIS", "RECUSANTDREADNOUGHT_CIS", "SUBJUGATOR_CIS"],
+    ships: ["SUBJUGATOR_CIS"],
     modifications: function(ship) {
         ship.shield *= 2;
         ship.maxShield *= 2;
         ship.shieldRegen *= 2;
 
         ship.hardpoints.forEach(hp => {
-            hp.health *= 1.5;
-            hp.maxHealth *= 1.5;
-            hp.range *= 2;
-            hp.reload *= .85;
+            hp.health *= 2;
+            hp.maxHealth *= 2;
         });
     }
 };
@@ -326,7 +324,7 @@ heroes["Dooku"] = {
     name: "Count Dooku",
     tooltip: "Count Dooku, also known as Darth Tyranus, was a Sith Lord who played a key role in the Confederacy of Independent Systems during the Clone Wars. Dooku was a master of the dark side of the Force and a skilled duelist.",
     image: "Dooku.png",
-    ships: ["PROVIDENCEDREADNOUGHT_CIS", "DHOMNI_CIS", "LUCREHULK_CONTROL_CIS"],
+    ships: ["PROVIDENCEDREADNOUGHT_CIS", "LUCREHULK_CONTROL_CIS"],
     modifications: function(ship) {
         ship.shield *= 2;
         ship.maxShield *= 2;
@@ -345,7 +343,7 @@ heroes["Ventress"] = {
     name: "Asajj Ventress",
     tooltip: "Asajj Ventress is a Dathomirian Night Sister and the Sith apprentice of Count Dooku. She's a skilled warrior and assassin, known for her combat skills with dual red lightsabers. She commanded variety of vessels during the Clone Wars.",
     image: "ventress.png",
-    ships: ["PROVIDENCEDESTROYER_CIS", "MUNIFICENT_HEAVY_CIS"],
+    ships: ["RECUSANTDREADNOUGHT_CIS"],
     modifications: function(ship) {
         ship.shield *= 5;
         ship.maxShield *= 5;

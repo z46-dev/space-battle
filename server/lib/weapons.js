@@ -205,7 +205,7 @@ export const SUBJUGATOR_ION_BLAST = {
     targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     explosionRange: 1e10,
     name: "Ion Pulse Generator",
-    maneuverability: .05,
+    maneuverability: .15,
     seeks: true
 };
 
@@ -1364,7 +1364,7 @@ export const FIGHTER_PROTON_BOMB = {
     explosionRange: 250,
 
     speed: 6,
-    maneuverability: .05,
+    maneuverability: .15,
     seeks: true,
     targetOverride: [shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation]
 };
@@ -1405,7 +1405,7 @@ export const ASSAULT_CONCUSSION_MISSILE = {
     explosionRange: 600,
 
     speed: 20,
-    maneuverability: .0334,
+    maneuverability: .0667,
     seeks: true,
     targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation]
 };
@@ -1445,7 +1445,7 @@ export const ASSAULT_PROTON_BOMB = {
     explosionRange: 300,
 
     speed: 6,
-    maneuverability: .075,
+    maneuverability: .2,
     seeks: true,
     targetOverride: [shipTypes.Corvette, shipTypes.Frigate, shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation]
 };

@@ -1162,4 +1162,292 @@ templates.NEBULON_B = function (options = {}) {
     };
 }
 
+templates.PELTA = function (options = {}) {
+    options.color ??= "RED";
+    options.fighter ??= "AWING_REBEL";
+
+    return {
+        name: "Pelta-class Support Frigate",
+        asset: "PELTA.png",
+        classification: shipTypes.Frigate,
+        population: 6,
+        size: 145,
+        cost: 1700,
+        speed: 4,
+        turnSpeed: .015,
+        shield: 2500,
+        shieldRegen: 2.5,
+        tenderAbility: {
+            frequency: .75,
+            power: .75
+        },
+        hardpoints: [{
+            x: -.2,
+            y: .85,
+            weapon: weapons[`${options.color}_RAPID_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 80
+        }, {
+            x: .2,
+            y: .85,
+            weapon: weapons[`${options.color}_RAPID_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 80
+        }, {
+            x: -.125,
+            y: .2,
+            weapon: weapons.ION_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 80
+        }, {
+            x: .125,
+            y: .2,
+            weapon: weapons.ION_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 80
+        }, {
+            x: -.25,
+            y: -.6,
+            weapon: weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 80
+        }, {
+            x: .25,
+            y: -.6,
+            weapon: weapons[`${options.color}_DOUBLE_TURBOLASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 80
+        }].map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2 | 0
+            }
+        })),
+        hangars: [{
+            x: 0,
+            y: 0,
+            maxSquadrons: 1,
+            squadronSize: 5,
+            reserveSize: 2,
+            squadronKey: options.fighter
+        }]
+    };
+}
+
+templates.CLASS_C_FRIGATE = function (options = {}) {
+    options.color ??= "RED";
+
+    return {
+        name: "Class-C Frigate",
+        asset: "CLASSC.png",
+        classification: shipTypes.Frigate,
+        population: 5,
+        size: 210,
+        cost: 1650,
+        speed: 3,
+        turnSpeed: .01,
+        shield: 2750,
+        shieldRegen: 2.75,
+        hardpoints: [{
+            x: .001,
+            y: .962,
+            weapon: weapons[`${options.color}_RAPID_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 75
+        }, {
+            x: -.086,
+            y: .409,
+            weapon: weapons[`${options.color}_RAPID_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 75
+        }, {
+            x: .095,
+            y: .035,
+            weapon: weapons[`${options.color}_ANTI_FIGHTER_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 50
+        }, {
+            x: -.083,
+            y: -.268,
+            weapon: weapons[`${options.color}_RAPID_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 75
+        }, {
+            x: .117,
+            y: -.946,
+            weapon: weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            x: -.152,
+            y: -.977,
+            weapon: weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }].map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2.5 | 0
+            }
+        }))
+    };
+}
+
+templates.SUPER_TRANSPORT_VI = function (options = {}) {
+    options.color ??= "GREEN";
+    options.fighter ??= "TIEFIGHTER_EMPIRE";
+    options.bomber ??= "TIEBOMBER_EMPIRE";
+
+    return {
+        name: "Super Transport VI",
+        asset: "SUPER_TRANSPORT_VI.png",
+        classification: shipTypes.Frigate,
+        population: 7,
+        size: 180,
+        cost: 1800,
+        speed: 3.5,
+        turnSpeed: .005,
+        shield: 0,
+        shieldRegen: 0,
+        hardpoints: [{
+            x: -.264,
+            y: .419,
+            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+            shotsAtOnce: 5,
+            shotDelay: 750
+        }, {
+            x: .251,
+            y: .411,
+            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+            shotsAtOnce: 5,
+            shotDelay: 750
+        }, {
+            x: -.274,
+            y: -.290,
+            weapon: weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            x: .267,
+            y: -.297,
+            weapon: weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            x: -.167,
+            y: -.836,
+            weapon: weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            x: .167,
+            y: -.842,
+            weapon: weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }].map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 6 | 0
+            }
+        })),
+        hangars: [{
+            x: 0,
+            y: 0,
+            maxSquadrons: 2,
+            squadronSize: 3,
+            reserveSize: 2,
+            squadronKey: options.fighter
+        }, {
+            x: 0,
+            y: 0,
+            maxSquadrons: 1,
+            squadronSize: 4,
+            reserveSize: 2,
+            squadronKey: options.bomber
+        }]
+    };
+}
+
+templates.SUPER_TRANSPORT_VII = function (options = {}) {
+    options.color ??= "GREEN";
+    options.fighter ??= "TIEFIGHTER_EMPIRE";
+    options.bomber ??= "TIEBOMBER_EMPIRE";
+
+    return {
+        name: "Super Transport VII",
+        asset: "SUPER_TRANSPORT_VII.png",
+        classification: shipTypes.Frigate,
+        population: 13,
+        size: 300,
+        cost: 2450,
+        speed: 3.5,
+        turnSpeed: .005,
+        shield: 0,
+        shieldRegen: 0,
+        hardpoints: [{
+            x: -.264,
+            y: .419,
+            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+            shotsAtOnce: 5,
+            shotDelay: 750
+        }, {
+            x: .251,
+            y: .411,
+            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+            shotsAtOnce: 5,
+            shotDelay: 750
+        }, {
+            x: -.274,
+            y: -.290,
+            weapon: weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            x: .267,
+            y: -.297,
+            weapon: weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            x: -.167,
+            y: -.836,
+            weapon: weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            x: .167,
+            y: -.842,
+            weapon: weapons[`${options.color}_DOUBLE_LASER_CANNON`],
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }].map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 9 | 0,
+                reload: e.weapon.reload * .85
+            }
+        })),
+        hangars: [{
+            x: 0,
+            y: 0,
+            maxSquadrons: 4,
+            squadronSize: 3,
+            reserveSize: 2,
+            squadronKey: options.fighter
+        }, {
+            x: 0,
+            y: 0,
+            maxSquadrons: 2,
+            squadronSize: 4,
+            reserveSize: 2,
+            squadronKey: options.bomber
+        }]
+    };
+}
+
 export default templates;

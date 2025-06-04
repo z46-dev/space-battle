@@ -3,7 +3,7 @@ import { createSafeLinks } from "./createRoutes.js";
 import { cis, republic } from "./factions/cloneWars.js";
 import { hutts } from "./factions/criminals.js";
 import { empire, eoth, eriaduAuthority, maldrood, pentastarAlignment, zsinj } from "./factions/imperial.js";
-import { independentPostEndor } from "./factions/independent.js";
+import { independentCloneWars, independentPostEndor } from "./factions/independent.js";
 import { hapesConsortium, newRepublic } from "./factions/rebelHapan.js";
 import { PlanetConfig, planets } from "./planets.js";
 
@@ -175,13 +175,42 @@ export const theCloneWars = new CampaignConfig("The Clone Wars")
     .addFaction(republic.clone()
         .addPlanets("Coruscant", "Anaxes", "Kaikielius", "Arkania", "Alderaan", "Carida", "Kuat", "Rendili", "Humbarine", "Qiilura", "Arkania", "Rhen Var", "Belderone", "Aargonar")
         .addPlanets("Ord Cestus", "Bestine", "Malastare", "Naboo", "Praesitlyn", )
-        .setCapital("Coruscant", 40, 1500)
+        .setCapital("Coruscant", 100, 2500)
+        .addHero("Yularen", "Coruscant")
+        .addHero("CapPellaeon", "Anaxes")
+        .addHero("AdarTallon", "Kuat")
+        .addHero("AdmiralWieler", "Rendili")
+        .addHero("AdmiralCorburnCW", "Arkania")
+        .addHero("CWTarkin", "Naboo")
     )
     .addFaction(cis.clone()
-        .addPlanets("Geonosis", "Mygeeto", "Muunilinst", "Dantooine", "Scipio", "Serenno", "Yavin", "Ringo Vinda", "Quell", "Lola Sayu", "Jabiim", "Raxus", "Raxus Secundus", "Minntooine", "Pammant", "Mandalore", "Dathomir")
-        .setCapital("Geonosis", 40, 1500)
+        .addPlanets("Geonosis", "Mygeeto", "Muunilinst", "Dantooine", "Scipio", "Serenno", "Yavin", "Ringo Vinda", "Quell", "Lola Sayu")
+        .addPlanets("Jabiim", "Raxus", "Raxus Secundus", "Minntooine", "Pammant", "Mandalore", "Dathomir", "Cato Neimoidia", "Deko Neimoidia")
+        .addPlanets("Koru Neimoidia")
+        .setCapital("Geonosis", 50, 1500)
+        .addHero("TI-99", "Mygeeto")
+        .addHero("TF-1726", "Scipio")
+        .addHero("AdmiralTrench", "Raxus Secundus")
+        .addHero("NuteGunray", "Cato Neimoidia")
+        .addHero("Aut-0", "Deko Neimoidia")
+        .addHero("General Kalani", "Dathomir")
+        .addHero("Grievous", "Geonosis")
+        .addHero("Dooku", "Serenno")
+        .addHero("Ventress", "Raxus")
+        .addHero("WatTambor", "Muunilinst")
+        .addHero("LokDurd", "Lola Sayu")
+        .addHero("MarTuuk", "Jabiim")
     )
-    .addIndependentForces(independentPostEndor.clone()
+    .addFaction(hutts.clone()
+        .addPlanets("Nal Hutta", "Nar Shaddaa", "Da Soocha", "Ylesia", "Sleheyron", "Ubrikkia", "Klatooine", "Delacrix")
+        .setCapital("Nal Hutta", 40, 1000)
+        .addHero("Jabba The Hutt", "Nal Hutta")
+        .addHero("Gorga The Hutt", "Nar Shaddaa")
+        .addHero("Marlo The Hutt", "Ubrikkia")
+        .addHero("Oruba The Hutt", "Da Soocha")
+        .addHero("Ziro The Hutt", "Sleheyron")
+    )
+    .addIndependentForces(independentCloneWars.clone()
         .addPlanets("Maridun", "Florrum", "Iego", "Zanbar", "Agamar", "Foerost", "Fondor", "Sluis Van", "Tibrin", "Mustafar", "Sullust", "Utapau", "Rodia", "Ryloth", "Hypori")
     ).compile();
 

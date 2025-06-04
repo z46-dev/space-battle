@@ -19,7 +19,7 @@ ships.ACCLIMATOR_BATTLESHIP_REPUBLIC = {
     population: 22,
     size: 600,
     cost: 9500,
-    speed: 2.5,
+    speed: 3.5,
     turnSpeed: .003,
     shield: 8000,
     shieldRegen: 8,
@@ -118,7 +118,8 @@ ships.ACCLIMATOR_BATTLESHIP_REPUBLIC = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 2.3 | 0
+                health: e.weapon.health * 2.3 | 0,
+                reload: e.weapon.reload * 1.15 | 0
             }
         }));
     })(),

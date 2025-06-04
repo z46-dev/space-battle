@@ -222,7 +222,7 @@ ships.SZAJIN_HUTT = {
     name: "Szajin Cruiser",
     asset: "szajinCruiser.png",
     classification: shipTypes.HeavyFrigate,
-    population: 20,
+    population: 16,
     size: 500,
     cost: 4000,
     speed: 1.9,
@@ -305,7 +305,8 @@ ships.SZAJIN_HUTT = {
         ...hp,
         weapon: {
             ...hp.weapon,
-            health: hp.weapon.health * 4 | 0
+            health: hp.weapon.health * 6 | 0,
+            reload: hp.weapon.reload * .7
         }
     })),
     hangars: [{

@@ -182,7 +182,7 @@ ships.VONTOR_HUTT = {
     asset: "vontorDestroyer.png",
     classification: shipTypes.Capital,
     population: 30,
-    size: 1000,
+    size: 750,
     cost: 8000,
     speed: 1.5,
     turnSpeed: .008,

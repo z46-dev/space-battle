@@ -7,7 +7,8 @@ const music = {
         "Across the Stars.mp3",
         "Yoda and the Younglings.mp3",
         "Jyn Erso & Hope Suite.mp3",
-        "Guardians of the Whills Suite.mp3"
+        "Guardians of the Whills Suite.mp3",
+        "Jedi Fallen Order Menu.mp3"
     ],
     [SONG_TYPE_MAP]: [
         "Lord Tyrannus Returns Finale.mp3",
@@ -17,7 +18,9 @@ const music = {
         "Jyn Erso & Hope Suite.mp3",
         "NIAMOS.mp3",
         "Past-Present-Future.mp3",
-        "When Has Become Now.mp3"
+        "When Has Become Now.mp3",
+        "Jedi Fallen Order Menu.mp3",
+        "Jedi Fallen Order Second Sister First Encounter.mp3"
     ],
     [SONG_TYPE_BATTLE]: [
         "Pursuit of the Falcon.m4a",
@@ -35,7 +38,10 @@ const music = {
         "The Escape.mp3",
         "The Battle of Crait.mp3",
         "The Supremacy.mp3",
-        "Holdos Resolve Edited.mp3"
+        "Holdos Resolve Edited.mp3",
+        "Jedi Survivor Flight.mp3",
+        "Jedi Survivor Siege.mp3",
+        "Jedi Fallen Order Second Sister First Encounter.mp3",
     ]
 };
 

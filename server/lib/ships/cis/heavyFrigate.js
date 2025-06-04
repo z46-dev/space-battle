@@ -128,4 +128,48 @@ ships.MUNIFICENT_HEAVY_CIS = {
     }]
 };
 
+ships.LUCREHULK_CORE_SHIP_CIS = {
+    name: "Lucrehulk Core Ship",
+    asset: "LUCREHULK_CORE.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 15,
+    size: 350,
+    cost: 4000,
+    speed: 4,
+    turnSpeed: .01,
+    shield: 5000,
+    shieldRegen: 5,
+    hardpoints: (() => {
+        const output = [];
+
+        for (let i = 0; i < 10; i ++) {
+            const angle = (i / 10) * Math.PI * 2;
+            output.push({
+                x: Math.cos(angle) * .7,
+                y: .1 + Math.sin(angle) * .7,
+                weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 100
+            });
+        }
+
+        return output.map(hp => ({
+            ...hp,
+            weapon: {
+                ...hp.weapon,
+                health: hp.weapon.health * 3 | 0,
+                reload: hp.weapon.reload * .5 | 0
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 4,
+        reserveSize: 1,
+        squadronKey: "VULTUREDROID_CIS"
+    }]
+};
+
 export default ships;

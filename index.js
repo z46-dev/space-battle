@@ -16,6 +16,7 @@ import ships from "./server/lib/ships.js";
 import heroes from "./server/lib/heroes.js";
 import { playableCampaigns, splinteredEmpire } from "./configs/campaigns.js";
 import { playSong, SONG_TYPE_HOME, SONG_TYPE_MAP, stopSong } from "./shared/audio.js";
+import allFactions from "./configs/factions.js";
 
 // Do a UI all split up in canvas.
 // Add a home menu and an option for saves and an option for
@@ -258,21 +259,24 @@ if (location.search.includes("debug")) {
         text: "Testing",
         color: "#C8C8C8",
         action: () => {
-            const pop = 300;
+            const pop = 200;
             shared.newBeginBattle({
-                name: "Hutt Cartel",
-                fleet: Fleet.random(pop, "HUTT").__ships.map(s => ({
-                    ship: s,
+                name: "Republic",
+                fleet: Fleet.randomFromFactionConfig(pop, allFactions.republic).__ships.map(e => ({
+                    ship: e,
                     hero: null
                 })),
-                color: survivalFactions.find(e => e.name === "Hutt Cartel").color
+                color: survivalFactions.find(e => e.name === "Republic").color
             }, {
-                name: "Galactic Empire",
+                name: "CIS",
                 fleet: [{
-                    ship: "SHIPYARD_LVL_4_EMPIRE",
+                    ship: "LUCREHULKBATTLESHIP_CIS",
+                    hero: null
+                }, {
+                    ship: "LUCREHULK_CORE_SHIP_CIS",
                     hero: null
                 }],
-                color: survivalFactions.find(e => e.name === "Galactic Empire").color
+                color: survivalFactions.find(e => e.name === "CIS").color
             }, true, null, "Sandbox");
             on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
         }
