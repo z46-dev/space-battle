@@ -11,4 +11,4 @@ export const independentPostEndor = new FactionConfig("Independent Forces", "#FF
 export const independentCloneWars = new FactionConfig("Independent Forces", "#FFFFFF", "")
     .addBuildableShips(1, "LUPUSMISSILEFRIGATE_CIS", "DIAMOND_CIS", "CR90_REPUBLIC", "CONSOLAR_REPUBLIC")
     .addBuildableShips(1, "CLASS_C_REPUBLIC", "PELTA_REPUBLIC", "DREADNOUGHTHEAVYCRUISER_REPUBLIC", "DREADNOUGHTHEAVYCRUISER_REBEL", "DREADNOUGHTHEAVYCRUISER_EMPIRE")
-    .addBuildableShips(1, "LUCREHULK_CORE_SHIP_CIS", "SUPER_TRANSPORT_VI_REPUBLIC", "SUPER_TRANSPORT_VII_REPUBLIC")    
+    .addBuildableShips(1, "LUCREHULK_CORE_SHIP_CIS", "SUPER_TRANSPORT_VI_REPUBLIC", "SUPER_TRANSPORT_VII_REPUBLIC");

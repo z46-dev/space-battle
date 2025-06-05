@@ -32,15 +32,90 @@ export const world = {
     text: [],
     commanders: [],
     snapshotMode: false,
-    acceptDeathClones: false
+    acceptDeathClones: false,
+    buildables: null,
+    credits: 0,
+    onBuildMenu: false,
+    availableReinforcements: [],
+    reinforcementsMenuOpen: false,
+
+    reinforcementDrag: {
+        enabled: false,
+        x: 0,
+        y: 0,
+        rotation: 0,
+        key: ""
+    },
+    shiftPressed: false,
+    playBattle: true
 };
+
+export function toggle() {
+    world.playBattle = !world.playBattle;
+    worker.postMessage([1, 1, +world.playBattle]);
+}
 
 export const ships = new Map();
 export const projectiles = new Map();
 export const squadrons = new Map();
 export const explosions = new Set();
 
+export class UIClickable {
+    x = 0;
+    y = 0;
+
+    radial = false;
+
+    radius = 0;
+    width = 0;
+    height = 0;
+
+    cb = () => { };
+
+    isOver(x, y) {
+        if (this.radial) {
+            return (this.x - x) ** 2 + (this.y - y) ** 2 < this.radius ** 2;
+        }
+
+        return x >= this.x && x <= this.x + this.width &&
+            y >= this.y && y <= this.y + this.height;
+    }
+
+    static rectangular(x, y, width, height, cb) {
+        const clickable = new UIClickable();
+        clickable.x = x;
+        clickable.y = y;
+        clickable.width = width;
+        clickable.height = height;
+        clickable.cb = cb || (() => { });
+        return clickable;
+    }
+
+    static radial(x, y, radius, cb) {
+        const clickable = new UIClickable();
+        clickable.x = x;
+        clickable.y = y;
+        clickable.radius = radius;
+        clickable.radial = true;
+        clickable.cb = cb || (() => { });
+        return clickable;
+    }
+}
+
+/** @type {UIClickable[]} */
+export let clickables = [];
+
+export function clearClickables() {
+    clickables = [];
+}
+
 window.addEventListener("wheel", event => {
+    if (world.reinforcementDrag.enabled && world.shiftPressed) {
+        world.reinforcementDrag.rotation += event.deltaY / 1000;
+        world.reinforcementDrag.rotation = world.reinforcementDrag.rotation % (Math.PI * 2);
+        return;
+    }
+
     camera.cZoom += event.deltaY / 3000;
     camera.cZoom = Math.max(camera.cZoom, .1);
     camera.cZoom = Math.min(camera.cZoom, 3);
@@ -66,6 +141,11 @@ window.addEventListener("mousemove", event => {
 
     inputs.mouseDirectionX = event.movementX;
     inputs.mouseDirectionY = event.movementY;
+
+    if (world.reinforcementDrag.enabled) {
+        world.reinforcementDrag.x = inputs.mouseX;
+        world.reinforcementDrag.y = inputs.mouseY;
+    }
 });
 
 window.addEventListener("mousedown", event => {
@@ -74,6 +154,44 @@ window.addEventListener("mousedown", event => {
     }
 
     if (event.button === 0) {
+        if (world.reinforcementDrag.enabled) {
+            if (world.shiftPressed) {
+                world.reinforcementDrag.enabled = false;
+                world.reinforcementDrag.x = 0;
+                world.reinforcementDrag.y = 0;
+                world.reinforcementDrag.rotation = 0;
+                world.reinforcementDrag.key = "";
+            } else {
+                // Translate based on camera position and zoom
+                const scale = uiScale() * camera.zoom;
+                const x = (world.reinforcementDrag.x - canvas.width / 2) / scale + camera.x;
+                const y = (world.reinforcementDrag.y - canvas.height / 2) / scale + camera.y;
+
+                worker.postMessage([
+                    1, 4, world.reinforcementDrag.key,
+                    x, y, world.reinforcementDrag.rotation
+                ]);
+
+                world.reinforcementDrag.enabled = false;
+                world.reinforcementDrag.x = 0;
+                world.reinforcementDrag.y = 0;
+                world.reinforcementDrag.rotation = 0;
+                world.reinforcementDrag.key = "";
+            }
+
+            return;
+        }
+
+        const uiX = inputs.mouseX / uiScale();
+        const uiY = inputs.mouseY / uiScale();
+
+        for (const clickable of clickables) {
+            if (clickable.isOver(uiX, uiY)) {
+                clickable.cb(event);
+                return;
+            }
+        }
+
         if (inputs.squadronOver) {
             if (inputs.squadronOver.team === 0) {
                 if (event.ctrlKey) {
@@ -159,6 +277,17 @@ window.addEventListener("keydown", event => {
         case "z":
             world.snapshotMode = !world.snapshotMode;
             break;
+        case "shift": {
+            world.shiftPressed = true;
+        } break;
+    }
+});
+
+window.addEventListener("keyup", event => {
+    switch (event.key.toLowerCase()) {
+        case "shift": {
+            world.shiftPressed = false;
+        } break;
     }
 });
 
@@ -214,7 +343,7 @@ worker.onmessage = event => {
 
             const scale = uiScale() * camera.realZoom;
             const sounds = [];
-            for (let i = 0, n = data.shift(); i < n; i ++) {
+            for (let i = 0, n = data.shift(); i < n; i++) {
                 const sound = {
                     type: data.shift(),
                     x: data.shift(),
@@ -222,7 +351,7 @@ worker.onmessage = event => {
                 };
 
                 // If it's in camera bounds, try to play it
-                
+
                 /* ctx.save();
                     ctx.translate(canvas.width / 2, canvas.height / 2);
                     ctx.scale(scale, scale);
@@ -562,6 +691,24 @@ worker.onmessage = event => {
                     squadrons.delete(squadron.id);
                 }
             });
+
+            if (data.shift()) {
+                // Survival buildables
+                world.buildables = new Array(data.shift()).fill(null).map(() => data.shift());
+                world.credits = data.shift();
+            } else {
+                world.buildables = null;
+                world.credits = 0;
+            }
+
+            {
+                const rLen = data.shift();
+                world.availableReinforcements = [];
+
+                for (let i = 0; i < rLen; i++) {
+                    world.availableReinforcements.push(data.shift());
+                }
+            }
         } break;
         case 1: {
             world.width = data.shift();
@@ -606,11 +753,12 @@ worker.onmessage = event => {
         } break;
         case 2: {
             const content = data.shift();
+            console.log("Text event:", content);
             world.text.push({
                 text: content,
                 displayText: "",
                 i: 0,
-                timer: 5 * content.length
+                timer: 50 + 6 * content.length
             });
         } break;
         case 3: { // Battle over

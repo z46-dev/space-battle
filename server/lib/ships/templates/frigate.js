@@ -1011,7 +1011,7 @@ templates.VENGEANCE_FRIGATE = function (options = {}) {
         asset: "VENGEANCE_FRIGATE.png",
         classification: shipTypes.Frigate,
         population: 8,
-        size: 400,
+        size: 300,
         cost: 1100,
         speed: 3,
         turnSpeed: .005,
@@ -1039,7 +1039,7 @@ templates.VENGEANCE_FRIGATE = function (options = {}) {
             const output = [];
 
             const selections = [
-                weapons[options.color + "_TURBOLASER_CANNON_ULTRAHEAVY"],
+                weapons[options.color + "_TURBOLASER_CANNON"],
                 weapons[options.color + "_DOUBLE_LASER_CANNON"],
                 weapons.DOUBLE_ION_CANNON
             ];
@@ -1048,8 +1048,8 @@ templates.VENGEANCE_FRIGATE = function (options = {}) {
                 output.push({
                     ...points[i],
                     weapon: selections[i % selections.length],
-                    shotsAtOnce: 2,
-                    shotDelay: 150
+                    shotsAtOnce: i % 3 === 0 ? 16 : 2,
+                    shotDelay: i % 3 === 0 ? 75 : 200
                 });
             }
 

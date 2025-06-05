@@ -9,6 +9,7 @@ import { canvas, ctx, planetOptions, planet, Sprite, regeneratePlanet } from "./
 import { ships, projectiles, explosions, squadrons } from "./lib/state.js";
 import * as state from "./lib/state.js";
 import { uiScale, lerp, lerpAngle } from "./lib/util.js";
+import { FactionConfig } from "../configs/baseFactions.js";
 
 function hextoRGB(hex) {
     const bigint = parseInt(hex.slice(1), 16);
@@ -683,7 +684,24 @@ export default function draw() {
 
     ctx.restore();
 
+    if (!state.world.snapshotMode && state.world.reinforcementDrag.enabled) {
+        // Draw the ship asset at the mouse position, rotated as well
+
+        ctx.save();
+        ctx.translate(state.world.reinforcementDrag.x, state.world.reinforcementDrag.y);
+        ctx.rotate(state.world.reinforcementDrag.rotation);
+
+        const size = shipConfig[state.world.reinforcementDrag.key].size * scale;
+
+        ctx.drawImage(assetsLib.assets.get(shipConfig[state.world.reinforcementDrag.key].asset), -size / 2, -size / 2, size, size);
+
+        ctx.restore();
+    }
+
+
     // UI
+    state.clearClickables();
+
     const uScale = uiScale();
 
     ctx.save();
@@ -970,8 +988,43 @@ export default function draw() {
         ctx.save();
 
         const width = canvas.width / uScale;
+        const yShift = canvas.height / uScale - 175;
 
-        ctx.translate(0, canvas.height / uScale - 175);
+        ctx.translate(0, yShift);
+
+        // Box on left side of this trapezoid
+        const button = (x, y, txt, cb) => {
+            ctx.fillStyle = window.abcd ?? "#252525";
+            ctx.beginPath();
+            ctx.arc(x, y, 30, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.strokeStyle = "#505050";
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.arc(x, y, 30, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.stroke();
+
+            drawText(txt, x, y, 30, "#FFFFFF", "center");
+
+            state.clickables.push(state.UIClickable.radial(x, yShift + y, 30, cb));
+        };
+
+        let bY = -25;
+
+        if (state.world.buildables != null) {
+            button(285, bY, state.world.onBuildMenu ? "🗺️" : "🔧", () => state.world.onBuildMenu = !state.world.onBuildMenu);
+            bY += 75;
+        }
+
+        button(285, bY, "⚔️", () => state.world.reinforcementsMenuOpen = !state.world.reinforcementsMenuOpen);
+        bY += 75;
+
+        button(285, bY, state.world.playBattle ? "⏸" : "►", () => {
+            state.toggle();
+        });
 
         ctx.fillStyle = "#252525";
         ctx.lineWidth = 5;
@@ -989,41 +1042,152 @@ export default function draw() {
 
         // Draw selected ships
         let i = 0;
-        state.controllingShipIDs.forEach(id => {
-            const ship = ships.get(id);
 
-            if (!ship) {
-                state.controllingShipIDs.delete(id);
-                return;
-            }
+        if (state.world.onBuildMenu) {
+            drawText("Credits: " + state.world.credits, 400, -15, 15, "#FFFFFF", "left");
+            state.world.buildables.forEach(buildableKey => {
+                const ship = shipConfig[buildableKey];
 
-            ctx.save();
-            ctx.translate(467 + 75 * (i % 14), 50 + Math.floor(i / 14) * 75);
-            ctx.scale(30, 30);
+                if (!assetsLib.assets.has(ship.asset)) {
+                    assetsLib.loadAsset(`/assets/ships/${ship.asset}`, ship.asset);
+                    return;
+                }
 
-            ctx.drawImage(assetsLib.assets.get(ship.asset), -1, -1, 2, 2);
+                if (!assetsLib.assets.get(ship.asset).ready) {
+                    return;
+                }
 
-            // health meter
-            ctx.save();
-            ctx.translate(0, .75);
+                ctx.save();
+                ctx.translate(467 + 75 * (i % 14), 50 + Math.floor(i / 14) * 75);
+                ctx.scale(30, 30);
 
-            if (ship.shield > .01) {
-                drawBar(0, 0, 1, .15, ship.shield, "#00C8FF");
-                ctx.translate(0, .2);
-            }
+                ctx.fillStyle = "#505050";
+                ctx.beginPath();
+                ctx.arc(0, 0, 1, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
 
-            drawBar(0, 0, 1, .15, ship.health, "#00FFC8");
+                ctx.rotate(-Math.PI / 6);
+                ctx.drawImage(assetsLib.assets.get(ship.asset), -.8, -.8, 1.6, 1.6);
+                ctx.rotate(Math.PI / 6);
 
-            ctx.restore();
-            ctx.restore();
+                // Cost below
+                drawText(ship.cost, 0, .75, .425, "#FFFFFF", "center");
 
-            i++;
-        });
+                ctx.restore();
+                state.clickables.push(state.UIClickable.radial(467 + 75 * (i % 14), yShift + 50 + Math.floor(i / 14) * 75, 30, () => {
+                    // alert("Building " + ship.name + " costs " + ship.cost + " resources. Are you sure?");
+                    state.worker.postMessage([1, 3, buildableKey]);
+                }));
+
+                i++;
+            });
+        } else {
+            state.controllingShipIDs.forEach(id => {
+                const ship = ships.get(id);
+
+                if (!ship) {
+                    state.controllingShipIDs.delete(id);
+                    return;
+                }
+
+                ctx.save();
+                ctx.translate(467 + 75 * (i % 14), 50 + Math.floor(i / 14) * 75);
+                ctx.scale(30, 30);
+
+                ctx.drawImage(assetsLib.assets.get(ship.asset), -1, -1, 2, 2);
+
+                // health meter
+                ctx.save();
+                ctx.translate(0, .75);
+
+                if (ship.shield > .01) {
+                    drawBar(0, 0, 1, .15, ship.shield, "#00C8FF");
+                    ctx.translate(0, .2);
+                }
+
+                drawBar(0, 0, 1, .15, ship.health, "#00FFC8");
+
+                ctx.restore();
+                ctx.restore();
+
+                i++;
+            });
+        }
 
         ctx.restore();
     }
 
-    ctx.restore();
+    if (!state.world.snapshotMode && state.world.reinforcementsMenuOpen) {
+        if (state.world.reinforcementDrag.enabled) {
+            drawText("Shift-Click to cancel", canvas.width / uScale - 150, canvas.height / uScale - 100, 20, "#FFFFFF", "center");
+            drawText("Click to place", canvas.width / uScale - 150, canvas.height / uScale - 80, 20, "#FFFFFF", "center");
+            drawText("Shift-Scroll to rotate", canvas.width / uScale - 150, canvas.height / uScale - 60, 20, "#FFFFFF", "center");
+        } else {
+            // Top right corner menu
+            ctx.save();
+
+            const cellSize = 25;
+            const cellPadding = 5;
+            const rowSize = 4;
+
+            const boxWidth = rowSize * (cellSize + cellPadding) * 2;
+
+            let boxHeight = Math.ceil(state.world.availableReinforcements.length / rowSize) * ((cellSize + cellPadding) * 2);
+
+            ctx.translate(canvas.width / uScale - boxWidth - 10, canvas.height / uScale - 10 - boxHeight);
+
+            drawText("Reinforcements", boxWidth / 2, -20, 25, "#C8C8C8", "center");
+
+            ctx.fillStyle = "#111111";
+            ctx.globalAlpha = .5;
+            ctx.fillRect(0, 0, boxWidth, boxHeight);
+            ctx.globalAlpha = 1;
+
+            for (let i = 0; i < state.world.availableReinforcements.length; i++) {
+                const ship = shipConfig[state.world.availableReinforcements[i]];
+                const x = 17.5 + (i % 4) * (cellSize + cellPadding) * 2;
+                const y = 17.5 + Math.floor(i / 4) * (cellSize + cellPadding) * 2;
+
+                if (!assetsLib.assets.has(ship.asset)) {
+                    assetsLib.loadAsset(`/assets/ships/${ship.asset}`, ship.asset);
+                    continue;
+                }
+
+                if (!assetsLib.assets.get(ship.asset).ready) {
+                    continue;
+                }
+
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.scale(cellSize, cellSize);
+                ctx.translate(.5, .5);
+                ctx.fillStyle = "#505050";
+                ctx.beginPath();
+                ctx.arc(0, 0, 1, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+
+                state.clickables.push(state.UIClickable.radial(
+                    canvas.width / uScale - boxWidth - 10 + x + cellSize / 2,
+                    canvas.height / uScale - 10 - boxHeight + y + cellSize / 2,
+                    cellSize,
+                    () => {
+                        state.world.reinforcementDrag.enabled = true;
+                        state.world.reinforcementDrag.key = state.world.availableReinforcements[i];
+                    }
+                ));
+
+                ctx.rotate(-Math.PI / 6);
+                ctx.drawImage(assetsLib.assets.get(ship.asset), -.8, -.8, 1.6, 1.6);
+                ctx.restore();
+            }
+
+            ctx.restore();
+        }
+
+        ctx.restore();
+    }
 }
 
 /**
@@ -1046,6 +1210,22 @@ export function initializeBattle(attackingFaction, defendingFaction, attacking =
         regeneratePlanet(designConfig.design);
         planet.generate();
     }
+
+    setTimeout(() => state.world.acceptDeathClones = true, 5000);
+}
+
+/**
+ * @param {FactionConfig} myFaction
+ */
+export function initializeSurvival(myFaction) {
+    state.worker.postMessage([1, 2, myFaction.reverseLookupKey]);
+
+    teamColors.length = 0;
+    teamColorRGBs.length = 0;
+
+    teamColors.push(myFaction.color, "#FFFFFF");
+    teamColorRGBs.push(hextoRGB(myFaction.color), hextoRGB("#FFFFFF"));
+    planetName = "Wild Space";
 
     setTimeout(() => state.world.acceptDeathClones = true, 5000);
 }

@@ -1,3 +1,4 @@
+import { shipTypes } from "../server/lib/constants.js";
 import ships from "../server/lib/ships.js";
 
 export class CapitalConfig {
@@ -39,6 +40,8 @@ export class FactionConfig {
         this.key = key;
         this.planets = [];
 
+        this.reverseLookupKey = null;
+
         /** @type {CapitalConfig} */
         this.capital = null;
 
@@ -61,7 +64,7 @@ export class FactionConfig {
 
         /** @type {string[]} */
         this.shipyardOptions = [];
-        
+
         /** @type {string[]} */
         this.stationOptions = [];
     }
@@ -206,5 +209,58 @@ export class FactionConfig {
             shipyardOptions: [...this.shipyardOptions],
             stationOptions: [...this.stationOptions]
         });
+    }
+
+    randomFleet(population, possible = this.shipyardConfigs.flatMap(shipyard => shipyard.ships)) {
+        const avgPop = possible.reduce((sum, ship) => sum + ships[ship].population, 0) / possible.length;
+        const output = [];
+
+        let fails = 0;
+        while (population > 0 && population < 256) {
+            let ship = undefined,
+                i = 0;
+
+            internal: while (i < possible.length * 5) {
+                possible.sort((b, a) => {
+                    if (Math.random() > .075) {
+                        return .5 - Math.random();
+                    }
+
+                    return ships[b].population - ships[a].population;
+                });
+
+                const unit = ships[possible[0]];
+
+                if (unit == null) {
+                    throw new Error(`Ship ${possible[0]} not found in ships database.`);
+                }
+
+                if (
+                    unit.population <= population &&
+                    (unit.population <= avgPop * 1.1 || Math.random() > .8)
+                ) {
+                    ship = possible[0];
+                    break internal;
+                }
+
+                i++;
+            }
+
+            if (ship != null) {
+                output.push(ship);
+                population -= ships[ship].population;
+            } else {
+                fails++;
+            }
+        }
+
+        return output;
+    }
+
+    static randomFleet(population) {
+        return new FactionConfig("Random", "#FFFFFF", "").randomFleet(population, Object.keys(ships).filter(s => (
+            ships[s].classification >= shipTypes.Corvette &&
+            ships[s].classification < shipTypes.SpaceStation
+        )));
     }
 }

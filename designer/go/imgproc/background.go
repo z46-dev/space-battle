@@ -223,6 +223,10 @@ type MaskConfig struct {
 // RemoveBackgroundSmartWithConfig builds a mask according to cfg,
 // applies a 1‐pixel morphological opening (erode→dilate) if desired,
 // then flood‐fills from edges to clear the connected background.
+// RemoveBackgroundSmartWithConfig builds a mask according to cfg,
+// applies a 1‐pixel morphological opening (erode→dilate),
+// then flood‐fills from edges to clear the connected background,
+// and finally clears any remaining “interior” mask pixels (donut holes).
 func RemoveBackgroundSmartWithConfig(
 	img *image.RGBA,
 	cfg MaskConfig,
@@ -350,6 +354,18 @@ func RemoveBackgroundSmartWithConfig(
 			nIdx := ny*w + nx
 			if mask[nIdx] && !visited[nIdx] {
 				queue = append(queue, point{nx, ny})
+			}
+		}
+	}
+
+	// 4) Clear any “interior” mask pixels (donut holes):
+	for y := 0; y < h; y++ {
+		rowOff := y * w
+		for x := 0; x < w; x++ {
+			i := rowOff + x
+			if mask[i] {
+				pixIdx := img.PixOffset(x, y)
+				img.Pix[pixIdx+3] = 0
 			}
 		}
 	}

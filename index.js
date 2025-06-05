@@ -17,6 +17,7 @@ import heroes from "./server/lib/heroes.js";
 import { playableCampaigns, splinteredEmpire } from "./configs/campaigns.js";
 import { playSong, SONG_TYPE_HOME, SONG_TYPE_MAP, stopSong } from "./shared/audio.js";
 import allFactions from "./configs/factions.js";
+import { FactionConfig } from "./configs/baseFactions.js";
 
 // Do a UI all split up in canvas.
 // Add a home menu and an option for saves and an option for
@@ -110,47 +111,67 @@ window.addEventListener("resize", regenerateStars);
 function changeState(newState) {
     shared.buttonsEnabled = false;
 
-    if (newState === STATE_TACTICAL_MAP) {
-        stopSong();
-        playSong(SONG_TYPE_MAP);
-    }
+    switch (newState) {
+        case STATE_TACTICAL_MAP:
+            stopSong();
+            playSong(SONG_TYPE_MAP);
+            break;
+        case STATE_BATTLE:
+            stopSong();
+            playSong(SONG_TYPE_BATTLE);
+            break;
+        case STATE_INIT_CAMPAIGN: {
+            let x = 0;
 
-    if (newState === STATE_BATTLE) {
-        stopSong();
-        playSong(SONG_TYPE_BATTLE);
-    }
+            for (const faction of shared.campaignConfig.factions) {
+                buttonMaps[STATE_INIT_CAMPAIGN].push({
+                    x: -((128 + 32) + 16) + (x % 3) * ((128 + 32) + 16),
+                    y: (48 + 8) * Math.floor(x / 3),
+                    width: 128 + 32,
+                    height: 48,
+                    text: faction.name,
+                    color: faction.color,
+                    action: () => {
+                        shared.campaign = Campaign.from(shared.campaignConfig, faction.name);
+                        window.campaign = shared.campaign;
 
-    if (newState === STATE_INIT_CAMPAIGN) {
-        let x = 0;
+                        changeState(STATE_TACTICAL_MAP);
 
-        for (const faction of shared.campaignConfig.factions) {
-            buttonMaps[STATE_INIT_CAMPAIGN].push({
-                x: -((128 + 32) + 16) + (x % 3) * ((128 + 32) + 16),
-                y: (48 + 8) * Math.floor(x / 3),
-                width: 128 + 32,
-                height: 48,
-                text: faction.name,
-                color: faction.color,
-                action: () => {
-                    shared.campaign = Campaign.from(shared.campaignConfig, faction.name);
-                    window.campaign = shared.campaign;
-
-                    changeState(STATE_TACTICAL_MAP);
-
-                    const capital = shared.campaign.playerFaction.capitalPlanet;
-                    if (capital) {
-                        const planet = shared.campaign.getPlanet(capital.name);
-                        if (planet) {
-                            shared.campaign.camera.realX = planet.x;
-                            shared.campaign.camera.realY = planet.y;
-                            shared.campaign.camera.zoom = 2;
+                        const capital = shared.campaign.playerFaction.capitalPlanet;
+                        if (capital) {
+                            const planet = shared.campaign.getPlanet(capital.name);
+                            if (planet) {
+                                shared.campaign.camera.realX = planet.x;
+                                shared.campaign.camera.realY = planet.y;
+                                shared.campaign.camera.zoom = 2;
+                            }
                         }
                     }
-                }
-            });
+                });
 
-            x++;
-        }
+                x++;
+            }
+        } break;
+        case STATE_INIT_SURVIVAL: {
+            let x = 0;
+
+            for (const fKey in allFactions) {
+                const faction = allFactions[fKey];
+                buttonMaps[STATE_INIT_SURVIVAL].push({
+                    x: -((128 + 32) + 16) + (x % 3) * ((128 + 32) + 16),
+                    y: (48 + 8) * Math.floor(x / 3),
+                    width: 128 + 32,
+                    height: 48,
+                    text: faction.name,
+                    color: faction.color,
+                    action: () => {
+                        shared.initSurvival(faction);
+                    }
+                });
+
+                x++;
+            }
+        } break;
     }
 
     curtains(function onceHalfway() {
@@ -185,10 +206,19 @@ buttonMaps[STATE_HOME] = [{
     y: 144,
     width: 256,
     height: 64,
+    text: "Survival Mode",
+    color: "#C8C8C8",
+    action: () => {
+        changeState(STATE_INIT_SURVIVAL);
+    }
+}, {
+    x: 0,
+    y: 216,
+    width: 256,
+    height: 64,
     text: "Sandbox Mode",
     color: "#C8C8C8",
     action: () => {
-        // changeState(STATE_INIT_SURVIVAL);
         const selections = [];
         const choose = () => {
             let faction;
@@ -253,30 +283,30 @@ buttonMaps[STATE_HOME] = [{
 if (location.search.includes("debug")) {
     buttonMaps[STATE_HOME].push({
         x: 0,
-        y: 216,
+        y: 288,
         width: 256,
         height: 64,
         text: "Testing",
         color: "#C8C8C8",
         action: () => {
             const pop = 200;
+            const f1 = allFactions.republic;
+            const f2 = allFactions.cis;
+
             shared.newBeginBattle({
-                name: "Republic",
-                fleet: Fleet.randomFromFactionConfig(pop, allFactions.republic).__ships.map(e => ({
+                name: f1.name,
+                fleet: Fleet.randomFromFactionConfig(pop, f1).__ships.map(e => ({
                     ship: e,
                     hero: null
                 })),
-                color: survivalFactions.find(e => e.name === "Republic").color
+                color: f1.color
             }, {
-                name: "CIS",
-                fleet: [{
-                    ship: "LUCREHULKBATTLESHIP_CIS",
+                name: f2.name,
+                fleet: Fleet.randomFromFactionConfig(pop, f2).__ships.map(e => ({
+                    ship: e,
                     hero: null
-                }, {
-                    ship: "LUCREHULK_CORE_SHIP_CIS",
-                    hero: null
-                }],
-                color: survivalFactions.find(e => e.name === "CIS").color
+                })),
+                color: f2.color
             }, true, null, "Sandbox");
             on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
         }
@@ -460,22 +490,6 @@ buttonMaps[STATE_SELECT_TIMEFRAME] = playableCampaigns.map((campaign, i) => ({
 buttonMaps[STATE_INIT_CAMPAIGN] = [];
 buttonMaps[STATE_INIT_SURVIVAL] = [];
 
-for (let i = 0; i < factions.length - 1; i++) {
-    const faction = factions[i + 1]; // Skip Neutral Systems
-
-    buttonMaps[STATE_INIT_SURVIVAL].push({
-        x: -((128 + 32) + 16) + (i % 3) * ((128 + 32) + 16),
-        y: (48 + 8) * Math.floor(i / 3),
-        width: 128 + 32,
-        height: 48,
-        text: faction.name,
-        color: faction.color,
-        action: () => {
-            changeState(STATE_HOME);
-        }
-    });
-}
-
 const buttons = new Array(Math.max(...campaignConfig.map(e => e.factions.length), ...buttonMaps.filter(e => e.length).map(map => map.length))).fill(0).map(() => new UIButton(0, 0, 0, 0));
 
 function draw() {
@@ -640,5 +654,7 @@ curtainState.value = 1;
 draw();
 
 window.autosave = autosave;
+window.allFactions = allFactions;
+window.FactionConfig = FactionConfig;
 
 playSong(SONG_TYPE_HOME);

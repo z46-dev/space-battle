@@ -34,7 +34,7 @@ func main() {
 	square := imgproc.PadToSquare(srcImg)
 
 	// 3) Scale up (e.g. factor = 4)
-	scaled := imgproc.ScaleImage(square, 2.0)
+	scaled := imgproc.ScaleImage(square, 14.0)
 
 	// Convert to RGBA for pixel‐level editing
 	rgba := imgproc.ImageToRGBA(scaled)
@@ -45,7 +45,7 @@ func main() {
 	// // 5) Iterative flood‐fill removal on any leftover “magentaish” (edge cleanup = 1)
 	// imgproc.RemoveBackgroundIterative(rgba, 255, 0, 255, 192, 1)
 
-	const tol = 50
+	const tol = 40
 	imgproc.RemoveBackgroundSmartWithConfig(rgba, imgproc.MaskConfig{
 		Mode: imgproc.MaskHSV, // or MaskRGB, or MaskEnsemble
 
@@ -66,7 +66,7 @@ func main() {
 	imgproc.SmoothEdges(final, 2)
 
 	// 8) Save as PNG
-	if err := imgproc.SavePNG(outputPath, imgproc.ScaleImage(final, .5)); err != nil {
+	if err := imgproc.SavePNG(outputPath, imgproc.ScaleImage(final, .25)); err != nil {
 		log.Fatalf("Failed to save output: %v", err)
 	}
 

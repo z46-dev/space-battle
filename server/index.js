@@ -1,3 +1,5 @@
+import { FactionConfig } from "../configs/baseFactions.js";
+import allFactions from "../configs/factions.js";
 import SpatialHashGrid from "./lib/SpatialHashGrid.js";
 import { shipTypes, weaponClassifications, weaponDrawProperties, weaponProperties, weaponTypes } from "./lib/constants.js";
 import heroes from "./lib/heroes.js";
@@ -1267,6 +1269,9 @@ class Battle {
 
         this.soundsToSend = [];
 
+        /** @type {string[][]} */
+        this.reinforcements = [[], []]; // reinforcements[team][i] = shipKey
+
         this.teams = [];
         for (let i = 0; i < teams; i++) {
             this.teams.push({
@@ -1285,6 +1290,11 @@ class Battle {
 
         this.updateInterval = setInterval(this.update.bind(this), 1000 / 22.5);
 
+        /** @type {SurvivalWrapper} */
+        this.survival = null;
+
+        this.paused = false;
+
         const performanceMetrics = {}; // TODO: implement
 
         setInterval(() => {
@@ -1299,7 +1309,7 @@ class Battle {
                 console.log(this.fps, this.mspt, this.ships.size + this.projectiles.size);
             }
 
-            if (this.ships.size === 0) {
+            if (this.ships.size === 0 || this.survival != null) {
                 return;
             }
 
@@ -1382,6 +1392,10 @@ class Battle {
     }
 
     update() {
+        if (this.paused) {
+            return;
+        }
+
         const start = performance.now();
         for (let i = 0; i < this.teams.length; i++) {
             this.teams[i].spatialHash.clear();
@@ -1442,6 +1456,108 @@ class Battle {
     async displayText(text) {
         connection.talk([2, text]);
 
+        return true;
+    }
+}
+
+class SurvivalWrapper {
+    static CREDIT_EARN_SCALE = .8;
+
+    constructor(battle, faction) {
+        /** @type {Battle} */
+        this.battle = battle;
+
+        /** @type {FactionConfig} */
+        this.faction = faction;
+
+        this.wave = 0;
+        this.enemiesRemaining = 0;
+        this.credits = 0;
+
+        /** @type {Ship|null} */
+        this.shipyard = null;
+
+        this.init();
+
+        setTimeout(this.startWave.bind(this), 5000);
+    }
+
+    get shipyardLevel() {
+        if (this.shipyard == null) {
+            return 0;
+        }
+
+        return ships[this.shipyard.key].shipyardLevel ?? 0;
+    }
+
+    get shipyardBuildables() {
+        if (this.shipyard == null) {
+            return [];
+        }
+
+        return this.faction.shipyardConfigs.filter(c => c.id <= this.shipyardLevel).map(c => c.ships).flat();
+    }
+
+    init() {
+        scene.hyperspaceIn(this.faction.shipyardOptions[3], 0, -this.battle.width / 2, -this.battle.height / 2, 0, 0, s => {
+            s.onDead = () => {
+                this.shipyard = null;
+                this.battle.displayText("Shipyard destroyed! You lose!");
+                this.battle.survival = null;
+            };
+
+            this.shipyard = s;
+        });
+    }
+
+    startWave() {
+        this.wave++;
+
+        const enemyPopulation = 25 + this.wave * 10;
+        const fleetShips = FactionConfig.randomFleet(enemyPopulation);
+        this.enemiesRemaining = fleetShips.length;
+
+        for (let i = 0; i < fleetShips.length; i++) {
+            scene.hyperspaceIn(
+                fleetShips[i], 1,
+                this.battle.width * .8 + Math.random() * 2500 - 1250,
+                this.battle.height * .8 + Math.random() * 2500 - 1250,
+                Math.atan2(-this.battle.height, -this.battle.width),
+                Math.random() * 5000,
+                ship => {
+                    ship.onDead = () => {
+                        this.enemiesRemaining--;
+                        if (this.enemiesRemaining <= 0) {
+                            this.battle.displayText(`Wave ${this.wave} cleared!`);
+                            setTimeout(this.startWave.bind(this), 15000);
+                        }
+
+                        const reward = Math.round(ships[ship.key].cost * SurvivalWrapper.CREDIT_EARN_SCALE);
+
+                        this.credits += reward;
+                        this.battle.displayText(`+${reward} credits`);
+                    };
+                }
+            );
+        }
+    }
+
+    build(key) {
+        if (!this.shipyard || this.shipyard.health <= 0) {
+            return false;
+        }
+
+        if (!this.shipyardBuildables.includes(key)) {
+            return false;
+        }
+
+        const shipConfig = ships[key];
+        if (shipConfig.cost > this.credits) {
+            return false;
+        }
+
+        this.credits -= shipConfig.cost;
+        this.battle.reinforcements[this.shipyard.team].push(key);
         return true;
     }
 }
@@ -1993,6 +2109,16 @@ class Camera {
             output.push(commander.name, commander.ship.health);
         });
 
+        output.push(this.battle.survival == null ? 0 : 1);
+        if (this.battle.survival != null) {
+            const buildables = this.battle.survival.shipyardBuildables;
+            output.push(buildables.length, ...buildables);
+        
+            output.push(this.battle.survival.credits);
+        }
+
+        output.push(this.battle.reinforcements[0].length, ...this.battle.reinforcements[0]);
+
         this.connection.talk(output);
     }
 }
@@ -2070,6 +2196,7 @@ onmessage = function (e) {
         case 1: { // Broad commandings
             switch (e.data.shift()) {
                 case 0: { // Initialize battle
+                    battle.reinforcements = [[], []];
                     battle.soundsEnabled = true;
                     // battle.ships.forEach(ship => {
                     //     ship.shield = 0;
@@ -2153,8 +2280,57 @@ onmessage = function (e) {
                         }
                     }
                 } break;
-                case 1: {
+                case 1: { // Pause/play
+                    battle.paused = !e.data.shift();
+                } break;
+                case 2: { // Survival Battle
+                    battle.survival = new SurvivalWrapper(battle, allFactions[e.data.shift()]);
 
+                    battle.soundsEnabled = true;
+                    battle.ships.clear();
+                    battle.squadrons.clear();
+                    battle.explosionsToRender = [];
+                    battle.deathsToSend = [];
+
+                    battle.shipsStartedWith = [];
+
+                    battle.projectiles.forEach(projectile => {
+                        projectile.battle.projectiles.delete(projectile.id);
+                    });
+
+                    battle.reinforcements = [[], []];
+                } break;
+                case 3: { // Survival Battle Build
+                    if (battle.survival == null) {
+                        connection.talk([2, "You are not in a survival battle!"]);
+                        return;
+                    }
+
+                    const shipKey = e.data.shift();
+                    if (battle.survival.build(shipKey)) {
+                        connection.talk([2, `Building ${ships[shipKey]?.name ?? "???"}...`]);
+                    } else {
+                        connection.talk([2, `Cannot build ${ships[shipKey]?.name ?? "???"}!`]);
+                    }
+                } break;
+                case 4: { // Call reinforcements
+                    const shipKey = e.data.shift();
+                    if (!battle.reinforcements[connection.team].includes(shipKey)) {
+                        connection.talk([2, `Invalid ship key!`]);
+                        return;
+                    }
+
+                    const x = e.data.shift();
+                    const y = e.data.shift();
+                    const angle = e.data.shift();
+
+                    scene.hyperspaceIn(shipKey, connection.team, x, y, angle, Math.random() * 750);
+                    connection.talk([2, `Reinforcements ${ships[shipKey]?.name ?? "???"} arriving!`]);
+                    // Remove the first instance of the ship key from the reinforcements array
+                    const index = battle.reinforcements[connection.team].indexOf(shipKey);
+                    if (index > -1) {
+                        battle.reinforcements[connection.team].splice(index, 1);
+                    }
                 } break;
             }
         } break;
@@ -2306,13 +2482,13 @@ class Scene {
                 cb(ship);
 
                 const interval = setInterval(() => {
-                    if (distance(ship.x, ship.y, x, y) < 10) {
+                    if (distance(ship.x, ship.y, x, y) < 25) {
                         ship.speed = _speed;
                         ship.ai = _ai;
                         clearInterval(interval);
                         resolve(ship);
                     }
-                }, 5);
+                }, 10);
             }, delay);
         });
     }

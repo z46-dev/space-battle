@@ -3,6 +3,7 @@ import { generateAsteroids } from "../client/lib/state.js";
 import { LoadedCampaign } from "./loader.js";
 import { playSong, SONG_TYPE_BATTLE, stopSong } from "./audio.js";
 import { CampaignConfig } from "../configs/campaigns.js";
+import { initializeSurvival } from "../client/index.js";
 
 export function lerp(a, b, t) {
     return a + (b - a) * t;
@@ -67,6 +68,14 @@ const shared = {
         stopSong();
         playSong(SONG_TYPE_BATTLE);
 
+        generateAsteroids();
+    },
+
+    initSurvival(myFaction) {
+        initializeSurvival(myFaction);
+        shared.state = STATE_BATTLE;
+        stopSong();
+        playSong(SONG_TYPE_BATTLE);
         generateAsteroids();
     }
 };
