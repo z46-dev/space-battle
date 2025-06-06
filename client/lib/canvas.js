@@ -2,7 +2,11 @@ import Planet, { NoiseOptions, PlanetColors, PlanetOptions } from "../../Planet/
 import * as assetsLib from "./graphicalFuncs.js";
 
 export const canvas = document.querySelector("canvas");
-export const ctx = canvas.getContext("2d");
+export const ctx = canvas.getContext("2d", {
+    alpha: false,
+    desynchronized: true,
+    willReadFrequently: true
+});
 export let planetOptions = new PlanetOptions();
 
 planetOptions.Radius = 1024;
@@ -39,6 +43,8 @@ export class Sprite {
         return frames;
     }
 
+    static framesCache = new Map();
+
     static configs = {
         explosion1: [4, 4],
         explosion2: [8, 4],
@@ -55,7 +61,7 @@ export class Sprite {
         blueExplosion3: [16, 8, .35],
         blueExplosion4: [5, 5, .2],
         blueExplosion5: [4, 4, .2],
-        fireSprite: [3, 3],
+        fireSprite: [3, 3, .35],
         ionPulse1: [4, 4, .4],
         ionPulse2: [4, 4, .125],
         ionPulse3: [5, 5],
@@ -65,10 +71,17 @@ export class Sprite {
 
     constructor(name, loop = true) {
         this.image = assetsLib.assets.get(name);
-        this.frames = Sprite.generateFrames(this.image, ...Sprite.configs[name]);
+        
+        if (Sprite.framesCache.has(name)) {
+            this.frames = Sprite.framesCache.get(name);
+        } else {
+            this.frames = Sprite.generateFrames(this.image, ...Sprite.configs[name]);
+            Sprite.framesCache.set(name, this.frames);
+        }
+
         this.currentFrame = 0;
         this.loop = loop;
-        this.speed = Sprite.configs[name][2] ?? .25;
+        this.speed = Sprite.configs[name][2] ?? .3;
     }
 
     draw(ctx, x, y, width, height) {

@@ -8,6 +8,8 @@ export const shieldFrames = {};
 
 export function loadAsset(path, name) {
     const image = new Image();
+    assets.set(name, image);
+    
     image.src = path;
 
     image.ready = false;
@@ -15,8 +17,6 @@ export function loadAsset(path, name) {
     image.onload = () => {
         image.ready = true;
     };
-
-    assets.set(name, image);
 }
 
 export function generateSilhouette(image, name, r, g, b) {

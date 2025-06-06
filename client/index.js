@@ -36,14 +36,22 @@ function drawBar(cx, cy, width, height, pct, color) {
     ctx.restore();
 }
 
-const mixColors = (function () {
-    const cache = {};
-    return function (primary, secondary, x) {
-        const target = `${primary}${secondary}${x}`;
-        if (cache[target] !== undefined) return cache[target];
-        var [primary, a, o] = primary.match(/\w\w/g).map(e => parseInt(e, 16)), [secondary, n, r] = secondary.match(/\w\w/g).map(e => parseInt(e, 16));
-        return cache[target] = `#${Math.round(primary + (secondary - primary) * x).toString(16).padStart(2, "0")}${Math.round(a + (n - a) * x).toString(16).padStart(2, "0")}${Math.round(o + (r - o) * x).toString(16).padStart(2, "0")}`;
-    }
+const mixColors = (() => {
+    const cache = new Map();
+    return (primary, secondary, x) => {
+        const key = `${primary}_${secondary}_${x}`;
+        if (cache.has(key)) {
+            return cache.get(key);
+        }
+
+        const parse = hex => hex.match(/\w\w/g).map(e => parseInt(e, 16));
+        const [r1, g1, b1] = parse(primary);
+        const [r2, g2, b2] = parse(secondary);
+
+        const result = `#${Math.round(r1 + (r2 - r1) * x).toString(16).padStart(2, "0")}${Math.round(g1 + (g2 - g1) * x).toString(16).padStart(2, "0")}${Math.round(b1 + (b2 - b1) * x).toString(16).padStart(2, "0")}`;
+        cache.set(key, result);
+        return result;
+    };
 })();
 
 function generateWeaponSprite(props) {
@@ -185,19 +193,22 @@ function drawWrappedText(text, x, y, size, maxWidth = 200, fill = "#FFFFFF", ali
     return height;
 }
 
+const textMeasureCache = new Map();
 function measureText(text, size) {
+    const key = `${size}|${text}`;
+    if (textMeasureCache.has(key)) {
+        return textMeasureCache.get(key);
+    }
+
     ctx.save();
     ctx.font = `bold ${size}px sans-serif`;
-
     const width = ctx.measureText(text).width;
     const height = ctx.measureText("M").width;
-
     ctx.restore();
 
-    return {
-        width: width,
-        height: height
-    };
+    const result = { width, height };
+    textMeasureCache.set(key, result);
+    return result;
 }
 
 function drawCommander(commander) {
@@ -248,7 +259,26 @@ function drawCommanders(uScale) {
     }
 }
 
+let fps = 0,
+    mspt = 0,
+    frames = 0,
+    totalMS = 0;
+
+const drawOptions = {
+    stars: true,
+    asteroids: true,
+    ships: true,
+    deathClones: true,
+    projectiles: true,
+    hardpoints: true,
+    squadrons: true,
+    explosions: true
+};
+
+window.drawOpts = drawOptions;
+
 export default function draw() {
+    const start = performance.now();
     state.camera.realX = Math.max(-state.world.width, Math.min(state.camera.realX, state.world.width));
     state.camera.realY = Math.max(-state.world.height, Math.min(state.camera.realY, state.world.height));
 
@@ -274,20 +304,22 @@ export default function draw() {
     const realMouseX = (state.inputs.mouseX - canvas.width / 2) / scale + state.camera.x;
     const realMouseY = (state.inputs.mouseY - canvas.height / 2) / scale + state.camera.y;
 
-    ctx.fillStyle = "#DEDEDE";
-    ctx.shadowColor = "#FFFFFF";
-    closeByStars.forEach(star => {
-        const XYHash = (star.x + star.y) * (.5 + Math.sin(performance.now() / 1000) * .5);
-        const size = 15 + (.5 + Math.sin(XYHash / (star.x + star.y))) * 10;
+    if (drawOptions.stars) {
+        ctx.fillStyle = "#DEDEDE";
+        ctx.shadowColor = "#FFFFFF";
+        closeByStars.forEach(star => {
+            const XYHash = (star.x + star.y) * (.5 + Math.sin(start / 1000) * .5);
+            const size = 15 + (.5 + Math.sin(XYHash / (star.x + star.y))) * 10;
 
-        if (size * scale > 3) {
-            ctx.shadowBlur = size * 3;
-        }
+            if (size * scale > 3) {
+                ctx.shadowBlur = size * 3;
+            }
 
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, size, 0, Math.PI * 2);
-        ctx.fill();
-    });
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, size, 0, Math.PI * 2);
+            ctx.fill();
+        });
+    }
 
     const planetSize = planetOptions.Radius * (4 + planetOptions.SizeScalar * 6);
     const planetDist = state.world.width - 250;
@@ -297,29 +329,31 @@ export default function draw() {
 
     ctx.shadowBlur = 0;
 
-    state.world.asteroids.forEach(asteroid => {
-        const size = asteroid.size;
+    if (drawOptions.asteroids) {
+        state.world.asteroids.forEach(asteroid => {
+            const size = asteroid.size;
 
-        ctx.save();
-        ctx.translate(asteroid.x, asteroid.y);
-        ctx.rotate(asteroid.angle + performance.now() / (size * size / 1.5) * (asteroid.id % 2 ? -1 : 1));
-        ctx.scale(size, size);
+            ctx.save();
+            ctx.translate(asteroid.x, asteroid.y);
+            ctx.rotate(asteroid.angle + start / (size * size / 1.5) * (asteroid.id % 2 ? -1 : 1));
+            ctx.scale(size, size);
 
-        const assetName = asteroid.type + ".png";
+            const assetName = asteroid.type + ".png";
 
-        if (assetsLib.assets.has(assetName)) {
-            const asset = assetsLib.assets.get(assetName);
-            if (asset.ready) {
-                ctx.drawImage(asset, -1, -1, 2, 2);
+            if (assetsLib.assets.has(assetName)) {
+                const asset = assetsLib.assets.get(assetName);
+                if (asset.ready) {
+                    ctx.drawImage(asset, -1, -1, 2, 2);
+                } else {
+                    assetsLib.loadAsset(`/assets/asteroids/${assetName}`, assetName);
+                }
             } else {
                 assetsLib.loadAsset(`/assets/asteroids/${assetName}`, assetName);
             }
-        } else {
-            assetsLib.loadAsset(`/assets/asteroids/${assetName}`, assetName);
-        }
 
-        ctx.restore();
-    });
+            ctx.restore();
+        });
+    }
 
     // Draw world width/height
     ctx.strokeStyle = "#C8C8C8";
@@ -328,21 +362,25 @@ export default function draw() {
 
     const drawObjects = [];
 
-    state.world.deathClones.forEach((clone, index) => {
-        drawObjects.push({
-            type: 1,
-            key: index,
-            object: clone
+    if (drawOptions.deathClones) {
+        state.world.deathClones.forEach((clone, index) => {
+            drawObjects.push({
+                type: 1,
+                key: index,
+                object: clone
+            });
         });
-    });
+    }
 
-    ships.forEach((ship, index) => {
-        drawObjects.push({
-            type: 0,
-            key: index,
-            object: ship
+    if (drawOptions.ships) {
+        ships.forEach((ship, index) => {
+            drawObjects.push({
+                type: 0,
+                key: index,
+                object: ship
+            });
         });
-    });
+    }
 
     drawObjects.sort((a, b) => b.object.size - a.object.size);
     drawObjects.forEach(({ type, key, object }) => {
@@ -402,11 +440,11 @@ export default function draw() {
                 ctx.drawImage(asset, -ship.size / 2, -ship.size / 2, ship.size, ship.size);
 
                 if (ship.shieldAbility) {
-                    ctx.drawImage(assetsLib.getShieldFrame(asset, ship.key, ((performance.now() / 50 | 0) % 16) | 0), -ship.size / 2, -ship.size / 2, ship.size, ship.size);
+                    ctx.drawImage(assetsLib.getShieldFrame(asset, ship.key, ((start / 50 | 0) % 16) | 0), -ship.size / 2, -ship.size / 2, ship.size, ship.size);
                 }
 
                 // Draw hardpoints
-                if (shipConfig[ship.key].classification >= shipTypes.Corvette) {
+                if (drawOptions.hardpoints && shipConfig[ship.key].classification >= shipTypes.Corvette) {
                     const mouseOverShip = Math.abs(realMouseX - ship.x) < ship.size / 2 && Math.abs(realMouseY - ship.y) < ship.size / 2;
 
                     if (mouseOverShip) {
@@ -454,7 +492,7 @@ export default function draw() {
                                                 size: .9 + Math.random()
                                             });
 
-                                            if (Math.random() > .5) {
+                                            if (Math.random() > .8) {
                                                 setTimeout(() => {
                                                     explosions.add({
                                                         x: ship.size / 2 * hardpoint.offset * Math.cos(hardpoint.direction + ship.angle) + ship.x,
@@ -563,124 +601,125 @@ export default function draw() {
     });
 
     // Draw projectiles
-    projectiles.forEach(projectile => {
-        projectile.x = lerp(projectile.x, projectile.realX, .2);
-        projectile.y = lerp(projectile.y, projectile.realY, .2);
+    if (drawOptions.projectiles) {
+        projectiles.forEach(projectile => {
+            projectile.x = lerp(projectile.x, projectile.realX, .2);
+            projectile.y = lerp(projectile.y, projectile.realY, .2);
 
-        const props = weaponDrawProperties[projectile.type];
+            const props = weaponDrawProperties[projectile.type];
 
-        if (projectile.size * props.strength * 6 * scale < 2) {
-            return;
-        }
-
-        ctx.save();
-        ctx.translate(projectile.x, projectile.y);
-        ctx.rotate(projectile.angle - Math.PI / 2);
-        ctx.scale(6 * props.strength, 6 * props.strength);
-
-        if (props.key === "SubjugatorIonBlast") {
-            const q = performance.now();
-            ctx.save();
-
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = "#FFFFFF";
-
-            ctx.globalAlpha = .3;
-
-            // Define the hue range for purple-pink-white
-            const minHue = 270;
-            const maxHue = 330;
-
-            // Calculate the hue value within the range
-            const hue = (q / 10 % (maxHue - minHue)) + minHue;
-            ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
-
-            ctx.scale(projectile.size, projectile.size);
-
-            ctx.beginPath();
-
-            for (let i = 0; i < 24; i++) {
-                const angle = Math.PI * 2 / 24 * i + q / 1000 + performance.now() / 2300;
-                const dist = Math.sin(angle * 4 + q / 1230 + i) * .5 + .5 * Math.sin((q + Math.tan(i)) / 1000);
-
-                ctx.lineTo(Math.cos(angle) * dist, Math.sin(angle) * dist * 1.15);
+            if (projectile.size * props.strength * 6 * scale < 2) {
+                return;
             }
 
-            ctx.closePath();
-            ctx.fill();
+            ctx.save();
+            ctx.translate(projectile.x, projectile.y);
+            ctx.rotate(projectile.angle - Math.PI / 2);
+            ctx.scale(6 * props.strength, 6 * props.strength);
 
-            ctx.beginPath();
-            ctx.arc(0, 0, .2 + (Math.sin(q) * .25 + .25), 0, Math.PI * 2);
-            ctx.fillStyle = "#FFFFFF";
-            ctx.fill();
+            if (props.key === "SubjugatorIonBlast") {
+                const q = start;
+                ctx.save();
+
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = "#FFFFFF";
+
+                ctx.globalAlpha = .3;
+
+                // Define the hue range for purple-pink-white
+                const minHue = 270;
+                const maxHue = 330;
+
+                // Calculate the hue value within the range
+                const hue = (q / 10 % (maxHue - minHue)) + minHue;
+                ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+
+                ctx.scale(projectile.size, projectile.size);
+
+                ctx.beginPath();
+
+                for (let i = 0; i < 24; i++) {
+                    const angle = Math.PI * 2 / 24 * i + q / 1000 + start / 2300;
+                    const dist = Math.sin(angle * 4 + q / 1230 + i) * .5 + .5 * Math.sin((q + Math.tan(i)) / 1000);
+
+                    ctx.lineTo(Math.cos(angle) * dist, Math.sin(angle) * dist * 1.15);
+                }
+
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(0, 0, .2 + (Math.sin(q) * .25 + .25), 0, Math.PI * 2);
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fill();
+
+                ctx.restore();
+            } else {
+                ctx.drawImage(props.sprite, -projectile.size, -projectile.size, projectile.size * 2, projectile.size * 2);
+            }
 
             ctx.restore();
-        } else {
-            ctx.drawImage(props.sprite, -projectile.size, -projectile.size, projectile.size * 2, projectile.size * 2);
-        }
-
-        ctx.restore();
-    });
+        });
+    }
 
     // Draw squadrons
-    squadrons.forEach(squadron => {
-        squadron.x = lerp(squadron.x, squadron.realX, .2);
-        squadron.y = lerp(squadron.y, squadron.realY, .2);
-        squadron.health = lerp(squadron.health, squadron.realHealth, .2);
+    if (drawOptions.squadrons) {
+        squadrons.forEach(squadron => {
+            squadron.x = lerp(squadron.x, squadron.realX, .2);
+            squadron.y = lerp(squadron.y, squadron.realY, .2);
+            squadron.health = lerp(squadron.health, squadron.realHealth, .2);
 
-        if (scale > .6 || state.world.snapshotMode) {
-            return;
-        }
+            if (scale > .6 || state.world.snapshotMode) {
+                return;
+            }
 
-        ctx.save();
-        ctx.translate(squadron.x, squadron.y);
+            ctx.save();
+            ctx.translate(squadron.x, squadron.y);
 
-        // ctx.fillStyle = squadron.team === 0 ? "#FF0000" : "#0000FF";
-        ctx.fillStyle = teamColors[squadron.team];
-        ctx.strokeStyle = mixColors(ctx.fillStyle, "#000000", .5);
-        ctx.beginPath();
-        ctx.roundRect(-40, -40, 80, 80, 17.5);
+            // ctx.fillStyle = squadron.team === 0 ? "#FF0000" : "#0000FF";
+            ctx.fillStyle = teamColors[squadron.team];
+            ctx.strokeStyle = mixColors(ctx.fillStyle, "#000000", .5);
+            ctx.beginPath();
+            ctx.roundRect(-40, -40, 80, 80, 17.5);
 
-        ctx.globalAlpha = .125;
-        ctx.fill();
+            ctx.globalAlpha = .125;
+            ctx.fill();
 
-        ctx.globalAlpha = 1;
-        ctx.lineWidth = 5;
-        ctx.stroke();
+            ctx.globalAlpha = 1;
+            ctx.lineWidth = 5;
+            ctx.stroke();
 
-        ctx.globalAlpha = .5;
-        ctx.drawImage(assetsLib.assets.get(squadron.asset), -30, -30, 60, 60);
+            ctx.globalAlpha = .5;
+            ctx.drawImage(assetsLib.assets.get(squadron.asset), -30, -30, 60, 60);
 
-        ctx.globalAlpha = 1;
-        drawBar(0, 55, 80, 10, squadron.health, "#00FFC8");
+            ctx.globalAlpha = 1;
+            drawBar(0, 55, 80, 10, squadron.health, "#00FFC8");
 
-        ctx.restore();
+            ctx.restore();
 
-        const mouseOverSquadron = Math.abs(realMouseX - squadron.x) < 30 && Math.abs(realMouseY - squadron.y) < 30;
+            const mouseOverSquadron = Math.abs(realMouseX - squadron.x) < 30 && Math.abs(realMouseY - squadron.y) < 30;
 
-        if (mouseOverSquadron) {
-            state.inputs.shipOver = squadron;
-        }
-    });
+            if (mouseOverSquadron) {
+                state.inputs.shipOver = squadron;
+            }
+        });
+    }
 
     // Draw explosions
-    explosions.forEach(explosion => {
+    if (drawOptions.explosions) {
+        explosions.forEach(explosion => {
+            if (explosion.sprite.currentFrame >= explosion.sprite.frames.length - 1) {
+                explosions.delete(explosion);
+                return;
+            }
 
-        if (explosion.sprite.currentFrame >= explosion.sprite.frames.length - 1) {
-            explosions.delete(explosion);
-            return;
-        }
-
-        ctx.save();
-
-        ctx.translate(explosion.x, explosion.y);
-        ctx.scale(explosion.size, explosion.size);
-        ctx.rotate(explosion.angle);
-
-        explosion.sprite.draw(ctx, -1, -1, 2, 2);
-
-        ctx.restore();
-    });
+            ctx.save();
+            ctx.translate(explosion.x, explosion.y);
+            ctx.rotate(explosion.angle);
+            explosion.sprite.draw(ctx, -explosion.size, -explosion.size, explosion.size * 2, explosion.size * 2);
+            ctx.restore();
+        });
+    }
 
     ctx.restore();
 
@@ -707,14 +746,10 @@ export default function draw() {
     ctx.save();
     ctx.scale(uScale, uScale);
 
-    if (!state.world.snapshotMode) {
-
-        ctx.globalAlpha = .5;
-
-        // Minimap
+    if (!state.world.snapshotMode) { // Minimap
         ctx.save();
+        ctx.globalAlpha = .5;
         ctx.translate(10, canvas.height / uScale - 10 - 230);
-
         ctx.fillStyle = "#111111";
         ctx.fillRect(0, 0, 230, 230);
 
@@ -809,7 +844,7 @@ export default function draw() {
         drawText(planetName, 15, canvas.height / uScale - 10 - 230 - 20, 28, "#C8C8C8", "left");
     }
 
-    if (state.inputs.hardpointOver !== null) {
+    if (state.inputs.hardpointOver !== null) { // Hardpoint tooltip
         const str = state.inputs.hardpointOver.data.weapon.name + " - " + Math.round(state.inputs.hardpointOver.data.weapon.damage) + "dmg";
         const measurement = measureText(str, 18);
         const width = measurement.width + 15;
@@ -821,7 +856,7 @@ export default function draw() {
         drawText(str, state.inputs.mouseX / uScale + 15, state.inputs.mouseY / uScale + 25, 18);
     }
 
-    if (!state.world.snapshotMode && state.inputs.shipOver !== null && shipConfig[state.inputs.shipOver.key]) {
+    if (!state.world.snapshotMode && state.inputs.shipOver !== null && shipConfig[state.inputs.shipOver.key]) { // Ship tooltip
         ctx.save();
         const cfg = shipConfig[state.inputs.shipOver.key];
         const str = cfg.name + " - " + shipTypeNames[cfg.classification];
@@ -984,7 +1019,7 @@ export default function draw() {
 
     drawCommanders(uScale);
 
-    if (!state.world.snapshotMode) {
+    if (!state.world.snapshotMode) { // Buttons & buildables/controllables
         ctx.save();
 
         const width = canvas.width / uScale;
@@ -1059,20 +1094,19 @@ export default function draw() {
 
                 ctx.save();
                 ctx.translate(467 + 75 * (i % 14), 50 + Math.floor(i / 14) * 75);
-                ctx.scale(30, 30);
 
                 ctx.fillStyle = "#505050";
                 ctx.beginPath();
-                ctx.arc(0, 0, 1, 0, Math.PI * 2);
+                ctx.arc(0, 0, 30, 0, Math.PI * 2);
                 ctx.closePath();
                 ctx.fill();
 
                 ctx.rotate(-Math.PI / 6);
-                ctx.drawImage(assetsLib.assets.get(ship.asset), -.8, -.8, 1.6, 1.6);
+                ctx.drawImage(assetsLib.assets.get(ship.asset), -20, -20, 40, 40);
                 ctx.rotate(Math.PI / 6);
 
                 // Cost below
-                drawText(ship.cost, 0, .75, .425, "#FFFFFF", "center");
+                drawText(ship.cost, 0, 20, 15, "#FFFFFF", "center");
 
                 ctx.restore();
                 state.clickables.push(state.UIClickable.radial(467 + 75 * (i % 14), yShift + 50 + Math.floor(i / 14) * 75, 30, () => {
@@ -1118,7 +1152,7 @@ export default function draw() {
         ctx.restore();
     }
 
-    if (!state.world.snapshotMode && state.world.reinforcementsMenuOpen) {
+    if (!state.world.snapshotMode && state.world.reinforcementsMenuOpen) { // Reinforcements menu
         if (state.world.reinforcementDrag.enabled) {
             drawText("Shift-Click to cancel", canvas.width / uScale - 150, canvas.height / uScale - 100, 20, "#FFFFFF", "center");
             drawText("Click to place", canvas.width / uScale - 150, canvas.height / uScale - 80, 20, "#FFFFFF", "center");
@@ -1185,10 +1219,23 @@ export default function draw() {
 
             ctx.restore();
         }
-
-        ctx.restore();
     }
+
+    ctx.restore();
+
+    drawText(`${fps} fps | ${mspt} mspt`, canvas.width / 2 / uScale, 20, 15, "#FFFFFF", "center");
+
+    totalMS += performance.now() - start;
+    frames++;
 }
+
+setInterval(() => {
+    fps = frames;
+    mspt = (totalMS / fps).toFixed(2);
+
+    frames = 0;
+    totalMS = 0;
+}, 1000);
 
 /**
  * @param {{name:string,color:string,fleet:{ship:string,hero:string|null}[]}} attackingFaction
