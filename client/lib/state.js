@@ -753,7 +753,7 @@ worker.onmessage = event => {
         } break;
         case 2: {
             const content = data.shift();
-            console.log("Text event:", content);
+            // console.log("Text event:", content);
             world.text.push({
                 text: content,
                 displayText: "",

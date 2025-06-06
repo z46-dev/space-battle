@@ -576,6 +576,14 @@ class Squadron {
             health: health
         };
     }
+
+    destroy() {
+        for (const ship of this.ships) {
+            ship.hardpoints.forEach(hp => {
+                hp.health = 0;
+            });
+        }
+    }
 }
 
 class Hangar {
@@ -1259,6 +1267,8 @@ class Battle {
          * @type {Map<number, Projectile>}
          */
         this.projectiles = new Map();
+
+        /** @type {Map<number, Squadron>} */
         this.squadrons = new Map();
 
         this.width = width;
@@ -1305,9 +1315,9 @@ class Battle {
                 this.totalTime = 0;
             }
 
-            if (this.mspt > 15 && (this.ships.size + this.projectiles.size) > 100) {
-                console.log(this.fps, this.mspt, this.ships.size + this.projectiles.size);
-            }
+            // if (this.mspt > 15 && (this.ships.size + this.projectiles.size) > 100) {
+            //     console.log(this.fps, this.mspt, this.ships.size + this.projectiles.size);
+            // }
 
             if (this.ships.size === 0 || this.survival != null) {
                 return;
@@ -1530,6 +1540,7 @@ class SurvivalWrapper {
                         if (this.enemiesRemaining <= 0) {
                             this.battle.displayText(`Wave ${this.wave} cleared!`);
                             setTimeout(this.startWave.bind(this), 15000);
+                            this.pruneSquadrons();
                         }
 
                         const reward = Math.round(ships[ship.key].cost * SurvivalWrapper.CREDIT_EARN_SCALE);
@@ -1559,6 +1570,19 @@ class SurvivalWrapper {
         this.credits -= shipConfig.cost;
         this.battle.reinforcements[this.shipyard.team].push(key);
         return true;
+    }
+
+    pruneSquadrons() {
+        if (this.battle.squadrons.size < 96) {
+            return;
+        }
+
+        const squadrons = Array.from(this.battle.squadrons.values());
+        squadrons.sort(() => .5 - Math.random());
+
+        for (let i = 0; i < squadrons.length / 2; i ++) {
+            squadrons[i].destroy();
+        }
     }
 }
 
