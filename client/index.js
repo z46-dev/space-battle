@@ -1223,7 +1223,7 @@ export default function draw() {
 
     ctx.restore();
 
-    drawText(`${fps} fps | ${mspt} mspt`, canvas.width / 2 / uScale, 20, 15, "#FFFFFF", "center");
+    // drawText(`${fps} fps | ${mspt} mspt`, canvas.width / 2 / uScale, 20, 15, "#FFFFFF", "center");
 
     totalMS += performance.now() - start;
     frames++;
