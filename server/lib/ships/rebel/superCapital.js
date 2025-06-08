@@ -355,7 +355,7 @@ ships.VISCOUNT_PROTOTYPE_REBEL = {
     size: 4800,
     cost: 25000,
     speed: 3,
-    turnSpeed: .0001,
+    turnSpeed: .001,
     shield: 75000,
     shieldRegen: 75,
     shieldRegenAbility: {

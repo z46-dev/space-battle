@@ -55,8 +55,8 @@ const shared = {
     },
 
     /**
-     * @param {{name:string,color:string,fleet:{ship:string,hero:string|null}[],defenses:{shipyards:string[],stations:string[]}}} attackingFaction
-     * @param {{name:string,color:string,fleet:{ship:string,hero:string|null}[],defenses:{shipyards:string[],stations:string[]}}} defendingFaction
+     * @param {{name:string,color:string,fleet:{ship:string,hero:string|null}[],pathfinder:{ship:string,hero:string|null}|null,defenses:{shipyards:string[],stations:string[]}}} attackingFaction
+     * @param {{name:string,color:string,fleet:{ship:string,hero:string|null}[],pathfinder:{ship:string,hero:string|null}|null,defenses:{shipyards:string[],stations:string[]}}} defendingFaction
      * @param {boolean} attacking
      * @param {string} designConfig
      * @param {string} planetName

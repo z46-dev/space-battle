@@ -240,10 +240,10 @@ function drawCommander(commander) {
     }
 }
 
-function drawCommanders(uScale) {
+function drawCommanders(uScale, additionalY) {
     const size = 75;
     const x = canvas.width / uScale - size - 10;
-    let y = canvas.height / uScale - size - 20;
+    let y = canvas.height / uScale - size - 20 - additionalY;
     ctx.globalAlpha = 1;
 
     for (const commander of state.world.commanders) {
@@ -730,9 +730,11 @@ export default function draw() {
         ctx.translate(state.world.reinforcementDrag.x, state.world.reinforcementDrag.y);
         ctx.rotate(state.world.reinforcementDrag.rotation);
 
-        const size = shipConfig[state.world.reinforcementDrag.key].size * scale;
+        const reinforcement = state.world.availableReinforcements[state.world.reinforcementDrag.key];
 
-        ctx.drawImage(assetsLib.assets.get(shipConfig[state.world.reinforcementDrag.key].asset), -size / 2, -size / 2, size, size);
+        const size = shipConfig[reinforcement.ship].size * scale;
+
+        ctx.drawImage(assetsLib.assets.get(shipConfig[reinforcement.ship].asset), -size / 2, -size / 2, size, size);
 
         ctx.restore();
     }
@@ -1017,8 +1019,6 @@ export default function draw() {
         y += measurement.height + 5;
     });
 
-    drawCommanders(uScale);
-
     if (!state.world.snapshotMode) { // Buttons & buildables/controllables
         ctx.save();
 
@@ -1152,11 +1152,15 @@ export default function draw() {
         ctx.restore();
     }
 
+    let reinforcementY = 0;
+
     if (!state.world.snapshotMode && state.world.reinforcementsMenuOpen) { // Reinforcements menu
         if (state.world.reinforcementDrag.enabled) {
             drawText("Shift-Click to cancel", canvas.width / uScale - 150, canvas.height / uScale - 100, 20, "#FFFFFF", "center");
             drawText("Click to place", canvas.width / uScale - 150, canvas.height / uScale - 80, 20, "#FFFFFF", "center");
             drawText("Shift-Scroll to rotate", canvas.width / uScale - 150, canvas.height / uScale - 60, 20, "#FFFFFF", "center");
+
+            reinforcementY = 175;
         } else {
             // Top right corner menu
             ctx.save();
@@ -1169,6 +1173,8 @@ export default function draw() {
 
             let boxHeight = Math.ceil(state.world.availableReinforcements.length / rowSize) * ((cellSize + cellPadding) * 2);
 
+            reinforcementY = boxHeight + 50;
+
             ctx.translate(canvas.width / uScale - boxWidth - 10, canvas.height / uScale - 10 - boxHeight);
 
             drawText("Reinforcements", boxWidth / 2, -20, 25, "#C8C8C8", "center");
@@ -1179,7 +1185,7 @@ export default function draw() {
             ctx.globalAlpha = 1;
 
             for (let i = 0; i < state.world.availableReinforcements.length; i++) {
-                const ship = shipConfig[state.world.availableReinforcements[i]];
+                const ship = shipConfig[state.world.availableReinforcements[i].ship];
                 const x = 17.5 + (i % 4) * (cellSize + cellPadding) * 2;
                 const y = 17.5 + Math.floor(i / 4) * (cellSize + cellPadding) * 2;
 
@@ -1196,11 +1202,24 @@ export default function draw() {
                 ctx.translate(x, y);
                 ctx.scale(cellSize, cellSize);
                 ctx.translate(.5, .5);
-                ctx.fillStyle = "#505050";
-                ctx.beginPath();
-                ctx.arc(0, 0, 1, 0, Math.PI * 2);
-                ctx.closePath();
-                ctx.fill();
+
+                if (state.world.availableReinforcements[i].hero) {
+                    ctx.scale(2, 2);
+                    drawCommander({
+                        name: state.world.availableReinforcements[i].hero,
+                        health: false
+                    });
+                } else {
+                    ctx.fillStyle = "#505050";
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 1, 0, Math.PI * 2);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.rotate(-Math.PI / 6);
+                    ctx.drawImage(assetsLib.assets.get(ship.asset), -.8, -.8, 1.6, 1.6);
+                }
+
+                ctx.restore();
 
                 state.clickables.push(state.UIClickable.radial(
                     canvas.width / uScale - boxWidth - 10 + x + cellSize / 2,
@@ -1208,18 +1227,16 @@ export default function draw() {
                     cellSize,
                     () => {
                         state.world.reinforcementDrag.enabled = true;
-                        state.world.reinforcementDrag.key = state.world.availableReinforcements[i];
+                        state.world.reinforcementDrag.key = i;
                     }
                 ));
-
-                ctx.rotate(-Math.PI / 6);
-                ctx.drawImage(assetsLib.assets.get(ship.asset), -.8, -.8, 1.6, 1.6);
-                ctx.restore();
             }
 
             ctx.restore();
         }
     }
+
+    drawCommanders(uScale, reinforcementY);
 
     ctx.restore();
 

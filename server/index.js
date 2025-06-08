@@ -1257,6 +1257,8 @@ class Ship {
 }
 
 class Battle {
+    static MAXIMUM_ACTIVE_POPULATION = 100;
+
     constructor(width, height, teams) {
         /**
          * @type {Map<number, Ship>}
@@ -1279,14 +1281,15 @@ class Battle {
 
         this.soundsToSend = [];
 
-        /** @type {string[][]} */
-        this.reinforcements = [[], []]; // reinforcements[team][i] = shipKey
+        /** @type {{ ship: string, hero: string | null }}[][]} */
+        this.reinforcements = [[], []]; // reinforcements[team][i] = { ship: string, hero: string | null }
 
         this.teams = [];
         for (let i = 0; i < teams; i++) {
             this.teams.push({
                 i: i,
-                spatialHash: new SpatialHashGrid()
+                spatialHash: new SpatialHashGrid(),
+                pathfinder: null
             });
         }
 
@@ -1305,8 +1308,6 @@ class Battle {
 
         this.paused = false;
 
-        const performanceMetrics = {}; // TODO: implement
-
         setInterval(() => {
             if (this.frames > 0) {
                 this.fps = this.frames;
@@ -1323,16 +1324,79 @@ class Battle {
                 return;
             }
 
-            const teamsAlive = new Set();
+            const teamsAlive = new Map();
 
             for (const ship of this.ships.values()) {
                 if (ship.classification >= shipTypes.Corvette) {
-                    teamsAlive.add(ship.team);
+                    // teamsAlive.add(ship.team);
+                    teamsAlive.set(ship.team, (teamsAlive.get(ship.team) ?? 0) + ships[ship.key].population);
                 }
             }
 
             if (teamsAlive.size > 1) {
+                teamsAlive.forEach((population, teamIndex) => {
+                    if (teamIndex === 0) {
+                        return;
+                    }
+
+                    const stuff = getInitialAndReinforcements({
+                        fleet: this.reinforcements[teamIndex]
+                    }, Battle.MAXIMUM_ACTIVE_POPULATION - population);
+
+                    if (stuff.initialShips.length === 0) {
+                        return;
+                    }
+
+                    const livingShips = [];
+                    this.ships.forEach(ship => {
+                        if (ship.team === teamIndex && ship.classification >= shipTypes.Corvette) {
+                            livingShips.push(ship);
+                        }
+                    });
+
+                    const entry = stuff.initialShips.sort((a, b) => ships[b.ship].population - ships[a.ship].population)[0]
+                    if (Math.random() > .4) {
+                        const nearBy = livingShips[Math.floor(Math.random() * livingShips.length)];
+
+                        scene.hyperspaceIn(
+                            entry.ship, teamIndex,
+                            Math.max(Math.min(nearBy.x + Math.random() * nearBy.size * 4 - nearBy.size * 2, this.width), -this.width),
+                            Math.max(Math.min(nearBy.y + Math.random() * nearBy.size * 4 - nearBy.size * 2, this.height), -this.height),
+                            nearBy.angle,
+                            Math.random() * 1000,
+                            ship => {
+                                if (entry.hero != null) {
+                                    ship.commander = new Commander(heroes[entry.hero], ship);
+                                    ship.commander.ship = ship;
+                                }
+                            }
+                        );
+                    }
+                });
+
                 return;
+            }
+
+            // If the teams without ships have reinforcements still, spawn them in.
+            for (let i = 0; i < this.teams.length; i++) {
+                if (!teamsAlive.has(i) && this.reinforcements[i].length > 0) {
+                    const reinforcements = this.reinforcements[i].splice(0, 3); // Spawn 3 at a time
+                    for (const entry of reinforcements) {
+                        console.log(`Reinforcing team ${i} with ship ${entry.ship} (hero: ${entry.hero})`);
+                        const ship = this.spawn(entry.ship, i, Math.random() * this.width, Math.random() * this.height);
+                        ship.shield = ship.maxShield;
+                        ship.speed = ship.maxSpeed;
+                        ship.angleGoal = Math.random() * Math.PI * 2;
+                        ship.angle = ship.angleGoal;
+
+                        if (entry.hero != null) {
+                            ship.commander = new Commander(heroes[entry.hero], ship);
+                            ship.commander.ship = ship;
+                        }
+                    }
+
+                    return;
+                }
             }
 
             this.soundsEnabled = false;
@@ -1351,11 +1415,11 @@ class Battle {
 
             for (const team of this.teams) {
                 packet[team.i] = {
-                    survived: this.shipsStartedWith[team.i].filter(ship => ship.commander == null && this.ships.has(ship.id)).map(ship => ship.key),
+                    survived: this.shipsStartedWith[team.i].filter(ship => ship.commander == null && this.ships.has(ship.id)).map(ship => ship.key).concat(this.reinforcements[team.i].filter(s => s.hero == null).map(s => s.ship)),
                     survivedHeroes: this.shipsStartedWith[team.i].filter(ship => ship.commander != null && this.ships.has(ship.id)).map(ship => ({
                         ship: ship.key,
                         hero: ship.commander.config.key
-                    })),
+                    })).concat(this.reinforcements[team.i].filter(s => s.hero != null)),
                     survivedShipyards: this.shipyardsStartedWith[team.i].filter(shipyard => this.ships.has(shipyard.id)).map(shipyard => shipyard.key),
                     survivedStations: this.stationsStartedWith[team.i].filter(station => this.ships.has(station.id)).map(station => station.key),
                     died: this.shipsStartedWith[team.i].filter(ship => !this.ships.has(ship.id)).map(ship => ship.key),
@@ -1365,6 +1429,7 @@ class Battle {
                     })),
                     diedShipyards: this.shipyardsStartedWith[team.i].filter(shipyard => !this.ships.has(shipyard.id)).map(shipyard => shipyard.key),
                     diedStations: this.stationsStartedWith[team.i].filter(station => !this.ships.has(station.id)).map(station => station.key),
+                    pathfinder: team.pathfinder
                 };
             }
 
@@ -1568,7 +1633,11 @@ class SurvivalWrapper {
         }
 
         this.credits -= shipConfig.cost;
-        this.battle.reinforcements[this.shipyard.team].push(key);
+        this.battle.reinforcements[this.shipyard.team].push({
+            hero: null,
+            ship: key
+        });
+
         return true;
     }
 
@@ -1580,7 +1649,7 @@ class SurvivalWrapper {
         const squadrons = Array.from(this.battle.squadrons.values());
         squadrons.sort(() => .5 - Math.random());
 
-        for (let i = 0; i < squadrons.length / 2; i ++) {
+        for (let i = 0; i < squadrons.length / 2; i++) {
             squadrons[i].destroy();
         }
     }
@@ -2137,11 +2206,11 @@ class Camera {
         if (this.battle.survival != null) {
             const buildables = this.battle.survival.shipyardBuildables;
             output.push(buildables.length, ...buildables);
-        
+
             output.push(this.battle.survival.credits);
         }
 
-        output.push(this.battle.reinforcements[0].length, ...this.battle.reinforcements[0]);
+        output.push(this.battle.reinforcements[0].length, ...this.battle.reinforcements[0].map(shipConf => [shipConf.hero, shipConf.ship]).flat());
 
         this.connection.talk(output);
     }
@@ -2208,6 +2277,66 @@ setInterval(function minimapUpdate() {
     });
 }, 1000);
 
+class IncomingFaction {
+    name = "";
+    color = "";
+
+    /** @type {{ ship: string, hero: string | null }[]} */
+    fleet = [];
+
+    /** @type {{ ship: string, hero: string | null }} */
+    pathfinder = null;
+
+    /** @type {{ shipyards: string[], stations: string[] } | null} */
+    defenses = {
+        shipyards: [],
+        stations: []
+    };
+}
+
+/**
+ * Returns the initial and reinforcement ships for a faction.
+ * @param {IncomingFaction} faction 
+ */
+function getInitialAndReinforcements(faction, popCap = Battle.MAXIMUM_ACTIVE_POPULATION) {
+    const allShips = structuredClone(faction.fleet);
+    const initialShips = [];
+    const reinforcements = [];
+
+    let population = 0;
+
+    while (allShips.length > 0) {
+        const s = allShips.sort(() => Math.random() - 0.5).shift();
+        if (s == null) {
+            continue;
+        }
+
+        const ship = ships[s.ship];
+        if (ship == null) {
+            console.warn(`Ship ${s.ship} not found!`);
+            continue;
+        }
+
+        if (s.hero != null && heroes[s.hero] == null) {
+            console.warn(`Hero ${s.hero} not found!`);
+            continue;
+        }
+
+        if (population + ship.population > popCap) {
+            reinforcements.push(s);
+        } else {
+            initialShips.push(s);
+            population += ship.population;
+        }
+    }
+
+    return {
+        initialShips: initialShips,
+        initialPopulation: population,
+        reinforcements: reinforcements
+    };
+}
+
 onmessage = function (e) {
     switch (e.data.shift()) {
         case 0:
@@ -2246,29 +2375,61 @@ onmessage = function (e) {
                     // Expect: <faction> { name: "str", color: "str", fleet: [{ ship: "ship key", hero: "ship key" | null }], defenses: { shipyards: [], stations: [] } }
 
                     for (let i = 0; i < 2; i++) {
+                        /** @type {IncomingFaction} */
                         const faction = JSON.parse(e.data.shift());
-                        const spawnedShips = faction.fleet.map(shipConf => {
-                            const ship = spawn(shipConf.ship, i);
+                        let spawnedShips = [];
 
-                            if (shipConf.hero) {
-                                ship.commander = new Commander(heroes[shipConf.hero], ship);
+                        if (faction.pathfinder != null) {
+                            const ship = spawn(faction.pathfinder.ship, i);
+                            if (faction.pathfinder.hero != null) {
+                                ship.commander = new Commander(heroes[faction.pathfinder.hero], ship);
                                 ship.commander.ship = ship;
                             }
 
-                            if (["MEGASTARDESTROYER_DARKEMPIRE", "MEGASTARDESTROYER_EMPIRE"].includes(shipConf.ship)) {
-                                ship.x = spawnDistance * (i === 0 ? 5 : -5);
-                                ship.y = 0;
-                                ship.angle = i === 0 ? Math.PI : 0;
+                            spawnedShips.push(ship);
 
-                                if (!playerFactionIsAttacking) {
-                                    ship.x *= -1;
-                                    ship.angle += Math.PI;
+                            battle.reinforcements[i] = faction.fleet;
+                            battle.teams[i].pathfinder = faction.pathfinder;
+                        } else {
+                            const { initialShips, reinforcements } = getInitialAndReinforcements(faction);
+
+                            spawnedShips = initialShips.map(shipConf => {
+                                const ship = spawn(shipConf.ship, i);
+
+                                if (shipConf.hero) {
+                                    ship.commander = new Commander(heroes[shipConf.hero], ship);
+                                    ship.commander.ship = ship;
                                 }
-                                return null;
-                            }
 
-                            return ship;
-                        }).filter(a => !!a).sort(() => .5 - Math.random());
+                                return ship;
+                            });
+
+                            battle.reinforcements[i] = reinforcements;
+                        }
+
+                        // const spawnedShips = spawnedShips = faction.fleet.map(shipConf => {
+                        //     const ship = spawn(shipConf.ship, i);
+
+                        //     if (shipConf.hero) {
+                        //         ship.commander = new Commander(heroes[shipConf.hero], ship);
+                        //         ship.commander.ship = ship;
+                        //     }
+
+                        //     if (["MEGASTARDESTROYER_DARKEMPIRE", "MEGASTARDESTROYER_EMPIRE"].includes(shipConf.ship)) {
+                        //         ship.x = spawnDistance * (i === 0 ? 5 : -5);
+                        //         ship.y = 0;
+                        //         ship.angle = i === 0 ? Math.PI : 0;
+
+                        //         if (!playerFactionIsAttacking) {
+                        //             ship.x *= -1;
+                        //             ship.angle += Math.PI;
+                        //         }
+
+                        //         return null;
+                        //     }
+
+                        //     return ship;
+                        // }).filter(a => !!a).sort(() => .5 - Math.random());
 
                         // if (faction.defense != null) {
                         //     spawnedShips.push(...faction.defense.shipyards.map(shipKey => spawn(shipKey, i)), ...faction.defense.stations.map(shipKey => spawn(shipKey, i)));
@@ -2303,6 +2464,8 @@ onmessage = function (e) {
                             battle.stationsStartedWith.push([]);
                         }
                     }
+
+                    throw new Error("JDSAD");
                 } break;
                 case 1: { // Pause/play
                     battle.paused = !e.data.shift();
@@ -2338,9 +2501,15 @@ onmessage = function (e) {
                     }
                 } break;
                 case 4: { // Call reinforcements
-                    const shipKey = e.data.shift();
-                    if (!battle.reinforcements[connection.team].includes(shipKey)) {
-                        connection.talk([2, `Invalid ship key!`]);
+                    const index = e.data.shift();
+                    if (index < 0 || index >= battle.reinforcements[connection.team].length) {
+                        connection.talk([2, `Invalid reinforcement index!`]);
+                        return;
+                    }
+
+                    const reinforcement = battle.reinforcements[connection.team][index];
+                    if (reinforcement == null) {
+                        connection.talk([2, `No reinforcement at index ${index}!`]);
                         return;
                     }
 
@@ -2348,13 +2517,21 @@ onmessage = function (e) {
                     const y = e.data.shift();
                     const angle = e.data.shift();
 
-                    scene.hyperspaceIn(shipKey, connection.team, x, y, angle, Math.random() * 750);
-                    connection.talk([2, `Reinforcements ${ships[shipKey]?.name ?? "???"} arriving!`]);
-                    // Remove the first instance of the ship key from the reinforcements array
-                    const index = battle.reinforcements[connection.team].indexOf(shipKey);
-                    if (index > -1) {
-                        battle.reinforcements[connection.team].splice(index, 1);
-                    }
+                    const shipKey = reinforcement.ship;
+                    const heroKey = reinforcement.hero;
+
+                    scene.hyperspaceIn(shipKey, connection.team, x, y, angle, Math.random() * 750, ship => {
+                        if (heroKey) {
+                            ship.commander = new Commander(heroes[heroKey], ship);
+                            ship.commander.ship = ship;
+                        }
+
+                        battle.shipsStartedWith[connection.team].push(ship);
+                        connection.talk([2, `Reinforcements ${ships[shipKey]?.name ?? "???"} arriving!`]);
+                    });
+
+                    // Remove the reinforcement from the array
+                    battle.reinforcements[connection.team].splice(index, 1);
                 } break;
             }
         } break;

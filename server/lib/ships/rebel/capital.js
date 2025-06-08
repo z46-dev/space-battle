@@ -12,7 +12,7 @@ ships.MC80A_REBEL = {
     size: 1450,
     cost: 7800,
     speed: 2.5,
-    turnSpeed: .02,
+    turnSpeed: .01,
     shield: 14300,
     shieldRegen: 14,
     shieldRegenAbility: {
@@ -186,8 +186,8 @@ ships.MC80BLIBERTY_REBEL = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 4 | 0,
-                reload: e.weapon.reload * .7 | 0
+                health: e.weapon.health * 5.6 | 0,
+                reload: e.weapon.reload * .55 | 0
             }
         }));
     })(),
@@ -313,62 +313,74 @@ ships.STARHAWK_REBEL = {
     name: "Starhawk",
     asset: "STARHAWK.png",
     classification: shipTypes.Capital,
-    population: 32,
-    size: 900,
+    population: 30,
+    size: 950,
     cost: 8000,
-    speed: 2,
-    turnSpeed: .001,
-    shield: 12340,
-    shieldRegen: 12,
+    speed: 3,
+    turnSpeed: .0025,
+    shield: 15600,
+    shieldRegen: 15.6,
     hardpoints: (function() {
         const output = [{
             x: -.075,
             y: .95,
             weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-            shotsAtOnce: 3,
+            shotsAtOnce: 4,
             shotDelay: 75
         }, {
             x: .075,
             y: .95,
             weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-            shotsAtOnce: 3,
+            shotsAtOnce: 4,
             shotDelay: 75
         }, {
             x: -.3,
             y: .3,
             weapon: weapons.ION_CANNON_ULTRA,
-            shotsAtOnce: 2,
-            shotDelay: 60
+            shotsAtOnce: 4,
+            shotDelay: 250
         }, {
             x: .3,
             y: .3,
             weapon: weapons.ION_CANNON_ULTRA,
-            shotsAtOnce: 2,
-            shotDelay: 60
+            shotsAtOnce: 4,
+            shotDelay: 250
         }, {
             x: -.225,
             y: -.55,
             weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
             shotsAtOnce: 2,
-            shotDelay: 60
+            shotDelay: 125
         }, {
             x: .225,
             y: -.55,
             weapon: weapons.RED_DOUBLE_TURBOLASER_CANNON,
             shotsAtOnce: 2,
-            shotDelay: 60
+            shotDelay: 125
         }, {
             x: -.15,
             y: -.7,
             weapon: weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY,
-            shotsAtOnce: 2,
-            shotDelay: 60
+            shotsAtOnce: 4,
+            shotDelay: 250
         }, {
             x: .15,
             y: -.7,
             weapon: weapons.RED_TURBOLASER_CANNON_ULTRAHEAVY,
-            shotsAtOnce: 2,
-            shotDelay: 60
+            shotsAtOnce: 4,
+            shotDelay: 250
+        }, {
+            x: -.15,
+            y: -.7,
+            weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+            shotsAtOnce: 4,
+            shotDelay: 25
+        }, {
+            x: .15,
+            y: -.7,
+            weapon: weapons.RED_ANTI_FIGHTER_LASER_CANNON,
+            shotsAtOnce: 4,
+            shotDelay: 25
         }];
 
         for (let i = 0; i < 4; i ++) {
@@ -377,25 +389,25 @@ ships.STARHAWK_REBEL = {
                 y: .6 - .075 * i,
                 weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
-                shotDelay: 120
+                shotDelay: 150
             }, {
                 x: .2,
                 y: .6 - .075 * i,
                 weapon: weapons.RED_QUAD_TURBOLASER_CANNON_HEAVY,
                 shotsAtOnce: 2,
-                shotDelay: 120
+                shotDelay: 150
             }, {
                 x: -.125,
                 y: .2 - .125 * i,
-                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.RED_DOUBLE_LASER_CANNON,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.RED_DOUBLE_LASER_CANNON_HEAVY,
                 shotsAtOnce: 3,
-                shotDelay: 60
+                shotDelay: 90
             }, {
                 x: .125,
                 y: .2 - .125 * i,
-                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON : weapons.RED_DOUBLE_LASER_CANNON,
+                weapon: i % 2 ? weapons.DOUBLE_ION_CANNON_MEDIUM : weapons.RED_DOUBLE_LASER_CANNON_HEAVY,
                 shotsAtOnce: 3,
-                shotDelay: 60
+                shotDelay: 90
             });
         }
 
@@ -403,14 +415,14 @@ ships.STARHAWK_REBEL = {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 5.3 | 0
+                health: e.weapon.health * 6 | 0
             }
         }));
     })(),
     hangars: [{
         x: 0,
         y: 0,
-        maxSquadrons: 1,
+        maxSquadrons: 2,
         squadronSize: 6,
         reserveSize: 4,
         squadronKey: "AWING_REBEL"

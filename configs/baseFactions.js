@@ -216,13 +216,13 @@ export class FactionConfig {
         const output = [];
 
         let fails = 0;
-        while (population > 0 && population < 256) {
+        while (population > 0 && fails < 256) {
             let ship = undefined,
                 i = 0;
 
             internal: while (i < possible.length * 5) {
-                possible.sort((b, a) => {
-                    if (Math.random() > .075) {
+                possible.sort((a, b) => {
+                    if (Math.random() > .1) {
                         return .5 - Math.random();
                     }
 
@@ -237,7 +237,7 @@ export class FactionConfig {
 
                 if (
                     unit.population <= population &&
-                    (unit.population <= avgPop * 1.1 || Math.random() > .8)
+                    (unit.population <= avgPop * 1.1 || Math.random() > .825)
                 ) {
                     ship = possible[0];
                     break internal;

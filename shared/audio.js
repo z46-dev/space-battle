@@ -62,6 +62,11 @@ export function playSong(type) {
     audio.onended = null;
 
     audio.oncanplaythrough = () => {
+        if (currentSong !== song) {
+            console.warn("Current song has changed while loading:", currentSong, song);
+            return;
+        }
+
         audio.play().catch(err => {
             console.error("Error playing song:", err);
             currentSong = null;
@@ -79,7 +84,6 @@ export function playSong(type) {
 export function stopSong() {
     if (audio.src) {
         audio.pause();
-        audio.src = "";
         currentSong = null;
     }
 }

@@ -706,7 +706,10 @@ worker.onmessage = event => {
                 world.availableReinforcements = [];
 
                 for (let i = 0; i < rLen; i++) {
-                    world.availableReinforcements.push(data.shift());
+                    world.availableReinforcements.push({
+                        hero: data.shift(),
+                        ship: data.shift()
+                    });
                 }
             }
         } break;

@@ -188,17 +188,17 @@ heroes["GeneralDodonna"] = {
     image: "GeneralDodonna.webp",
     ships: ["STARHAWK_REBEL"],
     modifications: function(ship) {
-        ship.shield *= 1.6;
-        ship.maxShield *= 1.6;
+        ship.shield *= 2;
+        ship.maxShield *= 2;
 
         ship.hardpoints.forEach(hp => {
-            hp.health *= 1.3;
-            hp.maxHealth *= 1.3;
+            hp.health *= 2;
+            hp.maxHealth *= 2;
         });
 
         ship.tractorBeam = {
             lock: null,
-            timer: 50
+            timer: 150
         };
     },
     onTick: function(ship) {
@@ -219,7 +219,7 @@ heroes["GeneralDodonna"] = {
 
         if (ship.tractorBeam.lock == null || ship.tractorBeam.lock.id !== currTarget.id) {
             ship.tractorBeam.lock = currTarget;
-            ship.tractorBeam.timer = 51;
+            ship.tractorBeam.timer = 150;
         } else if (ship.tractorBeam.lock.health <= .001) {
             ship.tractorBeam.lock = null;
             return;
@@ -240,9 +240,10 @@ heroes["GeneralDodonna"] = {
             ship.tractorBeam.lock.x += Math.cos(angle) * ship.tractorBeam.lock.maxSpeed * 1.5;
             ship.tractorBeam.lock.y += Math.sin(angle) * ship.tractorBeam.lock.maxSpeed * 1.5;
 
-            ship.tractorBeam.lock.hardpoints.forEach(hp => {
-                hp.tick -= .25;
-            });
+            const lerp = (a, b, t) => a + (b - a) * t;
+
+            ship.tractorBeam.lock.speed = 0;
+            ship.tractorBeam.lock.angle = lerp(ship.tractorBeam.lock.angle, angle, .1);
         }
     }
 };
