@@ -21,6 +21,7 @@ export const weaponTypes = {
     "RedLightSuperlaser": iota(),
     "RedLightSuperlaser2": iota(),
     "RedUltraTurbolaserBypassShield": iota(),
+    "RedAxialSuperlaser": iota(),
 
     // GREEN WEAPONS (Empire)
     "GreenLaserCannon": iota(),
@@ -37,6 +38,7 @@ export const weaponTypes = {
     "GreenSuperlaser": iota(),
     "GreenWeakSuperlaser": iota(),
     "GreenUltraTurbolaserBypassShield": iota(),
+    "GreenAxialSuperlaser": iota(),
 
     // BLUE WEAPONS (Republic)
     "BlueLaserCannon": iota(),
@@ -53,6 +55,7 @@ export const weaponTypes = {
     "BlueSuperlaser": iota(),
     "BlueWeakSuperlaser": iota(),
     "BlueUltraTurbolaserBypassShield": iota(),
+    "BlueAxialSuperlaser": iota(),
 
     // PURPLE (Hutts)
     "PurpleLaserCannon": iota(),
@@ -69,6 +72,7 @@ export const weaponTypes = {
     "PurpleSuperlaser": iota(),
     "PurpleWeakSuperlaser": iota(),
     "PurpleUltraTurbolaserBypassShield": iota(),
+    "PurpleAxialSuperlaser": iota(),
 
     // YELLOW (Zann Consortium)
     "YellowLaserCannon": iota(),
@@ -85,6 +89,7 @@ export const weaponTypes = {
     "YellowSuperlaser": iota(),
     "YellowWeakSuperlaser": iota(),
     "YellowUltraTurbolaserBypassShield": iota(),
+    "YellowAxialSuperlaser": iota(),
 
     // BLACK (Aurum Foundaries)
     "BlackLaserCannon": iota(),
@@ -101,6 +106,7 @@ export const weaponTypes = {
     "BlackSuperlaser": iota(),
     "BlackWeakSuperlaser": iota(),
     "BlackUltraTurbolaserBypassShield": iota(),
+    "BlackAxialSuperlaser": iota(),
 
     // ION WEAPONS (All factions)
     "IonCannon": iota(),
@@ -173,6 +179,18 @@ export const weaponDrawProperties = (function() {
             count: 1,
             strength: 4,
             key: color + "UltraTurbolaserBypassShield",
+            shadows: true,
+            isCircle: false
+        };
+    }
+
+    for (const color of ["Red", "Green", "Blue", "Purple", "Yellow", "Black"]) {
+        output[weaponTypes[color + "AxialSuperlaser"]] = {
+            color: colors[color],
+            shots: "Single",
+            count: 1,
+            strength: 4,
+            key: color,
             shadows: true,
             isCircle: false
         };

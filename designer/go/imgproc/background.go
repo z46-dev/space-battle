@@ -127,6 +127,42 @@ func RemoveBackgroundIterative(img *image.RGBA, tgR, tgG, tgB, tol float64, edge
 	}
 }
 
+func Recolor(img *image.RGBA, r, g, b uint8, tolerance float64) {
+	bounds := img.Bounds()
+	w, h := bounds.Dx(), bounds.Dy()
+
+	var wg sync.WaitGroup
+	workers := runtime.GOMAXPROCS(0)
+	rowsPer := h / workers
+	if rowsPer == 0 {
+		rowsPer = 1
+		workers = h
+	}
+
+	for i := range workers {
+		yStart := i * rowsPer
+		yEnd := yStart + rowsPer
+		if i == workers-1 {
+			yEnd = h
+		}
+		wg.Add(1)
+		go func(ys, ye int) {
+			defer wg.Done()
+			for y := ys; y < ye; y++ {
+				for x := range w {
+					idx := img.PixOffset(x, y)
+
+					R, G, B := MixColors(img.Pix[idx], img.Pix[idx+1], img.Pix[idx+2], r, g, b, tolerance)
+					img.Pix[idx] = R
+					img.Pix[idx+1] = G
+					img.Pix[idx+2] = B
+				}
+			}
+		}(yStart, yEnd)
+	}
+	wg.Wait()
+}
+
 // FuzzBorders thresholds α < 225 → 0, ≥ 225 → 255 in parallel, then
 // any still‐opaque pixel with ≥2 transparent neighbors becomes transparent.
 func FuzzBorders(img *image.RGBA) {

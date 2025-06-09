@@ -1,7 +1,7 @@
 import { FactionConfig } from "../configs/baseFactions.js";
 import allFactions from "../configs/factions.js";
 import SpatialHashGrid from "./lib/SpatialHashGrid.js";
-import { shipTypes, weaponClassifications, weaponDrawProperties, weaponProperties, weaponTypes } from "./lib/constants.js";
+import { colors, shipTypes, weaponClassifications, weaponDrawProperties, weaponProperties, weaponTypes } from "./lib/constants.js";
 import heroes from "./lib/heroes.js";
 import ships from "./lib/ships.js";
 import { TENDER_FREQUENCY_SECONDS, TENDER_HEAL_PULSE_AMOUNT } from "./lib/weapons.js";
@@ -56,7 +56,12 @@ class Projectile {
         this.explodes = hardpoint.config.explodes || this.classification === weaponClassifications.AreaOfEffect || this.classification === weaponClassifications.GuidedAOE;
         this.isGuided = hardpoint.config.seeks || this.classification === weaponClassifications.Guided || this.classification === weaponClassifications.GuidedAOE;
         this.maneuverability = 0;
-        this.realManeuverability = hardpoint.config.maneuverability ?? .05;
+        this.realManeuverability = hardpoint.config.maneuverability ?? .25;
+
+        if (this.classification === weaponClassifications.GuidedAOE && this.range > 10000) {
+            this.maneuverability = 1;
+            this.realManeuverability = 1;
+        }
 
         this.target = hardpoint.target ?? null;
         this.range = hardpoint.range + this.speed * 10;
@@ -150,6 +155,110 @@ class Projectile {
     }
 }
 
+class Superlaser {
+    static id = 0;
+
+    /**
+     * @param {Ship} ship
+     * @param {Ship} target
+     * @param {number} duration
+     * @param {number} damagePerTick
+     * @param {Hardpoint} sourceHardpoint
+     * @param {string} color
+     */
+    constructor(ship, target, duration, damagePerTick, sourceHardpoint, color) {
+        this.id = Superlaser.id++;
+
+        /** @type {Battle} */
+        this.battle = ship.battle;
+
+        this.ship = ship;
+        this.target = target;
+
+        this.timeRemaining = duration;
+        this.damagePerTick = damagePerTick;
+
+        this.sourceHardpoint = sourceHardpoint;
+
+        this.color = "#FFFFFF";
+
+        for (const key in colors) {
+            if (key.toUpperCase() === color) {
+                this.color = colors[key];
+                break;
+            }
+        }
+
+        this.battle.superlasers.set(this.id, this);
+    }
+
+    update() {
+        if (this.target.health <= 0 || this.timeRemaining <= 0) {
+            this.destroy();
+            return;
+        }
+
+        this.timeRemaining--;
+        this.target.lastHit = performance.now();
+
+        if (this.target.shield > 0) {
+            this.target.shield -= this.damagePerTick;
+        } else {
+            const hardpointsToDamage = [];
+            for (let i = 0; i < this.target.hardpoints.length; i++) {
+                const hardpoint = this.target.hardpoints[i];
+
+                if (hardpoint.health > 0) {
+                    hardpointsToDamage.push(hardpoint);
+                }
+            }
+
+            if (hardpointsToDamage.length === 0) {
+                return;
+            }
+
+            const damage = this.damagePerTick / hardpointsToDamage.length;
+            for (let i = 0; i < hardpointsToDamage.length; i++) {
+                const hardpoint = hardpointsToDamage[i];
+                hardpoint.health -= damage;
+
+                if (hardpoint.health <= 0) {
+                    hardpoint.hasExploded = true;
+
+                    if ((hardpoint.ship.classification !== shipTypes.Fighter && hardpoint.ship.classification !== shipTypes.FighterBomber && hardpoint.ship.classification !== shipTypes.Bomber) || Math.random() > .5) {
+                        this.battle.explode(hardpoint.x, hardpoint.y, Math.min(hardpoint.ship.size / 2, 80), hardpoint.ship.angle);
+                    }
+
+                    if (hardpoint.ship.classification >= shipTypes.Frigate || Math.random() > (.9 - hardpoint.ship.classification * .05)) {
+                        battle.playSound(2, hardpoint.x, hardpoint.y);
+                    }
+                }
+            }
+        }
+    }
+
+    destroy() {
+        this.battle.superlasers.delete(this.id);
+    }
+
+    get packagedData() {
+        return {
+            id: this.id,
+            x1: this.sourceHardpoint.x,
+            y1: this.sourceHardpoint.y,
+            x2: this.target.x,
+            y2: this.target.y,
+            color: this.color
+        };
+    }
+}
+
+class HardpointSuperlaserComponent {
+    duration = 100;
+    damagePerTick = 10;
+    color = "GREEN";
+}
+
 class Hardpoint {
     static id = 0;
 
@@ -176,6 +285,9 @@ class Hardpoint {
         this.bypassShield = config.weapon.bypassShield ?? false;
         this.launchAngle = config.launchAngle ?? 0;
 
+        /** @type {HardpointSuperlaserComponent | null} */
+        this.superlaserComponent = config.weapon.superlaser ?? null;
+
         this.config = config.weapon;
 
         this.health = config.weapon.health * 2;
@@ -183,7 +295,7 @@ class Hardpoint {
         this.team = ship.team;
 
         this.classification = weaponProperties[this.projectileType].classification;
-        if (this.classification !== weaponClassifications.AreaOfEffect && this.classification !== weaponClassifications.Guided && this.classification !== weaponClassifications.GuidedAOE) {
+        if (this.classification !== weaponClassifications.AreaOfEffect && this.classification !== weaponClassifications.Guided && this.classification !== weaponClassifications.GuidedAOE && this.classification) {
             this.tick -= Math.random() * this.reload | 0;
         }
 
@@ -193,6 +305,10 @@ class Hardpoint {
         this.idleFacing = 0;
 
         this.lastForcedTargetID = -1;
+
+        if (this.superlaserComponent !== null) {
+            this.tick -= 200;
+        }
     }
 
     isInArc(tx, ty) {
@@ -338,6 +454,11 @@ class Hardpoint {
         if (this.tick >= this.reload) {
             this.tick = 0;
 
+            if (this.superlaserComponent !== null) {
+                new Superlaser(this.ship, this.target.ship, this.superlaserComponent.duration, this.superlaserComponent.damagePerTick, this, this.superlaserComponent.color);
+                return;
+            }
+
             // Predict where the projectile will be when it reaches the target
             const nowDist = distance(this.x, this.y, this.target.x, this.target.y);
             const predictedX = this.target.x + Math.cos(this.target.ship.angle) * this.target.ship.speed * nowDist / this.speed;
@@ -352,14 +473,13 @@ class Hardpoint {
                         }
 
                         const inaccuracy = (this.classification === weaponClassifications.AreaOfEffect || this.classification === weaponClassifications.GuidedAOE) ? 0 : (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (target.ship.totalHealth / 1.5)) * .5;
-                        const angle = (this.launchAngle === 0 ? Math.atan2(predictedY - this.y, predictedX - this.x) : (this.launchAngle + this.ship.angle)) + inaccuracy;
+                        let angle = (this.launchAngle === 0 ? Math.atan2(predictedY - this.y, predictedX - this.x) : (this.launchAngle + this.ship.angle)) + inaccuracy;
 
                         new Projectile(this.x, this.y, angle, this.ship, this);
                     }, i * this.shotDelay);
                 }
             } else {
                 const inaccuracy = (Math.random() * Math.PI / 32 - Math.PI / 64) * (this.damage / (this.target.ship.totalHealth / 2)) * .5;
-
                 const angle = (this.launchAngle === 0 ? Math.atan2(predictedY - this.y, predictedX - this.x) : (this.launchAngle + this.ship.angle)) + inaccuracy;
 
                 new Projectile(this.x, this.y, angle, this.ship, this);
@@ -1257,7 +1377,7 @@ class Ship {
 }
 
 class Battle {
-    static MAXIMUM_ACTIVE_POPULATION = 100;
+    static MAXIMUM_ACTIVE_POPULATION = 300;
 
     constructor(width, height, teams) {
         /**
@@ -1269,6 +1389,9 @@ class Battle {
          * @type {Map<number, Projectile>}
          */
         this.projectiles = new Map();
+
+        /** @type {Map<number, Superlaser>} */
+        this.superlasers = new Map();
 
         /** @type {Map<number, Squadron>} */
         this.squadrons = new Map();
@@ -1482,17 +1605,10 @@ class Battle {
             });
         });
 
-        this.ships.forEach(ship => {
-            ship.update();
-        });
-
-        this.projectiles.forEach(projectile => {
-            projectile.update();
-        });
-
-        this.squadrons.forEach(squadron => {
-            squadron.update();
-        });
+        this.ships.forEach(ship => ship.update());
+        this.projectiles.forEach(projectile => projectile.update());
+        this.squadrons.forEach(squadron => squadron.update());
+        this.superlasers.forEach(superlaser => superlaser.update());
 
         this.frames++;
         this.totalTime += performance.now() - start;
@@ -2211,6 +2327,13 @@ class Camera {
         }
 
         output.push(this.battle.reinforcements[0].length, ...this.battle.reinforcements[0].map(shipConf => [shipConf.hero, shipConf.ship]).flat());
+
+        output.push(this.battle.superlasers.size);
+
+        this.battle.superlasers.forEach(superlaser => {
+            const pkg = superlaser.packagedData;
+            output.push(pkg.id, pkg.x1, pkg.y1, pkg.x2, pkg.y2, pkg.color);
+        });
 
         this.connection.talk(output);
     }

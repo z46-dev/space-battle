@@ -21,10 +21,10 @@ ships.ARCHAMMER_EMPIRE = {
     turnSpeed: .01,
     shield: 54340,
     shieldRegen: 54,
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [];
 
-        for (let i = 0; i < 18; i ++) {
+        for (let i = 0; i < 18; i++) {
             output.push({
                 x: -.01 - .0025 * i,
                 y: .85 - .099 * i,
@@ -40,7 +40,7 @@ ships.ARCHAMMER_EMPIRE = {
             });
         }
 
-        for (let i = 0, l = output.length; i < l; i ++) {
+        for (let i = 0, l = output.length; i < l; i++) {
             output.push(structuredClone(output[i]));
             output[output.length - 1].x *= -1;
         }
@@ -104,47 +104,49 @@ ships.DEATHSTAR_EMPIRE = {
     name: "Death Star",
     asset: "DEATHSTAR.png",
     classification: shipTypes.SuperCapital,
-    population: 600,
-    size: 20000,
-    cost: 10000000,
-    speed: .01,
-    turnSpeed: .0001,
-    shield: 10_000_000,
-    shieldRegen: 100,
-    hardpoints: (function() {
+    population: 300,
+    size: 10000,
+    cost: 10_000_000,
+    speed: 0,
+    turnSpeed: .00025,
+    shield: 300_000,
+    shieldRegen: 300,
+    hardpoints: (function () {
         const output = [];
 
-        for (let i = 0; i < 64; i ++) {
+        for (let i = 0; i < 64; i++) {
             const angle = i * Math.PI / 32;
 
             output.push({
                 x: Math.cos(angle) * .9,
                 y: Math.sin(angle) * .9,
-                weapon: {
-                    ...weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
-                    range: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY.range * 3
-                }
+                weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON_HEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 150
             }, {
                 x: Math.cos(angle + Math.PI / 64) * .7,
                 y: Math.sin(angle + Math.PI / 64) * .7,
-                weapon: {
-                    ...weapons.DOUBLE_ION_CANNON_MEDIUM,
-                    range: weapons.DOUBLE_ION_CANNON_MEDIUM.range * 3
-                }
+                weapon: weapons.DOUBLE_ION_CANNON_MEDIUM,
+                shotsAtOnce: 2,
+                shotDelay: 150
             }, {
                 x: Math.cos(angle) * .5,
                 y: Math.sin(angle) * .5,
-                weapon: {
-                    ...weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
-                    range: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY.range * 3
-                }
+                weapon: weapons.GREEN_TURBOLASER_CANNON_ULTRAHEAVY,
+                shotsAtOnce: 2,
+                shotDelay: 500
             }, {
                 x: Math.cos(angle + Math.PI / 64) * .3,
                 y: Math.sin(angle + Math.PI / 64) * .3,
-                weapon: {
-                    ...weapons.DOUBLE_ION_CANNON_MEDIUM,
-                    range: weapons.DOUBLE_ION_CANNON_MEDIUM.range * 3
-                }
+                weapon: weapons.ION_CANNON_ULTRA,
+                shotsAtOnce: 2,
+                shotDelay: 500
+            }, {
+                x: Math.cos(angle + Math.PI / 48) * .8,
+                y: Math.sin(angle + Math.PI / 48) * .8,
+                weapon: weapons.GREEN_RAPID_LASER_CANNON,
+                shotsAtOnce: 2,
+                shotDelay: 50
             });
         }
 
@@ -153,17 +155,19 @@ ships.DEATHSTAR_EMPIRE = {
             y: .4125,
             weapon: {
                 ...weapons.GREEN_SUPERLASER,
-                range: weapons.GREEN_SUPERLASER.range * 3
-            },
-            shotsAtOnce: 50,
-            shotDelay: 22.5
+                superlaser: {
+                    duration: 500,
+                    damagePerTick: 1500,
+                    color: "GREEN"
+                }
+            }
         });
 
         return output.map(e => ({
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 5 | 0
+                health: e.weapon.health * 12.5 | 0
             }
         }));
     })(),
@@ -188,13 +192,6 @@ ships.DEATHSTAR_EMPIRE = {
         squadronSize: 10,
         reserveSize: 55,
         squadronKey: "TIEBOMBER_EMPIRE"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 1,
-        squadronSize: 2,
-        reserveSize: 3,
-        squadronKey: "IMPERIALSTARDESTROYER_EMPIRE"
     }]
 };
 
@@ -213,10 +210,10 @@ ships.CONSOLIDATORASSAULTSHIP_EMPIRE = {
     turnSpeed: .00025,
     shield: 38500,
     shieldRegen: 38.5,
-    hardpoints: (function() {
+    hardpoints: (function () {
         const output = [];
 
-        for (let i = 0; i < 8; i ++) {
+        for (let i = 0; i < 8; i++) {
             output.push({
                 x: -.07 - .0625 * i,
                 y: .925 - .1 * i,
@@ -244,7 +241,7 @@ ships.CONSOLIDATORASSAULTSHIP_EMPIRE = {
             });
         }
 
-        for (let i = 0; i < 4; i ++) {
+        for (let i = 0; i < 4; i++) {
             output.push({
                 x: -.285 - .0425 * i,
                 y: -.925 + .085 * i,
@@ -324,5 +321,8 @@ ships.TAGGE_BATTLECRUISER_EMPIRE = templates.superCapital.TAGGE_BATTLECRUISER();
 ships.SORONNAN_EMPIRE = templates.capital.SORONNAN_STAR_DESTROYER();
 
 ships.SECUTOR_EMPIRE = templates.superCapital.SECUTOR();
+
+ships.ECLIPSE_EMPIRE = templates.superCapital.ECLIPSE();
+ships.SOVEREIGN_EMPIRE = templates.superCapital.SOVEREIGN();
 
 export default ships;

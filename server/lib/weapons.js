@@ -456,15 +456,15 @@ export const GREEN_TURBOLASER_CANNON_ULTRAHEAVY = {
 };
 
 export const GREEN_SUPERLASER = {
-    reload: 1500,
-    damage: 5000,
+    reload: 1000,
+    damage: 150,
     type: weaponTypes.GreenSuperlaser,
-    health: 4000,
-    speed: 250,
+    health: 2500,
+    speed: 200,
     range: 10000,
     targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
     explosionRange: 1e10,
-    bypassShield: true,
+    bypassShield: false,
     name: "Superlaser"
 };
 
@@ -493,6 +493,20 @@ export const GREEN_TURBOLASER_CANNON_ULTRAHEAVY_BYPASS_SHIELD = {
     explosionRange: 1e10,
     bypassShield: true,
     name: "Ultraheavy Turbolaser Cannon"
+};
+
+
+export const GREEN_AXIAL_SUPERLASER = {
+    reload: 750,
+    damage: 300,
+    type: weaponTypes.GreenAxialSuperlaser,
+    health: 2500,
+    speed: 100,
+    range: 12500,
+    targetOverride: [shipTypes.HeavyFrigate, shipTypes.Capital, shipTypes.SuperCapital, shipTypes.SpaceStation],
+    explosionRange: 2500,
+    explosionDamage: 35,
+    name: "Axial Superlaser"
 };
 
 // RED WEAPON DEFS

@@ -818,8 +818,8 @@ templates.SUPER_TRANSPORT_XI = function (options = {}) {
         cost: 1850,
         speed: 2,
         turnSpeed: .005,
-        shield: 3000,
-        shieldRegen: 3,
+        shield: 0,
+        shieldRegen: 0,
         hardpoints: (function () {
             const points = [{
                 x: -.200,
@@ -843,7 +843,7 @@ templates.SUPER_TRANSPORT_XI = function (options = {}) {
 
             const selections = [
                 weapons[options.color + "_DOUBLE_LASER_CANNON"],
-                weapons[options.color + "_DOUBLE_LASER_CANNON"],
+                weapons.ASSAULT_CONCUSSION_MISSILE,
                 weapons.DOUBLE_ION_CANNON
             ];
 
@@ -851,8 +851,8 @@ templates.SUPER_TRANSPORT_XI = function (options = {}) {
                 output.push({
                     ...points[i],
                     weapon: selections[i % selections.length],
-                    shotsAtOnce: 2,
-                    shotDelay: 150
+                    shotsAtOnce: i % 3 === 1 ? 6 : 2,
+                    shotDelay: 200
                 });
             }
 
@@ -860,7 +860,7 @@ templates.SUPER_TRANSPORT_XI = function (options = {}) {
                 ...e,
                 weapon: {
                     ...e.weapon,
-                    health: e.weapon.health * 3 | 0
+                    health: e.weapon.health * 16 | 0
                 }
             }));
         })(),

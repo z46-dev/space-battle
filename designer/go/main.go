@@ -18,6 +18,41 @@ func init() {
 	flag.StringVar(&outputPath, "out", "", "Path to output PNG")
 }
 
+var (
+	TargetWhiteBG = imgproc.MaskConfig{
+		Mode: imgproc.MaskHSV,
+
+		HSVTargetH: 0,
+		HSVTolH:    10,
+		HSVMinS:    0,
+		HSVMaxS:    1,
+		HSVMinV:    0,
+		HSVMaxV:    1,
+	}
+
+	TargetMagentaBG = imgproc.MaskConfig{
+		Mode: imgproc.MaskHSV,
+
+		HSVTargetH: 300,
+		HSVTolH:    40,
+		HSVMinS:    .125,
+		HSVMaxS:    1,
+		HSVMinV:    .125,
+		HSVMaxV:    1,
+	}
+
+	TargetGreenBG = imgproc.MaskConfig{
+		Mode: imgproc.MaskHSV,
+
+		HSVTargetH: 120,
+		HSVTolH:    40,
+		HSVMinS:    .1,
+		HSVMaxS:    1,
+		HSVMinV:    .1,
+		HSVMaxV:    1,
+	}
+)
+
 func main() {
 	flag.Parse()
 	if inputPath == "" || outputPath == "" {
@@ -34,7 +69,7 @@ func main() {
 	square := imgproc.PadToSquare(srcImg)
 
 	// 3) Scale up (e.g. factor = 4)
-	scaled := imgproc.ScaleImage(square, 14.0)
+	scaled := imgproc.ScaleImage(square, 8.0)
 
 	// Convert to RGBA for pixel‐level editing
 	rgba := imgproc.ImageToRGBA(scaled)
@@ -45,25 +80,24 @@ func main() {
 	// // 5) Iterative flood‐fill removal on any leftover “magentaish” (edge cleanup = 1)
 	// imgproc.RemoveBackgroundIterative(rgba, 255, 0, 255, 192, 1)
 
-	const tol = 40
-	imgproc.RemoveBackgroundSmartWithConfig(rgba, imgproc.MaskConfig{
-		Mode: imgproc.MaskHSV, // or MaskRGB, or MaskEnsemble
+	imgproc.RemoveBackgroundSmartWithConfig(rgba, TargetMagentaBG)
 
-		HSVTargetH: 300,
-		HSVTolH:    tol,
-		HSVMinS:    0.1,
-		HSVMaxS:    1.0,
-		HSVMinV:    0.1,
-		HSVMaxV:    1.0,
-	})
+	// imgproc.Recolor(rgba, 0, 0, 0, .45)
 
 	// 6) Fuzz border pixels
 	imgproc.FuzzBorders(rgba)
 
+	imgproc.Recolor(rgba, 255, 255, 255, .25)
+	imgproc.RemoveBackgroundSmartWithConfig(rgba, TargetGreenBG)
+
+	imgproc.Recolor(rgba, 0, 0, 0, .55)
+	imgproc.SmoothEdgesWithColor(rgba, 4, 20, 20, 20)
+
 	// 7) Center & crop to tight square
 	final := imgproc.CenterAndCrop(rgba)
 
-	imgproc.SmoothEdges(final, 2)
+	// imgproc.FuzzBorders(rgba)
+	// imgproc.SmoothEdges(final, 4)
 
 	// 8) Save as PNG
 	if err := imgproc.SavePNG(outputPath, imgproc.ScaleImage(final, .25)); err != nil {

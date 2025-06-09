@@ -99,11 +99,22 @@ func RGBToHue(r, g, b float64) float64 {
 	} else {
 		hue = 4 + (r-g)/delta
 	}
-	
+
 	hue *= 60
 	if hue < 0 {
 		hue += 360
 	}
 
 	return hue
+}
+
+func lerp(a, b float64, weight float64) float64 {
+	return a + (b-a)*weight
+}
+
+func MixColors(r1, g1, b1, r2, g2, b2 uint8, weight float64) (uint8, uint8, uint8) {
+	// return uint8(float64(r1) + float64(r2-r1)*weight), uint8(float64(g1) + float64(g2-g1)*weight), uint8(float64(b1) + float64(b2-b1)*weight)
+	return uint8(lerp(float64(r1), float64(r2), weight)),
+		uint8(lerp(float64(g1), float64(g2), weight)),
+		uint8(lerp(float64(b1), float64(b2), weight))
 }

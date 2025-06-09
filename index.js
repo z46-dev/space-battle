@@ -289,16 +289,20 @@ if (location.search.includes("debug")) {
         text: "Testing",
         color: "#C8C8C8",
         action: () => {
-            const pop = 200;
-            const f1 = allFactions.republic;
-            const f2 = allFactions.cis;
+            const pop = 25;
+            const f1 = allFactions.empire;
+            const f2 = allFactions.newRepublic;
 
             shared.newBeginBattle({
                 name: f1.name,
-                fleet: Fleet.randomFromFactionConfig(pop, f1).__ships.map(e => ({
-                    ship: e,
-                    hero: null
-                })),
+                // fleet: Fleet.randomFromFactionConfig(pop, f1).__ships.map(e => ({
+                //     ship: e,
+                //     hero: null
+                // })),
+                fleet: [{
+                    ship: "SUPER_TRANSPORT_XI_EMPIRE",
+                    hero: "SebastianParnell"
+                }],
                 color: f1.color
             }, {
                 name: f2.name,

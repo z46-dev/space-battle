@@ -602,6 +602,24 @@ export default function draw() {
 
     // Draw projectiles
     if (drawOptions.projectiles) {
+        ctx.save();
+
+        state.world.superlaserObjects.forEach(superlaser => {
+            ctx.strokeStyle = "#FFFFFF";
+            ctx.lineWidth = 25 + Math.sin(start / 300 + superlaser.id * 3 + 3) * 5;
+
+            ctx.shadowColor = superlaser.color;
+            ctx.shadowBlur = 50 + Math.sin(start / 150 + superlaser.id) * 25;
+
+            ctx.beginPath();
+            ctx.moveTo(superlaser.x1, superlaser.y1);
+            ctx.lineTo(superlaser.x2, superlaser.y2);
+            ctx.stroke();
+            ctx.closePath();
+        });
+
+        ctx.restore();
+
         projectiles.forEach(projectile => {
             projectile.x = lerp(projectile.x, projectile.realX, .2);
             projectile.y = lerp(projectile.y, projectile.realY, .2);

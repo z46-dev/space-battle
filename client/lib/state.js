@@ -21,6 +21,15 @@ export const camera = {
     cZoom: 1 // Controlled by the game instance when camera is taken over
 };
 
+class SuperlaserObject {
+    id = 0;
+    x1 = 0;
+    y1 = 0;
+    x2 = 0;
+    y2 = 0;
+    color = "#ffffff";
+}
+
 export const world = {
     width: 10_000,
     height: 10_000,
@@ -47,7 +56,10 @@ export const world = {
         key: ""
     },
     shiftPressed: false,
-    playBattle: true
+    playBattle: true,
+
+    /** @type {Map<number, SuperlaserObject>} */
+    superlaserObjects: new Map()
 };
 
 export function toggle() {
@@ -710,6 +722,23 @@ worker.onmessage = event => {
                         hero: data.shift(),
                         ship: data.shift()
                     });
+                }
+            }
+
+            {
+                const superLength = data.shift();
+                world.superlaserObjects.clear();
+
+                for (let i = 0; i < superLength; i++) {
+                    const superlaserObject = new SuperlaserObject();
+                    superlaserObject.id = data.shift();
+                    superlaserObject.x1 = data.shift();
+                    superlaserObject.y1 = data.shift();
+                    superlaserObject.x2 = data.shift();
+                    superlaserObject.y2 = data.shift();
+                    superlaserObject.color = data.shift();
+
+                    world.superlaserObjects.set(superlaserObject.id, superlaserObject);
                 }
             }
         } break;
