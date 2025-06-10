@@ -18,6 +18,7 @@ import { playableCampaigns, splinteredEmpire } from "./configs/campaigns.js";
 import { playSong, SONG_TYPE_HOME, SONG_TYPE_MAP, stopSong } from "./shared/audio.js";
 import allFactions from "./configs/factions.js";
 import { FactionConfig } from "./configs/baseFactions.js";
+import createPattern from "./shared/background.js";
 
 // Do a UI all split up in canvas.
 // Add a home menu and an option for saves and an option for
@@ -300,8 +301,8 @@ if (location.search.includes("debug")) {
                 //     hero: null
                 // })),
                 fleet: [{
-                    ship: "SUPER_TRANSPORT_XI_EMPIRE",
-                    hero: "SebastianParnell"
+                    ship: "MAELSTROM_REPUBLIC",
+                    hero: null
                 }],
                 color: f1.color
             }, {
@@ -496,6 +497,8 @@ buttonMaps[STATE_INIT_SURVIVAL] = [];
 
 const buttons = new Array(Math.max(...campaignConfig.map(e => e.factions.length), ...buttonMaps.filter(e => e.length).map(map => map.length))).fill(0).map(() => new UIButton(0, 0, 0, 0));
 
+const background = createPattern(ctx, 2048);
+
 function draw() {
     requestAnimationFrame(draw);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -512,12 +515,14 @@ function draw() {
     ctx.save();
     ctx.scale(scale, scale);
 
+    ctx.save();
+    ctx.fillStyle = background;
+    ctx.scale(.5, .5);
+    ctx.fillRect(0, 0, width * 4, height * 4);
+    ctx.restore();
+
     switch (shared.state) {
         case STATE_HOME: {
-            for (const star of stars) {
-                star.draw();
-            }
-
             ctx.shadowColor = planetOptions.Colors[4][2];
             ctx.shadowBlur = 25;
             ctx.drawImage(planet.canvas, -300, -200);
@@ -526,10 +531,6 @@ function draw() {
             drawText("Conquest", width / 2, height / 2 - 96, 75, "#FFFFFF");
         } break;
         case STATE_MANAGE_SAVES: {
-            for (const star of stars) {
-                star.draw();
-            }
-
             ctx.shadowColor = secondPlanetOptions.Colors[4][2];
             ctx.shadowBlur = 25;
             ctx.drawImage(secondPlanet.canvas, 300, 200);
@@ -538,10 +539,6 @@ function draw() {
             drawText("Manage Saves", width / 2, height / 2 - 96, 75, "#FFFFFF");
         } break;
         case STATE_SELECT_AUTOSAVE: {
-            for (const star of stars) {
-                star.draw();
-            }
-
             ctx.shadowColor = secondPlanetOptions.Colors[4][2];
             ctx.shadowBlur = 25;
             ctx.drawImage(secondPlanet.canvas, 300, 200);
@@ -550,10 +547,6 @@ function draw() {
             drawText(shared.autosaveSelectMode === AUTOSAVE_MODE_LOAD ? "Select Save" : "Download Save", width / 2, height / 2 - 96, 75, "#FFFFFF");
         } break;
         case STATE_INIT_CAMPAIGN: {
-            for (const star of stars) {
-                star.draw();
-            }
-
             ctx.shadowColor = planetOptions.Colors[4][2];
             ctx.shadowBlur = 25;
             ctx.drawImage(planet.canvas, -300, -200);
@@ -562,10 +555,6 @@ function draw() {
             drawText("Create New Campaign", width / 2, height / 2 - 96, 75, "#FFFFFF");
         } break;
         case STATE_SELECT_TIMEFRAME: {
-            for (const star of stars) {
-                star.draw();
-            }
-
             ctx.shadowColor = planetOptions.Colors[4][2];
             ctx.shadowBlur = 25;
             ctx.drawImage(planet.canvas, -300, -200);
@@ -574,10 +563,6 @@ function draw() {
             drawText("Select Timeframe", width / 2, height / 2 - 96, 75, "#FFFFFF");
         } break;
         case STATE_INIT_SURVIVAL: {
-            for (const star of stars) {
-                star.draw();
-            }
-
             ctx.shadowColor = planetOptions.Colors[4][2];
             ctx.shadowBlur = 25;
             ctx.drawImage(planet.canvas, -300, -200);

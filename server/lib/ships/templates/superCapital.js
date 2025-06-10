@@ -4166,4 +4166,152 @@ templates.SOVEREIGN = function (options = {}) {
     };
 }
 
+templates.MAELSTROM = function (options = {}) {
+    options.color ??= "BLUE";
+    options.fighter ??= "V19TORRENT_REPUBLIC";
+    options.bomber ??= "YWING_REPUBLIC";
+
+    return {
+        name: "Maelstrom-Class Battlecruiser",
+        asset: "MAELSTROM_BATTLECRUISER.png",
+        classification: shipTypes.SuperCapital,
+        population: 50,
+        size: 1313,
+        cost: 11200,
+        speed: 2,
+        turnSpeed: .01,
+        shield: 16000,
+        shieldRegen: 7,
+        hardpoints: (function () {
+            const output = [];
+
+
+            for (const point of [{
+                x: -.151,
+                y: -.621
+            }, {
+                x: -.198,
+                y: -.616
+            }, {
+                x: -.246,
+                y: -.612
+            }, {
+                x: -.293,
+                y: -.606
+            }].map(p => ([p, {
+                x: -p.x,
+                y: p.y
+            }])).flat()) {
+                output.push({
+                    ...point,
+                    weapon: weapons[options.color + "_DOUBLE_TURBOLASER_CANNON_HEAVY"],
+                    shotsAtOnce: 2,
+                    shotDelay: 300
+                });
+            }
+
+            let i = 0;
+            for (const point of [{
+                x: -.001,
+                y: -.388
+            }, {
+                x: -.004,
+                y: -.343
+            }, {
+                x: -.003,
+                y: -.300
+            }, {
+                x: -.001,
+                y: -.259
+            }, {
+                x: -.004,
+                y: -.218
+            }, {
+                x: -.004,
+                y: -.174
+            }]) {
+                output.push({
+                    ...point,
+                    weapon: i++ % 2 ? weapons.TRIPLE_ION_CANNON_HEAVY : weapons[options.color + "_TRIPLE_TURBOLASER_CANNON"],
+                    shotsAtOnce: 2,
+                    shotDelay: 300
+                });
+            }
+
+            for (const point of [{
+                x: -.089,
+                y: .859
+            }, {
+                x: -.129,
+                y: .666
+            }, {
+                x: -.180,
+                y: .450
+            }, {
+                x: -.222,
+                y: .276
+            }, {
+                x: -.266,
+                y: .102
+            }, {
+                x: -.255,
+                y: -.111
+            }, {
+                x: -.296,
+                y: -.288
+            }, {
+                x: -.445,
+                y: -.466
+            }, {
+                x: -.486,
+                y: -.627
+            }, {
+                x: -.091,
+                y: .351
+            }, {
+                x: -.058,
+                y: .774
+            }].map(p => ([p, {
+                x: -p.x,
+                y: p.y
+            }])).flat()) {
+                output.push({
+                    ...point,
+                    weapon: [
+                        weapons[options.color + "_DOUBLE_LASER_CANNON_HEAVY"],
+                        weapons[options.color + "_DOUBLE_TURBOLASER_CANNON"],
+                        weapons.DOUBLE_ION_CANNON,
+                        weapons.DOUBLE_ION_CANNON_MEDIUM
+                    ][i++ % 4],
+                    shotsAtOnce: 2,
+                    shotDelay: 150
+                });
+            }
+
+            return output.map(hardpoint => ({
+                ...hardpoint,
+                weapon: {
+                    ...hardpoint.weapon,
+                    health: hardpoint.weapon.health * 4 | 0
+                }
+            }));
+        })(),
+        hangars: [{
+            x: 0,
+            y: 0,
+            maxSquadrons: 3,
+            squadronSize: 6,
+            reserveSize: 6,
+            squadronKey: options.fighter
+        }, {
+            x: 0,
+            y: 0,
+            maxSquadrons: 3,
+            squadronSize: 6,
+            reserveSize: 6,
+            squadronKey: options.bomber
+        }]
+    };
+}
+
 export default templates;

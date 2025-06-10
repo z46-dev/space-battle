@@ -10,6 +10,7 @@ import { ships, projectiles, explosions, squadrons } from "./lib/state.js";
 import * as state from "./lib/state.js";
 import { uiScale, lerp, lerpAngle } from "./lib/util.js";
 import { FactionConfig } from "../configs/baseFactions.js";
+import createPattern from "../shared/background.js";
 
 function hextoRGB(hex) {
     const bigint = parseInt(hex.slice(1), 16);
@@ -130,23 +131,23 @@ weaponDrawProperties.forEach(props => {
     props.sprite = generateWeaponSprite(props);
 });
 
-let closeByStars = [];
+// let closeByStars = [];
 
-setInterval(() => {
-    const scale = uiScale() * state.camera.zoom;
-    const AABB = state.world.starGrid.getAABB({
-        x: state.camera.x,
-        y: state.camera.y,
-        size: canvas.width / scale,
-        width: 1,
-        height: 1
-    });
+// setInterval(() => {
+//     const scale = uiScale() * state.camera.zoom;
+//     const AABB = state.world.starGrid.getAABB({
+//         x: state.camera.x,
+//         y: state.camera.y,
+//         size: canvas.width / scale,
+//         width: 1,
+//         height: 1
+//     });
 
-    closeByStars = state.world.starGrid.retrieve({
-        _AABB: AABB,
-        id: state.world.starCounter
-    });
-}, 1000);
+//     closeByStars = state.world.starGrid.retrieve({
+//         _AABB: AABB,
+//         id: state.world.starCounter
+//     });
+// }, 1000);
 
 function drawText(text, x, y, size, fill = "#FFFFFF", align = "left") {
     ctx.save();
@@ -277,6 +278,8 @@ const drawOptions = {
 
 window.drawOpts = drawOptions;
 
+const background = createPattern(ctx, 8192, false);
+
 export default function draw() {
     const start = performance.now();
     state.camera.realX = Math.max(-state.world.width, Math.min(state.camera.realX, state.world.width));
@@ -301,25 +304,31 @@ export default function draw() {
     ctx.scale(scale, scale);
     ctx.translate(-state.camera.x, -state.camera.y);
 
+    ctx.save();
+    ctx.fillStyle = background;
+
+    ctx.fillRect(-state.world.width * 2, -state.world.height * 2, state.world.width * 4, state.world.height * 4);
+    ctx.restore();
+
     const realMouseX = (state.inputs.mouseX - canvas.width / 2) / scale + state.camera.x;
     const realMouseY = (state.inputs.mouseY - canvas.height / 2) / scale + state.camera.y;
 
-    if (drawOptions.stars) {
-        ctx.fillStyle = "#DEDEDE";
-        ctx.shadowColor = "#FFFFFF";
-        closeByStars.forEach(star => {
-            const XYHash = (star.x + star.y) * (.5 + Math.sin(start / 1000) * .5);
-            const size = 15 + (.5 + Math.sin(XYHash / (star.x + star.y))) * 10;
+    // if (drawOptions.stars) {
+    //     ctx.fillStyle = "#DEDEDE";
+    //     ctx.shadowColor = "#FFFFFF";
+    //     closeByStars.forEach(star => {
+    //         const XYHash = (star.x + star.y) * (.5 + Math.sin(start / 1000) * .5);
+    //         const size = 15 + (.5 + Math.sin(XYHash / (star.x + star.y))) * 10;
 
-            if (size * scale > 3) {
-                ctx.shadowBlur = size * 3;
-            }
+    //         if (size * scale > 3) {
+    //             ctx.shadowBlur = size * 3;
+    //         }
 
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, size, 0, Math.PI * 2);
-            ctx.fill();
-        });
-    }
+    //         ctx.beginPath();
+    //         ctx.arc(star.x, star.y, size, 0, Math.PI * 2);
+    //         ctx.fill();
+    //     });
+    // }
 
     const planetSize = planetOptions.Radius * (4 + planetOptions.SizeScalar * 6);
     const planetDist = state.world.width - 250;
@@ -1258,7 +1267,7 @@ export default function draw() {
 
     ctx.restore();
 
-    // drawText(`${fps} fps | ${mspt} mspt`, canvas.width / 2 / uScale, 20, 15, "#FFFFFF", "center");
+    drawText(`${fps} fps | ${mspt} mspt`, canvas.width / 2 / uScale, 20, 15, "#FFFFFF", "center");
 
     totalMS += performance.now() - start;
     frames++;

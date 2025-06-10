@@ -1283,6 +1283,11 @@ class Ship {
         this.x += this.speed * Math.cos(this.angle);
         this.y += this.speed * Math.sin(this.angle);
 
+        if (this.classification >= shipTypes.Corvette) {
+            this.x = Math.max(-this.battle.width, Math.min(this.battle.width, this.x));
+            this.y = Math.max(-this.battle.height, Math.min(this.battle.height, this.y));
+        }
+
         // Move to the angle
         if (!this.disabled) {
             this.angle = lerpAngle(this.angle, this.angleGoal, this.turnSpeed);
@@ -1477,7 +1482,7 @@ class Battle {
                         }
                     });
 
-                    const entry = stuff.initialShips.sort((a, b) => ships[b.ship].population - ships[a.ship].population)[0]
+                    const entry = stuff.initialShips.sort((a, b) => ships[b.ship].population - ships[a.ship].population)[0];
                     if (Math.random() > .4) {
                         const nearBy = livingShips[Math.floor(Math.random() * livingShips.length)];
 
@@ -1494,6 +1499,11 @@ class Battle {
                                 }
                             }
                         );
+
+                        const index = this.reinforcements[teamIndex].findIndex(s => s.ship === entry.ship && s.hero === entry.hero);
+                        if (index !== -1) {
+                            this.reinforcements[teamIndex].splice(index, 1);
+                        }
                     }
                 });
 
@@ -2791,8 +2801,7 @@ class Scene {
         return new Promise(resolve => {
             setTimeout(() => {
                 const ship = new Ship(this.battle, key, team);
-                const _speed = ship.speed;
-                const dist = ship.size * 10;
+                const dist = this.battle.width * 2;
                 const angle2 = angle + Math.PI;
 
                 const _ai = ship.ai;
@@ -2800,15 +2809,24 @@ class Scene {
 
                 ship.x = x + Math.cos(angle2) * dist;
                 ship.y = y + Math.sin(angle2) * dist;
-                ship.speed = dist / 8;
                 ship.angle = ship.angleGoal = angle;
+                ship.disabled = true;
+                ship.disableHangars = true;
 
                 cb(ship);
 
                 const interval = setInterval(() => {
-                    if (distance(ship.x, ship.y, x, y) < 25) {
-                        ship.speed = _speed;
+                    if (this.battle.paused) {
+                        return;
+                    }
+
+                    ship.x = lerp(ship.x, x, .1);
+                    ship.y = lerp(ship.y, y, .1);
+                    
+                    if (distance(ship.x, ship.y, x, y) < ship.size) {
                         ship.ai = _ai;
+                        ship.disabled = false;
+                        ship.disableHangars = false;
                         clearInterval(interval);
                         resolve(ship);
                     }

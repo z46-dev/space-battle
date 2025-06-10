@@ -6,7 +6,7 @@ heroes["ArdusKaine"] = {
     name: "Ardus Kaine",
     tooltip: "Grand Moff Ardus Kaine was the leader of the Pentastar Alignment, a splinter faction of the Imperial Remnant. He was ruthless and cunning, but valued keeping his forces' autonomy, rarely dedicating all of his assets to battle.",
     image: "ardusKaine.png",
-    ships: ["EXECUTORSUPERSTARDESTROYER_DARKEMPIRE"],
+    ships: ["IMPERIALSTARDESTROYER_EMPIRE"],
     modifications: function (ship) {
         ship.shield *= 1.5;
         ship.maxShield *= 1.5;
@@ -190,7 +190,7 @@ heroes["Zsinj"] = {
     name: "Warlord Zsinj",
     tooltip: "Zsinj was a warlord of the Empire who commanded the Iron Fist, an exclusive dreadnought. He was the leader of the Zsinj Empire, a splinter faction of the Imperial Remnant.",
     image: "zsinj.png",
-    ships: ["EXECUTORSUPERSTARDESTROYER_DARKEMPIRE"],
+    ships: ["IMPERIALSTARDESTROYER_EMPIRE"],
     modifications: function (ship) {
         ship.shield *= 1.5;
         ship.maxShield *= 1.5;

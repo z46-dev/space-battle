@@ -967,7 +967,7 @@ heroes["QuarshPanaka"] = {
 
 heroes["RalchioNervi"] = {
     name: "Ralchio Nervi",
-    tooltip: "Ralchio Nervi, born Ralchio Sargan, was a human male who served in the navy of the Galactic Empire. The son of Vilola Sargan and Cacique Jans Coorsa of a clan of Confederacy of Independent Systems sympathizers on Gall, Nervi was Force-sensitive. After unintentionally killing Coorsa in a fit of rage, Sargan fled, marrying Lila Nervi and joining the Empire. Nervi served as a lieutenant in the 14th Sector Fleet, where he gained the attention of Grand Moff Ravik. Due to his connections, Nervi was promoted to the rank of captain and placed in command of his own task force.[",
+    tooltip: "Ralchio Nervi, born Ralchio Sargan, was a human male who served in the navy of the Galactic Empire. The son of Vilola Sargan and Cacique Jans Coorsa of a clan of Confederacy of Independent Systems sympathizers on Gall, Nervi was Force-sensitive. After unintentionally killing Coorsa in a fit of rage, Sargan fled, marrying Lila Nervi and joining the Empire. Nervi served as a lieutenant in the 14th Sector Fleet, where he gained the attention of Grand Moff Ravik. Due to his connections, Nervi was promoted to the rank of captain and placed in command of his own task force.",
     image: "Ralchio Nervi.png",
     ships: ["GLADIATOR_EMPIRE"],
     modifications: function (ship) {
@@ -1035,6 +1035,204 @@ heroes["SebastianParnell"] = {
         ship.hardpoints.forEach(hp => {
             hp.health *= 2;
             hp.maxHealth *= 2;
+        });
+    }
+};
+
+heroes["SheaHublin"] = {
+    name: "Shea Hublin",
+    tooltip: "Shea Hublin was a renowned Human male pilot of the Galactic Empire known as \"the Rebel Destroyer.\" Born around 35 BBY, Hublin grew up on the planet Talcene before joining the naval forces of the Galactic Republic during the Clone Wars at the age of sixteen. Hublin had not yet completed his flight training when the Confederacy of Independent Systems surrendered, but entered the service of the Republic's successor, the Galactic Empire, at the end of the war and soon became an ace V-wing pilot. As leader of Sword Squadron in the 77th Air Wing, Hublin fought in the Western Reaches Operation of 17 BBY, helping to bring Imperial law to the Western Reaches of the galaxy. HoloNet coverage of Hublin's actions, most notably his assault on the Citadel of Axes at the Battle of Kelrodo-Ai, made him famous throughout the Empire and his likeness was subsequently used on Imperial recruitment posters.",
+    image: "Shea Hublin.png",
+    ships: ["TONFALKCARRIER_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 2;
+        ship.maxShield *= 2;
+        ship.shieldRegen *= 2;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+        });
+
+        ship.hangars.forEach(s => s.config.squadronKey = "TIEDEFENDER_EMPIRE");
+    }
+};
+
+heroes["TandaPryl"] = {
+    name: "Tanda Pryl",
+    tooltip: "Tanda Pryl was the captain of the Imperial I-class Star Destroyer Thunderflare, which was part of Moff Villis Andal's fleet in the Elrood sector. She had a great rivalry with Akal Zed, captain of the Stalker.",
+    image: "Tanda Pryl.png",
+    ships: ["IMPERIALSTARDESTROYER_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 2;
+        ship.maxShield *= 2;
+        ship.shieldRegen *= 2;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+        });
+    }
+};
+
+heroes["TerrinaldScreed"] = {
+    name: "Terrinald Screed",
+    tooltip: "Vice Admiral Terrinald Screed was a human male who served the Galactic Empire as an officer of the Imperial Navy, along with being a high-ranking member of the Naval Intelligence Agency, in the years following the end of the Clone Wars. Before the Clone Wars, he was an officer within the Galactic Republic's Judicial Department during the Separatist Crisis and was a supporter of the Military Creation Act, which allowed the creation of the Grand Army of the Republic. Screed eventually perished during a confrontation with pirates.",
+    image: "Terrinald Screed.png",
+    ships: ["GLADIATOR_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 2;
+        ship.maxShield *= 2;
+        ship.shieldRegen *= 2;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+            hp.range *= 1.15;
+            hp.reload *= .85;
+        });
+    }
+};
+
+heroes["Therbon"] = {
+    name: "Therbon",
+    tooltip: "Therbon was an individual who served the Galactic Empire shortly after the Declaration of a New Order. Therbon was made Grand Moff of the Maldrood Oversector and commander of the Twelfth Army of the Republic.",
+    image: "Therbon.png",
+    ships: ["ALLEGIANCE_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 1.5;
+        ship.maxShield *= 1.5;
+        ship.shieldRegen *= 1.5;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+        });
+    }
+};
+
+heroes["Torpin"] = {
+    name: "Torpin",
+    tooltip: "A short, stout man, Torpin became a Moff despite never having served in the Imperial Military, and commanded no respect from his subordinates. He was one of the two Moffs with territories bordering the Maelstrom. Along with his compatriot, Moff Vanko, Torpin submitted falsified budgets and financial reports to the Galactic Empire to try and hide the fact that he was losing a great deal of money and resources to the Riders of the Maelstrom, a pirate group operating in the Maelstrom.",
+    image: "Torpin.png",
+    ships: ["MAELSTROM_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 1.5;
+        ship.maxShield *= 1.5;
+        ship.shieldRegen *= 1.5;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+        });
+    }
+};
+
+heroes["Touler"] = {
+    name: "Touler",
+    tooltip: "Touler served the Galactic Empire as Fleet Commander in the Imperial Navy during the Galactic Civil War. Touler was present during the assault on Kamino, an attempt by the Rebel Alliance to take out the cloning facilities of the planet Kamino, in 1 BBY. When Rebel starships entered the Kamino system, the Sith Lord Darth Vader told a signals officer to inform Touler that it was time to commence the battle. Though the Empire had its fleet positioned above Kamino, the Rebellion eventually broke through its defenses and was victorious.",
+    image: "Touler.png",
+    ships: ["PRAETOR_CARRIER_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 1.25;
+        ship.maxShield *= 1.25;
+        ship.shieldRegen *= 1.25;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.25;
+            hp.maxHealth *= 1.25;
+        });
+    }
+};
+
+heroes["TurrPhennir"] = {
+    name: "Turr Phennir",
+    tooltip: "Turr Phennir was a Human male hailing from the Valahari Provinces who served for years as an ace starfighter pilot in the Galactic Empire's 181st Imperial Fighter Group. Recruited into the group by Major Soontir Fel around 1 ABY, Captain Phennir spent the next several years battling forces of the Rebel Alliance, the Empire's opponent in the ongoing Galactic Civil War. By 4 ABY, he was a major and the fighter group's executive officer. Phennir and the 181st flew in the Battle of Endor that year, which saw Galactic Emperor Palpatine die aboard the Empire's second Death Star battle station.",
+    image: "Turr Phennir.png",
+    ships: ["AGGRESSORSTARDESTROYER_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 3;
+        ship.maxShield *= 3;
+        ship.shieldRegen *= 3;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+            hp.reload *= .85;
+        });
+    }
+};
+
+heroes["WyrnOtro"] = {
+    name: "Wyrn Otro",
+    tooltip: "Wyrn Otro worked for Galentro Heavy Works corporation, unswervingly loyal as he regarded it as his only family. He represented the corporation at the Pentastar Talks in 7 ABY. While he signed the Pentastar Alignment Treaty, recognizing the need to align with a party to avoid being absorbed into the New Republic, he had personal reservations about Moff Ardus Kaine, worrying that the formation of the Pentastar Alignment was only a way to gain personal power.",
+    image: "Wyrn Otro.png",
+    ships: ["VINDICATOR_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 2;
+        ship.maxShield *= 2;
+        ship.shieldRegen *= 2;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+            hp.range *= 1.15;
+            hp.reload *= .85;
+        });
+    }
+};
+
+heroes["ZurelDarillian"] = {
+    name: "Zurel Darillian",
+    tooltip: "A former Imperial Intelligence officer from Coruscant, Darillian commanded Night Caller, a heavily modified CR90 corvette. Darillian had a tremendous ego – despite having a boring job, he kept his logs in full-holographic format. Captain Darillian last saw Coruscant exactly two years, seven months, and six days before the Battle of Ession. He was effectively exiled from his homeworld after former Director of Imperial Intelligence Ysanne Isard lost the planet to the New Republic, and his wife died when the Executor-class Star Dreadnought Lusankya launched from its berth beneath Coruscant, destroying the Darillian's home.",
+    image: "Zurel Darillian.png",
+    ships: ["CR92A_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 5;
+        ship.maxShield *= 5;
+        ship.shieldRegen *= 5;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 5;
+            hp.maxHealth *= 5;
+            hp.range *= 1.2;
+            hp.reload *= .6;
+        });
+    }
+};
+
+heroes["PalpatineClone"] = {
+    name: "Darth Sidious",
+    tooltip: "Upon his death at the Battle of Endor, Emperor Palpatine's consciousness was transferred to a clone body on Byss. There, he continued to plot the return of the Sith and the destruction of the Jedi, manipulating events from the shadows to ensure his ultimate return to power.",
+    image: "PalpatineClone.png",
+    ships: ["ECLIPSE_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 1.5;
+        ship.maxShield *= 1.5;
+        ship.shieldRegen *= 1.5;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 1.5;
+            hp.maxHealth *= 1.5;
+        });
+    }
+};
+
+heroes["Lumiya"] = {
+    name: "Lady Lumiya",
+    tooltip: "Lumiya, born Shira Elan Colla Brie, was a Force-sensitive Human female who went from being an agent of the Galactic Empire to Dark Lady of the Sith. Born on Imperial Center during the height of Galactic Emperor Palpatine's reign over the majority of the galaxy, Brie dedicated herself to the tenets of the Imperial New Order doctrine. This garnered the interest of Palpatine's chief enforcer, the Sith Lord Darth Vader, who sped the young woman's advancement in various Imperial-sponsored programs, including her enrollment into the Intelligence Academy of Carida. After she graduated with top honors and was promoted to the rank of major by Vader himself, Brie was given a highly classified mission to infiltrate the Rebel Alliance and either cause the death or ostracism of Rebel hero and Jedi Luke Skywalker amongst his peers.",
+    image: "LadyLumiya.png",
+    ships: ["PROCURSATOR_EMPIRE"],
+    modifications: function (ship) {
+        ship.shield *= 2;
+        ship.maxShield *= 2;
+        ship.shieldRegen *= 2;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+            hp.range *= 1.15;
+            hp.reload *= .85;
         });
     }
 };

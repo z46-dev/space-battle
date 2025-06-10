@@ -325,4 +325,10 @@ ships.SECUTOR_EMPIRE = templates.superCapital.SECUTOR();
 ships.ECLIPSE_EMPIRE = templates.superCapital.ECLIPSE();
 ships.SOVEREIGN_EMPIRE = templates.superCapital.SOVEREIGN();
 
+ships.MAELSTROM_EMPIRE = templates.superCapital.MAELSTROM({
+    color: "GREEN",
+    fighter: "TIEFIGHTER_EMPIRE",
+    bomber: "TIEBOMBER_EMPIRE"
+});
+
 export default ships;

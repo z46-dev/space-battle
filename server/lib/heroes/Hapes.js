@@ -143,4 +143,22 @@ heroes["Isolder"] = {
     }
 };
 
+heroes["TaAChume"] = {
+    name: "Ta'a Chume",
+    tooltip: "Ta'a Chume was the Queen Mother of the Hapes Consortium during the first part of the Galactic Civil War, the mother of Isolder, and the grandmother of Tenel Ka Djo. As the ruler of the Hapes Consortium, she was responsible for opening up the borders of the Hapes Cluster to the rest of the galaxy in 8 ABY.",
+    image: "Ta-a Chume.png",
+    ships: ["NEUTRON_HAPAN"],
+    modifications: function (ship) {
+        ship.shield *= 2;
+        ship.maxShield *= 2;
+        ship.shieldRegen *= 2;
+
+        ship.hardpoints.forEach(hp => {
+            hp.health *= 2;
+            hp.maxHealth *= 2;
+            hp.reload *= .8;
+        });
+    }
+};
+
 export default heroes;
