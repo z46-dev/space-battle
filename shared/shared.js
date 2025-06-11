@@ -18,6 +18,8 @@ export const STATE_RESULTS = 5;
 export const STATE_INIT_SURVIVAL = 6;
 export const STATE_SELECT_TIMEFRAME = 7;
 export const STATE_SELECT_AUTOSAVE = 8;
+export const STATE_PRE_BATTLE = 9;
+export const STATE_BATTLE_RESULTS = 10;
 
 export const AUTOSAVE_MODE_NONE = 0;
 export const AUTOSAVE_MODE_LOAD = 1;
@@ -77,6 +79,20 @@ const shared = {
         stopSong();
         playSong(SONG_TYPE_BATTLE);
         generateAsteroids();
+    },
+
+    preBattle: {
+        cb: () => {},
+        planet: null,
+        /** @type {import("../configs/baseFactions.js").FactionConfig[]} */
+        factionsInvolved: []
+    },
+
+    battleResults: {
+        won: true,
+        planet: null,
+        /** @type {{ faction: import("../configs/baseFactions.js").FactionConfig, heroLosses: { ship: string, hero: string }[], shipLosses: string[] }[]} */
+        entries: [] // [player, enemy]
     }
 };
 

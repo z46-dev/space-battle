@@ -2823,7 +2823,7 @@ class Scene {
                     ship.x = lerp(ship.x, x, .1);
                     ship.y = lerp(ship.y, y, .1);
                     
-                    if (distance(ship.x, ship.y, x, y) < ship.size) {
+                    if (distance(ship.x, ship.y, x, y) < 25) {
                         ship.ai = _ai;
                         ship.disabled = false;
                         ship.disableHangars = false;

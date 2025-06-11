@@ -1,8 +1,9 @@
 import Planet, { NoiseOptions, PlanetColors, PlanetOptions } from "./Planet/Planet.js";
 import UIButton from "./shared/Button.js";
 import { canvas, ctx, uiScale } from "./shared/canvas.js";
-import { drawText } from "./shared/render.js";
-import shared, { AUTOSAVE_MODE_LOAD, AUTOSAVE_MODE_SAVE, STATE_BATTLE, STATE_HOME, STATE_INIT_CAMPAIGN, STATE_INIT_SURVIVAL, STATE_LOAD_CAMPAIGN as STATE_MANAGE_SAVES, STATE_SELECT_AUTOSAVE, STATE_SELECT_TIMEFRAME, STATE_TACTICAL_MAP } from "./shared/shared.js";
+import { assets, drawText, loadAsset } from "./shared/render.js";
+
+import shared, { AUTOSAVE_MODE_LOAD, AUTOSAVE_MODE_SAVE, STATE_BATTLE, STATE_HOME, STATE_INIT_CAMPAIGN, STATE_INIT_SURVIVAL, STATE_LOAD_CAMPAIGN as STATE_MANAGE_SAVES, STATE_PRE_BATTLE, STATE_SELECT_AUTOSAVE, STATE_SELECT_TIMEFRAME, STATE_TACTICAL_MAP } from "./shared/shared.js";
 
 import factions, { CapitalInfo, Faction } from "./lib/Factions.js";
 import curtains, { curtainState, drawCurtains } from "./lib/curtains.js";
@@ -292,7 +293,7 @@ if (location.search.includes("debug")) {
         action: () => {
             const pop = 25;
             const f1 = allFactions.empire;
-            const f2 = allFactions.newRepublic;
+            const f2 = allFactions.empire;
 
             shared.newBeginBattle({
                 name: f1.name,
@@ -301,16 +302,20 @@ if (location.search.includes("debug")) {
                 //     hero: null
                 // })),
                 fleet: [{
-                    ship: "MAELSTROM_REPUBLIC",
+                    ship: "EXECUTORSUPERSTARDESTROYER_EMPIRE",
                     hero: null
                 }],
                 color: f1.color
             }, {
                 name: f2.name,
-                fleet: Fleet.randomFromFactionConfig(pop, f2).__ships.map(e => ({
-                    ship: e,
+                // fleet: Fleet.randomFromFactionConfig(pop, f2).__ships.map(e => ({
+                //     ship: e,
+                //     hero: null
+                // })),
+                fleet: [{
+                    ship: "VENGEANCE_EMPIRE",
                     hero: null
-                })),
+                }],
                 color: f2.color
             }, true, null, "Sandbox");
             on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
@@ -495,6 +500,16 @@ buttonMaps[STATE_SELECT_TIMEFRAME] = playableCampaigns.map((campaign, i) => ({
 buttonMaps[STATE_INIT_CAMPAIGN] = [];
 buttonMaps[STATE_INIT_SURVIVAL] = [];
 
+buttonMaps[STATE_PRE_BATTLE] = [{
+    x: 0,
+    y: 0,
+    width: 256,
+    height: 64,
+    text: "Start Battle",
+    color: "#C8C8C8",
+    action: () => shared.preBattle.cb()
+}];
+
 const buttons = new Array(Math.max(...campaignConfig.map(e => e.factions.length), ...buttonMaps.filter(e => e.length).map(map => map.length))).fill(0).map(() => new UIButton(0, 0, 0, 0));
 
 const background = createPattern(ctx, 2048);
@@ -573,6 +588,94 @@ function draw() {
         case STATE_TACTICAL_MAP: {
             ctx.scale(1 / scale, 1 / scale);
             shared.campaign.draw();
+        } break;
+        case STATE_PRE_BATTLE: {
+            drawText(`${shared.preBattle.playerAttacking ? "Invasion" : "Defense"} of ${shared.preBattle.planet.name}`, width / 2, 96, 50, "#FFFFFF");
+
+            if (shared.preBattle.planet.realPlanet) {
+                ctx.drawImage(shared.preBattle.planet.realPlanet, width - 256, -128, 384, 384);
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(width / 2, 192);
+            ctx.lineTo(width / 2, height - 128);
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "#FFFFFF";
+            ctx.stroke();
+            ctx.closePath();
+
+            const GRID_COLUMNS = 5;
+            const GRID_CELL_SIZE = 72;
+            const GRID_SPACING = 24;
+            const GRID_WIDTH = GRID_COLUMNS * (GRID_CELL_SIZE + GRID_SPACING) - GRID_SPACING;
+
+            for (let i = 0; i < shared.preBattle.factionsInvolved.length; i++) {
+                let centerX = width / 2,
+                    offX = width / 4;
+
+                centerX += (i == 0 ? -offX : offX) * (shared.preBattle.playerAttacking ? 1 : -1);
+
+                const faction = shared.preBattle.factionsInvolved[i];
+                drawText(faction.name, centerX, 192, 32, faction.color);
+
+                ctx.beginPath();
+                ctx.moveTo(centerX - width / 8, 192 + 32);
+                ctx.lineTo(centerX + width / 8, 192 + 32);
+                ctx.lineWidth = 4;
+                ctx.strokeStyle = "#FFFFFF";
+                ctx.stroke();
+                ctx.closePath();
+
+                let cellX = 0, cellY = 0;
+
+                for (let i = 0; i < faction.allForces.length; i ++) {
+                    const ship = faction.allForces[i];
+                    const shipData = ships[ship.ship];
+                    const heroData = ship.hero ? heroes[ship.hero] : null;
+
+                    cellX = (i % GRID_COLUMNS) * (GRID_CELL_SIZE + GRID_SPACING);
+                    cellY = Math.floor(i / GRID_COLUMNS) * (GRID_CELL_SIZE + GRID_SPACING);
+                    cellX += centerX - GRID_WIDTH / 2 + GRID_CELL_SIZE / 2;
+                    cellY += 192 + 96;
+                    ctx.save();
+                    ctx.translate(cellX, cellY);
+
+                    if (!assets.has(ship.ship)) {
+                         loadAsset("/assets/ships/" + shipData.asset, ship.ship);
+                    } else if (assets.get(ship.ship).ready) {
+                        ctx.rotate(-Math.PI / 6);
+                        ctx.drawImage(assets.get(ship.ship), -GRID_CELL_SIZE / 2, -GRID_CELL_SIZE / 2, GRID_CELL_SIZE, GRID_CELL_SIZE);
+                        ctx.rotate(Math.PI / 6);
+                    }
+
+                    if (heroData) {
+                        if (!assets.has(ship.hero)) {
+                            loadAsset("/assets/portraits/" + heroData.image, ship.hero);
+                        } else if (assets.get(ship.hero).ready) {
+                            ctx.save();
+                            ctx.beginPath();
+                            ctx.arc(GRID_CELL_SIZE / 4, GRID_CELL_SIZE / 4, GRID_CELL_SIZE / 4, 0, Math.PI * 2);
+                            ctx.clip();
+                            ctx.closePath();
+                            ctx.drawImage(assets.get(ship.hero), 0, 0, GRID_CELL_SIZE / 2, GRID_CELL_SIZE / 2);
+                            ctx.restore();
+                            ctx.beginPath();
+                            ctx.arc(GRID_CELL_SIZE / 4, GRID_CELL_SIZE / 4, GRID_CELL_SIZE / 4, 0, Math.PI * 2);
+                            ctx.strokeStyle = "#EEEEAA";
+                            ctx.lineWidth = 3;
+                            ctx.stroke();
+                        }
+                    }
+
+                    if (ship.count > 1) {
+                        drawText("x" + ship.count.toString(), GRID_CELL_SIZE / 2.5, -GRID_CELL_SIZE / 3, 16, "#FFFFFF");
+                    }
+
+                    ctx.restore();
+                }
+            }
+
+            buttonMaps[STATE_PRE_BATTLE][0].y = height / 2 - 64;
         } break;
     }
 

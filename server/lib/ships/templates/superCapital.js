@@ -5,7 +5,7 @@ const templates = {};
 
 templates.EXECUTORSUPERSTARDESTROYER = function (options = {}) {
     options.name ??= "Executor-Class Super Star Destroyer";
-    options.population ??= 130;
+    options.population ??= 150;
     options.cost ??= 53000;
     options.speed ??= 2;
     options.turnSpeed ??= .00015;
@@ -180,8 +180,8 @@ templates.EXECUTORSUPERSTARDESTROYER = function (options = {}) {
                 weapon: {
                     ...e.weapon,
                     health: e.weapon.health * 5 | 0,
-                    range: e.weapon.range * 1.334 | 0,
-                    reload: e.weapon.reload * .85 | 0
+                    range: e.weapon.range * 1.5 | 0,
+                    reload: e.weapon.reload * .9 | 0
                 }
             }));
         })(),
@@ -191,7 +191,7 @@ templates.EXECUTORSUPERSTARDESTROYER = function (options = {}) {
 
 templates.BELLATORSUPERSTARDESTROYER = function (options = {}) {
     options.name ??= "Bellator-Class Star Dreadnought";
-    options.population ??= 90;
+    options.population ??= 110;
     options.cost ??= 37500;
     options.speed ??= 3;
     options.turnSpeed ??= .0005;
@@ -305,8 +305,7 @@ templates.BELLATORSUPERSTARDESTROYER = function (options = {}) {
                 weapon: {
                     ...e.weapon,
                     health: e.weapon.health * 4.5 | 0,
-                    range: e.weapon.range * 1.45 | 0,
-                    reload: e.weapon.reload * .85 | 0,
+                    range: e.weapon.range * 1.45 | 0
                 }
             }));
         })(),
@@ -316,11 +315,11 @@ templates.BELLATORSUPERSTARDESTROYER = function (options = {}) {
 
 templates.ASSERTORSTARDREADNOUGHT = function (options = {}) {
     options.name ??= "Assertor-Class Star Dreadnought";
-    options.population ??= 250;
-    options.cost ??= 70000;
-    options.speed ??= 1.5;
-    options.turnSpeed ??= .0001;
-    options.shield ??= 175000;
+    options.population ??= 200;
+    options.cost ??= 68500;
+    options.speed ??= 3;
+    options.turnSpeed ??= .0005;
+    options.shield ??= 140000;
     options.shieldRegen ??= options.shield / 1000;
     options.color ??= "GREEN";
     options.hangars ??= [{
@@ -344,7 +343,7 @@ templates.ASSERTORSTARDREADNOUGHT = function (options = {}) {
         asset: "ASSERTOR.png",
         classification: shipTypes.SuperCapital,
         population: options.population,
-        size: 8000,
+        size: 6500,
         cost: options.cost,
         speed: options.speed,
         turnSpeed: options.turnSpeed,
@@ -437,9 +436,8 @@ templates.ASSERTORSTARDREADNOUGHT = function (options = {}) {
                 ...e,
                 weapon: {
                     ...e.weapon,
-                    health: e.weapon.health * 3.5 | 0,
-                    range: e.weapon.range * 1.334 | 0,
-                    reload: e.weapon.reload * .65 | 0,
+                    health: e.weapon.health * 3.25 | 0,
+                    range: e.weapon.range * 1.334 | 0
                 }
             }));
         })(),
@@ -592,7 +590,7 @@ templates.MEGASTARDESTROYER = function (options = {}) {
 
 templates.LEGATORSTARDREADNOUGHT = function (options = {}) {
     options.name ??= "Legator-Class Star Dreadnought";
-    options.population ??= 110;
+    options.population ??= 125;
     options.cost ??= 33000;
     options.speed ??= 1.8;
     options.turnSpeed ??= .00045;
@@ -704,11 +702,11 @@ templates.LEGATORSTARDREADNOUGHT = function (options = {}) {
                 const y = .875 - .0725 * i;
 
                 const weaponSelections = [
-                    options.color + "_QUAD_TURBOLASER_CANNON_HEAVY",
+                    options.color + "_QUAD_TURBOLASER_CANNON",
                     options.color + "_LASER_CANNON",
                     options.color + "_DOUBLE_LASER_CANNON_HEAVY",
                     "ION_CANNON",
-                    options.color + "_QUAD_TURBOLASER_CANNON_HEAVY",
+                    options.color + "_QUAD_TURBOLASER_CANNON",
                     options.color + "_LASER_CANNON",
                     options.color + "_DOUBLE_LASER_CANNON_HEAVY",
                     "ION_CANNON",
@@ -725,7 +723,7 @@ templates.LEGATORSTARDREADNOUGHT = function (options = {}) {
                     ...e.weapon,
                     health: e.weapon.health * 2.4 | 0,
                     range: e.weapon.range * 1.334 | 0,
-                    reload: e.weapon.reload * .85 | 0,
+                    reload: e.weapon.reload * .925 | 0,
                 }
             }));
         })(),
@@ -735,7 +733,7 @@ templates.LEGATORSTARDREADNOUGHT = function (options = {}) {
 
 templates.VENGEANCE = function (options = {}) {
     options.name ??= "Vengeance-Class Super Star Destroyer";
-    options.population ??= 130;
+    options.population ??= 140;
     options.cost ??= 53000;
     options.speed ??= 2;
     options.turnSpeed ??= .00015;
@@ -770,7 +768,7 @@ templates.VENGEANCE = function (options = {}) {
         asset: "VENGEANCE.png",
         classification: shipTypes.SuperCapital,
         population: options.population,
-        size: 6575,
+        size: 6000,
         cost: options.cost,
         speed: options.speed,
         turnSpeed: options.turnSpeed,
@@ -783,48 +781,48 @@ templates.VENGEANCE = function (options = {}) {
                 output.push({
                     x: -.01 - .0125 * i,
                     y: .9 - .08 * i,
-                    weapon: weapons[options.color + "_QUAD_TURBOLASER_CANNON"],
+                    weapon: weapons[options.color + "_TRIPLE_TURBOLASER_CANNON"],
                     shotsAtOnce: 2,
                     shotDelay: 250
                 }, {
                     x: .01 + .0125 * i,
                     y: .9 - .08 * i,
-                    weapon: weapons[options.color + "_QUAD_TURBOLASER_CANNON"],
+                    weapon: weapons[options.color + "_TRIPLE_TURBOLASER_CANNON"],
                     shotsAtOnce: 2,
                     shotDelay: 250
                 }, {
                     x: -.005 - .0125 * i,
                     y: .95 - .08 * i,
-                    weapon: weapons.QUAD_ION_CANNON_HEAVY,
+                    weapon: weapons.TRIPLE_ION_CANNON_HEAVY,
                     shotsAtOnce: 2,
                     shotDelay: 250
                 }, {
                     x: .005 + .0125 * i,
                     y: .95 - .08 * i,
-                    weapon: weapons.QUAD_ION_CANNON_HEAVY,
+                    weapon: weapons.TRIPLE_ION_CANNON_HEAVY,
                     shotsAtOnce: 2,
                     shotDelay: 250
                 }, {
                     x: -.02 - .0125 * i,
                     y: .9 - .08 * i,
-                    weapon: weapons[options.color + "_QUAD_TURBOLASER_CANNON_HEAVY"],
+                    weapon: weapons[options.color + "_TRIPLE_TURBOLASER_CANNON_HEAVY"],
                     shotsAtOnce: 2,
                     shotDelay: 250
                 }, {
                     x: .02 + .0125 * i,
                     y: .9 - .08 * i,
-                    weapon: weapons[options.color + "_QUAD_TURBOLASER_CANNON_HEAVY"],
+                    weapon: weapons[options.color + "_TRIPLE_TURBOLASER_CANNON_HEAVY"],
                     shotsAtOnce: 2,
                     shotDelay: 250
                 });
             }
 
-            const concussionMissile = {
+            const protonRocket = {
                 weapon: {
-                    ...weapons.ASSAULT_CONCUSSION_MISSILE,
-                    range: weapons.ASSAULT_CONCUSSION_MISSILE.range * 2 | 0,
-                    speed: weapons.ASSAULT_CONCUSSION_MISSILE.speed * 1.5 | 0,
-                    reload: weapons.ASSAULT_CONCUSSION_MISSILE.reload * 3 | 0,
+                    ...weapons.ASSAULT_PROTON_ROCKET,
+                    range: weapons.ASSAULT_PROTON_ROCKET.range * 2 | 0,
+                    speed: weapons.ASSAULT_PROTON_ROCKET.speed * 1.5 | 0,
+                    reload: weapons.ASSAULT_PROTON_ROCKET.reload * 3 | 0,
                     maneuverability: 1
                 },
                 shotsAtOnce: 3,
@@ -832,13 +830,13 @@ templates.VENGEANCE = function (options = {}) {
             };
 
             const laserCannon = {
-                weapon: weapons[options.color + "_DOUBLE_LASER_CANNON"],
+                weapon: weapons[options.color + "_LASER_CANNON"],
                 shotsAtOnce: 2,
                 shotDelay: 75
             };
 
             const ionCannon = {
-                weapon: weapons.DOUBLE_ION_CANNON,
+                weapon: weapons.ION_CANNON,
                 shotsAtOnce: 2,
                 shotDelay: 75
             };
@@ -847,19 +845,19 @@ templates.VENGEANCE = function (options = {}) {
                 output.push({
                     x: -.055 - .0075 * i,
                     y: .4 - .07 * i,
-                    ...concussionMissile
+                    ...protonRocket
                 }, {
                     x: .055 + .0075 * i,
                     y: .4 - .07 * i,
-                    ...concussionMissile
+                    ...protonRocket
                 }, {
                     x: -.08 - .0075 * i,
                     y: .4 - .07 * i,
-                    ...concussionMissile
+                    ...protonRocket
                 }, {
                     x: .08 + .0075 * i,
                     y: .4 - .07 * i,
-                    ...concussionMissile
+                    ...protonRocket
                 });
 
                 output.push({
@@ -886,7 +884,7 @@ templates.VENGEANCE = function (options = {}) {
                 weapon: {
                     ...e.weapon,
                     range: e.weapon.range * 1.5 | 0,
-                    health: e.weapon.health * 3.5 | 0
+                    health: e.weapon.health * 3.4 | 0
                 }
             }));
         })(),
