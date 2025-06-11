@@ -2396,8 +2396,8 @@ templates.ECLIPSE = function (options = {}) {
         name: "Eclipse-Class Star Dreadnought",
         asset: "ECLIPSE_SSD.png",
         classification: shipTypes.SuperCapital,
-        population: 200,
-        size: 7500,
+        population: 225,
+        size: 6500,
         cost: 100000,
         speed: 3,
         turnSpeed: .0015,
@@ -3415,8 +3415,7 @@ templates.ECLIPSE = function (options = {}) {
                 ...e,
                 weapon: {
                     ...e.weapon,
-                    health: e.weapon.health * 2.5 | 0,
-                    range: e.weapon.range * 1.5 | 0
+                    health: e.weapon.health * 2.5 | 0
                 }
             }));
         })(),
@@ -3440,8 +3439,8 @@ templates.SOVEREIGN = function (options = {}) {
         name: "Sovereign-Class Star Dreadnought",
         asset: "SOVEREIGN.png",
         classification: shipTypes.SuperCapital,
-        population: 150,
-        size: 6000,
+        population: 175,
+        size: 5000,
         cost: 70000,
         speed: 3,
         turnSpeed: .0015,
@@ -4148,8 +4147,7 @@ templates.SOVEREIGN = function (options = {}) {
                 ...e,
                 weapon: {
                     ...e.weapon,
-                    health: e.weapon.health * 2.5 | 0,
-                    range: e.weapon.range * 1.5 | 0
+                    health: e.weapon.health * 2.5 | 0
                 }
             }));
         })(),

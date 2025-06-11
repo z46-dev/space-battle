@@ -313,7 +313,7 @@ if (location.search.includes("debug")) {
                 //     hero: null
                 // })),
                 fleet: [{
-                    ship: "VENGEANCE_EMPIRE",
+                    ship: "ECLIPSE_EMPIRE",
                     hero: null
                 }],
                 color: f2.color
