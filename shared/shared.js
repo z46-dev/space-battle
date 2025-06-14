@@ -91,7 +91,7 @@ const shared = {
     battleResults: {
         won: true,
         planet: null,
-        /** @type {{ faction: import("../configs/baseFactions.js").FactionConfig, heroLosses: { ship: string, hero: string }[], shipLosses: string[] }[]} */
+        /** @type {{ playerWon: boolean, planet: object, faction: import("../configs/baseFactions.js").FactionConfig, losses: { ship: string, hero: string | null, count: number }[] } */
         entries: [] // [player, enemy]
     }
 };

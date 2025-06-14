@@ -279,7 +279,7 @@ ships.CHELANDION_HUTT = {
             y: -.866
         }];
 
-        for (let i = 0, n = points.length; i < n; i ++) {
+        for (let i = 0, n = points.length; i < n; i++) {
             points.push({
                 x: -points[i].x,
                 y: points[i].y
@@ -297,7 +297,7 @@ ships.CHELANDION_HUTT = {
             weapons.QUAD_ION_CANNON_HEAVY,
             weapons.ASSAULT_CONCUSSION_MISSILE
         ];
-        
+
         for (let i = 0; i < points.length; i++) {
             output.push({
                 ...points[i],
@@ -322,6 +322,196 @@ ships.CHELANDION_HUTT = {
         squadronSize: 8,
         reserveSize: 4,
         squadronKey: "A9VIGILANCE_HUTT"
+    }]
+};
+
+// OLD REPUBLIC ERA HUTTS
+
+ships.AZALUS_HUTT_DREADNOUGHT_HUTT = {
+    name: "Azalus Dreadnought",
+    asset: "AZALUS_DREADNOUGHT.png",
+    classification: shipTypes.Capital,
+    population: 30,
+    size: 1850,
+    cost: 9000,
+    speed: 2,
+    turnSpeed: .002,
+    shield: 6000,
+    shieldRegen: 6,
+    hardpoints: (function () {
+        const points = [{
+            x: -.054,
+            y: .983
+        }, {
+            x: -.077,
+            y: .852
+        }, {
+            x: -.105,
+            y: .650
+        }, {
+            x: -.121,
+            y: .548
+        }, {
+            x: -.032,
+            y: .567
+        }, {
+            x: -.041,
+            y: .879
+        }, {
+            x: -.070,
+            y: .459
+        }, {
+            x: -.158,
+            y: .416
+        }, {
+            x: -.215,
+            y: .321
+        }, {
+            x: -.214,
+            y: .214
+        }, {
+            x: -.216,
+            y: .057
+        }, {
+            x: -.214,
+            y: .000
+        }, {
+            x: -.214,
+            y: -.057
+        }, {
+            x: -.071,
+            y: .334
+        }, {
+            x: -.089,
+            y: -.005
+        }, {
+            x: -.161,
+            y: .111
+        }, {
+            x: -.159,
+            y: -.192
+        }, {
+            x: -.099,
+            y: -.175
+        }, {
+            x: -.031,
+            y: -.076
+        }, {
+            x: -.023,
+            y: .245
+        }, {
+            x: -.032,
+            y: -.372
+        }, {
+            x: -.031,
+            y: -.193
+        }, {
+            x: -.151,
+            y: -.391
+        }, {
+            x: -.207,
+            y: -.327
+        }, {
+            x: -.207,
+            y: -.214
+        }, {
+            x: -.071,
+            y: -.462
+        }, {
+            x: -.126,
+            y: -.470
+        }, {
+            x: -.057,
+            y: -.955
+        }, {
+            x: -.075,
+            y: -.866
+        }, {
+            x: -.092,
+            y: -.747
+        }, {
+            x: -.119,
+            y: -.592
+        }, {
+            x: -.045,
+            y: -.584
+        }, {
+            x: -.026,
+            y: -.858
+        }, {
+            x: -.045,
+            y: .066
+        }];
+
+        for (let i = 0, n = points.length; i < n; i++) {
+            points.push({
+                x: -points[i].x,
+                y: points[i].y
+            });
+        }
+
+        const selections = [{
+            weapon: weapons.PURPLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 250
+        }, {
+            weapon: weapons.PURPLE_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            weapon: weapons.ION_CANNON_MEDIUM,
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            weapon: weapons.PURPLE_DOUBLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 250
+        }, {
+            weapon: weapons.PURPLE_DOUBLE_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            weapon: weapons.DOUBLE_ION_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+            shotsAtOnce: 3,
+            shotDelay: 300
+        }]
+
+        const output = [];
+
+        for (let i = 0, n = points.length; i < n; i++) {
+            output.push({
+                ...points[i],
+                ...selections[i % selections.length]
+            });
+        }
+
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * .75 | 0,
+                reload: e.weapon.reload * 1.2
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 3,
+        squadronSize: 4,
+        reserveSize: 6,
+        squadronKey: "CHAOS_FIGHTER_HUTT"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 3,
+        squadronSize: 4,
+        reserveSize: 6,
+        squadronKey: "CHAOS_BOMBER_HUTT"
     }]
 };
 

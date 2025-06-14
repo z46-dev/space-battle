@@ -216,4 +216,104 @@ ships.MUNIFICENT_HUTT = templates.frigate.MUNIFICENT({
     fighter: "A9VIGILANCE_HUTT"
 });
 
+// OLD REPUBLIC ERA HUTTS
+
+ships.JUVARD_ANCIENT_HUTT = {
+    name: "Juvard Frigate",
+    asset: "juvardFrigate.png",
+    classification: shipTypes.Frigate,
+    population: 10,
+    size: 210,
+    cost: 650,
+    speed: 4,
+    turnSpeed: .02,
+    shield: 900,
+    shieldRegen: .9,
+    hardpoints: [{
+        x: -.1,
+        y: .7,
+        weapon: weapons.PURPLE_LASER_CANNON
+    }, {
+        x: .1,
+        y: .7,
+        weapon: weapons.PURPLE_LASER_CANNON
+    }, {
+        x: -.1,
+        y: 0,
+        weapon: weapons.PURPLE_TURBOLASER_CANNON
+    }, {
+        x: .1,
+        y: 0,
+        weapon: weapons.PURPLE_TURBOLASER_CANNON
+    }, {
+        x: -.13,
+        y: -.5,
+        weapon: weapons.DOUBLE_ION_CANNON
+    }, {
+        x: .13,
+        y: -.5,
+        weapon: weapons.DOUBLE_ION_CANNON
+    }].map(hp => ({
+        ...hp,
+        weapon: {
+            ...hp.weapon,
+            health: hp.weapon.health * 2 | 0
+        }
+    }))
+};
+
+ships.BARABBULA_ANCIENT_HUTT = {
+    name: "Barabbula Frigate",
+    asset: "barabbulaFrigate.png",
+    classification: shipTypes.Frigate,
+    population: 14,
+    size: 260,
+    cost: 1000,
+    speed: 4,
+    turnSpeed: .015,
+    shield: 1600,
+    shieldRegen: 1.6,
+    hardpoints: [{
+        x: 0,
+        y: .85,
+        weapon: weapons.ASSAULT_PROTON_TORPEDO,
+        shotsAtOnce: 4,
+        shotDelay: 250
+    }, {
+        x: -.225,
+        y: .6,
+        weapon: weapons.PURPLE_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 130
+    }, {
+        x: .225,
+        y: .6,
+        weapon: weapons.PURPLE_DOUBLE_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 130
+    }, {
+        x: -.225,
+        y: -.2,
+        weapon: weapons.ION_CANNON_MEDIUM
+    }, {
+        x: .225,
+        y: -.2,
+        weapon: weapons.ION_CANNON_MEDIUM
+    }, {
+        x: -.15,
+        y: -.7,
+        weapon: weapons.ION_CANNON_MEDIUM
+    }, {
+        x: .15,
+        y: -.7,
+        weapon: weapons.ION_CANNON_MEDIUM
+    }].map(hp => ({
+        ...hp,
+        weapon: {
+            ...hp.weapon,
+            health: hp.weapon.health * 2 | 0
+        }
+    }))
+};
+
 export default ships;

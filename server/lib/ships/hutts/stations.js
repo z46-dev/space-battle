@@ -57,4 +57,9 @@ ships.SHIPYARD_LVL_4_HUTT = templates.stations.SHIPYARD_LVL_4({
     capital: ["CHELANDION_HUTT", "KARAGGA_HUTT"]
 });
 
+// OLD REPUBLIC ERA HUTTS
+
+// Darknon, Ronika, Kemplex
+// Relay
+
 export default ships;

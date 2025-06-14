@@ -118,6 +118,35 @@ export const empireOfTheHand = {
     ...(await import("./ships/eoth/stations.js")).default
 };
 
+export const oldRepublic = {
+    ...(await import("./ships/oldRepublic/fighter.js")).default,
+    ...(await import("./ships/oldRepublic/corvette.js")).default,
+    ...(await import("./ships/oldRepublic/frigate.js")).default,
+    ...(await import("./ships/oldRepublic/heavyFrigate.js")).default,
+    ...(await import("./ships/oldRepublic/capital.js")).default,
+    ...(await import("./ships/oldRepublic/superCapital.js")).default,
+    ...(await import("./ships/oldRepublic/stations.js")).default
+};
+
+export const sithEmpire = {
+    ...(await import("./ships/sithEmpire/fighter.js")).default,
+    ...(await import("./ships/sithEmpire/corvette.js")).default,
+    ...(await import("./ships/sithEmpire/frigate.js")).default,
+    ...(await import("./ships/sithEmpire/heavyFrigate.js")).default,
+    ...(await import("./ships/sithEmpire/capital.js")).default,
+    ...(await import("./ships/sithEmpire/superCapital.js")).default,
+    ...(await import("./ships/sithEmpire/stations.js")).default
+};
+
+export const mandalorians = {
+    ...(await import("./ships/mandalorians/fighter.js")).default,
+    ...(await import("./ships/mandalorians/corvette.js")).default,
+    ...(await import("./ships/mandalorians/frigate.js")).default,
+    ...(await import("./ships/mandalorians/heavyFrigate.js")).default,
+    ...(await import("./ships/mandalorians/capital.js")).default,
+    ...(await import("./ships/mandalorians/superCapital.js")).default
+};
+
 export const stations = {
     ...(await import("./ships/stations/shipyards.js")).default
 };
@@ -133,6 +162,9 @@ const ships = {
     ...hapan,
     ...aurumFoundaries,
     ...empireOfTheHand,
+    ...oldRepublic,
+    ...sithEmpire,
+    ...mandalorians,
     ...stations
 };
 

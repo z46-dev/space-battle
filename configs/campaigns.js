@@ -5,6 +5,7 @@ import { hutts } from "./factions/criminals.js";
 import { empire, eoth, eriaduAuthority, maldrood, pentastarAlignment, zsinj } from "./factions/imperial.js";
 import { independentCloneWars, independentPostEndor } from "./factions/independent.js";
 import { hapesConsortium, newRepublic } from "./factions/rebelHapan.js";
+import { ancientHutts, mandalorians, oldRepublic, sithEmpire } from "./factions/sithWars.js";
 import { PlanetConfig, planets } from "./planets.js";
 
 export class CampaignConfig {
@@ -90,6 +91,7 @@ export class CampaignConfig {
             return structuredClone(Object.assign(new PlanetConfig(), cfg));
         });
 
+        console.log("Starting to create links for planets in campaign:", this.name);
         createSafeLinks(this.planets).forEach(link => {
             const from = this.planets.find(p => p.name === link.from);
             const to = this.planets.find(p => p.name === link.to);
@@ -101,6 +103,7 @@ export class CampaignConfig {
             from.connections.push(to.name);
             to.connections.push(from.name);
         });
+        console.log("Finished creating links for planets in campaign:", this.name);
 
         return this;
     }
@@ -282,9 +285,40 @@ export const theCloneWars = new CampaignConfig("The Clone Wars")
         .addPlanets("Maridun", "Florrum", "Iego", "Zanbar", "Agamar", "Foerost", "Fondor", "Sluis Van", "Tibrin", "Mustafar", "Sullust", "Utapau", "Rodia", "Ryloth", "Hypori")
     ).compile();
 
+export const sithWars = new CampaignConfig("Sith Wars")
+    .addFaction(oldRepublic.clone()
+        .addPlanets("Coruscant", "Foerost", "Alsakan", "Alderaan", "Rendili", "Corellia", "Arkania", "Lianna", "Quermia", "Telos", "Axxila", "Taris", "Vanquo")
+        .addPlanets("Nouane", "Onderon", "Arkania")
+        .setCapital("Coruscant", 50, 2500)
+    )
+    .addFaction(sithEmpire.clone()
+        .addPlanets("Korriban", "Prakith", "Had Abbadon", "Randon", "Raxus", "Rhen Var", "Vjun", "Yavin", "Thule", "Begeren", "Rhelg", "Ord Radama")
+        .addPlanets("Lonnaw", "Phaeda", "Generis", "Iridonia", "Malachor")
+        .setCapital("Korriban", 50, 2500)
+    )
+    .addFaction(mandalorians.clone()
+        .addPlanets("Mandalore", "Concord Dawn", "Phindar", "Fenel", "Mandallia", "Zanbar", "Ordo", "Quell", "Ixtlar", "Basilisk", "Serenno", "Feswe Prime")
+        .addPlanets("Celanon", "Shadren", "Ryvester", "Althir")
+        .setCapital("Mandalore", 75, 3000)
+    )
+    .addFaction(hapesConsortium.clone()
+        .addPlanets("Hapes", "Vena")
+        .setCapital("Hapes", 150, 3000)
+    )
+    .addFaction(ancientHutts.clone()
+        .addPlanets("Nal Hutta", "Nar Shaddaa", "Kwenn", "Sleheyron", "Ubrikkia", "Klatooine", "Boonta")
+        .setCapital("Nal Hutta", 75, 3000)
+    )
+    .addIndependentForces(independentCloneWars.clone()
+        .addPlanets("Manaan", "Kashyyyk", "Dantooine", "Ryloth", "Ulda Frav", "Ailon", "Chazwa", "Ord Mantell", "Ord Biniir", "Florrum", "Ghorman", "Ziost")
+        .addPlanets("Orion", "Belderone", "Abhean", "Garos", "Eres")
+    )
+    .compile();
+
 export const playableCampaigns = [
     splinteredEmpire,
-    theCloneWars
+    theCloneWars,
+    sithWars
 ];
 
 console.log(theCloneWars);

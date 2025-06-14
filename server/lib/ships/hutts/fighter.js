@@ -56,4 +56,59 @@ ships.SKIPRAYBLASTBOAT_HUTT = {
     }]
 };
 
+ships.CHAOS_FIGHTER_HUTT = {
+    name: "Chaos Fighter",
+    asset: "CHAOS_FIGHTER.png",
+    classification: shipTypes.Fighter,
+    population: 0,
+    size: 20,
+    cost: 0,
+    speed: 18,
+    turnSpeed: .08,
+    shield: 0,
+    shieldRegen: 0,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.PURPLE_RAPID_FIGHTER_LASER_CANNON,
+            health: 60
+        },
+        shotsAtOnce: 4,
+        shotDelay: 50
+    }]
+};
+
+ships.CHAOS_BOMBER_HUTT = {
+    name: "Chaos Bomber",
+    asset: "CHAOS_BOMBER.png",
+    classification: shipTypes.Bomber,
+    population: 0,
+    size: 24,
+    cost: 0,
+    speed: 16,
+    turnSpeed: .06,
+    shield: 0,
+    shieldRegen: 0,
+    hardpoints: [{
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.PURPLE_RAPID_FIGHTER_LASER_CANNON,
+            health: 60
+        },
+        shotsAtOnce: 4,
+        shotDelay: 50
+    }, {
+        x: 0,
+        y: 0,
+        weapon: {
+            ...weapons.FIGHTER_PROTON_BOMB,
+            health: 60,
+        },
+        shotsAtOnce: 4,
+        shotDelay: 200
+    }]
+};
+
 export default ships;

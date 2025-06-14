@@ -60,7 +60,7 @@ class DSU {
 /** @param {PlanetConfig[]} planets */
 export function createSafeLinks(planets) {
     const maxLinks = 5;
-    const minLinks = 2;
+    const minLinks = 3;
     const radius = 150;
     const links = [];
     const linkCounts = new Map();
@@ -123,14 +123,28 @@ export function createSafeLinks(planets) {
     }
 
     // Phase 2: Ensure every planet has at least 2 links
+    // for (const a of planets) {
+    //     while ((linkCounts.get(a.name) || 0) < minLinks) {
+    //         for (const b of planets) {
+    //             if (a.name === b.name) continue;
+    //             if (tryAddLink(a, b)) break;
+    //         }
+    //     }
+    // }
+    // Phase 2: Ensure every planet has at least minLinks links
     for (const a of planets) {
-        while ((linkCounts.get(a.name) || 0) < minLinks) {
+        let needed = minLinks - (linkCounts.get(a.name) || 0);
+        for (let attempt = 0; attempt < needed; attempt++) {
+            planets.sort((aa, bb) => dist(a.x, a.y, aa.x, aa.y) - dist(a.x, a.y, bb.x, bb.y));
             for (const b of planets) {
                 if (a.name === b.name) continue;
-                if (tryAddLink(a, b)) break;
+                if (tryAddLink(a, b)) {
+                    break;
+                }
             }
         }
     }
+
 
     // Phase 3: Ensure full connectivity
     const dsu = new DSU(planets.length);

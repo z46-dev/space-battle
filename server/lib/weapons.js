@@ -1485,7 +1485,7 @@ export const SIEGE_CONCUSSION_MISSILE = {
 };
 
 export const TENDER_FREQUENCY_SECONDS = 3;
-export const TENDER_HEAL_PULSE_AMOUNT = 62;
+export const TENDER_HEAL_PULSE_AMOUNT = 48;
 
 export function spawner(squadrons = [], ships = []) {
     return {

@@ -34,10 +34,10 @@ var (
 		Mode: imgproc.MaskHSV,
 
 		HSVTargetH: 300,
-		HSVTolH:    40,
-		HSVMinS:    .125,
+		HSVTolH:    30,
+		HSVMinS:    .25,
 		HSVMaxS:    1,
-		HSVMinV:    .125,
+		HSVMinV:    .25,
 		HSVMaxV:    1,
 	}
 
@@ -69,16 +69,10 @@ func main() {
 	square := imgproc.PadToSquare(srcImg)
 
 	// 3) Scale up (e.g. factor = 4)
-	scaled := imgproc.ScaleImage(square, 8.0)
+	scaled := imgproc.ScaleImage(square, 1)
 
 	// Convert to RGBA for pixel‐level editing
 	rgba := imgproc.ImageToRGBA(scaled)
-
-	// // 4) Remove background (quick parallel pass)
-	// imgproc.RemoveBackgroundParallel(rgba, 255, 0, 255, 192)
-
-	// // 5) Iterative flood‐fill removal on any leftover “magentaish” (edge cleanup = 1)
-	// imgproc.RemoveBackgroundIterative(rgba, 255, 0, 255, 192, 1)
 
 	imgproc.RemoveBackgroundSmartWithConfig(rgba, TargetMagentaBG)
 
@@ -87,17 +81,11 @@ func main() {
 	// 6) Fuzz border pixels
 	imgproc.FuzzBorders(rgba)
 
-	imgproc.Recolor(rgba, 255, 255, 255, .25)
-	imgproc.RemoveBackgroundSmartWithConfig(rgba, TargetGreenBG)
-
-	imgproc.Recolor(rgba, 0, 0, 0, .55)
-	imgproc.SmoothEdgesWithColor(rgba, 4, 20, 20, 20)
-
 	// 7) Center & crop to tight square
 	final := imgproc.CenterAndCrop(rgba)
 
-	// imgproc.FuzzBorders(rgba)
-	// imgproc.SmoothEdges(final, 4)
+	imgproc.FuzzBorders(rgba)
+	imgproc.SmoothEdges(final, 2)
 
 	// 8) Save as PNG
 	if err := imgproc.SavePNG(outputPath, imgproc.ScaleImage(final, .25)); err != nil {

@@ -1226,7 +1226,7 @@ class Ship {
             this.tenderAbility = {
                 exists: true,
                 enabled: false,
-                frequency: 25 * TENDER_FREQUENCY_SECONDS / (config.tenderAbility.frequency ?? 1),
+                frequency: 25 * TENDER_FREQUENCY_SECONDS * (config.tenderAbility.frequency ?? 1),
                 power: config.tenderAbility.power ?? 1,
                 ticker: 0
             };
@@ -1321,7 +1321,7 @@ class Ship {
             if (this.tenderAbility.ticker >= this.tenderAbility.frequency) {
                 this.tenderAbility.ticker = 0;
 
-                const radius = this.size * 5.5;
+                const radius = this.size * 4;
 
                 this.battle.ships.forEach(ship => {
                     if (ship.team === this.team && ship.classification >= shipTypes.Corvette && distance(this.x, this.y, ship.x, ship.y) <= radius) {
@@ -2597,8 +2597,6 @@ onmessage = function (e) {
                             battle.stationsStartedWith.push([]);
                         }
                     }
-
-                    throw new Error("JDSAD");
                 } break;
                 case 1: { // Pause/play
                     battle.paused = !e.data.shift();

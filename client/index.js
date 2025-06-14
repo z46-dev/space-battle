@@ -469,7 +469,7 @@ export default function draw() {
                         }
                     }
 
-                    if (ship.size >= 250) {
+                    if (ship.size >= 500) {
                         ship.hardpoints.forEach((hardpoint, index) => {
                             if (hardpoint.health <= 0) {
                                 if (ship.hardpointSprites[index] === undefined) {

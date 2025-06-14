@@ -328,7 +328,7 @@ templates.TONFALKCARRIER = function (options = {}) {
         shield: 2000,
         shieldRegen: 2,
         tenderAbility: {
-            frequency: .5,
+            frequency: 1,
             power: .5
         },
         hardpoints: [{
@@ -432,7 +432,7 @@ templates.STAR_GALLEON = function (options = {}) {
         shield: 2000,
         shieldRegen: 2,
         tenderAbility: {
-            frequency: .5,
+            frequency: 1,
             power: .5
         },
         hardpoints: (function () {
@@ -1178,7 +1178,7 @@ templates.PELTA = function (options = {}) {
         shield: 2500,
         shieldRegen: 2.5,
         tenderAbility: {
-            frequency: .75,
+            frequency: 1.25,
             power: .75
         },
         hardpoints: [{

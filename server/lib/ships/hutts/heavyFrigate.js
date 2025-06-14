@@ -402,4 +402,143 @@ ships.KARABOS_HUTT = {
     }]
 };
 
+// OLD REPUBLIC ERA HUTTS
+
+ships.AJUUR_HEAVY_CRUISER_HUTT = {
+    name: "Ajuur Heavy Cruiser",
+    asset: "AJUUR_HEAVY_CRUISER.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 17,
+    size: 1200,
+    cost: 4000,
+    speed: 2,
+    turnSpeed: .01,
+    shield: 1800,
+    shieldRegen: 1.8,
+    hardpoints: (function () {
+        const points = [{
+            x: -.289,
+            y: -.392
+        }, {
+            x: -.289,
+            y: -.321
+        }, {
+            x: -.294,
+            y: -.124
+        }, {
+            x: -.294,
+            y: -.042
+        }, {
+            x: -.291,
+            y: .139
+        }, {
+            x: -.293,
+            y: .230
+        }, {
+            x: -.069,
+            y: .934
+        }, {
+            x: -.107,
+            y: .753
+        }, {
+            x: -.140,
+            y: .525
+        }, {
+            x: -.115,
+            y: .396
+        }, {
+            x: -.185,
+            y: .218
+        }, {
+            x: -.139,
+            y: .113
+        }, {
+            x: -.217,
+            y: .038
+        }, {
+            x: -.128,
+            y: -.161
+        }, {
+            x: -.204,
+            y: -.200
+        }, {
+            x: -.164,
+            y: -.396
+        }, {
+            x: -.128,
+            y: -.571
+        }, {
+            x: -.103,
+            y: -.774
+        }, {
+            x: -.059,
+            y: -.956
+        }, {
+            x: -.072,
+            y: -.399
+        }, {
+            x: -.061,
+            y: .315
+        }];
+
+        for (let i = 0, n = points.length; i < n; i++) {
+            points.push({
+                x: -points[i].x,
+                y: points[i].y
+            });
+        }
+
+        const selections = [{
+            weapon: weapons.PURPLE_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 250
+        }, {
+            weapon: weapons.PURPLE_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            weapon: weapons.ION_CANNON_MEDIUM,
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+            shotsAtOnce: 3,
+            shotDelay: 300
+        }]
+
+        const output = [];
+
+        for (let i = 0, n = points.length; i < n; i++) {
+            output.push({
+                ...points[i],
+                ...selections[i % selections.length]
+            });
+        }
+
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * .75 | 0,
+                reload: e.weapon.reload * 1.2
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 4,
+        reserveSize: 4,
+        squadronKey: "CHAOS_FIGHTER_HUTT"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 4,
+        reserveSize: 4,
+        squadronKey: "CHAOS_BOMBER_HUTT"
+    }]
+};
+
 export default ships;
