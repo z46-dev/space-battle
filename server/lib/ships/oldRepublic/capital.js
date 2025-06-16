@@ -3,11 +3,117 @@ import * as weapons from "../../weapons.js";
 
 const ships = {};
 
+ships.STALWART_CRUISER_OLDREP = {
+    name: "Stalwart Cruiser",
+    asset: "STALWART_CRUISER.png",
+    classification: shipTypes.Capital,
+    population: 18,
+    size: 550,
+    cost: 3250,
+    speed: 4,
+    turnSpeed: .0075,
+    shield: 2400,
+    shieldRegen: 2.4,
+    hardpoints: (function () {
+        const points = [{
+            x: -.062,
+            y: .861
+        }, {
+            x: -.141,
+            y: .534
+        }, {
+            x: -.213,
+            y: .246
+        }, {
+            x: -.280,
+            y: -.100
+        }, {
+            x: -.135,
+            y: .078
+        }, {
+            x: -.140,
+            y: -.282
+        }, {
+            x: -.295,
+            y: -.707
+        }];
+
+        for (let i = 0, n = points.length; i < n; i++) {
+            points.push({
+                x: -points[i].x,
+                y: points[i].y
+            });
+        }
+
+        const selections = [{
+            weapon: weapons.GREEN_TURBOLASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 250
+        }, {
+            weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            weapon: weapons.GREEN_LASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 100
+        }, {
+            weapon: weapons.ION_CANNON_MEDIUM,
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            weapon: weapons.DOUBLE_ION_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 150
+        }, {
+            weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
+            shotsAtOnce: 2,
+            shotDelay: 250
+        }, {
+            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
+            shotsAtOnce: 3,
+            shotDelay: 300
+        }]
+
+        const output = [];
+
+        for (let i = 0, n = points.length; i < n; i++) {
+            output.push({
+                ...points[i],
+                ...selections[i % selections.length]
+            });
+        }
+
+        return output.map(e => ({
+            ...e,
+            weapon: {
+                ...e.weapon,
+                health: e.weapon.health * 2.25 | 0
+            }
+        }));
+    })(),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 2,
+        squadronSize: 5,
+        reserveSize: 2,
+        squadronKey: "AUREK_STRIKEFIGHTER_OLDREP"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 4,
+        reserveSize: 2,
+        squadronKey: "CHELA_BOMBER_OLDREP"
+    }]
+};
+
 ships.SWIFTSURE_CRUISER_I_OLDREP = {
     name: "Swiftsure Cruiser I",
     asset: "SWIFTSURE_CRUISER.png",
     classification: shipTypes.Capital,
-    population: 26,
+    population: 23,
     size: 650,
     cost: 6000,
     speed: 3,

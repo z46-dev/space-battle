@@ -1200,11 +1200,12 @@ export default function draw() {
 
             let boxHeight = Math.ceil(state.world.availableReinforcements.length / rowSize) * ((cellSize + cellPadding) * 2);
 
-            reinforcementY = boxHeight + 50;
+            reinforcementY = boxHeight + 75;
 
             ctx.translate(canvas.width / uScale - boxWidth - 10, canvas.height / uScale - 10 - boxHeight);
 
-            drawText("Reinforcements", boxWidth / 2, -20, 25, "#C8C8C8", "center");
+            drawText(`Reinforcements`, boxWidth / 2, -20, 25, "#C8C8C8", "center");
+            drawText(`(Population: ${state.world.activePopulation}/${state.world.maxPopulation})`, boxWidth / 2, -50, 12, "#B5B5B5", "center");
 
             ctx.fillStyle = "#111111";
             ctx.globalAlpha = .5;
@@ -1246,17 +1247,25 @@ export default function draw() {
                     ctx.drawImage(assetsLib.assets.get(ship.asset), -.8, -.8, 1.6, 1.6);
                 }
 
-                ctx.restore();
+                if (state.world.activePopulation + ship.population > state.world.maxPopulation) {
+                    ctx.fillStyle = "rgba(255, 0, 0, .5)";
+                    ctx.beginPath();
+                    ctx.arc(0, 0, state.world.availableReinforcements[i].hero ? .5 : 1, 0, Math.PI * 2);
+                    ctx.closePath();
+                    ctx.fill();
+                } else {
+                    state.clickables.push(state.UIClickable.radial(
+                        canvas.width / uScale - boxWidth - 10 + x + cellSize / 2,
+                        canvas.height / uScale - 10 - boxHeight + y + cellSize / 2,
+                        cellSize,
+                        () => {
+                            state.world.reinforcementDrag.enabled = true;
+                            state.world.reinforcementDrag.key = i;
+                        }
+                    ));
+                }
 
-                state.clickables.push(state.UIClickable.radial(
-                    canvas.width / uScale - boxWidth - 10 + x + cellSize / 2,
-                    canvas.height / uScale - 10 - boxHeight + y + cellSize / 2,
-                    cellSize,
-                    () => {
-                        state.world.reinforcementDrag.enabled = true;
-                        state.world.reinforcementDrag.key = i;
-                    }
-                ));
+                ctx.restore();
             }
 
             ctx.restore();

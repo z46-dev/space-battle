@@ -291,9 +291,9 @@ if (location.search.includes("debug")) {
         text: "Testing",
         color: "#C8C8C8",
         action: () => {
-            const pop = 150;
-            const f1 = allFactions.sithEmpire;
-            const f2 = allFactions.ancientHutts;
+            const pop = 250;
+            const f1 = allFactions.newRepublic;
+            const f2 = allFactions.sithEmpire;
 
             shared.newBeginBattle({
                 name: f1.name,
@@ -304,10 +304,14 @@ if (location.search.includes("debug")) {
                 color: f1.color
             }, {
                 name: f2.name,
-                fleet: Fleet.randomFromFactionConfig(pop, f2).__ships.map(e => ({
-                    ship: e,
-                    hero: null
-                })),
+                // fleet: Fleet.randomFromFactionConfig(pop, f2).__ships.map(e => ({
+                //     ship: e,
+                //     hero: null
+                // })),
+                fleet: [{
+                    ship: "ECLIPSE_EMPIRE",
+                    hero: heroes.PalpatineClone.key
+                }],
                 color: f2.color
             }, true, null, "Sandbox");
             on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);

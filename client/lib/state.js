@@ -59,7 +59,10 @@ export const world = {
     playBattle: true,
 
     /** @type {Map<number, SuperlaserObject>} */
-    superlaserObjects: new Map()
+    superlaserObjects: new Map(),
+
+    activePopulation: 0,
+    maxPopulation: 0
 };
 
 export function toggle() {
@@ -741,6 +744,9 @@ worker.onmessage = event => {
                     world.superlaserObjects.set(superlaserObject.id, superlaserObject);
                 }
             }
+
+            world.activePopulation = data.shift();
+            world.maxPopulation = data.shift();
         } break;
         case 1: {
             world.width = data.shift();

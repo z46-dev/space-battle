@@ -1044,7 +1044,7 @@ class ShipAI {
 
             // this.ship.angleGoal = Math.atan2(this.wanderGoal.y - this.ship.y, this.wanderGoal.x - this.ship.x);
 
-            if ((performance.now() + this.ship.id) % 10000 > (5000 + (this.ship.id * 234) % 2350)) {
+            if ((performance.now() + this.ship.id * 124) % 10000 > (5000 + (this.ship.id * 234) % 2350)) {
                 this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
             }
         }
@@ -1052,7 +1052,7 @@ class ShipAI {
 
     lightFrigateThinking() {
         const myDistance = distance(this.ship.x, this.ship.y, this.target.x, this.target.y);
-        const range = Math.min(...this.ship.hardpoints.map(hardpoint => hardpoint.range)) * .5;
+        const range = Math.min(...this.ship.hardpoints.map(hardpoint => hardpoint.health > 0 ? hardpoint.range : Infinity)) * .75;
 
         if ((this.ship.shield / this.ship.maxShield < .25 && this.ship.health < .75) || myDistance < range / 3) { // Kite
             this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x) + Math.PI;
@@ -1069,7 +1069,7 @@ class ShipAI {
 
     capitalShipThinking() {
         const myDistance = distance(this.ship.x, this.ship.y, this.target.x, this.target.y);
-        const range = Math.min(...this.ship.hardpoints.map(hardpoint => hardpoint.range)) * .667;
+        const range = Math.min(...this.ship.hardpoints.map(hardpoint => hardpoint.health > 0 ? hardpoint.range : Infinity)) * .8;
 
         if (myDistance > range) { // Approach
             this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
@@ -1080,25 +1080,6 @@ class ShipAI {
                 this.ship.angleGoal = Math.atan2(this.target.y - this.ship.y, this.target.x - this.ship.x);
             }
         }
-    }
-}
-
-class ShipFleeAI extends ShipAI {
-    constructor(ship, flee, angleModifier) {
-        super(ship);
-
-        this.flee = flee;
-        this.angleModifier = angleModifier;
-    }
-
-    update() {
-        if (this.flee == null || this.flee.health <= 0) {
-            this.ship.ai = new ShipAI(this.ship);
-            return;
-        }
-
-        this.ship.angleGoal = Math.atan2(this.ship.y - this.flee.y, this.ship.x - this.flee.x) + this.angleModifier;
-        this.ship.speed = this.ship.maxSpeed;
     }
 }
 
@@ -1417,7 +1398,8 @@ class Battle {
             this.teams.push({
                 i: i,
                 spatialHash: new SpatialHashGrid(),
-                pathfinder: null
+                pathfinder: null,
+                livingPopulation: 0
             });
         }
 
@@ -1452,20 +1434,27 @@ class Battle {
                 return;
             }
 
-            const teamsAlive = new Map();
+            const teamsAlive = new Set();
+
+            this.teams.forEach(team => {
+                team.livingPopulation = 0;
+            });
 
             for (const ship of this.ships.values()) {
                 if (ship.classification >= shipTypes.Corvette) {
-                    // teamsAlive.add(ship.team);
-                    teamsAlive.set(ship.team, (teamsAlive.get(ship.team) ?? 0) + ships[ship.key].population);
+                    teamsAlive.add(ship.team);
+                    // teamsAlive.set(ship.team, (teamsAlive.get(ship.team) ?? 0) + ships[ship.key].population);
+                    this.teams[ship.team].livingPopulation += ships[ship.key].population;
                 }
             }
 
             if (teamsAlive.size > 1) {
-                teamsAlive.forEach((population, teamIndex) => {
+                teamsAlive.forEach(teamIndex => {
                     if (teamIndex === 0) {
                         return;
                     }
+
+                    const population = this.teams[teamIndex].livingPopulation;
 
                     const stuff = getInitialAndReinforcements({
                         fleet: this.reinforcements[teamIndex]
@@ -2345,6 +2334,8 @@ class Camera {
             output.push(pkg.id, pkg.x1, pkg.y1, pkg.x2, pkg.y2, pkg.color);
         });
 
+        output.push(this.battle.teams[0].livingPopulation, Battle.MAXIMUM_ACTIVE_POPULATION);
+
         this.connection.talk(output);
     }
 }
@@ -2610,7 +2601,7 @@ onmessage = function (e) {
                     battle.explosionsToRender = [];
                     battle.deathsToSend = [];
 
-                    battle.shipsStartedWith = [];
+                    battle.shipsStartedWith = [[], []];
 
                     battle.projectiles.forEach(projectile => {
                         projectile.battle.projectiles.delete(projectile.id);
@@ -2650,6 +2641,13 @@ onmessage = function (e) {
 
                     const shipKey = reinforcement.ship;
                     const heroKey = reinforcement.hero;
+
+                    if (battle.teams[connection.team].livingPopulation + ships[shipKey].population > Battle.MAXIMUM_ACTIVE_POPULATION) {
+                        connection.talk([2, `Cannot call ${ships[shipKey]?.name ?? "???"} reinforcement, population cap would be exceeded!`]);
+                        return;
+                    }
+
+                    battle.teams[connection.team].livingPopulation += ships[shipKey].population;
 
                     scene.hyperspaceIn(shipKey, connection.team, x, y, angle, Math.random() * 750, ship => {
                         if (heroKey) {

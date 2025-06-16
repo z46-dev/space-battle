@@ -47,29 +47,29 @@ ships.FORAY_BLOCKADE_RUNNER_OLDREP = {
     hardpoints: [{
         x: -.083,
         y: .835,
-        weapon: weapons.GREEN_DOUBLE_LASER_CANNON
+        weapon: weapons.GREEN_TURBOLASER_CANNON
     }, {
         x: .078,
         y: .838,
-        weapon: weapons.GREEN_DOUBLE_LASER_CANNON
+        weapon: weapons.GREEN_TURBOLASER_CANNON
     }, {
         x: -.337,
         y: -.752,
-        weapon: weapons.GREEN_LASER_CANNON,
+        weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 125
     }, {
         x: .330,
         y: -.764,
-        weapon: weapons.GREEN_LASER_CANNON,
+        weapon: weapons.GREEN_DOUBLE_LASER_CANNON,
         shotsAtOnce: 2,
         shotDelay: 125
     }, {
         x: -.003,
         y: .073,
-        weapon: weapons.ASSAULT_PROTON_ROCKET,
-        shotsAtOnce: 3,
-        shotDelay: 450
+        weapon: weapons.GREEN_ANTI_FIGHTER_LASER_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 75
     }]
 };
 

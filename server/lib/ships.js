@@ -144,7 +144,8 @@ export const mandalorians = {
     ...(await import("./ships/mandalorians/frigate.js")).default,
     ...(await import("./ships/mandalorians/heavyFrigate.js")).default,
     ...(await import("./ships/mandalorians/capital.js")).default,
-    ...(await import("./ships/mandalorians/superCapital.js")).default
+    ...(await import("./ships/mandalorians/superCapital.js")).default,
+    ...(await import("./ships/mandalorians/stations.js")).default
 };
 
 export const stations = {
@@ -259,12 +260,23 @@ ships.DUMMY_TARGET = {
     })()
 };
 
+const rangeScales = {
+    [shipTypes.Fighter]: .85,
+    [shipTypes.Corvette]: .725,
+    [shipTypes.Frigate]: .85,
+    [shipTypes.HeavyFrigate]: .9,
+    [shipTypes.Capital]: 1,
+    [shipTypes.SuperCapital]: 1.25
+};
+
 for (const ship in ships) {
     ships[ship].hardpoints.forEach(hardpoint => {
         const vector = new Vector(hardpoint.y, hardpoint.x);
 
         hardpoint.offset = vector.length;
         hardpoint.direction = vector.angle;
+
+        hardpoint.weapon.range *= rangeScales[ships[ship].classification] || 1;
     });
 
     if (ships[ship].hangars instanceof Array) {

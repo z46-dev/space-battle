@@ -1249,4 +1249,562 @@ templates.SHIPYARD_LVL_4 = function (options = {}) {
     };
 }
 
+templates.DARKNON_DEFENSE_STATION = function (options = {}) {
+    options.color ??= "GREEN";
+
+    options.fighter ??= "TIEFIGHTER_EMPIRE";
+    options.bomber ??= "TIEPUNISHER_EMPIRE";
+
+    return {
+        name: "Darknon Defense Station",
+        asset: "DARKNON_STATION.png",
+        classification: shipTypes.SpaceStation,
+        population: 10,
+        size: 650,
+        cost: 3000,
+        speed: 0,
+        turnSpeed: .0001,
+        shield: 4500,
+        shieldRegen: 4.5,
+        hardpoints: (function () {
+            const points = [{
+                x: -.731,
+                y: -.274
+            }, {
+                x: -.729,
+                y: .278
+            }, {
+                x: -.239,
+                y: .709
+            }, {
+                x: .293,
+                y: .735
+            }, {
+                x: .768,
+                y: -.232
+            }, {
+                x: .740,
+                y: .170
+            }, {
+                x: .258,
+                y: -.781
+            }, {
+                x: -.176,
+                y: -.788
+            }, {
+                x: -.358,
+                y: -.399
+            }, {
+                x: -.276,
+                y: -.314
+            }, {
+                x: -.282,
+                y: .258
+            }, {
+                x: -.386,
+                y: .371
+            }, {
+                x: .265,
+                y: .261
+            }, {
+                x: .331,
+                y: .324
+            }, {
+                x: .249,
+                y: -.282
+            }, {
+                x: .313,
+                y: -.356
+            }];
+
+            const output = [];
+            const selections = [
+                weapons.ION_CANNON, weapons.ION_CANNON_MEDIUM,
+                weapons[options.color + "_LASER_CANNON"], weapons[options.color + "_LASER_CANNON_HEAVY"]
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 3,
+                    shotDelay: 300
+                });
+            }
+
+            return output.map(h => ({
+                ...h,
+                weapon: {
+                    ...h.weapon,
+                    health: Math.round(4000 / output.length)
+                }
+            }));
+        })(),
+        hangars: [{
+            x: 0,
+            y: -.75,
+            maxSquadrons: 1,
+            squadronSize: 6,
+            reserveSize: 4,
+            squadronKey: options.fighter
+        }, {
+            x: 0,
+            y: .75,
+            maxSquadrons: 1,
+            squadronSize: 6,
+            reserveSize: 4,
+            squadronKey: options.bomber
+        }]
+    };
+}
+
+templates.RONIKA_DEFENSE_STATION = function (options = {}) {
+    options.color ??= "GREEN";
+
+    options.fighter ??= "TIEFIGHTER_EMPIRE";
+    options.bomber ??= "TIEPUNISHER_EMPIRE";
+
+    return {
+        name: "Ronika Defense Station",
+        asset: "RONIKA_STATION.png",
+        classification: shipTypes.SpaceStation,
+        population: 25,
+        size: 1750,
+        cost: 6000,
+        speed: 0,
+        turnSpeed: 0,
+        shield: 6500,
+        shieldRegen: 6.5,
+        hardpoints: (function () {
+            const points = [{
+                x: -.834,
+                y: .181
+            }, {
+                x: -.650,
+                y: .184
+            }, {
+                x: -.786,
+                y: -.028
+            }, {
+                x: -.944,
+                y: -.027
+            }, {
+                x: -.952,
+                y: -.094
+            }, {
+                x: -.793,
+                y: -.082
+            }, {
+                x: -.881,
+                y: -.257
+            }, {
+                x: -.688,
+                y: -.258
+            }, {
+                x: -.618,
+                y: -.002
+            }, {
+                x: -.318,
+                y: .001
+            }, {
+                x: -.164,
+                y: -.137
+            }, {
+                x: -.161,
+                y: .140
+            }, {
+                x: -.091,
+                y: -.006
+            }];
+
+            for (let i = 0, n = points.length; i < n; i++) {
+                points.push({
+                    x: -points[i].x,
+                    y: points[i].y
+                });
+            }
+
+            const output = [];
+            const selections = [
+                weapons.ION_CANNON, weapons.ION_CANNON_MEDIUM,
+                weapons[options.color + "_LASER_CANNON"], weapons[options.color + "_LASER_CANNON_HEAVY"]
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 300
+                });
+            }
+
+            return output.map(h => ({
+                ...h,
+                weapon: {
+                    ...h.weapon,
+                    health: Math.round(7000 / output.length)
+                }
+            }));
+        })(),
+        hangars: [{
+            x: 0,
+            y: -.75,
+            maxSquadrons: 1,
+            squadronSize: 6,
+            reserveSize: 4,
+            squadronKey: options.fighter
+        }, {
+            x: 0,
+            y: .75,
+            maxSquadrons: 1,
+            squadronSize: 6,
+            reserveSize: 4,
+            squadronKey: options.bomber
+        }]
+    };
+}
+
+templates.KEMPLEX_DEFENSE_STATION = function (options = {}) {
+    options.color ??= "GREEN";
+
+    options.fighter ??= "TIEFIGHTER_EMPIRE";
+    options.bomber ??= "TIEPUNISHER_EMPIRE";
+
+    return {
+        name: "Kemplex Defense Station",
+        asset: "KEMPLEX_STATION.png",
+        classification: shipTypes.SpaceStation,
+        population: 40,
+        size: 2230,
+        cost: 15000,
+        speed: 0,
+        turnSpeed: 0,
+        shield: 15000,
+        shieldRegen: 15,
+        hardpoints: (function () {
+            const points = [{
+                x: .030,
+                y: .933
+            }, {
+                x: -.087,
+                y: .772
+            }, {
+                x: .040,
+                y: .769
+            }, {
+                x: .206,
+                y: .759
+            }, {
+                x: .306,
+                y: .679
+            }, {
+                x: .169,
+                y: .618
+            }, {
+                x: .284,
+                y: .579
+            }, {
+                x: .411,
+                y: .584
+            }, {
+                x: .418,
+                y: .435
+            }, {
+                x: .413,
+                y: .289
+            }, {
+                x: .376,
+                y: .125
+            }, {
+                x: .257,
+                y: .108
+            }, {
+                x: .123,
+                y: .298
+            }, {
+                x: .120,
+                y: .520
+            }, {
+                x: .267,
+                y: .411
+            }, {
+                x: .147,
+                y: .184
+            }, {
+                x: .311,
+                y: -.067
+            }, {
+                x: .311,
+                y: -.228
+            }, {
+                x: .328,
+                y: -.399
+            }, {
+                x: .462,
+                y: -.541
+            }, {
+                x: .564,
+                y: -.648
+            }, {
+                x: .662,
+                y: -.548
+            }, {
+                x: .754,
+                y: -.638
+            }, {
+                x: .872,
+                y: -.741
+            }, {
+                x: .786,
+                y: -.853
+            }, {
+                x: .676,
+                y: -.960
+            }, {
+                x: .569,
+                y: -.877
+            }, {
+                x: .457,
+                y: -.748
+            }, {
+                x: .089,
+                y: -.397
+            }, {
+                x: .130,
+                y: -.085
+            }, {
+                x: -.028,
+                y: -.397
+            }, {
+                x: -.165,
+                y: -.409
+            }, {
+                x: -.241,
+                y: -.402
+            }, {
+                x: -.836,
+                y: -.394
+            }, {
+                x: -.828,
+                y: -.228
+            }, {
+                x: -.850,
+                y: .003
+            }, {
+                x: -.799,
+                y: .120
+            }, {
+                x: -.838,
+                y: .237
+            }, {
+                x: -.897,
+                y: .359
+            }, {
+                x: -.841,
+                y: .557
+            }, {
+                x: -.894,
+                y: .567
+            }, {
+                x: -.824,
+                y: .689
+            }, {
+                x: -.772,
+                y: .759
+            }, {
+                x: -.687,
+                y: .752
+            }, {
+                x: -.504,
+                y: .752
+            }, {
+                x: -.382,
+                y: .742
+            }, {
+                x: -.206,
+                y: .752
+            }, {
+                x: -.324,
+                y: .169
+            }, {
+                x: -.167,
+                y: .189
+            }, {
+                x: -.506,
+                y: .252
+            }, {
+                x: -.438,
+                y: .030
+            }, {
+                x: -.311,
+                y: .028
+            }, {
+                x: -.636,
+                y: -.248
+            }, {
+                x: -.336,
+                y: -.258
+            }, {
+                x: -.087,
+                y: -.260
+            }, {
+                x: -.633,
+                y: .386
+            }, {
+                x: -.446,
+                y: .530
+            }, {
+                x: -.019,
+                y: .369
+            }, {
+                x: .250,
+                y: -.460
+            }];
+
+            const output = [];
+            const selections = [
+                weapons.ION_CANNON, weapons.ION_CANNON_MEDIUM,
+                weapons[options.color + "_LASER_CANNON"], weapons[options.color + "_LASER_CANNON_HEAVY"],
+                weapons[options.color + "_TURBOLASER_CANNON"], weapons[options.color + "_TURBOLASER_CANNON_HEAVY"]
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 300
+                });
+            }
+
+            return output.map(h => ({
+                ...h,
+                weapon: {
+                    ...h.weapon,
+                    health: Math.round(15000 / output.length)
+                }
+            }));
+        })(),
+        hangars: [{
+            x: 0,
+            y: -.75,
+            maxSquadrons: 2,
+            squadronSize: 6,
+            reserveSize: 4,
+            squadronKey: options.fighter
+        }, {
+            x: 0,
+            y: .75,
+            maxSquadrons: 1,
+            squadronSize: 6,
+            reserveSize: 4,
+            squadronKey: options.bomber
+        }]
+    };
+}
+
+templates.SITH_RELAY_STATION = function (options = {}) {
+    options.color ??= "GREEN";
+
+    options.fighter ??= "TIEFIGHTER_EMPIRE";
+    options.bomber ??= "TIEPUNISHER_EMPIRE";
+
+    return {
+        name: "Sith Relay Station",
+        asset: "SITH_RELAY_STATION.png",
+        classification: shipTypes.SpaceStation,
+        population: 12,
+        size: 650,
+        cost: 3400,
+        speed: 0,
+        turnSpeed: .0001,
+        shield: 4500,
+        shieldRegen: 4.5,
+        hardpoints: (function () {
+            const points = [{
+                x: -.051,
+                y: .927
+            }, {
+                x: .129,
+                y: .739
+            }, {
+                x: -.198,
+                y: .596
+            }, {
+                x: .203,
+                y: .331
+            }, {
+                x: -.345,
+                y: .339
+            }, {
+                x: -.201,
+                y: -.227
+            }, {
+                x: .181,
+                y: .012
+            }, {
+                x: .335,
+                y: -.370
+            }, {
+                x: -.043,
+                y: -.697
+            }, {
+                x: -.359,
+                y: -.591
+            }, {
+                x: -.014,
+                y: -.271
+            }, {
+                x: .284,
+                y: -.694
+            }, {
+                x: -.036,
+                y: -.877
+            }, {
+                x: -.212,
+                y: .078
+            }];
+
+            const output = [];
+            const selections = [
+                weapons.ION_CANNON,
+                weapons[options.color + "_LASER_CANNON"]
+            ];
+
+            for (let i = 0; i < points.length; i++) {
+                output.push({
+                    ...points[i],
+                    weapon: selections[i % selections.length],
+                    shotsAtOnce: 2,
+                    shotDelay: 300
+                });
+            }
+
+            return output.map(h => ({
+                ...h,
+                weapon: {
+                    ...h.weapon,
+                    health: Math.round(5000 / output.length)
+                }
+            }));
+        })(),
+        hangars: [{
+            x: 0,
+            y: -.75,
+            maxSquadrons: 2,
+            squadronSize: 4,
+            reserveSize: 4,
+            squadronKey: options.fighter
+        }, {
+            x: 0,
+            y: .75,
+            maxSquadrons: 2,
+            squadronSize: 4,
+            reserveSize: 4,
+            squadronKey: options.bomber
+        }]
+    };
+}
+
 export default templates;

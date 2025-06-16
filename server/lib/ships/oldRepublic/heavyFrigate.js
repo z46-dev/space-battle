@@ -3,112 +3,6 @@ import * as weapons from "../../weapons.js";
 
 const ships = {};
 
-ships.STALWART_CRUISER_OLDREP = {
-    name: "Stalwart Cruiser",
-    asset: "STALWART_CRUISER.png",
-    classification: shipTypes.HeavyFrigate,
-    population: 18,
-    size: 500,
-    cost: 3250,
-    speed: 4,
-    turnSpeed: .0075,
-    shield: 1850,
-    shieldRegen: 1.85,
-    hardpoints: (function () {
-        const points = [{
-            x: -.062,
-            y: .861
-        }, {
-            x: -.141,
-            y: .534
-        }, {
-            x: -.213,
-            y: .246
-        }, {
-            x: -.280,
-            y: -.100
-        }, {
-            x: -.135,
-            y: .078
-        }, {
-            x: -.140,
-            y: -.282
-        }, {
-            x: -.295,
-            y: -.707
-        }];
-
-        for (let i = 0, n = points.length; i < n; i++) {
-            points.push({
-                x: -points[i].x,
-                y: points[i].y
-            });
-        }
-
-        const selections = [{
-            weapon: weapons.GREEN_TURBOLASER_CANNON_HEAVY,
-            shotsAtOnce: 2,
-            shotDelay: 250
-        }, {
-            weapon: weapons.GREEN_DOUBLE_LASER_CANNON_HEAVY,
-            shotsAtOnce: 2,
-            shotDelay: 150
-        }, {
-            weapon: weapons.GREEN_LASER_CANNON,
-            shotsAtOnce: 2,
-            shotDelay: 100
-        }, {
-            weapon: weapons.ION_CANNON_MEDIUM,
-            shotsAtOnce: 2,
-            shotDelay: 150
-        }, {
-            weapon: weapons.DOUBLE_ION_CANNON,
-            shotsAtOnce: 2,
-            shotDelay: 150
-        }, {
-            weapon: weapons.GREEN_DOUBLE_TURBOLASER_CANNON,
-            shotsAtOnce: 2,
-            shotDelay: 250
-        }, {
-            weapon: weapons.ASSAULT_CONCUSSION_MISSILE,
-            shotsAtOnce: 3,
-            shotDelay: 300
-        }]
-
-        const output = [];
-
-        for (let i = 0, n = points.length; i < n; i++) {
-            output.push({
-                ...points[i],
-                ...selections[i % selections.length]
-            });
-        }
-
-        return output.map(e => ({
-            ...e,
-            weapon: {
-                ...e.weapon,
-                health: e.weapon.health * 2 | 0
-            }
-        }));
-    })(),
-    hangars: [{
-        x: 0,
-        y: 0,
-        maxSquadrons: 1,
-        squadronSize: 5,
-        reserveSize: 2,
-        squadronKey: "AUREK_STRIKEFIGHTER_OLDREP"
-    }, {
-        x: 0,
-        y: 0,
-        maxSquadrons: 1,
-        squadronSize: 4,
-        reserveSize: 2,
-        squadronKey: "CHELA_BOMBER_OLDREP"
-    }]
-};
-
 ships.ZENITH_CRUISER_OLDREP = {
     name: "Zenith Cruiser",
     asset: "ZENITHCRUISER.png",
@@ -194,6 +88,88 @@ ships.ZENITH_CRUISER_OLDREP = {
         maxSquadrons: 2,
         squadronSize: 3,
         reserveSize: 3,
+        squadronKey: "CHELA_BOMBER_OLDREP"
+    }]
+};
+
+ships.HAMMERHEAD_CRUISER_OLDREP = {
+    name: "Hammerhead Cruiser",
+    asset: "HAMMERHEAD_CRUISER.png",
+    classification: shipTypes.HeavyFrigate,
+    population: 13,
+    size: 500,
+    cost: 2000,
+    speed: 4,
+    turnSpeed: .01,
+    shield: 2200,
+    shieldRegen: 2.2,
+    hardpoints: [{
+        x: .002,
+        y: .882,
+        weapon: weapons.GREEN_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 175
+    }, {
+        x: -.098,
+        y: .662,
+        weapon: weapons.GREEN_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 175
+    }, {
+        x: -.113,
+        y: .363,
+        weapon: weapons.DOUBLE_ION_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 175
+    }, {
+        x: -.181,
+        y: -.154,
+        weapon: weapons.GREEN_DOUBLE_LASER_CANNON
+    }, {
+        x: -.2,
+        y: -.634,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM
+    }, {
+        x: .098,
+        y: .662,
+        weapon: weapons.GREEN_LASER_CANNON_HEAVY,
+        shotsAtOnce: 2,
+        shotDelay: 175
+    }, {
+        x: .113,
+        y: .363,
+        weapon: weapons.DOUBLE_ION_CANNON,
+        shotsAtOnce: 2,
+        shotDelay: 175
+    }, {
+        x: .181,
+        y: -.154,
+        weapon: weapons.GREEN_DOUBLE_LASER_CANNON
+    }, {
+        x: .2,
+        y: -.634,
+        weapon: weapons.DOUBLE_ION_CANNON_MEDIUM
+    }].map(e => ({
+        ...e,
+        weapon: {
+            ...e.weapon,
+            health: e.weapon.health * 2.6 | 0,
+            reload: e.weapon.reload * .85
+        }
+    })),
+    hangars: [{
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 5,
+        reserveSize: 2,
+        squadronKey: "AUREK_STRIKEFIGHTER_OLDREP"
+    }, {
+        x: 0,
+        y: 0,
+        maxSquadrons: 1,
+        squadronSize: 4,
+        reserveSize: 2,
         squadronKey: "CHELA_BOMBER_OLDREP"
     }]
 };

@@ -266,6 +266,7 @@ type MaskConfig struct {
 func RemoveBackgroundSmartWithConfig(
 	img *image.RGBA,
 	cfg MaskConfig,
+	clearInterior bool,
 ) {
 	b := img.Bounds()
 	w, h := b.Dx(), b.Dy()
@@ -394,14 +395,16 @@ func RemoveBackgroundSmartWithConfig(
 		}
 	}
 
-	// 4) Clear any “interior” mask pixels (donut holes):
-	for y := 0; y < h; y++ {
-		rowOff := y * w
-		for x := 0; x < w; x++ {
-			i := rowOff + x
-			if mask[i] {
-				pixIdx := img.PixOffset(x, y)
-				img.Pix[pixIdx+3] = 0
+	if clearInterior {
+		// 4) Clear any “interior” mask pixels (donut holes):
+		for y := 0; y < h; y++ {
+			rowOff := y * w
+			for x := 0; x < w; x++ {
+				i := rowOff + x
+				if mask[i] {
+					pixIdx := img.PixOffset(x, y)
+					img.Pix[pixIdx+3] = 0
+				}
 			}
 		}
 	}

@@ -37,7 +37,7 @@ templates.EXECUTORSUPERSTARDESTROYER = function (options = {}) {
 
     return {
         name: options.name,
-        asset: "SSD.png",
+        asset: "EXECUTOR_SUPER_STAR_DESTROYER.png",
         classification: shipTypes.SuperCapital,
         population: options.population,
         size: 8000,
@@ -57,19 +57,7 @@ templates.EXECUTORSUPERSTARDESTROYER = function (options = {}) {
                     shotsAtOnce: 3,
                     shotDelay: 250
                 }, {
-                    x: .04 + .02 * i,
-                    y: .8 - .1 * i,
-                    weapon: weapons[options.color + "_QUAD_LASER_CANNON_HEAVY"],
-                    shotsAtOnce: 3,
-                    shotDelay: 250
-                }, {
                     x: -.01 - .0225 * i,
-                    y: .85 - .1 * i,
-                    weapon: weapons.QUAD_ION_CANNON,
-                    shotsAtOnce: 3,
-                    shotDelay: 250
-                }, {
-                    x: .03 + .02 * i,
                     y: .85 - .1 * i,
                     weapon: weapons.QUAD_ION_CANNON,
                     shotsAtOnce: 3,
@@ -80,16 +68,10 @@ templates.EXECUTORSUPERSTARDESTROYER = function (options = {}) {
                     weapon: i % 2 ? weapons[options.color + "_DOUBLE_TURBOLASER_CANNON_HEAVY"] : weapons.ASSAULT_CONCUSSION_MISSILE,
                     shotsAtOnce: 3,
                     shotDelay: 250
-                }, {
-                    x: .025 + .02 * i,
-                    y: .8 - .1 * i,
-                    weapon: i % 2 ? weapons[options.color + "_DOUBLE_TURBOLASER_CANNON_HEAVY"] : weapons.ASSAULT_CONCUSSION_MISSILE,
-                    shotsAtOnce: 3,
-                    shotDelay: 250
                 });
             }
 
-            for (let i = -4; i < 12; i++) {
+            for (let i = -4; i < 11; i++) {
                 output.push({
                     x: -.055 - .01 * i,
                     y: .4 - .075 * i,
@@ -97,19 +79,7 @@ templates.EXECUTORSUPERSTARDESTROYER = function (options = {}) {
                     shotsAtOnce: 2,
                     shotDelay: 500
                 }, {
-                    x: .075 + .00825 * i,
-                    y: .4 - .075 * i,
-                    weapon: weapons[options.color + "_QUAD_TURBOLASER_CANNON_HEAVY"],
-                    shotsAtOnce: 2,
-                    shotDelay: 500
-                }, {
                     x: -.08 - .015 * i,
-                    y: .4 - .075 * i,
-                    weapon: weapons[options.color + "_OCTUPLE_TURBOLASER_CANNON_HEAVY"],
-                    shotsAtOnce: 2,
-                    shotDelay: 500
-                }, {
-                    x: .09 + .0125 * i,
                     y: .4 - .075 * i,
                     weapon: weapons[options.color + "_OCTUPLE_TURBOLASER_CANNON_HEAVY"],
                     shotsAtOnce: 2,
@@ -125,19 +95,7 @@ templates.EXECUTORSUPERSTARDESTROYER = function (options = {}) {
                     shotsAtOnce: 2,
                     shotDelay: 500
                 }, {
-                    x: .075 + .00825 * i,
-                    y: .4 - .075 * i,
-                    weapon: (i | 0) % 2 ? weapons[options.color + "_DOUBLE_LASER_CANNON"] : weapons.DOUBLE_ION_CANNON_MEDIUM,
-                    shotsAtOnce: 2,
-                    shotDelay: 500
-                }, {
                     x: -.08 - .01 * i,
-                    y: .4 - .075 * i,
-                    weapon: (i | 0) % 2 ? weapons[options.color + "_DOUBLE_TURBOLASER_CANNON"] : weapons[options.color + "_OCTUPLE_TURBOLASER_CANNON_HEAVY"],
-                    shotsAtOnce: 2,
-                    shotDelay: 500
-                }, {
-                    x: .09 + .00825 * i,
                     y: .4 - .075 * i,
                     weapon: (i | 0) % 2 ? weapons[options.color + "_DOUBLE_TURBOLASER_CANNON"] : weapons[options.color + "_OCTUPLE_TURBOLASER_CANNON_HEAVY"],
                     shotsAtOnce: 2,
@@ -160,18 +118,13 @@ templates.EXECUTORSUPERSTARDESTROYER = function (options = {}) {
                     weapon: weapons.OCTUPLE_ION_CANNON_HEAVY,
                     shotsAtOnce: 2,
                     shotDelay: 300
-                }, {
-                    x: .13 - .0075 * i,
-                    y: -.475 - .0667 * i,
-                    weapon: weapons[options.color + "_OCTUPLE_TURBOLASER_CANNON_HEAVY"],
-                    shotsAtOnce: 2,
-                    shotDelay: 300
-                }, {
-                    x: .1 - .0075 * i,
-                    y: -.5 - .0667 * i,
-                    weapon: weapons.OCTUPLE_ION_CANNON_HEAVY,
-                    shotsAtOnce: 2,
-                    shotDelay: 300
+                });
+            }
+
+            for (let i = 0, l = output.length; i < l; i++) {
+                output.push({
+                    ...output[i],
+                    x: -output[i].x
                 });
             }
 

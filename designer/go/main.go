@@ -34,7 +34,7 @@ var (
 		Mode: imgproc.MaskHSV,
 
 		HSVTargetH: 300,
-		HSVTolH:    30,
+		HSVTolH:    40,
 		HSVMinS:    .25,
 		HSVMaxS:    1,
 		HSVMinV:    .25,
@@ -69,14 +69,12 @@ func main() {
 	square := imgproc.PadToSquare(srcImg)
 
 	// 3) Scale up (e.g. factor = 4)
-	scaled := imgproc.ScaleImage(square, 1)
+	scaled := imgproc.ScaleImage(square, 4)
 
 	// Convert to RGBA for pixel‐level editing
 	rgba := imgproc.ImageToRGBA(scaled)
 
-	imgproc.RemoveBackgroundSmartWithConfig(rgba, TargetMagentaBG)
-
-	// imgproc.Recolor(rgba, 0, 0, 0, .45)
+	imgproc.RemoveBackgroundSmartWithConfig(rgba, TargetMagentaBG, true)
 
 	// 6) Fuzz border pixels
 	imgproc.FuzzBorders(rgba)
@@ -85,10 +83,10 @@ func main() {
 	final := imgproc.CenterAndCrop(rgba)
 
 	imgproc.FuzzBorders(rgba)
-	imgproc.SmoothEdges(final, 2)
+	// imgproc.SmoothEdges(final, 4)
 
 	// 8) Save as PNG
-	if err := imgproc.SavePNG(outputPath, imgproc.ScaleImage(final, .25)); err != nil {
+	if err := imgproc.SavePNG(outputPath, imgproc.ScaleImage(final, .5)); err != nil {
 		log.Fatalf("Failed to save output: %v", err)
 	}
 

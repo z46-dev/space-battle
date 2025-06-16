@@ -7,7 +7,7 @@ ships.INTERDICTOR_CRUISER_SITHEMP = {
     name: "Interdictor Cruiser",
     asset: "INTERDICTOR_CRUISER.png",
     classification: shipTypes.Capital,
-    population: 27,
+    population: 24,
     size: 800,
     cost: 3400,
     speed: 3,
