@@ -291,8 +291,8 @@ if (location.search.includes("debug")) {
         text: "Testing",
         color: "#C8C8C8",
         action: () => {
-            const pop = 250;
-            const f1 = allFactions.newRepublic;
+            const pop = 600;
+            const f1 = allFactions.empire;
             const f2 = allFactions.sithEmpire;
 
             shared.newBeginBattle({
@@ -304,14 +304,10 @@ if (location.search.includes("debug")) {
                 color: f1.color
             }, {
                 name: f2.name,
-                // fleet: Fleet.randomFromFactionConfig(pop, f2).__ships.map(e => ({
-                //     ship: e,
-                //     hero: null
-                // })),
-                fleet: [{
-                    ship: "ECLIPSE_EMPIRE",
-                    hero: heroes.PalpatineClone.key
-                }],
+                fleet: Fleet.randomFromFactionConfig(pop, f2).__ships.map(e => ({
+                    ship: e,
+                    hero: null
+                })),
                 color: f2.color
             }, true, null, "Sandbox");
             on(EVENTS.BATTLE_END, () => changeState(STATE_HOME), true);
@@ -634,7 +630,7 @@ function draw() {
 
                 let cellX = 0, cellY = 0;
 
-                for (let i = 0; i < faction.allForces.length; i ++) {
+                for (let i = 0; i < faction.allForces.length; i++) {
                     const ship = faction.allForces[i];
                     const shipData = ships[ship.ship];
                     const heroData = ship.hero ? heroes[ship.hero] : null;
@@ -647,7 +643,7 @@ function draw() {
                     ctx.translate(cellX, cellY);
 
                     if (!assets.has(ship.ship)) {
-                         loadAsset("/assets/ships/" + shipData.asset, ship.ship);
+                        loadAsset("/assets/ships/" + shipData.asset, ship.ship);
                     } else if (assets.get(ship.ship).ready) {
                         ctx.rotate(-Math.PI / 6);
                         ctx.drawImage(assets.get(ship.ship), -GRID_CELL_SIZE / 2, -GRID_CELL_SIZE / 2, GRID_CELL_SIZE, GRID_CELL_SIZE);

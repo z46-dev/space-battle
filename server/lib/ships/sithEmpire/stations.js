@@ -260,24 +260,24 @@ ships.STAR_FORGE_SITHEMP = {
     production: [{
         x: 0,
         y: 0,
-        maxAlive: 2,
+        maxAlive: 3,
         reserve: Infinity,
         key: "INTERDICTOR_CRUISER_SITHEMP",
-        cooldown: 1024
+        cooldown: 384
+    }, {
+        x: 0,
+        y: 0,
+        maxAlive: 10,
+        reserve: Infinity,
+        key: "DERRIPHAN_BATTLESHIP_SITHEMP",
+        cooldown: 128
     }, {
         x: 0,
         y: 0,
         maxAlive: 6,
         reserve: Infinity,
-        key: "DERRIPHAN_BATTLESHIP_SITHEMP",
-        cooldown: 256
-    }, {
-        x: 0,
-        y: 0,
-        maxAlive: 4,
-        reserve: Infinity,
         key: "SITH_HEAVY_CARRIER_SITHEMP",
-        cooldown: 512
+        cooldown: 128
     }]
 };
 
