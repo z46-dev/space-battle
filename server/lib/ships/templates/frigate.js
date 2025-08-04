@@ -14,7 +14,7 @@ templates.QUASAR = function (options = {}) {
         asset: "QUASAR.png",
         classification: shipTypes.Frigate,
         population: 14,
-        size: 450,
+        size: 350,
         cost: 2900,
         speed: 3,
         turnSpeed: .0085,
