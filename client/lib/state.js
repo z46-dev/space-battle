@@ -807,7 +807,7 @@ worker.onmessage = event => {
             oneTimeHandlers[EVENTS.BATTLE_END] = undefined;
 
             stopSong();
-            playSong(SONG_TYPE_MAP);
+            playSong(SONG_TYPE_MAP, true);
 
             world.deathClones = [];
             explosions.clear();

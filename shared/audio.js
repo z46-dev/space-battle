@@ -45,17 +45,31 @@ const music = {
     ]
 };
 
-let currentSong = null;
+let currentSong = null,
+    currentSongType = null;
 const audio = new Audio();
 
-export function playSong(type) {
+window.debugSongStack = false;
+
+export function playSong(type, onlyIfType = false) {
+    if (debugSongStack) {
+        throw new Error("Debugging song stack");
+    }
+
+    if (onlyIfType && currentSongType !== type) {
+        console.warn("Skipping song play due to type mismatch:", currentSongType, type);
+        return;
+    }
+
     const song = music[type][Math.random() * music[type].length | 0];
+    console.log("Playing song:", song, "Type:", type);
 
     if (currentSong === song) {
         return;
     }
 
     currentSong = song;
+    currentSongType = type;
     audio.src = `./assets/audio/music/${song}`;
 
     audio.oncanplaythrough = null;
@@ -80,6 +94,10 @@ export function playSong(type) {
     };
 }
 
+window.playSong = playSong;
+window.SONG_TYPE_HOME = SONG_TYPE_HOME;
+window.SONG_TYPE_MAP = SONG_TYPE_MAP;
+window.SONG_TYPE_BATTLE = SONG_TYPE_BATTLE;
 
 export function stopSong() {
     if (audio.src) {

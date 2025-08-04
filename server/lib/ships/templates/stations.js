@@ -508,7 +508,7 @@ templates.SHIPYARD_LVL_1 = function (options = {}) {
                     x: 0,
                     y: 0,
                     maxAlive: 1,
-                    reserve: 4,
+                    reserve: 2,
                     key: options.corvette[i % options.corvette.length],
                     cooldown: 128
                 });
@@ -519,7 +519,7 @@ templates.SHIPYARD_LVL_1 = function (options = {}) {
                     x: 0,
                     y: 0,
                     maxAlive: 1,
-                    reserve: 2,
+                    reserve: 1,
                     key: options.frigate[i % options.frigate.length],
                     cooldown: 256
                 });
@@ -688,7 +688,7 @@ templates.SHIPYARD_LVL_2 = function (options = {}) {
                     x: 0,
                     y: 0,
                     maxAlive: 1,
-                    reserve: 8,
+                    reserve: 4,
                     key: options.corvette[i % options.corvette.length],
                     cooldown: 128
                 });
@@ -699,7 +699,7 @@ templates.SHIPYARD_LVL_2 = function (options = {}) {
                     x: 0,
                     y: 0,
                     maxAlive: 1,
-                    reserve: 4,
+                    reserve: 2,
                     key: options.frigate[i % options.frigate.length],
                     cooldown: 256
                 });
@@ -710,7 +710,7 @@ templates.SHIPYARD_LVL_2 = function (options = {}) {
                     x: 0,
                     y: 0,
                     maxAlive: 1,
-                    reserve: 2,
+                    reserve: 1,
                     key: options.heavyFrigate[i % options.heavyFrigate.length],
                     cooldown: 512
                 });
@@ -947,7 +947,7 @@ templates.SHIPYARD_LVL_3 = function (options = {}) {
                     x: 0,
                     y: 0,
                     maxAlive: 1,
-                    reserve: 12,
+                    reserve: 8,
                     key: options.corvette[i % options.corvette.length],
                     cooldown: 128
                 });
@@ -958,7 +958,7 @@ templates.SHIPYARD_LVL_3 = function (options = {}) {
                     x: 0,
                     y: 0,
                     maxAlive: 1,
-                    reserve: 6,
+                    reserve: 3,
                     key: options.frigate[i % options.frigate.length],
                     cooldown: 256
                 });
@@ -969,7 +969,7 @@ templates.SHIPYARD_LVL_3 = function (options = {}) {
                     x: 0,
                     y: 0,
                     maxAlive: 1,
-                    reserve: 3,
+                    reserve: 1,
                     key: options.heavyFrigate[i % options.heavyFrigate.length],
                     cooldown: 512
                 });
@@ -980,7 +980,7 @@ templates.SHIPYARD_LVL_3 = function (options = {}) {
                     x: 0,
                     y: 0,
                     maxAlive: 1,
-                    reserve: 1,
+                    reserve: 0,
                     key: options.capital[i % options.capital.length],
                     cooldown: 1024
                 });
@@ -1205,7 +1205,7 @@ templates.SHIPYARD_LVL_4 = function (options = {}) {
                     x: 0,
                     y: 0,
                     maxAlive: 1,
-                    reserve: 12,
+                    reserve: 8,
                     key: options.corvette[i % options.corvette.length],
                     cooldown: 128
                 });
@@ -1216,7 +1216,7 @@ templates.SHIPYARD_LVL_4 = function (options = {}) {
                     x: 0,
                     y: 0,
                     maxAlive: 1,
-                    reserve: 6,
+                    reserve: 4,
                     key: options.frigate[i % options.frigate.length],
                     cooldown: 256
                 });
@@ -1227,7 +1227,7 @@ templates.SHIPYARD_LVL_4 = function (options = {}) {
                     x: 0,
                     y: 0,
                     maxAlive: 1,
-                    reserve: 3,
+                    reserve: 2,
                     key: options.heavyFrigate[i % options.heavyFrigate.length],
                     cooldown: 512
                 });
@@ -1238,7 +1238,7 @@ templates.SHIPYARD_LVL_4 = function (options = {}) {
                     x: 0,
                     y: 0,
                     maxAlive: 1,
-                    reserve: 1,
+                    reserve: 0,
                     key: options.capital[i % options.capital.length],
                     cooldown: 1024
                 });

@@ -1,6 +1,5 @@
 import { FactionConfig } from "./baseFactions.js";
 
-/** @type {Object<string,FactionConfig>} */
 const allFactions = {
     ...(await import("./factions/imperial.js")),
     ...(await import("./factions/criminals.js")),

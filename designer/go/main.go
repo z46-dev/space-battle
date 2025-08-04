@@ -34,10 +34,10 @@ var (
 		Mode: imgproc.MaskHSV,
 
 		HSVTargetH: 300,
-		HSVTolH:    40,
-		HSVMinS:    .25,
+		HSVTolH:    30,
+		HSVMinS:    .15,
 		HSVMaxS:    1,
-		HSVMinV:    .25,
+		HSVMinV:    .15,
 		HSVMaxV:    1,
 	}
 
@@ -83,7 +83,7 @@ func main() {
 	final := imgproc.CenterAndCrop(rgba)
 
 	imgproc.FuzzBorders(rgba)
-	// imgproc.SmoothEdges(final, 4)
+	imgproc.SmoothEdges(final, 2)
 
 	// 8) Save as PNG
 	if err := imgproc.SavePNG(outputPath, imgproc.ScaleImage(final, .5)); err != nil {

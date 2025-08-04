@@ -292,8 +292,8 @@ if (location.search.includes("debug")) {
         color: "#C8C8C8",
         action: () => {
             const pop = 600;
-            const f1 = allFactions.empire;
-            const f2 = allFactions.sithEmpire;
+            const f1 = allFactions.cis;
+            const f2 = allFactions.republic;
 
             shared.newBeginBattle({
                 name: f1.name,

@@ -13,13 +13,13 @@ templates.QUASAR = function (options = {}) {
         name: "Quasar",
         asset: "QUASAR.png",
         classification: shipTypes.Frigate,
-        population: 10,
-        size: 250,
-        cost: 1700,
+        population: 14,
+        size: 450,
+        cost: 2900,
         speed: 3,
-        turnSpeed: .01,
-        shield: 1950,
-        shieldRegen: 1.95,
+        turnSpeed: .0085,
+        shield: 4500,
+        shieldRegen: 4.5,
         hardpoints: [{
             x: -.05,
             y: .95,
@@ -72,7 +72,8 @@ templates.QUASAR = function (options = {}) {
             ...e,
             weapon: {
                 ...e.weapon,
-                health: e.weapon.health * 2 | 0
+                health: e.weapon.health * 3.25 | 0,
+                reload: e.weapon.reload * .75
             }
         })),
         hangars: [{

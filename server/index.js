@@ -1363,7 +1363,7 @@ class Ship {
 }
 
 class Battle {
-    static MAXIMUM_ACTIVE_POPULATION = 100;
+    static MAXIMUM_ACTIVE_POPULATION = 300;
 
     constructor(width, height, teams) {
         /**

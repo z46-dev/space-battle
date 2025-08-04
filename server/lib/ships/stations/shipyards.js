@@ -86,8 +86,8 @@ function frigateShipyard(weaponColor, fighter, bomber, corvette, frigate) {
                 corvette.forEach(c => output.push({
                     x: 0,
                     y: 0,
-                    maxAlive: 2,
-                    reserve: 3,
+                    maxAlive: 1,
+                    reserve: 2,
                     key: c,
                     cooldown: 80
                 }));
@@ -95,8 +95,8 @@ function frigateShipyard(weaponColor, fighter, bomber, corvette, frigate) {
                 output.push({
                     x: 0,
                     y: 0,
-                    maxAlive: 3,
-                    reserve: 5,
+                    maxAlive: 2,
+                    reserve: 2,
                     key: corvette,
                     cooldown: 80
                 });
@@ -115,8 +115,8 @@ function frigateShipyard(weaponColor, fighter, bomber, corvette, frigate) {
                 output.push({
                     x: 0,
                     y: 0,
-                    maxAlive: 2,
-                    reserve: 2,
+                    maxAlive: 1,
+                    reserve: 1,
                     key: frigate,
                     cooldown: 120
                 });
