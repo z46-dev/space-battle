@@ -794,6 +794,7 @@ class Production {
                 this.y + Math.random() * this.ship.size - this.ship.size / 2,
                 this.ship.angle, Math.random() * 2000, ship => {
                     ship.onDead = () => this.currAlive--;
+                    ship.isSurivalSpawned = this.ship.isSurivalSpawned;
                 }
             );
 
@@ -1430,10 +1431,6 @@ class Battle {
             //     console.log(this.fps, this.mspt, this.ships.size + this.projectiles.size);
             // }
 
-            if (this.ships.size === 0 || this.survival != null) {
-                return;
-            }
-
             const teamsAlive = new Set();
 
             this.teams.forEach(team => {
@@ -1441,11 +1438,15 @@ class Battle {
             });
 
             for (const ship of this.ships.values()) {
-                if (ship.classification >= shipTypes.Corvette) {
+                if (ship.classification >= shipTypes.Corvette && (this.survival == null || !ship.source.isSurivalSpawned)) {
                     teamsAlive.add(ship.team);
                     // teamsAlive.set(ship.team, (teamsAlive.get(ship.team) ?? 0) + ships[ship.key].population);
                     this.teams[ship.team].livingPopulation += ships[ship.key].population;
                 }
+            }
+
+            if (this.ships.size === 0 || this.survival != null) {
+                return;
             }
 
             if (teamsAlive.size > 1) {
@@ -1696,6 +1697,8 @@ class SurvivalWrapper {
                 this.battle.survival = null;
             };
 
+            s.isSurivalSpawned = true;
+
             this.shipyard = s;
         });
     }
@@ -1703,7 +1706,7 @@ class SurvivalWrapper {
     startWave() {
         this.wave++;
 
-        const enemyPopulation = 25 + this.wave * 10;
+        const enemyPopulation = 35 + this.wave * 15;
         const fleetShips = FactionConfig.randomFleet(enemyPopulation);
         this.enemiesRemaining = fleetShips.length;
 

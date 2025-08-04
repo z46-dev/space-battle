@@ -637,6 +637,11 @@ export const RED_WEAK_SUPERLASER = {
     type: weaponTypes.RedWeakSuperlaser
 };
 
+export const RED_AXIAL_SUPERLASER = {
+    ...GREEN_AXIAL_SUPERLASER,
+    type: weaponTypes.RedAxialSuperlaser
+};
+
 export const RED_LIGHT_SUPERLASER = {
     reload: 400,
     damage: 100,

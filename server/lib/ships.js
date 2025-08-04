@@ -148,6 +148,26 @@ export const mandalorians = {
     ...(await import("./ships/mandalorians/stations.js")).default
 };
 
+export const resistance = {
+    ...(await import("./ships/resistance/fighter.js")).default,
+    ...(await import("./ships/resistance/corvette.js")).default,
+    ...(await import("./ships/resistance/frigate.js")).default,
+    ...(await import("./ships/resistance/heavyFrigate.js")).default,
+    ...(await import("./ships/resistance/capital.js")).default,
+    ...(await import("./ships/resistance/superCapital.js")).default,
+    ...(await import("./ships/resistance/stations.js")).default
+};
+
+export const firstOrder = {
+    ...(await import("./ships/firstOrder/fighter.js")).default,
+    ...(await import("./ships/firstOrder/corvette.js")).default,
+    ...(await import("./ships/firstOrder/frigate.js")).default,
+    ...(await import("./ships/firstOrder/heavyFrigate.js")).default,
+    ...(await import("./ships/firstOrder/capital.js")).default,
+    ...(await import("./ships/firstOrder/superCapital.js")).default,
+    ...(await import("./ships/firstOrder/stations.js")).default
+};
+
 export const stations = {
     ...(await import("./ships/stations/shipyards.js")).default
 };
@@ -166,6 +186,8 @@ const ships = {
     ...oldRepublic,
     ...sithEmpire,
     ...mandalorians,
+    ...resistance,
+    ...firstOrder,
     ...stations
 };
 

@@ -291,9 +291,9 @@ if (location.search.includes("debug")) {
         text: "Testing",
         color: "#C8C8C8",
         action: () => {
-            const pop = 600;
-            const f1 = allFactions.cis;
-            const f2 = allFactions.republic;
+            const pop = 150;
+            const f1 = allFactions.firstOrder;
+            const f2 = allFactions.resistance;
 
             shared.newBeginBattle({
                 name: f1.name,

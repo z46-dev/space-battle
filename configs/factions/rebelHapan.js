@@ -1,7 +1,6 @@
 import ships from "../../server/lib/ships.js";
 import { FactionConfig } from "../baseFactions.js"
 
-
 export const newRepublic = new FactionConfig("New Republic", "#faa700", "REBEL")
     .addBuildableShips(1, "CR90_REBEL", "DP20_REBEL", "AGAVE_CORVETTE_REBEL", "MARAUDERMISSILECRUISER_REBEL", "MC30A_REBEL", "MC30C_REBEL", "MC40A_REBEL", "NEBULONB_REBEL", "QUASAR_REBEL", "LIBERATOR_REBEL", "NEUTRON_STAR_REBEL")
     .addBuildableShips(2, "MC50_REBEL", "MC75_REBEL", "PELTA_REBEL", "ASSAULT_FRIGATE_MK2_REBEL")

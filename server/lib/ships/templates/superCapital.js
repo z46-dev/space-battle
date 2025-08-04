@@ -400,24 +400,24 @@ templates.ASSERTORSTARDREADNOUGHT = function (options = {}) {
 
 templates.MEGASTARDESTROYER = function (options = {}) {
     options.name ??= "Mega-Class Star Destroyer";
-    options.population ??= 800;
-    options.cost ??= 150000;
+    options.population ??= 300;
+    options.cost ??= 100000;
     options.speed ??= 1;
     options.turnSpeed ??= .00001;
-    options.shield ??= 600000;
+    options.shield ??= 240000;
     options.shieldRegen ??= options.shield / 1000;
     options.color ??= "GREEN";
     options.hangars ??= [{
         x: 0,
         y: 0,
-        maxSquadrons: 12,
+        maxSquadrons: 7,
         squadronSize: 6,
         reserveSize: 1e10,
         squadronKey: "TIEFIGHTER_EMPIRE"
     }, {
         x: 0,
         y: 0,
-        maxSquadrons: 12,
+        maxSquadrons: 7,
         squadronSize: 6,
         reserveSize: 1e10,
         squadronKey: "TIEBOMBER_EMPIRE"
@@ -428,7 +428,7 @@ templates.MEGASTARDESTROYER = function (options = {}) {
         asset: "MEGASTARDESTROYER.png",
         classification: shipTypes.SpaceStation,
         population: options.population,
-        size: 30000,
+        size: 12000,
         cost: options.cost,
         speed: options.speed,
         turnSpeed: options.turnSpeed,

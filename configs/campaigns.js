@@ -1,5 +1,6 @@
 import { FactionConfig } from "./baseFactions.js";
 import { createSafeLinks } from "./createRoutes.js";
+import { firstOrder, resistance } from "./factions/cannonNewRepublic.js";
 import { cis, republic } from "./factions/cloneWars.js";
 import { hutts } from "./factions/criminals.js";
 import { empire, eoth, eriaduAuthority, maldrood, pentastarAlignment, zsinj } from "./factions/imperial.js";
@@ -315,10 +316,51 @@ export const sithWars = new CampaignConfig("Sith Wars")
     )
     .compile();
 
+export const ageOfResistance = new CampaignConfig("Age of Resistance")
+    .addFaction(resistance.clone()
+        .addPlanets("Coruscant", "Chandrila", "Kuat", "Balmorra", "Duro", "Commenor", "Borleias", "Odik", "Bilbringi", "Ord Mantell", "Carida", "Corsin")
+        .addPlanets("Mon Calamari", "Endor", "Bespin", "Sullust", "Ton Falk", "Minntooine", "Abridon", "Saijo", "Tibrin")
+        .setCapital("Coruscant", 50, 1500)
+    )
+    .addFaction(firstOrder.clone()
+        .addPlanets("Entralla", "Bastion", "Muunilinst", "Mygeeto", "Yaga Minor", "Borosk", "Anx Minor", "Generis")
+        .addPlanets("Nirauan", "Teptixii", "Troukree", "Oristrom", "Kariek", "Syca", "Rapacc", "Solitair")
+        .setCapital("Entralla", 50, 1500)
+    )
+    .addFaction(hutts.clone()
+        .addPlanets("Nal Hutta", "Nar Shaddaa", "Da Soocha", "Ylesia", "Sleheyron", "Ubrikkia", "Klatooine", "Delacrix")
+        .setCapital("Nal Hutta", 50, 1000)
+        .addHero("Jabba The Hutt", "Nal Hutta")
+        .addHero("Gorga The Hutt", "Nar Shaddaa")
+        .addHero("Marlo The Hutt", "Ubrikkia")
+        .addHero("Oruba The Hutt", "Da Soocha")
+        .addHero("Ziro The Hutt", "Sleheyron")
+    )
+    .addFaction(hapesConsortium.clone()
+        .addPlanets("Hapes", "Relephon", "Transitory Mists I", "Charubah", "Terephon", "Gallinore", "Transitory Mists II", "Transitory Mists III")
+        .setCapital("Hapes", 50, 1300)
+        .addHero("Ereneda", "Hapes")
+        .addHero("TenelKaDjo", "Hapes")
+        .addHero("AlesonGray", "Relephon")
+        .addHero("Alyssia", "Transitory Mists I")
+        .addHero("Astarta", "Transitory Mists II")
+        .addHero("Chelik", "Transitory Mists III")
+        .addHero("HeshaLovett", "Gallinore")
+        .addHero("Isolder", "Charubah")
+        .addHero("TaAChume", "Hapes")
+    )
+    .addIndependentForces(independentPostEndor.clone()
+        .addPlanets("Tatooine", "Ryloth", "Kessel", "Lothal", "Jakku", "Batuu", "Saleucami", "Dantooine", "Mustafar", "Geonosis")
+        .addPlanets("Kashyyyk", "Felucia", "Corellia", "Lothal", "Jakku", "Batuu", "Primea", "Naporar", "Csilla", "Bogo Rai", "Rhigar")
+        .addPlanets("Kilji", "Tulpaa", "Rhand", "Shree", "Kammia", "Bakura", "Rintonne", "Glom Tho", "Hypori", "Kessel", "Lianna", "Murkhana", "Myrkr", "Wayland")
+        .addPlanets("Centares", "Ryvester", "Metalorn", "Roche", "Lantillies", "Thanos", "Bimmisaari")
+        .addPlanets("Dathomir", "Selaggis", "Taris", "Sifkric", "Axxila", "Celanon", "Feriae Junction", "Tangrene", "Serenno", "Yavin", "Maridun", "Stenos", "Elom", "Desevro", "Begeren")
+        .addPlanets("Eriadu", "Sluis Van", "Belsavis", "Eiattu", "Sanrafsix", "Svivren", "Vondarc", "YagDhul")
+    ).compile();
+
 export const playableCampaigns = [
     splinteredEmpire,
     theCloneWars,
-    sithWars
+    sithWars,
+    ageOfResistance
 ];
-
-console.log(theCloneWars);
